@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import HomePage from '../pages/home/home.page';
-import SignInPage from '../pages/sign-in/sign-in.page';
-import { Paths } from './paths';
+import HomePage from '@/pages/home/home.page';
+import SignInPage from '@/pages/sign-in/sign-in.page';
+import { Paths } from '@/router/paths';
 
 export const Router = () => (
   <BrowserRouter>
