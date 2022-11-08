@@ -9,6 +9,7 @@ const HomePage = () => (
         <p className='mb-5'>글로벌 이커머스 플랫폼 키워드 분석도구</p>
         <h1 className='mb-5 text-5xl font-bold'>GOMI 키워드</h1>
         <button className='btn-primary btn'>Get Started</button>
+        <div className='text-600-bold text-primary-red-orange'>테스트</div>
       </div>
     </div>
   </div>
