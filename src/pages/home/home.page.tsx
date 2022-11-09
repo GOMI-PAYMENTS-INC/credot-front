@@ -1,15 +1,21 @@
+import { Icons } from '@/components/icons';
+
 const HomePage = () => (
-  <div
-    className='hero min-h-screen'
-    style={{ backgroundImage: 'url("https://placeimg.com/1000/800/arch")' }}
-  >
-    <div className='hero-overlay bg-opacity-60' />
-    <div className='hero-content text-center text-neutral-content'>
-      <div className='max-w-md'>
-        <p className='mb-5'>글로벌 이커머스 플랫폼 키워드 분석도구</p>
-        <h1 className='mb-5 text-5xl font-bold'>GOMI 키워드</h1>
-        <button className='btn-primary btn'>Get Started</button>
-        <div className='text-600-bold text-primary-red-orange'>테스트</div>
+  <div className='flex h-screen w-full items-center justify-center'>
+    <div className='relative -top-20 w-[67%]'>
+      <div className='mb-10'>
+        <Icons.GomiKeywordLogo className='w-60' />
+      </div>
+      <div className='flex w-full min-w-[40rem] gap-2'>
+        <div className='h-[4.5rem] w-[15%]'>
+          <select className='h-full w-full rounded border border-grey-400' />
+        </div>
+        <div className='h-[4.5rem] w-[15%]'>
+          <select className='h-full w-full rounded border border-grey-400' />
+        </div>
+        <div className='h-[4.5rem] w-[70%]'>
+          <input className='h-full w-full rounded border border-grey-400' />
+        </div>
       </div>
     </div>
   </div>
