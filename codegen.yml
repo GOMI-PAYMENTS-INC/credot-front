@@ -1,0 +1,17 @@
+overwrite: true
+documents: './src/graphql/**/*.ts'
+schema: "https://kr-core-gomi-keyword-api-dev.gomicorp.com/graphql"
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-query"
+    config:
+      fetcher: graphql-request
+      scalars:
+        DateTime: Date
+        ID: number
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
