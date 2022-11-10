@@ -1,0 +1,66 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type Query {
+    "키워드 검색 ( 구글 번역 api 사용 )"
+    search(
+        "국가 코드"
+        country: CountryType!,
+        "번역할 문장"
+        text: String!,
+        "번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
+        translateType: TranslateType
+    ): responseSearch!
+    "텍스트 번역 ( 구글 번역 api 사용 )"
+    translate(
+        "국가 언어코드"
+        country: String!,
+        "번역할 문장"
+        text: String!
+    ): String!
+}
+
+type responseSearch {
+    "메인 검색 결과"
+    main: searchDto!
+    "연관 검색 결과"
+    relations: [searchDto!]!
+}
+
+type searchDto {
+    "30일간의 검색량"
+    count: Float!
+    "영어 번역"
+    en: String!
+    "한국어 번역"
+    ko: String!
+    "Quality Score, 10점 만점"
+    relevance: Float!
+    "검색 단어 (원문)"
+    text: String!
+    "검색한 이미지 주소 최대 3개"
+    thumbnailLink: [String!]!
+    "선택된 국가의 언어로 번역"
+    translated: String!
+}
+
+"국가 타입"
+enum CountryType {
+    "한국"
+    KR
+    "태국"
+    TH
+    "미국"
+    US
+    "베트남"
+    VN
+}
+
+"번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
+enum TranslateType {
+    "번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
+    ORDER
+}
