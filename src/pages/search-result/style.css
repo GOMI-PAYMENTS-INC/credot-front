@@ -1,0 +1,144 @@
+*{font-size: 16px; line-height: 1.5; color: #262626;}
+
+/* 하단 결과 영역 시작 */
+.search-result-warp{
+    margin: 5rem 0;
+}
+
+.search-result-warp .search-result+.search-result{
+    margin-top: 2.5rem;
+}
+
+
+/* 검색 결과 공통 시작 */
+.search-info-box {
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.search-info-wrap .search-thumb {display: flex;align-items: center;justify-content: center;}
+
+.search-info-wrap .search-thumb li {
+    width: 6vw;
+    height: 6vw;
+    background: #D9D9D9;
+    border-radius: 100%;
+    float: left;
+    border: 2px solid #FFFFFF;
+    max-width: 96px;
+    max-height: 96px;
+}
+
+.search-info-wrap .search-thumb li+li {
+    margin-right: -10px;
+}
+
+
+
+.search-info-wrap .search-count {
+    font-weight: 500;
+}
+
+.search-info-wrap .search-count .resent {
+    color: #8C8C8C;
+}
+
+.search-info-wrap .search-keyword {}
+
+.search-info-wrap .search-thumb ul {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row-reverse;
+}
+/* 검색 결과 공통 끝 */
+
+
+/* 상단 가장 많이 검색된 결과 시작 */
+.main-result {
+    margin-bottom: 1.5rem;
+}
+.main-result .title {
+    margin-bottom: 1.5rem;
+
+}
+.main-result .title h3{
+    display: inline-block;
+}
+/* 상단 가장 많이 검색된 결과 끝 */
+
+/* 연관 키워드 시작 */
+.sub-result .title {margin-bottom: 1rem;}
+
+
+.sub-result .search-info-box {
+    width: calc(100% / 6 - 1rem);
+    float: left;
+    flex-direction: column;
+    flex-grow: 0;
+    min-width: 200px;
+}
+
+.sub-result .search-info-box .search-thumb li {
+    width: 3rem;
+    height: 3rem;
+}
+
+.sub-result .search-info-wrap {
+    display: flex;
+    overflow: hidden;
+}
+
+.sub-result .search-info-box+.search-info-box {
+    margin-left: 1rem;
+}
+
+.sub-result .transfer-language {
+    margin-bottom: 2.5rem;
+}
+
+.sub-result .search-count {
+    margin-top: 0.5rem;
+}
+
+.sub-result  .user-language {
+    margin-bottom: 0.5rem;
+}
+
+.sub-result  .search-thumb {
+    margin-bottom: 0.5rem;
+}
+/* 연관 키워드 끝 */
+
+/* 하단 선택한 키워드 네비 시작 */
+.select-keyword-bottom-nav{
+    border: 1px solid #CCCCCC;
+    padding: 1.125rem 3.125rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.select-keyword-bottom-nav>div{
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select-keyword-bottom-nav .select-keyword-item {
+    border: 1px solid #D9D9D9;
+    border-radius: 2px;
+    padding: 0.5625rem 1rem;
+    float: left;
+    display: inline-block;
+}
+.select-keyword-bottom-nav .select-keyword-item {
+  margin:  0.125rem;
+}
+.select-keyword-bottom-nav .search-btn{
+    background: #FF5100;
+    border-radius: 4px;
+    border: 0;
+}
+.select-keyword-bottom-nav .search-btn span{
+    color: #FFFFFF;
+}
+/* 하단 선택한 키워드 네비 끝 */
