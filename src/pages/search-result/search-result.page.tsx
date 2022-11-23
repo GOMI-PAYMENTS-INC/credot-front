@@ -3,9 +3,8 @@ import '@/pages/search-result/style.css';
 import { ReactComponent as ExclamationCircle } from '@/assets/icons/ExclamationCircle.svg';
 import Layout from '@/components/Layout/layout';
 import SelectKeyWordBottomNav from '@/components/Layout/select-keyword-bottom-nav';
-
-import { SearchResultContainer } from '../../../../../kr-core-gomi-keyword-front-develop-backup/src/containers/search-result.container';
-import { SearchDto } from '../../../../../kr-core-gomi-keyword-front-develop-backup/src/generated/graphql';
+import { SearchResultContainer } from '@/containers/search-result.container';
+import { SearchDto } from '@/generated/graphql';
 
 const SearchResultPage = () => {
   const { isLoadingSearch, main, relations } = SearchResultContainer();
