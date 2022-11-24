@@ -1,6 +1,6 @@
 import '@/pages/search-result/style.css';
 
-import { ReactComponent as ExclamationCircle } from '@/assets/icons/ExclamationCircle.svg';
+import { Icons } from '@/components/icons';
 import Layout from '@/components/Layout/layout';
 import SelectKeyWordBottomNav from '@/components/Layout/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search-result.container';
@@ -72,7 +72,7 @@ const SearchResultPage = () => {
                         data-tip='입력하신 검색어와 연관 키워드들의 플랫폼 내 최근 30일 검색량 및 키워드 연관도를 나타냅니다.'
                       >
                         <i>
-                          <ExclamationCircle width={24} height={24} />
+                          <Icons.ExclamationCircle width={24} height={24} />
                         </i>
                       </div>
                     </div>
@@ -247,7 +247,7 @@ const SearchResultPage = () => {
                         data-tip='입력하신 검색어와 연관 키워드들의 플랫폼 내 최근 30일 검색량 및 키워드 연관도를 나타냅니다.'
                       >
                         <i>
-                          <ExclamationCircle width={24} height={24} />
+                          <Icons.ExclamationCircle width={24} height={24} />
                         </i>
                       </div>
                     </div>
