@@ -12,38 +12,52 @@ module.exports = {
           black: '#333333',
         },
 
+        orange:{
+          100: '#FFF5F0'
+        },
+
         grey: {
+          300: '#EBEBEB',
           400: '#D9D9D9',
           600: '#A8A8A8',
           900: '#262626',
         },
+        //text-functional-success, text-functional-error
         functional: {
           success: '#72C040',
-          'error': '#EC5B56',
+          error: '#EC5B56',
         },
       },
 
       //폰트 설정
       fontSize: {
         //10px
-        '100-regular': ['0.625rem', { fontWeight: 400, lineHeight: '150%' }],
-        '100-medium': ['0.625rem', { fontWeight: 500, lineHeight: '160%' }],
-
-        //13px
-        '200-regular': ['0.8125rem', { fontWeight: 400, lineHeight: '150%' }],
-        '200-medium': ['0.8125rem', { fontWeight: 500, lineHeight: '150%' }],
-        '200-bold': ['0.8125rem', { fontWeight: 700, lineHeight: '150%' }],
-        //15px
-        '300-regular': ['0.9375rem', { fontWeight: 400, lineHeight: '150%' }],
-        '300-medium': ['0.9375rem', { fontWeight: 500, lineHeight: '150%' }],
-        //17px
-        '400-medium': ['1.0625rem', { fontWeight: 500, lineHeight: '150%' }],
+        '2xs-regular': ['0.625rem', { fontWeight: 400, lineHeight: '150%' }],
+        '2xs-medium': ['0.625rem', { fontWeight: 500, lineHeight: '150%' }],
+        //12px
+        'xs-regular': ['0.75rem', { fontWeight: 400, lineHeight: '150%' }],
+        'xs-medium': ['0.75rem', { fontWeight: 500, lineHeight: '150%' }],
+        //14px
+        's-regular': ['0.8125rem', { fontWeight: 400, lineHeight: '150%' }],
+        's-medium': ['0.8125rem', { fontWeight: 500, lineHeight: '150%' }],
+        's-bold': ['0.8125rem', { fontWeight: 700, lineHeight: '150%' }],
+        //16px
+        'm-regular': ['0.9375rem', { fontWeight: 400, lineHeight: '150%' }],
+        'm-medium': ['0.9375rem', { fontWeight: 500, lineHeight: '150%' }],
+        //18px
+        'l-medium': ['1.0625rem', { fontWeight: 500, lineHeight: '150%' }],
         //20px
-        '500-medium': ['1.25rem', { fontWeight: 500, lineHeight: '150%' }],
-        '500-bold': ['1.25rem', { fontWeight: 700, lineHeight: '150%' }],
+        'xl-medium': ['1.25rem', { fontWeight: 500, lineHeight: '150%' }],
+        'xl-bold': ['1.25rem', { fontWeight: 700, lineHeight: '150%' }],
         //24px
-        '600-medium': ['1.5rem', { fontWeight: 500, lineHeight: '150%' }],
-        '600-bold': ['1.5rem', { fontWeight: 700, lineHeight: '150%' }],
+        '2xl-medium': ['1.5rem', { fontWeight: 500, lineHeight: '150%' }],
+        '2xl-bold': ['1.5rem', { fontWeight: 700, lineHeight: '150%' }],
+        //32px
+        '3xl-medium': ['2rem', { fontWeight: 500, lineHeight: '150%' }],
+        '3xl-bold': ['2rem', { fontWeight: 700, lineHeight: '150%' }],
+        //48px
+        '4xl-medium': ['3rem', { fontWeight: 500, lineHeight: '150%' }],
+        '4xl-bold': ['3rem', { fontWeight: 700, lineHeight: '150%' }],
       },
 
       gridTemplateColumns: {

@@ -64,7 +64,7 @@ const SearchResultPage = () => {
                   {/* 가장 많은 검색 결과 (메인 결과) 시작 */}
                   <div className='main-result'>
                     <div className='title flex items-center'>
-                      <h3 className='text-600-bold'>
+                      <h3 className='text-2xl-bold'>
                         &quot;Pear&quot;로 검색한 결과입니다.
                       </h3>
                       <div
@@ -96,17 +96,17 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chóúi vận chuyển ch
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>
+                            <p className='text-s-medium line-clamp-1'>
                               배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무배나무
                             </p>
-                            <p className='text-200-medium line-clamp-1'>
+                            <p className='text-s-medium line-clamp-1'>
                               Pear TreePear TreePear TreePear TreePear TreePear TreePear
                               TreePear TreePear TreePear Tree
                             </p>
                           </div>
                         </div>
                         <div className='search-count'>
-                          <p className='resent text-200-medium'>최근 30일간 검색량</p>
+                          <p className='resent text-s-medium'>최근 30일간 검색량</p>
                           <p className='medium-600'>100건</p>
                         </div>
                       </div>
@@ -116,7 +116,7 @@ const SearchResultPage = () => {
                   {/* 연관 키워드 시작 */}
                   <div className='sub-result'>
                     <div className='title'>
-                      <h3 className='text-500-bold '>연관 키워드</h3>
+                      <h3 className='text-xl-bold '>연관 키워드</h3>
                     </div>
                     <ul className='search-info-wrap'>
                       {/* 내용 생략 예시 시작 */}
@@ -139,10 +139,10 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó túi vận ch
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>
+                            <p className='text-s-medium line-clamp-1'>
                               배나무배나무배나무배나무배나무배나무배나무배나무
                             </p>
-                            <p className='text-200-medium line-clamp-1'>
+                            <p className='text-s-medium line-clamp-1'>
                               Pear TreePear TreePear TreePear TreePear TreePear Tree
                             </p>
                           </div>
@@ -177,8 +177,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -209,8 +209,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -239,7 +239,7 @@ const SearchResultPage = () => {
                   {/* 가장 많은 검색 결과 (메인 결과) 시작 */}
                   <div className='main-result'>
                     <div className='title flex items-center'>
-                      <h3 className='text-600-bold'>
+                      <h3 className='text-2xl-bold'>
                         &quot;Pear&quot;로 검색한 결과입니다.
                       </h3>
                       <div
@@ -271,12 +271,12 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <div className='search-count'>
-                          <p className='resent text-200-medium'>최근 30일간 검색량</p>
+                          <p className='resent text-s-medium'>최근 30일간 검색량</p>
                           <p className='medium-600'>100건</p>
                         </div>
                       </div>
@@ -286,7 +286,7 @@ const SearchResultPage = () => {
                   {/* 연관 키워드 시작 */}
                   <div className='sub-result'>
                     <div className='title'>
-                      <h3 className='text-500-bold '>연관 키워드</h3>
+                      <h3 className='text-xl-bold '>연관 키워드</h3>
                     </div>
                     <ul className='search-info-wrap'>
                       {/* 내용 생략 예시 시작 */}
@@ -309,10 +309,10 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó túi vận chuyển
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>
+                            <p className='text-s-medium line-clamp-1'>
                               배나무배나무배나무배나무배나무배나무배나무배나무
                             </p>
-                            <p className='text-200-medium line-clamp-1'>
+                            <p className='text-s-medium line-clamp-1'>
                               Pear TreePear TreePear TreePear TreePear TreePear Tree
                             </p>
                           </div>
@@ -347,8 +347,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -379,8 +379,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -411,8 +411,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -443,8 +443,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -475,8 +475,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress
@@ -507,8 +507,8 @@ const SearchResultPage = () => {
                             túi vận chuyển chó túi vận chuyển chó
                           </p>
                           <div className='transfer-language'>
-                            <p className='text-200-medium line-clamp-1'>배나무</p>
-                            <p className='text-200-medium line-clamp-1'>Pear Tree</p>
+                            <p className='text-s-medium line-clamp-1'>배나무</p>
+                            <p className='text-s-medium line-clamp-1'>Pear Tree</p>
                           </div>
                         </div>
                         <progress

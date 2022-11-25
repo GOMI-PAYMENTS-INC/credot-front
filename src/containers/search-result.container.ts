@@ -7,7 +7,7 @@ export const SearchResultContainer = () => {
     isLoading: isLoadingSearch,
     refetch: refetchSearch,
   } = useSearchQuery(graphQLClient, {
-    country: CountryType.Kr,
+    country: CountryType.Vn,
     translateType: TranslateType.Order,
     text: 'text',
   });
