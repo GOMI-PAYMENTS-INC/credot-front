@@ -45,6 +45,7 @@ module.exports = {
         'm-regular': ['0.9375rem', { fontWeight: 400, lineHeight: '150%' }],
         'm-medium': ['0.9375rem', { fontWeight: 500, lineHeight: '150%' }],
         //18px
+        'l-regular': ['1.0625rem', { fontWeight: 400, lineHeight: '150%' }],
         'l-medium': ['1.0625rem', { fontWeight: 500, lineHeight: '150%' }],
         //20px
         'xl-medium': ['1.25rem', { fontWeight: 500, lineHeight: '150%' }],
