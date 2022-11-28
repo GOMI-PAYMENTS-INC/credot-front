@@ -33,7 +33,7 @@ const ModalComponent = ({ hide, title, children, onCancel }: ModalComponentProps
               <span className='sr-only'>Close modal</span>
             </button>
             <div>
-              <h3 className='pb-4 text-center text-2xl-bold'>{title}</h3>
+              <h3 className='mb-4 text-center text-2xl-bold'>{title}</h3>
               <div>{children}</div>
             </div>
           </div>

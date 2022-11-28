@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import SignInPage from '@/pages/auth/sign-in.page';
+import SignUpPage from '@/pages/auth/sign-up.page';
 import HomePage from '@/pages/home/home.page';
 import SearchResultPage from '@/pages/search-result/search-result.page';
-import SignInPage from '@/pages/sign-in/sign-in.page';
 import { Paths } from '@/router/paths';
 
 export const Router = () => (
@@ -10,6 +11,7 @@ export const Router = () => (
     <Routes>
       <Route path={Paths.home} element={<HomePage />} />
       <Route path={Paths.signIn} element={<SignInPage />} />
+      <Route path={Paths.signUp} element={<SignUpPage />} />
       <Route path={Paths.searchResult} element={<SearchResultPage />} />
     </Routes>
   </BrowserRouter>

@@ -1,8 +1,8 @@
 import '@/pages/search-result/style.css';
 
 import { Icons } from '@/components/icons';
-import Layout from '@/components/Layout/layout';
-import SelectKeyWordBottomNav from '@/components/Layout/select-keyword-bottom-nav';
+import Layout from '@/components/layouts/layout';
+import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search-result.container';
 import { SearchDto } from '@/generated/graphql';
 
