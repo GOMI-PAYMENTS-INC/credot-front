@@ -11,6 +11,7 @@ module.exports = {
           'red-orange': '#FF5100',
           black: '#333333',
         },
+
         grey: {
           400: '#D9D9D9',
           600: '#A8A8A8',
@@ -18,16 +19,20 @@ module.exports = {
         },
         functional: {
           success: '#72C040',
+          'error': '#EC5B56',
         },
       },
 
       //폰트 설정
       fontSize: {
         //10px
+        '100-regular': ['0.625rem', { fontWeight: 400, lineHeight: '150%' }],
         '100-medium': ['0.625rem', { fontWeight: 500, lineHeight: '160%' }],
+
         //13px
         '200-regular': ['0.8125rem', { fontWeight: 400, lineHeight: '150%' }],
         '200-medium': ['0.8125rem', { fontWeight: 500, lineHeight: '150%' }],
+        '200-bold': ['0.8125rem', { fontWeight: 700, lineHeight: '150%' }],
         //15px
         '300-regular': ['0.9375rem', { fontWeight: 400, lineHeight: '150%' }],
         '300-medium': ['0.9375rem', { fontWeight: 500, lineHeight: '150%' }],

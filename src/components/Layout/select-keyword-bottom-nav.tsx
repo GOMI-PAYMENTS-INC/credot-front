@@ -1,4 +1,4 @@
-import { ReactComponent as Close } from '@/assets/icons/Close.svg';
+import { Icons } from '@/components/icons';
 
 const SelectKeyWordBottomNav = () => (
   <div className='select-keyword-bottom-nav fixed bottom-0 left-0 w-screen bg-base-100'>
@@ -24,7 +24,7 @@ const SelectKeyWordBottomNav = () => (
                 Ship Ship Ship Ship
               </div>
               <div>
-                <Close width={24} height={24} />
+                <Icons.Close width={24} height={24} />
               </div>
             </div>
           </li>
@@ -43,7 +43,7 @@ const SelectKeyWordBottomNav = () => (
                 Ship Ship Ship Ship
               </div>
               <div>
-                <Close width={24} height={24} />
+                <Icons.Close width={24} height={24} />
               </div>
             </div>
           </li>
@@ -56,7 +56,7 @@ const SelectKeyWordBottomNav = () => (
               <div className='user-language text-200-regular line-clamp-1'>수</div>
               <div className='user-language text-200-regular line-clamp-1'>Ship</div>
               <div>
-                <Close width={24} height={24} />
+                <Icons.Close width={24} height={24} />
               </div>
             </div>
           </li>
@@ -75,7 +75,7 @@ const SelectKeyWordBottomNav = () => (
                 Ship Ship Ship Ship
               </div>
               <div>
-                <Close width={24} height={24} />
+                <Icons.Close width={24} height={24} />
               </div>
             </div>
           </li>
