@@ -5,16 +5,24 @@ import { Icons } from '@/components/icons';
 import Layout from '@/components/layouts/layout';
 import { Paths } from '@/router/paths';
 
-const FindIdPage = () => (
+const FindPwPage = () => (
   <Layout>
     {/* TODO: 기존 모달-> 페이지로 변경된 경우 공통 레이아웃 컴포넌트로 만들 예정입니다. */}
     <div className='flex h-screen w-full justify-center'>
       <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
-        {/* 아이디 찾기 폼 시작 */}
-        <div>
-          <h3 className='mb-4 text-center text-2xl-bold'>아이디 찾기</h3>
-          {/* TODO:컴포넌트로 만들 예정 시작, sign-up.page.tsx 에 있습니다. 아래 코드가 컴포넌트가 되도록 해보겠습니다. */}
+        {/* 비밀번호 찾기 폼 시작 */}
+        <div className=''>
+          <h3 className='mb-5 text-center text-2xl-bold'>비밀번호 찾기</h3>
           <div className='space-y-2'>
+            <input
+              className=' w-full rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+              type='email'
+              name='email'
+              placeholder='이메일'
+            />
+            <p className='text-2xs-regular text-functional-error'>
+              올바른 이메일주소를 입력하세요.
+            </p>
             <div className='flex items-center'>
               <input
                 className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
@@ -59,34 +67,20 @@ const FindIdPage = () => (
           </div>
           {/* 컴포넌트로 만들 예정 끝 */}
         </div>
-        {/* 아이디 찾기 폼 끝 */}
+        {/* 비밀번호 찾기 폼 끝 */}
 
-        {/* 아이디 찾기 결과 시작 */}
+        {/* 비밀번호 임시발송 완료 시작 */}
         <div className='hidden'>
-          <h3 className='mb-4 text-center text-2xl-bold'>아이디 찾기 완료</h3>
+          <h3 className='mb-5 text-center text-2xl-bold'>임시 비밀번호 발송</h3>
           <p className='text-center text-l-regular'>
-            고미키워드 회원이 되신 걸 진심으로 환영해요!
+            회원닌께서 가입하신 아래 메일 주소로
+            <br />
+            임시 비밀번호를 발송했습니다.
           </p>
-          <ul className='mt-16 grid gap-y-4 '>
-            <li className='flex text-primary-red-orange'>
-              <a href='#' className='mr-2 '>
-                <Icons.Copy className='fill-primary-red-orange' />
-              </a>
-              win@gomicorp.com
-            </li>
-            <li className='flex text-primary-red-orange'>
-              <a href='#' className='mr-2 '>
-                <Icons.Copy className='fill-primary-red-orange' />
-              </a>
-              win@gomicorp.com
-            </li>
-            <li className='flex text-primary-red-orange'>
-              <a href='#' className='mr-2 '>
-                <Icons.Copy className='fill-primary-red-orange' />
-              </a>
-              win@gomicorp.com
-            </li>
-          </ul>
+          <p className='mt-16  text-center text-primary-red-orange'>
+            gomikeyword@gomicorp.com
+          </p>
+
           <div className='mt-16 '>
             <button
               type='button'
@@ -96,11 +90,11 @@ const FindIdPage = () => (
             </button>
           </div>
         </div>
-        {/* 아이디 찾기 결과 끝 */}
+        {/* 비밀번호 임시발송 완료 끝 */}
 
-        {/* 조회된 결과가 없는 경우 시작 */}
+        {/* 조회된 결과가 없는 경우 시작 - find-id.tsx와 동일한 결과 */}
         <div className='hidden'>
-          <h3 className='mb-4 text-center text-2xl-bold'>계정 안내</h3>
+          <h3 className='mb-5 text-center text-2xl-bold'>계정 안내</h3>
           <p className='text-center text-l-regular'>
             이전에 가입한 계정이 존재하지 않습니다.
           </p>
@@ -121,4 +115,4 @@ const FindIdPage = () => (
   </Layout>
 );
 
-export default FindIdPage;
+export default FindPwPage;

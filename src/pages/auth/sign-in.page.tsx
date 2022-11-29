@@ -8,7 +8,7 @@ const SignInPage = () => (
   <Layout>
     <div className='flex h-screen w-full items-center justify-center'>
       <div className='w-full max-w-[26.25rem]'>
-        <h3 className='mb-4 text-center text-2xl-bold'>로그인</h3>
+        <h3 className='mb-5 text-center text-2xl-bold'>로그인</h3>
         <form action=''>
           <div className='space-y-2'>
             <div className='space-y-2'>
@@ -46,15 +46,15 @@ const SignInPage = () => (
                 </label>
               </div>
               <div>
-                <a
-                  href='#'
+                <Link
+                  to={Paths.findId}
                   className='relative pr-2 text-s-regular after:absolute after:top-0 after:right-0 after:top-1/2 after:block after:h-full after:h-4/5 after:w-px after:translate-y-[-50%] after:bg-primary-black'
                 >
                   아이디 찾기
-                </a>
-                <a href='#' className='pl-2 text-s-regular '>
+                </Link>
+                <Link to={Paths.findPw} className='pl-2 text-s-regular '>
                   비밀번호 찾기
-                </a>
+                </Link>
               </div>
             </div>
           </div>
