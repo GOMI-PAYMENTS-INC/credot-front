@@ -32,21 +32,21 @@ module.exports = {
       //폰트 설정
       fontSize: {
         //10px
-        '2xs-regular': ['0.625rem', { fontWeight: 400, lineHeight: '150%' }],
-        '2xs-medium': ['0.625rem', { fontWeight: 500, lineHeight: '150%' }],
+        '2xs-regular': ['0.6rem', { fontWeight: 400, lineHeight: '150%' }],
+        '2xs-medium': ['0.6rem', { fontWeight: 500, lineHeight: '150%' }],
         //12px
         'xs-regular': ['0.75rem', { fontWeight: 400, lineHeight: '150%' }],
         'xs-medium': ['0.75rem', { fontWeight: 500, lineHeight: '150%' }],
         //14px
-        's-regular': ['0.8125rem', { fontWeight: 400, lineHeight: '150%' }],
-        's-medium': ['0.8125rem', { fontWeight: 500, lineHeight: '150%' }],
-        's-bold': ['0.8125rem', { fontWeight: 700, lineHeight: '150%' }],
+        's-regular': ['0.875rem', { fontWeight: 400, lineHeight: '150%' }],
+        's-medium': ['0.875rem', { fontWeight: 500, lineHeight: '150%' }],
+        's-bold': ['0.875rem', { fontWeight: 700, lineHeight: '150%' }],
         //16px
-        'm-regular': ['0.9375rem', { fontWeight: 400, lineHeight: '150%' }],
-        'm-medium': ['0.9375rem', { fontWeight: 500, lineHeight: '150%' }],
+        'm-regular': ['1rem', { fontWeight: 400, lineHeight: '150%' }],
+        'm-medium': ['1rem', { fontWeight: 500, lineHeight: '150%' }],
         //18px
-        'l-regular': ['1.0625rem', { fontWeight: 400, lineHeight: '150%' }],
-        'l-medium': ['1.0625rem', { fontWeight: 500, lineHeight: '150%' }],
+        'l-regular': ['1.125rem', { fontWeight: 400, lineHeight: '150%' }],
+        'l-medium': ['1.125rem', { fontWeight: 500, lineHeight: '150%' }],
         //20px
         'xl-medium': ['1.25rem', { fontWeight: 500, lineHeight: '150%' }],
         'xl-bold': ['1.25rem', { fontWeight: 700, lineHeight: '150%' }],
