@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Layout from '@/components/layouts/layout';
-import UserMobileCheckForm from '@/components/user-managements/user-mobile-check-form';
 
 const SignUpWelcomePage = () => (
   <Layout>
@@ -9,7 +8,7 @@ const SignUpWelcomePage = () => (
       <div className='w-full max-w-[26.25rem]'>
         <div className='flex flex-col items-center justify-center '>
           <h3 className='mb-4 text-center text-2xl-bold'>아이디 찾기</h3>
-          <UserMobileCheckForm />
+          {/*<UserMobileCheckForm />*/}
         </div>
       </div>
     </div>

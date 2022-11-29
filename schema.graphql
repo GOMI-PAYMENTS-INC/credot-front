@@ -2,9 +2,116 @@
 
 schema {
     query: Query
+    mutation: Mutation
+}
+
+interface AbstractBaseEntity {
+    "생성시각"
+    createdAt: DateTime!
+    "생성자"
+    createdUserId: Int!
+    "삭제여부"
+    deleted: Boolean!
+    "삭제시각"
+    deletedAt: DateTime
+    "아이디"
+    id: ID!
+    "수정시각"
+    updatedAt: DateTime!
+    "수정자"
+    updatedUserId: Int!
+}
+
+type DeleteManyResponse {
+    "The number of records deleted."
+    deletedCount: Int!
+}
+
+type FindAccountResponse {
+    "연관 검색 결과"
+    findAccounts: [accountInfoDto!]!
+    "스테이터스 코드"
+    statusCode: Float!
+}
+
+type LoginPassword {
+    "추가 팝업용 정보"
+    popupInfo: PopupDto
+    "로그인 토큰"
+    token: String!
+}
+
+type LoginToken {
+    "로그인 토큰"
+    token: String!
+}
+
+type Mutation {
+    "비밀번호 변경"
+    changePassword(pwd: ChangePasswordInput!): FindAccountResponse!
+    createOneUser(input: CreateOneUserInput!): User!
+    deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+    deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
+    "유저 계정찾기"
+    findAccount(
+        "국가 코드"
+        country: CountryType!,
+        user: FindAccountInput!
+    ): FindAccountResponse!
+    "유저 임시 비밀번호 발급"
+    findPassword(
+        "국가 코드"
+        country: CountryType!,
+        user: FindPasswordInput!
+    ): FindAccountResponse!
+    "google 로그인"
+    googleLogin(
+        "구글 oauth2 제공된 id token"
+        idToken: String!
+    ): LoginToken!
+    "로그인"
+    login(login: LoginInput!): LoginPassword!
+    "naver 로그인"
+    naverLogin(
+        "네이버 oauth2 제공된 id token"
+        idToken: String!
+    ): LoginToken!
+    "휴대폰 인증번호 발송"
+    sendSmsVerificationCode(
+        "국가 코드"
+        country: CountryType!,
+        "수신 핸드폰 번호"
+        phone: String!
+    ): Boolean!
+    "유저 회원가입"
+    signup(user: SignUpInput!): LoginToken!
+    updateOneUser(input: UpdateOneUserInput!): User!
+}
+
+type OffsetPageInfo {
+    "true if paging forward and there are more records."
+    hasNextPage: Boolean
+    "true if paging backwards and there are more records."
+    hasPreviousPage: Boolean
+}
+
+type PopupDto {
+    "모달 여부"
+    isModal: Boolean!
+    "검색 단어 (원문)"
+    typeName: String!
 }
 
 type Query {
+    "리포트 생성용 키워드 리스트 전송"
+    compose(
+        "리포트 생성용 키워드 리스트"
+        searchInfos: [searchResultDto!]!
+    ): responseCompose!
+    "유저 이메일 중복 조회"
+    existsUserEmail(email: String!): Boolean!
+    "로그인된 내 정보"
+    me: User!
     "키워드 검색 ( 구글 번역 api 사용 )"
     search(
         "국가 코드"
@@ -16,11 +123,250 @@ type Query {
     ): responseSearch!
     "텍스트 번역 ( 구글 번역 api 사용 )"
     translate(
-        "국가 언어코드"
-        country: String!,
+        "번역 대상 국가 코드"
+        country: CountryType!,
         "번역할 문장"
-        text: String!
+        keyword: String!
     ): String!
+    user(
+        "The id of the record to find."
+        id: ID!
+    ): User
+    userAggregate(
+        "Filter to find records to aggregate on"
+        filter: UserAggregateFilter
+    ): [UserAggregateResponse!]!
+    users(
+        "Specify to filter the records returned."
+        filter: UserFilter = {deleted: {in: [false]}},
+        "Limit or page results."
+        paging: OffsetPaging = {limit: 10},
+        "Specify to sort results."
+        sorting: [UserSort!] = []
+    ): UserConnection!
+}
+
+type User implements AbstractBaseEntity {
+    "관리자메모"
+    adminMemo: String
+    "생성시각"
+    createdAt: DateTime!
+    "생성자"
+    createdUserId: Int!
+    "삭제여부"
+    deleted: Boolean!
+    "삭제시각"
+    deletedAt: DateTime
+    "이메일"
+    email: String!
+    "아이디"
+    id: ID!
+    "소셜로그인 회원가입 여부"
+    isSocialLogin: Boolean!
+    "가입일"
+    joinedAt: DateTime
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "전화번호"
+    phone: String!
+    "프로필 이미지"
+    profileImage: String
+    "권한"
+    role: Role!
+    "소셜 provider 고유키"
+    socialId: String
+    "소셜로그인 제공업체"
+    socialProvider: SocialProvider
+    "수정시각"
+    updatedAt: DateTime!
+    "수정자"
+    updatedUserId: Int!
+}
+
+type UserAggregateGroupBy {
+    adminMemo: String
+    createdAt: DateTime
+    createdUserId: Int
+    deleted: Boolean
+    email: String
+    id: ID
+    isSocialLogin: Boolean
+    joinedAt: DateTime
+    name: String
+    nickName: String
+    phone: String
+    profileImage: String
+    role: Role
+    socialId: String
+    socialProvider: SocialProvider
+    updatedAt: DateTime
+    updatedUserId: Int
+}
+
+type UserAggregateResponse {
+    avg: UserAvgAggregate
+    count: UserCountAggregate
+    groupBy: UserAggregateGroupBy
+    max: UserMaxAggregate
+    min: UserMinAggregate
+    sum: UserSumAggregate
+}
+
+type UserAvgAggregate {
+    createdUserId: Float
+    id: Float
+    updatedUserId: Float
+}
+
+type UserConnection {
+    "Array of nodes."
+    nodes: [User!]!
+    "Paging information"
+    pageInfo: OffsetPageInfo!
+    "Fetch total count of records"
+    totalCount: Int!
+}
+
+type UserCountAggregate {
+    adminMemo: Int
+    createdAt: Int
+    createdUserId: Int
+    deleted: Int
+    email: Int
+    id: Int
+    isSocialLogin: Int
+    joinedAt: Int
+    name: Int
+    nickName: Int
+    phone: Int
+    profileImage: Int
+    role: Int
+    socialId: Int
+    socialProvider: Int
+    updatedAt: Int
+    updatedUserId: Int
+}
+
+type UserDeleteResponse {
+    "관리자메모"
+    adminMemo: String
+    "생성시각"
+    createdAt: DateTime
+    "생성자"
+    createdUserId: Int
+    "삭제여부"
+    deleted: Boolean
+    "삭제시각"
+    deletedAt: DateTime
+    "이메일"
+    email: String
+    "아이디"
+    id: ID
+    "소셜로그인 회원가입 여부"
+    isSocialLogin: Boolean
+    "가입일"
+    joinedAt: DateTime
+    "이름"
+    name: String
+    "닉네임"
+    nickName: String
+    "전화번호"
+    phone: String
+    "프로필 이미지"
+    profileImage: String
+    "권한"
+    role: Role
+    "소셜 provider 고유키"
+    socialId: String
+    "소셜로그인 제공업체"
+    socialProvider: SocialProvider
+    "수정시각"
+    updatedAt: DateTime
+    "수정자"
+    updatedUserId: Int
+}
+
+type UserMaxAggregate {
+    adminMemo: String
+    createdAt: DateTime
+    createdUserId: Int
+    deleted: Boolean
+    email: String
+    id: ID
+    joinedAt: DateTime
+    name: String
+    nickName: String
+    phone: String
+    profileImage: String
+    role: Role
+    socialId: String
+    socialProvider: SocialProvider
+    updatedAt: DateTime
+    updatedUserId: Int
+}
+
+type UserMinAggregate {
+    adminMemo: String
+    createdAt: DateTime
+    createdUserId: Int
+    deleted: Boolean
+    email: String
+    id: ID
+    joinedAt: DateTime
+    name: String
+    nickName: String
+    phone: String
+    profileImage: String
+    role: Role
+    socialId: String
+    socialProvider: SocialProvider
+    updatedAt: DateTime
+    updatedUserId: Int
+}
+
+type UserSumAggregate {
+    createdUserId: Float
+    id: Float
+    updatedUserId: Float
+}
+
+type accountInfoDto {
+    "이메일 정보"
+    email: String!
+    "소셜 로그인 여부"
+    isSocialLogin: Boolean!
+    "소셜 아이디"
+    socialId: String
+    "소셜 로그인 프로바이더"
+    socialProvider: SocialProvider
+}
+
+type composeParamDto {
+    "30일간의 검색량"
+    count: Float!
+    "영어 번역"
+    en: String!
+    "한국어 번역"
+    ko: String!
+    "Quality Score, 10점 만점"
+    relevance: Float!
+    "검색 단어 (원문)"
+    text: String!
+    "검색한 이미지 주소 최대 3개"
+    thumbnailLink: [String!]!
+    "선택된 국가의 언어로 번역"
+    translated: String!
+    "uuid"
+    uuid: String!
+}
+
+type responseCompose {
+    "키워드 정보 리스트"
+    keywordInfos: [composeParamDto!]!
+    "전송 결과"
+    statusCode: Float!
 }
 
 type responseSearch {
@@ -32,9 +378,11 @@ type responseSearch {
 
 type searchDto {
     "30일간의 검색량"
-    count: Float!
+    count: Float
     "영어 번역"
     en: String!
+    "식별자"
+    id: Float!
     "한국어 번역"
     ko: String!
     "Quality Score, 10점 만점"
@@ -59,8 +407,388 @@ enum CountryType {
     VN
 }
 
+enum Role {
+    ADMIN
+    USER
+}
+
+enum SocialProvider {
+    Google
+    Naver
+}
+
+"Sort Directions"
+enum SortDirection {
+    ASC
+    DESC
+}
+
+"Sort Nulls Options"
+enum SortNulls {
+    NULLS_FIRST
+    NULLS_LAST
+}
+
 "번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
 enum TranslateType {
     "번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
     ORDER
+}
+
+enum UserSortFields {
+    adminMemo
+    createdAt
+    createdUserId
+    deleted
+    email
+    id
+    isSocialLogin
+    joinedAt
+    name
+    nickName
+    phone
+    profileImage
+    role
+    socialId
+    socialProvider
+    updatedAt
+    updatedUserId
+}
+
+"A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."
+scalar DateTime
+
+input BooleanFieldComparison {
+    is: Boolean
+    isNot: Boolean
+}
+
+input ChangePasswordInput {
+    "이메일"
+    email: String!
+    "신규 비밀번호"
+    newPassword: String!
+}
+
+input CreateOneUserInput {
+    "The record to create"
+    user: CreateUserInput!
+}
+
+input CreateUserInput {
+    "관리자메모"
+    adminMemo: String
+    "이메일"
+    email: String!
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "패스워드"
+    password: String!
+    "전화번호"
+    phone: String!
+    "권한"
+    role: Role = USER
+}
+
+input DateFieldComparison {
+    between: DateFieldComparisonBetween
+    eq: DateTime
+    gt: DateTime
+    gte: DateTime
+    in: [DateTime!]
+    is: Boolean
+    isNot: Boolean
+    lt: DateTime
+    lte: DateTime
+    neq: DateTime
+    notBetween: DateFieldComparisonBetween
+    notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+    lower: DateTime!
+    upper: DateTime!
+}
+
+input DeleteManyUsersInput {
+    "Filter to find records to delete"
+    filter: UserDeleteFilter!
+}
+
+input DeleteOneUserInput {
+    "The id of the record to delete."
+    id: ID!
+}
+
+input FindAccountInput {
+    "전화번호"
+    phone: String!
+    "인증번호"
+    verifyCode: String!
+}
+
+input FindPasswordInput {
+    "이메일"
+    email: String!
+    "전화번호"
+    phone: String!
+    "인증번호"
+    verifyCode: String!
+}
+
+input IDFilterComparison {
+    eq: ID
+    gt: ID
+    gte: ID
+    iLike: ID
+    in: [ID!]
+    is: Boolean
+    isNot: Boolean
+    like: ID
+    lt: ID
+    lte: ID
+    neq: ID
+    notILike: ID
+    notIn: [ID!]
+    notLike: ID
+}
+
+input IntFieldComparison {
+    between: IntFieldComparisonBetween
+    eq: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    is: Boolean
+    isNot: Boolean
+    lt: Int
+    lte: Int
+    neq: Int
+    notBetween: IntFieldComparisonBetween
+    notIn: [Int!]
+}
+
+input IntFieldComparisonBetween {
+    lower: Int!
+    upper: Int!
+}
+
+input LoginInput {
+    "이메일"
+    email: String!
+    "패스워드"
+    password: String!
+}
+
+input OffsetPaging {
+    "Limit the number of records returned"
+    limit: Int
+    "Offset to start returning records from"
+    offset: Int
+}
+
+input RoleFilterComparison {
+    eq: Role
+    gt: Role
+    gte: Role
+    iLike: Role
+    in: [Role!]
+    is: Boolean
+    isNot: Boolean
+    like: Role
+    lt: Role
+    lte: Role
+    neq: Role
+    notILike: Role
+    notIn: [Role!]
+    notLike: Role
+}
+
+input SignUpInput {
+    "이메일"
+    email: String!
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "패스워드"
+    password: String!
+    "전화번호"
+    phone: String!
+    "인증번호"
+    verifyCode: String!
+}
+
+input SocialProviderFilterComparison {
+    eq: SocialProvider
+    gt: SocialProvider
+    gte: SocialProvider
+    iLike: SocialProvider
+    in: [SocialProvider!]
+    is: Boolean
+    isNot: Boolean
+    like: SocialProvider
+    lt: SocialProvider
+    lte: SocialProvider
+    neq: SocialProvider
+    notILike: SocialProvider
+    notIn: [SocialProvider!]
+    notLike: SocialProvider
+}
+
+input StringFieldComparison {
+    eq: String
+    gt: String
+    gte: String
+    iLike: String
+    in: [String!]
+    is: Boolean
+    isNot: Boolean
+    like: String
+    lt: String
+    lte: String
+    neq: String
+    notILike: String
+    notIn: [String!]
+    notLike: String
+}
+
+input UpdateOneUserInput {
+    "The id of the record to update"
+    id: ID!
+    "The update to apply."
+    update: UpdateUserInput!
+}
+
+input UpdateUserInput {
+    "관리자메모"
+    adminMemo: String
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "전화번호"
+    phone: String!
+    "프로필 이미지"
+    profileImage: String
+}
+
+input UserAggregateFilter {
+    adminMemo: StringFieldComparison
+    and: [UserAggregateFilter!]
+    createdAt: DateFieldComparison
+    createdUserId: IntFieldComparison
+    deleted: UserDeletedFilterComparison
+    email: StringFieldComparison
+    id: IDFilterComparison
+    isSocialLogin: BooleanFieldComparison
+    joinedAt: DateFieldComparison
+    name: StringFieldComparison
+    nickName: StringFieldComparison
+    or: [UserAggregateFilter!]
+    phone: StringFieldComparison
+    profileImage: StringFieldComparison
+    role: RoleFilterComparison
+    socialId: StringFieldComparison
+    socialProvider: SocialProviderFilterComparison
+    updatedAt: DateFieldComparison
+    updatedUserId: IntFieldComparison
+}
+
+input UserDeleteFilter {
+    adminMemo: StringFieldComparison
+    and: [UserDeleteFilter!]
+    createdAt: DateFieldComparison
+    createdUserId: IntFieldComparison
+    deleted: UserDeletedFilterComparison
+    email: StringFieldComparison
+    id: IDFilterComparison
+    isSocialLogin: BooleanFieldComparison
+    joinedAt: DateFieldComparison
+    name: StringFieldComparison
+    nickName: StringFieldComparison
+    or: [UserDeleteFilter!]
+    phone: StringFieldComparison
+    profileImage: StringFieldComparison
+    role: RoleFilterComparison
+    socialId: StringFieldComparison
+    socialProvider: SocialProviderFilterComparison
+    updatedAt: DateFieldComparison
+    updatedUserId: IntFieldComparison
+}
+
+input UserDeletedFilterComparison {
+    in: [Boolean!]
+}
+
+input UserFilter {
+    adminMemo: StringFieldComparison
+    and: [UserFilter!]
+    createdAt: DateFieldComparison
+    createdUserId: IntFieldComparison
+    deleted: UserDeletedFilterComparison
+    email: StringFieldComparison
+    id: IDFilterComparison
+    isSocialLogin: BooleanFieldComparison
+    joinedAt: DateFieldComparison
+    name: StringFieldComparison
+    nickName: StringFieldComparison
+    or: [UserFilter!]
+    phone: StringFieldComparison
+    profileImage: StringFieldComparison
+    role: RoleFilterComparison
+    socialId: StringFieldComparison
+    socialProvider: SocialProviderFilterComparison
+    updatedAt: DateFieldComparison
+    updatedUserId: IntFieldComparison
+}
+
+input UserInput {
+    "관리자메모"
+    adminMemo: String
+    "이메일"
+    email: String!
+    "소셜로그인 회원가입 여부"
+    isSocialLogin: Boolean!
+    "가입일"
+    joinedAt: DateTime
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "전화번호"
+    phone: String!
+    "프로필 이미지"
+    profileImage: String
+    "권한"
+    role: Role = USER
+    "소셜 provider 고유키"
+    socialId: String
+    "소셜로그인 제공업체"
+    socialProvider: SocialProvider
+}
+
+input UserSort {
+    direction: SortDirection!
+    field: UserSortFields!
+    nulls: SortNulls
+}
+
+input searchResultDto {
+    "30일간의 검색량"
+    count: Float!
+    "영어 번역"
+    en: String!
+    "한국어 번역"
+    ko: String!
+    "Quality Score, 10점 만점"
+    relevance: Float!
+    "검색 단어 (원문)"
+    text: String!
+    "검색한 이미지 주소 최대 3개"
+    thumbnailLink: [String!]!
+    "선택된 국가의 언어로 번역"
+    translated: String!
 }

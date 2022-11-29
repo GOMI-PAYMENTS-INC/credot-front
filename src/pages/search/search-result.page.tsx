@@ -1,9 +1,9 @@
-import '@/pages/search-result/style.css';
+import '@/pages/search/style.css';
 
 import { Icons } from '@/components/icons';
 import Layout from '@/components/layouts/layout';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
-import { SearchResultContainer } from '@/containers/search-result.container';
+import { SearchResultContainer } from '@/containers/search/search-result.container';
 import { SearchDto } from '@/generated/graphql';
 
 const SearchResultPage = () => {
