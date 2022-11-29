@@ -46,12 +46,12 @@ const SignInPage = () => (
                 </label>
               </div>
               <div>
-                <a
-                  href='#'
+                <Link
+                  to={Paths.findId}
                   className='relative pr-2 text-s-regular after:absolute after:top-0 after:right-0 after:top-1/2 after:block after:h-full after:h-4/5 after:w-px after:translate-y-[-50%] after:bg-primary-black'
                 >
                   아이디 찾기
-                </a>
+                </Link>
                 <a href='#' className='pl-2 text-s-regular '>
                   비밀번호 찾기
                 </a>
