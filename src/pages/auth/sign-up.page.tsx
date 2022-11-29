@@ -1,5 +1,5 @@
-import * as PATH from 'path';
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Layout from '@/components/layouts/layout';
 import { Paths } from '@/router/paths';
