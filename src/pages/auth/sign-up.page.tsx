@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Layout from '@/components/layouts/layout';
 import { Paths } from '@/router/paths';
@@ -49,7 +50,8 @@ const SignUpPage = () => {
       <div className='flex h-screen w-full items-center justify-center'>
         <div className='w-full max-w-[26.25rem]'>
           <h3 className='mb-4 text-center text-2xl-bold'>회원가입</h3>
-          <form action='' className='space-y-5'>
+          {/* TODO: 가입 후 웰켐페이지로 이동, action은 임의로 넣어두었습니다. */}
+          <form action={Paths.welcome} className='space-y-5'>
             <div className='space-y-2'>
               <div className='space-y-2'>
                 <input
