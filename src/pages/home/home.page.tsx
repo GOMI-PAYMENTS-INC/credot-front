@@ -1,5 +1,4 @@
-import { Icons } from '@/components/icons';
-import Header from '@/components/Layout/header';
+import Header from '@/components/layouts/header';
 
 const HomePage = () => (
   <div>

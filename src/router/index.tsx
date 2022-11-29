@@ -7,7 +7,7 @@ import ResetPw from '@/pages/auth/reset-pw';
 import SignInPage from '@/pages/auth/sign-in.page';
 import SignUpPage from '@/pages/auth/sign-up.page';
 import HomePage from '@/pages/home/home.page';
-import SearchResultPage from '@/pages/search-result/search-result.page';
+import SearchResultPage from '@/pages/search/search-result.page';
 import { Paths } from '@/router/paths';
 
 export const Router = () => (

@@ -2956,6 +2956,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^1.1.1":
+  version: 1.2.1
+  resolution: "clsx@npm:1.2.1"
+  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -5369,11 +5376,13 @@ __metadata:
     graphql-request: ^5.0.0
     graphql-tag: ^2.12.6
     postcss: ^8.4.18
-    prettier: ^2.7.1
+    prettier: ^2.8.0
     prettier-plugin-tailwindcss: ^0.1.13
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-hook-form: ^7.39.6
     react-router-dom: ^6.4.2
+    react-toastify: ^9.1.1
     tailwindcss: ^3.2.1
     ts-node: ^10.9.1
     tslib: ^1
@@ -6409,12 +6418,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "prettier@npm:2.7.1"
+"prettier@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "prettier@npm:2.8.0"
   bin:
     prettier: bin-prettier.js
-  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
+  checksum: 72004ce0cc9bb097daf3e3833f62495768724392c1d5b178dd47372337616e9e50ecbb0804f236596223f7b5eb1bbe69cefc8957dca21112c5777e77ef73a564
   languageName: node
   linkType: hard
 
@@ -6504,6 +6513,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.39.6":
+  version: 7.39.6
+  resolution: "react-hook-form@npm:7.39.6"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: fa8327129a73d54ee6d17bd08a1601269bf340b62d782ff3170a3759f0903f0d8ad5409c6799b7c25909b893383f062ad3735e0b76caa82b02b20ac873d91131
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -6539,6 +6557,18 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: c229d65d9b0df88dd4e8c57bd59793e371f2c84b4cb200b77ead9f601c8fd7758f72acfffc9a2fc5cb31877af3a0e08ae24aeb75ab2b20681f3b1d33ca671552
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^9.1.1":
+  version: 9.1.1
+  resolution: "react-toastify@npm:9.1.1"
+  dependencies:
+    clsx: ^1.1.1
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 2039255539961a9b4d77b2656f120b20abe46cb0c699a7f3c0af23b4ef669d9c4d24dae6b8f4954b5efd83edf6d6e23614a29e94e9ee0d2647741fba9ba2db85
   languageName: node
   linkType: hard
 
