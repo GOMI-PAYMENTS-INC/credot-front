@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Layout from '@/components/layouts/layout';
 import { Paths } from '@/router/paths';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import {
   CountryType,
   SendSmsVerificationCodeMutationVariables,
+  SignUpInput,
 } from '@/generated/graphql';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { toast } from 'react-toastify';
@@ -14,10 +15,11 @@ interface ISignUpForm {
   email: string;
   phone: string;
   password: string;
+  verifyCode: string;
 }
 
 const SignUpPage = () => {
-  const { onSendSmsVerifyCode } = AuthContainer();
+  const { onSendSmsVerifyCode, onSubmitSignUp } = AuthContainer();
   const {
     register,
     handleSubmit,
@@ -32,8 +34,27 @@ const SignUpPage = () => {
   const [countSend, setCountSend] = useState<number>(0);
   // 인증 완료 여부
   const [isVerifyCode, setVerifyCode] = useState<boolean>(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const phoneNumber = watch('phone');
   const passwordWatcher = watch('password');
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(countdown);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => clearInterval(countdown);
+  }, [minutes, seconds]);
 
   // 인증번호 발송
   const waitSendMobileCheck = () => {
@@ -49,6 +70,7 @@ const SignUpPage = () => {
       // 인증 진행 완료
       setSending(false);
     }, 1000 * 60);
+    setMinutes(1);
   };
 
   // 인증번호 발송 프로세스
@@ -71,13 +93,33 @@ const SignUpPage = () => {
     }
   };
 
+  const onValid = (data: ISignUpForm) => {
+    const signUpInput: SignUpInput = {
+      name: '',
+      email: data?.email,
+      password: data?.password,
+      phone: data?.phone,
+      verifyCode: data?.verifyCode,
+    };
+    onSubmitSignUp(signUpInput);
+  };
+
+  const onInvalid = (errorData: FieldErrors) => {
+    console.log('INVALID', errorData);
+    toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+  };
+
   return (
     <Layout>
       <div className='flex h-screen w-full items-center justify-center'>
         <div className='w-full max-w-[26.25rem]'>
           <h3 className='mb-4 text-center text-2xl-bold'>회원가입</h3>
           {/* TODO: 가입 후 웰켐페이지로 이동, action은 임의로 넣어두었습니다. */}
-          <form action={Paths.welcome} className='space-y-5'>
+          <form
+            action={Paths.welcome}
+            className='space-y-5'
+            onSubmit={handleSubmit(onValid, onInvalid)}
+          >
             <div className='space-y-2'>
               <div className='space-y-2'>
                 <input
@@ -103,7 +145,15 @@ const SignUpPage = () => {
                   type='password'
                   className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
                   placeholder='비밀번호'
-                  {...register('password', { required: '비밀번호는 필수입력입니다.' })}
+                  {...register('password', {
+                    required: '비밀번호는 필수입력입니다.',
+                    pattern: {
+                      // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
+                      value:
+                        /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/,
+                      message: '숫자,특수문자,영문 혼합 최소 8자리 이상 입력바랍니다.',
+                    },
+                  })}
                 />
                 <p className='text-2xs-regular text-functional-error'>
                   {errors?.password?.message}
@@ -179,15 +229,21 @@ const SignUpPage = () => {
                     <input
                       className='w-5/6 border-0'
                       type='text'
-                      name='verifyCode'
                       placeholder='인증번호'
+                      {...register('verifyCode', {
+                        required: '인증번호 필수입력입니다.',
+                        pattern: {
+                          value: /[0-9]{6}$/g,
+                          message: '올바른 인증번호를 입력하세요.',
+                        },
+                      })}
                     />
                     <span className='inline-block w-1/6 text-right text-functional-error'>
-                      1:00
+                      {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
                     </span>
                   </div>
                   <p className='text-2xs-regular text-functional-error'>
-                    인증시간이 만료되었습니다. 다시 인증해 주세요.
+                    {errors?.verifyCode?.message}
                   </p>
                 </div>
               )}

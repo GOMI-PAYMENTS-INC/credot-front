@@ -143,10 +143,8 @@ export type FindAccountInput = {
 
 export type FindAccountResponse = {
   __typename?: 'FindAccountResponse';
-  /** 연관 검색 결과 */
-  findAccounts: Array<AccountInfoDto>;
-  /** 스테이터스 코드 */
-  statusCode: Scalars['Float'];
+  /** 계정 정보 ( 휴대폰 번호 1 : 이메일 N 다계정 생성 가능 하므로 ) 복수 */
+  accounts: Array<AccountInfoDto>;
 };
 
 export type FindPasswordInput = {
@@ -223,10 +221,6 @@ export type Mutation = {
   createOneUser: User;
   deleteManyUsers: DeleteManyResponse;
   deleteOneUser: UserDeleteResponse;
-  /** 유저 계정찾기 */
-  findAccount: FindAccountResponse;
-  /** 유저 임시 비밀번호 발급 */
-  findPassword: FindAccountResponse;
   /** google 로그인 */
   googleLogin: LoginToken;
   /** 로그인 */
@@ -235,6 +229,8 @@ export type Mutation = {
   naverLogin: LoginToken;
   /** 휴대폰 인증번호 발송 */
   sendSmsVerificationCode: Scalars['Boolean'];
+  /** 유저 임시 비밀번호 발급 */
+  sendTemporaryPassword: FindAccountResponse;
   /** 유저 회원가입 */
   signup: LoginToken;
   updateOneUser: User;
@@ -256,16 +252,6 @@ export type MutationDeleteOneUserArgs = {
   input: DeleteOneUserInput;
 };
 
-export type MutationFindAccountArgs = {
-  country: CountryType;
-  user: FindAccountInput;
-};
-
-export type MutationFindPasswordArgs = {
-  country: CountryType;
-  user: FindPasswordInput;
-};
-
 export type MutationGoogleLoginArgs = {
   idToken: Scalars['String'];
 };
@@ -281,6 +267,11 @@ export type MutationNaverLoginArgs = {
 export type MutationSendSmsVerificationCodeArgs = {
   country: CountryType;
   phone: Scalars['String'];
+};
+
+export type MutationSendTemporaryPasswordArgs = {
+  country: CountryType;
+  user: FindPasswordInput;
 };
 
 export type MutationSignupArgs = {
@@ -320,6 +311,8 @@ export type Query = {
   compose: ResponseCompose;
   /** 유저 이메일 중복 조회 */
   existsUserEmail: Scalars['Boolean'];
+  /** 유저 계정(ID) 찾기 */
+  findAccount: FindAccountResponse;
   /** 로그인된 내 정보 */
   me: User;
   /** 키워드 검색 ( 구글 번역 api 사용 ) */
@@ -337,6 +330,11 @@ export type QueryComposeArgs = {
 
 export type QueryExistsUserEmailArgs = {
   email: Scalars['String'];
+};
+
+export type QueryFindAccountArgs = {
+  country: CountryType;
+  user: FindAccountInput;
 };
 
 export type QuerySearchArgs = {
@@ -797,12 +795,10 @@ export type UserSumAggregate = {
 
 export type AccountInfoDto = {
   __typename?: 'accountInfoDto';
-  /** 이메일 정보 */
+  /** 이메일 (아이디) */
   email: Scalars['String'];
   /** 소셜 로그인 여부 */
   isSocialLogin: Scalars['Boolean'];
-  /** 소셜 아이디 */
-  socialId?: Maybe<Scalars['String']>;
   /** 소셜 로그인 프로바이더 */
   socialProvider?: Maybe<SocialProvider>;
 };
@@ -890,6 +886,15 @@ export type SendSmsVerificationCodeMutation = {
   sendSmsVerificationCode: boolean;
 };
 
+export type SignupMutationVariables = Exact<{
+  user: SignUpInput;
+}>;
+
+export type SignupMutation = {
+  __typename?: 'Mutation';
+  signup: { __typename?: 'LoginToken'; token: string };
+};
+
 export type SearchQueryVariables = Exact<{
   country: CountryType;
   translateType?: InputMaybe<TranslateType>;
@@ -952,6 +957,29 @@ export const useSendSmsVerificationCodeMutation = <
       fetcher<SendSmsVerificationCodeMutation, SendSmsVerificationCodeMutationVariables>(
         client,
         SendSmsVerificationCodeDocument,
+        variables,
+        headers,
+      )(),
+    options,
+  );
+export const SignupDocument = `
+    mutation Signup($user: SignUpInput!) {
+  signup(user: $user) {
+    token
+  }
+}
+    `;
+export const useSignupMutation = <TError extends unknown, TContext extends unknown>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<SignupMutation, TError, SignupMutationVariables, TContext>,
+  headers?: RequestInit['headers'],
+) =>
+  useMutation<SignupMutation, TError, SignupMutationVariables, TContext>(
+    ['Signup'],
+    (variables?: SignupMutationVariables) =>
+      fetcher<SignupMutation, SignupMutationVariables>(
+        client,
+        SignupDocument,
         variables,
         headers,
       )(),
