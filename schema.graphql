@@ -28,10 +28,8 @@ type DeleteManyResponse {
 }
 
 type FindAccountResponse {
-    "연관 검색 결과"
-    findAccounts: [accountInfoDto!]!
-    "스테이터스 코드"
-    statusCode: Float!
+    "계정 정보 ( 휴대폰 번호 1 : 이메일 N 다계정 생성 가능 하므로 ) 복수"
+    accounts: [accountInfoDto!]!
 }
 
 type LoginPassword {
@@ -52,18 +50,6 @@ type Mutation {
     createOneUser(input: CreateOneUserInput!): User!
     deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
     deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
-    "유저 계정찾기"
-    findAccount(
-        "국가 코드"
-        country: CountryType!,
-        user: FindAccountInput!
-    ): FindAccountResponse!
-    "유저 임시 비밀번호 발급"
-    findPassword(
-        "국가 코드"
-        country: CountryType!,
-        user: FindPasswordInput!
-    ): FindAccountResponse!
     "google 로그인"
     googleLogin(
         "구글 oauth2 제공된 id token"
@@ -83,6 +69,12 @@ type Mutation {
         "수신 핸드폰 번호"
         phone: String!
     ): Boolean!
+    "유저 임시 비밀번호 발급"
+    sendTemporaryPassword(
+        "국가 코드"
+        country: CountryType!,
+        user: FindPasswordInput!
+    ): FindAccountResponse!
     "유저 회원가입"
     signup(user: SignUpInput!): LoginToken!
     updateOneUser(input: UpdateOneUserInput!): User!
@@ -110,6 +102,12 @@ type Query {
     ): responseCompose!
     "유저 이메일 중복 조회"
     existsUserEmail(email: String!): Boolean!
+    "유저 계정(ID) 찾기"
+    findAccount(
+        "국가 코드"
+        country: CountryType!,
+        user: FindAccountInput!
+    ): FindAccountResponse!
     "로그인된 내 정보"
     me: User!
     "키워드 검색 ( 구글 번역 api 사용 )"
@@ -333,12 +331,10 @@ type UserSumAggregate {
 }
 
 type accountInfoDto {
-    "이메일 정보"
+    "이메일 (아이디)"
     email: String!
     "소셜 로그인 여부"
     isSocialLogin: Boolean!
-    "소셜 아이디"
-    socialId: String
     "소셜 로그인 프로바이더"
     socialProvider: SocialProvider
 }
