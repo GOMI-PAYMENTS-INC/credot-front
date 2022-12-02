@@ -895,6 +895,39 @@ export type SignupMutation = {
   signup: { __typename?: 'LoginToken'; token: string };
 };
 
+export type LoginMutationVariables = Exact<{
+  login: LoginInput;
+}>;
+
+export type LoginMutation = {
+  __typename?: 'Mutation';
+  login: { __typename?: 'LoginPassword'; token: string };
+};
+
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MeQuery = {
+  __typename?: 'Query';
+  me: {
+    __typename?: 'User';
+    email: string;
+    role: Role;
+    name: string;
+    nickName?: string | null;
+    phone: string;
+    profileImage?: string | null;
+    joinedAt?: Date | null;
+    isSocialLogin: boolean;
+    socialProvider?: SocialProvider | null;
+  };
+};
+
+export type ExistsUserEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+export type ExistsUserEmailQuery = { __typename?: 'Query'; existsUserEmail: boolean };
+
 export type SearchQueryVariables = Exact<{
   country: CountryType;
   translateType?: InputMaybe<TranslateType>;
@@ -983,6 +1016,79 @@ export const useSignupMutation = <TError extends unknown, TContext extends unkno
         variables,
         headers,
       )(),
+    options,
+  );
+export const LoginDocument = `
+    mutation Login($login: LoginInput!) {
+  login(login: $login) {
+    token
+  }
+}
+    `;
+export const useLoginMutation = <TError extends unknown, TContext extends unknown>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<LoginMutation, TError, LoginMutationVariables, TContext>,
+  headers?: RequestInit['headers'],
+) =>
+  useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
+    ['Login'],
+    (variables?: LoginMutationVariables) =>
+      fetcher<LoginMutation, LoginMutationVariables>(
+        client,
+        LoginDocument,
+        variables,
+        headers,
+      )(),
+    options,
+  );
+export const MeDocument = `
+    query Me {
+  me {
+    email
+    role
+    name
+    nickName
+    phone
+    profileImage
+    joinedAt
+    isSocialLogin
+    socialProvider
+  }
+}
+    `;
+export const useMeQuery = <TData extends MeQuery, TError extends unknown>(
+  client: GraphQLClient,
+  variables?: MeQueryVariables,
+  options?: UseQueryOptions<MeQuery, TError, TData>,
+  headers?: RequestInit['headers'],
+) =>
+  useQuery<MeQuery, TError, TData>(
+    variables === undefined ? ['Me'] : ['Me', variables],
+    fetcher<MeQuery, MeQueryVariables>(client, MeDocument, variables, headers),
+    options,
+  );
+export const ExistsUserEmailDocument = `
+    query ExistsUserEmail($email: String!) {
+  existsUserEmail(email: $email)
+}
+    `;
+export const useExistsUserEmailQuery = <
+  TData extends ExistsUserEmailQuery,
+  TError extends unknown,
+>(
+  client: GraphQLClient,
+  variables: ExistsUserEmailQueryVariables,
+  options?: UseQueryOptions<ExistsUserEmailQuery, TError, TData>,
+  headers?: RequestInit['headers'],
+) =>
+  useQuery<ExistsUserEmailQuery, TError, TData>(
+    ['ExistsUserEmail', variables],
+    fetcher<ExistsUserEmailQuery, ExistsUserEmailQueryVariables>(
+      client,
+      ExistsUserEmailDocument,
+      variables,
+      headers,
+    ),
     options,
   );
 export const SearchDocument = `

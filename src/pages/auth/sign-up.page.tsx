@@ -32,7 +32,6 @@ const SignUpPage = () => {
   const passwordWatcher = watch('password');
 
   const onValid = (data: ISignUpForm) => {
-    console.log('onValid @ phone : ', data?.phone, ', verifyCode : ', data?.verifyCode);
     const signUpInput: SignUpInput = {
       name: '',
       email: data?.email,
@@ -40,12 +39,11 @@ const SignUpPage = () => {
       phone,
       verifyCode,
     };
-    console.log('signUpInput : ', signUpInput);
     onSubmitSignUp(signUpInput);
   };
 
   const onInvalid = (errorData: FieldErrors) => {
-    console.log('INVALID', errorData);
+    console.error('error : ', errorData);
     toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
   };
 
@@ -70,7 +68,7 @@ const SignUpPage = () => {
                     required: '이메일은 필수입력입니다.',
                     pattern: {
                       value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                      message: '올바른 이메일주소를 입력하세요.',
+                      message: '올바른 이메일 주소를 입력하세요.',
                     },
                   })}
                 />
