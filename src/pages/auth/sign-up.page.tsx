@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react';
-
-import Layout from '@/components/layouts/layout';
-import { Paths } from '@/router/paths';
+import React, { useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
-import {
-  CountryType,
-  SendSmsVerificationCodeMutationVariables,
-  SignUpInput,
-} from '@/generated/graphql';
-import { AuthContainer } from '@/containers/auth/auth.container';
 import { toast } from 'react-toastify';
+
+import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
+import Layout from '@/components/layouts/layout';
+import { AuthContainer } from '@/containers/auth/auth.container';
+import { SignUpInput } from '@/generated/graphql';
+import { Paths } from '@/router/paths';
 
 interface ISignUpForm {
   email: string;
-  phone: string;
   password: string;
+  confirmPassword: string;
+  phone: string;
   verifyCode: string;
 }
 
 const SignUpPage = () => {
-  const { onSendSmsVerifyCode, onSubmitSignUp } = AuthContainer();
+  const { onSubmitSignUp } = AuthContainer();
+  const [phone, setPhone] = useState('');
+  const [verifyCode, setVerifyCode] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -28,79 +29,18 @@ const SignUpPage = () => {
   } = useForm<ISignUpForm>({
     mode: 'onChange',
   });
-  // 인증번호 발송 진행중 여부
-  const [isSending, setSending] = useState<boolean>(false);
-  // 인증번호 발송 횟수
-  const [countSend, setCountSend] = useState<number>(0);
-  // 인증 완료 여부
-  const [isVerifyCode, setVerifyCode] = useState<boolean>(false);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const phoneNumber = watch('phone');
   const passwordWatcher = watch('password');
 
-  useEffect(() => {
-    const countdown = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(countdown);
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-        }
-      }
-    }, 1000);
-    return () => clearInterval(countdown);
-  }, [minutes, seconds]);
-
-  // 인증번호 발송
-  const waitSendMobileCheck = () => {
-    toast.info('발송중입니다. 조금만 기다려주세요', { autoClose: 1000 });
-  };
-
-  // 인증번호 발송
-  const initVerifyCode = () => {
-    // 인증번호 발송 시작
-    setVerifyCode(true);
-    setSending(true);
-    setTimeout(() => {
-      // 인증 진행 완료
-      setSending(false);
-    }, 1000 * 60);
-    setMinutes(1);
-  };
-
-  // 인증번호 발송 프로세스
-  const sendSmsVerifyCode = () => {
-    if (errors.phone) {
-      return;
-    }
-    if (!isSending) {
-      initVerifyCode();
-      const params: SendSmsVerificationCodeMutationVariables = {
-        country: CountryType.Kr,
-        phone: phoneNumber,
-      };
-      onSendSmsVerifyCode(params);
-      // 발송 횟수 추가
-      setCountSend(countSend + 1);
-    } else {
-      // 발송중
-      waitSendMobileCheck();
-    }
-  };
-
   const onValid = (data: ISignUpForm) => {
+    console.log('onValid @ phone : ', data?.phone, ', verifyCode : ', data?.verifyCode);
     const signUpInput: SignUpInput = {
       name: '',
       email: data?.email,
       password: data?.password,
-      phone: data?.phone,
-      verifyCode: data?.verifyCode,
+      phone,
+      verifyCode,
     };
+    console.log('signUpInput : ', signUpInput);
     onSubmitSignUp(signUpInput);
   };
 
@@ -129,7 +69,7 @@ const SignUpPage = () => {
                   {...register('email', {
                     required: '이메일은 필수입력입니다.',
                     pattern: {
-                      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                       message: '올바른 이메일주소를 입력하세요.',
                     },
                   })}
@@ -150,7 +90,7 @@ const SignUpPage = () => {
                     pattern: {
                       // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                       value:
-                        /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/,
+                        /(?=.*\d{1,50})(?=.*[~`!@#$%^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/,
                       message: '숫자,특수문자,영문 혼합 최소 8자리 이상 입력바랍니다.',
                     },
                   })}
@@ -176,79 +116,15 @@ const SignUpPage = () => {
                   {errors?.confirmPassword?.message}
                 </p>
               </div>
-              <div className='flex items-center'>
-                <input
-                  className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
-                  type='text'
-                  placeholder='휴대폰번호 - 없이 입력'
-                  {...register('phone', {
-                    required: '휴대폰번호 필수입력입니다.',
-                    pattern: {
-                      value: /(010)[0-9]{8}$/g,
-                      message: '올바른 휴대폰번호를 입력하세요.',
-                    },
-                  })}
-                />
-                <p className='pl-3 text-2xs-regular text-functional-error'>
-                  {errors?.phone?.message}
-                </p>
-
-                {/* 발송 여부에 따른 버튼 출력이 다름 시작 */}
-                {/* 발송하기전 */}
-                {/* eslint-disable-next-line no-nested-ternary */}
-                {countSend === 0 ? (
-                  <button
-                    type='button'
-                    className='ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100 p-2.5  text-sm font-medium text-functional-error'
-                    onClick={sendSmsVerifyCode}
-                  >
-                    인증
-                  </button>
-                ) : !isSending ? (
-                  <button
-                    type='button'
-                    className='ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100 p-2.5  text-sm font-medium text-functional-error'
-                    onClick={sendSmsVerifyCode}
-                  >
-                    재발송
-                  </button>
-                ) : (
-                  <button
-                    type='button'
-                    className='ml-2 min-w-[4.6875rem] rounded border-0 bg-gray-300  p-2.5 text-sm  text-gray-500'
-                    onClick={sendSmsVerifyCode}
-                  >
-                    재발송
-                  </button>
-                )}
-                {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
-              </div>
-              {isVerifyCode && (
-                <div className='space-y-2'>
-                  <div className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'>
-                    <input
-                      className='w-5/6 border-0'
-                      type='text'
-                      placeholder='인증번호'
-                      {...register('verifyCode', {
-                        required: '인증번호 필수입력입니다.',
-                        pattern: {
-                          value: /[0-9]{6}$/g,
-                          message: '올바른 인증번호를 입력하세요.',
-                        },
-                      })}
-                    />
-                    <span className='inline-block w-1/6 text-right text-functional-error'>
-                      {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                    </span>
-                  </div>
-                  <p className='text-2xs-regular text-functional-error'>
-                    {errors?.verifyCode?.message}
-                  </p>
-                </div>
-              )}
+              <SmsVerifyCodeForm
+                onChangePhone={(value: string) => {
+                  setPhone(value);
+                }}
+                onChangeVerifyCode={(value: string) => {
+                  setVerifyCode(value);
+                }}
+              />
             </div>
-
             <div>
               <ul className='space-y-3'>
                 <li>
