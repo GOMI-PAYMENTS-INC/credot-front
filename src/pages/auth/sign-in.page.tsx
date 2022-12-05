@@ -108,12 +108,7 @@ const SignInPage = () => {
                 </button>
               </div>
               <div className='pt-5'>
-                <button
-                  type='button'
-                  className='text-400-regular flex w-full cursor-pointer justify-center rounded border border-[#cccccc] p-2.5 text-m-regular'
-                >
-                  구글 로그인
-                </button>
+                <div id='google-login-button' />
               </div>
             </div>
           </form>
