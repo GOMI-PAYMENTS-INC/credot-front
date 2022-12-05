@@ -10,7 +10,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => (
   <>
     <Header />
-    <main>{children}</main>
+    <main className='mt-[-5rem]'>{children}</main>
     <Footer />
   </>
 );

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-
-import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import Layout from '@/components/layouts/layout';
 import { AuthContainer } from '@/containers/auth/auth.container';
+import { FieldErrors, useForm } from 'react-hook-form';
+import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { SignUpInput } from '@/generated/graphql';
 import { Paths } from '@/router/paths';
 

@@ -7,7 +7,7 @@ const SignUpWelcomePage = () => (
     <div className='flex h-screen w-full items-center justify-center'>
       <div className='w-full max-w-[26.25rem]'>
         <div className='flex flex-col items-center justify-center '>
-          <h3 className='mb-4 text-center text-2xl-bold'>회원가입 완료</h3>
+          <h3 className='mb-5 text-center text-2xl-bold'>회원가입 완료</h3>
           <p className='mb-5 text-l-regular'>
             고미키워드 회원이 되신 걸 진심으로 환영해요!
           </p>

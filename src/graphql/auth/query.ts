@@ -21,6 +21,17 @@ const authQuery = {
       existsUserEmail(email: $email)
     }
   `,
+  findAccountQuery: gql`
+    query FindAccount($user: FindAccountInput!, $country: CountryType!) {
+      findAccount(user: $user, country: $country) {
+        accounts {
+          email
+          isSocialLogin
+          socialProvider
+        }
+      }
+    }
+  `,
 };
 
 export default authQuery;

@@ -5,12 +5,15 @@ import { useRecoilState } from 'recoil';
 
 import { LoginStateAtom } from '@/atom/auth/auth-atom';
 import {
+  CountryType,
+  FindAccountQueryVariables,
   GoogleLoginMutationVariables,
   LoginInput,
   MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
   SignUpInput,
+  useFindAccountQuery,
   useGoogleLoginMutation,
   useLoginMutation,
   useSendSmsVerificationCodeMutation,
@@ -21,6 +24,7 @@ import { GlobalEnv } from '@/utils/config';
 import { graphQLClient } from '@/utils/graphql-client';
 
 export const AuthContainer = () => {
+  const [findAccount, setFindAccount] = useState<FindAccountQueryVariables>();
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
   const [token, setToken] = useState<string | null>(null);
   const { pathname } = useLocation();
@@ -39,6 +43,10 @@ export const AuthContainer = () => {
     navigate(Paths.signIn);
   };
 
+  useEffect(() => {
+    findAccountQuery;
+  }, [findAccount]);
+
   const { mutate: sendSmsVerificationCodeMutate } = useSendSmsVerificationCodeMutation(
     graphQLClient,
     {
@@ -54,9 +62,7 @@ export const AuthContainer = () => {
 
   const onSendSmsVerifyCode = (
     sendSmsVerifyCode: SendSmsVerificationCodeMutationVariables,
-  ) => {
-    sendSmsVerificationCodeMutate(sendSmsVerifyCode);
-  };
+  ) => sendSmsVerificationCodeMutate(sendSmsVerifyCode);
 
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
     onSuccess: (res) => {
@@ -166,6 +172,27 @@ export const AuthContainer = () => {
     );
   }, []);
 
+  const { data: findAccountQuery, error: findAccountQueryError } = useFindAccountQuery(
+    graphQLClient,
+    {
+      user: !findAccount?.user
+        ? {
+            phone: '',
+            verifyCode: '',
+          }
+        : findAccount.user,
+      country: findAccount?.country ? findAccount.country : CountryType.Vn,
+    },
+    {
+      onSuccess: (res) => {
+        // console.log('useFindAccountQuery success', res);
+      },
+      onError: (err) => {
+        // console.log('useFindAccountQuery error', err);
+      },
+    },
+  );
+
   return {
     onSendSmsVerifyCode,
     onSubmitSignUp,
@@ -173,5 +200,8 @@ export const AuthContainer = () => {
     onLogout,
     onGoogleLoginButton,
     token,
+    findAccountQuery,
+    findAccountQueryError,
+    setFindAccount,
   };
 };
