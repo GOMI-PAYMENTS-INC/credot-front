@@ -13,6 +13,13 @@ const authMutation = {
       }
     }
   `,
+  login: gql`
+    mutation Login($login: LoginInput!) {
+      login(login: $login) {
+        token
+      }
+    }
+  `,
 };
 
 export default authMutation;
