@@ -937,6 +937,24 @@ export type ExistsUserEmailQueryVariables = Exact<{
 
 export type ExistsUserEmailQuery = { __typename?: 'Query'; existsUserEmail: boolean };
 
+export type FindAccountQueryVariables = Exact<{
+  user: FindAccountInput;
+  country: CountryType;
+}>;
+
+export type FindAccountQuery = {
+  __typename?: 'Query';
+  findAccount: {
+    __typename?: 'FindAccountResponse';
+    accounts: Array<{
+      __typename?: 'accountInfoDto';
+      email: string;
+      isSocialLogin: boolean;
+      socialProvider?: SocialProvider | null;
+    }>;
+  };
+};
+
 export type SearchQueryVariables = Exact<{
   country: CountryType;
   translateType?: InputMaybe<TranslateType>;
@@ -1123,6 +1141,36 @@ export const useExistsUserEmailQuery = <
     fetcher<ExistsUserEmailQuery, ExistsUserEmailQueryVariables>(
       client,
       ExistsUserEmailDocument,
+      variables,
+      headers,
+    ),
+    options,
+  );
+export const FindAccountDocument = `
+    query FindAccount($user: FindAccountInput!, $country: CountryType!) {
+  findAccount(user: $user, country: $country) {
+    accounts {
+      email
+      isSocialLogin
+      socialProvider
+    }
+  }
+}
+    `;
+export const useFindAccountQuery = <
+  TData extends FindAccountQuery,
+  TError extends unknown,
+>(
+  client: GraphQLClient,
+  variables: FindAccountQueryVariables,
+  options?: UseQueryOptions<FindAccountQuery, TError, TData>,
+  headers?: RequestInit['headers'],
+) =>
+  useQuery<FindAccountQuery, TError, TData>(
+    ['FindAccount', variables],
+    fetcher<FindAccountQuery, FindAccountQueryVariables>(
+      client,
+      FindAccountDocument,
       variables,
       headers,
     ),
