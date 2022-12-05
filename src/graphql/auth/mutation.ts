@@ -20,6 +20,13 @@ const authMutation = {
       }
     }
   `,
+  googleLogin: gql`
+    mutation GoogleLogin($idToken: String!) {
+      googleLogin(idToken: $idToken) {
+        token
+      }
+    }
+  `,
 };
 
 export default authMutation;

@@ -5,13 +5,14 @@ import { useRecoilState } from 'recoil';
 
 import { LoginStateAtom } from '@/atom/auth/auth-atom';
 import {
+  GoogleLoginMutationVariables,
   LoginInput,
   MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
   SignUpInput,
+  useGoogleLoginMutation,
   useLoginMutation,
-  useMeQuery,
   useSendSmsVerificationCodeMutation,
   useSignupMutation,
 } from '@/generated/graphql';
@@ -87,24 +88,11 @@ export const AuthContainer = () => {
     signUpMutate(signupFormValue);
   };
 
-  const { data: userInfo, refetch: refetchUserInfo } = useMeQuery(
-    graphQLClient,
-    {},
-    {
-      onSuccess: () => {
-        const storageToken = localStorage.getItem(GlobalEnv.tokenKey);
-        setToken(storageToken);
-        handleChangeLoginState(true);
-      },
-      onError: () => onLogout(),
-      enabled: !!token,
-    },
-  );
-
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.login.token);
       localStorage.setItem(GlobalEnv.tokenKey, res.login.token);
+      // TODO home -> sign-up-welcome.page 이동 변경 필요.
       navigate(Paths.home);
     },
     onError: (err) => {
@@ -123,10 +111,27 @@ export const AuthContainer = () => {
     loginMutate(loginFormValue);
   };
 
+  const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
+    onSuccess: (res) => {
+      console.log('google token : ', res.googleLogin.token);
+      setToken(res.googleLogin.token);
+      localStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
+      // TODO home -> sign-up-welcome.page 이동 변경 필요.
+      navigate(Paths.home);
+    },
+  });
+
+  const onGoogleLoginButton = ({ idToken }: GoogleLoginMutationVariables) => {
+    googleLoginMutate({ idToken });
+  };
+  const handleCredentialResponse = (response: CredentialResponse) => {
+    if (response.credential) onGoogleLoginButton({ idToken: response.credential });
+  };
+
   useEffect(() => {
+    console.log('token : ', token);
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
-      refetchUserInfo();
     }
   }, [token]);
 
@@ -145,6 +150,20 @@ export const AuthContainer = () => {
 
       clearLogin();
     }
+
+    window.google?.accounts.id.initialize({
+      client_id: GlobalEnv.viteGoogleClientId,
+      callback: handleCredentialResponse,
+    });
+    window.google?.accounts.id.renderButton(
+      document.getElementById('google-login-button') as HTMLElement,
+      {
+        type: 'icon',
+        theme: 'outline',
+        shape: 'circle',
+        width: '256px',
+      },
+    );
   }, []);
 
   return {
@@ -152,7 +171,7 @@ export const AuthContainer = () => {
     onSubmitSignUp,
     onSubmitSignIn,
     onLogout,
-    userInfo,
-    isLogin,
+    onGoogleLoginButton,
+    token,
   };
 };

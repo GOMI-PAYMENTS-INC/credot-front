@@ -904,6 +904,15 @@ export type LoginMutation = {
   login: { __typename?: 'LoginPassword'; token: string };
 };
 
+export type GoogleLoginMutationVariables = Exact<{
+  idToken: Scalars['String'];
+}>;
+
+export type GoogleLoginMutation = {
+  __typename?: 'Mutation';
+  googleLogin: { __typename?: 'LoginToken'; token: string };
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -1036,6 +1045,34 @@ export const useLoginMutation = <TError extends unknown, TContext extends unknow
       fetcher<LoginMutation, LoginMutationVariables>(
         client,
         LoginDocument,
+        variables,
+        headers,
+      )(),
+    options,
+  );
+export const GoogleLoginDocument = `
+    mutation GoogleLogin($idToken: String!) {
+  googleLogin(idToken: $idToken) {
+    token
+  }
+}
+    `;
+export const useGoogleLoginMutation = <TError extends unknown, TContext extends unknown>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<
+    GoogleLoginMutation,
+    TError,
+    GoogleLoginMutationVariables,
+    TContext
+  >,
+  headers?: RequestInit['headers'],
+) =>
+  useMutation<GoogleLoginMutation, TError, GoogleLoginMutationVariables, TContext>(
+    ['GoogleLogin'],
+    (variables?: GoogleLoginMutationVariables) =>
+      fetcher<GoogleLoginMutation, GoogleLoginMutationVariables>(
+        client,
+        GoogleLoginDocument,
         variables,
         headers,
       )(),
