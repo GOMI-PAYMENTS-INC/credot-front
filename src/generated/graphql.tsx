@@ -156,6 +156,15 @@ export type FindPasswordInput = {
   verifyCode: Scalars['String'];
 };
 
+export type GoogleSignUpInput = {
+  /** 소셜토큰 */
+  idToken: Scalars['String'];
+  /** 전화번호 */
+  phone: Scalars['String'];
+  /** 인증번호 */
+  verifyCode: Scalars['String'];
+};
+
 export type IdFilterComparison = {
   eq?: InputMaybe<Scalars['ID']>;
   gt?: InputMaybe<Scalars['ID']>;
@@ -223,6 +232,8 @@ export type Mutation = {
   deleteOneUser: UserDeleteResponse;
   /** google 로그인 */
   googleLogin: LoginToken;
+  /** google 로그인 가입 */
+  googleSignUp: LoginToken;
   /** 로그인 */
   login: LoginPassword;
   /** naver 로그인 */
@@ -254,6 +265,10 @@ export type MutationDeleteOneUserArgs = {
 
 export type MutationGoogleLoginArgs = {
   idToken: Scalars['String'];
+};
+
+export type MutationGoogleSignUpArgs = {
+  socialSignUpDto: GoogleSignUpInput;
 };
 
 export type MutationLoginArgs = {

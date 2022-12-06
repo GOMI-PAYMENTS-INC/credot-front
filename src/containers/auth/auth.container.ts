@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 
-import { LoginStateAtom } from '@/atom/auth/auth-atom';
+import { IsLoginStorageAtom, LoginStateAtom } from '@/atom/auth/auth-atom';
 import {
-  CountryType,
-  FindAccountQueryVariables,
   GoogleLoginMutationVariables,
   LoginInput,
   MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
   SignUpInput,
-  useFindAccountQuery,
   useGoogleLoginMutation,
   useLoginMutation,
   useSendSmsVerificationCodeMutation,
@@ -24,9 +21,9 @@ import { GlobalEnv } from '@/utils/config';
 import { graphQLClient } from '@/utils/graphql-client';
 
 export const AuthContainer = () => {
-  const [findAccount, setFindAccount] = useState<FindAccountQueryVariables>();
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
-  const [token, setToken] = useState<string | null>(null);
+  const [isLoginStorage, setIsLoginStorage] = useRecoilState(IsLoginStorageAtom);
+  const [token, setToken] = useState<string>('');
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -34,18 +31,18 @@ export const AuthContainer = () => {
     setIsLogin(state);
   };
   const clearLogin = () => {
-    setToken(null);
+    setToken('');
     handleChangeLoginState(false);
-    localStorage.removeItem(GlobalEnv.tokenKey);
+    if (localStorage.getItem(GlobalEnv.tokenKey)) {
+      localStorage.removeItem(GlobalEnv.tokenKey);
+    } else {
+      sessionStorage.removeItem(GlobalEnv.tokenKey);
+    }
   };
   const onLogout = () => {
     clearLogin();
     navigate(Paths.signIn);
   };
-
-  useEffect(() => {
-    findAccountQuery;
-  }, [findAccount]);
 
   const { mutate: sendSmsVerificationCodeMutate } = useSendSmsVerificationCodeMutation(
     graphQLClient,
@@ -68,14 +65,19 @@ export const AuthContainer = () => {
     onSuccess: (res) => {
       if (res.signup.token) {
         setToken(res.signup.token);
-        localStorage.setItem(GlobalEnv.tokenKey, res.signup.token);
+        handleChangeLoginState(true);
+        if (isLoginStorage) {
+          localStorage.setItem(GlobalEnv.tokenKey, res.signup.token);
+        } else {
+          sessionStorage.setItem(GlobalEnv.tokenKey, res.signup.token);
+        }
         // TODO home -> sign-up-welcome.page 이동 변경 필요.
         navigate(Paths.home);
       }
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
-      console.log(error.errors[0].message);
+      console.error(error.errors[0].message);
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
   });
@@ -97,9 +99,12 @@ export const AuthContainer = () => {
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.login.token);
-      localStorage.setItem(GlobalEnv.tokenKey, res.login.token);
-      // TODO home -> sign-up-welcome.page 이동 변경 필요.
-      navigate(Paths.home);
+      handleChangeLoginState(true);
+      if (isLoginStorage) {
+        localStorage.setItem(GlobalEnv.tokenKey, res.login.token);
+      } else {
+        sessionStorage.setItem(GlobalEnv.tokenKey, res.login.token);
+      }
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
@@ -119,9 +124,13 @@ export const AuthContainer = () => {
 
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
     onSuccess: (res) => {
-      console.log('google token : ', res.googleLogin.token);
       setToken(res.googleLogin.token);
-      localStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
+      handleChangeLoginState(true);
+      if (isLoginStorage) {
+        localStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
+      } else {
+        sessionStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
+      }
       // TODO home -> sign-up-welcome.page 이동 변경 필요.
       navigate(Paths.home);
     },
@@ -135,14 +144,15 @@ export const AuthContainer = () => {
   };
 
   useEffect(() => {
-    console.log('token : ', token);
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
     }
   }, [token]);
 
   useEffect(() => {
-    const storageToken = localStorage.getItem(GlobalEnv.tokenKey);
+    const storageToken = localStorage.getItem(GlobalEnv.tokenKey)
+      ? localStorage.getItem(GlobalEnv.tokenKey)
+      : sessionStorage.getItem(GlobalEnv.tokenKey);
     if (storageToken) {
       setToken(storageToken);
     } else {
@@ -172,36 +182,15 @@ export const AuthContainer = () => {
     );
   }, []);
 
-  const { data: findAccountQuery, error: findAccountQueryError } = useFindAccountQuery(
-    graphQLClient,
-    {
-      user: !findAccount?.user
-        ? {
-            phone: '',
-            verifyCode: '',
-          }
-        : findAccount.user,
-      country: findAccount?.country ? findAccount.country : CountryType.Vn,
-    },
-    {
-      onSuccess: (res) => {
-        // console.log('useFindAccountQuery success', res);
-      },
-      onError: (err) => {
-        // console.log('useFindAccountQuery error', err);
-      },
-    },
-  );
-
   return {
     onSendSmsVerifyCode,
     onSubmitSignUp,
     onSubmitSignIn,
     onLogout,
     onGoogleLoginButton,
+    isLoginStorage,
+    setIsLoginStorage,
+    isLogin,
     token,
-    findAccountQuery,
-    findAccountQueryError,
-    setFindAccount,
   };
 };
