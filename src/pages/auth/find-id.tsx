@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Icons } from '@/components/icons';
 import Layout from '@/components/layouts/layout';
 import { AuthContainer } from '@/containers/auth/auth.container';
+import { FindUserContainer } from '@/containers/auth/find-user.container';
 import {
   CountryType,
   FindAccountQueryVariables,
@@ -27,8 +28,8 @@ enum Result {
 }
 
 const FindIdPage = () => {
-  const { onSendSmsVerifyCode, setFindAccount, findAccountQuery, findAccountQueryError } =
-    AuthContainer();
+  const { onSendSmsVerifyCode } = AuthContainer();
+  const { setFindAccount, findAccountQuery, findAccountQueryError } = FindUserContainer();
   const {
     register,
     handleSubmit,
@@ -105,7 +106,7 @@ const FindIdPage = () => {
     code ? checkValidate(code) : null;
   }, [code]);
 
-  //인증번호 맞는지 DB 체크
+  // 인증번호 맞는지 DB 체크
   const changeWriteVerifyCode = () => {
     const params: FindAccountQueryVariables = {
       user: {
@@ -127,11 +128,11 @@ const FindIdPage = () => {
   // DB 판단 결과, 유효한 결과가 나온 경우
   useEffect(() => {
     if (findAccountQuery) {
-      //올바른 인증 코드
+      // 올바른 인증 코드
       setCodeRight(true);
-      //결과 셋팅
+      // 결과 셋팅
       setTimeout(() => {
-        //회원 정보가 있는 경우
+        // 회원 정보가 있는 경우
         setResult({ type: Result.MEMBER });
       }, 1000);
     }
@@ -144,21 +145,21 @@ const FindIdPage = () => {
         // @ts-ignore TODO
         findAccountQueryError.response.errors[0].extensions.exception.response.status;
 
-      //존재하는 회원이 아닌경우
+      // 존재하는 회원이 아닌경우
       if (errorCode === Result.STRANGER) {
-        //올바른 인증 코드
+        // 올바른 인증 코드
         setCodeRight(true);
-        //결과 셋팅
+        // 결과 셋팅
         setTimeout(() => {
           setResult({ type: Result.STRANGER });
         }, 1000);
       }
 
-      //인증 코드가 올바르지 않는 경우
+      // 인증 코드가 올바르지 않는 경우
       if (errorCode === Result.NOTMATCHCODE) {
-        //올바르지 않은 인증 코드
+        // 올바르지 않은 인증 코드
         setCodeRight(false);
-        //결과 셋팅
+        // 결과 셋팅
         setResult({ type: Result.NOTMATCHCODE });
       }
     }

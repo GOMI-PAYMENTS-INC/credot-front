@@ -13,7 +13,7 @@ interface ISignInForm {
   password: string;
 }
 const SignInPage = () => {
-  const { onSubmitSignIn } = AuthContainer();
+  const { onSubmitSignIn, setIsLoginStorage, isLoginStorage } = AuthContainer();
   const {
     register,
     handleSubmit,
@@ -33,6 +33,10 @@ const SignInPage = () => {
   const onInvalid = (errorData: FieldErrors) => {
     console.error('error : ', errorData);
     toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+  };
+
+  const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsLoginStorage(e.target.checked);
   };
 
   return (
@@ -79,6 +83,8 @@ const SignInPage = () => {
                     name='remember_me'
                     type='checkbox'
                     className='h-4 w-4 rounded border-gray-300 bg-blue-500 focus:ring-blue-400'
+                    checked={isLoginStorage}
+                    onChange={(e) => onLoginStorageCheck(e)}
                   />
                   <label htmlFor='remember_me' className='ml-2 block text-s-regular '>
                     로그인 상태 유지
