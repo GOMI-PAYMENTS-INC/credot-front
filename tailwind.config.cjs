@@ -1,7 +1,8 @@
 module.exports = {
-  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+  content: [ './src/**/*.{html,js,jsx,ts,tsx}' ],
   //line-clamp 사용법 : https://postsrc.com/code-snippets/how-to-multi-line-trucate-text-in-tailwindcss
-  plugins: [require('@tailwindcss/line-clamp'), require('daisyui')],
+  plugins: [ require('@tailwindcss/line-clamp'), require('daisyui') ],
+  daisyui: { themes: false },
   theme: {
     extend: {
 

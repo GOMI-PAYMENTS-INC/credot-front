@@ -43,7 +43,9 @@ const SignInPage = () => {
     <Layout>
       <div className='flex h-screen w-full items-center justify-center'>
         <div className='w-full max-w-[26.25rem]'>
-          <h3 className='mb-5 text-center text-2xl-bold'>로그인</h3>
+          <h3 className='mb-5 text-center text-2xl-bold'>
+            로그인 {String(isLoginStorage)}{' '}
+          </h3>
           <form onSubmit={handleSubmit(onValid, onInvalid)}>
             <div className='space-y-2'>
               <div className='space-y-2'>
