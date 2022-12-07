@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import FindId from '@/pages/auth/find-id';
-import FindPw from '@/pages/auth/find-pw';
-import ResetPw from '@/pages/auth/reset-pw';
+import FindId from '@/pages/auth/find-id.page';
+import FindPw from '@/pages/auth/find-pw.page';
+import ResetPw from '@/pages/auth/reset-pw.page';
 import SignInPage from '@/pages/auth/sign-in.page';
 import SignUpPage from '@/pages/auth/sign-up.page';
 import SignUpWelcomePage from '@/pages/auth/sign-up-welcome.page';
