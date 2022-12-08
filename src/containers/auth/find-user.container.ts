@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   CountryType,
@@ -8,11 +8,8 @@ import {
 import { graphQLClient } from '@/utils/graphql-client';
 
 export const FindUserContainer = () => {
+  //아이디 찾기 변수 값
   const [findAccount, setFindAccount] = useState<FindAccountQueryVariables>();
-
-  useEffect(() => {
-    findAccountQuery;
-  }, [findAccount]);
 
   const { data: findAccountQuery, error: findAccountQueryError } = useFindAccountQuery(
     graphQLClient,
@@ -26,11 +23,12 @@ export const FindUserContainer = () => {
       country: findAccount?.country ? findAccount.country : CountryType.Vn,
     },
     {
+      enabled: !!findAccount,
       onSuccess: (res) => {
-        // console.log('useFindAccountQuery success', res);
+        console.log('useFindAccountQuery success', res);
       },
       onError: (err) => {
-        // console.log('useFindAccountQuery error', err);
+        console.log('useFindAccountQuery err', err);
       },
     },
   );

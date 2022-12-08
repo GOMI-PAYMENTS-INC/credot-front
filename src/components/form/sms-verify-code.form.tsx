@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -16,6 +16,7 @@ interface IVerifyCodeForm {
   phone: string;
   verifyCode: string;
 }
+
 const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeProps) => {
   const { onSendSmsVerifyCode } = AuthContainer();
   // 인증번호 발송 진행중 여부
@@ -31,7 +32,8 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
   } = useForm<IVerifyCodeForm>({
     mode: 'onChange',
   });
-  const phoneNumber = watch('phone');
+
+  const phoneNumber = watch('phone', undefined);
 
   useEffect(() => {
     const countdown = setInterval(() => {
@@ -50,6 +52,7 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
 
+  //인증번호 발송
   const initVerifyCode = () => {
     // 인증번호 발송 시작
     // setVerifyCode(true);
@@ -63,6 +66,7 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
   const waitSendMobileCheck = () => {
     toast.info('발송중입니다. 조금만 기다려주세요', { autoClose: 1000 });
   };
+
   // 인증번호 발송 프로세스
   const sendSmsVerifyCode = () => {
     if (errors.phone) {
@@ -83,8 +87,15 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
     }
   };
 
+  // 인증번호 oncChange 할 때 갯수가 6개인지 체크해서 6개인 경우 외부로 값을 보냄
+  const onChangeVerifyCodeCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value.trim().length);
+    if (e.target.value.trim().length === 6) onChangeVerifyCode?.(e.target.value);
+  };
+
   return (
-    <div>
+    <div className='space-y-2'>
+      {/*<p>{String(verifyCodeResult)}</p>*/}
       <div className='flex items-center'>
         <input
           className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
@@ -149,13 +160,19 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
                   message: '올바른 인증번호를 입력하세요.',
                 },
                 onChange: (e) => {
-                  onChangeVerifyCode?.(e.target.value);
+                  onChangeVerifyCodeCheck(e);
                 },
               })}
             />
+
+            {/* 인증번호 확인 여부에 다른 출력 시작 */}
+            {/*   <span className='inline-block w-1/12 '>*/}
+            {/*     <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' />*/}
+            {/*  </span>*/}
             <span className='inline-block w-1/6 text-right text-functional-error'>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </span>
+            {/* 인증번호 확인 여부에 다른 출력 끝 */}
           </div>
           <p className='text-2xs-regular text-functional-error'>
             {errors?.verifyCode?.message}

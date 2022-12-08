@@ -21,6 +21,7 @@ module.exports = {
           300: '#EBEBEB',
           400: '#D9D9D9',
           600: '#A8A8A8',
+          800: '#595959',
           900: '#262626',
         },
         //text-functional-success, text-functional-error
