@@ -469,6 +469,8 @@ input ChangePasswordInput {
     email: String!
     "신규 비밀번호"
     newPassword: String!
+    "기존 비밀번호"
+    password: String!
 }
 
 input CreateOneUserInput {
@@ -488,7 +490,7 @@ input CreateUserInput {
     "패스워드"
     password: String!
     "전화번호"
-    phone: String
+    phone: String!
     "권한"
     role: Role = USER
 }
@@ -525,7 +527,7 @@ input DeleteOneUserInput {
 
 input FindAccountInput {
     "전화번호"
-    phone: String
+    phone: String!
     "인증번호"
     verifyCode: String!
 }
@@ -534,7 +536,7 @@ input FindPasswordInput {
     "이메일"
     email: String!
     "전화번호"
-    phone: String
+    phone: String!
     "인증번호"
     verifyCode: String!
 }
@@ -543,7 +545,7 @@ input GoogleSignUpInput {
     "소셜토큰"
     idToken: String!
     "전화번호"
-    phone: String
+    phone: String!
     "인증번호"
     verifyCode: String!
 }
@@ -626,7 +628,7 @@ input SignUpInput {
     "패스워드"
     password: String!
     "전화번호"
-    phone: String
+    phone: String!
     "인증번호"
     verifyCode: String!
 }
@@ -680,7 +682,7 @@ input UpdateUserInput {
     "닉네임"
     nickName: String
     "전화번호"
-    phone: String
+    phone: String!
     "프로필 이미지"
     profileImage: String
 }
