@@ -5,6 +5,7 @@ const searchQuery = {
     query Search($country: CountryType!, $translateType: TranslateType, $text: String!) {
       search(country: $country, translateType: $translateType, text: $text) {
         main {
+          id
           text
           ko
           en
@@ -14,6 +15,7 @@ const searchQuery = {
           thumbnailLink
         }
         relations {
+          id
           text
           ko
           en

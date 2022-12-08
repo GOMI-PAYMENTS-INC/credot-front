@@ -55,6 +55,11 @@ type Mutation {
         "구글 oauth2 제공된 id token"
         idToken: String!
     ): LoginToken!
+    "google 로그인 가입"
+    googleSignUp(
+        "구글 로그인 가입처리"
+        socialSignUpDto: GoogleSignUpInput!
+    ): LoginToken!
     "로그인"
     login(login: LoginInput!): LoginPassword!
     "naver 로그인"
@@ -168,7 +173,7 @@ type User implements AbstractBaseEntity {
     "닉네임"
     nickName: String
     "전화번호"
-    phone: String!
+    phone: String
     "프로필 이미지"
     profileImage: String
     "권한"
@@ -483,7 +488,7 @@ input CreateUserInput {
     "패스워드"
     password: String!
     "전화번호"
-    phone: String!
+    phone: String
     "권한"
     role: Role = USER
 }
@@ -520,7 +525,7 @@ input DeleteOneUserInput {
 
 input FindAccountInput {
     "전화번호"
-    phone: String!
+    phone: String
     "인증번호"
     verifyCode: String!
 }
@@ -529,7 +534,16 @@ input FindPasswordInput {
     "이메일"
     email: String!
     "전화번호"
-    phone: String!
+    phone: String
+    "인증번호"
+    verifyCode: String!
+}
+
+input GoogleSignUpInput {
+    "소셜토큰"
+    idToken: String!
+    "전화번호"
+    phone: String
     "인증번호"
     verifyCode: String!
 }
@@ -612,7 +626,7 @@ input SignUpInput {
     "패스워드"
     password: String!
     "전화번호"
-    phone: String!
+    phone: String
     "인증번호"
     verifyCode: String!
 }
@@ -666,7 +680,7 @@ input UpdateUserInput {
     "닉네임"
     nickName: String
     "전화번호"
-    phone: String!
+    phone: String
     "프로필 이미지"
     profileImage: String
 }
@@ -755,7 +769,7 @@ input UserInput {
     "닉네임"
     nickName: String
     "전화번호"
-    phone: String!
+    phone: String
     "프로필 이미지"
     profileImage: String
     "권한"
