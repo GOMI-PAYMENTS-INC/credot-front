@@ -7,7 +7,7 @@ export const SearchResultContainer = () => {
   const [searchParams] = useSearchParams();
   const keywordParam = searchParams.get('keyword') ? searchParams.get('keyword') : '';
 
-  const { data: searchResults, isLoading: isLoadingSearch } = useSearchQuery(
+  const { data: searchResults } = useSearchQuery(
     graphQLClient,
     {
       country: CountryType.Vn,
@@ -19,7 +19,7 @@ export const SearchResultContainer = () => {
     },
   );
 
-  const { data: subSearchResults } = useSearchQuery(
+  const { data: subSearchResults, isLoading: isLoadingSearch } = useSearchQuery(
     graphQLClient,
     {
       country: CountryType.Vn,
