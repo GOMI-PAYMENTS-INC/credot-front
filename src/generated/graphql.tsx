@@ -93,7 +93,7 @@ export type CreateUserInput = {
   /** 패스워드 */
   password: Scalars['String'];
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 권한 */
   role?: InputMaybe<Role>;
 };
@@ -136,7 +136,7 @@ export type DeleteOneUserInput = {
 
 export type FindAccountInput = {
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -151,7 +151,7 @@ export type FindPasswordInput = {
   /** 이메일 */
   email: Scalars['String'];
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -160,7 +160,7 @@ export type GoogleSignUpInput = {
   /** 소셜토큰 */
   idToken: Scalars['String'];
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -409,7 +409,7 @@ export type SignUpInput = {
   /** 패스워드 */
   password: Scalars['String'];
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -486,7 +486,7 @@ export type UpdateUserInput = {
   /** 닉네임 */
   nickName?: InputMaybe<Scalars['String']>;
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 프로필 이미지 */
   profileImage?: InputMaybe<Scalars['String']>;
 };
@@ -516,7 +516,7 @@ export type User = AbstractBaseEntity & {
   /** 닉네임 */
   nickName?: Maybe<Scalars['String']>;
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: Maybe<Scalars['String']>;
   /** 프로필 이미지 */
   profileImage?: Maybe<Scalars['String']>;
   /** 권한 */
@@ -724,7 +724,7 @@ export type UserInput = {
   /** 닉네임 */
   nickName?: InputMaybe<Scalars['String']>;
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 프로필 이미지 */
   profileImage?: InputMaybe<Scalars['String']>;
   /** 권한 */
@@ -938,7 +938,7 @@ export type MeQuery = {
     role: Role;
     name: string;
     nickName?: string | null;
-    phone: string;
+    phone?: string | null;
     profileImage?: string | null;
     joinedAt?: Date | null;
     isSocialLogin: boolean;
@@ -982,6 +982,7 @@ export type SearchQuery = {
     __typename?: 'responseSearch';
     main: {
       __typename?: 'searchDto';
+      id: number;
       text: string;
       ko: string;
       en: string;
@@ -992,6 +993,7 @@ export type SearchQuery = {
     };
     relations: Array<{
       __typename?: 'searchDto';
+      id: number;
       text: string;
       ko: string;
       en: string;
@@ -1195,6 +1197,7 @@ export const SearchDocument = `
     query Search($country: CountryType!, $translateType: TranslateType, $text: String!) {
   search(country: $country, translateType: $translateType, text: $text) {
     main {
+      id
       text
       ko
       en
@@ -1204,6 +1207,7 @@ export const SearchDocument = `
       thumbnailLink
     }
     relations {
+      id
       text
       ko
       en
