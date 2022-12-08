@@ -220,9 +220,11 @@ const SearchResultPage = () => {
                     ))}
                     {/* 내용 생략 예시 끝 */}
                     {/* 결과 없는 경우 시작 */}
-                    <li className='search-info-box items-center'>
-                      <span className='text-grey-400'>No Results</span>
-                    </li>
+                    {!subSearchResults?.search?.relations && (
+                      <li className='search-info-box items-center'>
+                        <span className='text-grey-400'>No Results</span>
+                      </li>
+                    )}
                     {/* 결과 없는 경우 끝 */}
                   </ul>
                 </div>
