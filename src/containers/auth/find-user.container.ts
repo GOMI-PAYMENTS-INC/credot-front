@@ -8,10 +8,11 @@ import {
 import { graphQLClient } from '@/utils/graphql-client';
 
 export const FindUserContainer = () => {
-  //아이디 찾기 변수 값
+  // 아이디 찾기 변수 값
   const [findAccount, setFindAccount] = useState<FindAccountQueryVariables>();
+  const [responseStatus, setResponseStatus] = useState<number>(0);
 
-  const { data: findAccountQuery, error: findAccountQueryError } = useFindAccountQuery(
+  const { data: findAccountQuery } = useFindAccountQuery(
     graphQLClient,
     {
       user: !findAccount?.user
@@ -28,7 +29,8 @@ export const FindUserContainer = () => {
         console.log('useFindAccountQuery success', res);
       },
       onError: (err) => {
-        console.log('useFindAccountQuery err', err);
+        const error = JSON.parse(JSON.stringify(err));
+        setResponseStatus(error.response.errors[0].extensions.exception.status);
       },
     },
   );
@@ -36,6 +38,6 @@ export const FindUserContainer = () => {
   return {
     setFindAccount,
     findAccountQuery,
-    findAccountQueryError,
+    responseStatus,
   };
 };
