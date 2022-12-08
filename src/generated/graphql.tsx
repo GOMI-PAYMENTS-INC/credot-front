@@ -62,6 +62,8 @@ export type ChangePasswordInput = {
   email: Scalars['String'];
   /** 신규 비밀번호 */
   newPassword: Scalars['String'];
+  /** 기존 비밀번호 */
+  password: Scalars['String'];
 };
 
 /** 국가 타입 */
@@ -93,7 +95,7 @@ export type CreateUserInput = {
   /** 패스워드 */
   password: Scalars['String'];
   /** 전화번호 */
-  phone?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
   /** 권한 */
   role?: InputMaybe<Role>;
 };
@@ -136,7 +138,7 @@ export type DeleteOneUserInput = {
 
 export type FindAccountInput = {
   /** 전화번호 */
-  phone?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -151,7 +153,7 @@ export type FindPasswordInput = {
   /** 이메일 */
   email: Scalars['String'];
   /** 전화번호 */
-  phone?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -160,7 +162,7 @@ export type GoogleSignUpInput = {
   /** 소셜토큰 */
   idToken: Scalars['String'];
   /** 전화번호 */
-  phone?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -409,7 +411,7 @@ export type SignUpInput = {
   /** 패스워드 */
   password: Scalars['String'];
   /** 전화번호 */
-  phone?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
   /** 인증번호 */
   verifyCode: Scalars['String'];
 };
@@ -486,7 +488,7 @@ export type UpdateUserInput = {
   /** 닉네임 */
   nickName?: InputMaybe<Scalars['String']>;
   /** 전화번호 */
-  phone?: InputMaybe<Scalars['String']>;
+  phone: Scalars['String'];
   /** 프로필 이미지 */
   profileImage?: InputMaybe<Scalars['String']>;
 };
