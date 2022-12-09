@@ -27,6 +27,13 @@ const authMutation = {
       }
     }
   `,
+  googleSignup: gql`
+    mutation GoogleSignup($socialSignUpDto: GoogleSignUpInput!) {
+      googleSignUp(socialSignUpDto: $socialSignUpDto) {
+        token
+      }
+    }
+  `,
 };
 
 export default authMutation;
