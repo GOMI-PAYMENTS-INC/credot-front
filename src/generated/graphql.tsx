@@ -1,12 +1,11 @@
-import {
-  useMutation,
-  UseMutationOptions,
-  useQuery,
-  UseQueryOptions,
-} from '@tanstack/react-query';
 import { GraphQLClient } from 'graphql-request';
 import { RequestInit } from 'graphql-request/dist/types.dom';
-
+import {
+  useMutation,
+  useQuery,
+  UseMutationOptions,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -966,6 +965,15 @@ export type SendTemporaryPasswordMutation = {
   };
 };
 
+export type GoogleSignupMutationVariables = Exact<{
+  socialSignUpDto: GoogleSignUpInput;
+}>;
+
+export type GoogleSignupMutation = {
+  __typename?: 'Mutation';
+  googleSignUp: { __typename?: 'LoginToken'; token: string };
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -1020,6 +1028,7 @@ export type SearchQuery = {
     __typename?: 'responseSearch';
     main: {
       __typename?: 'searchDto';
+      id: number;
       text: string;
       ko: string;
       en: string;
@@ -1030,6 +1039,7 @@ export type SearchQuery = {
     };
     relations: Array<{
       __typename?: 'searchDto';
+      id: number;
       text: string;
       ko: string;
       en: string;
@@ -1224,6 +1234,34 @@ export const useSendTemporaryPasswordMutation = <
       )(),
     options,
   );
+export const GoogleSignupDocument = `
+    mutation GoogleSignup($socialSignUpDto: GoogleSignUpInput!) {
+  googleSignUp(socialSignUpDto: $socialSignUpDto) {
+    token
+  }
+}
+    `;
+export const useGoogleSignupMutation = <TError extends unknown, TContext extends unknown>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<
+    GoogleSignupMutation,
+    TError,
+    GoogleSignupMutationVariables,
+    TContext
+  >,
+  headers?: RequestInit['headers'],
+) =>
+  useMutation<GoogleSignupMutation, TError, GoogleSignupMutationVariables, TContext>(
+    ['GoogleSignup'],
+    (variables?: GoogleSignupMutationVariables) =>
+      fetcher<GoogleSignupMutation, GoogleSignupMutationVariables>(
+        client,
+        GoogleSignupDocument,
+        variables,
+        headers,
+      )(),
+    options,
+  );
 export const MeDocument = `
     query Me {
   me {
@@ -1308,6 +1346,7 @@ export const SearchDocument = `
     query Search($country: CountryType!, $translateType: TranslateType, $text: String!) {
   search(country: $country, translateType: $translateType, text: $text) {
     main {
+      id
       text
       ko
       en
@@ -1317,6 +1356,7 @@ export const SearchDocument = `
       thumbnailLink
     }
     relations {
+      id
       text
       ko
       en

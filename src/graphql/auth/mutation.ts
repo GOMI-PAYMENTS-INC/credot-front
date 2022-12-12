@@ -34,7 +34,6 @@ const authMutation = {
       }
     }
   `,
-
   // 비밀번호 변경
   changePassword: gql`
     mutation ChangePassword($pwd: ChangePasswordInput!) {
@@ -60,6 +59,16 @@ const authMutation = {
       }
     }
   `,
+  
+  //구글 회원가입
+  googleSignup: gql`
+    mutation GoogleSignup($socialSignUpDto: GoogleSignUpInput!) {
+      googleSignUp(socialSignUpDto: $socialSignUpDto) {
+        token
+      }
+    }
+  `,
+  
 };
 
 export default authMutation;

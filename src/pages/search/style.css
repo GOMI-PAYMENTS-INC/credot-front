@@ -119,6 +119,7 @@ input[type="checkbox"]:checked:disabled + label {
 .sub-result .search-info-wrap {
     display: flex;
     overflow: hidden;
+    overflow-x: scroll;
 }
 
 .sub-result .search-info-box+.search-info-box {

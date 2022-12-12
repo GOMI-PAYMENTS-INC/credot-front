@@ -3,11 +3,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 
-import { IsLoginStorageAtom, LoginStateAtom } from '@/atom/auth/auth-atom';
+import {
+  IdTokenAtom,
+  IsLoginStorageAtom,
+  LoginStateAtom,
+  UserAtom,
+} from '@/atom/auth/auth-atom';
 import {
   ChangePasswordMutationVariables,
   GoogleLoginMutationVariables,
+  GoogleSignUpInput,
   LoginInput,
+  MutationGoogleSignUpArgs,
   MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
@@ -15,7 +22,9 @@ import {
   SignUpInput,
   useChangePasswordMutation,
   useGoogleLoginMutation,
+  useGoogleSignupMutation,
   useLoginMutation,
+  useMeQuery,
   useSendSmsVerificationCodeMutation,
   useSendTemporaryPasswordMutation,
   useSignupMutation,
@@ -27,8 +36,10 @@ import { graphQLClient } from '@/utils/graphql-client';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
+  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [isLoginStorage, setIsLoginStorage] = useRecoilState(IsLoginStorageAtom);
   const [token, setToken] = useState<string>('');
+  const [idToken, setIdToken] = useRecoilState(IdTokenAtom);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -54,6 +65,24 @@ export const AuthContainer = () => {
   };
 
   // 인증번호 발송 시작
+  const { refetch: refetchMe } = useMeQuery(
+    graphQLClient,
+    {},
+    {
+      onSuccess: (res) => {
+        setUserInfo(res.me);
+        console.log(userInfo);
+        const path = res.me.phone ? Paths.home : Paths.signUpSocial;
+        navigate(path, { state: { email: res.me.email } });
+      },
+      onError: (err) => {
+        console.error('useMeQuery error : ', err);
+        onLogout();
+      },
+      enabled: !!token,
+    },
+  );
+
   const { mutate: sendSmsVerificationCodeMutate } = useSendSmsVerificationCodeMutation(
     graphQLClient,
     {
@@ -105,8 +134,34 @@ export const AuthContainer = () => {
     signUpMutate(signupFormValue);
   };
   // 회원가입 끝
-
   // 로컬 로그인 시작
+  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
+    onSuccess: (res) => {
+      if (res.googleSignUp.token) {
+        setIdToken('');
+        setToken(res.googleSignUp.token);
+        localStorage.setItem(GlobalEnv.tokenKey, res.googleSignUp.token);
+        // TODO home -> sign-up-welcome.page 이동 변경 필요.
+        navigate(Paths.home);
+      }
+    },
+    onError: (err) => {
+      const error = JSON.parse(JSON.stringify(err));
+      console.log(error.errors[0].message);
+      toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
+    },
+  });
+
+  const onSubmitSignUpSocial = (value: GoogleSignUpInput) => {
+    const signupSocialFormValue: MutationGoogleSignUpArgs = {
+      socialSignUpDto: {
+        idToken: value.idToken,
+        phone: value.phone,
+        verifyCode: value.verifyCode,
+      },
+    };
+    signUpSocialMutate(signupSocialFormValue);
+  };
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.login.token);
@@ -136,7 +191,7 @@ export const AuthContainer = () => {
 
   // 구글 로그인 시작
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       setToken(res.googleLogin.token);
       handleChangeLoginState(true);
       if (isLoginStorage) {
@@ -144,8 +199,13 @@ export const AuthContainer = () => {
       } else {
         sessionStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
       }
+
       // TODO home -> sign-up-welcome.page 이동 변경 필요.
-      navigate(Paths.home);
+      await refetchMe();
+    },
+    onError: (err) => {
+      const error = JSON.parse(JSON.stringify(err));
+      toast.error(error.response.errors[0].message);
     },
   });
 
@@ -153,7 +213,10 @@ export const AuthContainer = () => {
     googleLoginMutate({ idToken });
   };
   const handleCredentialResponse = (response: CredentialResponse) => {
-    if (response.credential) onGoogleLoginButton({ idToken: response.credential });
+    if (response.credential) {
+      setIdToken(response.credential);
+      onGoogleLoginButton({ idToken: response.credential });
+    }
   };
 
   useEffect(() => {
@@ -241,11 +304,13 @@ export const AuthContainer = () => {
     onSendSmsVerifyCode,
     onSubmitSignUp,
     onSubmitSignIn,
+    onSubmitSignUpSocial,
     onLogout,
     onGoogleLoginButton,
     isLoginStorage,
     setIsLoginStorage,
     isLogin,
+    userInfo,
     token,
     // 비밀번호 변경
     onChangePassword,
@@ -253,5 +318,7 @@ export const AuthContainer = () => {
     onSendTemporaryPassword,
     isSuccessSendTemporaryPassword,
     sendTemporaryPasswordResponseStatus,
+    setIdToken,
+    idToken,
   };
 };

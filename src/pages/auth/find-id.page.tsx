@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { Icons } from '@/components/icons';
 import Layout from '@/components/layouts/layout';
+import { FindUserContainer } from '@/containers/auth/find-user.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { Paths } from '@/router/paths';
-import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
-import { FindUserContainer } from '@/containers/auth/find-user.container';
 
 enum FindAccountResult {
   MEMBER = 200,
@@ -15,19 +15,19 @@ enum FindAccountResult {
 }
 
 const FindIdPage = () => {
-  const { setFindAccount, findAccountQuery, findAccountQueryError } = FindUserContainer();
+  const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
 
   const [phone, setPhone] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
 
-  //인증번호 맞는지 DB 체크
+  // 인증번호 맞는지 DB 체크
   const changeWriteVerifyCode = () => {
     const params: FindAccountQueryVariables = {
       user: {
         /** 전화번호 */
-        phone: phone,
+        phone,
         /** 인증번호 */
-        verifyCode: verifyCode,
+        verifyCode,
       },
       country: CountryType.Kr,
     };
@@ -45,8 +45,7 @@ const FindIdPage = () => {
       <div className='flex h-screen w-full justify-center'>
         <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
           {/* 아이디 찾기 폼 시작 */}
-          {!findAccountQuery ||
-          findAccountQueryError === FindAccountResult.NOTMATCHCODE ? (
+          {responseStatus !== FindAccountResult.STRANGER && (
             <>
               <h3 className='mb-5 text-center text-2xl-bold'>아이디 찾기</h3>
               <SmsVerifyCodeForm
@@ -58,11 +57,11 @@ const FindIdPage = () => {
                 }}
               />
             </>
-          ) : null}
+          )}
           {/* 아이디 찾기 폼 끝 */}
 
           {/* 아이디 찾기 결과 시작 */}
-          {findAccountQuery ? (
+          {findAccountQuery && (
             <div>
               <h3 className='mb-5 text-center text-2xl-bold'>아이디 찾기 완료</h3>
               <p className='text-center text-l-regular'>
@@ -102,13 +101,11 @@ const FindIdPage = () => {
                 </div>
               </div>
             </div>
-          ) : null}
+          )}
           {/* 아이디 찾기 결과 끝 */}
 
           {/* 조회된 결과가 없는 경우 시작 */}
-          {findAccountQueryError &&
-          findAccountQueryError.response.errors[0].extensions.exception.response
-            .status === FindAccountResult.STRANGER ? (
+          {responseStatus === FindAccountResult.STRANGER && (
             <div className=''>
               <h3 className='mb-5 text-center text-2xl-bold'>계정 안내</h3>
               <p className='text-center text-l-regular'>
@@ -125,7 +122,7 @@ const FindIdPage = () => {
                 </Link>
               </div>
             </div>
-          ) : null}
+          )}
           {/* 조회된 결과가 없는 경우 끝 */}
         </div>
       </div>
