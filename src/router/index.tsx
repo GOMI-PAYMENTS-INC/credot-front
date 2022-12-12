@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import FindId from '@/pages/auth/find-id.page';
-import FindPw from '@/pages/auth/find-pw.page';
-import ResetPw from '@/pages/auth/reset-pw.page';
+import FindNoResult from '@/pages/auth/find-no-result.page';
+import FindPw from '@/pages/auth/find-password.page';
+import ResetPw from '@/pages/auth/reset-password.page';
 import SignInPage from '@/pages/auth/sign-in.page';
 import SignUpPage from '@/pages/auth/sign-up.page';
 import SignUpWelcomePage from '@/pages/auth/sign-up-welcome.page';
@@ -19,6 +20,7 @@ export const Router = () => (
       <Route path={Paths.welcome} element={<SignUpWelcomePage />} />
       <Route path={Paths.findId} element={<FindId />} />
       <Route path={Paths.findPw} element={<FindPw />} />
+      <Route path={Paths.findNoResult} element={<FindNoResult />} />
       <Route path={Paths.resetPw} element={<ResetPw />} />
       <Route path={Paths.searchResult} element={<SearchResultPage />} />
     </Routes>

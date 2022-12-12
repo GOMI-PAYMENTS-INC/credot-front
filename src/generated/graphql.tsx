@@ -1,11 +1,12 @@
-import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/dist/types.dom';
 import {
   useMutation,
-  useQuery,
   UseMutationOptions,
+  useQuery,
   UseQueryOptions,
 } from '@tanstack/react-query';
+import { GraphQLClient } from 'graphql-request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -62,6 +63,8 @@ export type ChangePasswordInput = {
   email: Scalars['String'];
   /** 신규 비밀번호 */
   newPassword: Scalars['String'];
+  /** 기존 비밀번호 */
+  password: Scalars['String'];
 };
 
 /** 국가 타입 */
@@ -516,7 +519,7 @@ export type User = AbstractBaseEntity & {
   /** 닉네임 */
   nickName?: Maybe<Scalars['String']>;
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: Maybe<Scalars['String']>;
   /** 프로필 이미지 */
   profileImage?: Maybe<Scalars['String']>;
   /** 권한 */
@@ -724,7 +727,7 @@ export type UserInput = {
   /** 닉네임 */
   nickName?: InputMaybe<Scalars['String']>;
   /** 전화번호 */
-  phone: Scalars['String'];
+  phone?: InputMaybe<Scalars['String']>;
   /** 프로필 이미지 */
   profileImage?: InputMaybe<Scalars['String']>;
   /** 권한 */
@@ -928,6 +931,41 @@ export type GoogleLoginMutation = {
   googleLogin: { __typename?: 'LoginToken'; token: string };
 };
 
+export type ChangePasswordMutationVariables = Exact<{
+  pwd: ChangePasswordInput;
+}>;
+
+export type ChangePasswordMutation = {
+  __typename?: 'Mutation';
+  changePassword: {
+    __typename?: 'FindAccountResponse';
+    accounts: Array<{
+      __typename?: 'accountInfoDto';
+      email: string;
+      isSocialLogin: boolean;
+      socialProvider?: SocialProvider | null;
+    }>;
+  };
+};
+
+export type SendTemporaryPasswordMutationVariables = Exact<{
+  user: FindPasswordInput;
+  country: CountryType;
+}>;
+
+export type SendTemporaryPasswordMutation = {
+  __typename?: 'Mutation';
+  sendTemporaryPassword: {
+    __typename?: 'FindAccountResponse';
+    accounts: Array<{
+      __typename?: 'accountInfoDto';
+      email: string;
+      isSocialLogin: boolean;
+      socialProvider?: SocialProvider | null;
+    }>;
+  };
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -938,7 +976,7 @@ export type MeQuery = {
     role: Role;
     name: string;
     nickName?: string | null;
-    phone: string;
+    phone?: string | null;
     profileImage?: string | null;
     joinedAt?: Date | null;
     isSocialLogin: boolean;
@@ -1106,6 +1144,81 @@ export const useGoogleLoginMutation = <TError extends unknown, TContext extends 
       fetcher<GoogleLoginMutation, GoogleLoginMutationVariables>(
         client,
         GoogleLoginDocument,
+        variables,
+        headers,
+      )(),
+    options,
+  );
+export const ChangePasswordDocument = `
+    mutation ChangePassword($pwd: ChangePasswordInput!) {
+  changePassword(pwd: $pwd) {
+    accounts {
+      email
+      isSocialLogin
+      socialProvider
+    }
+  }
+}
+    `;
+export const useChangePasswordMutation = <
+  TError extends unknown,
+  TContext extends unknown,
+>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<
+    ChangePasswordMutation,
+    TError,
+    ChangePasswordMutationVariables,
+    TContext
+  >,
+  headers?: RequestInit['headers'],
+) =>
+  useMutation<ChangePasswordMutation, TError, ChangePasswordMutationVariables, TContext>(
+    ['ChangePassword'],
+    (variables?: ChangePasswordMutationVariables) =>
+      fetcher<ChangePasswordMutation, ChangePasswordMutationVariables>(
+        client,
+        ChangePasswordDocument,
+        variables,
+        headers,
+      )(),
+    options,
+  );
+export const SendTemporaryPasswordDocument = `
+    mutation SendTemporaryPassword($user: FindPasswordInput!, $country: CountryType!) {
+  sendTemporaryPassword(user: $user, country: $country) {
+    accounts {
+      email
+      isSocialLogin
+      socialProvider
+    }
+  }
+}
+    `;
+export const useSendTemporaryPasswordMutation = <
+  TError extends unknown,
+  TContext extends unknown,
+>(
+  client: GraphQLClient,
+  options?: UseMutationOptions<
+    SendTemporaryPasswordMutation,
+    TError,
+    SendTemporaryPasswordMutationVariables,
+    TContext
+  >,
+  headers?: RequestInit['headers'],
+) =>
+  useMutation<
+    SendTemporaryPasswordMutation,
+    TError,
+    SendTemporaryPasswordMutationVariables,
+    TContext
+  >(
+    ['SendTemporaryPassword'],
+    (variables?: SendTemporaryPasswordMutationVariables) =>
+      fetcher<SendTemporaryPasswordMutation, SendTemporaryPasswordMutationVariables>(
+        client,
+        SendTemporaryPasswordDocument,
         variables,
         headers,
       )(),

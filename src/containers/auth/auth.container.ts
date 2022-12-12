@@ -5,17 +5,22 @@ import { useRecoilState } from 'recoil';
 
 import { IsLoginStorageAtom, LoginStateAtom } from '@/atom/auth/auth-atom';
 import {
+  ChangePasswordMutationVariables,
   GoogleLoginMutationVariables,
   LoginInput,
   MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
+  SendTemporaryPasswordMutationVariables,
   SignUpInput,
+  useChangePasswordMutation,
   useGoogleLoginMutation,
   useLoginMutation,
   useSendSmsVerificationCodeMutation,
+  useSendTemporaryPasswordMutation,
   useSignupMutation,
 } from '@/generated/graphql';
+import { SendTemporaryPasswordResult } from '@/pages/auth/find-password.page';
 import { Paths } from '@/router/paths';
 import { GlobalEnv } from '@/utils/config';
 import { graphQLClient } from '@/utils/graphql-client';
@@ -26,6 +31,10 @@ export const AuthContainer = () => {
   const [token, setToken] = useState<string>('');
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  // TODO 임시비밀번호 발급 오류 관리 필요함
+  const [sendTemporaryPasswordResponseStatus, setSendTemporaryPasswordResponseStatus] =
+    useState<number>(0);
 
   const handleChangeLoginState = (state: boolean) => {
     setIsLogin(state);
@@ -44,14 +53,14 @@ export const AuthContainer = () => {
     navigate(Paths.signIn);
   };
 
+  // 인증번호 발송 시작
   const { mutate: sendSmsVerificationCodeMutate } = useSendSmsVerificationCodeMutation(
     graphQLClient,
     {
       onSuccess: () => {
         toast.success('발송 성공하였습니다.');
       },
-      onError: (err) => {
-        console.error('sendSmsVerificationCodeMutate error : ', err);
+      onError: () => {
         toast.error('발송 실패하였습니다.');
       },
     },
@@ -60,7 +69,9 @@ export const AuthContainer = () => {
   const onSendSmsVerifyCode = (
     sendSmsVerifyCode: SendSmsVerificationCodeMutationVariables,
   ) => sendSmsVerificationCodeMutate(sendSmsVerifyCode);
+  // 인증번호 발송 끝
 
+  // 회원가입 시작
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
     onSuccess: (res) => {
       if (res.signup.token) {
@@ -75,9 +86,7 @@ export const AuthContainer = () => {
         navigate(Paths.home);
       }
     },
-    onError: (err) => {
-      const error = JSON.parse(JSON.stringify(err));
-      console.error(error.errors[0].message);
+    onError: () => {
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
   });
@@ -95,7 +104,9 @@ export const AuthContainer = () => {
     };
     signUpMutate(signupFormValue);
   };
+  // 회원가입 끝
 
+  // 로컬 로그인 시작
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.login.token);
@@ -121,7 +132,9 @@ export const AuthContainer = () => {
     };
     loginMutate(loginFormValue);
   };
+  // 로컬 로그인 끝
 
+  // 구글 로그인 시작
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.googleLogin.token);
@@ -181,6 +194,48 @@ export const AuthContainer = () => {
       },
     );
   }, []);
+  // 구글 로그인 끝
+
+  // 비밀번호 변경
+  const { mutate: changePassword } = useChangePasswordMutation(graphQLClient, {
+    onSuccess: () => {
+      toast.success('변경 성공하였습니다.');
+    },
+    onError: () => {
+      toast.error('변경 실패하였습니다.');
+    },
+  });
+
+  const onChangePassword = (variables: ChangePasswordMutationVariables) =>
+    changePassword(variables);
+  // 비밀번호 변경
+
+  // 유저 임시 비밀번호 발급 시작
+  const { mutate: sendTemporaryPassword, isSuccess: isSuccessSendTemporaryPassword } =
+    useSendTemporaryPasswordMutation(graphQLClient, {
+      onSuccess: () => {
+        toast.success('신규 비밀번호 발송 성공하였습니다.');
+      },
+      onError: (err) => {
+        const error = JSON.parse(JSON.stringify(err));
+        setSendTemporaryPasswordResponseStatus(
+          error.response.errors[0].extensions.exception.status,
+        );
+
+        if (
+          error.response.errors[0].extensions.exception.status ===
+          SendTemporaryPasswordResult.NOTMATCHCODE
+        ) {
+          toast.error('올바른 인증코드가 아닙니다.');
+        } else {
+          navigate(Paths.findNoResult);
+        }
+      },
+    });
+
+  const onSendTemporaryPassword = (variables: SendTemporaryPasswordMutationVariables) =>
+    sendTemporaryPassword(variables);
+  // 유저 임시 비밀번호 발급 끝
 
   return {
     onSendSmsVerifyCode,
@@ -192,5 +247,11 @@ export const AuthContainer = () => {
     setIsLoginStorage,
     isLogin,
     token,
+    // 비밀번호 변경
+    onChangePassword,
+    // 유저 임시 비밀번호 발급
+    onSendTemporaryPassword,
+    isSuccessSendTemporaryPassword,
+    sendTemporaryPasswordResponseStatus,
   };
 };
