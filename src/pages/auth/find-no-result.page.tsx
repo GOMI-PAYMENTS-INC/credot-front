@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/layouts/layout';
 import { Paths } from '@/router/paths';
 
-const FindNoResult = () => (
+const FindNoResultPage = () => (
   <Layout>
     <div className='flex h-screen w-full justify-center'>
       <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
@@ -28,4 +28,4 @@ const FindNoResult = () => (
     </div>
   </Layout>
 );
-export default FindNoResult;
+export default FindNoResultPage;

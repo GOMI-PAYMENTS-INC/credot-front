@@ -2,7 +2,7 @@ import React from 'react';
 
 import Layout from '@/components/layouts/layout';
 
-const ResetPage = () => (
+const ResetPasswordPage = () => (
   <Layout>
     {/* TODO: 기존 모달-> 페이지로 변경된 경우 공통 레이아웃 컴포넌트로 만들 예정입니다. */}
     <div className='flex h-screen w-full justify-center'>
@@ -51,4 +51,4 @@ const ResetPage = () => (
   </Layout>
 );
 
-export default ResetPage;
+export default ResetPasswordPage;
