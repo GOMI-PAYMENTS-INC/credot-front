@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
@@ -18,10 +18,9 @@ const FindIdPage = () => {
   const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
 
   const [phone, setPhone] = useState('');
-  const [verifyCode, setVerifyCode] = useState('');
 
   // 인증번호 맞는지 DB 체크
-  const changeWriteVerifyCode = () => {
+  const changeWriteVerifyCode = (verifyCode: string) => {
     const params: FindAccountQueryVariables = {
       user: {
         /** 전화번호 */
@@ -35,10 +34,9 @@ const FindIdPage = () => {
   };
 
   // 인증번호가 올바른지 DB 체크.
-  useEffect(() => {
-    verifyCode && changeWriteVerifyCode();
-  }, [verifyCode]);
-
+  const onChangeVerifyCode = (verifyCode: string) => {
+    changeWriteVerifyCode(verifyCode);
+  };
   return (
     <Layout>
       {/* TODO: 기존 모달-> 페이지로 변경된 경우 공통 레이아웃 컴포넌트로 만들 예정입니다. */}
@@ -53,7 +51,7 @@ const FindIdPage = () => {
                   setPhone(value);
                 }}
                 onChangeVerifyCode={(value: string) => {
-                  setVerifyCode(value);
+                  onChangeVerifyCode(value);
                 }}
               />
             </>
