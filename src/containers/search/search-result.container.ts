@@ -7,7 +7,7 @@ export const SearchResultContainer = () => {
   const [searchParams] = useSearchParams();
   const keywordParam = searchParams.get('keyword') ? searchParams.get('keyword') : '';
 
-  const { data: searchResults } = useSearchQuery(
+  const { data: searchResults, isLoading: isMainLoadingSearch } = useSearchQuery(
     graphQLClient,
     {
       country: CountryType.Vn,
@@ -16,10 +16,11 @@ export const SearchResultContainer = () => {
     },
     {
       enabled: !!keywordParam,
+      refetchOnWindowFocus: false,
     },
   );
 
-  const { data: subSearchResults, isLoading: isLoadingSearch } = useSearchQuery(
+  const { data: subSearchResults, isLoading: isSubLoadingSearch } = useSearchQuery(
     graphQLClient,
     {
       country: CountryType.Vn,
@@ -28,6 +29,7 @@ export const SearchResultContainer = () => {
     },
     {
       enabled: !!searchResults,
+      refetchOnWindowFocus: false,
     },
   );
 
@@ -35,7 +37,8 @@ export const SearchResultContainer = () => {
     main: searchResults?.search.main,
     relations: searchResults?.search.relations,
     subSearchResults,
-    isLoadingSearch,
+    isMainLoadingSearch,
+    isSubLoadingSearch,
     keywordParam,
   };
 };
