@@ -116,7 +116,7 @@ const FindPasswordPage = () => {
                   type='button'
                   className='flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-xl-medium text-white'
                 >
-                  완료
+                  로그인 하러가기
                 </button>
               </div>
             </>
