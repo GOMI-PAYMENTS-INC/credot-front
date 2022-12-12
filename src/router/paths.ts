@@ -6,6 +6,7 @@ export const Paths = {
   welcome: '/welcome',
   findId: '/find-id',
   findPw: '/find-pw',
+  findNoResult: '/find-no-result',
   resetPw: '/reset-pw',
   searchResult: '/search-result',
 };

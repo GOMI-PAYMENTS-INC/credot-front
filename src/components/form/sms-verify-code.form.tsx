@@ -52,7 +52,7 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
 
-  //인증번호 발송
+  // 인증번호 발송
   const initVerifyCode = () => {
     // 인증번호 발송 시작
     // setVerifyCode(true);
@@ -89,13 +89,11 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
 
   // 인증번호 oncChange 할 때 갯수가 6개인지 체크해서 6개인 경우 외부로 값을 보냄
   const onChangeVerifyCodeCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value.trim().length);
-    if (e.target.value.trim().length === 6) onChangeVerifyCode?.(e.target.value);
+    if (e.target.value.trim().length === 6) onChangeVerifyCode?.(e.target.value.trim());
   };
 
   return (
     <div className='space-y-2'>
-      {/*<p>{String(verifyCodeResult)}</p>*/}
       <div className='flex items-center'>
         <input
           className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
@@ -108,7 +106,7 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
               message: '올바른 휴대폰번호를 입력하세요.',
             },
             onChange: (e) => {
-              onChangePhone?.(e.target.value);
+              onChangePhone?.(e.target.value.trim());
             },
           })}
         />
@@ -166,9 +164,9 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
             />
 
             {/* 인증번호 확인 여부에 다른 출력 시작 */}
-            {/*   <span className='inline-block w-1/12 '>*/}
-            {/*     <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' />*/}
-            {/*  </span>*/}
+            {/*   <span className='inline-block w-1/12 '> */}
+            {/*     <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' /> */}
+            {/*  </span> */}
             <span className='inline-block w-1/6 text-right text-functional-error'>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </span>
