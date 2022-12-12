@@ -97,7 +97,7 @@ const SignInPage = () => {
                   >
                     아이디 찾기
                   </Link>
-                  <Link to={Paths.findPw} className='pl-2 text-s-regular '>
+                  <Link to={Paths.findPassword} className='pl-2 text-s-regular '>
                     비밀번호 찾기
                   </Link>
                 </div>

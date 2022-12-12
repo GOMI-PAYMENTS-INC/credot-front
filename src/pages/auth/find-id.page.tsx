@@ -78,7 +78,7 @@ const FindIdPage = () => {
               </ul>
               <div className='mt-16 grid grid-cols-2 gap-x-2'>
                 <div>
-                  <Link to={Paths.findPw}>
+                  <Link to={Paths.findPassword}>
                     <button
                       type='button'
                       className='flex w-full cursor-pointer justify-center rounded border  border-grey-400 p-2.5 text-xl-medium text-grey-800'
