@@ -17,6 +17,7 @@ import {
   MutationGoogleSignUpArgs,
   MutationLoginArgs,
   MutationSignupArgs,
+  Query,
   SendSmsVerificationCodeMutationVariables,
   SendTemporaryPasswordMutationVariables,
   SignUpInput,
@@ -69,7 +70,7 @@ export const AuthContainer = () => {
     graphQLClient,
     {},
     {
-      onSuccess: (res) => {
+      onSuccess: (res: Query) => {
         setUserInfo(res.me);
         console.log(userInfo);
         const path = res.me.phone ? Paths.home : Paths.signUpSocial;
