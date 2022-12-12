@@ -43,7 +43,7 @@ const FindIdPage = () => {
       <div className='flex h-screen w-full justify-center'>
         <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
           {/* 아이디 찾기 폼 시작 */}
-          {responseStatus !== FindAccountResult.STRANGER && (
+          {!findAccountQuery && responseStatus !== FindAccountResult.STRANGER && (
             <>
               <h3 className='mb-5 text-center text-2xl-bold'>아이디 찾기</h3>
               <SmsVerifyCodeForm
