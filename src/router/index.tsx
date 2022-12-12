@@ -21,9 +21,9 @@ export const Router = () => (
       <Route path={Paths.signUpSocial} element={<SignUpSocialPage />} />
       <Route path={Paths.welcome} element={<SignUpWelcomePage />} />
       <Route path={Paths.findId} element={<FindIdPage />} />
-      <Route path={Paths.findPw} element={<FindPasswordPage />} />
+      <Route path={Paths.findPassword} element={<FindPasswordPage />} />
       <Route path={Paths.findNoResult} element={<FindNoResultPage />} />
-      <Route path={Paths.resetPw} element={<ResetPasswordPage />} />
+      <Route path={Paths.resetPassword} element={<ResetPasswordPage />} />
       <Route path={Paths.searchResult} element={<SearchResultPage />} />
     </Routes>
   </BrowserRouter>

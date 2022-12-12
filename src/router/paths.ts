@@ -5,8 +5,8 @@ export const Paths = {
   signUpSocial: '/sign-up-social',
   welcome: '/welcome',
   findId: '/find-id',
-  findPw: '/find-pw',
+  findPassword: '/find-password',
   findNoResult: '/find-no-result',
-  resetPw: '/reset-pw',
+  resetPassword: '/reset-password',
   searchResult: '/search-result',
 };
