@@ -39,7 +39,7 @@ const SmsVerifyCodeForm = ({
   const phoneNumber = watch('phone', undefined);
 
   useEffect(() => {
-    onChangeSubIsValid?.(isValid);
+    onChangeSubIsValid(isValid);
   }, [isValid]);
 
   useEffect(() => {
