@@ -11,16 +11,19 @@ import {
 export interface SmsVerifyCodeProps {
   onChangePhone: (value: string) => void;
   onChangeVerifyCode: (value: string) => void;
+  onChangeSubIsValid: (value: boolean) => void;
 }
 interface IVerifyCodeForm {
   phone: string;
   verifyCode: string;
 }
 
-const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeProps) => {
-  const { onSendSmsVerifyCode } = AuthContainer();
-  // 인증번호 발송 진행중 여부
-  const [isSending, setSending] = useState<boolean>(false);
+const SmsVerifyCodeForm = ({
+  onChangePhone,
+  onChangeVerifyCode,
+  onChangeSubIsValid,
+}: SmsVerifyCodeProps) => {
+  const { onSendSmsVerifyCode, isSending, setSending } = AuthContainer();
   // 인증번호 발송 횟수
   const [verifyCodeCount, setVerifyCodeCount] = useState<number>(0);
   const [minutes, setMinutes] = useState(0);
@@ -28,12 +31,16 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
   const {
     register,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IVerifyCodeForm>({
     mode: 'onChange',
   });
 
   const phoneNumber = watch('phone', undefined);
+
+  useEffect(() => {
+    onChangeSubIsValid?.(isValid);
+  }, [isValid]);
 
   useEffect(() => {
     const countdown = setInterval(() => {
@@ -52,17 +59,16 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
 
-  // 인증번호 발송
-  const initVerifyCode = () => {
-    // 인증번호 발송 시작
-    // setVerifyCode(true);
-    setSending(true);
-    setTimeout(() => {
-      // 인증 진행 완료
-      setSending(false);
-    }, 1000 * 60);
-    setMinutes(1);
-  };
+  useEffect(() => {
+    if (isSending === true) {
+      setMinutes(1);
+      setTimeout(() => {
+        // 인증 진행 완료
+        setSending(false);
+      }, 1000 * 60);
+    }
+  }, [isSending]);
+
   const waitSendMobileCheck = () => {
     toast.info('발송중입니다. 조금만 기다려주세요', { autoClose: 1000 });
   };
@@ -73,7 +79,6 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
       return;
     }
     if (!isSending) {
-      initVerifyCode();
       const params: SendSmsVerificationCodeMutationVariables = {
         country: CountryType.Kr,
         phone: phoneNumber,
@@ -91,7 +96,6 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
   const onChangeVerifyCodeCheck = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim().length === 6) onChangeVerifyCode?.(e.target.value.trim());
   };
-
   return (
     <div className='space-y-2'>
       <div className='flex items-center'>
@@ -99,6 +103,8 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
           className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
           type='text'
           placeholder='휴대폰번호 - 없이 입력'
+          maxLength={11}
+          disabled={isSending}
           {...register('phone', {
             required: '휴대폰번호 필수입력입니다.',
             pattern: {
@@ -110,9 +116,6 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
             },
           })}
         />
-        <p className='pl-3 text-2xs-regular text-functional-error'>
-          {errors?.phone?.message}
-        </p>
 
         {/* 발송 여부에 따른 버튼 출력이 다름 시작 */}
         {/* 발송하기전 */}
@@ -138,11 +141,15 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
             type='button'
             className='ml-2 min-w-[4.6875rem] rounded border-0 bg-gray-300  p-2.5 text-sm  text-gray-500'
             onClick={sendSmsVerifyCode}
+            disabled={true}
           >
             재발송
           </button>
         )}
         {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
+      </div>
+      <div>
+        <p className='text-2xs-regular text-functional-error'>{errors?.phone?.message}</p>
       </div>
       {!!verifyCodeCount && (
         <div className='space-y-2'>
@@ -150,6 +157,7 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
             <input
               className='w-5/6 border-0'
               type='text'
+              maxLength={6}
               placeholder='인증번호'
               {...register('verifyCode', {
                 required: '인증번호 필수입력입니다.',

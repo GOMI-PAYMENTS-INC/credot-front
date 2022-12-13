@@ -41,6 +41,7 @@ export const AuthContainer = () => {
   const [isLoginStorage, setIsLoginStorage] = useRecoilState(IsLoginStorageAtom);
   const [token, setToken] = useState<string>('');
   const [idToken, setIdToken] = useRecoilState(IdTokenAtom);
+  const [isSending, setSending] = useState<boolean>(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -89,9 +90,11 @@ export const AuthContainer = () => {
     {
       onSuccess: () => {
         toast.success('발송 성공하였습니다.');
+        setSending(true);
       },
       onError: () => {
         toast.error('발송 실패하였습니다.');
+        setSending(false);
       },
     },
   );
@@ -112,8 +115,7 @@ export const AuthContainer = () => {
         } else {
           sessionStorage.setItem(GlobalEnv.tokenKey, res.signup.token);
         }
-        // TODO home -> sign-up-welcome.page 이동 변경 필요.
-        navigate(Paths.home);
+        navigate(Paths.welcome);
       }
     },
     onError: () => {
@@ -175,7 +177,8 @@ export const AuthContainer = () => {
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
-      toast.error(error.response.errors[0].message);
+      console.error('로그인 실패 : ', error);
+      toast.error('아이디 또는 패스워드를 다시 한 번 확인해주세요.');
     },
   });
 
@@ -321,5 +324,7 @@ export const AuthContainer = () => {
     sendTemporaryPasswordResponseStatus,
     setIdToken,
     idToken,
+    isSending,
+    setSending,
   };
 };
