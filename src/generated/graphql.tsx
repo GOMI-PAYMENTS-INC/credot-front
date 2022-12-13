@@ -62,8 +62,6 @@ export type ChangePasswordInput = {
   email: Scalars['String'];
   /** 신규 비밀번호 */
   newPassword: Scalars['String'];
-  /** 기존 비밀번호 */
-  password: Scalars['String'];
 };
 
 /** 국가 타입 */

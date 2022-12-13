@@ -469,8 +469,6 @@ input ChangePasswordInput {
     email: String!
     "신규 비밀번호"
     newPassword: String!
-    "기존 비밀번호"
-    password: String!
 }
 
 input CreateOneUserInput {
