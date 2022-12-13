@@ -28,6 +28,7 @@ const SmsVerifyCodeForm = ({
   const [verifyCodeCount, setVerifyCodeCount] = useState<number>(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [phoneDisable, setPhoneDisable] = useState(false);
   const {
     register,
     watch,
@@ -65,6 +66,7 @@ const SmsVerifyCodeForm = ({
       setTimeout(() => {
         // 인증 진행 완료
         setSending(false);
+        setPhoneDisable(false);
       }, 1000 * 60);
     }
   }, [isSending]);
@@ -86,6 +88,7 @@ const SmsVerifyCodeForm = ({
       onSendSmsVerifyCode(params);
       // 발송 횟수 추가
       setVerifyCodeCount(verifyCodeCount + 1);
+      setPhoneDisable(true);
     } else {
       // 발송중
       waitSendMobileCheck();
@@ -94,7 +97,8 @@ const SmsVerifyCodeForm = ({
 
   // 인증번호 oncChange 할 때 갯수가 6개인지 체크해서 6개인 경우 외부로 값을 보냄
   const onChangeVerifyCodeCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.trim().length === 6) onChangeVerifyCode?.(e.target.value.trim());
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    onChangeVerifyCode?.(e.target.value.trim());
   };
   return (
     <div className='space-y-2'>
@@ -104,7 +108,7 @@ const SmsVerifyCodeForm = ({
           type='text'
           placeholder='휴대폰번호 - 없이 입력'
           maxLength={11}
-          disabled={isSending}
+          disabled={phoneDisable}
           {...register('phone', {
             required: '휴대폰번호 필수입력입니다.',
             pattern: {
@@ -112,7 +116,8 @@ const SmsVerifyCodeForm = ({
               message: '올바른 휴대폰번호를 입력하세요.',
             },
             onChange: (e) => {
-              onChangePhone?.(e.target.value.trim());
+              e.target.value = e.target.value.replace(/[^0-9]/g, '');
+              onChangePhone?.(e.target.value);
             },
           })}
         />
