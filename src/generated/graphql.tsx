@@ -918,7 +918,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = {
   __typename?: 'Mutation';
-  login: { __typename?: 'LoginPassword'; token: string };
+  login: {
+    __typename?: 'LoginPassword';
+    token: string;
+    popupInfo?: { __typename?: 'PopupDto'; typeName: string; isModal: boolean } | null;
+  };
 };
 
 export type GoogleLoginMutationVariables = Exact<{
@@ -1112,6 +1116,10 @@ export const LoginDocument = `
     mutation Login($login: LoginInput!) {
   login(login: $login) {
     token
+    popupInfo {
+      typeName
+      isModal
+    }
   }
 }
     `;
