@@ -65,6 +65,7 @@ const SignUpSocialPage = () => {
                 onChangeVerifyCode={(value: string) => {
                   setVerifyCode(value);
                 }}
+                onChangeSubIsValid={(value: boolean) => {}}
               />
             </div>
             <div>
