@@ -53,6 +53,7 @@ const FindIdPage = () => {
                 onChangeVerifyCode={(value: string) => {
                   onChangeVerifyCode(value);
                 }}
+                onChangeSubIsValid={(value: boolean) => {}}
               />
             </>
           )}

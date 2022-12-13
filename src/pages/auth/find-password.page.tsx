@@ -94,6 +94,7 @@ const FindPasswordPage = () => {
                     onChangeVerifyCode={(verifyCode: string) => {
                       sendTemporaryPassword(verifyCode);
                     }}
+                    onChangeSubIsValid={(value: boolean) => {}}
                   />
                 </div>
               </>
