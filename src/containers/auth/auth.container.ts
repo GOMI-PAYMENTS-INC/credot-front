@@ -81,6 +81,7 @@ export const AuthContainer = () => {
         console.error('useMeQuery error : ', err);
         onLogout();
       },
+      refetchOnWindowFocus: false,
       enabled: !!token,
     },
   );

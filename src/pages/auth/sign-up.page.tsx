@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import Layout from '@/components/layouts/layout';
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { SignUpInput } from '@/generated/graphql';
+import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
+import { graphQLClient } from '@/utils/graphql-client';
 
 interface ISignUpForm {
   email: string;
@@ -23,12 +24,14 @@ const SignUpPage = () => {
   const [phone, setPhone] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
   const [subIsValid, setSubIsValid] = useState(false);
+  const [isOnExistsEmail, setIsOnExistsEmail] = useState(false);
 
   const {
     register,
     setValue,
     handleSubmit,
     watch,
+    setError,
     formState: { errors, isValid },
   } = useForm<ISignUpForm>({
     mode: 'onChange',
@@ -36,6 +39,7 @@ const SignUpPage = () => {
   const passwordWatcher = watch('password');
   const useAgree = watch('useAgree');
   const personalAgree = watch('personalAgree');
+  const email = watch('email');
 
   const onValid = (data: ISignUpForm) => {
     const signUpInput: SignUpInput = {
@@ -58,6 +62,29 @@ const SignUpPage = () => {
     setValue('marketingAgree', value);
   };
 
+  const { data: existsEmailQuery } = useExistsUserEmailQuery(
+    graphQLClient,
+    { email },
+    {
+      enabled: isOnExistsEmail && !!email,
+      refetchOnWindowFocus: false,
+      onSuccess: (res) => {
+        setIsOnExistsEmail(false);
+        // return res.existsUserEmail || false;
+        if (res.existsUserEmail) {
+          setError('email', {
+            type: 'custom',
+            message: '이미 가입된 이메일 주소입니다.',
+          });
+        }
+      },
+      onError: (err) => {
+        setIsOnExistsEmail(false);
+        console.error('fetchExistsEmail err : ', err);
+      },
+    },
+  );
+
   return (
     <Layout>
       <div className='flex h-screen w-full items-center justify-center'>
@@ -75,6 +102,15 @@ const SignUpPage = () => {
                     pattern: {
                       value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                       message: '올바른 이메일 주소를 입력하세요.',
+                    },
+                    onChange: async (e) => {
+                      const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+                      if (regex.test(e.target.value.trim())) {
+                        console.log('e.target.value : ', e.target.value);
+                        setIsOnExistsEmail(true);
+                        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                        existsEmailQuery;
+                      }
                     },
                   })}
                 />
