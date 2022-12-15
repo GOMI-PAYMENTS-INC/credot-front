@@ -15,7 +15,6 @@ export const AuthVerifyCodeContainer = () => {
       enabled: !!verifyCode && verifyCode.length > 5,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        console.info(verifyCode, ' onChangeVerifyCodeCheck data : ', data);
         if (data.smsVerifyCodeConfirm.signature) {
           setVerifyCodeSign(data.smsVerifyCodeConfirm.signature);
         }
