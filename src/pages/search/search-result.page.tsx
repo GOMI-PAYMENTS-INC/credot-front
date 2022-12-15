@@ -1,5 +1,7 @@
 import '@/pages/search/style.css';
 
+import { useEffect } from 'react';
+
 import SearchForm from '@/components/form/search.form';
 import { Icons } from '@/components/icons';
 import Layout from '@/components/layouts/layout';
@@ -8,19 +10,21 @@ import { SearchResultContainer } from '@/containers/search/search-result.contain
 
 const SearchResultPage = () => {
   const {
-    isMainLoadingSearch,
     isSubLoadingSearch,
     main,
     relations,
     keywordParam,
     subSearchResults,
+    searchQueryError,
+    SetIsSearchQuery,
   } = SearchResultContainer();
 
-  if (isMainLoadingSearch && isSubLoadingSearch) {
+  useEffect(() => {
+    SetIsSearchQuery(false);
+  }, [searchQueryError]);
+
+  if (isSubLoadingSearch) {
     return <div> Loading... </div>;
-  }
-  if (isMainLoadingSearch && !isSubLoadingSearch) {
-    return <div> Sub Loading... </div>;
   }
 
   return (
