@@ -34,7 +34,7 @@ const FindPasswordPage = () => {
   const [phone, setPhone] = useState('');
 
   // 유저 임시 비밀번호 발급 쿼리 실행
-  const initSendTemporaryPassword = (verifyCode: string) => {
+  const initSendTemporaryPassword = (verifyCodeSign: string) => {
     if (errors.email) {
       return;
     }
@@ -45,7 +45,7 @@ const FindPasswordPage = () => {
         /** 전화번호 */
         phone,
         /** 인증번호 */
-        verifyCode,
+        verifyCodeSign,
       },
       country: CountryType.Kr,
     };
@@ -53,8 +53,8 @@ const FindPasswordPage = () => {
   };
 
   // 인증번호 valiation을 통과한 경우, [유저 임시 비밀번호 발급] 작동시킴
-  const sendTemporaryPassword = (verifyCode: string) => {
-    initSendTemporaryPassword(verifyCode);
+  const sendTemporaryPassword = (verifyCodeSign: string) => {
+    initSendTemporaryPassword(verifyCodeSign);
   };
 
   return (
@@ -87,14 +87,15 @@ const FindPasswordPage = () => {
                   <p className='text-2xs-regular text-functional-error'>
                     {errors?.email?.message}
                   </p>
-                  <SmsVerifyCodeForm
+                  {/* <SmsVerifyCodeForm
                     onChangePhone={(phone: string) => {
                       setPhone(phone);
                     }}
                     onChangeVerifyCode={(verifyCode: string) => {
                       sendTemporaryPassword(verifyCode);
                     }}
-                  />
+                    onChangeSubIsValid={(value: boolean) => {}}
+                  /> */}
                 </div>
               </>
             )}

@@ -18,13 +18,14 @@ export const FindUserContainer = () => {
       user: !findAccount?.user
         ? {
             phone: '',
-            verifyCode: '',
+            verifyCodeSign: '',
           }
         : findAccount.user,
       country: findAccount?.country ? findAccount.country : CountryType.Vn,
     },
     {
       enabled: !!findAccount,
+      refetchOnWindowFocus: false,
       onSuccess: (res) => {
         console.log('useFindAccountQuery success', res);
       },

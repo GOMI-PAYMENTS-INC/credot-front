@@ -20,13 +20,13 @@ const FindIdPage = () => {
   const [phone, setPhone] = useState('');
 
   // 인증번호 맞는지 DB 체크
-  const changeWriteVerifyCode = (verifyCode: string) => {
+  const changeWriteVerifyCode = (verifyCodeSign: string) => {
     const params: FindAccountQueryVariables = {
       user: {
         /** 전화번호 */
         phone,
         /** 인증번호 */
-        verifyCode,
+        verifyCodeSign,
       },
       country: CountryType.Kr,
     };
@@ -46,14 +46,15 @@ const FindIdPage = () => {
           {!findAccountQuery && responseStatus !== FindAccountResult.STRANGER && (
             <>
               <h3 className='mb-5 text-center text-2xl-bold'>아이디 찾기</h3>
-              <SmsVerifyCodeForm
+              {/* <SmsVerifyCodeForm
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
                 onChangeVerifyCode={(value: string) => {
                   onChangeVerifyCode(value);
                 }}
-              />
+                onChangeSubIsValid={(value: boolean) => {}}
+              /> */}
             </>
           )}
           {/* 아이디 찾기 폼 끝 */}

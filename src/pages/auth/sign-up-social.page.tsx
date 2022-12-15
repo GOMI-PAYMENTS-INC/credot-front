@@ -17,7 +17,7 @@ interface ISignUpSocialForm {
 const SignUpSocialPage = () => {
   const { onSubmitSignUpSocial, userInfo, idToken } = AuthContainer();
   const [phone, setPhone] = useState('');
-  const [verifyCode, setVerifyCode] = useState('');
+  const [verifyCodeSign, setVerifyCodeSign] = useState('');
 
   const { handleSubmit } = useForm<ISignUpSocialForm>({
     mode: 'onChange',
@@ -27,7 +27,7 @@ const SignUpSocialPage = () => {
     const signUpInput: GoogleSignUpInput = {
       idToken,
       phone,
-      verifyCode,
+      verifyCodeSign,
     };
     onSubmitSignUpSocial(signUpInput);
   };
@@ -58,14 +58,15 @@ const SignUpSocialPage = () => {
                   readOnly
                 />
               </div>
-              <SmsVerifyCodeForm
+              {/* <SmsVerifyCodeForm
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
                 onChangeVerifyCode={(value: string) => {
                   setVerifyCode(value);
                 }}
-              />
+                onChangeSubIsValid={(value: boolean) => {}}
+              /> */}
             </div>
             <div>
               <ul className='space-y-3'>

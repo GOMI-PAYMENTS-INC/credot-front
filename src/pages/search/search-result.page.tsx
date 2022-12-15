@@ -1,5 +1,7 @@
 import '@/pages/search/style.css';
 
+import { useEffect } from 'react';
+
 import SearchForm from '@/components/form/search.form';
 import { Icons } from '@/components/icons';
 import Layout from '@/components/layouts/layout';
@@ -7,10 +9,26 @@ import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-n
 import { SearchResultContainer } from '@/containers/search/search-result.container';
 
 const SearchResultPage = () => {
-  const { isLoadingSearch, main, relations, keywordParam, subSearchResults } =
-    SearchResultContainer();
+  const {
+    isSubLoadingSearch,
+    main,
+    relations,
+    keywordParam,
+    subSearchResults,
+    searchQueryError,
+    SetIsSearchQuery,
+  } = SearchResultContainer();
 
-  if (isLoadingSearch) return <div> Loading... </div>;
+  useEffect(() => {
+    if (searchQueryError) {
+      console.log('searchQueryError :: ');
+      SetIsSearchQuery(false);
+    }
+  }, [searchQueryError]);
+
+  if (isSubLoadingSearch) {
+    return <div> Loading... </div>;
+  }
 
   return (
     <Layout>
@@ -100,7 +118,7 @@ const SearchResultPage = () => {
                           <progress
                             className='progress progress-accent h-1 w-full'
                             value={item?.relevance}
-                            max='100'
+                            max='10'
                           />
                           <div className='search-count'>
                             <p className='medium-600'>{item.count}건</p>
@@ -136,7 +154,8 @@ const SearchResultPage = () => {
                 <div className='main-result'>
                   <div className='title flex items-center'>
                     <h3 className='text-2xl-bold'>
-                      &quot;{main?.translated}&quot;로 검색한 결과입니다.
+                      베트남어로 번역 후 &quot;{main?.translated}&quot;로 검색한
+                      결과입니다.
                     </h3>
                     <div
                       className='tooltip ml-[0.59375rem]'
@@ -210,8 +229,8 @@ const SearchResultPage = () => {
                         </div>
                         <progress
                           className='progress progress-accent h-1 w-full'
-                          value={item.relevance}
-                          max='100'
+                          value={item?.relevance}
+                          max='10'
                         />
                         <div className='search-count'>
                           <p className='medium-600'>{item?.count}건</p>

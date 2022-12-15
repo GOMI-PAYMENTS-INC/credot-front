@@ -62,8 +62,6 @@ export type ChangePasswordInput = {
   email: Scalars['String'];
   /** 신규 비밀번호 */
   newPassword: Scalars['String'];
-  /** 기존 비밀번호 */
-  password: Scalars['String'];
 };
 
 /** 국가 타입 */
@@ -140,7 +138,7 @@ export type FindAccountInput = {
   /** 전화번호 */
   phone: Scalars['String'];
   /** 인증번호 */
-  verifyCode: Scalars['String'];
+  verifyCodeSign: Scalars['String'];
 };
 
 export type FindAccountResponse = {
@@ -155,7 +153,7 @@ export type FindPasswordInput = {
   /** 전화번호 */
   phone: Scalars['String'];
   /** 인증번호 */
-  verifyCode: Scalars['String'];
+  verifyCodeSign: Scalars['String'];
 };
 
 export type GoogleSignUpInput = {
@@ -163,8 +161,8 @@ export type GoogleSignUpInput = {
   idToken: Scalars['String'];
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
-  verifyCode: Scalars['String'];
+  /** 인증번호 서명 */
+  verifyCodeSign: Scalars['String'];
 };
 
 export type IdFilterComparison = {
@@ -334,6 +332,8 @@ export type Query = {
   me: User;
   /** 키워드 검색 ( 구글 번역 api 사용 ) */
   search: ResponseSearch;
+  /** 인증번호 확인 */
+  smsVerifyCodeConfirm: VerifyCodeSign;
   /** 텍스트 번역 ( 구글 번역 api 사용 ) */
   translate: Scalars['String'];
   user?: Maybe<User>;
@@ -358,6 +358,11 @@ export type QuerySearchArgs = {
   country: CountryType;
   text: Scalars['String'];
   translateType?: InputMaybe<TranslateType>;
+};
+
+export type QuerySmsVerifyCodeConfirmArgs = {
+  phone: Scalars['String'];
+  verifyCode: Scalars['String'];
 };
 
 export type QueryTranslateArgs = {
@@ -412,8 +417,8 @@ export type SignUpInput = {
   password: Scalars['String'];
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
-  verifyCode: Scalars['String'];
+  /** 인증코드 서명 */
+  verifyCodeSign: Scalars['String'];
 };
 
 export enum SocialProvider {
@@ -810,6 +815,12 @@ export type UserSumAggregate = {
   updatedUserId?: Maybe<Scalars['Float']>;
 };
 
+export type VerifyCodeSign = {
+  __typename?: 'VerifyCodeSign';
+  /** 인증코드 서명값, (인증코드 확인시 발급 된 키) */
+  signature: Scalars['String'];
+};
+
 export type AccountInfoDto = {
   __typename?: 'accountInfoDto';
   /** 이메일 (아이디) */
@@ -918,7 +929,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = {
   __typename?: 'Mutation';
-  login: { __typename?: 'LoginPassword'; token: string };
+  login: {
+    __typename?: 'LoginPassword';
+    token: string;
+    popupInfo?: { __typename?: 'PopupDto'; typeName: string; isModal: boolean } | null;
+  };
 };
 
 export type GoogleLoginMutationVariables = Exact<{
@@ -1014,6 +1029,16 @@ export type FindAccountQuery = {
       socialProvider?: SocialProvider | null;
     }>;
   };
+};
+
+export type SmsVerifyCodeConfirmQueryVariables = Exact<{
+  phone: Scalars['String'];
+  verifyCode: Scalars['String'];
+}>;
+
+export type SmsVerifyCodeConfirmQuery = {
+  __typename?: 'Query';
+  smsVerifyCodeConfirm: { __typename?: 'VerifyCodeSign'; signature: string };
 };
 
 export type SearchQueryVariables = Exact<{
@@ -1112,6 +1137,10 @@ export const LoginDocument = `
     mutation Login($login: LoginInput!) {
   login(login: $login) {
     token
+    popupInfo {
+      typeName
+      isModal
+    }
   }
 }
     `;
@@ -1337,6 +1366,32 @@ export const useFindAccountQuery = <
     fetcher<FindAccountQuery, FindAccountQueryVariables>(
       client,
       FindAccountDocument,
+      variables,
+      headers,
+    ),
+    options,
+  );
+export const SmsVerifyCodeConfirmDocument = `
+    query SmsVerifyCodeConfirm($phone: String!, $verifyCode: String!) {
+  smsVerifyCodeConfirm(phone: $phone, verifyCode: $verifyCode) {
+    signature
+  }
+}
+    `;
+export const useSmsVerifyCodeConfirmQuery = <
+  TData extends SmsVerifyCodeConfirmQuery,
+  TError extends unknown,
+>(
+  client: GraphQLClient,
+  variables: SmsVerifyCodeConfirmQueryVariables,
+  options?: UseQueryOptions<SmsVerifyCodeConfirmQuery, TError, TData>,
+  headers?: RequestInit['headers'],
+) =>
+  useQuery<SmsVerifyCodeConfirmQuery, TError, TData>(
+    ['SmsVerifyCodeConfirm', variables],
+    fetcher<SmsVerifyCodeConfirmQuery, SmsVerifyCodeConfirmQueryVariables>(
+      client,
+      SmsVerifyCodeConfirmDocument,
       variables,
       headers,
     ),
