@@ -722,7 +722,7 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
+            "name": "verifyCodeSign",
             "description": "인증번호",
             "type": {
               "kind": "NON_NULL",
@@ -816,7 +816,7 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
+            "name": "verifyCodeSign",
             "description": "인증번호",
             "type": {
               "kind": "NON_NULL",
@@ -885,8 +885,8 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
-            "description": "인증번호",
+            "name": "verifyCodeSign",
+            "description": "인증번호 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,

@@ -138,7 +138,7 @@ export type FindAccountInput = {
   /** 전화번호 */
   phone: Scalars['String'];
   /** 인증번호 */
-  verifyCode: Scalars['String'];
+  verifyCodeSign: Scalars['String'];
 };
 
 export type FindAccountResponse = {
@@ -153,7 +153,7 @@ export type FindPasswordInput = {
   /** 전화번호 */
   phone: Scalars['String'];
   /** 인증번호 */
-  verifyCode: Scalars['String'];
+  verifyCodeSign: Scalars['String'];
 };
 
 export type GoogleSignUpInput = {
@@ -161,8 +161,8 @@ export type GoogleSignUpInput = {
   idToken: Scalars['String'];
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
-  verifyCode: Scalars['String'];
+  /** 인증번호 서명 */
+  verifyCodeSign: Scalars['String'];
 };
 
 export type IdFilterComparison = {

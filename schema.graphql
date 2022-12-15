@@ -534,7 +534,7 @@ input FindAccountInput {
     "전화번호"
     phone: String!
     "인증번호"
-    verifyCode: String!
+    verifyCodeSign: String!
 }
 
 input FindPasswordInput {
@@ -543,7 +543,7 @@ input FindPasswordInput {
     "전화번호"
     phone: String!
     "인증번호"
-    verifyCode: String!
+    verifyCodeSign: String!
 }
 
 input GoogleSignUpInput {
@@ -551,8 +551,8 @@ input GoogleSignUpInput {
     idToken: String!
     "전화번호"
     phone: String!
-    "인증번호"
-    verifyCode: String!
+    "인증번호 서명"
+    verifyCodeSign: String!
 }
 
 input IDFilterComparison {
