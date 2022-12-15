@@ -87,7 +87,7 @@ const FindPasswordPage = () => {
                   <p className='text-2xs-regular text-functional-error'>
                     {errors?.email?.message}
                   </p>
-                  <SmsVerifyCodeForm
+                  {/* <SmsVerifyCodeForm
                     onChangePhone={(phone: string) => {
                       setPhone(phone);
                     }}
@@ -95,7 +95,7 @@ const FindPasswordPage = () => {
                       sendTemporaryPassword(verifyCode);
                     }}
                     onChangeSubIsValid={(value: boolean) => {}}
-                  />
+                  /> */}
                 </div>
               </>
             )}

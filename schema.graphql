@@ -124,6 +124,8 @@ type Query {
         "번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
         translateType: TranslateType
     ): responseSearch!
+    "인증번호 확인"
+    smsVerifyCodeConfirm(phone: String!, verifyCode: String!): VerifyCodeSign!
     "텍스트 번역 ( 구글 번역 api 사용 )"
     translate(
         "번역 대상 국가 코드"
@@ -333,6 +335,11 @@ type UserSumAggregate {
     createdUserId: Float
     id: Float
     updatedUserId: Float
+}
+
+type VerifyCodeSign {
+    "인증코드 서명값, (인증코드 확인시 발급 된 키)"
+    signature: String!
 }
 
 type accountInfoDto {
@@ -627,8 +634,8 @@ input SignUpInput {
     password: String!
     "전화번호"
     phone: String!
-    "인증번호"
-    verifyCode: String!
+    "인증코드 서명"
+    verifyCodeSign: String!
 }
 
 input SocialProviderFilterComparison {

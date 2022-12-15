@@ -46,7 +46,7 @@ const FindIdPage = () => {
           {responseStatus !== FindAccountResult.STRANGER && (
             <>
               <h3 className='mb-5 text-center text-2xl-bold'>아이디 찾기</h3>
-              <SmsVerifyCodeForm
+              {/* <SmsVerifyCodeForm
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
@@ -54,7 +54,7 @@ const FindIdPage = () => {
                   onChangeVerifyCode(value);
                 }}
                 onChangeSubIsValid={(value: boolean) => {}}
-              />
+              /> */}
             </>
           )}
           {/* 아이디 찾기 폼 끝 */}
