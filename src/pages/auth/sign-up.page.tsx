@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import Layout from '@/components/layouts/layout';
 import { AuthContainer } from '@/containers/auth/auth.container';
+import { AuthVerifyCodeContainer } from '@/containers/auth/auth-verify-code.container';
 import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphql-client';
 
@@ -21,9 +22,9 @@ interface ISignUpForm {
 
 const SignUpPage = () => {
   const { onSubmitSignUp } = AuthContainer();
+  const { verifyCodeSign } = AuthVerifyCodeContainer();
   const [phone, setPhone] = useState('');
-  const [verifyCode, setVerifyCode] = useState('');
-  const [subIsValid, setSubIsValid] = useState(false);
+  const [childIsValid, setChildIsValid] = useState(false);
   const [isOnExistsEmail, setIsOnExistsEmail] = useState(false);
 
   const {
@@ -47,7 +48,7 @@ const SignUpPage = () => {
       email: data?.email,
       password: data?.password,
       phone,
-      verifyCode,
+      verifyCodeSign,
     };
     onSubmitSignUp(signUpInput);
   };
@@ -160,11 +161,8 @@ const SignUpPage = () => {
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
-                onChangeVerifyCode={(value: string) => {
-                  setVerifyCode(value);
-                }}
-                onChangeSubIsValid={(value: boolean) => {
-                  setSubIsValid(value);
+                onChangeChildIsValid={(value: boolean) => {
+                  setChildIsValid(value);
                 }}
               />
             </div>
@@ -218,7 +216,7 @@ const SignUpPage = () => {
                   </a>
                 </li>
               </ul>
-              {isValid && subIsValid && useAgree && personalAgree ? (
+              {isValid && childIsValid && useAgree && personalAgree ? (
                 <button
                   type='submit'
                   className='mt-16 flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-xl-medium text-white'

@@ -32,6 +32,13 @@ const authQuery = {
       }
     }
   `,
+  smsVerifyCodeConfirm: gql`
+    query SmsVerifyCodeConfirm($phone: String!, $verifyCode: String!) {
+      smsVerifyCodeConfirm(phone: $phone, verifyCode: $verifyCode) {
+        signature
+      }
+    }
+  `,
 };
 
 export default authQuery;

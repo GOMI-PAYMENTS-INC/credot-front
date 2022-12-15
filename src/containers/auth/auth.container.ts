@@ -103,7 +103,6 @@ export const AuthContainer = () => {
   const onSendSmsVerifyCode = (
     sendSmsVerifyCode: SendSmsVerificationCodeMutationVariables,
   ) => sendSmsVerificationCodeMutate(sendSmsVerifyCode);
-  // 인증번호 발송 끝
 
   // 회원가입 시작
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
@@ -132,7 +131,7 @@ export const AuthContainer = () => {
         password: value.password,
         nickName: value.nickName,
         phone: value.phone,
-        verifyCode: value.verifyCode,
+        verifyCodeSign: value.verifyCodeSign,
       },
     };
     signUpMutate(signupFormValue);
