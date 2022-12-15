@@ -12,6 +12,7 @@ import {
 
 export interface SmsVerifyCodeProps {
   onChangePhone: (value: string) => void;
+  onVerifyCodeSign: (value: string) => void;
   onChangeChildIsValid: (value: boolean) => void;
 }
 interface IVerifyCodeForm {
@@ -21,6 +22,7 @@ interface IVerifyCodeForm {
 
 const SmsVerifyCodeForm = ({
   onChangePhone,
+  onVerifyCodeSign,
   onChangeChildIsValid,
 }: SmsVerifyCodeProps) => {
   const { onSendSmsVerifyCode, isSending, setSending } = AuthContainer();
@@ -82,6 +84,12 @@ const SmsVerifyCodeForm = ({
       });
     }
   }, [onConfirmVerifyCode.isError]);
+
+  useEffect(() => {
+    if (verifyCodeSign) {
+      onVerifyCodeSign(verifyCodeSign);
+    }
+  }, [verifyCodeSign]);
 
   const waitSendMobileCheck = () => {
     toast.info('발송중입니다. 조금만 기다려주세요', { autoClose: 1000 });

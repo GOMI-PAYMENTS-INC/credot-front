@@ -22,8 +22,8 @@ interface ISignUpForm {
 
 const SignUpPage = () => {
   const { onSubmitSignUp } = AuthContainer();
-  const { verifyCodeSign } = AuthVerifyCodeContainer();
   const [phone, setPhone] = useState('');
+  const [verifyCodeSign, setVerifyCodeSign] = useState<string>('');
   const [childIsValid, setChildIsValid] = useState(false);
   const [isOnExistsEmail, setIsOnExistsEmail] = useState(false);
 
@@ -160,6 +160,9 @@ const SignUpPage = () => {
               <SmsVerifyCodeForm
                 onChangePhone={(value: string) => {
                   setPhone(value);
+                }}
+                onVerifyCodeSign={(value: string) => {
+                  setVerifyCodeSign(value);
                 }}
                 onChangeChildIsValid={(value: boolean) => {
                   setChildIsValid(value);
