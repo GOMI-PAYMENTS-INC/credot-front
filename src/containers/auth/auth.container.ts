@@ -160,7 +160,7 @@ export const AuthContainer = () => {
       socialSignUpDto: {
         idToken: value.idToken,
         phone: value.phone,
-        verifyCode: value.verifyCode,
+        verifyCodeSign: value.verifyCodeSign,
       },
     };
     signUpSocialMutate(signupSocialFormValue);

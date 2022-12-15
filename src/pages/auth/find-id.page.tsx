@@ -20,13 +20,13 @@ const FindIdPage = () => {
   const [phone, setPhone] = useState('');
 
   // 인증번호 맞는지 DB 체크
-  const changeWriteVerifyCode = (verifyCode: string) => {
+  const changeWriteVerifyCode = (verifyCodeSign: string) => {
     const params: FindAccountQueryVariables = {
       user: {
         /** 전화번호 */
         phone,
         /** 인증번호 */
-        verifyCode,
+        verifyCodeSign,
       },
       country: CountryType.Kr,
     };
