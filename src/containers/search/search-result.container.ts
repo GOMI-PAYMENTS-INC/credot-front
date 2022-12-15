@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { CountryType, TranslateType, useSearchQuery } from '@/generated/graphql';
@@ -5,9 +6,10 @@ import { graphQLClient } from '@/utils/graphql-client';
 
 export const SearchResultContainer = () => {
   const [searchParams] = useSearchParams();
+  const [isSearchQuery, SetIsSearchQuery] = useState<boolean>(true);
   const keywordParam = searchParams.get('keyword') ? searchParams.get('keyword') : '';
 
-  const { data: searchResults, isLoading: isMainLoadingSearch } = useSearchQuery(
+  const { data: searchResults, isError: searchQueryError } = useSearchQuery(
     graphQLClient,
     {
       country: CountryType.Vn,
@@ -15,7 +17,7 @@ export const SearchResultContainer = () => {
       text: String(keywordParam),
     },
     {
-      enabled: !!keywordParam,
+      enabled: !!keywordParam && isSearchQuery,
       refetchOnWindowFocus: false,
     },
   );
@@ -36,8 +38,9 @@ export const SearchResultContainer = () => {
   return {
     main: searchResults?.search.main,
     relations: searchResults?.search.relations,
+    SetIsSearchQuery,
+    searchQueryError,
     subSearchResults,
-    isMainLoadingSearch,
     isSubLoadingSearch,
     keywordParam,
   };
