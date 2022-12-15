@@ -20,7 +20,10 @@ const SearchResultPage = () => {
   } = SearchResultContainer();
 
   useEffect(() => {
-    SetIsSearchQuery(false);
+    if (searchQueryError) {
+      console.log('searchQueryError :: ');
+      SetIsSearchQuery(false);
+    }
   }, [searchQueryError]);
 
   if (isSubLoadingSearch) {
@@ -226,7 +229,7 @@ const SearchResultPage = () => {
                         </div>
                         <progress
                           className='progress progress-accent h-1 w-full'
-                          value={item.relevance}
+                          value={item?.relevance}
                           max='10'
                         />
                         <div className='search-count'>
