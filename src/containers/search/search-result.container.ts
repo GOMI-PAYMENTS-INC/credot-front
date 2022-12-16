@@ -30,7 +30,9 @@ export const SearchResultContainer = () => {
       text: String(searchResults?.search.main.translated),
     },
     {
-      enabled: !!searchResults,
+      enabled:
+        !!searchResults &&
+        searchResults.search.main.translated !== searchResults.search.main.text,
       refetchOnWindowFocus: false,
     },
   );
