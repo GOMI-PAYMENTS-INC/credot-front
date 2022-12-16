@@ -18,6 +18,7 @@ import {
   MutationGoogleSignUpArgs,
   MutationLoginArgs,
   MutationSignupArgs,
+  Query,
   SendSmsVerificationCodeMutationVariables,
   SendTemporaryPasswordMutationVariables,
   SignUpInput,
@@ -46,7 +47,7 @@ export const AuthContainer = () => {
   // 임시 비밀번호로 로그인 한 여부
   const [isTemporaryPasswordLogin, setTemporaryPasswordLogin] = useRecoilState(
     IsTemporaryPasswordLoginAtom,
-  );
+  const [isSending, setSending] = useState<boolean>(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -84,19 +85,18 @@ export const AuthContainer = () => {
     graphQLClient,
     {},
     {
-      // onSuccess: (res) => {
-      //   // setUserInfo(res.me);
-      //   // const path = res.me.phone ? Paths.home : Paths.signUpSocial;
-      //   // navigate(path, { state: { email: res.me.email } });
-      //   // handleChangeLoginState(true);
-      //   console.log('useMeQuery : ', res);
-      // },
-      // onError: (err) => {
-      //   console.error('useMeQuery error : ', err);
-      //   // onLogout();
-      // },
-      // 자동 실행 금지
-      enabled: false,
+      onSuccess: (res: Query) => {
+        setUserInfo(res.me);
+        console.log(userInfo);
+        const path = res.me.phone ? Paths.home : Paths.signUpSocial;
+        navigate(path, { state: { email: res.me.email } });
+      },
+      onError: (err) => {
+        console.error('useMeQuery error : ', err);
+        onLogout();
+      },
+      refetchOnWindowFocus: false,
+      enabled: !!token,
     },
   );
 
@@ -106,9 +106,11 @@ export const AuthContainer = () => {
     {
       onSuccess: () => {
         toast.success('발송 성공하였습니다.');
+        setSending(true);
       },
       onError: () => {
         toast.error('발송 실패하였습니다.');
+        setSending(false);
       },
     },
   );
@@ -116,7 +118,6 @@ export const AuthContainer = () => {
   const onSendSmsVerifyCode = (
     sendSmsVerifyCode: SendSmsVerificationCodeMutationVariables,
   ) => sendSmsVerificationCodeMutate(sendSmsVerifyCode);
-  // 인증번호 발송 끝
 
   // 회원가입 시작
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
@@ -126,7 +127,7 @@ export const AuthContainer = () => {
         handleChangeLoginState(true);
         authTokenStorage.setToken(isLoginStorage, res.signup.token);
         // TODO home -> sign-up-welcome.page 이동 변경 필요.
-        navigate(Paths.home);
+        navigate(Paths.welcome);
       }
     },
     onError: () => {
@@ -201,7 +202,8 @@ export const AuthContainer = () => {
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
-      toast.error(error.response.errors[0].message);
+      console.error('로그인 실패 : ', error);
+      toast.error('아이디 또는 패스워드를 다시 한 번 확인해주세요.');
     },
   });
 
@@ -377,5 +379,7 @@ export const AuthContainer = () => {
     isTemporaryPasswordLogin,
     setIdToken,
     idToken,
+    isSending,
+    setSending,
   };
 };

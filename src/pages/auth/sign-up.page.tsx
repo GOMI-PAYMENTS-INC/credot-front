@@ -5,7 +5,9 @@ import { toast } from 'react-toastify';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import Layout from '@/components/layouts/layout';
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { SignUpInput } from '@/generated/graphql';
+import { AuthVerifyCodeContainer } from '@/containers/auth/auth-verify-code.container';
+import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
+import { graphQLClient } from '@/utils/graphql-client';
 import { Paths } from '@/router/paths';
 
 interface ISignUpForm {
@@ -14,22 +16,32 @@ interface ISignUpForm {
   confirmPassword: string;
   phone: string;
   verifyCode: string;
+  useAgree: boolean;
+  personalAgree: boolean;
+  marketingAgree: boolean;
 }
 
 const SignUpPage = () => {
   const { onSubmitSignUp } = AuthContainer();
   const [phone, setPhone] = useState('');
-  const [verifyCodeSign, setVerifyCodeSign] = useState('');
+  const [verifyCodeSign, setVerifyCodeSign] = useState<string>('');
+  const [childIsValid, setChildIsValid] = useState(false);
+  const [isOnExistsEmail, setIsOnExistsEmail] = useState(false);
 
   const {
     register,
+    setValue,
     handleSubmit,
     watch,
-    formState: { errors },
+    setError,
+    formState: { errors, isValid },
   } = useForm<ISignUpForm>({
     mode: 'onChange',
   });
   const passwordWatcher = watch('password');
+  const useAgree = watch('useAgree');
+  const personalAgree = watch('personalAgree');
+  const email = watch('email');
 
   const onValid = (data: ISignUpForm) => {
     const signUpInput: SignUpInput = {
@@ -41,23 +53,46 @@ const SignUpPage = () => {
     };
     onSubmitSignUp(signUpInput);
   };
-
   const onInvalid = (errorData: FieldErrors) => {
     console.error('error : ', errorData);
     toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
   };
+
+  const onAllCheckbox = (value: boolean) => {
+    setValue('useAgree', value);
+    setValue('personalAgree', value);
+    setValue('marketingAgree', value);
+  };
+
+  const { data: existsEmailQuery } = useExistsUserEmailQuery(
+    graphQLClient,
+    { email },
+    {
+      enabled: isOnExistsEmail && !!email,
+      refetchOnWindowFocus: false,
+      onSuccess: (res) => {
+        setIsOnExistsEmail(false);
+        // return res.existsUserEmail || false;
+        if (res.existsUserEmail) {
+          setError('email', {
+            type: 'custom',
+            message: '이미 가입된 이메일 주소입니다.',
+          });
+        }
+      },
+      onError: (err) => {
+        setIsOnExistsEmail(false);
+        console.error('fetchExistsEmail err : ', err);
+      },
+    },
+  );
 
   return (
     <Layout>
       <div className='flex h-screen w-full items-center justify-center'>
         <div className='w-full max-w-[26.25rem]'>
           <h3 className='mb-4 text-center text-2xl-bold'>회원가입</h3>
-          {/* TODO: 가입 후 웰켐페이지로 이동, action은 임의로 넣어두었습니다. */}
-          <form
-            action={Paths.welcome}
-            className='space-y-5'
-            onSubmit={handleSubmit(onValid, onInvalid)}
-          >
+          <form className='space-y-5' onSubmit={handleSubmit(onValid, onInvalid)}>
             <div className='space-y-2'>
               <div className='space-y-2'>
                 <input
@@ -69,6 +104,15 @@ const SignUpPage = () => {
                     pattern: {
                       value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                       message: '올바른 이메일 주소를 입력하세요.',
+                    },
+                    onChange: async (e) => {
+                      const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+                      if (regex.test(e.target.value.trim())) {
+                        console.log('e.target.value : ', e.target.value);
+                        setIsOnExistsEmail(true);
+                        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                        existsEmailQuery;
+                      }
                     },
                   })}
                 />
@@ -118,21 +162,28 @@ const SignUpPage = () => {
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
-                onChangeVerifyCodeSign={(value: string) => {
+                onVerifyCodeSign={(value: string) => {
                   setVerifyCodeSign(value);
+                }}
+                onChangeChildIsValid={(value: boolean) => {
+                  setChildIsValid(value);
                 }}
               />
             </div>
             <div>
               <ul className='space-y-3'>
                 <li>
-                  <input type='checkbox' name='all-agree' id='all-agree' />
+                  <input
+                    type='checkbox'
+                    id='all-agree'
+                    onChange={(e) => onAllCheckbox(e.target.checked)}
+                  />
                   <label htmlFor='all-agree' className='m-regular inline-block'>
                     이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                   </label>
                 </li>
                 <li className='flex justify-between'>
-                  <input type='checkbox' name='use-agree' id='use-agree' />
+                  <input type='checkbox' id='use-agree' {...register('useAgree')} />
                   <label htmlFor='use-agree' className='m-regular inline-block'>
                     이용약관 동의(필수)
                   </label>
@@ -142,7 +193,11 @@ const SignUpPage = () => {
                   </a>
                 </li>
                 <li className='flex justify-between'>
-                  <input type='checkbox' name='personal-agree' id='personal-agree' />
+                  <input
+                    type='checkbox'
+                    id='personal-agree'
+                    {...register('personalAgree')}
+                  />
                   <label htmlFor='personal-agree' className='m-regular inline-block'>
                     개인정보 수집 및 이용 동의(필수)
                   </label>
@@ -152,7 +207,11 @@ const SignUpPage = () => {
                   </a>
                 </li>
                 <li className='flex justify-between'>
-                  <input type='checkbox' name='marketing-agree' id='marketing-agree' />
+                  <input
+                    type='checkbox'
+                    id='marketing-agree'
+                    {...register('marketingAgree')}
+                  />
                   <label htmlFor='marketing-agree' className='m-regular inline-block'>
                     마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
                   </label>
@@ -161,12 +220,22 @@ const SignUpPage = () => {
                   </a>
                 </li>
               </ul>
-              <button
-                type='submit'
-                className='mt-16 flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-xl-medium text-white'
-              >
-                가입하기
-              </button>
+              {isValid && childIsValid && useAgree && personalAgree ? (
+                <button
+                  type='submit'
+                  className='mt-16 flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-xl-medium text-white'
+                >
+                  가입하기
+                </button>
+              ) : (
+                <button
+                  type='submit'
+                  className='mt-16 flex w-full cursor-pointer justify-center rounded bg-[#d1d5db] p-2.5 text-xl-medium text-white'
+                  disabled={true}
+                >
+                  가입하기
+                </button>
+              )}
             </div>
           </form>
         </div>

@@ -58,14 +58,15 @@ const SignUpSocialPage = () => {
                   readOnly
                 />
               </div>
-              <SmsVerifyCodeForm
+              {/* <SmsVerifyCodeForm
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
                 onChangeVerifyCodeSign={(value: string) => {
                   setVerifyCodeSign(value);
                 }}
-              />
+                onChangeSubIsValid={(value: boolean) => {}}
+              /> */}
             </div>
             <div>
               <ul className='space-y-3'>

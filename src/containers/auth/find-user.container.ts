@@ -25,6 +25,7 @@ export const FindUserContainer = () => {
     },
     {
       enabled: !!findAccount,
+      refetchOnWindowFocus: false,
       onSuccess: (res) => {
         console.log('useFindAccountQuery success', res);
       },

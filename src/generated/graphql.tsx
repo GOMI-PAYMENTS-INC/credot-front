@@ -1032,6 +1032,16 @@ export type FindAccountQuery = {
   };
 };
 
+export type SmsVerifyCodeConfirmQueryVariables = Exact<{
+  phone: Scalars['String'];
+  verifyCode: Scalars['String'];
+}>;
+
+export type SmsVerifyCodeConfirmQuery = {
+  __typename?: 'Query';
+  smsVerifyCodeConfirm: { __typename?: 'VerifyCodeSign'; signature: string };
+};
+
 export type SearchQueryVariables = Exact<{
   country: CountryType;
   translateType?: InputMaybe<TranslateType>;
@@ -1357,6 +1367,32 @@ export const useFindAccountQuery = <
     fetcher<FindAccountQuery, FindAccountQueryVariables>(
       client,
       FindAccountDocument,
+      variables,
+      headers,
+    ),
+    options,
+  );
+export const SmsVerifyCodeConfirmDocument = `
+    query SmsVerifyCodeConfirm($phone: String!, $verifyCode: String!) {
+  smsVerifyCodeConfirm(phone: $phone, verifyCode: $verifyCode) {
+    signature
+  }
+}
+    `;
+export const useSmsVerifyCodeConfirmQuery = <
+  TData extends SmsVerifyCodeConfirmQuery,
+  TError extends unknown,
+>(
+  client: GraphQLClient,
+  variables: SmsVerifyCodeConfirmQueryVariables,
+  options?: UseQueryOptions<SmsVerifyCodeConfirmQuery, TError, TData>,
+  headers?: RequestInit['headers'],
+) =>
+  useQuery<SmsVerifyCodeConfirmQuery, TError, TData>(
+    ['SmsVerifyCodeConfirm', variables],
+    fetcher<SmsVerifyCodeConfirmQuery, SmsVerifyCodeConfirmQueryVariables>(
+      client,
+      SmsVerifyCodeConfirmDocument,
       variables,
       headers,
     ),
