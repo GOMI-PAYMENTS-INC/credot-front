@@ -394,7 +394,7 @@ type searchDto {
     "한국어 번역"
     ko: String!
     "Quality Score, 10점 만점"
-    relevance: Float!
+    relevance: Float
     "검색 단어 (원문)"
     text: String!
     "검색한 이미지 주소 최대 3개"
@@ -533,7 +533,7 @@ input DeleteOneUserInput {
 input FindAccountInput {
     "전화번호"
     phone: String!
-    "인증번호"
+    "인증번호 서명"
     verifyCodeSign: String!
 }
 
@@ -542,7 +542,7 @@ input FindPasswordInput {
     email: String!
     "전화번호"
     phone: String!
-    "인증번호"
+    "인증번호 서명"
     verifyCodeSign: String!
 }
 
