@@ -10,14 +10,17 @@ import {
 
 export interface SmsVerifyCodeProps {
   onChangePhone: (value: string) => void;
-  onChangeVerifyCode: (value: string) => void;
+  onChangeVerifyCodeSign: (value: string) => void;
 }
 interface IVerifyCodeForm {
   phone: string;
   verifyCode: string;
 }
 
-const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeProps) => {
+const SmsVerifyCodeForm = ({
+  onChangePhone,
+  onChangeVerifyCodeSign,
+}: SmsVerifyCodeProps) => {
   const { onSendSmsVerifyCode } = AuthContainer();
   // 인증번호 발송 진행중 여부
   const [isSending, setSending] = useState<boolean>(false);
@@ -89,7 +92,9 @@ const SmsVerifyCodeForm = ({ onChangePhone, onChangeVerifyCode }: SmsVerifyCodeP
 
   // 인증번호 oncChange 할 때 갯수가 6개인지 체크해서 6개인 경우 외부로 값을 보냄
   const onChangeVerifyCodeCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.trim().length === 6) onChangeVerifyCode?.(e.target.value.trim());
+    if (e.target.value.trim().length === 6) {
+      onChangeVerifyCodeSign?.(e.target.value.trim());
+    }
   };
 
   return (

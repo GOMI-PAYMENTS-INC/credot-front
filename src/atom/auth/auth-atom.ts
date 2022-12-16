@@ -20,3 +20,8 @@ export const IdTokenAtom = atom({
   key: 'idTokenAtom',
   default: '',
 });
+// 임시 비밀번호 로그인 여부
+export const IsTemporaryPasswordLoginAtom = atom({
+  key: 'isTemporaryPasswordLoginAtom',
+  default: false,
+});

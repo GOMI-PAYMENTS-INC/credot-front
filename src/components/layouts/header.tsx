@@ -5,7 +5,7 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { Paths } from '@/router/paths';
 
 const Header = () => {
-  const { token, onLogout } = AuthContainer();
+  const { token, onLogout, isLogin, isTemporaryPasswordLogin } = AuthContainer();
 
   return (
     <header className='navbar min-h-[5rem] items-center bg-base-100'>
@@ -17,6 +17,8 @@ const Header = () => {
       <div className='flex-none'>
         <ul className='menu menu-horizontal p-0'>
           <li>
+            isLogin :{String(isLogin)}
+            /isTemporaryPasswordLogin :{String(isTemporaryPasswordLogin)}
             {!token ? (
               <Link to={Paths.signIn}>
                 <button className='button-default'>로그인</button>

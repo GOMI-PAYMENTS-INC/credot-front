@@ -20,13 +20,13 @@ const FindIdPage = () => {
   const [phone, setPhone] = useState('');
 
   // 인증번호 맞는지 DB 체크
-  const changeWriteVerifyCode = (verifyCode: string) => {
+  const changeWriteVerifyCodeSign = (verifyCodeSign: string) => {
     const params: FindAccountQueryVariables = {
       user: {
         /** 전화번호 */
         phone,
         /** 인증번호 */
-        verifyCode,
+        verifyCodeSign,
       },
       country: CountryType.Kr,
     };
@@ -34,8 +34,8 @@ const FindIdPage = () => {
   };
 
   // 인증번호가 올바른지 DB 체크.
-  const onChangeVerifyCode = (verifyCode: string) => {
-    changeWriteVerifyCode(verifyCode);
+  const onChangeVerifyCodeSign = (verifyCodeSign: string) => {
+    changeWriteVerifyCodeSign(verifyCodeSign);
   };
   return (
     <Layout>
@@ -50,8 +50,8 @@ const FindIdPage = () => {
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
-                onChangeVerifyCode={(value: string) => {
-                  onChangeVerifyCode(value);
+                onChangeVerifyCodeSign={(value: string) => {
+                  onChangeVerifyCodeSign(value);
                 }}
               />
             </>

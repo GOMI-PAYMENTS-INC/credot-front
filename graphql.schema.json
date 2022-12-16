@@ -215,22 +215,6 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "password",
-            "description": "기존 비밀번호",
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -738,7 +722,7 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
+            "name": "verifyCodeSign",
             "description": "인증번호",
             "type": {
               "kind": "NON_NULL",
@@ -832,7 +816,7 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
+            "name": "verifyCodeSign",
             "description": "인증번호",
             "type": {
               "kind": "NON_NULL",
@@ -901,8 +885,8 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
-            "description": "인증번호",
+            "name": "verifyCodeSign",
+            "description": "인증번호 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -2217,6 +2201,55 @@
             "deprecationReason": null
           },
           {
+            "name": "smsVerifyCodeConfirm",
+            "description": "인증번호 확인",
+            "args": [
+              {
+                "name": "phone",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "verifyCode",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "VerifyCodeSign",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "translate",
             "description": "텍스트 번역 ( 구글 번역 api 사용 )",
             "args": [
@@ -2699,8 +2732,8 @@
             "deprecationReason": null
           },
           {
-            "name": "verifyCode",
-            "description": "인증번호",
+            "name": "verifyCodeSign",
+            "description": "인증코드 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -6028,6 +6061,33 @@
       },
       {
         "kind": "OBJECT",
+        "name": "VerifyCodeSign",
+        "description": null,
+        "fields": [
+          {
+            "name": "signature",
+            "description": "인증코드 서명값, (인증코드 확인시 발급 된 키)",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "__Directive",
         "description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.",
         "fields": [
@@ -7307,13 +7367,9 @@
             "description": "Quality Score, 10점 만점",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

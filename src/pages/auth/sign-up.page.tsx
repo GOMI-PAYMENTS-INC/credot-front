@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
+import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import Layout from '@/components/layouts/layout';
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { FieldErrors, useForm } from 'react-hook-form';
-import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { SignUpInput } from '@/generated/graphql';
 import { Paths } from '@/router/paths';
 
@@ -18,7 +19,7 @@ interface ISignUpForm {
 const SignUpPage = () => {
   const { onSubmitSignUp } = AuthContainer();
   const [phone, setPhone] = useState('');
-  const [verifyCode, setVerifyCode] = useState('');
+  const [verifyCodeSign, setVerifyCodeSign] = useState('');
 
   const {
     register,
@@ -36,7 +37,7 @@ const SignUpPage = () => {
       email: data?.email,
       password: data?.password,
       phone,
-      verifyCode,
+      verifyCodeSign,
     };
     onSubmitSignUp(signUpInput);
   };
@@ -117,8 +118,8 @@ const SignUpPage = () => {
                 onChangePhone={(value: string) => {
                   setPhone(value);
                 }}
-                onChangeVerifyCode={(value: string) => {
-                  setVerifyCode(value);
+                onChangeVerifyCodeSign={(value: string) => {
+                  setVerifyCodeSign(value);
                 }}
               />
             </div>

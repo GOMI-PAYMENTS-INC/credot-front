@@ -6,14 +6,15 @@ import { useRecoilState } from 'recoil';
 import {
   IdTokenAtom,
   IsLoginStorageAtom,
+  IsTemporaryPasswordLoginAtom,
   LoginStateAtom,
-  UserAtom,
 } from '@/atom/auth/auth-atom';
 import {
-  ChangePasswordMutationVariables,
+  ChangePasswordInput,
   GoogleLoginMutationVariables,
   GoogleSignUpInput,
   LoginInput,
+  MutationChangePasswordArgs,
   MutationGoogleSignUpArgs,
   MutationLoginArgs,
   MutationSignupArgs,
@@ -31,15 +32,21 @@ import {
 } from '@/generated/graphql';
 import { SendTemporaryPasswordResult } from '@/pages/auth/find-password.page';
 import { Paths } from '@/router/paths';
+import { authTokenStorage } from '@/utils/auth-token';
 import { GlobalEnv } from '@/utils/config';
 import { graphQLClient } from '@/utils/graphql-client';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
-  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [isLoginStorage, setIsLoginStorage] = useRecoilState(IsLoginStorageAtom);
+  // 로그인 할 때 일회성으로 지정되는 토큰
   const [token, setToken] = useState<string>('');
+  // 소셜 회원가입 할 때 소셜쪽에서 제공하는 토큰
   const [idToken, setIdToken] = useRecoilState(IdTokenAtom);
+  // 임시 비밀번호로 로그인 한 여부
+  const [isTemporaryPasswordLogin, setTemporaryPasswordLogin] = useRecoilState(
+    IsTemporaryPasswordLoginAtom,
+  );
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -51,38 +58,49 @@ export const AuthContainer = () => {
     setIsLogin(state);
   };
   const clearLogin = () => {
+    // 로그인 토크 상태 정리
     setToken('');
+    // 로그인 상태 해제
     handleChangeLoginState(false);
-    if (localStorage.getItem(GlobalEnv.tokenKey)) {
-      localStorage.removeItem(GlobalEnv.tokenKey);
-    } else {
-      sessionStorage.removeItem(GlobalEnv.tokenKey);
-    }
+    // 세션, 로컬스토리지에 저장된 토큰 삭제
+    authTokenStorage.clearToken();
+
+    // 임시 비밀번호로 로그인한 상태 정리
+    setTemporaryPasswordLogin(false);
+    // 임시 비밀번호로 로그인한 세션 삭제
+    sessionStorage.removeItem('TEMPORARY_PASSWORD_LOGIN');
   };
   const onLogout = () => {
     clearLogin();
     navigate(Paths.signIn);
   };
 
-  // 인증번호 발송 시작
-  const { refetch: refetchMe } = useMeQuery(
+  // 회원정보 가져오기
+  const {
+    data: userInfo,
+    isLoading: userInfoLoading,
+    refetch: getUserInfo,
+  } = useMeQuery(
     graphQLClient,
     {},
     {
-      onSuccess: (res) => {
-        setUserInfo(res.me);
-        console.log(userInfo);
-        const path = res.me.phone ? Paths.home : Paths.signUpSocial;
-        navigate(path, { state: { email: res.me.email } });
-      },
-      onError: (err) => {
-        console.error('useMeQuery error : ', err);
-        onLogout();
-      },
-      enabled: !!token,
+      // onSuccess: (res) => {
+      //   // setUserInfo(res.me);
+      //   // const path = res.me.phone ? Paths.home : Paths.signUpSocial;
+      //   // navigate(path, { state: { email: res.me.email } });
+      //   // handleChangeLoginState(true);
+      //   console.log('useMeQuery : ', res);
+      // },
+      // onError: (err) => {
+      //   console.error('useMeQuery error : ', err);
+      //   // onLogout();
+      // },
+      // 자동 실행 금지
+      enabled: false,
     },
   );
 
+  // 인증번호 발송 시작
   const { mutate: sendSmsVerificationCodeMutate } = useSendSmsVerificationCodeMutation(
     graphQLClient,
     {
@@ -106,11 +124,7 @@ export const AuthContainer = () => {
       if (res.signup.token) {
         setToken(res.signup.token);
         handleChangeLoginState(true);
-        if (isLoginStorage) {
-          localStorage.setItem(GlobalEnv.tokenKey, res.signup.token);
-        } else {
-          sessionStorage.setItem(GlobalEnv.tokenKey, res.signup.token);
-        }
+        authTokenStorage.setToken(isLoginStorage, res.signup.token);
         // TODO home -> sign-up-welcome.page 이동 변경 필요.
         navigate(Paths.home);
       }
@@ -128,26 +142,27 @@ export const AuthContainer = () => {
         password: value.password,
         nickName: value.nickName,
         phone: value.phone,
-        verifyCode: value.verifyCode,
+        verifyCodeSign: value.verifyCodeSign,
       },
     };
     signUpMutate(signupFormValue);
   };
   // 회원가입 끝
-  // 로컬 로그인 시작
+
+  // 소셜 로그인 시작
   const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
     onSuccess: (res) => {
       if (res.googleSignUp.token) {
         setIdToken('');
         setToken(res.googleSignUp.token);
-        localStorage.setItem(GlobalEnv.tokenKey, res.googleSignUp.token);
+        authTokenStorage.setToken(isLoginStorage, res.googleSignUp.token);
         // TODO home -> sign-up-welcome.page 이동 변경 필요.
         navigate(Paths.home);
       }
     },
-    onError: (err) => {
-      const error = JSON.parse(JSON.stringify(err));
-      console.log(error.errors[0].message);
+    onError: () => {
+      // const error = JSON.parse(JSON.stringify(err));
+      // console.log(error.errors[0].message);
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
   });
@@ -157,19 +172,31 @@ export const AuthContainer = () => {
       socialSignUpDto: {
         idToken: value.idToken,
         phone: value.phone,
-        verifyCode: value.verifyCode,
+        verifyCodeSign: value.verifyCodeSign,
       },
     };
     signUpSocialMutate(signupSocialFormValue);
   };
+  // 소셜 로그인 끝
+
+  // 로컬 로그인 시작
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
+      // 로그인 토큰 설정
       setToken(res.login.token);
+      // isLogin 상태 변경
       handleChangeLoginState(true);
-      if (isLoginStorage) {
-        localStorage.setItem(GlobalEnv.tokenKey, res.login.token);
+      // userInfo 저장
+      getUserInfo();
+      authTokenStorage.setToken(isLoginStorage, res.login.token);
+      // 임시비밀번호로 로그인 한 경우
+      if (res.login.popupInfo) {
+        sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
+        setTemporaryPasswordLogin(true);
+        navigate(Paths.resetPassword);
       } else {
-        sessionStorage.setItem(GlobalEnv.tokenKey, res.login.token);
+        setTemporaryPasswordLogin(false);
+        navigate(Paths.home);
       }
     },
     onError: (err) => {
@@ -194,14 +221,10 @@ export const AuthContainer = () => {
     onSuccess: async (res) => {
       setToken(res.googleLogin.token);
       handleChangeLoginState(true);
-      if (isLoginStorage) {
-        localStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
-      } else {
-        sessionStorage.setItem(GlobalEnv.tokenKey, res.googleLogin.token);
-      }
+      authTokenStorage.setToken(isLoginStorage, res.googleLogin.token);
 
       // TODO home -> sign-up-welcome.page 이동 변경 필요.
-      await refetchMe();
+      await getUserInfo();
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
@@ -218,6 +241,7 @@ export const AuthContainer = () => {
       onGoogleLoginButton({ idToken: response.credential });
     }
   };
+  // 구글 로그인 끝
 
   useEffect(() => {
     if (token) {
@@ -225,52 +249,31 @@ export const AuthContainer = () => {
     }
   }, [token]);
 
-  useEffect(() => {
-    const storageToken = localStorage.getItem(GlobalEnv.tokenKey)
-      ? localStorage.getItem(GlobalEnv.tokenKey)
-      : sessionStorage.getItem(GlobalEnv.tokenKey);
-    if (storageToken) {
-      setToken(storageToken);
-    } else {
-      handleChangeLoginState(false);
-      if (
-        !Object.values(Paths).find((d) => d === pathname) &&
-        !pathname.startsWith(Paths.signIn)
-      ) {
-        navigate(Paths.signIn);
-      }
-
-      clearLogin();
-    }
-
-    window.google?.accounts.id.initialize({
-      client_id: GlobalEnv.viteGoogleClientId,
-      callback: handleCredentialResponse,
-    });
-    window.google?.accounts.id.renderButton(
-      document.getElementById('google-login-button') as HTMLElement,
-      {
-        type: 'icon',
-        theme: 'outline',
-        shape: 'circle',
-        width: '256px',
-      },
-    );
-  }, []);
-  // 구글 로그인 끝
-
   // 비밀번호 변경
   const { mutate: changePassword } = useChangePasswordMutation(graphQLClient, {
     onSuccess: () => {
       toast.success('변경 성공하였습니다.');
+      onLogout();
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');
     },
   });
 
-  const onChangePassword = (variables: ChangePasswordMutationVariables) =>
-    changePassword(variables);
+  const onChangePassword = (value: ChangePasswordInput) => {
+    // xwconsole.log(userInfo);
+    if (!userInfo?.me) {
+      return false;
+    }
+
+    const onChangePasswordValue: MutationChangePasswordArgs = {
+      pwd: {
+        email: userInfo?.me.email,
+        newPassword: value.newPassword,
+      },
+    };
+    return changePassword(onChangePasswordValue);
+  };
   // 비밀번호 변경
 
   // 유저 임시 비밀번호 발급 시작
@@ -300,6 +303,57 @@ export const AuthContainer = () => {
     sendTemporaryPassword(variables);
   // 유저 임시 비밀번호 발급 끝
 
+  useEffect(() => {
+    // 로그인한 상태인지 확인
+    const storageToken = authTokenStorage.getToken();
+    if (storageToken) {
+      // 가져온 토큰 셋팅
+      setToken(storageToken);
+      // isLogin 변경
+      handleChangeLoginState(true);
+
+      // 임시 비밀번호를 사용한 로그인 건인지 확인
+      const temporaryPasswordLoginSession = sessionStorage.getItem(
+        'TEMPORARY_PASSWORD_LOGIN',
+      );
+      if (temporaryPasswordLoginSession) {
+        setTemporaryPasswordLogin(true);
+      }
+    } else {
+      // 비회원인 경우
+      handleChangeLoginState(false);
+      if (
+        !Object.values(Paths).find((d) => d === pathname) &&
+        !pathname.startsWith(Paths.signIn)
+      ) {
+        navigate(Paths.signIn);
+      }
+
+      clearLogin();
+    }
+
+    window.google?.accounts.id.initialize({
+      client_id: GlobalEnv.viteGoogleClientId,
+      callback: handleCredentialResponse,
+    });
+    window.google?.accounts.id.renderButton(
+      document.getElementById('google-login-button') as HTMLElement,
+      {
+        type: 'icon',
+        theme: 'outline',
+        shape: 'circle',
+        width: '256px',
+      },
+    );
+  }, []);
+
+  // 로그인 토큰이 남아있는 경우, 유저 정보 가져오기
+  useEffect(() => {
+    if (authTokenStorage.getToken() && !isLogin) {
+      getUserInfo();
+    }
+  }, [isLogin]);
+
   return {
     onSendSmsVerifyCode,
     onSubmitSignUp,
@@ -311,6 +365,7 @@ export const AuthContainer = () => {
     setIsLoginStorage,
     isLogin,
     userInfo,
+    userInfoLoading,
     token,
     // 비밀번호 변경
     onChangePassword,
@@ -318,6 +373,8 @@ export const AuthContainer = () => {
     onSendTemporaryPassword,
     isSuccessSendTemporaryPassword,
     sendTemporaryPasswordResponseStatus,
+    // 임시 비밀번호를 사용한 로그인 여부
+    isTemporaryPasswordLogin,
     setIdToken,
     idToken,
   };

@@ -22,6 +22,10 @@ const authMutation = {
     mutation Login($login: LoginInput!) {
       login(login: $login) {
         token
+        popupInfo {
+          typeName
+          isModal
+        }
       }
     }
   `,
@@ -59,8 +63,8 @@ const authMutation = {
       }
     }
   `,
-  
-  //구글 회원가입
+
+  // 구글 회원가입
   googleSignup: gql`
     mutation GoogleSignup($socialSignUpDto: GoogleSignUpInput!) {
       googleSignUp(socialSignUpDto: $socialSignUpDto) {
@@ -68,7 +72,6 @@ const authMutation = {
       }
     }
   `,
-  
 };
 
 export default authMutation;

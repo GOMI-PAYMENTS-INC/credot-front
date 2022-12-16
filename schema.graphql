@@ -124,6 +124,8 @@ type Query {
         "번역 타입(optional), order(번역순서): 원문->영어->베트남어->한국어"
         translateType: TranslateType
     ): responseSearch!
+    "인증번호 확인"
+    smsVerifyCodeConfirm(phone: String!, verifyCode: String!): VerifyCodeSign!
     "텍스트 번역 ( 구글 번역 api 사용 )"
     translate(
         "번역 대상 국가 코드"
@@ -335,6 +337,11 @@ type UserSumAggregate {
     updatedUserId: Float
 }
 
+type VerifyCodeSign {
+    "인증코드 서명값, (인증코드 확인시 발급 된 키)"
+    signature: String!
+}
+
 type accountInfoDto {
     "이메일 (아이디)"
     email: String!
@@ -387,7 +394,7 @@ type searchDto {
     "한국어 번역"
     ko: String!
     "Quality Score, 10점 만점"
-    relevance: Float!
+    relevance: Float
     "검색 단어 (원문)"
     text: String!
     "검색한 이미지 주소 최대 3개"
@@ -469,8 +476,6 @@ input ChangePasswordInput {
     email: String!
     "신규 비밀번호"
     newPassword: String!
-    "기존 비밀번호"
-    password: String!
 }
 
 input CreateOneUserInput {
@@ -529,7 +534,7 @@ input FindAccountInput {
     "전화번호"
     phone: String!
     "인증번호"
-    verifyCode: String!
+    verifyCodeSign: String!
 }
 
 input FindPasswordInput {
@@ -538,7 +543,7 @@ input FindPasswordInput {
     "전화번호"
     phone: String!
     "인증번호"
-    verifyCode: String!
+    verifyCodeSign: String!
 }
 
 input GoogleSignUpInput {
@@ -546,8 +551,8 @@ input GoogleSignUpInput {
     idToken: String!
     "전화번호"
     phone: String!
-    "인증번호"
-    verifyCode: String!
+    "인증번호 서명"
+    verifyCodeSign: String!
 }
 
 input IDFilterComparison {
@@ -629,8 +634,8 @@ input SignUpInput {
     password: String!
     "전화번호"
     phone: String!
-    "인증번호"
-    verifyCode: String!
+    "인증코드 서명"
+    verifyCodeSign: String!
 }
 
 input SocialProviderFilterComparison {
