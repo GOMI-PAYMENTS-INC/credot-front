@@ -122,7 +122,7 @@ const SmsVerifyCodeForm = ({
     const verifyCode = e.target.value.trim();
     if (verifyCode.length > 5) {
       setVerifyCode(verifyCode);
-      setPhone(phoneNumber);=
+      setPhone(phoneNumber);
     }
   };
 

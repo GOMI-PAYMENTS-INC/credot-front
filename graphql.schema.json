@@ -723,7 +723,7 @@
           },
           {
             "name": "verifyCodeSign",
-            "description": "인증번호",
+            "description": "인증번호 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -817,7 +817,7 @@
           },
           {
             "name": "verifyCodeSign",
-            "description": "인증번호",
+            "description": "인증번호 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,

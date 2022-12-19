@@ -533,7 +533,7 @@ input DeleteOneUserInput {
 input FindAccountInput {
     "전화번호"
     phone: String!
-    "인증번호"
+    "인증번호 서명"
     verifyCodeSign: String!
 }
 
@@ -542,7 +542,7 @@ input FindPasswordInput {
     email: String!
     "전화번호"
     phone: String!
-    "인증번호"
+    "인증번호 서명"
     verifyCodeSign: String!
 }
 

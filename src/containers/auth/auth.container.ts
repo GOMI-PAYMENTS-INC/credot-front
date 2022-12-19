@@ -4,10 +4,11 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 
 import {
-  IdTokenAtom,
   IsLoginStorageAtom,
   IsTemporaryPasswordLoginAtom,
   LoginStateAtom,
+  LoginTokenAtom,
+  SocialTokenAtom,
 } from '@/atom/auth/auth-atom';
 import {
   ChangePasswordInput,
@@ -18,7 +19,6 @@ import {
   MutationGoogleSignUpArgs,
   MutationLoginArgs,
   MutationSignupArgs,
-  Query,
   SendSmsVerificationCodeMutationVariables,
   SendTemporaryPasswordMutationVariables,
   SignUpInput,
@@ -41,12 +41,13 @@ export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
   const [isLoginStorage, setIsLoginStorage] = useRecoilState(IsLoginStorageAtom);
   // 로그인 할 때 일회성으로 지정되는 토큰
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useRecoilState(LoginTokenAtom);
   // 소셜 회원가입 할 때 소셜쪽에서 제공하는 토큰
-  const [idToken, setIdToken] = useRecoilState(IdTokenAtom);
+  const [idToken, setIdToken] = useRecoilState(SocialTokenAtom);
   // 임시 비밀번호로 로그인 한 여부
   const [isTemporaryPasswordLogin, setTemporaryPasswordLogin] = useRecoilState(
     IsTemporaryPasswordLoginAtom,
+  );
   const [isSending, setSending] = useState<boolean>(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ export const AuthContainer = () => {
   };
   const clearLogin = () => {
     // 로그인 토크 상태 정리
-    setToken('');
+    setToken(null);
     // 로그인 상태 해제
     handleChangeLoginState(false);
     // 세션, 로컬스토리지에 저장된 토큰 삭제
@@ -79,24 +80,24 @@ export const AuthContainer = () => {
   // 회원정보 가져오기
   const {
     data: userInfo,
-    isLoading: userInfoLoading,
-    refetch: getUserInfo,
+    isLoading: isLoadingUserInfo,
+    refetch: refetchUserInfo,
   } = useMeQuery(
     graphQLClient,
     {},
     {
-      onSuccess: (res: Query) => {
-        setUserInfo(res.me);
-        console.log(userInfo);
-        const path = res.me.phone ? Paths.home : Paths.signUpSocial;
-        navigate(path, { state: { email: res.me.email } });
+      onSuccess: (res) => {
+        const path = !res.me.phone && Paths.signUpSocial;
+        if (path) {
+          navigate(path, { state: { email: res.me.email } });
+        }
       },
       onError: (err) => {
         console.error('useMeQuery error : ', err);
-        onLogout();
+        // onLogout();
       },
-      refetchOnWindowFocus: false,
-      enabled: !!token,
+      // refetchOnWindowFocus: false,
+      enabled: false,
     },
   );
 
@@ -124,9 +125,7 @@ export const AuthContainer = () => {
     onSuccess: (res) => {
       if (res.signup.token) {
         setToken(res.signup.token);
-        handleChangeLoginState(true);
         authTokenStorage.setToken(isLoginStorage, res.signup.token);
-        // TODO home -> sign-up-welcome.page 이동 변경 필요.
         navigate(Paths.welcome);
       }
     },
@@ -150,20 +149,17 @@ export const AuthContainer = () => {
   };
   // 회원가입 끝
 
-  // 소셜 로그인 시작
+  // 소셜 회원가입 시작
   const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
     onSuccess: (res) => {
       if (res.googleSignUp.token) {
         setIdToken('');
         setToken(res.googleSignUp.token);
         authTokenStorage.setToken(isLoginStorage, res.googleSignUp.token);
-        // TODO home -> sign-up-welcome.page 이동 변경 필요.
-        navigate(Paths.home);
+        navigate(Paths.welcome);
       }
     },
     onError: () => {
-      // const error = JSON.parse(JSON.stringify(err));
-      // console.log(error.errors[0].message);
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
   });
@@ -178,18 +174,16 @@ export const AuthContainer = () => {
     };
     signUpSocialMutate(signupSocialFormValue);
   };
-  // 소셜 로그인 끝
+  // 소셜 회원가입 끝
 
   // 로컬 로그인 시작
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       // 로그인 토큰 설정
       setToken(res.login.token);
+      authTokenStorage.setToken(isLoginStorage, res.login.token);
       // isLogin 상태 변경
       handleChangeLoginState(true);
-      // userInfo 저장
-      getUserInfo();
-      authTokenStorage.setToken(isLoginStorage, res.login.token);
       // 임시비밀번호로 로그인 한 경우
       if (res.login.popupInfo) {
         sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
@@ -220,13 +214,11 @@ export const AuthContainer = () => {
 
   // 구글 로그인 시작
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
-    onSuccess: async (res) => {
+    onSuccess: (res) => {
       setToken(res.googleLogin.token);
       handleChangeLoginState(true);
       authTokenStorage.setToken(isLoginStorage, res.googleLogin.token);
-
-      // TODO home -> sign-up-welcome.page 이동 변경 필요.
-      await getUserInfo();
+      // await refetchUserInfo();
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
@@ -245,17 +237,13 @@ export const AuthContainer = () => {
   };
   // 구글 로그인 끝
 
-  useEffect(() => {
-    if (token) {
-      graphQLClient.setHeader('authorization', `bearer ${token}`);
-    }
-  }, [token]);
-
   // 비밀번호 변경
   const { mutate: changePassword } = useChangePasswordMutation(graphQLClient, {
     onSuccess: () => {
-      toast.success('변경 성공하였습니다.');
-      onLogout();
+      toast.success(
+        '변경 성공하였습니다. 다음번 방문부터는 변경된 비밀번호를 사용해주세요!',
+      );
+      navigate(Paths.home);
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');
@@ -263,7 +251,6 @@ export const AuthContainer = () => {
   });
 
   const onChangePassword = (value: ChangePasswordInput) => {
-    // xwconsole.log(userInfo);
     if (!userInfo?.me) {
       return false;
     }
@@ -306,12 +293,20 @@ export const AuthContainer = () => {
   // 유저 임시 비밀번호 발급 끝
 
   useEffect(() => {
+    if (token) {
+      graphQLClient.setHeader('authorization', `bearer ${token}`);
+      refetchUserInfo();
+    }
+  }, [token]);
+
+  useEffect(() => {
     // 로그인한 상태인지 확인
     const storageToken = authTokenStorage.getToken();
     if (storageToken) {
       // 가져온 토큰 셋팅
       setToken(storageToken);
-      // isLogin 변경
+
+      // 로그인 상태 변경
       handleChangeLoginState(true);
 
       // 임시 비밀번호를 사용한 로그인 건인지 확인
@@ -352,7 +347,7 @@ export const AuthContainer = () => {
   // 로그인 토큰이 남아있는 경우, 유저 정보 가져오기
   useEffect(() => {
     if (authTokenStorage.getToken() && !isLogin) {
-      getUserInfo();
+      refetchUserInfo();
     }
   }, [isLogin]);
 
@@ -367,7 +362,7 @@ export const AuthContainer = () => {
     setIsLoginStorage,
     isLogin,
     userInfo,
-    userInfoLoading,
+    isLoadingUserInfo,
     token,
     // 비밀번호 변경
     onChangePassword,

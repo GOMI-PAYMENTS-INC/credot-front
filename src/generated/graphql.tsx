@@ -138,7 +138,7 @@ export type DeleteOneUserInput = {
 export type FindAccountInput = {
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
+  /** 인증번호 서명 */
   verifyCodeSign: Scalars['String'];
 };
 
@@ -153,7 +153,7 @@ export type FindPasswordInput = {
   email: Scalars['String'];
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
+  /** 인증번호 서명 */
   verifyCodeSign: Scalars['String'];
 };
 
