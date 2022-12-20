@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 
 import SearchForm from '@/components/form/search.form';
 import { Icons } from '@/components/icons';
-import Layout from '@/components/layouts/layout';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search/search-result.container';
 
@@ -21,7 +20,6 @@ const SearchResultPage = () => {
 
   useEffect(() => {
     if (searchQueryError) {
-      console.log('searchQueryError :: ');
       SetIsSearchQuery(false);
     }
   }, [searchQueryError]);
@@ -31,14 +29,13 @@ const SearchResultPage = () => {
   }
 
   return (
-    <Layout>
-      <>
-        <div className='container mx-auto mb-40 mt-10'>
-          <div className='relative top-10 w-[67%]'>
-            {/* 공통 - 검색 영역 시작 */}
-            <SearchForm />
-            {/* 공통 - 검색 영역 끝 */}
-          </div>
+    <>
+      <div className='container mx-auto mb-40 mt-10'>
+        <div className='relative top-10 w-[67%]'>
+          {/* 공통 - 검색 영역 시작 */}
+          <SearchForm />
+          {/* 공통 - 검색 영역 끝 */}
+        </div>
 
           <div className='search-result-warp'>
             {/* Main 검색 시작 */}
@@ -179,6 +176,7 @@ const SearchResultPage = () => {
                             {subSearchResults?.search.main.thumbnailLink?.map((item) => (
                               <li key={item}>
                                 <img src={item} alt='' />
+
                               </li>
                             ))}
                           </ul>
@@ -273,9 +271,9 @@ const SearchResultPage = () => {
             {/* SUB 현지 (베트남어) 재검색 끝 */}
           </div>
         </div>
-        <SelectKeyWordBottomNav />
-      </>
-    </Layout>
+      </div>
+      <SelectKeyWordBottomNav />
+    </>
   );
 };
 
