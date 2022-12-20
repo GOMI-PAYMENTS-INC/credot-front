@@ -9,4 +9,5 @@ export const Paths = {
   findNoResult: '/find-no-result',
   resetPassword: '/reset-password',
   searchResult: '/search-result',
+  notAuthorized: '/not-authorized',
 };

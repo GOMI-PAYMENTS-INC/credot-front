@@ -723,7 +723,7 @@
           },
           {
             "name": "verifyCodeSign",
-            "description": "인증번호",
+            "description": "인증번호 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -817,7 +817,7 @@
           },
           {
             "name": "verifyCodeSign",
-            "description": "인증번호",
+            "description": "인증번호 서명",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -7367,13 +7367,9 @@
             "description": "Quality Score, 10점 만점",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

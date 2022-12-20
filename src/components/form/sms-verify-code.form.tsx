@@ -28,6 +28,7 @@ const SmsVerifyCodeForm = ({
   const { onSendSmsVerifyCode, isSending, setSending } = AuthContainer();
   const { setPhone, setVerifyCode, onConfirmVerifyCode, verifyCodeSign } =
     AuthVerifyCodeContainer();
+
   // 인증번호 발송 횟수
   const [verifyCodeCount, setVerifyCodeCount] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);

@@ -1,11 +1,12 @@
-import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/dist/types.dom';
 import {
   useMutation,
-  useQuery,
   UseMutationOptions,
+  useQuery,
   UseQueryOptions,
 } from '@tanstack/react-query';
+import { GraphQLClient } from 'graphql-request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -137,7 +138,7 @@ export type DeleteOneUserInput = {
 export type FindAccountInput = {
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
+  /** 인증번호 서명 */
   verifyCodeSign: Scalars['String'];
 };
 
@@ -152,7 +153,7 @@ export type FindPasswordInput = {
   email: Scalars['String'];
   /** 전화번호 */
   phone: Scalars['String'];
-  /** 인증번호 */
+  /** 인증번호 서명 */
   verifyCodeSign: Scalars['String'];
 };
 
@@ -878,7 +879,7 @@ export type SearchDto = {
   /** 한국어 번역 */
   ko: Scalars['String'];
   /** Quality Score, 10점 만점 */
-  relevance: Scalars['Float'];
+  relevance?: Maybe<Scalars['Float']>;
   /** 검색 단어 (원문) */
   text: Scalars['String'];
   /** 검색한 이미지 주소 최대 3개 */
@@ -1059,7 +1060,7 @@ export type SearchQuery = {
       en: string;
       translated: string;
       count?: number | null;
-      relevance: number;
+      relevance?: number | null;
       thumbnailLink: Array<string>;
     };
     relations: Array<{
@@ -1070,7 +1071,7 @@ export type SearchQuery = {
       en: string;
       translated: string;
       count?: number | null;
-      relevance: number;
+      relevance?: number | null;
       thumbnailLink: Array<string>;
     }>;
   };
