@@ -58,6 +58,7 @@ const SignUpSocialPage = () => {
                 type='email'
                 placeholder='이메일'
                 value={userInfo?.me.email}
+                readOnly
               />
             </div>
             <SmsVerifyCodeForm
