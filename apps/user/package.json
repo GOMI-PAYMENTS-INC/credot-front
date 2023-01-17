@@ -1,9 +1,10 @@
 {
-  "name": "kr-core-gomi-keyword-front",
+  "name": "kr-core-gomi-keyword-front-user",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "yarn set version berry && yarn install",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -64,7 +65,7 @@
     "vite": "3.1.8",
     "vite-plugin-svgr": "^2.2.2"
   },
-  "packageManager": "yarn@3.2.4",
+  "packageManager": "yarn@3.3.1",
   "dependenciesMeta": {
     "eslint@8.26.0": {
       "unplugged": true

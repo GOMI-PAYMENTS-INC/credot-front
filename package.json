@@ -6,7 +6,15 @@
       "apps/*"
     ]
   },
+  "scripts": {
+    "prepare:user": "cd apps/user && yarn set version berry && yarn install",
+    "prepare:office": "cd apps/office && yarn set version berry && yarn install",
+    "start-user:dev": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run dev",
+    "start-user:build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build",
+    "start-office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev",
+    "start-office:build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build"
+  },
   "description": "gomi-insight",
   "repository": "https://github.com/gomicorp/kr-core-gomi-keyword-front.git",
-  "packageManager": "yarn@3.0.2"
+  "packageManager": "yarn@3.3.1"
 }
