@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .grid-12 {
+        @apply grid grid-cols-12 gap-x-6 xs:grid-cols-2 md:gap-x-5 sm:gap-x-6;
+    }
+
+    .container-padding {
+        @apply container px-[60px] lg:px-4 md:px-6 sm:px-4 xs:px-6  ;
+    }
+
+    .container-tab {
+        @apply container px-[60px] lg:px-4 md:px-6 sm:px-0  xs:mx-6 xs:pr-6;
+    }
+}
