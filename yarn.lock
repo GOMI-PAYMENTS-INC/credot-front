@@ -1644,10 +1644,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:1.2.1":
-  version: 1.2.1
-  resolution: "@remix-run/router@npm:1.2.1"
-  checksum: 71c947f83e130bf006226332aca395f626ad599b6d35dfe936f6a8f139cf37278bc1b36bce38c30f6062724402358296329f31c385b11ae59b13b76a2716d701
+"@remix-run/router@npm:1.3.0":
+  version: 1.3.0
+  resolution: "@remix-run/router@npm:1.3.0"
+  checksum: 5141e9703d29cd29334ccb9e5f22ee6973bf121574e06509489b7623a12549bd188cfc322eac1263f913353087f132a641579280e94558f346adc2b0b65080d0
   languageName: node
   linkType: hard
 
@@ -1970,13 +1970,13 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:*, @types/react@npm:^18.0.22":
-  version: 18.0.26
-  resolution: "@types/react@npm:18.0.26"
+  version: 18.0.27
+  resolution: "@types/react@npm:18.0.27"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: b62f0ea3cdfa68e106391728325057ad36f1bde7ba2dfae029472c47e01e482bc77c6ba4f1dad59f3f04ee81cb597618ff7c30a33c157c0a20462b6dd6aa2d4d
+  checksum: 600fdbc39a92ea4a77047db3e12f05f67776a710f5918248c0189a59ac2a38900c9db5a5d2e433a16df528a3ecab1aa114b322cacea573bb1ca2fc0b094c52d1
   languageName: node
   linkType: hard
 
@@ -5495,25 +5495,10 @@ __metadata:
     "@types/node": ^18.11.7
     "@types/react": ^18.0.22
     "@types/react-dom": ^18.0.7
-    "@typescript-eslint/eslint-plugin": ^5.41.0
-    "@typescript-eslint/parser": ^5.41.0
     "@vitejs/plugin-react": ^2.2.0
     autoprefixer: ^10.4.13
     daisyui: ^2.38.1
-    eslint: ^8.26.0
-    eslint-config-airbnb: ^19.0.4
-    eslint-config-airbnb-base: ^15.0.0
-    eslint-config-airbnb-typescript: ^17.0.0
-    eslint-config-prettier: ^8.5.0
-    eslint-import-resolver-typescript: ^3.5.2
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jsx-a11y: ^6.6.1
-    eslint-plugin-react: ^7.31.10
-    eslint-plugin-react-hooks: ^4.6.0
-    eslint-plugin-simple-import-sort: ^8.0.0
     postcss: ^8.4.18
-    prettier: ^2.8.0
-    prettier-plugin-tailwindcss: ^0.1.13
     react: ^18.2.0
     react-dom: ^18.2.0
     react-hook-form: ^7.39.6
@@ -5522,14 +5507,8 @@ __metadata:
     recoil: ^0.7.6
     swiper: ^8.4.5
     tailwindcss: ^3.2.1
-    ts-node: ^10.9.1
-    tslib: ^1
-    typescript: ^4.8.4
     vite: 3.1.8
     vite-plugin-svgr: ^2.2.2
-  dependenciesMeta:
-    eslint@8.26.0:
-      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -5549,11 +5528,32 @@ __metadata:
     "@types/node": ^18.11.7
     "@types/react": ^18.0.22
     "@types/react-dom": ^18.0.7
-    "@typescript-eslint/eslint-plugin": ^5.41.0
-    "@typescript-eslint/parser": ^5.41.0
     "@vitejs/plugin-react": ^2.2.0
     autoprefixer: ^10.4.13
     daisyui: ^2.38.1
+    graphql: ^16.6.0
+    graphql-config: ^4.3.6
+    graphql-request: ^4.3.0
+    graphql-tag: ^2.12.6
+    postcss: ^8.4.18
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-hook-form: ^7.39.6
+    react-router-dom: ^6.4.2
+    react-toastify: ^9.1.1
+    recoil: ^0.7.6
+    tailwindcss: ^3.2.1
+    vite: 3.1.8
+    vite-plugin-svgr: ^2.2.2
+  languageName: unknown
+  linkType: soft
+
+"kr-core-gomi-keyword-front@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "kr-core-gomi-keyword-front@workspace:."
+  dependencies:
+    "@typescript-eslint/eslint-plugin": ^5.41.0
+    "@typescript-eslint/parser": ^5.41.0
     eslint: ^8.26.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-base: ^15.0.0
@@ -5565,34 +5565,14 @@ __metadata:
     eslint-plugin-react: ^7.31.10
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-simple-import-sort: ^8.0.0
-    graphql: ^16.6.0
-    graphql-config: ^4.3.6
-    graphql-request: ^4.3.0
-    graphql-tag: ^2.12.6
-    postcss: ^8.4.18
     prettier: ^2.8.0
     prettier-plugin-tailwindcss: ^0.1.13
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-hook-form: ^7.39.6
-    react-router-dom: ^6.4.2
-    react-toastify: ^9.1.1
-    recoil: ^0.7.6
-    tailwindcss: ^3.2.1
     ts-node: ^10.9.1
     tslib: ^1
     typescript: ^4.8.4
-    vite: 3.1.8
-    vite-plugin-svgr: ^2.2.2
   dependenciesMeta:
     eslint@8.26.0:
       unplugged: true
-  languageName: unknown
-  linkType: soft
-
-"kr-core-gomi-keyword-front@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "kr-core-gomi-keyword-front@workspace:."
   languageName: unknown
   linkType: soft
 
@@ -6731,26 +6711,26 @@ __metadata:
   linkType: hard
 
 "react-router-dom@npm:^6.4.2":
-  version: 6.6.2
-  resolution: "react-router-dom@npm:6.6.2"
+  version: 6.7.0
+  resolution: "react-router-dom@npm:6.7.0"
   dependencies:
-    "@remix-run/router": 1.2.1
-    react-router: 6.6.2
+    "@remix-run/router": 1.3.0
+    react-router: 6.7.0
   peerDependencies:
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: e0ee89a2b3768d2eb406ecefedfa24b55428145359b4138f6d38b8a99b60a4f275418910f4cdb12c069ed0237711acced3787b0c7febfa6568d7ea9cd624ff3b
+  checksum: b5175b0c0560a45ee5b1f924af038b48bb29711839cbe65e2859a299f74740598bd90db438e205517b9568e7c5e6e6cb22fe1554f9763d60f6e347a8883940f9
   languageName: node
   linkType: hard
 
-"react-router@npm:6.6.2":
-  version: 6.6.2
-  resolution: "react-router@npm:6.6.2"
+"react-router@npm:6.7.0":
+  version: 6.7.0
+  resolution: "react-router@npm:6.7.0"
   dependencies:
-    "@remix-run/router": 1.2.1
+    "@remix-run/router": 1.3.0
   peerDependencies:
     react: ">=16.8"
-  checksum: 5960d774bb3a8f697a57ee2e82a3eb0a300b7186a62b27e02773c94f1682e59435bd876d6162a08cc8daf27cac72aaab66d348fcc4d8f59240a63a911cf0050b
+  checksum: 6dda5f084e04355c8deacb631fcd8472f3590dbd54d19175401aa1ed6bc6a2a244cd4d70cdb4fc81d2d800d75923461189e9e6a853c1838af78eff3021e4efbe
   languageName: node
   linkType: hard
 
