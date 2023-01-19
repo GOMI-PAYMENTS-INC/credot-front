@@ -1,5 +1,10 @@
 export const Paths = {
+  // search
   home: '/',
+  // result
+  searchResult: '/search-result',
+  // account
+  account: '/account/*',
   signIn: '/sign-in',
   signUp: '/sign-up',
   signUpSocial: '/sign-up-social',
@@ -8,6 +13,5 @@ export const Paths = {
   findPassword: '/find-password',
   findNoResult: '/find-no-result',
   resetPassword: '/reset-password',
-  searchResult: '/search-result',
   notAuthorized: '/not-authorized',
 };
