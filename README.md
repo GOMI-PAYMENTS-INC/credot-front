@@ -12,15 +12,15 @@ $ yarn install
 - user
 
 ```
-$ yarn start-user:dev
-$ yarn start-user:build
+$ yarn user:dev
+$ yarn user:build
 ```
 
 - office
 
 ```
-$ yarn start-office:dev
-$ yarn start-office:build
+$ yarn office:dev
+$ yarn office:build
 ```
 
 ## 미비된 작업
