@@ -15,6 +15,7 @@
     "office:build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "eslint": "^8.26.0",
