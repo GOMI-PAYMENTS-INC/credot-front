@@ -9,9 +9,9 @@ interface LayoutProps {
 }
 const Layout = ({ children, headerChildren }: LayoutProps) => (
   <>
-    <Header onLogout={headerChildren.onLogout} isLogin={headerChildren.isLogin} />
-    <main className='mt-[-5rem]'>{children}</main>
-    <Footer />
+    {/* <Header onLogout={headerChildren.onLogout} isLogin={headerChildren.isLogin} /> */}
+    <main className='flex w-full h-full items-center'>{children}</main>
+    {/* <Footer /> */}
   </>
 );
 export default Layout;
