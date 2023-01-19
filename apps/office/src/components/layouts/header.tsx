@@ -1,7 +1,3 @@
-import { Link } from 'react-router-dom';
-
-import { Icons } from '@/components/icons';
-import { Paths } from '@/router/paths';
 import SvgIcon from '@/util/SvgIcon';
 
 const Header = () => (
@@ -17,10 +13,10 @@ const Header = () => (
         />
       </div>
       <div className='space-x-4'>
-        <button className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 lg:hidden'>
+        <button className='border-grey-400 text-M/Bold text-grey-800 rounded-md border p-3 lg:hidden'>
           로그인
         </button>
-        <button className='rounded-md bg-primary-red-orange p-3 text-M/Bold text-white md:bg-white md:text-primary-red-orange'>
+        <button className='bg-primary-red-orange text-M/Bold md:text-primary-red-orange rounded-md p-3 text-white md:bg-white'>
           무료 시작하기
         </button>
       </div>

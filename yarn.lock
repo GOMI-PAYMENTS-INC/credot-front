@@ -1939,7 +1939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.11.7":
+"@types/node@npm:*, @types/node@npm:^18.11.18, @types/node@npm:^18.11.7":
   version: 18.11.18
   resolution: "@types/node@npm:18.11.18"
   checksum: 03f17f9480f8d775c8a72da5ea7e9383db5f6d85aa5fefde90dd953a1449bd5e4ffde376f139da4f3744b4c83942166d2a7603969a6f8ea826edfb16e6e3b49d
@@ -5552,6 +5552,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "kr-core-gomi-keyword-front@workspace:."
   dependencies:
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.41.0
     "@typescript-eslint/parser": ^5.41.0
     eslint: ^8.26.0
