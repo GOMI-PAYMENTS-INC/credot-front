@@ -3,7 +3,6 @@ import 'swiper/swiper.min.css';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// import { Icons } from '@/components/icons';
 import SvgIcon from '@/util/SvgIcon';
 
 export default function HomePage() {
