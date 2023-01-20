@@ -309,9 +309,9 @@ export default function HomePage() {
             <img src='/src/assets/images/Section1/Background.png' alt='' />
           </div>
           <div className='grid-12 relative items-center  justify-items-center  pb-11 lg:pb-6'>
-            <div className=' xs:col-span-full col-span-5  col-start-2 px-8 py-[22px] px-5 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
+            <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
               <div className='mb-6'>
-                <h1 className='text-3XL/Bold lg:text-2XL/Bold break-keep'>
+                <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                   <span className='text-primary-red-orange'>Shopee</span>에서{' '}
                   <span className='text-primary-red-orange'>상위 노출</span>을 원하는{' '}
                   <span className='text-primary-red-orange'>키워드</span>를 입력하세요.
@@ -322,7 +322,7 @@ export default function HomePage() {
                   <select
                     name='country'
                     id='country'
-                    className='text-S/Medium bg-transparent py-3'
+                    className='bg-transparent py-3 text-S/Medium'
                   >
                     <option value='Vietnam' defaultValue='Vietnam'>
                       Vietnam
@@ -337,7 +337,7 @@ export default function HomePage() {
                       <input
                         type='text'
                         placeholder='키워드를 입력해주세요.'
-                        className='input-bordered input lg:text-S/Medium  h-full w-full w-full rounded-r-none border-0 bg-white'
+                        className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                       />
                     </div>
                     <button className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'>
@@ -367,7 +367,7 @@ export default function HomePage() {
                   </h3>
                 </div>
                 <div>
-                  <span className='text-4XL/Bold lg:text-3XL/medium text-gray-300'>
+                  <span className='text-4XL/Bold text-gray-300 lg:text-3XL/medium'>
                     ???
                   </span>
                 </div>
@@ -392,7 +392,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <button className='bg-primary-red-orange w-full rounded-md py-4'>
+                <button className='w-full rounded-md bg-primary-red-orange py-4'>
                   <span className='text-L/Bold text-white'>리포트 생성하기</span>
                 </button>
               </div>
@@ -421,13 +421,13 @@ export default function HomePage() {
         </div>
       </section>
       <section>
-        <div className='container-padding xs:py-[60px] py-[100px] md:mx-auto  md:mx-auto lg:py-20'>
-          <div className='grid-12 xs:mb-[56px] mb-20 lg:mb-[70px]'>
+        <div className='container-padding py-[100px] lg:py-20 md:mx-auto  md:mx-auto xs:py-[60px]'>
+          <div className='grid-12 mb-20 lg:mb-[70px] xs:mb-[56px]'>
             <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1'>
-              <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold  mb-5 lg:mb-6'>
+              <div className='mb-5 text-2XL/Bold text-grey-800  lg:mb-6 md:text-XL/Bold'>
                 알고 계신가요?
               </div>
-              <div className='text-3XL/Bold md:text-2XL/Bold break-keep'>
+              <div className='break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p className='mb-2'>이커머스 플랫폼 매출의 86%는</p>
                 <p>
                   <span className='text-primary-red-orange'>키워드 검색</span>을 통해서
@@ -437,21 +437,21 @@ export default function HomePage() {
             </div>
           </div>
           <div className='grid-12 gap-6'>
-            <div className='xs:col-span-full col-span-4 sm:col-span-10 sm:col-start-2 md:col-span-8  md:col-start-3 lg:col-span-6  lg:col-start-4'>
+            <div className='col-span-4 lg:col-span-6 lg:col-start-4 md:col-span-8 md:col-start-3  sm:col-span-10 sm:col-start-2  xs:col-span-full'>
               <img
                 src='/src/assets/images/Section2/image-1.svg'
                 alt=''
                 className='w-full'
               />
             </div>
-            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+            <div className='col-span-4  lg:col-span-6 lg:col-start-4  md:col-span-8 md:col-start-3 sm:col-span-10 sm:col-start-2 xs:col-span-full'>
               <img
                 src='/src/assets/images/Section2/image-2.svg'
                 alt=''
                 className='w-full'
               />
             </div>
-            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+            <div className='col-span-4  lg:col-span-6 lg:col-start-4  md:col-span-8 md:col-start-3 sm:col-span-10 sm:col-start-2 xs:col-span-full'>
               <img
                 src='/src/assets/images/Section2/image-3.svg'
                 alt=''
@@ -462,10 +462,10 @@ export default function HomePage() {
         </div>
       </section>
       <section className='bg-grey-50'>
-        <div className='container-padding pt-[100px]  pb-[74px] md:mx-auto md:pb-20  lg:py-20 '>
-          <div className='grid-12 mb-14 sm:mb-10 lg:mb-[72px] '>
-            <div className='xs:col-span-full col-span-8 col-start-3 text-center lg:col-span-full  lg:col-start-1'>
-              <div className='text-4XL/Bold lg:text-3XL/Bold md:text-2XL/Bold break-keep'>
+        <div className='container-padding pt-[100px]  pb-[74px] lg:py-20 md:mx-auto  md:pb-20 '>
+          <div className='grid-12 mb-14 lg:mb-[72px] sm:mb-10 '>
+            <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1  xs:col-span-full'>
+              <div className='break-keep text-4XL/Bold lg:text-3XL/Bold md:text-2XL/Bold'>
                 <p className='mb-4'>데이터를 기반으로</p>
                 <p>
                   <span className='text-primary-red-orange'>상위 노출 노하우</span>를 한
@@ -475,23 +475,23 @@ export default function HomePage() {
             </div>
           </div>
           <div className='grid-12'>
-            <div className='col-span-10 col-start-2 sm:hidden lg:col-span-full'>
+            <div className='col-span-10 col-start-2 lg:col-span-full sm:hidden'>
               <img src='/src/assets/images/Section3/Section3-morion-Large.gif' alt='' />
             </div>
-            <div className='xs:col-span-full col-span-10 col-start-2 hidden sm:block'>
+            <div className='col-span-10 col-start-2 hidden sm:block xs:col-span-full'>
               <img src='/src/assets/images/Section3/Section3-morion-Small.gif' alt='' />
             </div>
           </div>
         </div>
       </section>
       <section>
-        <div className='container-padding pt-[100px]  sm:pt-[60px]  md:mx-auto'>
-          <div className='grid-12 mb-[70px] sm:mb-10 lg:mb-[72px]'>
+        <div className='container-padding pt-[100px]  md:mx-auto  sm:pt-[60px]'>
+          <div className='grid-12 mb-[70px] lg:mb-[72px] sm:mb-10'>
             <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1 '>
-              <div className='text-2XL/Bold md:text-XL/Bold mb-6  text-orange-500'>
+              <div className='mb-6 text-2XL/Bold text-orange-500  md:text-XL/Bold'>
                 상위 노출을 위한 모든 것
               </div>
-              <div className='text-3XL/Bold md:text-2XL/Bold break-keep text-gray-900 '>
+              <div className='break-keep text-3XL/Bold text-gray-900 md:text-2XL/Bold '>
                 <div className=' sm:hidden'>
                   <p className='mb-2'>상위 100개 상품에 대한 15가지의 인사이트와</p>
                   <p>개별 상품 분석까지!</p>
@@ -506,15 +506,15 @@ export default function HomePage() {
           </div>
         </div>
         <div className='container-tab'>
-          <div className='grid-12 mb-[100px] pb-8 sm:mb-10 sm:block  sm:pb-0 lg:mb-[72px] lg:pb-0 '>
-            <div className='col-span-8 col-start-3 md:col-span-full md:col-start-1 lg:col-span-10 lg:col-start-2'>
-              <ul className='grid-rows-tab grid grid-cols-5 grid-rows-1  gap-y-6 gap-x-8 sm:flex sm:overflow-x-auto lg:gap-x-4 lg:gap-y-6'>
+          <div className='grid-12 mb-[100px] pb-8 lg:mb-[72px] lg:pb-0  sm:mb-10 sm:block sm:pb-0 '>
+            <div className='col-span-8 col-start-3 lg:col-span-10 lg:col-start-2 md:col-span-full md:col-start-1'>
+              <ul className='grid-rows-tab grid grid-cols-5 grid-rows-1  gap-y-6 gap-x-8 lg:gap-x-4 lg:gap-y-6 sm:flex sm:overflow-x-auto'>
                 {tabData.map((tab, index) => (
                   <li
                     key={index}
                     tabIndex={index}
                     onClick={() => onClickTab(index)}
-                    className={`lg: text-M/Bold md:text-S/Medium sm:text-S/Bold col-span-1 shrink-0 rounded-[30px]   py-4 sm:px-4 md:py-3
+                    className={`lg: col-span-1 shrink-0 rounded-[30px] py-4 text-M/Bold md:py-3   md:text-S/Medium sm:px-4 sm:text-S/Bold
                       ${
                         index === activeTabIndex
                           ? 'bg-grey-900 text-white'
@@ -531,22 +531,22 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className='container-padding pb-[100px]  sm:pb-[60px]  md:mx-auto'>
-          <div className='grid-12 mb-[18px] sm:justify-items-center md:items-start '>
-            <div className='xs:col-span-full col-start-3 col-end-7 sm:col-start-2 sm:col-end-12 sm:mb-8 sm:text-center md:col-span-6  md:col-start-1 lg:col-span-5  lg:col-start-2 '>
+        <div className='container-padding pb-[100px]  md:mx-auto  sm:pb-[60px]'>
+          <div className='grid-12 mb-[18px] md:items-start sm:justify-items-center '>
+            <div className='col-start-3 col-end-7 lg:col-span-5 lg:col-start-2 md:col-span-6 md:col-start-1 sm:col-start-2 sm:col-end-12  sm:mb-8 sm:text-center  xs:col-span-full '>
               <div className='mb-6 '>
-                <div className='text-2XL/Bold text-primary-red-orange lg:text-XL/Bold md:text-L/Bold mb-4'>
+                <div className='mb-4 text-2XL/Bold text-primary-red-orange lg:text-XL/Bold md:text-L/Bold'>
                   Insight {tabData[activeTabIndex].data.insightNum}
                 </div>
-                <div className='md:text-2L/Bold text-4XL/Bold  lg:text-3XL/Bold text-gray-900'>
+                <div className='md:text-2L/Bold text-4XL/Bold  text-gray-900 lg:text-3XL/Bold'>
                   {tabData[activeTabIndex].name}
                 </div>
               </div>
-              <div className='text-L/Medium md:text-M/Medium w-9/12 break-keep text-gray-900 sm:w-full'>
+              <div className='w-9/12 break-keep text-L/Medium text-gray-900 md:text-M/Medium sm:w-full'>
                 {tabData[activeTabIndex].data.content}
               </div>
             </div>
-            <div className='xs:col-span-full col-span-4 sm:col-start-2 sm:col-end-12 sm:max-w-[280px]   md:col-span-6  lg:col-span-5 '>
+            <div className='col-span-4 lg:col-span-5 md:col-span-6 sm:col-start-2 sm:col-end-12   sm:max-w-[280px]  xs:col-span-full '>
               <img
                 src={`/src/assets/images/Section5/${tabData[activeTabIndex].data.img}`}
                 alt=''
@@ -556,13 +556,13 @@ export default function HomePage() {
         </div>
       </section>
       <section className='bg-grey-50'>
-        <div className='container-padding pt-[100px]  pb-[122px] md:mx-auto md:pt-[77px]  md:pb-[90px] lg:pb-[113px] '>
+        <div className='container-padding pt-[100px]  pb-[122px] lg:pb-[113px] md:mx-auto  md:pt-[77px] md:pb-[90px] '>
           <div className='grid-12 mb-20 md:mb-[61.3px] '>
             <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1 '>
-              <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold mb-5 lg:mb-6 '>
+              <div className='mb-5 text-2XL/Bold text-grey-800 lg:mb-6 md:text-XL/Bold '>
                 고미 인사이트가 함께합니다
               </div>
-              <div className='text-3XL/Bold md:text-2XL/Bold break-keep'>
+              <div className='break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p className='mb-2'>서비스 오픈 1개월만에</p>
                 <p>
                   무려 <span className='text-primary-red-orange'>248개사</span>가
@@ -595,7 +595,7 @@ export default function HomePage() {
               {partnerData.map((partener, index) => (
                 <SwiperSlide
                   key={index}
-                  className='border-grey-300 shadow-partnerCard rounded-[16.5097px] border bg-white p-6 md:p-[18.54px]'
+                  className='shadow-partner-card rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
                 >
                   <div className='mb-6 md:mb-[18.54px]'>
                     <div className='flex'>
@@ -606,7 +606,7 @@ export default function HomePage() {
                         />
                       </div>
                       <div>
-                        <div className='text-L/Medium text-grey-900  md:text-S/Medium mb-2  md:mb-[3.09px]'>
+                        <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
                           {partener.name}
                         </div>
                         <div className='text-M/Regular text-grey-800  md:text-S/Regular'>
@@ -616,7 +616,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div>
-                    <div className='text-XL/Bold text-grey-900 md:text-S/Bold  mb-4 md:mb-[12.36px] md:mb-[12.36px]'>
+                    <div className='mb-4 text-XL/Bold text-grey-900  md:mb-[12.36px] md:mb-[12.36px] md:text-S/Bold'>
                       {partener.subject}
                     </div>
                     <div className='text-L/Medium text-grey-800 md:text-XS/Medium'>
@@ -632,7 +632,7 @@ export default function HomePage() {
               {partnerData.map((partener, index) => (
                 <li
                   key={index}
-                  className='border-grey-300 shadow-partnerCard mb-6 rounded-[16.5097px] border bg-white p-6 md:p-[18.54px]'
+                  className='shadow-partner-card mb-6 rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
                 >
                   <div className='mb-6 md:mb-[18.54px]'>
                     <div className='flex'>
@@ -643,7 +643,7 @@ export default function HomePage() {
                         />
                       </div>
                       <div>
-                        <div className='text-L/Medium text-grey-900  md:text-S/Medium mb-2  md:mb-[3.09px]'>
+                        <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
                           {partener.name}
                         </div>
                         <div className='text-M/Regular text-grey-800  md:text-S/Regular'>
@@ -653,7 +653,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div>
-                    <div className='text-XL/Bold text-grey-900 md:text-S/Bold  mb-4 md:mb-[12.36px] md:mb-[12.36px]'>
+                    <div className='mb-4 text-XL/Bold text-grey-900  md:mb-[12.36px] md:mb-[12.36px] md:text-S/Bold'>
                       {partener.subject}
                     </div>
                     <div className='text-L/Medium text-grey-800 md:text-XS/Medium'>
@@ -667,13 +667,13 @@ export default function HomePage() {
         </div>
       </section>
       <section>
-        <div className='container-padding pt-[100px] pb-[126px] sm:py-[60px] md:mx-auto  md:pb-[40px] lg:pb-[100px]'>
+        <div className='container-padding pt-[100px] pb-[126px] lg:pb-[100px] md:mx-auto  md:pb-[40px] sm:py-[60px]'>
           <div className='grid-12 mb-20 sm:mb-[56px]'>
             <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1  '>
-              <div className='text-2XL/Bold md:text-XL/Bold mb-6  text-orange-500'>
+              <div className='mb-6 text-2XL/Bold text-orange-500  md:text-XL/Bold'>
                 누가, 어떻게 활용할 수 있을 까요?
               </div>
-              <div className='text-3XL/Bold md:text-2XL/Bold break-keep text-gray-900 '>
+              <div className='break-keep text-3XL/Bold text-gray-900 md:text-2XL/Bold '>
                 <p>쇼피에 상품을 판매하는 누구나!</p>
               </div>
             </div>
@@ -683,7 +683,7 @@ export default function HomePage() {
               {userTargetData.map((userTarget, index) => (
                 <li
                   key={index}
-                  className='xs:col-span-full xs:odd:col-start-1 col-span-3 p-2.5 sm:col-span-10 sm:col-start-2 sm:mb-5 sm:last:mb-0 md:col-span-5 md:mb-[50px] md:odd:col-start-2 '
+                  className='col-span-3 p-2.5 md:col-span-5 md:mb-[50px] md:odd:col-start-2 sm:col-span-10 sm:col-start-2 sm:mb-5 sm:last:mb-0 xs:col-span-full xs:odd:col-start-1 '
                 >
                   <div className='mb-6 lg:mb-4 '>
                     <img
@@ -692,7 +692,7 @@ export default function HomePage() {
                       className='w-full '
                     />
                   </div>
-                  <div className='text-2XL/Bold text-grey-900 lg:text-XL/Bold mb-4'>
+                  <div className='mb-4 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
                     {userTarget.name}
                   </div>
                   <div className='text-L/Medium text-grey-700 lg:text-M/Medium'>
@@ -704,16 +704,16 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className='bg-main xs:bg-[40%] bg-cover bg-center py-[130px]  sm:bg-[20%] sm:py-[70px]  lg:py-[105px]'>
+      <section className='bg-main bg-cover bg-center py-[130px] lg:py-[105px]  sm:bg-[20%] sm:py-[70px]  xs:bg-[40%]'>
         <div className='container-padding'>
           <div className='grid-12 justify-items-right items-center sm:gap-y-12'>
-            <div className='text-4XL/Bold lg:text-3XL/Bold col-span-5 col-start-2  break-keep text-white  sm:col-span-full md:col-span-7 md:col-start-1'>
+            <div className='col-span-5 col-start-2 break-keep text-4XL/Bold  text-white lg:text-3XL/Bold  md:col-span-7 md:col-start-1 sm:col-span-full'>
               상위 노출을 위한
               <br />
               쇼피 판매 전략 인사이트
             </div>
-            <div className='col-span-3 col-start-9 text-right sm:col-span-full md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-8'>
-              <button className='text-L/Bold text-grey-800 rounded bg-white py-4 px-4'>
+            <div className='col-span-3 col-start-9 text-right lg:col-span-4 lg:col-start-8 md:col-span-5 md:col-start-8 sm:col-span-full'>
+              <button className='rounded bg-white py-4 px-4 text-L/Bold text-grey-800'>
                 고미 인사이트 바로 시작하기
               </button>
             </div>
@@ -721,21 +721,21 @@ export default function HomePage() {
         </div>
       </section>
       <section>
-        <div className='container-padding py-[120px] md:mx-auto md:mx-auto  lg:py-[60px]'>
+        <div className='container-padding py-[120px] lg:py-[60px] md:mx-auto  md:mx-auto'>
           <div className='grid-12'>
-            <div className='bg-grey-200 xs:gap-y-[33px] col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center  gap-x-5 rounded-[49px] sm:justify-items-start sm:gap-y-[55px] sm:py-10 sm:pb-0 md:py-[39px]  lg:col-span-full  lg:col-start-1 lg:grid-cols-12  lg:py-[42px]'>
-              <div className='col-span-5 break-keep pl-[53px] sm:col-span-full  sm:col-start-2 sm:pl-0 md:col-span-6  md:pl-[34px] lg:col-span-7'>
-                <div className='bg-grey-900 mb-[13px] inline-block rounded-[33px] px-5 py-[7px]'>
+            <div className='col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center gap-x-5 rounded-[49px]  bg-grey-200 lg:col-span-full lg:col-start-1 lg:grid-cols-12 lg:py-[42px] md:py-[39px] sm:justify-items-start  sm:gap-y-[55px]  sm:py-10 sm:pb-0  xs:gap-y-[33px]'>
+              <div className='col-span-5 break-keep pl-[53px] lg:col-span-7  md:col-span-6 md:pl-[34px] sm:col-span-full  sm:col-start-2 sm:pl-0'>
+                <div className='mb-[13px] inline-block rounded-[33px] bg-grey-900 px-5 py-[7px]'>
                   <span className='text-S/Medium text-white'>Event 2022.12~ 종료시</span>
                 </div>
-                <div className='text-3XL/Bold mb-[20px]'>무제한 사용 이벤트</div>
+                <div className='mb-[20px] text-3XL/Bold'>무제한 사용 이벤트</div>
                 <div className='text-grey-700'>
                   고미 인사이트는 현재 무료 서비스 이벤트를 진행중이에요.
                   <br />
                   별도의 이벤트 종료 안내까지는 무제한 리포트 조회가 가능해요!
                 </div>
               </div>
-              <div className='xs:col-start-1 xs:mb-6 col-span-5 sm:col-span-full sm:col-start-4 md:col-span-6'>
+              <div className='col-span-5 md:col-span-6 sm:col-span-full sm:col-start-4 xs:col-start-1 xs:mb-6'>
                 <img src='/src/assets/images/Section9/Ticket.png' alt='' />
               </div>
             </div>
@@ -747,10 +747,10 @@ export default function HomePage() {
         <div className='container-padding'>
           <div className='grid-12 mb-12'>
             <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1 '>
-              <div className='text-2XL/Bold mb-6 text-orange-500 lg:mb-8'>
+              <div className='mb-6 text-2XL/Bold text-orange-500 lg:mb-8'>
                 자주 묻는 질문을 모았어요.
               </div>
-              <div className='text-3XL/Bold break-keep text-gray-900'>
+              <div className='break-keep text-3XL/Bold text-gray-900'>
                 <p>FAQ</p>
               </div>
             </div>
@@ -760,11 +760,11 @@ export default function HomePage() {
               {qnaData.map((qna, index) => (
                 <dl
                   key={index}
-                  className='border-b-grey-300 border border-t-0 border-l-0  border-r-0 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-6'
+                  className='border border-t-0 border-l-0 border-r-0  border-b-grey-300 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-6'
                   onClick={() => onClickFaq(index + 1)}
                 >
                   <dt className='relative'>
-                    <p className='text-2XL/Bold text-grey-900 lg:text-XL/Bold pr-12'>
+                    <p className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
                       {qna.subject}
                     </p>
                     <SvgIcon
@@ -779,7 +779,7 @@ export default function HomePage() {
                     />
                   </dt>
                   <dd
-                    className={`text-L/Medium text-grey-700 lg:text-M/Medium mt-4  ${
+                    className={`mt-4 text-L/Medium text-grey-700 lg:text-M/Medium  ${
                       activeFaqIndex === index + 1 ? 'block' : 'hidden'
                     }`}
                   >

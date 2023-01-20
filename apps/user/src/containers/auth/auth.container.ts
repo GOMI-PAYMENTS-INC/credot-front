@@ -336,10 +336,11 @@ export const AuthContainer = () => {
     window.google?.accounts.id.renderButton(
       document.getElementById('google-login-button') as HTMLElement,
       {
-        type: 'icon',
+        type: 'standard',
         theme: 'outline',
-        shape: 'circle',
-        width: '256px',
+        text: 'signin_with',
+        width: '416px',
+        shape: 'square',
       },
     );
   }, []);
