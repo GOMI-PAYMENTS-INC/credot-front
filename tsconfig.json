@@ -13,10 +13,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx"
   },
-  "exclude": ["packages/**/dist/**"],
+  "exclude": ["apps/**/dist/**"],
   "include": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
