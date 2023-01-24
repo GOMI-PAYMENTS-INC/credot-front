@@ -7,6 +7,7 @@
     ]
   },
   "scripts": {
+    "lint": "eslint ./apps --ext .ts,.tsx,.js,.jsx --cache",
     "prepare": "yarn set version berry && yarn install && yarn dlx @yarnpkg/sdks vscode",
     "user:dev": "yarn workspace kr-core-gomi-keyword-front-user run dev",
     "user:dev-build": "yarn workspace kr-core-gomi-keyword-front-user run build:dev",
