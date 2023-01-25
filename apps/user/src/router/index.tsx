@@ -1,19 +1,29 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { createElement, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import HomePage from '@/pages/home/home.page';
-import SearchResultPage from '@/pages/search/search-result.page';
-import { Paths } from '@/router/paths';
-
-import Account from './account';
+import { PATH, routeList } from '@/router/routeList';
 
 export const Router = () => {
-  const location = useLocation();
+  const navigator = useNavigate();
+  // 로그인 체크로직 여기서
+  const isLogin = false;
+
+  useEffect(() => {
+    console.log('login Check logic');
+    if (isLogin === false) {
+      navigator(PATH.SIGN_IN);
+    }
+  }, []);
 
   return (
     <Routes>
-      <Route path={Paths.home} element={<HomePage />} />
-      <Route path={Paths.account} element={<Account location={location} />} />
-      <Route path={Paths.searchResult} element={<SearchResultPage />} />
+      {routeList.map((route) => (
+        <Route
+          key={route.description}
+          path={route.path}
+          element={createElement(route.component)}
+        />
+      ))}
     </Routes>
   );
 };

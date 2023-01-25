@@ -31,8 +31,8 @@ import {
   useSendTemporaryPasswordMutation,
   useSignupMutation,
 } from '@/generated/graphql';
-import { SendTemporaryPasswordResult } from '@/pages/auth/find-password.page';
-import { Paths } from '@/router/paths';
+import { SendTemporaryPasswordResult } from '@/pages/auth/FindPassword';
+import { PATH } from '@/router/routeList';
 import { authTokenStorage } from '@/utils/auth-token';
 import { GlobalEnv } from '@/utils/config';
 import { graphQLClient } from '@/utils/graphql-client';
@@ -74,7 +74,7 @@ export const AuthContainer = () => {
   };
   const onLogout = () => {
     clearLogin();
-    navigate(Paths.signIn);
+    navigate(PATH.SIGN_IN);
   };
 
   // 회원정보 가져오기
@@ -87,7 +87,7 @@ export const AuthContainer = () => {
     {},
     {
       onSuccess: (res) => {
-        const path = !res.me.phone && Paths.signUpSocial;
+        const path = !res.me.phone && PATH.SIGN_UP_WITH_GOOGLE;
         if (path) {
           navigate(path, { state: { email: res.me.email } });
         }
@@ -126,7 +126,7 @@ export const AuthContainer = () => {
       if (res.signup.token) {
         setToken(res.signup.token);
         authTokenStorage.setToken(isLoginStorage, res.signup.token);
-        navigate(Paths.welcome);
+        navigate(PATH.SEARCH_PRODUCTS);
       }
     },
     onError: () => {
@@ -156,7 +156,7 @@ export const AuthContainer = () => {
         setIdToken('');
         setToken(res.googleSignUp.token);
         authTokenStorage.setToken(isLoginStorage, res.googleSignUp.token);
-        navigate(Paths.welcome);
+        navigate(PATH.SEARCH_PRODUCTS);
       }
     },
     onError: () => {
@@ -188,10 +188,10 @@ export const AuthContainer = () => {
       if (res.login.popupInfo) {
         sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
         setTemporaryPasswordLogin(true);
-        navigate(Paths.resetPassword);
+        navigate(PATH.REAPPLY_PASSWORD);
       } else {
         setTemporaryPasswordLogin(false);
-        navigate(Paths.home);
+        navigate(PATH.SEARCH_PRODUCTS);
       }
     },
     onError: (err) => {
@@ -243,7 +243,7 @@ export const AuthContainer = () => {
       toast.success(
         '변경 성공하였습니다. 다음번 방문부터는 변경된 비밀번호를 사용해주세요!',
       );
-      navigate(Paths.home);
+      navigate(PATH.SEARCH_PRODUCTS);
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');
@@ -283,7 +283,7 @@ export const AuthContainer = () => {
         ) {
           toast.error('올바른 인증코드가 아닙니다.');
         } else {
-          navigate(Paths.findNoResult);
+          // navigate(PATH.findNoResult);
         }
       },
     });
@@ -320,10 +320,10 @@ export const AuthContainer = () => {
       // 비회원인 경우
       handleChangeLoginState(false);
       if (
-        !Object.values(Paths).find((d) => d === pathname) &&
-        !pathname.startsWith(Paths.signIn)
+        !Object.values(PATH).find((d) => d === pathname) &&
+        !pathname.startsWith(PATH.SIGN_IN)
       ) {
-        navigate(Paths.signIn);
+        navigate(PATH.SIGN_IN);
       }
 
       clearLogin();
