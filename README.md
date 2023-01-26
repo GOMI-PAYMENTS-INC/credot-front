@@ -3,8 +3,7 @@
 ### 1.yarn berry 및 모듈 설치
 
 ```
-$ yarn set version berry
-$ yarn install
+$ yarn prepare
 ```
 
 ### 2.script 실행
