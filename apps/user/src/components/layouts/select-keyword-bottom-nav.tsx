@@ -1,8 +1,8 @@
-import { Icons } from '@/components/icons';
+// import { Icons } from '@/components/icons';
 
 const SelectKeyWordBottomNav = () => (
   <div className='select-keyword-bottom-nav fixed bottom-0 left-0 w-screen bg-base-100'>
-    <div className='grid grid-cols-select-keyword '>
+    <div className='grid-cols-select-keyword grid '>
       <div>
         <p className='text-m-regular'>
           선택한 키워드
@@ -13,7 +13,8 @@ const SelectKeyWordBottomNav = () => (
         <ul className='select-keyword-items max-h-[6.2rem] max-w-[64.75rem] overflow-y-auto'>
           {/* 선택한 키워드 아이템 시작 */}
           {/* <li className='select-keyword-item  max-w-[calc(45%-0.125rem)] '> */}
-          {/*  <div className=' grid grid-cols-select-keyword-item items-center gap-x-select-keyword-item'> */}
+          {/*  <div className=' grid grid-cols-select-keyword-item
+          items-center gap-x-select-keyword-item'> */}
           {/*    <div className='user-language text-l-medium line-clamp-1'> */}
           {/*      Vận Chuyển Vận Chuyển ddd */}
           {/*    </div> */}

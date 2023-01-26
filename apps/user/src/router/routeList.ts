@@ -1,15 +1,15 @@
 import type { ComponentType } from 'react';
 
+import { Flural, Singular } from '@/components/layouts';
 import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
 import SearchProduct from '@/pages/search/SearchProduct';
-
-// import FindId from '@/pages/auth/FindId';
 
 export interface IRoute {
   description: string;
   path: string;
   component: ComponentType;
+  layout: ComponentType;
 }
 
 export const PATH = {
@@ -22,31 +22,61 @@ export const PATH = {
   FIND_ID: '/find/id',
   REAPPLY_PASSWORD: '/signin/password',
 };
+
 export const signInRouter = {
   description: 'signIn',
   path: PATH.SIGN_IN,
   component: AuthRoutes.FindId,
 };
+
 export const routeList: IRoute[] = [
-  { description: 'seachProducts', path: PATH.SEARCH_PRODUCTS, component: SearchProduct },
-  { description: 'searchResults', path: PATH.SEARCH_RESULTS, component: SearchResults },
-  { description: 'signIn', path: PATH.SIGN_IN, component: AuthRoutes.SignIn },
-  { description: 'signUp', path: PATH.SIGN_UP, component: AuthRoutes.SignUp },
+  {
+    description: 'seachProducts',
+    path: PATH.SEARCH_PRODUCTS,
+    component: SearchProduct,
+    layout: Flural,
+  },
+  {
+    description: 'searchResults',
+    path: PATH.SEARCH_RESULTS,
+    component: SearchResults,
+    layout: Singular,
+  },
+  {
+    description: 'signIn',
+    path: PATH.SIGN_IN,
+    component: AuthRoutes.SignIn,
+    layout: Flural,
+  },
+  {
+    description: 'signUp',
+    path: PATH.SIGN_UP,
+    component: AuthRoutes.SignUp,
+    layout: Singular,
+  },
   {
     description: 'signUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: AuthRoutes.SignUpSocial,
+    layout: Singular,
   },
   {
     description: 'findPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
+    layout: Singular,
   },
-  { description: 'findIdentification', path: PATH.FIND_ID, component: AuthRoutes.FindId },
+  {
+    description: 'findIdentification',
+    path: PATH.FIND_ID,
+    component: AuthRoutes.FindId,
+    layout: Singular,
+  },
   {
     description: 'reapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.ResetPassword,
+    layout: Flural,
   },
 ];
 
