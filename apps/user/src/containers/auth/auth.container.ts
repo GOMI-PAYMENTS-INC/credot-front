@@ -31,7 +31,7 @@ import {
   useSendTemporaryPasswordMutation,
   useSignupMutation,
 } from '@/generated/graphql';
-import { SendTemporaryPasswordResult } from '@/pages/auth/FindPassword';
+// import { SendTemporaryPasswordResult } from '@/pages/auth/FindPassword';
 import { PATH } from '@/router/routeList';
 import { authTokenStorage } from '@/utils/auth-token';
 import { GlobalEnv } from '@/utils/config';
@@ -277,14 +277,14 @@ export const AuthContainer = () => {
           error.response.errors[0].extensions.exception.status,
         );
 
-        if (
-          error.response.errors[0].extensions.exception.status ===
-          SendTemporaryPasswordResult.NOTMATCHCODE
-        ) {
-          toast.error('올바른 인증코드가 아닙니다.');
-        } else {
-          // navigate(PATH.findNoResult);
-        }
+        // if (
+        //   error.response.errors[0].extensions.exception.status ===
+        //   SendTemporaryPasswordResult.NOTMATCHCODE
+        // ) {
+        //   toast.error('올바른 인증코드가 아닙니다.');
+        // } else {
+        //   // navigate(PATH.findNoResult);
+        // }
       },
     });
 

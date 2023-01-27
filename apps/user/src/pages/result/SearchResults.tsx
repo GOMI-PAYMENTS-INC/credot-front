@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Icons } from '@/components/icons';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search/search-result.container';
-import SearchProduct from '@/pages/search/SearchProduct';
+import SearchProducts from '@/pages/search/SearchProducts';
 
 const SearchResults = () => {
   const {
@@ -33,7 +33,7 @@ const SearchResults = () => {
       <div className='container mx-auto mb-40 mt-10'>
         <div className='relative top-10 w-[67%]'>
           {/* 공통 - 검색 영역 시작 */}
-          <SearchProduct />
+          <SearchProducts />
           {/* 공통 - 검색 영역 끝 */}
         </div>
         <div className='search-result-warp'>

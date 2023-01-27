@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -47,102 +47,96 @@ const SignUpSocial = () => {
   };
 
   return (
-    <div className='flex h-screen w-full items-center justify-center'>
-      <div className='w-full max-w-[26.25rem]'>
-        <h3 className='text-2xl-bold mb-4 text-center'>회원가입</h3>
-        <form className='space-y-5' onSubmit={handleSubmit(onValid, onInvalid)}>
+    <Fragment>
+      <h3 className='text-2xl-bold mb-4 text-center'>회원가입</h3>
+      <form className='space-y-5' onSubmit={handleSubmit(onValid, onInvalid)}>
+        <div className='space-y-2'>
           <div className='space-y-2'>
-            <div className='space-y-2'>
-              <input
-                className=' w-full rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
-                type='email'
-                placeholder='이메일'
-                value={userInfo?.me.email}
-                readOnly
-              />
-            </div>
-            <SmsVerifyCodeForm
-              onChangePhone={(value: string) => {
-                setPhone(value);
-              }}
-              onVerifyCodeSign={(value: string) => {
-                setVerifyCodeSign(value);
-              }}
-              onChangeChildIsValid={(value: boolean) => {
-                setChildIsValid(value);
-              }}
+            <input
+              className=' w-full rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+              type='email'
+              placeholder='이메일'
+              value={userInfo?.me.email}
+              readOnly
             />
           </div>
-          <div>
-            <ul className='space-y-3'>
-              <li>
-                <input
-                  type='checkbox'
-                  id='all-agree'
-                  onChange={(e) => onAllCheckbox(e.target.checked)}
-                />
-                <label htmlFor='all-agree' className='m-regular inline-block'>
-                  이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
-                </label>
-              </li>
-              <li className='flex justify-between'>
-                <input type='checkbox' id='use-agree' {...register('useAgree')} />
-                <label htmlFor='use-agree' className='m-regular inline-block'>
-                  이용약관 동의(필수)
-                </label>
+          <SmsVerifyCodeForm
+            onChangePhone={(value: string) => {
+              setPhone(value);
+            }}
+            onVerifyCodeSign={(value: string) => {
+              setVerifyCodeSign(value);
+            }}
+            onChangeChildIsValid={(value: boolean) => {
+              setChildIsValid(value);
+            }}
+          />
+        </div>
+        <div>
+          <ul className='space-y-3'>
+            <li>
+              <input
+                type='checkbox'
+                id='all-agree'
+                onChange={(e) => onAllCheckbox(e.target.checked)}
+              />
+              <label htmlFor='all-agree' className='m-regular inline-block'>
+                이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
+              </label>
+            </li>
+            <li className='flex justify-between'>
+              <input type='checkbox' id='use-agree' {...register('useAgree')} />
+              <label htmlFor='use-agree' className='m-regular inline-block'>
+                이용약관 동의(필수)
+              </label>
 
-                <a href='#' className='text-s-regular'>
-                  보기 &gt;
-                </a>
-              </li>
-              <li className='flex justify-between'>
-                <input
-                  type='checkbox'
-                  id='personal-agree'
-                  {...register('personalAgree')}
-                />
-                <label htmlFor='personal-agree' className='m-regular inline-block'>
-                  개인정보 수집 및 이용 동의(필수)
-                </label>
+              <a href='#' className='text-s-regular'>
+                보기 &gt;
+              </a>
+            </li>
+            <li className='flex justify-between'>
+              <input type='checkbox' id='personal-agree' {...register('personalAgree')} />
+              <label htmlFor='personal-agree' className='m-regular inline-block'>
+                개인정보 수집 및 이용 동의(필수)
+              </label>
 
-                <a href='#' className='text-s-regular'>
-                  보기 &gt;
-                </a>
-              </li>
-              <li className='flex justify-between'>
-                <input
-                  type='checkbox'
-                  id='marketing-agree'
-                  {...register('marketingAgree')}
-                />
-                <label htmlFor='marketing-agree' className='m-regular inline-block'>
-                  마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
-                </label>
-                <a href='#' className='text-s-regular'>
-                  보기 &gt;
-                </a>
-              </li>
-            </ul>
-            {childIsValid && useAgree && personalAgree ? (
-              <button
-                type='submit'
-                className='text-xl-medium mt-16 flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
-              >
-                가입하기
-              </button>
-            ) : (
-              <button
-                type='submit'
-                className='text-xl-medium mt-16 flex w-full cursor-pointer justify-center rounded bg-[#d1d5db] p-2.5 text-white'
-                disabled={true}
-              >
-                가입하기
-              </button>
-            )}
-          </div>
-        </form>
-      </div>
-    </div>
+              <a href='#' className='text-s-regular'>
+                보기 &gt;
+              </a>
+            </li>
+            <li className='flex justify-between'>
+              <input
+                type='checkbox'
+                id='marketing-agree'
+                {...register('marketingAgree')}
+              />
+              <label htmlFor='marketing-agree' className='m-regular inline-block'>
+                마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
+              </label>
+              <a href='#' className='text-s-regular'>
+                보기 &gt;
+              </a>
+            </li>
+          </ul>
+          {childIsValid && useAgree && personalAgree ? (
+            <button
+              type='submit'
+              className='text-xl-medium mt-16 flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
+            >
+              가입하기
+            </button>
+          ) : (
+            <button
+              type='submit'
+              className='text-xl-medium mt-16 flex w-full cursor-pointer justify-center rounded bg-[#d1d5db] p-2.5 text-white'
+              disabled={true}
+            >
+              가입하기
+            </button>
+          )}
+        </div>
+      </form>
+    </Fragment>
   );
 };
 

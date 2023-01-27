@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SearchResultContainer } from '@/containers/search/search-result.container';
 import { PATH } from '@/router/routeList';
 
-const SearchProduct = () => {
+const SearchProducts = () => {
   const { keywordParam } = SearchResultContainer();
   const [keyword, setKeyword] = useState(keywordParam);
   const navigate = useNavigate();
@@ -48,4 +48,4 @@ const SearchProduct = () => {
     </div>
   );
 };
-export default SearchProduct;
+export default SearchProducts;

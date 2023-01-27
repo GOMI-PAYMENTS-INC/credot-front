@@ -1,15 +1,15 @@
 import { GlobalEnv } from '@/utils/config';
 // 로그인 토큰 관리
 export const authTokenStorage = {
-  getToken: () => {
-    if (!GlobalEnv.tokenKey) return null;
+  getToken: (): string | null => {
+    if (GlobalEnv.tokenKey === false) return null;
     const token = localStorage.getItem(GlobalEnv.tokenKey)
       ? localStorage.getItem(GlobalEnv.tokenKey)
       : sessionStorage.getItem(GlobalEnv.tokenKey);
     return token || null;
   },
   setToken: (isLoginStorage: boolean, token: string): void => {
-    if (!GlobalEnv.tokenKey) return;
+    if (GlobalEnv.tokenKey === false) return;
     if (isLoginStorage) {
       localStorage.setItem(GlobalEnv.tokenKey, token);
     } else {
@@ -17,7 +17,7 @@ export const authTokenStorage = {
     }
   },
   clearToken: (): void => {
-    if (!GlobalEnv.tokenKey) return;
+    if (GlobalEnv.tokenKey === false) return;
     if (localStorage.getItem(GlobalEnv.tokenKey)) {
       localStorage.removeItem(GlobalEnv.tokenKey);
     } else {
