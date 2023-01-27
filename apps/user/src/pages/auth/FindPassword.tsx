@@ -6,16 +6,10 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
+import { SendTemporaryPasswordResult } from '@/types/findIdentification.d';
 
 interface IFindPasswordForm {
   email: string;
-}
-
-export enum SendTemporaryPasswordResult {
-  MEMBER = 200,
-  // TODO : 오류 코드 find-id와 통일 시켜야 합니다. - 소진
-  STRANGER = 1004,
-  NOTMATCHCODE = 1001,
 }
 
 const FindPassword = () => {

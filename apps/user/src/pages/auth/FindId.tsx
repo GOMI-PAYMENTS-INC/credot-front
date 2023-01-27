@@ -6,12 +6,7 @@ import { Icons } from '@/components/icons';
 import { FindUserContainer } from '@/containers/auth/find-user.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-
-enum FindAccountResult {
-  MEMBER = 200,
-  STRANGER = 1002,
-  NOTMATCHCODE = 1001,
-}
+import { FindAccountResult } from '@/types/findIdentification.d';
 
 const FindId = () => {
   const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
