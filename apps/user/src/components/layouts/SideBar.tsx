@@ -1,7 +1,10 @@
 import { Fragment } from 'react';
 
+import { AuthContainer } from '@/containers/auth/auth.container';
+
 const SideBar = () => {
-  console.log('children');
+  const { onLogout } = AuthContainer();
+
   return (
     <Fragment>
       <div className='block h-full w-1/6 border-2 border-solid border-sky-500'>
@@ -12,7 +15,7 @@ const SideBar = () => {
         <div className='ml-5 block h-1/6 border-2 border-solid border-sky-500'>
           <ul className='mt-20 cursor-pointer text-S/Bold text-grey-800'>
             <li className='mb-2'>도움말</li>
-            <li>로그아웃</li>
+            <li onClick={onLogout}>로그아웃</li>
           </ul>
         </div>
       </div>

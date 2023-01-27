@@ -10,6 +10,7 @@ export const Singular = ({ children }: ISingularProps) => {
   const size = isLogin
     ? 'relative -top-20 w-[67%]'
     : 'mt-[11.56vh] w-full max-w-[26.25rem]';
+
   return (
     <div className='flex h-screen w-full justify-center'>
       <div className={size}>{children}</div>

@@ -1,15 +1,15 @@
 import type { ComponentType } from 'react';
 
-import { Plural, Singular } from '@/components/layouts';
 import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
-import SearchProduct from '@/pages/search/SearchProduct';
+import SearchProducts from '@/pages/search/SearchProducts';
 
+export type TLayoutType = 'Plural' | 'Singular';
 export interface IRoute {
   description: string;
   path: string;
   component: ComponentType;
-  layout: ComponentType;
+  layoutType: TLayoutType;
 }
 
 export const PATH = {
@@ -33,53 +33,61 @@ export const routeList: IRoute[] = [
   {
     description: 'seachProducts',
     path: PATH.SEARCH_PRODUCTS,
-    component: SearchProduct,
-    layout: Plural,
+    component: SearchProducts,
+    layoutType: 'Plural',
   },
   {
     description: 'searchResults',
     path: PATH.SEARCH_RESULTS,
     component: SearchResults,
-    layout: Singular,
+    layoutType: 'Singular',
   },
   {
     description: 'signIn',
     path: PATH.SIGN_IN,
     component: AuthRoutes.SignIn,
-    layout: Plural,
+    layoutType: 'Plural',
   },
   {
     description: 'signUp',
     path: PATH.SIGN_UP,
     component: AuthRoutes.SignUp,
-    layout: Singular,
+    layoutType: 'Singular',
   },
   {
     description: 'signUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: AuthRoutes.SignUpSocial,
-    layout: Singular,
+    layoutType: 'Singular',
   },
   {
     description: 'findPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
-    layout: Singular,
+    layoutType: 'Singular',
   },
   {
     description: 'findIdentification',
     path: PATH.FIND_ID,
     component: AuthRoutes.FindId,
-    layout: Singular,
+    layoutType: 'Singular',
   },
   {
     description: 'reapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.ResetPassword,
-    layout: Plural,
+    layoutType: 'Plural',
   },
 ];
 
+export function getComponentByPathname(pathname: string): TLayoutType {
+  const layout = routeList.find((route) => route.path === pathname)?.layoutType;
+  console.log(pathname, 'pathname', layout, 'layout');
+  if (layout) {
+    return layout;
+  }
+  throw new Error('pathname을 확인해주세요.');
+}
 /*
 
 // search
