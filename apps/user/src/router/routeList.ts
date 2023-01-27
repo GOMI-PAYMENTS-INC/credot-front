@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-import { Flural, Singular } from '@/components/layouts';
+import { Plural, Singular } from '@/components/layouts';
 import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
 import SearchProduct from '@/pages/search/SearchProduct';
@@ -34,7 +34,7 @@ export const routeList: IRoute[] = [
     description: 'seachProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchProduct,
-    layout: Flural,
+    layout: Plural,
   },
   {
     description: 'searchResults',
@@ -46,7 +46,7 @@ export const routeList: IRoute[] = [
     description: 'signIn',
     path: PATH.SIGN_IN,
     component: AuthRoutes.SignIn,
-    layout: Flural,
+    layout: Plural,
   },
   {
     description: 'signUp',
@@ -76,7 +76,7 @@ export const routeList: IRoute[] = [
     description: 'reapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.ResetPassword,
-    layout: Flural,
+    layout: Plural,
   },
 ];
 

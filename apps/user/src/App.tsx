@@ -10,14 +10,14 @@ import Layout from '@/components/layouts/layout';
 import { Router } from '@/router';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { Flural } from './components/layouts';
+import { Plural } from './components/layouts';
 import { PATH, routeList } from './router/routeList';
 import { authTokenStorage } from './utils/auth-token';
 
 const App = () => {
   const { pathname } = useLocation();
   const navigator = useNavigate();
-  let layoutComponent = Flural;
+  let layoutComponent = Plural;
 
   useEffect((): void => {
     const isLogin = authTokenStorage.getToken();

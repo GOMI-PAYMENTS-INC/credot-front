@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 import { createElement, Fragment, ReactNode } from 'react';
 
-// import { IFluralProps, ISingularProps } from '@/components/layouts';
+// import { IPluralProps, ISingularProps } from '@/components/layouts';
 import SideBar from '@/components/layouts/SideBar';
 import { authTokenStorage } from '@/utils/auth-token';
 
