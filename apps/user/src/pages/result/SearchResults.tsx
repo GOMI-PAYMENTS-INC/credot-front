@@ -1,6 +1,6 @@
 import '@/pages/result/style.css';
 
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import { Icons } from '@/components/icons';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
@@ -29,7 +29,7 @@ const SearchResults = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <div className='container mx-auto mb-40 mt-10'>
         <div className='relative top-10 w-[67%]'>
           {/* 공통 - 검색 영역 시작 */}
@@ -268,7 +268,7 @@ const SearchResults = () => {
         </div>
       </div>
       <SelectKeyWordBottomNav />
-    </>
+    </Fragment>
   );
 };
 
