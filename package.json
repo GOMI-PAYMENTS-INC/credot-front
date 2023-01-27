@@ -14,7 +14,8 @@
     "user:prod-build": "yarn workspace kr-core-gomi-keyword-front-user run build:prod",
     "office:dev": "yarn workspace kr-core-gomi-keyword-front-office run dev",
     "office:dev-build": "yarn workspace kr-core-gomi-keyword-front-office run build:dev",
-    "office:prod-build": "yarn workspace kr-core-gomi-keyword-front-office run build:prod"
+    "office:prod-build": "yarn workspace kr-core-gomi-keyword-front-office run build:prod",
+    "office:prod-preview": "yarn workspace kr-core-gomi-keyword-front-office run serve:prod"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

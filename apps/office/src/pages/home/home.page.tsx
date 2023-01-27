@@ -17,7 +17,7 @@ export default function HomePage() {
       changeFaqTab(faqIndex);
     }
   };
-  const IMG_PATH = '../../src/assets/images';
+  const IMG_PATH = '../../../assets/images';
   const tabData = [
     {
       name: '시장 규모',
