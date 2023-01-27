@@ -1,17 +1,16 @@
 module.exports = {
-  content: [ './src/**/*.{html,js,jsx,ts,tsx}' ],
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   //line-clamp 사용법 : https://postsrc.com/code-snippets/how-to-multi-line-trucate-text-in-tailwindcss
-  plugins: [ require('@tailwindcss/line-clamp'), require('daisyui') ],
+  plugins: [require('@tailwindcss/line-clamp'), require('daisyui')],
   daisyui: { themes: false },
   theme: {
-
     // default breakpoints but with 40px removed
     screens: {
-      'xl': {'max': '1440px'},
-      'lg': {'max': '992px'},
-      'md': {'max': '768px'},
-      'sm': {'max': '576px'},
-      'xs': {'max': '431px'},
+      xl: { max: '1440px' },
+      lg: { max: '992px' },
+      md: { max: '768px' },
+      sm: { max: '576px' },
+      xs: { max: '431px' },
     },
 
     container: {
@@ -24,35 +23,34 @@ module.exports = {
         // sm: '18px',
         // md: '24px',
         // lg: '15px',
-       //xl: '60px',
+        //xl: '60px',
       },
       // default breakpoints but with 40px removed
       screens: {
-      //   'xs': '430px',
-      //
-      //   'sm': '576px',
-      //   // => @media (min-width: 640px) { ... }
-      //
-      //   'md': '768px',
-      //   // => @media (min-width: 768px) { ... }
-      //
-         //'lg':'992px',
-      //   // 1440px ~ 992px
-      //
-        'xl': '1440px',
+        //   'xs': '430px',
+        //
+        //   'sm': '576px',
+        //   // => @media (min-width: 640px) { ... }
+        //
+        //   'md': '768px',
+        //   // => @media (min-width: 768px) { ... }
+        //
+        //'lg':'992px',
+        //   // 1440px ~ 992px
+        //
+        xl: '1440px',
         // 1440px 이상
-      //
+        //
       },
     },
 
-
     extend: {
       backgroundImage: {
-        'main': "url('/src/assets/images/Section8/Background.png')",
+        main: "url('/images/Section8/Background.png')",
       },
 
       gridTemplateRows: {
-        'tab': 'repeat(auto-fill, minmax(0, 56px))',
+        tab: 'repeat(auto-fill, minmax(0, 56px))',
       },
       //색상
       colors: {
@@ -60,7 +58,7 @@ module.exports = {
           'red-orange': '#FF5100',
         },
 
-        orange:{
+        orange: {
           900: '#9E2F00',
           800: '#B83A00',
           700: '#D54400',
@@ -70,7 +68,7 @@ module.exports = {
           300: '#FFA378',
           200: '#FFDAC8',
           100: '#FFF5F0',
-          60: '#FFF8F5'
+          60: '#FFF8F5',
         },
 
         grey: {
@@ -139,21 +137,20 @@ module.exports = {
         '2XS/Medium': ['10px', { fontWeight: 500, lineHeight: '12px' }],
         '2XS/Regular': ['10px', { fontWeight: 400, lineHeight: '12px' }],
         '2XS/Light': ['10px', { fontWeight: 300, lineHeight: '12px' }],
-
       },
 
       gridTemplateColumns: {
         'select-keyword': '0.23fr 1fr 0.38fr',
         //선택한 키워드 아이템 내부 grid
-        'tab': 'repeat(5, minmax(140px, 1fr))',
+        tab: 'repeat(5, minmax(140px, 1fr))',
       },
       boxShadow: {
-        'partnerCard': '0px 10.1598px 20.3197px rgba(0, 0, 0, 0.08)',
+        partnerCard: '0px 10.1598px 20.3197px rgba(0, 0, 0, 0.08)',
       },
       gap: {
         //선택한 키워드 아이템 내부 grid gap
         'select-keyword-item': '0.6875rem',
-      }
+      },
     },
   },
 };
