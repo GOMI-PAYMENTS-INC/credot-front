@@ -1,16 +1,39 @@
-import { createElement } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { createElement, useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { routeList } from '@/router/routeList';
+import Layout from '@/components/layouts/Layout';
+import { getComponentByPathname, PATH, routeList, TLayoutType } from '@/router/routeList';
+import { authTokenStorage } from '@/utils/auth-token';
+import { isFalsy } from '@/utils/isFalsy';
 
-export const Router = () => (
-  <Routes>
-    {routeList.map((route) => (
-      <Route
-        key={route.description}
-        path={route.path}
-        element={createElement(route.component)}
-      />
-    ))}
-  </Routes>
-);
+export const Router = () => {
+  const { pathname } = useLocation();
+  const navigator = useNavigate();
+  const isLogin = authTokenStorage.getToken() !== null;
+  const [layoutType, setLayoutType] = useState<TLayoutType>('Plural');
+
+  useEffect((): void => {
+    setLayoutType(getComponentByPathname(pathname));
+
+    if (
+      isFalsy(isLogin) &&
+      [PATH.SEARCH_PRODUCTS, PATH.SEARCH_RESULTS].some((path) => path === pathname)
+    ) {
+      navigator(PATH.SIGN_IN);
+    }
+  }, [pathname]);
+
+  return (
+    <Layout isLogin={isLogin} layoutType={layoutType}>
+      <Routes>
+        {routeList.map((route) => (
+          <Route
+            key={route.description}
+            path={route.path}
+            element={createElement(route.component)}
+          />
+        ))}
+      </Routes>
+    </Layout>
+  );
+};
