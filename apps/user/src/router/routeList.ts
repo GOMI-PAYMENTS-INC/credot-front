@@ -5,13 +5,6 @@ import SearchResults from '@/pages/result/SearchResults';
 import SearchProducts from '@/pages/search/SearchProducts';
 
 export type TLayoutType = 'Plural' | 'Singular';
-export interface IRoute {
-  description: string;
-  path: string;
-  component: ComponentType;
-  layoutType: TLayoutType;
-}
-
 export const PATH = {
   SEARCH_PRODUCTS: '/',
   SEARCH_RESULTS: '/search/results',
@@ -21,7 +14,16 @@ export const PATH = {
   FIND_PASSWORD: '/find/password',
   FIND_ID: '/find/id',
   REAPPLY_PASSWORD: '/signin/password',
-};
+} as const;
+
+type TPathKey = keyof typeof PATH;
+export type TPathType = (typeof PATH)[TPathKey];
+export interface IRoute {
+  description: string;
+  path: TPathType;
+  component: ComponentType;
+  layoutType: TLayoutType;
+}
 
 export const signInRouter = {
   description: 'signIn',
@@ -82,7 +84,7 @@ export const routeList: IRoute[] = [
 
 export function getComponentByPathname(pathname: string): TLayoutType {
   const layout = routeList.find((route) => route.path === pathname)?.layoutType;
-  console.log(pathname, 'pathname', layout, 'layout');
+
   if (layout) {
     return layout;
   }
