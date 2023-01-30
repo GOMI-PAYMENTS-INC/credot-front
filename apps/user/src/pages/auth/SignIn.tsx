@@ -41,7 +41,7 @@ const SignIn = () => {
   return (
     <Fragment>
       <div className='col-span-5 col-start-2'>
-        <img src='/src/assets/images/LoginInfoImg1.png' alt='' />
+        <img src='../../assets/images/LoginInfoImg1.png' alt='' />
       </div>
       <div className='col-span-5 flex flex-col rounded-3xl bg-white px-[60px] pt-12'>
         <div className='mb-10'>
