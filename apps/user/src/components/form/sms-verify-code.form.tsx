@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { Icons } from '@/components/icons';
+// import { Icons } from '@/components/icons';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { AuthVerifyCodeContainer } from '@/containers/auth/auth-verify-code.container';
 import {
@@ -154,7 +154,7 @@ const SmsVerifyCodeForm = ({
         {verifyCodeCount === 0 ? (
           <button
             type='button'
-            className='ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100 p-2.5  text-sm font-medium text-functional-error'
+            className='text-functional-error ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100  p-2.5 text-sm font-medium'
             onClick={sendSmsVerifyCode}
           >
             인증
@@ -162,7 +162,7 @@ const SmsVerifyCodeForm = ({
         ) : !isSending ? (
           <button
             type='button'
-            className='ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100 p-2.5  text-sm font-medium text-functional-error'
+            className='text-functional-error ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100  p-2.5 text-sm font-medium'
             onClick={sendSmsVerifyCode}
           >
             재발송
@@ -206,10 +206,10 @@ const SmsVerifyCodeForm = ({
             {/* 인증번호 확인 여부에 다른 출력 시작 */}
             {verifyCodeSign ? (
               <span className='inline-block w-1/12 '>
-                <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' />
+                {/* <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' /> */}
               </span>
             ) : (
-              <span className='inline-block w-1/6 text-right text-functional-error'>
+              <span className='text-functional-error inline-block w-1/6 text-right'>
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
               </span>
             )}

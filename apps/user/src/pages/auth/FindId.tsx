@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
-import { Icons } from '@/components/icons';
+
 import { FindUserContainer } from '@/containers/auth/find-user.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
@@ -67,7 +67,7 @@ const FindId = () => {
               findAccountQuery.findAccount.accounts.map((account, index) => (
                 <li className='flex text-primary-red-orange' key={index}>
                   <a href='#' className='mr-2 '>
-                    <Icons.Copy className='fill-primary-red-orange' />
+                    {/* <Icons.Copy className='fill-primary-red-orange' /> */}
                   </a>
                   {account.email}
                 </li>

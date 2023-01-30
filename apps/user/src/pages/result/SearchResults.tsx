@@ -2,7 +2,6 @@ import '@/pages/result/style.css';
 
 import { Fragment, useEffect } from 'react';
 
-import { Icons } from '@/components/icons';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search/search-result.container';
 import SearchProducts from '@/pages/search/SearchProducts';
@@ -50,9 +49,7 @@ const SearchResults = () => {
                     className='tooltip ml-[0.59375rem]'
                     data-tip='입력하신 검색어와 연관 키워드들의 플랫폼 내 최근 30일 검색량 및 키워드 연관도를 나타냅니다.'
                   >
-                    <i>
-                      <Icons.ExclamationCircle width={24} height={24} />
-                    </i>
+                    <i>{/* <Icons.ExclamationCircle width={24} height={24} /> */}</i>
                   </div>
                 </div>
                 <div className='search-info-wrap'>
@@ -161,9 +158,7 @@ const SearchResults = () => {
                       className='tooltip ml-[0.59375rem]'
                       data-tip='입력하신 검색어와 연관 키워드들의 플랫폼 내 최근 30일 검색량 및 키워드 연관도를 나타냅니다.'
                     >
-                      <i>
-                        <Icons.ExclamationCircle width={24} height={24} />
-                      </i>
+                      <i>{/* <Icons.ExclamationCircle width={24} height={24} /> */}</i>
                     </div>
                   </div>
                   <div className='search-info-wrap'>
