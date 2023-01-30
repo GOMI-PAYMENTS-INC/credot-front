@@ -1810,6 +1810,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanem/svg-injector@npm:^10.1.44":
+  version: 10.1.45
+  resolution: "@tanem/svg-injector@npm:10.1.45"
+  dependencies:
+    "@babel/runtime": ^7.20.7
+    content-type: ^1.0.4
+    tslib: ^2.4.1
+  checksum: 1dfb271acd93184ee34e9b6d158a9765b26acf039cbb22cd17996060545ebdaf7ff344ac9c9611061ff45790adfea451d98801e9023488282228fd8e86348bbf
+  languageName: node
+  linkType: hard
+
 "@tanstack/match-sorter-utils@npm:^8.7.0":
   version: 8.7.6
   resolution: "@tanstack/match-sorter-utils@npm:8.7.6"
@@ -1953,7 +1964,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.5":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
@@ -3046,6 +3057,13 @@ __metadata:
     tslib: ^2.0.3
     upper-case: ^2.0.2
   checksum: 6c3346d51afc28d9fae922e966c68eb77a19d94858dba230dd92d7b918b37d36db50f0311e9ecf6847e43e934b1c01406a0936973376ab17ec2c471fbcfb2cf3
+  languageName: node
+  linkType: hard
+
+"content-type@npm:^1.0.4":
+  version: 1.0.5
+  resolution: "content-type@npm:1.0.5"
+  checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
   languageName: node
   linkType: hard
 
@@ -5540,6 +5558,7 @@ __metadata:
     react-dom: ^18.2.0
     react-hook-form: ^7.39.6
     react-router-dom: ^6.4.2
+    react-svg: ^16.0.0
     react-toastify: ^9.1.1
     recoil: ^0.7.6
     tailwindcss: ^3.2.1
@@ -6750,6 +6769,21 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: 6dda5f084e04355c8deacb631fcd8472f3590dbd54d19175401aa1ed6bc6a2a244cd4d70cdb4fc81d2d800d75923461189e9e6a853c1838af78eff3021e4efbe
+  languageName: node
+  linkType: hard
+
+"react-svg@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "react-svg@npm:16.0.0"
+  dependencies:
+    "@babel/runtime": ^7.20.7
+    "@tanem/svg-injector": ^10.1.44
+    "@types/prop-types": ^15.7.5
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 30b192c56e5e39a8f5d3970924e9e7e00246aa003bba10304a65fcc23eee5720d05935f6fe46a8eb015b762b96aa2689aa04a886f53c23e66740b84db4942848
   languageName: node
   linkType: hard
 
