@@ -2,20 +2,22 @@ import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SearchResultContainer } from '@/containers/search/search-result.container';
-import { Paths } from '@/router/paths';
+import { PATH } from '@/router/routeList';
 
-const SearchForm = () => {
+const SearchProducts = () => {
   const { keywordParam } = SearchResultContainer();
   const [keyword, setKeyword] = useState(keywordParam);
   const navigate = useNavigate();
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
+
   const onKeyPress = (e: any) => {
+    console.log(e);
     if (e.key !== 'Enter') {
       return;
     }
-    navigate(`${Paths.searchResult}?keyword=${keyword}`);
+    navigate(`${PATH.SEARCH_RESULTS}?keyword=${keyword}`);
   };
 
   return (
@@ -34,7 +36,7 @@ const SearchForm = () => {
         <input
           className='h-full w-full rounded border border-grey-400 px-3'
           placeholder='비타민'
-          onKeyUp={(e) => onKeyPress(e)}
+          onKeyUp={onKeyPress}
           onChange={onChangeInput}
           value={String(keyword)}
         />
@@ -42,4 +44,4 @@ const SearchForm = () => {
     </div>
   );
 };
-export default SearchForm;
+export default SearchProducts;

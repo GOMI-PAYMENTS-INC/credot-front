@@ -5552,9 +5552,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "kr-core-gomi-keyword-front@workspace:."
   dependencies:
+    "@tailwindcss/line-clamp": ^0.4.2
+    "@tanstack/react-query": ^4.13.0
     "@types/node": ^18.11.18
+    "@types/react": ^18.0.22
+    "@types/react-dom": ^18.0.7
     "@typescript-eslint/eslint-plugin": ^5.41.0
     "@typescript-eslint/parser": ^5.41.0
+    "@vitejs/plugin-react": ^2.2.0
+    autoprefixer: ^10.4.13
+    daisyui: ^2.38.1
     eslint: ^8.26.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-base: ^15.0.0
@@ -5566,11 +5573,22 @@ __metadata:
     eslint-plugin-react: ^7.31.10
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-simple-import-sort: ^8.0.0
+    postcss: ^8.4.18
     prettier: ^2.8.0
     prettier-plugin-tailwindcss: ^0.1.13
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-hook-form: ^7.39.6
+    react-router-dom: ^6.4.2
+    react-toastify: ^9.1.1
+    recoil: ^0.7.6
+    swiper: ^8.4.5
+    tailwindcss: ^3.2.1
     ts-node: ^10.9.1
     tslib: ^1
     typescript: ^4.8.4
+    vite: 3.1.8
+    vite-plugin-svgr: ^2.2.2
   dependenciesMeta:
     eslint@8.26.0:
       unplugged: true

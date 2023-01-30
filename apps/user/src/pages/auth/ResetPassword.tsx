@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { ChangePasswordInput } from '@/generated/graphql';
-import { Paths } from '@/router/paths';
+import { PATH } from '@/router/routeList';
 
 interface IResetPassword {
   email: string;
@@ -12,12 +12,12 @@ interface IResetPassword {
   newPassword: string;
 }
 
-const ResetPasswordPage = () => {
+const ResetPassword = () => {
   const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
 
   const navigate = useNavigate();
   if (!isTemporaryPasswordLogin) {
-    navigate(Paths.home);
+    navigate(PATH.SEARCH_PRODUCTS);
   }
 
   const {
@@ -51,8 +51,8 @@ const ResetPasswordPage = () => {
       <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
         {/* 비밀번호 찾기 폼 시작 */}
         <div className=''>
-          <h3 className='mb-5 text-center text-2xl-bold'>신규 비밀번호 설정</h3>
-          <p className='mb-5 text-center text-l-regular'>
+          <h3 className='text-2xl-bold mb-5 text-center'>신규 비밀번호 설정</h3>
+          <p className='text-l-regular mb-5 text-center'>
             임시 비밀번호로 로그인 하셨습니다.
             <br />
             신규 비밀번호를 설정해 주세요.
@@ -103,7 +103,7 @@ const ResetPasswordPage = () => {
             <div className='mt-16 '>
               <button
                 type='submit'
-                className='flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-xl-medium text-white'
+                className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
               >
                 완료
               </button>
@@ -116,4 +116,4 @@ const ResetPasswordPage = () => {
     </div>
   );
 };
-export default ResetPasswordPage;
+export default ResetPassword;

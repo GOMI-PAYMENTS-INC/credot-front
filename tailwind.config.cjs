@@ -1,18 +1,18 @@
-const tailwindConfig = require('../../tailwind.config.cjs');
+const lineClampPlugin = require('@tailwindcss/line-clamp');
+const daisyui = require('daisyui');
 
 module.exports = {
-  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   //line-clamp 사용법 : https://postsrc.com/code-snippets/how-to-multi-line-trucate-text-in-tailwindcss
-  plugins: [require('@tailwindcss/line-clamp'), require('daisyui')],
+  plugins: [lineClampPlugin, daisyui],
   daisyui: { themes: false },
   theme: {
     // default breakpoints but with 40px removed
     screens: {
-      xl: { max: '1440px' },
-      lg: { max: '992px' },
-      md: { max: '768px' },
-      sm: { max: '576px' },
-      xs: { max: '431px' },
+      'xl': {'max': '1440px'},
+      'lg': {'max': '992px'},
+      'md': {'max': '768px'},
+      'sm': {'max': '576px'},
+      'xs': {'max': '431px'},
     },
 
     container: {
@@ -21,41 +21,17 @@ module.exports = {
 
       // or have default horizontal padding
       padding: {
-        // xs: '17px',
-        // sm: '18px',
-        // md: '24px',
-        // lg: '15px',
-        //xl: '60px',
       },
       // default breakpoints but with 40px removed
       screens: {
-        //   'xs': '430px',
-        //
-        //   'sm': '576px',
-        //   // => @media (min-width: 640px) { ... }
-        //
-        //   'md': '768px',
-        //   // => @media (min-width: 768px) { ... }
-        //
-        //'lg':'992px',
-        //   // 1440px ~ 992px
-        //
-        xl: '1440px',
-        // 1440px 이상
-        //
+        'xl': '1320px',
+        'lg': '960px',
+        'md': '720px',
+        'sm': '540px',
       },
     },
 
     extend: {
-      ...tailwindConfig.theme.extend,
-
-      backgroundImage: {
-        main: "url('/images/Section8/Background.png')",
-      },
-
-      gridTemplateRows: {
-        tab: 'repeat(auto-fill, minmax(0, 56px))',
-      },
       //색상
       colors: {
         primary: {
@@ -142,21 +118,6 @@ module.exports = {
         '2XS/Regular': ['10px', { fontWeight: 400, lineHeight: '12px' }],
         '2XS/Light': ['10px', { fontWeight: 300, lineHeight: '12px' }],
       },
-
-      gridTemplateColumns: {
-        //선택한 키워드 아이템 내부 grid
-        tab: 'repeat(5, minmax(140px, 1fr))',
-      },
-
-      boxShadow: {
-        partnerCard: '0px 10.1598px 20.3197px rgba(0, 0, 0, 0.08)',
-      },
-
-      gap: {
-        //선택한 키워드 아이템 내부 grid gap
-        'select-keyword-item': '0.6875rem',
-      },
     },
-  }
-
+  },
 };

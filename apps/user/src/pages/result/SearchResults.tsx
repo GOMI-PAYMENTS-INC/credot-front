@@ -1,13 +1,13 @@
-import '@/pages/search/style.css';
+import '@/pages/result/style.css';
 
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
-import SearchForm from '@/components/form/search.form';
 import { Icons } from '@/components/icons';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search/search-result.container';
+import SearchProducts from '@/pages/search/SearchProducts';
 
-const SearchResultPage = () => {
+const SearchResults = () => {
   const {
     isSubLoadingSearch,
     main,
@@ -29,11 +29,11 @@ const SearchResultPage = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <div className='container mx-auto mb-40 mt-10'>
         <div className='relative top-10 w-[67%]'>
           {/* 공통 - 검색 영역 시작 */}
-          <SearchForm />
+          <SearchProducts />
           {/* 공통 - 검색 영역 끝 */}
         </div>
         <div className='search-result-warp'>
@@ -268,8 +268,8 @@ const SearchResultPage = () => {
         </div>
       </div>
       <SelectKeyWordBottomNav />
-    </>
+    </Fragment>
   );
 };
 
-export default SearchResultPage;
+export default SearchResults;

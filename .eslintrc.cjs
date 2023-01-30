@@ -54,7 +54,8 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       extends: ['airbnb-base', 'airbnb-typescript/base', 'airbnb-typescript'],
       rules: {
-        // devDependencies 에 선언되지 않은 외부 모듈을 가져올 때 error        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+        // devDependencies 에 선언되지 않은 외부 모듈을 가져올 때 error
+        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
         // named export 허용
         'import/prefer-default-export': 'off',

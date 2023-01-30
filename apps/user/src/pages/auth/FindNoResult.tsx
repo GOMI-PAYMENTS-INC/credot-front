@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Paths } from '@/router/paths';
+import { PATH } from '@/router/routeList';
 
-const FindNoResultPage = () => (
+const FindNoResult = () => (
   <div className='flex h-screen w-full justify-center'>
     <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
       <div className=''>
-        <h3 className='mb-5 text-center text-2xl-bold'>계정 안내</h3>
-        <p className='text-center text-l-regular'>
+        <h3 className='text-2xl-bold mb-5 text-center'>계정 안내</h3>
+        <p className='text-l-regular text-center'>
           이전에 가입한 계정이 존재하지 않습니다.
         </p>
         <div className='mt-16 '>
-          <Link to={Paths.signUp}>
+          <Link to={PATH.SIGN_UP}>
             <button
               type='button'
-              className='flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-xl-medium text-white'
+              className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
             >
               회원가입 하러가기
             </button>
@@ -25,4 +25,4 @@ const FindNoResultPage = () => (
     </div>
   </div>
 );
-export default FindNoResultPage;
+export default FindNoResult;
