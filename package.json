@@ -13,9 +13,11 @@
     "user:dev": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run dev",
     "user:dev-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:dev",
     "user:prod-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:prod",
+    "user:prod-preview": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run serve:prod",
     "office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev",
     "office:dev-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:dev",
-    "office:prod-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:prod"
+    "office:prod-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:prod",
+    "office:prod-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:prod"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.13.0",
