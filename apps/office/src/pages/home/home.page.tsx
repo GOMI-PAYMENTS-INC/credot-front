@@ -17,7 +17,7 @@ export default function HomePage() {
       changeFaqTab(faqIndex);
     }
   };
-
+  const IMG_PATH = '../../../assets/images';
   const tabData = [
     {
       name: '시장 규모',
@@ -306,7 +306,7 @@ export default function HomePage() {
       <section className=' bg-[#FAFAF9]'>
         <div className='container-padding relative'>
           <div className=' absolute left-0 top-0 block lg:hidden'>
-            <img src='/src/assets/images/Section1/Background.png' alt='' />
+            <img src={`${IMG_PATH}/Section1/Background.png`} alt='' />
           </div>
           <div className='grid-12 relative items-center  justify-items-center  pb-11 lg:pb-6'>
             <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
@@ -402,7 +402,7 @@ export default function HomePage() {
    block   md:hidden'
             >
               <img
-                src='/src/assets/images/Section1/Img-Skeleton.png'
+                src={`${IMG_PATH}/Section1/Img-Skeleton.png`}
                 alt=''
                 className='w-full max-w-[400px]'
               />
@@ -437,26 +437,14 @@ export default function HomePage() {
             </div>
           </div>
           <div className='grid-12 gap-6'>
-            <div className='col-span-4 lg:col-span-6 lg:col-start-4 md:col-span-8 md:col-start-3  sm:col-span-10 sm:col-start-2  xs:col-span-full'>
-              <img
-                src='/src/assets/images/Section2/image-1.svg'
-                alt=''
-                className='w-full'
-              />
+            <div className='xs:col-span-full col-span-4 sm:col-span-10 sm:col-start-2 md:col-span-8  md:col-start-3 lg:col-span-6  lg:col-start-4'>
+              <img src={`${IMG_PATH}/Section2/image-1.svg`} alt='' className='w-full' />
             </div>
-            <div className='col-span-4  lg:col-span-6 lg:col-start-4  md:col-span-8 md:col-start-3 sm:col-span-10 sm:col-start-2 xs:col-span-full'>
-              <img
-                src='/src/assets/images/Section2/image-2.svg'
-                alt=''
-                className='w-full'
-              />
+            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+              <img src={`${IMG_PATH}/Section2/image-2.svg`} alt='' className='w-full' />
             </div>
-            <div className='col-span-4  lg:col-span-6 lg:col-start-4  md:col-span-8 md:col-start-3 sm:col-span-10 sm:col-start-2 xs:col-span-full'>
-              <img
-                src='/src/assets/images/Section2/image-3.svg'
-                alt=''
-                className='w-full'
-              />
+            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+              <img src={`${IMG_PATH}/Section2/image-3.svg`} alt='' className='w-full' />
             </div>
           </div>
         </div>
@@ -475,11 +463,11 @@ export default function HomePage() {
             </div>
           </div>
           <div className='grid-12'>
-            <div className='col-span-10 col-start-2 lg:col-span-full sm:hidden'>
-              <img src='/src/assets/images/Section3/Section3-morion-Large.gif' alt='' />
+            <div className='col-span-10 col-start-2 sm:hidden lg:col-span-full'>
+              <img src={`${IMG_PATH}/Section3/Section3-morion-Large.gif`} alt='' />
             </div>
-            <div className='col-span-10 col-start-2 hidden sm:block xs:col-span-full'>
-              <img src='/src/assets/images/Section3/Section3-morion-Small.gif' alt='' />
+            <div className='xs:col-span-full col-span-10 col-start-2 hidden sm:block'>
+              <img src={`${IMG_PATH}/Section3/Section3-morion-Small.gif`} alt='' />
             </div>
           </div>
         </div>
@@ -542,13 +530,13 @@ export default function HomePage() {
                   {tabData[activeTabIndex].name}
                 </div>
               </div>
-              <div className='w-9/12 break-keep text-L/Medium text-gray-900 md:text-M/Medium sm:w-full'>
+              <div className='text-L/Medium md:text-M/Medium break-keep w-9/12 text-gray-900 sm:w-full'>
                 {tabData[activeTabIndex].data.content}
               </div>
             </div>
             <div className='col-span-4 lg:col-span-5 md:col-span-6 sm:col-start-2 sm:col-end-12   sm:max-w-[280px]  xs:col-span-full '>
               <img
-                src={`/src/assets/images/Section5/${tabData[activeTabIndex].data.img}`}
+                src={`${IMG_PATH}/Section5/${tabData[activeTabIndex].data.img}`}
                 alt=''
               />
             </div>
@@ -601,7 +589,7 @@ export default function HomePage() {
                     <div className='flex'>
                       <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
                         <img
-                          src={`/src/assets/images/Section6/${partener.imgName}`}
+                          src={`${IMG_PATH}/Section6/${partener.imgName}`}
                           alt='{partener.name}'
                         />
                       </div>
@@ -638,7 +626,7 @@ export default function HomePage() {
                     <div className='flex'>
                       <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
                         <img
-                          src={`/src/assets/images/Section6/${partener.imgName}`}
+                          src={`${IMG_PATH}/Section6/${partener.imgName}`}
                           alt='{partener.name}'
                         />
                       </div>
@@ -687,7 +675,7 @@ export default function HomePage() {
                 >
                   <div className='mb-6 lg:mb-4 '>
                     <img
-                      src={`/src/assets/images/Section7/${userTarget.imgName}`}
+                      src={`${IMG_PATH}/Section7/${userTarget.imgName}`}
                       alt=''
                       className='w-full '
                     />
@@ -704,10 +692,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className='bg-main bg-cover bg-center py-[130px] lg:py-[105px]  sm:bg-[20%] sm:py-[70px]  xs:bg-[40%]'>
+      <section className='bg-main xs:bg-[40%] sm:bg-[20%] bg-cover bg-center  py-[130px] sm:py-[70px]  lg:py-[105px]'>
         <div className='container-padding'>
           <div className='grid-12 justify-items-right items-center sm:gap-y-12'>
-            <div className='col-span-5 col-start-2 break-keep text-4XL/Bold  text-white lg:text-3XL/Bold  md:col-span-7 md:col-start-1 sm:col-span-full'>
+            <div className='text-4XL/Bold lg:text-3XL/Bold break-keep col-span-5  col-start-2 text-white  sm:col-span-full md:col-span-7 md:col-start-1'>
               상위 노출을 위한
               <br />
               쇼피 판매 전략 인사이트
@@ -723,9 +711,9 @@ export default function HomePage() {
       <section>
         <div className='container-padding py-[120px] lg:py-[60px] md:mx-auto  md:mx-auto'>
           <div className='grid-12'>
-            <div className='col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center gap-x-5 rounded-[49px]  bg-grey-200 lg:col-span-full lg:col-start-1 lg:grid-cols-12 lg:py-[42px] md:py-[39px] sm:justify-items-start  sm:gap-y-[55px]  sm:py-10 sm:pb-0  xs:gap-y-[33px]'>
-              <div className='col-span-5 break-keep pl-[53px] lg:col-span-7  md:col-span-6 md:pl-[34px] sm:col-span-full  sm:col-start-2 sm:pl-0'>
-                <div className='mb-[13px] inline-block rounded-[33px] bg-grey-900 px-5 py-[7px]'>
+            <div className='bg-grey-200 xs:gap-y-[33px] col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center  gap-x-5 rounded-[49px] sm:justify-items-start sm:gap-y-[55px] sm:py-10 sm:pb-0 md:py-[39px]  lg:col-span-full  lg:col-start-1 lg:grid-cols-12  lg:py-[42px]'>
+              <div className='break-keep col-span-5 pl-[53px] sm:col-span-full  sm:col-start-2 sm:pl-0 md:col-span-6  md:pl-[34px] lg:col-span-7'>
+                <div className='bg-grey-900 mb-[13px] inline-block rounded-[33px] px-5 py-[7px]'>
                   <span className='text-S/Medium text-white'>Event 2022.12~ 종료시</span>
                 </div>
                 <div className='mb-[20px] text-3XL/Bold'>무제한 사용 이벤트</div>
@@ -735,8 +723,8 @@ export default function HomePage() {
                   별도의 이벤트 종료 안내까지는 무제한 리포트 조회가 가능해요!
                 </div>
               </div>
-              <div className='col-span-5 md:col-span-6 sm:col-span-full sm:col-start-4 xs:col-start-1 xs:mb-6'>
-                <img src='/src/assets/images/Section9/Ticket.png' alt='' />
+              <div className='xs:col-start-1 xs:mb-6 col-span-5 sm:col-span-full sm:col-start-4 md:col-span-6'>
+                <img src={`${IMG_PATH}/Section9/Ticket.png`} alt='' />
               </div>
             </div>
           </div>

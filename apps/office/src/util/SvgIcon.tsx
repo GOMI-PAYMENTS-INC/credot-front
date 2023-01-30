@@ -1,4 +1,4 @@
-import { useDynamicSvgImport } from './useDynamicSvgImport';
+import { useDynamicSvgImport } from '@/util/useDynamicSvgImport';
 
 interface IProps {
   iconName: string;
