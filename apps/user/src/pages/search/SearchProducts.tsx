@@ -24,11 +24,12 @@ const SearchProducts = () => {
   return (
     // <section className='col-span-12 bg-[#FAFAF9]'>
     <Fragment>
-      <div className='block lg:hidden'>
+      <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
-      <div className='col-start-1 col-end-6'>
-        <div className='grid-12 relative items-center  justify-items-center  pb-11 lg:pb-6'>
+
+      <div className='col-span-6'>
+        <div className='max-w-[480px] pb-11  lg:pb-6'>
           <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
             <div className='mb-6'>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
@@ -125,11 +126,11 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-start-7 col-end-12 block md:hidden'>
+      <div className='col-span-6 block md:hidden'>
         <img
           src={`${IMG_PATH}/Img-Skeleton.png`}
           alt=''
-          className='w-full max-w-[400px]'
+          className='w-full  max-w-[460px]'
         />
       </div>
     </Fragment>

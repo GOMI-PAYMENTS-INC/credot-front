@@ -1,2 +1,2 @@
-export * from '@/components/layouts/Plural';
-export * from '@/components/layouts/Singular';
+export * from '@/components/layouts/Common2Section';
+export * from '@/components/layouts/Common1Section';

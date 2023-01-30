@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/apps/user/.yarnrc.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/.yarnrc.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Defalut.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/Plural.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Common2Section.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/Singular.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Common1Section.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/router/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/router/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/router/routeList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/router/routeList.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +22,54 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/COR-766" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-770" />
+                    <option name="lastUsedInstant" value="1675072585" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-766" />
+                    <option name="lastUsedInstant" value="1675064106" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="develop" />
+                    <option name="lastUsedInstant" value="1675064105" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="cd84510b-06c1-4f52-a40f-3890bc3673ab" />
+        <option name="url" value="https://github.com/gomicorp/kr-core-gomi-keyword-front.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -32,7 +85,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "js.linters.configure.manually.selectedeslint": "true",
-    "last_opened_file_path": "/Users/gomidev/Desktop/project/kr-core-gomi-keyword-front",
+    "last_opened_file_path": "/Users/gomidev/Documents/dev/gomi/kr-core-gomi-keyword-front/apps/user/src/components/layouts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -42,10 +95,32 @@
     "nodejs_package_manager_path": "yarn",
     "prettierjs.PrettierConfiguration.Package": "yarn:package.json:prettier",
     "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "/private/var/folders/10/g10gg0v92ngdll6txnc8n_440000gn/T/AppTranslocation/13F51813-2415-4087-A726-58D7D688F274/d/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "yarn:package.json:typescript",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/user/src/components/layouts" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/apps/user/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -59,6 +134,7 @@
       <updated>1673938277388</updated>
       <workItem from="1673938279093" duration="25000" />
       <workItem from="1673938309476" duration="2085000" />
+      <workItem from="1675063988789" duration="8477000" />
     </task>
     <servers />
   </component>
