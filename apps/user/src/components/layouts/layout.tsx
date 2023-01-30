@@ -14,7 +14,7 @@ const Layout = ({ children, isLogin, layoutType }: LayoutProps) => (
     {isLogin ? (
       <Fragment>
         <SideBar />
-        <div className='flex w-5/6'>
+        <div className='flex h-[100%] w-[100%]'>
           {layoutType === 'Plural' ? (
             <Plural>{children}</Plural>
           ) : (
