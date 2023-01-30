@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
@@ -12,6 +12,7 @@ interface ISignInForm {
   password: string;
 }
 const SignIn = () => {
+  const navigate = useNavigate();
   const { onSubmitSignIn, setIsLoginStorage, isLoginStorage } = AuthContainer();
   const {
     register,
@@ -98,16 +99,21 @@ const SignIn = () => {
                   </label>
                 </div>
                 <div>
-                  <Link to={PATH.FIND_ID}>
-                    <button className='cursor-pointer justify-center  bg-white py-2.5  px-2 text-S/Bold text-grey-800'>
-                      아이디 찾기
-                    </button>
-                  </Link>
-                  <Link to={PATH.FIND_PASSWORD}>
-                    <button className='cursor-pointer justify-center   bg-white py-2.5  px-2 text-S/Bold text-grey-800'>
-                      비밀번호 찾기
-                    </button>
-                  </Link>
+                  <button
+                    type='button'
+                    onClick={() => navigate(PATH.FIND_ID)}
+                    className='cursor-pointer justify-center  bg-white py-2.5  px-2 text-S/Bold text-grey-800'
+                  >
+                    아이디 찾기
+                  </button>
+
+                  <button
+                    type='button'
+                    onClick={() => navigate(PATH.FIND_PASSWORD)}
+                    className='cursor-pointer justify-center   bg-white py-2.5  px-2 text-S/Bold text-grey-800'
+                  >
+                    비밀번호 찾기
+                  </button>
                 </div>
               </div>
               <div className='space-y-3'>
@@ -131,7 +137,6 @@ const SignIn = () => {
               </div>
             </div>
           </form>
-
           <div className='space-y-4'>
             <div className='text-center text-M/Regular text-grey-700'>
               아직 회원이 아니세요?
