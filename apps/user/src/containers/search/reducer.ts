@@ -2,34 +2,45 @@ import { CountryType, TranslateType, useSearchQuery } from '@/generated/graphql'
 import { createElement } from 'react';
 
 export enum ActionKind {
-  GetKeyword = 'GET_KEYWORD',
+  SearchKeyword = 'SEARCH_KEYWORD',
+  SwitchMode = 'SWITCH_MODE',
   GetSearchResults = 'GET_SEARCH_RESULTS',
+  InitializeState = 'INITIALIZE_STATE',
 }
 
 export type TAction = {
   type: ActionKind;
-  payload: any;
+  payload?: any;
 };
 
 type TState = {
-  country: CountryType;
+  //TODO: 국가 선택 가능 시  옵셔널 -> 팔수값으로 변경 (현재는 옵션이 없어 고정값으로 주고 있음)
+  country?: CountryType;
   translateType: TranslateType;
   text: string;
-  component: JSX.Element | null;
+  isSearched: boolean;
 };
+
+export type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };
 
 const initialState: TState = {
   country: CountryType.Vn,
   translateType: TranslateType.Order,
   text: '',
-  component: null,
+  isSearched: false,
 };
 
-const reducer = (state: TState, action: TAction) => {
+const reducer = (_state: TState, action: TAction) => {
+  const state = structuredClone(_state);
   switch (action.type) {
-    case ActionKind.GetKeyword:
+    case ActionKind.SearchKeyword:
       state.text = action.payload;
       return state;
+    case ActionKind.SwitchMode:
+      state.isSearched = action.payload;
+      return state;
+    case ActionKind.InitializeState:
+      return initialState;
     default:
       return state;
   }

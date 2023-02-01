@@ -1,45 +1,41 @@
-import { useRef, Fragment, useReducer, useMemo, useState } from 'react';
+import { useRef, Fragment, useReducer, useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSVG } from 'react-svg';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { getKeyword, queryKeyword } from '@/containers/search';
-import { initialState, reducer } from '@/containers/search/reducer';
+import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
 import { CountryType } from '@/generated/graphql';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const [component, setComponent] = useState<JSX.Element>(
-    <img src={`${IMG_PATH}/Img-Skeleton.png`} alt='' className='h-full  max-w-[460px]' />,
-  );
-  const keywordRef = useRef({ keyword: '', contury: CountryType.Vn });
+
+  const keywordRef = useRef({ text: '', contury: CountryType.Vn });
   const navigate = useNavigate();
 
   //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
 
+  useEffect(() => {
+    return () => {
+      _dispatch({ type: ActionKind.InitializeState });
+    };
+  }, []);
+
   const iframeScreen = useMemo(() => {
-    console.log('iframe function');
-    return isFalsy(_state.text) ? (
-      <img
-        src={`${IMG_PATH}/Img-Skeleton.png`}
-        alt=''
-        className='h-full  max-w-[460px]'
-      />
-    ) : (
-      <iframe
-        src={`https://shopee.vn/search?keyword=${_state.text}`}
-        className='h-full w-full'
-        allow='accelerometer; autoplay; clipboard-write;
-             encrypted-media; gyroscope; picture-in-picture'
-        sandbox='allow-same-origin allow-scripts'
-      />
-    );
-  }, [_state.text]);
+    if (isFalsy(_state.isSearched) && keywordRef.current.text) {
+      _dispatch({ type: ActionKind.SwitchMode, payload: true });
+    }
+
+    if (isFalsy(_state.text) === false) {
+      _dispatch({ type: ActionKind.SearchKeyword, payload: keywordRef.current.text });
+    }
+  }, [keywordRef.current.text]);
+
+  iframeScreen;
 
   return (
-    // <section className='col-span-12 bg-[#FAFAF9]'>
     <Fragment>
       <div className='block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
@@ -143,31 +139,24 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-start-7 col-end-12 border border-gray-300'>{iframeScreen}</div>
+      <div className='col-start-7 col-end-12 border border-gray-300'>
+        {_state.isSearched && _state.text ? (
+          <iframe
+            src={`https://shopee.vn/search?keyword=${_state.text}`}
+            className='h-full w-full'
+            allow='accelerometer; autoplay; clipboard-write;
+               encrypted-media; gyroscope; picture-in-picture'
+            sandbox='allow-same-origin allow-scripts'
+          />
+        ) : (
+          <img
+            src={`${IMG_PATH}/Img-Skeleton.png`}
+            alt=''
+            className='h-full  max-w-[460px]'
+          />
+        )}
+      </div>
     </Fragment>
-    //</section>
-
-    // <div className='flex w-full min-w-[40rem] gap-2 '>
-    //   <div className='h-[4.5rem] w-[10.5rem] shrink-0'>
-    //     <select className='h-full w-full rounded border border-grey-400 px-3'>
-    //       <option>베트남</option>
-    //     </select>
-    //   </div>
-    //   <div className='h-[4.5rem] w-[10.5rem] shrink-0'>
-    //     <select className='h-full w-full rounded border border-grey-400 px-3'>
-    //       <option>쇼피</option>
-    //     </select>
-    //   </div>
-    //   <div className='h-[4.5rem] w-full'>
-    //     <input
-    //       className='h-full w-full rounded border border-grey-400 px-3'
-    //       placeholder='비타민'
-    //       onKeyUp={onKeyPress}
-    //       onChange={onChangeInput}
-    //       value={String(keyword)}
-    //     />
-    //   </div>
-    // </div>
   );
 };
 export default SearchProducts;

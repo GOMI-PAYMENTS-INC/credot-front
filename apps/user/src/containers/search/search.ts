@@ -1,20 +1,23 @@
 import { ChangeEvent, KeyboardEvent, Dispatch } from 'react';
-import { TAction, ActionKind } from '@/containers/search';
+import { TAction, ActionKind, TSearchRef } from '@/containers/search';
 
 export const getKeyword = (
-  ref: { current: { keyword: string } },
+  ref: TSearchRef,
   event: ChangeEvent<HTMLInputElement>,
 ): void => {
   const { current } = ref;
-  current.keyword = event.target.value;
+  current.text = event.target.value;
 };
 
-//검색
 export const queryKeyword = (
-  ref: { current: { keyword: string } },
+  ref: TSearchRef,
   event: KeyboardEvent,
   _dispatch: Dispatch<TAction>,
 ) => {
   if (event.key !== 'Enter') return;
-  _dispatch({ type: ActionKind.GetKeyword, payload: ref.current.keyword });
+  _dispatch({ type: ActionKind.SearchKeyword, payload: ref.current.text });
+};
+
+export const switchMode = (_dispatch: Dispatch<TAction>, status: boolean) => {
+  _dispatch({ type: ActionKind.SwitchMode, payload: status });
 };
