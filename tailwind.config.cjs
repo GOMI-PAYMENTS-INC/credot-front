@@ -63,7 +63,7 @@ module.exports = {
           800: '#595959',
           900: '#262626',
         },
-        //text-functional-success, text-functional-error
+        //text-functional-success, text-orange-500
         functional: {
           link: '#4090F7',
           success: '#72C040',
@@ -118,6 +118,10 @@ module.exports = {
         '2XS/Regular': ['10px', { fontWeight: 400, lineHeight: '12px' }],
         '2XS/Light': ['10px', { fontWeight: 300, lineHeight: '12px' }],
       },
+
+      boxShadow: {
+        'inputHover': '0px 0px 4px rgba(255, 163, 120, 0.5)',
+      }
     },
   },
 };

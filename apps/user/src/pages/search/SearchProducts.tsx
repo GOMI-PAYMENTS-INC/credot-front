@@ -33,9 +33,9 @@ const SearchProducts = () => {
           <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
             <div className='mb-6'>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                <span className='text-primary-red-orange'>Shopee</span>에서
-                <span className='text-primary-red-orange'>상위 노출</span>을 원하는
-                <span className='text-primary-red-orange'>키워드</span>를 입력하세요.
+                <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
+                <span className='text-primary-red-orange'>상위 노출</span>을 원하는&nbsp;
+                <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
               </h1>
             </div>
             <div className='mb-16 lg:mb-6'>

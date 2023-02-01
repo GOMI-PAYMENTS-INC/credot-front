@@ -13,7 +13,7 @@ const SideBar = () => {
       <div className='flex h-20 items-center justify-evenly'>
         <ReactSVG src='assets/icons/OpenMenu.svg' className='h-8 w-8 cursor-pointer' />
         <ReactSVG
-          src='assets/icons/Logo.svg'
+          src='/assets/icons/Logo.svg'
           className='w-30 h-8 cursor-pointer'
           beforeInjection={(svg) => {
             svg.setAttribute('style', 'width: 140px');

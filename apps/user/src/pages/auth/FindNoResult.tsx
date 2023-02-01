@@ -7,8 +7,8 @@ const FindNoResult = () => (
   <div className='flex h-screen w-full justify-center'>
     <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
       <div className=''>
-        <h3 className='text-2xl-bold mb-5 text-center'>계정 안내</h3>
-        <p className='text-l-regular text-center'>
+        <h3 className='mb-5 text-center text-2XL/Bold'>계정 안내</h3>
+        <p className='text-center text-L/Regular'>
           이전에 가입한 계정이 존재하지 않습니다.
         </p>
         <div className='mt-16 '>

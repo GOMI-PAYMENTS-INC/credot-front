@@ -33,49 +33,57 @@ export const signInRouter = {
 
 export const routeList: IRoute[] = [
   {
+    //회원가입
     description: 'signUp',
     path: PATH.SIGN_UP,
     component: AuthRoutes.SignUp,
     layoutType: 'Common1Section',
   },
   {
+    //소셜 로그인
     description: 'signUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: AuthRoutes.SignUpSocial,
     layoutType: 'Common1Section',
   },
   {
+    //비밀번호 찾기
     description: 'findPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
-    layoutType: 'Common2Section',
+    layoutType: 'Common1Section',
   },
   {
-    description: 'reapplyPassword',
-    path: PATH.REAPPLY_PASSWORD,
-    component: AuthRoutes.ResetPassword,
-    layoutType: 'Common2Section',
-  },
-  {
+    //아이디 찾기
     description: 'findIdentification',
     path: PATH.FIND_ID,
     component: AuthRoutes.FindId,
-    layoutType: 'Common2Section',
+    layoutType: 'Common1Section',
   },
   {
+    //로그인
     description: 'signIn',
     path: PATH.SIGN_IN,
     component: AuthRoutes.SignIn,
     layoutType: 'Common2Section',
   },
   {
+    //비밀번호 재설정
+    description: 'reapplyPassword',
+    path: PATH.REAPPLY_PASSWORD,
+    component: AuthRoutes.ResetPassword,
+    layoutType: 'Common2Section',
+  },
+  {
+    //검색 결과 디테일
     description: 'searchResults',
     path: PATH.SEARCH_RESULTS,
     component: SearchResults,
     layoutType: 'Default',
   },
   {
-    description: 'seachProducts',
+    //검색
+    description: 'searchProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchProducts,
     layoutType: 'Default',

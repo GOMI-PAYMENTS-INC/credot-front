@@ -130,16 +130,16 @@ const SmsVerifyCodeForm = ({
     <div className='space-y-2'>
       <div className='flex items-center'>
         <input
-          className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+          className='inputCustom w-full'
           type='text'
-          placeholder='휴대폰번호 - 없이 입력'
+          placeholder='휴대폰번호를 숫자만 입력해주세요.'
           maxLength={11}
           disabled={phoneDisable}
           {...register('phone', {
             required: '휴대폰번호 필수입력입니다.',
             pattern: {
               value: /(010)[0-9]{8}$/g,
-              message: '올바른 휴대폰번호를 입력하세요.',
+              message: '올바른 휴대폰번호를 입력해주세요.',
             },
             onChange: (e) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -154,7 +154,7 @@ const SmsVerifyCodeForm = ({
         {verifyCodeCount === 0 ? (
           <button
             type='button'
-            className='text-functional-error ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100  p-2.5 text-sm font-medium'
+            className='ml-4 min-w-[102px] rounded bg-orange-500 p-2.5 py-3 text-white'
             onClick={sendSmsVerifyCode}
           >
             인증
@@ -162,7 +162,7 @@ const SmsVerifyCodeForm = ({
         ) : !isSending ? (
           <button
             type='button'
-            className='text-functional-error ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100  p-2.5 text-sm font-medium'
+            className='ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100 p-2.5  text-sm font-medium text-orange-500'
             onClick={sendSmsVerifyCode}
           >
             재발송
@@ -180,13 +180,13 @@ const SmsVerifyCodeForm = ({
         {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
       </div>
       <div>
-        <p className='text-2xs-regular text-functional-error'>{errors?.phone?.message}</p>
+        <p className='text-S/Medium text-red-500'>{errors?.phone?.message}</p>
       </div>
       {!!verifyCodeCount && (
         <div className='space-y-2'>
-          <div className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'>
+          <div className='relative w-full content-center'>
             <input
-              className='w-5/6 border-0'
+              className='inputCustom w-full pr-[60px] '
               type='text'
               maxLength={6}
               placeholder='인증번호'
@@ -195,7 +195,7 @@ const SmsVerifyCodeForm = ({
                 required: '인증번호 필수입력입니다.',
                 pattern: {
                   value: /[0-9]{6}$/g,
-                  message: '올바른 인증번호를 입력하세요.',
+                  message: '올바른 인증번호를 입력해주세요.',
                 },
                 onChange: (e) => {
                   onChangeVerifyCodeCheck(e);
@@ -209,15 +209,13 @@ const SmsVerifyCodeForm = ({
                 {/* <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' /> */}
               </span>
             ) : (
-              <span className='text-functional-error inline-block w-1/6 text-right'>
+              <span className='absolute right-4 top-3 inline-block w-1/6 text-right text-orange-500'>
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
               </span>
             )}
             {/* 인증번호 확인 여부에 다른 출력 끝 */}
           </div>
-          <p className='text-2xs-regular text-functional-error'>
-            {errors?.verifyCode?.message}
-          </p>
+          <p className='text-S/Medium text-red-500'>{errors?.verifyCode?.message}</p>
         </div>
       )}
     </div>

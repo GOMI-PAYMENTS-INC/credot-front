@@ -5,3 +5,23 @@
 html, body, #root{
     height: 100%;
 }
+
+@layer base {
+    .inputCustom{
+        @apply rounded border border-grey-400 px-4 py-3
+        placeholder:text-grey-500
+
+        hover/focus:border-orange-300
+        hover:shadow-inputHover
+
+        focus:border-[1.2px]
+        focus:outline-none
+
+        disabled:bg-grey-200
+        disabled:text-grey-700
+    }
+
+    .textButtonPrimary{
+        @apply py-3 px-[14px] text-orange-500 text-M/Bold
+    }
+}

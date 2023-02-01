@@ -42,7 +42,7 @@ const SearchResults = () => {
               {/* 가장 많은 검색 결과 (메인 결과) 시작 */}
               <div className='main-result'>
                 <div className='title flex items-center'>
-                  <h3 className='text-2xl-bold'>
+                  <h3 className='text-2XL/Bold'>
                     &quot;{keywordParam}&quot;로 검색한 결과입니다.
                   </h3>
                   <div
@@ -135,7 +135,7 @@ const SearchResults = () => {
             </div>
           ) : (
             <div className='search-result'>
-              <h3 className='text-2xl-bold'>
+              <h3 className='text-2XL/Bold'>
                 &quot;{keywordParam}&quot; 에 대한 검색 데이터가 존재하지 않습니다.
               </h3>
             </div>
@@ -150,7 +150,7 @@ const SearchResults = () => {
                 {/* 가장 많은 검색 결과 (메인 결과) 시작 */}
                 <div className='main-result'>
                   <div className='title flex items-center'>
-                    <h3 className='text-2xl-bold'>
+                    <h3 className='text-2XL/Bold'>
                       베트남어로 번역 후 &quot;{main?.translated}&quot;로 검색한
                       결과입니다.
                     </h3>
@@ -252,7 +252,7 @@ const SearchResults = () => {
           {main?.translated !== main?.text &&
           Number(subSearchResults?.search.main?.count) < 100 ? (
             <div className='search-result'>
-              <h3 className='text-2xl-bold'>
+              <h3 className='text-2XL/Bold'>
                 &quot;{main?.translated}&quot; 에 대한 검색 데이터가 존재하지 않습니다.
               </h3>
             </div>
