@@ -72,7 +72,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.2.4"],\
             ["ts-node", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.9.1"],\
             ["tslib", "npm:1.14.1"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"],\
             ["vite", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.1.8"],\
             ["vite-plugin-svgr", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.4.0"]\
           ],\
@@ -3310,7 +3310,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["regexpp", "npm:3.2.0"],\
             ["semver", "npm:7.3.8"],\
             ["tsutils", "virtual:68cd952b26bf721e79f49f900687fdb4a7faf9f00fd65fc81633620fde3cb6e2e0c89cb8c06ed927af4f3d06a01cf8053a177c315ba4128040ef8ae9e0e39648#npm:3.21.0"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -3342,7 +3342,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/typescript-estree", "virtual:32538a753de124b8fad1db7a93752fa7209ce459499d21aef29d793c02ed1825463f8f9bd57ff665b483079bb6647e1cf10074a0c3f4c2ab20c97db915b96621#npm:5.48.2"],\
             ["debug", "virtual:007f670de2e506a151fec572a83f2de9d546622ece352a4cf72e57296c0aa644478f43ac47fd07d8495ee7103d37c60645e444556d514defaeb66e67a086d21f#npm:4.3.4"],\
             ["eslint", "npm:8.32.0"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -3383,7 +3383,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["debug", "virtual:007f670de2e506a151fec572a83f2de9d546622ece352a4cf72e57296c0aa644478f43ac47fd07d8495ee7103d37c60645e444556d514defaeb66e67a086d21f#npm:4.3.4"],\
             ["eslint", "npm:8.32.0"],\
             ["tsutils", "virtual:68cd952b26bf721e79f49f900687fdb4a7faf9f00fd65fc81633620fde3cb6e2e0c89cb8c06ed927af4f3d06a01cf8053a177c315ba4128040ef8ae9e0e39648#npm:3.21.0"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -3423,7 +3423,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["is-glob", "npm:4.0.3"],\
             ["semver", "npm:7.3.8"],\
             ["tsutils", "virtual:68cd952b26bf721e79f49f900687fdb4a7faf9f00fd65fc81633620fde3cb6e2e0c89cb8c06ed927af4f3d06a01cf8053a177c315ba4128040ef8ae9e0e39648#npm:3.21.0"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"]\
           ],\
           "packagePeers": [\
             "@types/typescript",\
@@ -7654,7 +7654,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.2.4"],\
             ["ts-node", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.9.1"],\
             ["tslib", "npm:1.14.1"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"],\
             ["vite", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.1.8"],\
             ["vite-plugin-svgr", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.4.0"]\
           ],\
@@ -10193,7 +10193,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["create-require", "npm:1.1.1"],\
             ["diff", "npm:4.0.2"],\
             ["make-error", "npm:1.3.6"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"],\
             ["v8-compile-cache-lib", "npm:3.0.1"],\
             ["yn", "npm:3.1.1"]\
           ],\
@@ -10252,7 +10252,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tsutils", "virtual:68cd952b26bf721e79f49f900687fdb4a7faf9f00fd65fc81633620fde3cb6e2e0c89cb8c06ed927af4f3d06a01cf8053a177c315ba4128040ef8ae9e0e39648#npm:3.21.0"],\
             ["@types/typescript", null],\
             ["tslib", "npm:1.14.1"],\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"]\
           ],\
           "packagePeers": [\
             "@types/typescript",\
@@ -10314,10 +10314,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["typescript", [\
-        ["patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954", {\
-          "packageLocation": "./.yarn/cache/typescript-patch-7bc527fc0a-1caaea6cb7.zip/node_modules/typescript/",\
+        ["patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76", {\
+          "packageLocation": "./.yarn/cache/typescript-patch-c1bb147628-3e2ab07729.zip/node_modules/typescript/",\
           "packageDependencies": [\
-            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
+            ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12557,6 +12557,10 @@ class ZipFS extends BasePortableFakeFS {
     this.prepareClose();
     if (!this.lzSource)
       throw new Error(`ZipFS was not created from a Buffer`);
+    if (this.entries.size === 0) {
+      this.discardAndClose();
+      return makeEmptyArchive();
+    }
     try {
       this.libzip.source.keep(this.lzSource);
       if (this.libzip.close(this.zip) === -1)
@@ -19538,7 +19542,7 @@ function getPathForDisplay(p) {
 }
 
 const [major, minor] = process.versions.node.split(`.`).map((value) => parseInt(value, 10));
-const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2;
+const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2 || major === 18 && minor >= 13;
 
 const builtinModules = new Set(require$$0.Module.builtinModules || Object.keys(process.binding(`natives`)));
 const isBuiltinModule = (request) => request.startsWith(`node:`) || builtinModules.has(request);
@@ -20455,6 +20459,291 @@ function packageImportsResolve({
   throwImportNotDefined(name, packageJSONUrl, base);
 }
 
+const flagSymbol = Symbol('arg flag');
+
+class ArgError extends Error {
+	constructor(msg, code) {
+		super(msg);
+		this.name = 'ArgError';
+		this.code = code;
+
+		Object.setPrototypeOf(this, ArgError.prototype);
+	}
+}
+
+function arg(
+	opts,
+	{
+		argv = process.argv.slice(2),
+		permissive = false,
+		stopAtPositional = false
+	} = {}
+) {
+	if (!opts) {
+		throw new ArgError(
+			'argument specification object is required',
+			'ARG_CONFIG_NO_SPEC'
+		);
+	}
+
+	const result = { _: [] };
+
+	const aliases = {};
+	const handlers = {};
+
+	for (const key of Object.keys(opts)) {
+		if (!key) {
+			throw new ArgError(
+				'argument key cannot be an empty string',
+				'ARG_CONFIG_EMPTY_KEY'
+			);
+		}
+
+		if (key[0] !== '-') {
+			throw new ArgError(
+				`argument key must start with '-' but found: '${key}'`,
+				'ARG_CONFIG_NONOPT_KEY'
+			);
+		}
+
+		if (key.length === 1) {
+			throw new ArgError(
+				`argument key must have a name; singular '-' keys are not allowed: ${key}`,
+				'ARG_CONFIG_NONAME_KEY'
+			);
+		}
+
+		if (typeof opts[key] === 'string') {
+			aliases[key] = opts[key];
+			continue;
+		}
+
+		let type = opts[key];
+		let isFlag = false;
+
+		if (
+			Array.isArray(type) &&
+			type.length === 1 &&
+			typeof type[0] === 'function'
+		) {
+			const [fn] = type;
+			type = (value, name, prev = []) => {
+				prev.push(fn(value, name, prev[prev.length - 1]));
+				return prev;
+			};
+			isFlag = fn === Boolean || fn[flagSymbol] === true;
+		} else if (typeof type === 'function') {
+			isFlag = type === Boolean || type[flagSymbol] === true;
+		} else {
+			throw new ArgError(
+				`type missing or not a function or valid array type: ${key}`,
+				'ARG_CONFIG_VAD_TYPE'
+			);
+		}
+
+		if (key[1] !== '-' && key.length > 2) {
+			throw new ArgError(
+				`short argument keys (with a single hyphen) must have only one character: ${key}`,
+				'ARG_CONFIG_SHORTOPT_TOOLONG'
+			);
+		}
+
+		handlers[key] = [type, isFlag];
+	}
+
+	for (let i = 0, len = argv.length; i < len; i++) {
+		const wholeArg = argv[i];
+
+		if (stopAtPositional && result._.length > 0) {
+			result._ = result._.concat(argv.slice(i));
+			break;
+		}
+
+		if (wholeArg === '--') {
+			result._ = result._.concat(argv.slice(i + 1));
+			break;
+		}
+
+		if (wholeArg.length > 1 && wholeArg[0] === '-') {
+			/* eslint-disable operator-linebreak */
+			const separatedArguments =
+				wholeArg[1] === '-' || wholeArg.length === 2
+					? [wholeArg]
+					: wholeArg
+							.slice(1)
+							.split('')
+							.map((a) => `-${a}`);
+			/* eslint-enable operator-linebreak */
+
+			for (let j = 0; j < separatedArguments.length; j++) {
+				const arg = separatedArguments[j];
+				const [originalArgName, argStr] =
+					arg[1] === '-' ? arg.split(/=(.*)/, 2) : [arg, undefined];
+
+				let argName = originalArgName;
+				while (argName in aliases) {
+					argName = aliases[argName];
+				}
+
+				if (!(argName in handlers)) {
+					if (permissive) {
+						result._.push(arg);
+						continue;
+					} else {
+						throw new ArgError(
+							`unknown or unexpected option: ${originalArgName}`,
+							'ARG_UNKNOWN_OPTION'
+						);
+					}
+				}
+
+				const [type, isFlag] = handlers[argName];
+
+				if (!isFlag && j + 1 < separatedArguments.length) {
+					throw new ArgError(
+						`option requires argument (but was followed by another short argument): ${originalArgName}`,
+						'ARG_MISSING_REQUIRED_SHORTARG'
+					);
+				}
+
+				if (isFlag) {
+					result[argName] = type(true, argName, result[argName]);
+				} else if (argStr === undefined) {
+					if (
+						argv.length < i + 2 ||
+						(argv[i + 1].length > 1 &&
+							argv[i + 1][0] === '-' &&
+							!(
+								argv[i + 1].match(/^-?\d*(\.(?=\d))?\d*$/) &&
+								(type === Number ||
+									// eslint-disable-next-line no-undef
+									(typeof BigInt !== 'undefined' && type === BigInt))
+							))
+					) {
+						const extended =
+							originalArgName === argName ? '' : ` (alias for ${argName})`;
+						throw new ArgError(
+							`option requires argument: ${originalArgName}${extended}`,
+							'ARG_MISSING_REQUIRED_LONGARG'
+						);
+					}
+
+					result[argName] = type(argv[i + 1], argName, result[argName]);
+					++i;
+				} else {
+					result[argName] = type(argStr, argName, result[argName]);
+				}
+			}
+		} else {
+			result._.push(wholeArg);
+		}
+	}
+
+	return result;
+}
+
+arg.flag = (fn) => {
+	fn[flagSymbol] = true;
+	return fn;
+};
+
+// Utility types
+arg.COUNT = arg.flag((v, name, existingCount) => (existingCount || 0) + 1);
+
+// Expose error class
+arg.ArgError = ArgError;
+
+var arg_1 = arg;
+
+/**
+  @license
+  The MIT License (MIT)
+
+  Copyright (c) 2014 Blake Embrey (hello@blakeembrey.com)
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+*/
+function getOptionValue(opt) {
+  parseOptions();
+  return options[opt];
+}
+let options;
+function parseOptions() {
+  if (!options) {
+    options = {
+      "--conditions": [],
+      ...parseArgv(getNodeOptionsEnvArgv()),
+      ...parseArgv(process.execArgv)
+    };
+  }
+}
+function parseArgv(argv) {
+  return arg_1(
+    {
+      "--conditions": [String],
+      "-C": "--conditions"
+    },
+    {
+      argv,
+      permissive: true
+    }
+  );
+}
+function getNodeOptionsEnvArgv() {
+  const errors = [];
+  const envArgv = ParseNodeOptionsEnvVar(process.env.NODE_OPTIONS || "", errors);
+  if (errors.length !== 0) ;
+  return envArgv;
+}
+function ParseNodeOptionsEnvVar(node_options, errors) {
+  const env_argv = [];
+  let is_in_string = false;
+  let will_start_new_arg = true;
+  for (let index = 0; index < node_options.length; ++index) {
+    let c = node_options[index];
+    if (c === "\\" && is_in_string) {
+      if (index + 1 === node_options.length) {
+        errors.push("invalid value for NODE_OPTIONS (invalid escape)\n");
+        return env_argv;
+      } else {
+        c = node_options[++index];
+      }
+    } else if (c === " " && !is_in_string) {
+      will_start_new_arg = true;
+      continue;
+    } else if (c === '"') {
+      is_in_string = !is_in_string;
+      continue;
+    }
+    if (will_start_new_arg) {
+      env_argv.push(c);
+      will_start_new_arg = false;
+    } else {
+      env_argv[env_argv.length - 1] += c;
+    }
+  }
+  if (is_in_string) {
+    errors.push("invalid value for NODE_OPTIONS (unterminated string)\n");
+  }
+  return env_argv;
+}
+
 function makeApi(runtimeState, opts) {
   const alwaysWarnOnFallback = Number(process.env.PNP_ALWAYS_WARN_ON_FALLBACK) > 0;
   const debugLevel = Number(process.env.PNP_DEBUG_LEVEL);
@@ -20568,7 +20857,12 @@ function makeApi(runtimeState, opts) {
         return true;
     return false;
   }
-  const defaultExportsConditions = /* @__PURE__ */ new Set([`default`, `node`, `require`]);
+  const defaultExportsConditions = /* @__PURE__ */ new Set([
+    `default`,
+    `node`,
+    `require`,
+    ...getOptionValue(`--conditions`)
+  ]);
   function applyNodeExportsResolution(unqualifiedPath, conditions = defaultExportsConditions) {
     const locator = findPackageLocator(ppath.join(unqualifiedPath, `internal.js`), {
       resolveIgnored: true,
