@@ -1,33 +1,50 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { useRef, Fragment, useReducer, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { SearchResultContainer } from '@/containers/search/search-result.container';
-import { PATH } from '@/router/routeList';
 import { ReactSVG } from 'react-svg';
 
-const SearchProducts = () => {
-  const { keywordParam } = SearchResultContainer();
-  const [keyword, setKeyword] = useState(keywordParam);
-  const navigate = useNavigate();
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
+import { isFalsy } from '@/utils/isFalsy';
+import { getKeyword, queryKeyword } from '@/containers/search';
+import { initialState, reducer } from '@/containers/search/reducer';
+import { CountryType } from '@/generated/graphql';
 
-  const onKeyPress = (e: any) => {
-    console.log(e);
-    if (e.key !== 'Enter') {
-      return;
-    }
-    navigate(`${PATH.SEARCH_RESULTS}?keyword=${keyword}`);
-  };
+const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
+  const [_state, _dispatch] = useReducer(reducer, initialState);
+  const [component, setComponent] = useState<JSX.Element>(
+    <img src={`${IMG_PATH}/Img-Skeleton.png`} alt='' className='h-full  max-w-[460px]' />,
+  );
+  const keywordRef = useRef({ keyword: '', contury: CountryType.Vn });
+  const navigate = useNavigate();
+
+  //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
+
+  const iframeScreen = useMemo(() => {
+    console.log('iframe function');
+    return isFalsy(_state.text) ? (
+      <img
+        src={`${IMG_PATH}/Img-Skeleton.png`}
+        alt=''
+        className='h-full  max-w-[460px]'
+      />
+    ) : (
+      <iframe
+        src={`https://shopee.vn/search?keyword=${_state.text}`}
+        className='h-full w-full'
+        allow='accelerometer; autoplay; clipboard-write;
+             encrypted-media; gyroscope; picture-in-picture'
+        sandbox='allow-same-origin allow-scripts'
+      />
+    );
+  }, [_state.text]);
+
   return (
     // <section className='col-span-12 bg-[#FAFAF9]'>
     <Fragment>
       <div className='block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
-      <div className='col-start-1 col-end-6'>
+      <div className='col-start-1 col-end-6 border border-gray-300'>
         <div className='grid-12 relative items-center  justify-items-center  pb-11 lg:pb-6'>
           <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
             <div className='mb-6'>
@@ -38,17 +55,16 @@ const SearchProducts = () => {
               </h1>
             </div>
             <div className='mb-16 lg:mb-6'>
-              <div className='mb-2'>
+              <div className='mb-2 flex items-center'>
+                <ReactSVG src='assets/icons/VietnamFlag.svg' className='pr-[8px]' />
                 <select
                   name='country'
                   id='country'
                   className='bg-transparent py-3 text-S/Medium'
                 >
-                  <option value='Vietnam' defaultValue='Vietnam'>
+                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
                     Vietnam
                   </option>
-                  <option value='Vietnam1'>Vietna1</option>
-                  <option value='Vietnam2'>Vietnam2</option>
                 </select>
               </div>
               <div className='form-control'>
@@ -57,6 +73,8 @@ const SearchProducts = () => {
                     <input
                       type='text'
                       placeholder='키워드를 입력해주세요.'
+                      onChange={(event) => getKeyword(keywordRef, event)}
+                      onKeyDown={(event) => queryKeyword(keywordRef, event, _dispatch)}
                       className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
@@ -125,13 +143,7 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-start-7 col-end-12 block md:hidden'>
-        <img
-          src={`${IMG_PATH}/Img-Skeleton.png`}
-          alt=''
-          className='w-full max-w-[400px]'
-        />
-      </div>
+      <div className='col-start-7 col-end-12 border border-gray-300'>{iframeScreen}</div>
     </Fragment>
     //</section>
 
