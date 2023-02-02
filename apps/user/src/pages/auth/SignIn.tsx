@@ -40,14 +40,18 @@ const SignIn = () => {
 
   return (
     <Fragment>
+      {/*좌측 이미지 시작*/}
       <div className='col-span-5 col-start-2'>
         <img src='../../assets/images/LoginInfoImg1.png' alt='' />
       </div>
+      {/*좌측 이미지 끝*/}
+
+      {/*우측 이미지 시작*/}
       <div className='col-span-5 flex flex-col rounded-3xl bg-white px-[60px] pt-12'>
-        <div className='mb-10'>
+        <div>
           <h3 className='text-center text-3XL/medium'>로그인</h3>
         </div>
-        <div className='space-y-12'>
+        <div className='mt-10 space-y-12'>
           <form onSubmit={handleSubmit(onValid, onInvalid)}>
             <div className='space-y-6'>
               <div className='space-y-8'>
@@ -86,14 +90,14 @@ const SignIn = () => {
               <div className='flex items-center justify-between'>
                 <div className='flex items-center'>
                   <input
-                    id='remember_me'
-                    name='remember_me'
+                    id='rememter_me'
+                    name='rememter_me'
                     type='checkbox'
                     className='h-4 w-4 rounded border-gray-300 bg-blue-500 focus:ring-blue-400'
                     checked={isLoginStorage}
                     onChange={(e) => onLoginStorageCheck(e)}
                   />
-                  <label htmlFor='remember_me' className='text-S/Regular '>
+                  <label htmlFor='rememter_me' className='text-S/Regular '>
                     로그인 상태 유지
                   </label>
                 </div>
@@ -149,6 +153,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+      {/*우측 이미지 끝*/}
     </Fragment>
   );
 };

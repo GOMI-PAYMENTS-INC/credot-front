@@ -108,6 +108,7 @@ const SmsVerifyCodeForm = ({
       };
       onSendSmsVerifyCode(params);
       // 발송 횟수 추가
+      // TODO 너무빨리 인증번호 작성이 뜸
       setVerifyCodeCount(verifyCodeCount + 1);
       setPhoneDisable(true);
     } else {
@@ -129,6 +130,7 @@ const SmsVerifyCodeForm = ({
   return (
     <div className='space-y-2'>
       <div className='flex items-center'>
+        {/*TODO 발송 후 input들 수정안되게 할 것*/}
         <input
           className='inputCustom w-full'
           type='text'
@@ -154,7 +156,7 @@ const SmsVerifyCodeForm = ({
         {verifyCodeCount === 0 ? (
           <button
             type='button'
-            className='ml-4 min-w-[102px] rounded bg-orange-500 p-2.5 py-3 text-white'
+            className='ButtonPrimary ml-4'
             onClick={sendSmsVerifyCode}
           >
             인증
@@ -162,7 +164,7 @@ const SmsVerifyCodeForm = ({
         ) : !isSending ? (
           <button
             type='button'
-            className='ml-2 min-w-[4.6875rem] rounded border border-primary-red-orange bg-orange-100 p-2.5  text-sm font-medium text-orange-500'
+            className='ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800'
             onClick={sendSmsVerifyCode}
           >
             재발송
@@ -170,7 +172,7 @@ const SmsVerifyCodeForm = ({
         ) : (
           <button
             type='button'
-            className='ml-2 min-w-[4.6875rem] rounded border-0 bg-gray-300  p-2.5 text-sm  text-gray-500'
+            className='ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500'
             onClick={sendSmsVerifyCode}
             disabled={true}
           >
@@ -189,13 +191,13 @@ const SmsVerifyCodeForm = ({
               className='inputCustom w-full pr-[60px] '
               type='text'
               maxLength={6}
-              placeholder='인증번호'
+              placeholder='인증번호 6자리를 입력해주세요.'
               disabled={!!verifyCodeSign}
               {...register('verifyCode', {
-                required: '인증번호 필수입력입니다.',
+                //required: '인증번호 필수입력입니다.',
                 pattern: {
                   value: /[0-9]{6}$/g,
-                  message: '올바른 인증번호를 입력해주세요.',
+                  message: '인증번호 6자리를 입력해주세요.',
                 },
                 onChange: (e) => {
                   onChangeVerifyCodeCheck(e);

@@ -4,7 +4,11 @@ import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
 import SearchProducts from '@/pages/search/SearchProducts';
 
-export type TLayoutType = 'Default' | 'Common1Section' | 'Common2Section';
+export type TLayoutType =
+  | 'Default'
+  | 'Common1Section'
+  | 'Common2Section'
+  | 'FindAccountLayout';
 export const PATH = {
   SEARCH_PRODUCTS: '/',
   SEARCH_RESULTS: '/search/results',
@@ -51,14 +55,14 @@ export const routeList: IRoute[] = [
     description: 'findPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
-    layoutType: 'Common1Section',
+    layoutType: 'FindAccountLayout',
   },
   {
     //아이디 찾기
     description: 'findIdentification',
     path: PATH.FIND_ID,
     component: AuthRoutes.FindId,
-    layoutType: 'Common1Section',
+    layoutType: 'FindAccountLayout',
   },
   {
     //로그인
@@ -98,6 +102,7 @@ export function getComponentByPathname(pathname: string): TLayoutType {
   }
   throw new Error('pathname을 확인해주세요.');
 }
+
 /*
 
 // search

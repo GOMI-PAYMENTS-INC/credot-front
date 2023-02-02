@@ -24,4 +24,7 @@ html, body, #root{
     .textButtonPrimary{
         @apply py-3 px-[14px] text-orange-500 text-M/Bold
     }
+    .ButtonPrimary {
+        @apply min-w-[102px] rounded bg-orange-500 p-2.5 py-3 text-white text-M/Bold
+    }
 }

@@ -1,30 +1,62 @@
-import { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import { ReactSVG } from 'react-svg';
 import { Common1Section } from '@/components/layouts/Common1Section';
-import { PATH } from '@/router/routeList';
-import { Link } from 'react-router-dom';
+import { getComponentByPathname, PATH } from '@/router/routeList';
+import { Link, useLocation } from 'react-router-dom';
 
 export interface IFindAccountLayoutProps {
   children?: ReactNode;
 }
-export const FindAccountLayout = ({ children }: IFindAccountLayoutProps) => (
-  <Common1Section>
-    <div className='flex h-full flex-col space-y-8'>
-      {/*TODO 아이디찾기/ 비밀번호 찾기 공통 영역 시작*/}
-      <div>
+
+export const FindAccountLayout = ({ children }: IFindAccountLayoutProps) => {
+  const { pathname } = useLocation();
+  const [activeToggle, setToggle] = useState<string>('id');
+
+  useEffect((): void => {
+    console.log(pathname);
+    setToggle(pathname);
+  }, []);
+
+  const changeActiveToggle = (e: React.MouseEvent<HTMLAnchorElement>, state: string) => {
+    activeToggle !== state ? setToggle(state) : e.preventDefault();
+  };
+  // TODO 비밀번호 찾기로 접속시, 정상적으로 토글되지 않음
+  return (
+    <Common1Section>
+      <div className='flex h-full flex-col space-y-8'>
         <ul className='grid grid-cols-2 rounded-lg bg-grey-200 p-1 text-center text-L/Medium text-grey-700'>
-          <li className='rounded-lg bg-white py-3 font-bold text-grey-900 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]'>
-            <Link to={PATH.FIND_ID}>아이디 찾기</Link>
+          <li>
+            <Link
+              to={PATH.FIND_ID}
+              className={`${
+                activeToggle === PATH.FIND_ID &&
+                ' bg-white font-bold text-grey-900 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]'
+              } block rounded-lg py-3`}
+              onClick={(e) => {
+                changeActiveToggle(e, PATH.FIND_ID);
+              }}
+            >
+              아이디 찾기
+            </Link>
           </li>
-          <li className='rounded-lg py-3'>
-            <Link to={PATH.FIND_PASSWORD}>비밀번호 찾기</Link>
+          <li>
+            <Link
+              to={PATH.FIND_PASSWORD}
+              className={`${
+                activeToggle === PATH.FIND_PASSWORD &&
+                ' bg-white font-bold text-grey-900 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]'
+              } block rounded-lg py-3`}
+              onClick={(e) => {
+                changeActiveToggle(e, PATH.FIND_PASSWORD);
+              }}
+            >
+              비밀번호 찾기
+            </Link>
           </li>
         </ul>
+        <div className='flex h-full flex-col justify-between'>{children}</div>
       </div>
-      {/*끝*/}
-
-      {children}
-    </div>
-  </Common1Section>
-);
+    </Common1Section>
+  );
+};
