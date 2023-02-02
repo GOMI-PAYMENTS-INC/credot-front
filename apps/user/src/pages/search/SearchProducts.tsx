@@ -7,6 +7,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { getKeyword, queryKeyword } from '@/containers/search';
 import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
 import { CountryType } from '@/generated/graphql';
+import { Tooltip } from 'react-tooltip';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
@@ -98,8 +99,14 @@ const SearchProducts = () => {
                 <h3 className='text-L/Medium lg:text-S/Regular'>
                   월간 검색량
                   <ReactSVG
+                    id='anchor-montly-search-volum'
                     src='assets/icons/Help.svg'
                     className='ml-[7px] inline-block'
+                  />
+                  <Tooltip
+                    anchorId='anchor-montly-search-volum'
+                    html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
+                    place='right'
                   />
                 </h3>
               </div>
@@ -114,8 +121,14 @@ const SearchProducts = () => {
                 <h3 className='text-L/Medium lg:text-M/Regular'>
                   이런 키워드들은 어때요?
                   <ReactSVG
+                    id='anchor-keyword-tip'
                     src='assets/icons/Help.svg'
                     className='ml-[7px] inline-block'
+                  />
+                  <Tooltip
+                    anchorId='anchor-keyword-tip'
+                    html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
+                    place='right'
                   />
                 </h3>
               </div>
