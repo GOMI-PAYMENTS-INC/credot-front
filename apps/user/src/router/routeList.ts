@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
 import SearchProducts from '@/pages/search/SearchProducts';
+import * as ReportRoutes from '@/pages/report';
 
 export type TLayoutType =
   | 'Default'
@@ -18,6 +19,7 @@ export const PATH = {
   FIND_PASSWORD: '/find/password',
   FIND_ID: '/find/id',
   REAPPLY_PASSWORD: '/signin/password',
+  REPORT_GET_LIST: '/report/getlist',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -90,6 +92,12 @@ export const routeList: IRoute[] = [
     description: 'searchProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchProducts,
+    layoutType: 'Default',
+  },
+  {
+    description: 'getReportList',
+    path: PATH.REPORT_GET_LIST,
+    component: ReportRoutes.GetList,
     layoutType: 'Default',
   },
 ];

@@ -1,4 +1,4 @@
-import { CountryType, TranslateType, useSearchQuery } from '@/generated/graphql';
+import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { createElement } from 'react';
 
 export enum ActionKind {
@@ -16,7 +16,6 @@ export type TAction = {
 type TState = {
   //TODO: 국가 선택 가능 시  옵셔널 -> 팔수값으로 변경 (현재는 옵션이 없어 고정값으로 주고 있음)
   country?: CountryType;
-  translateType: TranslateType;
   text: string;
   isSearched: boolean;
 };
@@ -25,7 +24,6 @@ export type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'>
 
 const initialState: TState = {
   country: CountryType.Vn,
-  translateType: TranslateType.Order,
   text: '',
   isSearched: false,
 };
