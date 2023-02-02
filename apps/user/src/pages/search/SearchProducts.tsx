@@ -215,7 +215,7 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-span-6 h-full w-full md:hidden'>
+      <div className='col-span-6 w-full md:hidden'>
         {_state.isSearched && _state.text ? (
           <iframe
             src={`https://shopee.vn/search?keyword=${_state.text}`}
@@ -225,7 +225,7 @@ const SearchProducts = () => {
             sandbox='allow-same-origin allow-scripts'
           />
         ) : (
-          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='h-full  max-w-[460px]' />
+          <img src={`${IMG_PATH}/Img-Skeleton.png`} className=' max-w-[460px]' />
         )}
       </div>
     </Fragment>
