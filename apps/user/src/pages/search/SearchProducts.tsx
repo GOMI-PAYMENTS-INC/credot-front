@@ -1,20 +1,26 @@
-import { useRef, Fragment, useReducer, useState, useMemo, useEffect } from 'react';
+import { useRef, Fragment, useReducer, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSVG } from 'react-svg';
 
 import { isFalsy } from '@/utils/isFalsy';
-import { getKeyword, queryKeyword } from '@/containers/search';
+import { getKeyword, queryKeyword, GetQueryResult } from '@/containers/search';
 import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
-import { CountryType } from '@/generated/graphql';
+
 import { Tooltip } from 'react-tooltip';
+import { CountryType } from '@/generated/graphql';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
-
   const keywordRef = useRef({ text: '', contury: CountryType.Vn });
+  const [data, isLoading, isError] = GetQueryResult(keywordRef);
+  console.log(data, isLoading, isError);
+
   const navigate = useNavigate();
+
+  if (_state.text) {
+  }
 
   //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
 
@@ -33,6 +39,40 @@ const SearchProducts = () => {
       _dispatch({ type: ActionKind.SearchKeyword, payload: keywordRef.current.text });
     }
   }, [keywordRef.current.text]);
+
+  const montlySearchVolum = useMemo(() => {
+    if (isFalsy(_state.text) && isLoading === true) {
+      return '???';
+    }
+    if (isFalsy(_state.text) === false && isLoading === true) {
+      return (
+        <div className='scale-[0.3]'>
+          <div id='loader' />
+        </div>
+      );
+    }
+    if (data && data !== true) {
+      const { count } = data.main;
+      return count;
+    }
+  }, [data, isLoading, keywordRef.current.text]);
+
+  const relativeKeyword = useMemo(() => {
+    if (isFalsy(_state.text) && isLoading === true) {
+      return [1, 2, 3, 4, 5, 6];
+    }
+    if (isFalsy(_state.text) === false && isLoading === true) {
+      return (
+        <div className='scale-[0.3] pb-20'>
+          <div id='loader' />
+        </div>
+      );
+    }
+    if (data && data !== true) {
+      const { relations } = data;
+      return relations;
+    }
+  }, [data, isLoading, keywordRef.current.text]);
 
   iframeScreen;
 
@@ -112,8 +152,12 @@ const SearchProducts = () => {
                 </h3>
               </div>
               <div>
-                <span className='text-4XL/Bold text-gray-300 lg:text-3XL/medium'>
-                  ???
+                <span
+                  className={`text-4XL/Bold text-gray-${
+                    _state.text ? '900' : '300'
+                  } lg:text-3XL/medium`}
+                >
+                  {montlySearchVolum}
                 </span>
               </div>
             </div>
@@ -133,20 +177,38 @@ const SearchProducts = () => {
                   />
                 </h3>
               </div>
-              <div>
-                <ul className='overflow-y-hidden'>
-                  <li className='float-left mb-3 h-[38px] w-[36%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[60%] rounded-[50px] border border-gray-300  bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-gray-300  bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[28%] rounded-[50px] border border-gray-300  bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[68%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
+              <div className='h-[150px] overflow-x-auto'>
+                <ul className='overflow-y-hidden text-center'>
+                  {Array.isArray(relativeKeyword)
+                    ? relativeKeyword.map((keyword) => {
+                        if (typeof keyword === 'number') {
+                          return (
+                            <li
+                              key={`${keyword}_dummy`}
+                              className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6'
+                            />
+                          );
+                        }
+                        return (
+                          <li
+                            key={`${keyword.id}`}
+                            className='float-left mb-3 h-[38px] rounded-[50px] border border-gray-300 px-[10%] leading-9 odd:mr-[4%] lg:mb-2 lg:h-6'
+                          >
+                            {keyword.text}
+                          </li>
+                        );
+                      })
+                    : relativeKeyword}
                 </ul>
               </div>
             </div>
 
             <div>
-              <button className='w-full rounded-md bg-primary-red-orange py-4'>
+              <button
+                className={`w-full rounded-md bg-primary-red-orange py-4 ${
+                  _state.text === '' && 'opacity-30'
+                }`}
+              >
                 <span className='text-L/Bold text-white'>리포트 생성하기</span>
               </button>
             </div>
