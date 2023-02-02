@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/apps/user/.yarnrc.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/.yarnrc.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨">
+      <change afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/FindAccountLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/office/src/pages/home/home.page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/office/src/pages/home/home.page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/form/sms-verify-code.form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/form/sms-verify-code.form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/Common1Section.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Common1Section.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/Common2Section.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Common2Section.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/modals/modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/modals/modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/FindNoResult.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/FindNoResult.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/FindPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/FindPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/ResetPassword.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/ResetPassword.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/SignUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/SignUp.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/SignUpSocial.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/SignUpSocial.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/result/SearchResults.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/result/SearchResults.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/router/routeList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/router/routeList.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.cjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +33,61 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/COR-766" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-770" />
+                    <option name="lastUsedInstant" value="1675072585" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-766" />
+                    <option name="lastUsedInstant" value="1675064106" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="develop" />
+                    <option name="lastUsedInstant" value="1675064105" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="gomicorp" />
+        <option name="repository" value="kr-core-gomi-keyword-front" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="cd84510b-06c1-4f52-a40f-3890bc3673ab" />
+        <option name="url" value="https://github.com/gomicorp/kr-core-gomi-keyword-front.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -26,26 +97,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "js.linters.configure.manually.selectedeslint": "true",
-    "last_opened_file_path": "/Users/gomidev/Desktop/project/kr-core-gomi-keyword-front",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "yarn:package.json:eslint",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "yarn:package.json:prettier",
-    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "/private/var/folders/10/g10gg0v92ngdll6txnc8n_440000gn/T/AppTranslocation/13F51813-2415-4087-A726-58D7D688F274/d/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;js.linters.configure.manually.selectedeslint&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/gomidev/Documents/dev/gomi/kr-core-gomi-keyword-front/apps/user/src/components/layouts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;yarn:package.json:eslint&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;yarn:package.json:prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;yarn:package.json:typescript&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/user/src/components/layouts" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/apps/user/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -59,10 +152,32 @@
       <updated>1673938277388</updated>
       <workItem from="1673938279093" duration="25000" />
       <workItem from="1673938309476" duration="2085000" />
+      <workItem from="1675063988789" duration="12639000" />
+      <workItem from="1675129850527" duration="14628000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: 레이아웃 명, 구조 수정">
+      <created>1675072693239</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1675072693240</updated>
+    </task>
+    <task id="LOCAL-00002" summary="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨">
+      <created>1675073380807</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675073380807</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: 레이아웃 명, 구조 수정" />
+    <MESSAGE value="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨" />
   </component>
 </project>

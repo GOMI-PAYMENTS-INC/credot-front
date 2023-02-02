@@ -4,7 +4,11 @@ import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
 import SearchProducts from '@/pages/search/SearchProducts';
 
-export type TLayoutType = 'Plural' | 'Singular';
+export type TLayoutType =
+  | 'Default'
+  | 'Common1Section'
+  | 'Common2Section'
+  | 'FindAccountLayout';
 export const PATH = {
   SEARCH_PRODUCTS: '/',
   SEARCH_RESULTS: '/search/results',
@@ -33,52 +37,60 @@ export const signInRouter = {
 
 export const routeList: IRoute[] = [
   {
-    description: 'seachProducts',
-    path: PATH.SEARCH_PRODUCTS,
-    component: SearchProducts,
-    layoutType: 'Plural',
-  },
-  {
-    description: 'searchResults',
-    path: PATH.SEARCH_RESULTS,
-    component: SearchResults,
-    layoutType: 'Singular',
-  },
-  {
-    description: 'signIn',
-    path: PATH.SIGN_IN,
-    component: AuthRoutes.SignIn,
-    layoutType: 'Plural',
-  },
-  {
+    //회원가입
     description: 'signUp',
     path: PATH.SIGN_UP,
     component: AuthRoutes.SignUp,
-    layoutType: 'Singular',
+    layoutType: 'Common1Section',
   },
   {
+    //소셜 로그인
     description: 'signUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: AuthRoutes.SignUpSocial,
-    layoutType: 'Singular',
+    layoutType: 'Common1Section',
   },
   {
+    //비밀번호 찾기
     description: 'findPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
-    layoutType: 'Singular',
+    layoutType: 'FindAccountLayout',
   },
   {
+    //아이디 찾기
     description: 'findIdentification',
     path: PATH.FIND_ID,
     component: AuthRoutes.FindId,
-    layoutType: 'Singular',
+    layoutType: 'FindAccountLayout',
   },
   {
+    //로그인
+    description: 'signIn',
+    path: PATH.SIGN_IN,
+    component: AuthRoutes.SignIn,
+    layoutType: 'Common2Section',
+  },
+  {
+    //비밀번호 재설정
     description: 'reapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.ResetPassword,
-    layoutType: 'Plural',
+    layoutType: 'Common2Section',
+  },
+  {
+    //검색 결과 디테일
+    description: 'searchResults',
+    path: PATH.SEARCH_RESULTS,
+    component: SearchResults,
+    layoutType: 'Default',
+  },
+  {
+    //검색
+    description: 'searchProducts',
+    path: PATH.SEARCH_PRODUCTS,
+    component: SearchProducts,
+    layoutType: 'Default',
   },
 ];
 
@@ -90,6 +102,7 @@ export function getComponentByPathname(pathname: string): TLayoutType {
   }
   throw new Error('pathname을 확인해주세요.');
 }
+
 /*
 
 // search

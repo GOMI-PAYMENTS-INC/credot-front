@@ -85,19 +85,19 @@ const SignUp = () => {
 
   return (
     <Fragment>
-      <h3 className='text-2xl-bold mb-4 text-center'>회원가입</h3>
+      <h3 className='mb-4 text-center text-2XL/Bold'>회원가입</h3>
       <form className='space-y-5' onSubmit={handleSubmit(onValid, onInvalid)}>
         <div className='space-y-2'>
           <div className='space-y-2'>
             <input
-              className=' w-full rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+              className=' inputCustom w-full'
               type='email'
               placeholder='이메일'
               {...register('email', {
                 required: '이메일은 필수입력입니다.',
                 pattern: {
                   value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                  message: '올바른 이메일 주소를 입력하세요.',
+                  message: '올바른 이메일 주소를 입력해주세요.',
                 },
                 onChange: async (e) => {
                   const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -109,16 +109,14 @@ const SignUp = () => {
                 },
               })}
             />
-            <p className='text-2xs-regular text-functional-error'>
-              {errors?.email?.message}
-            </p>
+            <p className='text-S/Medium text-red-500'>{errors?.email?.message}</p>
           </div>
 
           <div className='space-y-2'>
             <input
               id='password'
               type='password'
-              className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+              className='inputCustom w-full content-center'
               placeholder='비밀번호'
               {...register('password', {
                 required: '비밀번호는 필수입력입니다.',
@@ -130,16 +128,14 @@ const SignUp = () => {
                 },
               })}
             />
-            <p className='text-2xs-regular text-functional-error'>
-              {errors?.password?.message}
-            </p>
+            <p className='text-S/Medium text-red-500'>{errors?.password?.message}</p>
           </div>
 
           <div className='space-y-2'>
             <input
               id='confirmPassword'
               type='password'
-              className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+              className='inputCustom w-full content-center'
               placeholder='비밀번호 확인'
               // @ts-ignore
               {...register('confirmPassword', {
@@ -147,7 +143,7 @@ const SignUp = () => {
                   value === passwordWatcher || '비밀번호가 일치하지 않습니다.',
               })}
             />
-            <p className='text-2xs-regular text-functional-error'>
+            <p className='text-S/Medium text-red-500'>
               {errors?.confirmPassword?.message}
             </p>
           </div>

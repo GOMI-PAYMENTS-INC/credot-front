@@ -38,17 +38,18 @@ const SearchProducts = () => {
 
   return (
     <Fragment>
-      <div className='block lg:hidden'>
+      <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
-      <div className='col-start-1 col-end-6 border border-gray-300'>
-        <div className='grid-12 relative items-center  justify-items-center  pb-11 lg:pb-6'>
+
+      <div className='relative col-span-6'>
+        <div className='max-w-[480px] pb-11  lg:pb-6'>
           <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
             <div className='mb-6'>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                <span className='text-primary-red-orange'>Shopee</span>에서
-                <span className='text-primary-red-orange'>상위 노출</span>을 원하는
-                <span className='text-primary-red-orange'>키워드</span>를 입력하세요.
+                <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
+                <span className='text-primary-red-orange'>상위 노출</span>을 원하는&nbsp;
+                <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
               </h1>
             </div>
             <div className='mb-16 lg:mb-6'>
@@ -152,7 +153,7 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-start-7 col-end-12 border border-gray-300'>
+      <div className='col-span-6 md:hidden'>
         {_state.isSearched && _state.text ? (
           <iframe
             src={`https://shopee.vn/search?keyword=${_state.text}`}
@@ -162,11 +163,7 @@ const SearchProducts = () => {
             sandbox='allow-same-origin allow-scripts'
           />
         ) : (
-          <img
-            src={`${IMG_PATH}/Img-Skeleton.png`}
-            alt=''
-            className='h-full  max-w-[460px]'
-          />
+          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='h-full  max-w-[460px]' />
         )}
       </div>
     </Fragment>
