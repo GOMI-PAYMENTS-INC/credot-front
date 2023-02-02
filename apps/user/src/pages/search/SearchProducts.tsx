@@ -215,11 +215,11 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-span-6 md:hidden'>
+      <div className='col-span-6 h-full w-full md:hidden'>
         {_state.isSearched && _state.text ? (
           <iframe
             src={`https://shopee.vn/search?keyword=${_state.text}`}
-            className='h-full w-full'
+            className='h-[960px] w-[445px]  rounded-2xl pt-[8px]'
             allow='accelerometer; autoplay; clipboard-write;
                encrypted-media; gyroscope; picture-in-picture'
             sandbox='allow-same-origin allow-scripts'
