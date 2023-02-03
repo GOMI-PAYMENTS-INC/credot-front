@@ -82,7 +82,7 @@ const SearchProducts = () => {
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
 
-      <div className='relative col-span-6'>
+      <div className='relative col-span-6 grid items-center'>
         <div className='max-w-[480px] pb-11  lg:pb-6'>
           <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
             <div className='mb-6'>
@@ -215,7 +215,7 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-span-6 w-full md:hidden'>
+      <div className='col-span-6 h-full w-full md:hidden'>
         {_state.isSearched && _state.text ? (
           <iframe
             src={`https://shopee.vn/search?keyword=${_state.text}`}
@@ -225,7 +225,7 @@ const SearchProducts = () => {
             sandbox='allow-same-origin allow-scripts'
           />
         ) : (
-          <img src={`${IMG_PATH}/Img-Skeleton.png`} className=' max-w-[460px]' />
+          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='h-full  max-w-[460px]' />
         )}
       </div>
     </Fragment>
