@@ -5678,6 +5678,7 @@ __metadata:
     recoil: ^0.7.6
     swiper: ^8.4.5
     tailwindcss: ^3.2.1
+    tailwindcss-bg-svg: ^2.0.0
     ts-node: ^10.9.1
     tslib: ^1
     typescript: ^4.8.4
@@ -5775,7 +5776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:~4.17.0":
+"lodash@npm:^4.17.10, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:~4.17.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -7600,6 +7601,17 @@ __metadata:
     "@pkgr/utils": ^2.3.1
     tslib: ^2.4.0
   checksum: 83e054fe4494dab42114fc4ed36a11b85e18742d304ade3f40d3afb4ba4145d76183adba1f29e2c36e9a0a453b93a83e2387505f96a0efd901f562927a968c44
+  languageName: node
+  linkType: hard
+
+"tailwindcss-bg-svg@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tailwindcss-bg-svg@npm:2.0.0"
+  dependencies:
+    lodash: ^4.17.10
+  peerDependencies:
+    tailwindcss: ">=2.0.0"
+  checksum: e4ab4a43faf413c54a3f006dd96f8e0bb70f0fa92b3daa5d095c086a0da17fc6c63015e82279e257100209be2c3b646a863959097e266ecfe0f7872ecc983f39
   languageName: node
   linkType: hard
 

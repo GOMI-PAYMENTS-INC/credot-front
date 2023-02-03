@@ -1,9 +1,13 @@
 import '@/pages/report/getReportList.css';
 import { ReportContainer } from "@/containers/report/report.container";
 
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/router/routeList';
+
 const GetReportList = () => {
   const { getList } = ReportContainer();
   const IMG_PATH = '../../assets/images';
+  const navigate = useNavigate();
   return (
     <div className='col-span-12 w-[1180px]'>
       <div className='col-span-6 mx-[px] mt-[3px] flex h-[84px] items-center '>
@@ -34,15 +38,15 @@ const GetReportList = () => {
               </th>
               <th className='w-[128px]' colSpan={1}>
                 국가
-              </th>
-              <th className='w-[128px]' colSpan={1}>
-                쇼핑몰
-              </th>
               <th className='w-[128px]' colSpan={1}>
                 리포트 생성일
               </th>
               <th className='w-[56px]' colSpan={1} />
             </tr>
+              </th>
+              <th className='w-[128px]' colSpan={1}>
+                쇼핑몰
+              </th>
           </thead>
 
           <tbody>
@@ -54,7 +58,10 @@ const GetReportList = () => {
                     <h1>조회 가능한 리포트가 없어요.</h1>
                     <h1>키워드를 검색하여 리포트를 생성해보세요.</h1>
                   </div>
-                  <button className='mt-[40px] h-[48px] w-[160px] rounded-md border border-[#FF5100] text-S/Bold text-[#FF5100]'>
+                  <button
+                    onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
+                    className='mt-[40px] h-[48px] w-[160px] rounded-md border border-[#FF5100] text-S/Bold text-[#FF5100]'
+                  >
                     키워드 검색하기
                   </button>
                 </div>

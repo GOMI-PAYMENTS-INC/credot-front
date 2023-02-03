@@ -1,4 +1,4 @@
-import { useRef, Fragment, useReducer, useMemo, useEffect } from 'react';
+import { useRef, Fragment, useReducer, useMemo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSVG } from 'react-svg';
@@ -15,12 +15,9 @@ const SearchProducts = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const keywordRef = useRef({ text: '', contury: CountryType.Vn });
   const [data, isLoading, isError] = GetQueryResult(keywordRef);
-  console.log(data, isLoading, isError);
+  const [montlyKeywordColor, setMontlyKeywordColor] = useState<`300` | `500`>(`300`);
 
   const navigate = useNavigate();
-
-  if (_state.text) {
-  }
 
   //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
 
@@ -52,6 +49,7 @@ const SearchProducts = () => {
       );
     }
     if (data && data !== true) {
+      setMontlyKeywordColor(`500`);
       const { count } = data.main;
       return count;
     }
@@ -84,7 +82,7 @@ const SearchProducts = () => {
 
       <div className='relative col-span-6 grid items-center'>
         <div className='max-w-[480px] pb-11  lg:pb-6'>
-          <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
+          <div className=' xs:col-span-full col-span-5  col-start-2 px-8 py-[22px] px-5 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
             <div className='mb-6'>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                 <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
@@ -112,11 +110,14 @@ const SearchProducts = () => {
                       type='text'
                       placeholder='키워드를 입력해주세요.'
                       onChange={(event) => getKeyword(keywordRef, event)}
-                      onKeyDown={(event) => queryKeyword(keywordRef, event, _dispatch)}
+                      onKeyDown={(event) => queryKeyword(keywordRef, _dispatch, event)}
                       className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
-                  <button className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'>
+                  <button
+                    onClick={() => queryKeyword(keywordRef, _dispatch)}
+                    className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
+                  >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       className='h-6 w-6'
@@ -153,9 +154,7 @@ const SearchProducts = () => {
               </div>
               <div>
                 <span
-                  className={`text-4XL/Bold text-gray-${
-                    _state.text ? '900' : '300'
-                  } lg:text-3XL/medium`}
+                  className={`text-4XL/Bold text-gray-${montlyKeywordColor} lg:text-3XL/medium`}
                 >
                   {montlySearchVolum}
                 </span>
@@ -215,7 +214,7 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-span-6 h-full w-full md:hidden'>
+      <div className='col-span-6 w-full self-center md:hidden'>
         {_state.isSearched && _state.text ? (
           <iframe
             src={`https://shopee.vn/search?keyword=${_state.text}`}
@@ -225,7 +224,7 @@ const SearchProducts = () => {
             sandbox='allow-same-origin allow-scripts'
           />
         ) : (
-          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='h-full  max-w-[460px]' />
+          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='max-w-[460px]' />
         )}
       </div>
     </Fragment>

@@ -15,10 +15,10 @@ export const getKeyword = (
 
 export const queryKeyword = (
   ref: TSearchRef,
-  event: KeyboardEvent,
   _dispatch: Dispatch<TAction>,
+  event?: KeyboardEvent,
 ) => {
-  if (event.key !== 'Enter') return;
+  if (event && event.key !== 'Enter') return;
   _dispatch({ type: ActionKind.SearchKeyword, payload: ref.current.text });
 };
 
