@@ -14,7 +14,10 @@ interface ISignInForm {
 }
 
 function onClickGooglelogin() {
-  document.querySelector('[aria-labelledby="button-label"]').click();
+  const googleBtn: HTMLElement = document.querySelector(
+    '[aria-labelledby="button-label"]',
+  ) as HTMLElement;
+  googleBtn?.click();
 }
 
 const SignIn = () => {
