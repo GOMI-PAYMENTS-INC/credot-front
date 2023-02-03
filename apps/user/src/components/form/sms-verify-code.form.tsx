@@ -11,6 +11,7 @@ import {
 } from '@/generated/graphql';
 
 export interface SmsVerifyCodeProps {
+  useLabel?: boolean;
   onChangePhone: (value: string) => void;
   onVerifyCodeSign: (value: string) => void;
   onChangeChildIsValid: (value: boolean) => void;
@@ -21,6 +22,7 @@ interface IVerifyCodeForm {
 }
 
 const SmsVerifyCodeForm = ({
+  useLabel,
   onChangePhone,
   onVerifyCodeSign,
   onChangeChildIsValid,
@@ -129,63 +131,71 @@ const SmsVerifyCodeForm = ({
 
   return (
     <div className='space-y-2'>
-      <div className='flex items-center'>
-        {/*TODO 발송 후 input들 수정안되게 할 것*/}
-        <input
-          className='inputCustom w-full'
-          type='text'
-          placeholder='휴대폰번호를 숫자만 입력해주세요.'
-          maxLength={11}
-          disabled={phoneDisable}
-          {...register('phone', {
-            required: '휴대폰번호 필수입력입니다.',
-            pattern: {
-              value: /(010)[0-9]{8}$/g,
-              message: '올바른 휴대폰번호를 입력해주세요.',
-            },
-            onChange: (e) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, '');
-              onChangePhone?.(e.target.value);
-            },
-          })}
-        />
+      {useLabel && (
+        <label htmlFor='verify' className='labelCustom'>
+          휴대폰 인증
+        </label>
+      )}
+      <div className='space-y-1'>
+        <div className='flex items-center'>
+          {/*TODO 발송 후 input들 수정안되게 할 것*/}
+          <input
+            id='verify'
+            className='inputCustom w-full'
+            type='text'
+            placeholder='휴대폰번호를 숫자만 입력해주세요.'
+            maxLength={11}
+            disabled={phoneDisable}
+            {...register('phone', {
+              required: '휴대폰번호 필수입력입니다.',
+              pattern: {
+                value: /(010)[0-9]{8}$/g,
+                message: '올바른 휴대폰번호를 입력해주세요.',
+              },
+              onChange: (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                onChangePhone?.(e.target.value);
+              },
+            })}
+          />
 
-        {/* 발송 여부에 따른 버튼 출력이 다름 시작 */}
-        {/* 발송하기전 */}
-        {/* eslint-disable-next-line no-nested-ternary */}
-        {verifyCodeCount === 0 ? (
-          <button
-            type='button'
-            className='ButtonPrimary ml-4'
-            onClick={sendSmsVerifyCode}
-          >
-            인증
-          </button>
-        ) : !isSending ? (
-          <button
-            type='button'
-            className='ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800'
-            onClick={sendSmsVerifyCode}
-          >
-            재발송
-          </button>
-        ) : (
-          <button
-            type='button'
-            className='ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500'
-            onClick={sendSmsVerifyCode}
-            disabled={true}
-          >
-            재발송
-          </button>
-        )}
-        {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
-      </div>
-      <div>
-        <p className='text-S/Medium text-red-500'>{errors?.phone?.message}</p>
+          {/* 발송 여부에 따른 버튼 출력이 다름 시작 */}
+          {/* 발송하기전 */}
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {verifyCodeCount === 0 ? (
+            <button
+              type='button'
+              className='button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]'
+              onClick={sendSmsVerifyCode}
+            >
+              인증
+            </button>
+          ) : !isSending ? (
+            <button
+              type='button'
+              className='ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800'
+              onClick={sendSmsVerifyCode}
+            >
+              재발송
+            </button>
+          ) : (
+            <button
+              type='button'
+              className='ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500'
+              onClick={sendSmsVerifyCode}
+              disabled={true}
+            >
+              재발송
+            </button>
+          )}
+          {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
+        </div>
+        <div>
+          <p className='text-S/Medium text-red-500'>{errors?.phone?.message}</p>
+        </div>
       </div>
       {!!verifyCodeCount && (
-        <div className='space-y-2'>
+        <div className='space-y-1'>
           <div className='relative w-full content-center'>
             <input
               className='inputCustom w-full pr-[60px] '

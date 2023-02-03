@@ -6,11 +6,17 @@ import { toast } from 'react-toastify';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { LoginInput } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
+import { ReactSVG } from 'react-svg';
 
 interface ISignInForm {
   email: string;
   password: string;
 }
+
+function onClickGooglelogin() {
+  document.querySelector('[aria-labelledby="button-label"]').click();
+}
+
 const SignIn = () => {
   const navigate = useNavigate();
   const { onSubmitSignIn, setIsLoginStorage, isLoginStorage } = AuthContainer();
@@ -94,11 +100,14 @@ const SignIn = () => {
                     id='rememter_me'
                     name='rememter_me'
                     type='checkbox'
-                    className='h-4 w-4 rounded border-gray-300 bg-blue-500 focus:ring-blue-400'
+                    className='checkboxCustom peer'
                     checked={isLoginStorage}
                     onChange={(e) => onLoginStorageCheck(e)}
                   />
-                  <label htmlFor='rememter_me' className='text-S/Regular '>
+                  <label
+                    htmlFor='rememter_me'
+                    className='checkboxLabelCustom text-S/Regular  '
+                  >
                     로그인 상태 유지
                   </label>
                 </div>
@@ -130,13 +139,18 @@ const SignIn = () => {
                   </button>
                 </div>
                 <div>
-                  {/* TODO 구글로그인 버튼 커스텀 컴포넌트 필요 casey 23.01.20 13:10 */}
-                  <div
-                    id='google-login-button'
-                    className='w-full cursor-pointer justify-center bg-white text-L/Bold text-grey-800'
+                  {/* TODO 구글로그인 버튼 커스텀 컴포넌트 필요 casey 23.01.20 13:10 + 있지 않을까..? 23.02.3 */}
+                  <div id='google-login-button hidden'></div>
+                  <button
+                    className='button-outlined-normal-xLarge-grey-true-false-true w-full'
+                    onClick={onClickGooglelogin}
                   >
+                    <ReactSVG
+                      src='assets/icons/Google.svg'
+                      className='inline-block w-full'
+                    />
                     구글 로그인
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -149,7 +163,7 @@ const SignIn = () => {
               <Link to={PATH.SIGN_UP}>
                 <button
                   type='submit'
-                  className='w-full cursor-pointer justify-center rounded-md  border border-orange-300 bg-white p-4 text-L/Bold text-primary-red-orange'
+                  className='button-outlined-normal-xLarge-primary-false-false-true w-full'
                 >
                   회원가입 하기
                 </button>

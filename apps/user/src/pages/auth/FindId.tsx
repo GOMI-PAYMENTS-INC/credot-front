@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 
 import { FindUserContainer } from '@/containers/auth/find-user.container';
@@ -11,7 +10,10 @@ import {
   SendTemporaryPasswordResult,
 } from '@/types/findIdentification.d';
 import { ReactSVG } from 'react-svg';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+import {
+  FindIdPasswordBottom,
+  IFindIdPasswordBottomProps,
+} from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
 
 const FindId = () => {
@@ -40,6 +42,14 @@ const FindId = () => {
       changeWriteVerifyCodeSign(value);
     }
   };
+
+  //하단 고정 레이아웃 문구
+  const accountBottomInfo = {
+    text: '계정이 기억나셨나요?',
+    buttonText: '로그인 하러가기',
+    buttonLink: PATH.SIGN_IN,
+  };
+
   return (
     <Fragment>
       {/* 아이디 찾기 폼 시작 */}
@@ -66,7 +76,11 @@ const FindId = () => {
             </div>
           </div>
 
-          <FindIdPasswordBottom />
+          <FindIdPasswordBottom
+            buttonText={accountBottomInfo.buttonText}
+            text={accountBottomInfo.text}
+            buttonLink={accountBottomInfo.buttonLink}
+          />
         </>
       )}
       {/* 아이디 찾기 폼 끝 */}
@@ -104,7 +118,11 @@ const FindId = () => {
             </ul>
           </div>
 
-          <FindIdPasswordBottom />
+          <FindIdPasswordBottom
+            buttonText={accountBottomInfo.buttonText}
+            text={accountBottomInfo.text}
+            buttonLink={accountBottomInfo.buttonLink}
+          />
         </>
       )}
       {/* 아이디 찾기 결과 끝 */}
@@ -120,7 +138,10 @@ const FindId = () => {
             <div className='space-y-3'>
               <div>
                 <Link to={PATH.SIGN_UP}>
-                  <button type='button' className='ButtonPrimary w-full'>
+                  <button
+                    type='button'
+                    className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
+                  >
                     회원가입 하기
                   </button>
                 </Link>
@@ -129,7 +150,7 @@ const FindId = () => {
                 <Link to={PATH.FIND_ID}>
                   <button
                     type='button'
-                    className='ButtonPrimary w-full bg-white text-grey-700'
+                    className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
                   >
                     다시 아이디 찾기
                   </button>

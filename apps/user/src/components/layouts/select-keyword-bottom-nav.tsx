@@ -1,12 +1,12 @@
-// import { Icons } from '@/components/icons';
+import React from 'react';
 
 const SelectKeyWordBottomNav = () => (
   <div className='select-keyword-bottom-nav fixed bottom-0 left-0 w-screen bg-base-100'>
     <div className='grid-cols-select-keyword grid '>
       <div>
-        <p className='text-m-regular'>
+        <p className='text-text-M/Medium'>
           선택한 키워드
-          <br />(<span className='text-m-regular text-primary-red-orange'>0</span>/10)
+          <br />(<span className='text-text-M/Medium text-primary-red-orange'>0</span>/10)
         </p>
       </div>
       <div>

@@ -8,7 +8,19 @@ body,
   height: 100%;
 }
 
-@layer base {
+@layer components {
+  /*Checkbox*/
+  .checkboxCustom {
+    @apply hidden;
+  }
+  .checkboxLabelCustom {
+    @apply inline-block bg-[length:24px_24px] bg-[left_top_50%] bg-no-repeat pl-[30px] bg-svg-Filled/CheckSquareUnchecked-grey-500 peer-checked:bg-svg-Filled/CheckSquare-primary-red-orange;
+  }
+
+  /*input*/
+  .labelCustom {
+    @apply text-S/Medium text-grey-800;
+  }
   .inputCustom {
     @apply rounded border border-grey-400 px-4 py-3
         placeholder:text-grey-500
@@ -23,11 +35,15 @@ body,
         disabled:text-grey-700;
   }
 
-  .textButtonPrimary {
-    @apply py-3 px-[14px] text-M/Bold text-orange-500;
+  /* Term */
+  .termsCheckbox {
+    @apply hidden;
   }
-  .ButtonPrimary {
-    @apply min-w-[102px] rounded bg-orange-500 p-2.5 py-3 text-M/Bold text-white;
+  .termsHeaderCheckboxLabel {
+    @apply inline-block bg-[length:20px_20px] bg-[left_top_50%] bg-no-repeat pl-[26px] text-M/Medium bg-svg-Filled/CheckSquare-grey-400 peer-checked:bg-svg-Filled/CheckSquare-green-600;
+  }
+  .termsBodyCheckboxLabel {
+    @apply inline-block bg-[length:16px_16px] bg-[left_top_50%] bg-no-repeat pl-[22px]  text-S/Regular bg-svg-Outlined/Check-grey-400 peer-checked:bg-svg-Outlined/Check-green-600;
   }
 }
 

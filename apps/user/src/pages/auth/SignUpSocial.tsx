@@ -80,13 +80,13 @@ const SignUpSocial = () => {
                 id='all-agree'
                 onChange={(e) => onAllCheckbox(e.target.checked)}
               />
-              <label htmlFor='all-agree' className='m-regular inline-block'>
+              <label htmlFor='all-agree' className='inline-block text-M/Medium'>
                 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
               </label>
             </li>
             <li className='flex justify-between'>
               <input type='checkbox' id='use-agree' {...register('useAgree')} />
-              <label htmlFor='use-agree' className='m-regular inline-block'>
+              <label htmlFor='use-agree' className='inline-block text-M/Medium'>
                 이용약관 동의(필수)
               </label>
 
@@ -96,7 +96,7 @@ const SignUpSocial = () => {
             </li>
             <li className='flex justify-between'>
               <input type='checkbox' id='personal-agree' {...register('personalAgree')} />
-              <label htmlFor='personal-agree' className='m-regular inline-block'>
+              <label htmlFor='personal-agree' className='inline-block text-M/Medium'>
                 개인정보 수집 및 이용 동의(필수)
               </label>
 
@@ -110,7 +110,7 @@ const SignUpSocial = () => {
                 id='marketing-agree'
                 {...register('marketingAgree')}
               />
-              <label htmlFor='marketing-agree' className='m-regular inline-block'>
+              <label htmlFor='marketing-agree' className='inline-block text-M/Medium'>
                 마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
               </label>
               <a href='#' className='text-s-regular'>
