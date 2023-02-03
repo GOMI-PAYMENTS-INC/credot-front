@@ -1,8 +1,6 @@
 import { Fragment, ReactNode } from 'react';
 
-import { authTokenStorage } from '@/utils/auth-token';
 import SideBar from '@/components/layouts/SideBar';
-import { Common2Section } from '@/components/layouts/Common2Section';
 
 export interface IDefalutProps {
   children?: ReactNode;

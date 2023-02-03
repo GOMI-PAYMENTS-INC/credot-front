@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
+import { PATH } from '@/router/routeList';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -20,10 +20,10 @@ const SideBar = () => {
           }}
         />
       </div>
-      <ul className='text-center text-L/Medium'>
-        <li>검색결과 분석</li>
-        <li>키워드 검색</li>
-        <li>리포트 조회</li>
+      <ul className='cursor-pointer text-center text-L/Medium'>
+        {/* <li>검색결과 분석</li> */}
+        <li onClick={() => navigate(PATH.SEARCH_PRODUCTS)}>키워드 검색</li>
+        <li onClick={() => navigate(PATH.GET_REPORT_LIST)}>리포트 조회</li>
       </ul>
       <div className='ml-5 block'>
         <ul className='mt-20 cursor-pointer text-S/Bold text-grey-800'>
