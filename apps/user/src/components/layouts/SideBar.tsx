@@ -20,12 +20,12 @@ const SideBar = () => {
           }}
         />
       </div>
-      <ul className='cursor-pointer text-center text-L/Medium'>
+      <ul className='cursor-pointer text-center text-M/Medium'>
         {/* <li>검색결과 분석</li> */}
         <li onClick={() => navigate(PATH.SEARCH_PRODUCTS)}>키워드 검색</li>
         <li onClick={() => navigate(PATH.GET_REPORT_LIST)}>리포트 조회</li>
       </ul>
-      <div className='ml-5 block'>
+      <div className='fixed bottom-[30px] ml-[20px]'>
         <ul className='mt-20 cursor-pointer text-S/Bold text-grey-800'>
           <li className='mb-2'>도움말</li>
           <li onClick={onLogout}>로그아웃</li>
