@@ -38,15 +38,15 @@ const GetReportList = () => {
               </th>
               <th className='w-[128px]' colSpan={1}>
                 국가
+              </th>
+              <th className='w-[128px]' colSpan={1}>
+                쇼핑몰
+              </th>
               <th className='w-[128px]' colSpan={1}>
                 리포트 생성일
               </th>
               <th className='w-[56px]' colSpan={1} />
             </tr>
-              </th>
-              <th className='w-[128px]' colSpan={1}>
-                쇼핑몰
-              </th>
           </thead>
 
           <tbody>
