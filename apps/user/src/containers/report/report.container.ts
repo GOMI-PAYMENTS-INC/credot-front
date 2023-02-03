@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import {axiosClient} from "@/utils/axiosClient";
 import {GlobalEnv} from "@/utils/config";
 import {camelize, snakeize} from "casing";
@@ -33,10 +31,6 @@ export interface CreateReportParamsType {
 const REPORT_URL = "api/v1/report"
 
 export const ReportContainer = () => {
-
-  const [searchParams] = useSearchParams();
-  const [isSearchQuery, SetIsSearchQuery] = useState<boolean>(true);
-  const keywordParam = searchParams.get('keyword') ? searchParams.get('keyword') : '';
 
   const setAuth = () => {
     axiosClient.interceptors.request.use((config) => {
@@ -74,7 +68,6 @@ export const ReportContainer = () => {
   }
 
   return {
-    keywordParam,
     getList,
     create
   };

@@ -1,7 +1,8 @@
 import '@/pages/report/getReportList.css';
-import { Fragment } from 'react';
+import { ReportContainer } from "@/containers/report/report.container";
 
 const GetReportList = () => {
+  const { getList } = ReportContainer();
   const IMG_PATH = '../../assets/images';
   return (
     <div className='col-span-12 w-[1180px]'>
