@@ -5627,6 +5627,7 @@ __metadata:
     recoil: ^0.7.6
     swiper: ^8.4.5
     tailwindcss: ^3.2.1
+    tailwindcss-bg-svg: ^2.0.0
     ts-node: ^10.9.1
     tslib: ^1
     typescript: ^4.8.4
@@ -5724,7 +5725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:~4.17.0":
+"lodash@npm:^4.17.10, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:~4.17.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -7545,6 +7546,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwindcss-bg-svg@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tailwindcss-bg-svg@npm:2.0.0"
+  dependencies:
+    lodash: ^4.17.10
+  peerDependencies:
+    tailwindcss: ">=2.0.0"
+  checksum: e4ab4a43faf413c54a3f006dd96f8e0bb70f0fa92b3daa5d095c086a0da17fc6c63015e82279e257100209be2c3b646a863959097e266ecfe0f7872ecc983f39
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:^3, tailwindcss@npm:^3.2.1":
   version: 3.2.4
   resolution: "tailwindcss@npm:3.2.4"
@@ -7795,11 +7807,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.8.4#~builtin<compat/typescript>":
   version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=d73830"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3e2ab0772908676d9b9cb83398c70003a3b08e1c6b3b122409df9f4b520f2fdaefa20c3d7d57dce283fed760ac94b3ce94d4a7fa875127b67852904425a1f0dc
+  checksum: 37f6e2c3c5e2aa5934b85b0fddbf32eeac8b1bacf3a5b51d01946936d03f5377fe86255d4e5a4ae628fd0cd553386355ad362c57f13b4635064400f3e8e05b9d
   languageName: node
   linkType: hard
 
