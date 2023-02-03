@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://kr-core-gomi-insight-api-dev.ap-southeast-1.elasticbeanstalk.com/graphql",
+        "url": "https://kr-core-gomi-keyword-api-dev.gomicorp.com/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },

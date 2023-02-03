@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {axios} from "@/utils/axios";
+import {axiosClient} from "@/utils/axiosClient";
 import {GlobalEnv} from "@/utils/config";
 import {camelize, snakeize} from "casing";
 
@@ -34,7 +34,7 @@ export const ReportContainer = () => {
   const keywordParam = searchParams.get('keyword') ? searchParams.get('keyword') : '';
 
   const getList = async (lastId: number | undefined, limit: number | undefined): Promise<IReportItem[]> => {
-    axios.interceptors.request.use((config) => {
+    axiosClient.interceptors.request.use((config) => {
       const token = localStorage.getItem(GlobalEnv.tokenKey);
       // eslint-disable-next-line no-param-reassign
       config.headers = { Authorization: token ? `Bearer ${token}` : '' };
@@ -47,7 +47,7 @@ export const ReportContainer = () => {
       limit: limit,
     }
 
-    const { request, status, statusText, data } = await axios.get(GET_LIST_URL, { params: snakeize(params)})
+    const { request, status, statusText, data } = await axiosClient.get(GET_LIST_URL, { params: snakeize(params)})
     console.log(GET_LIST_URL, status, statusText);
     return data;
   }

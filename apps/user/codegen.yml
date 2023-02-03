@@ -1,6 +1,6 @@
 overwrite: true
 documents: './src/graphql/**/*.ts'
-schema: "http://kr-core-gomi-insight-api-dev.ap-southeast-1.elasticbeanstalk.com/graphql"
+schema: "https://kr-core-gomi-keyword-api-dev.gomicorp.com/graphqll"
 generates:
   src/generated/graphql.tsx:
     plugins:
