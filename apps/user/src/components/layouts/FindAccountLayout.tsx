@@ -21,7 +21,7 @@ export const FindAccountLayout = ({ children }: IFindAccountLayoutProps) => {
   const changeActiveToggle = (e: React.MouseEvent<HTMLAnchorElement>, state: string) => {
     activeToggle !== state ? setToggle(state) : e.preventDefault();
   };
-  // TODO 비밀번호 찾기로 접속시, 정상적으로 토글되지 않음
+
   return (
     <Common1Section>
       <div className='flex h-full flex-col space-y-8'>

@@ -57,6 +57,13 @@ const FindPassword = () => {
     }
   };
 
+  //하단 고정 레이아웃 문구
+  const accountBottomInfo = {
+    text: '계정이 기억나셨나요?',
+    buttonText: '로그인 하러가기',
+    buttonLink: PATH.SIGN_IN,
+  };
+
   return (
     <Fragment>
       {/* 비밀번호 찾기 폼 시작 */}
@@ -100,7 +107,11 @@ const FindPassword = () => {
               </div>
             </div>
 
-            <FindIdPasswordBottom />
+            <FindIdPasswordBottom
+              buttonText={accountBottomInfo.buttonText}
+              text={accountBottomInfo.text}
+              buttonLink={accountBottomInfo.buttonLink}
+            />
           </>
         )}
       {/* 비밀번호 찾기 폼 끝 */}
@@ -121,14 +132,21 @@ const FindPassword = () => {
 
             <div>
               <Link to={PATH.SIGN_IN}>
-                <button type='button' className='ButtonPrimary w-full'>
+                <button
+                  type='button'
+                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
+                >
                   로그인 하기
                 </button>
               </Link>
             </div>
           </div>
 
-          <FindIdPasswordBottom />
+          <FindIdPasswordBottom
+            buttonText={accountBottomInfo.buttonText}
+            text={accountBottomInfo.text}
+            buttonLink={accountBottomInfo.buttonLink}
+          />
         </>
       )}
 
@@ -144,7 +162,10 @@ const FindPassword = () => {
           <div className='space-y-3'>
             <div>
               <Link to={PATH.SIGN_UP}>
-                <button type='button' className='ButtonPrimary w-full'>
+                <button
+                  type='button'
+                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
+                >
                   회원가입 하기
                 </button>
               </Link>
@@ -153,7 +174,7 @@ const FindPassword = () => {
               <Link to={PATH.FIND_PASSWORD}>
                 <button
                   type='button'
-                  className='ButtonPrimary w-full bg-white text-grey-700'
+                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
                 >
                   다시 비밀번호 찾기
                 </button>
