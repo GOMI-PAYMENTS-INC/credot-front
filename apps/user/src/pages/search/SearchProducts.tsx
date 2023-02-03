@@ -15,7 +15,6 @@ const SearchProducts = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const keywordRef = useRef({ text: '', contury: CountryType.Vn });
   const [data, isLoading, isError] = GetQueryResult(keywordRef);
-  const [montlyKeywordColor, setMontlyKeywordColor] = useState<`300` | `900`>(`300`);
 
   const navigate = useNavigate();
 
@@ -49,7 +48,6 @@ const SearchProducts = () => {
       );
     }
     if (data && data !== true) {
-      setMontlyKeywordColor(`900`);
       const { count } = data.main;
       return count;
     }
@@ -154,8 +152,11 @@ const SearchProducts = () => {
               </div>
               <div>
                 <span
-                  className={`text-4XL/Bold text-grey-${montlyKeywordColor} lg:text-3XL/medium`}
+                  className={`text-4XL/Bold text-grey-${
+                    _state.text ? 900 : 300
+                  } lg:text-3XL/medium`}
                 >
+                  <p className={`text-4XL/Bold text-grey-300 lg:text-3XL/medium`}></p>
                   {montlySearchVolum}
                 </span>
               </div>
