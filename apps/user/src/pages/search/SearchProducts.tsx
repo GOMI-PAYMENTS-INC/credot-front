@@ -15,7 +15,7 @@ const SearchProducts = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const keywordRef = useRef({ text: '', contury: CountryType.Vn });
   const [data, isLoading, isError] = GetQueryResult(keywordRef);
-  const [montlyKeywordColor, setMontlyKeywordColor] = useState<300 | 500>(300);
+  const [montlyKeywordColor, setMontlyKeywordColor] = useState<`300` | `500`>(`300`);
 
   const navigate = useNavigate();
 
@@ -39,7 +39,6 @@ const SearchProducts = () => {
 
   const montlySearchVolum = useMemo(() => {
     if (isFalsy(_state.text) && isLoading === true) {
-      setMontlyKeywordColor(300);
       return '???';
     }
     if (isFalsy(_state.text) === false && isLoading === true) {
@@ -50,7 +49,7 @@ const SearchProducts = () => {
       );
     }
     if (data && data !== true) {
-      montlyKeywordColor === 300 && setMontlyKeywordColor(500);
+      setMontlyKeywordColor(`500`);
       const { count } = data.main;
       return count;
     }
@@ -83,7 +82,7 @@ const SearchProducts = () => {
 
       <div className='relative col-span-6 grid items-center'>
         <div className='max-w-[480px] pb-11  lg:pb-6'>
-          <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
+          <div className=' xs:col-span-full col-span-5  col-start-2 px-8 py-[22px] px-5 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
             <div className='mb-6'>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                 <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
@@ -215,7 +214,7 @@ const SearchProducts = () => {
           </div>
         </div>
       </div>
-      <div className='col-span-6 h-full w-full md:hidden'>
+      <div className='col-span-6 w-full self-center md:hidden'>
         {_state.isSearched && _state.text ? (
           <iframe
             src={`https://shopee.vn/search?keyword=${_state.text}`}
@@ -225,7 +224,7 @@ const SearchProducts = () => {
             sandbox='allow-same-origin allow-scripts'
           />
         ) : (
-          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='h-full  max-w-[460px]' />
+          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='max-w-[460px]' />
         )}
       </div>
     </Fragment>
