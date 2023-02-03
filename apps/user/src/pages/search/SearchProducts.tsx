@@ -1,34 +1,88 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { useRef, Fragment, useReducer, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { SearchResultContainer } from '@/containers/search/search-result.container';
-import { PATH } from '@/router/routeList';
 import { ReactSVG } from 'react-svg';
 
-const SearchProducts = () => {
-  const { keywordParam } = SearchResultContainer();
-  const [keyword, setKeyword] = useState(keywordParam);
-  const navigate = useNavigate();
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
+import { isFalsy } from '@/utils/isFalsy';
+import { getKeyword, queryKeyword, GetQueryResult } from '@/containers/search';
+import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
 
-  const onKeyPress = (e: any) => {
-    console.log(e);
-    if (e.key !== 'Enter') {
-      return;
-    }
-    navigate(`${PATH.SEARCH_RESULTS}?keyword=${keyword}`);
-  };
+import { Tooltip } from 'react-tooltip';
+import { CountryType } from '@/generated/graphql';
+
+const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
+  const [_state, _dispatch] = useReducer(reducer, initialState);
+  const keywordRef = useRef({ text: '', contury: CountryType.Vn });
+  const [data, isLoading, isError] = GetQueryResult(keywordRef);
+  console.log(data, isLoading, isError);
+
+  const navigate = useNavigate();
+
+  if (_state.text) {
+  }
+
+  //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
+
+  useEffect(() => {
+    return () => {
+      _dispatch({ type: ActionKind.InitializeState });
+    };
+  }, []);
+
+  const iframeScreen = useMemo(() => {
+    if (isFalsy(_state.isSearched) && keywordRef.current.text) {
+      _dispatch({ type: ActionKind.SwitchMode, payload: true });
+    }
+
+    if (isFalsy(_state.text) === false) {
+      _dispatch({ type: ActionKind.SearchKeyword, payload: keywordRef.current.text });
+    }
+  }, [keywordRef.current.text]);
+
+  const montlySearchVolum = useMemo(() => {
+    if (isFalsy(_state.text) && isLoading === true) {
+      return '???';
+    }
+    if (isFalsy(_state.text) === false && isLoading === true) {
+      return (
+        <div className='scale-[0.3]'>
+          <div id='loader' />
+        </div>
+      );
+    }
+    if (data && data !== true) {
+      const { count } = data.main;
+      return count;
+    }
+  }, [data, isLoading, keywordRef.current.text]);
+
+  const relativeKeyword = useMemo(() => {
+    if (isFalsy(_state.text) && isLoading === true) {
+      return [1, 2, 3, 4, 5, 6];
+    }
+    if (isFalsy(_state.text) === false && isLoading === true) {
+      return (
+        <div className='scale-[0.3] pb-20'>
+          <div id='loader' />
+        </div>
+      );
+    }
+    if (data && data !== true) {
+      const { relations } = data;
+      return relations;
+    }
+  }, [data, isLoading, keywordRef.current.text]);
+
+  iframeScreen;
+
   return (
-    // <section className='col-span-12 bg-[#FAFAF9]'>
     <Fragment>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
 
-      <div className='relative col-span-6'>
+      <div className='relative col-span-6 grid items-center'>
         <div className='max-w-[480px] pb-11  lg:pb-6'>
           <div className=' col-span-5 col-start-2  px-8 py-[22px] px-5 pb-5 pt-[54px] lg:pt-[22px] md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] sm:col-span-8 sm:col-start-3 sm:px-0 xs:col-span-full'>
             <div className='mb-6'>
@@ -39,17 +93,16 @@ const SearchProducts = () => {
               </h1>
             </div>
             <div className='mb-16 lg:mb-6'>
-              <div className='mb-2'>
+              <div className='mb-2 flex items-center'>
+                <ReactSVG src='assets/icons/VietnamFlag.svg' className='pr-[8px]' />
                 <select
                   name='country'
                   id='country'
                   className='bg-transparent py-3 text-S/Medium'
                 >
-                  <option value='Vietnam' defaultValue='Vietnam'>
+                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
                     Vietnam
                   </option>
-                  <option value='Vietnam1'>Vietna1</option>
-                  <option value='Vietnam2'>Vietnam2</option>
                 </select>
               </div>
               <div className='form-control'>
@@ -58,6 +111,8 @@ const SearchProducts = () => {
                     <input
                       type='text'
                       placeholder='키워드를 입력해주세요.'
+                      onChange={(event) => getKeyword(keywordRef, event)}
+                      onKeyDown={(event) => queryKeyword(keywordRef, event, _dispatch)}
                       className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
@@ -85,14 +140,24 @@ const SearchProducts = () => {
                 <h3 className='text-L/Medium lg:text-S/Regular'>
                   월간 검색량
                   <ReactSVG
+                    id='anchor-montly-search-volum'
                     src='assets/icons/Help.svg'
                     className='ml-[7px] inline-block'
+                  />
+                  <Tooltip
+                    anchorId='anchor-montly-search-volum'
+                    html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
+                    place='right'
                   />
                 </h3>
               </div>
               <div>
-                <span className='text-4XL/Bold text-gray-300 lg:text-3XL/medium'>
-                  ???
+                <span
+                  className={`text-4XL/Bold text-gray-${
+                    _state.text ? '900' : '300'
+                  } lg:text-3XL/medium`}
+                >
+                  {montlySearchVolum}
                 </span>
               </div>
             </div>
@@ -101,62 +166,69 @@ const SearchProducts = () => {
                 <h3 className='text-L/Medium lg:text-M/Regular'>
                   이런 키워드들은 어때요?
                   <ReactSVG
+                    id='anchor-keyword-tip'
                     src='assets/icons/Help.svg'
                     className='ml-[7px] inline-block'
                   />
+                  <Tooltip
+                    anchorId='anchor-keyword-tip'
+                    html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
+                    place='right'
+                  />
                 </h3>
               </div>
-              <div>
-                <ul className='overflow-y-hidden'>
-                  <li className='float-left mb-3 h-[38px] w-[36%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[60%] rounded-[50px] border border-gray-300  bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-gray-300  bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[28%] rounded-[50px] border border-gray-300  bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  <li className='float-left mb-3 h-[38px] w-[68%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
+              <div className='h-[150px] overflow-x-auto'>
+                <ul className='overflow-y-hidden text-center'>
+                  {Array.isArray(relativeKeyword)
+                    ? relativeKeyword.map((keyword) => {
+                        if (typeof keyword === 'number') {
+                          return (
+                            <li
+                              key={`${keyword}_dummy`}
+                              className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-gray-300 bg-gray-100 odd:mr-[4%] lg:mb-2 lg:h-6'
+                            />
+                          );
+                        }
+                        return (
+                          <li
+                            key={`${keyword.id}`}
+                            className='float-left mb-3 h-[38px] rounded-[50px] border border-gray-300 px-[10%] leading-9 odd:mr-[4%] lg:mb-2 lg:h-6'
+                          >
+                            {keyword.text}
+                          </li>
+                        );
+                      })
+                    : relativeKeyword}
                 </ul>
               </div>
             </div>
 
             <div>
-              <button className='w-full rounded-md bg-primary-red-orange py-4'>
+              <button
+                className={`w-full rounded-md bg-primary-red-orange py-4 ${
+                  _state.text === '' && 'opacity-30'
+                }`}
+              >
                 <span className='text-L/Bold text-white'>리포트 생성하기</span>
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className='col-span-6 block md:hidden'>
-        <img
-          src={`${IMG_PATH}/Img-Skeleton.png`}
-          alt=''
-          className='w-full  max-w-[460px]'
-        />
+      <div className='col-span-6 h-full w-full md:hidden'>
+        {_state.isSearched && _state.text ? (
+          <iframe
+            src={`https://shopee.vn/search?keyword=${_state.text}`}
+            className='h-[960px] w-[445px]  rounded-2xl pt-[8px]'
+            allow='accelerometer; autoplay; clipboard-write;
+               encrypted-media; gyroscope; picture-in-picture'
+            sandbox='allow-same-origin allow-scripts'
+          />
+        ) : (
+          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='h-full  max-w-[460px]' />
+        )}
       </div>
     </Fragment>
-    //</section>
-
-    // <div className='flex w-full min-w-[40rem] gap-2 '>
-    //   <div className='h-[4.5rem] w-[10.5rem] shrink-0'>
-    //     <select className='h-full w-full rounded border border-grey-400 px-3'>
-    //       <option>베트남</option>
-    //     </select>
-    //   </div>
-    //   <div className='h-[4.5rem] w-[10.5rem] shrink-0'>
-    //     <select className='h-full w-full rounded border border-grey-400 px-3'>
-    //       <option>쇼피</option>
-    //     </select>
-    //   </div>
-    //   <div className='h-[4.5rem] w-full'>
-    //     <input
-    //       className='h-full w-full rounded border border-grey-400 px-3'
-    //       placeholder='비타민'
-    //       onKeyUp={onKeyPress}
-    //       onChange={onChangeInput}
-    //       value={String(keyword)}
-    //     />
-    //   </div>
-    // </div>
   );
 };
 export default SearchProducts;

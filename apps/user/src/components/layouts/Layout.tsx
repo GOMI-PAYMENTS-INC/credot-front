@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useCallback, useState } from 'react';
+import { useMemo, ReactNode } from 'react';
 
 import { Common2Section, Common1Section } from '@/components/layouts';
 import { TLayoutType } from '@/router/routeList';
@@ -7,36 +7,23 @@ import { FindAccountLayout } from '@/components/layouts/FindAccountLayout';
 
 interface LayoutProps {
   children?: ReactNode;
-  isLogin: boolean;
   layoutType: TLayoutType;
 }
-const Layout = ({ children, isLogin, layoutType }: LayoutProps) => {
-  // const [paramLayoutType, setLayoutType] = useState<TLayoutType>('Default');
-  //
-  // const memoizedCallback = useCallback(() => {
-  //   setLayoutType(layoutType);
-  // }, [layoutType]);
-  //
-  // memoizedCallback();
+const Layout = ({ children, layoutType }: LayoutProps) => {
+  const renderLayout = useMemo(() => {
+    switch (layoutType) {
+      case 'Common2Section':
+        return <Common2Section>{children}</Common2Section>;
+      case 'Common1Section':
+        return <Common1Section>{children}</Common1Section>;
+      case 'FindAccountLayout':
+        return <FindAccountLayout>{children}</FindAccountLayout>;
+      default:
+        return <Defalut>{children}</Defalut>;
+    }
+  }, [layoutType]);
 
-  console.log('render');
-
-  return (
-    <main className='h-full w-full'>
-      {(() => {
-        switch (layoutType) {
-          case 'Common2Section':
-            return <Common2Section>{children}</Common2Section>;
-          case 'Common1Section':
-            return <Common1Section>{children}</Common1Section>;
-          case 'FindAccountLayout':
-            return <FindAccountLayout>{children}</FindAccountLayout>;
-          default:
-            return <Defalut>{children}</Defalut>;
-        }
-      })()}
-    </main>
-  );
+  return <main className='h-full w-full'>{renderLayout}</main>;
 };
 
 export default Layout;

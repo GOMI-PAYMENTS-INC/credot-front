@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 import * as AuthRoutes from '@/pages/auth';
 import SearchResults from '@/pages/result/SearchResults';
 import SearchProducts from '@/pages/search/SearchProducts';
+import * as ReportRoutes from '@/pages/report';
 
 export type TLayoutType =
   | 'Default'
@@ -18,6 +19,7 @@ export const PATH = {
   FIND_PASSWORD: '/find/password',
   FIND_ID: '/find/id',
   REAPPLY_PASSWORD: '/signin/password',
+  GET_REPORT_LIST: '/report/list',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -79,17 +81,16 @@ export const routeList: IRoute[] = [
     layoutType: 'Common2Section',
   },
   {
-    //검색 결과 디테일
-    description: 'searchResults',
-    path: PATH.SEARCH_RESULTS,
-    component: SearchResults,
-    layoutType: 'Default',
-  },
-  {
     //검색
     description: 'searchProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchProducts,
+    layoutType: 'Default',
+  },
+  {
+    description: 'getReportList',
+    path: PATH.GET_REPORT_LIST,
+    component: ReportRoutes.GetReportList,
     layoutType: 'Default',
   },
 ];
@@ -102,22 +103,3 @@ export function getComponentByPathname(pathname: string): TLayoutType {
   }
   throw new Error('pathname을 확인해주세요.');
 }
-
-/*
-
-// search
-  home: '/',
-  // result
-  searchResult: '/search-result',
-  // account
-  account: '/account/*',
-  signIn: '/sign-in',
-  signUp: '/sign-up',
-  signUpSocial: '/sign-up-social',
-  welcome: '/welcome',
-  findId: '/find-id',
-  findPassword: '/find-password',
-  findNoResult: '/find-no-result',
-  resetPassword: '/reset-password',
-  notAuthorized: '/not-authorized',
- */
