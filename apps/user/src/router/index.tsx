@@ -24,7 +24,7 @@ export const Router = () => {
   }, [pathname]);
 
   return (
-    <Layout isLogin={isLogin} layoutType={layoutType}>
+    <Layout layoutType={layoutType}>
       <Routes>
         {routeList.map((route) => (
           <Route
