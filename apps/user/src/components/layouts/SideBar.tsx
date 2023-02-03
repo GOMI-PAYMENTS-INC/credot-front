@@ -9,7 +9,7 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='fixed left-0 top-0 h-full w-[200px] border-2 border-solid border-gray-100 bg-white'>
+    <div className='fixed left-0 top-0 h-full w-[200px] border-2 border-solid border-grey-100 bg-white'>
       <div className='flex h-20 items-center justify-evenly'>
         <ReactSVG src='/assets/icons/OpenMenu.svg' className='h-8 w-8 cursor-pointer' />
         <ReactSVG
