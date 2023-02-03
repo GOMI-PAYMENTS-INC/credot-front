@@ -1,5 +1,3 @@
-import GetList from "./GetList";
+import GetReportList from './GetReportList';
 
-export {
-  GetList
-};
+export { GetReportList };
