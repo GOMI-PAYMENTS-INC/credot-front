@@ -12,20 +12,20 @@ const GetReportList = () => {
     <div className='col-span-12 w-[1180px]'>
       <div className='col-span-6 mx-[px] mt-[3px] flex h-[84px] items-center '>
         <h1 className='break-keep text-L/Bold lg:text-2XL/Bold'>리포트 조회</h1>
-        <h1 className='break-keep pl-[12px] text-S/Bold text-gray-500 lg:text-2XL/Bold'>
+        <h1 className='break-keep pl-[12px] text-S/Bold text-grey-500 lg:text-2XL/Bold'>
           조회할 키워드 리포트를 선택해주세요.
         </h1>
       </div>
       {/* 테이블 */}
-      <div className='col-span-12 mt-[24px] flex h-[670px] flex-col rounded border border-gray-300'>
+      <div className='col-span-12 mt-[24px] flex h-[670px] flex-col rounded border border-grey-300'>
         <div className='flex h-[68px] items-center justify-between '>
           <h1 className='ml-[16px] break-keep text-M/Medium lg:text-2XL/Bold'>총 0개</h1>
-          <button className='mr-[16px] h-[40px] w-[72px] rounded-md border-none bg-gray-300 text-M/Medium text-gray-500'>
+          <button className='mr-[16px] h-[40px] w-[72px] rounded-md border-none bg-grey-300 text-M/Medium text-grey-500'>
             선택 삭제
           </button>
         </div>
         <table className='col-span-12 h-full w-full bg-white'>
-          <thead className='h-[40px] border-t border-b border-gray-300 text-left text-XS/Medium'>
+          <thead className='h-[40px] border-t border-b border-grey-300 text-left text-XS/Medium'>
             <tr>
               <th className='w-[56px] text-center' colSpan={1}>
                 <input type='checkbox' />

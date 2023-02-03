@@ -68,7 +68,7 @@ const SignIn = () => {
                 <div className='space-y-2'>
                   <label className='text-S/Medium text-grey-800'>이메일</label>
                   <input
-                    className='w-full  rounded border border-gray-300 px-4  py-3 placeholder:text-grey-500  focus:border-orange-300 focus:outline-none'
+                    className='w-full  rounded border border-grey-300 px-4  py-3 placeholder:text-grey-500  focus:border-orange-300 focus:outline-none'
                     type='email'
                     placeholder='이메일'
                     {...register('email', {
@@ -84,7 +84,7 @@ const SignIn = () => {
                 <div className='space-y-2'>
                   <label className='text-S/Medium text-grey-800'>비밀번호</label>
                   <input
-                    className='w-full  rounded border border-gray-300 px-4  py-3 placeholder:text-grey-500  focus:border-orange-300 focus:outline-none'
+                    className='w-full  rounded border border-grey-300 px-4  py-3 placeholder:text-grey-500  focus:border-orange-300 focus:outline-none'
                     type='password'
                     placeholder='비밀번호'
                     {...register('password', {
@@ -143,8 +143,9 @@ const SignIn = () => {
                 </div>
                 <div>
                   {/* TODO 구글로그인 버튼 커스텀 컴포넌트 필요 casey 23.01.20 13:10 + 있지 않을까..? 23.02.3 */}
-                  <div id='google-login-button hidden'></div>
+                  <div id='google-login-button' className='hidden'></div>
                   <button
+                    type='button'
                     className='button-outlined-normal-xLarge-grey-true-false-true w-full'
                     onClick={onClickGooglelogin}
                   >

@@ -4,26 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨">
-      <change afterPath="$PROJECT_DIR$/apps/user/src/containers/report/report.container.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/user/src/pages/report/GetList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/user/src/pages/report/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/user/src/types/report.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/user/src/utils/axios.ts" afterDir="false" />
+    <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="fix: 구글로그인 버튼 안되는 버그 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pnp.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.pnp.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/.env.development" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/.graphqlconfig" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/.graphqlconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/codegen.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/codegen.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/graphql.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/graphql.schema.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/schema.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/containers/search/reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/containers/search/reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/containers/search/search-result.container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/containers/search/search-result.container.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/generated/graphql.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/generated/graphql.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/graphql/search/query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/graphql/search/query.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/router/routeList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/router/routeList.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/utils/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/utils/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pnp.loader.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/.pnp.loader.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/cache/typescript-patch-c1bb147628-3e2ab07729.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,10 +27,63 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/COR-766" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-681" />
+                    <option name="lastUsedInstant" value="1675403356" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-770" />
+                    <option name="lastUsedInstant" value="1675072585" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/COR-766" />
+                    <option name="lastUsedInstant" value="1675064106" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="develop" />
+                    <option name="lastUsedInstant" value="1675064105" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="gomicorp" />
+        <option name="repository" value="kr-core-gomi-keyword-front" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="cd84510b-06c1-4f52-a40f-3890bc3673ab" />
+        <option name="url" value="https://github.com/gomicorp/kr-core-gomi-keyword-front.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -59,9 +98,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "graphql.trust.all.hosts": "true",
     "js.linters.configure.manually.selectedeslint": "true",
-    "last_opened_file_path": "/Users/gomidev/dev/kr-core-gomi-keyword-front/apps/user",
+    "last_opened_file_path": "/Users/gomidev/Documents/dev/gomi/kr-core-gomi-keyword-front/apps/user/src/components/layouts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -136,10 +174,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
-        <item itemvalue="npm.build:dev" />
-        <item itemvalue="npm.preview" />
-        <item itemvalue="npm.serve:dev" />
-        <item itemvalue="npm.prepare" />
+        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
   </component>
@@ -165,15 +200,10 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: 레이아웃 명, 구조 수정" />
+    <MESSAGE value="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨" />
+    <MESSAGE value="fix: 구글로그인 버튼 안되는 버그 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 구글로그인 버튼 안되는 버그 수정" />
   </component>
 </project>
