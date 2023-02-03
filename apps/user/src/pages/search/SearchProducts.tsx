@@ -1,4 +1,4 @@
-import { useRef, Fragment, useReducer, useMemo, useEffect } from 'react';
+import { useRef, Fragment, useReducer, useMemo, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSVG } from 'react-svg';
@@ -15,12 +15,9 @@ const SearchProducts = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const keywordRef = useRef({ text: '', contury: CountryType.Vn });
   const [data, isLoading, isError] = GetQueryResult(keywordRef);
-  console.log(data, isLoading, isError);
+  const [montlyKeywordColor, setMontlyKeywordColor] = useState<300 | 500>(300);
 
   const navigate = useNavigate();
-
-  if (_state.text) {
-  }
 
   //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
 
@@ -42,6 +39,7 @@ const SearchProducts = () => {
 
   const montlySearchVolum = useMemo(() => {
     if (isFalsy(_state.text) && isLoading === true) {
+      setMontlyKeywordColor(300);
       return '???';
     }
     if (isFalsy(_state.text) === false && isLoading === true) {
@@ -52,6 +50,7 @@ const SearchProducts = () => {
       );
     }
     if (data && data !== true) {
+      montlyKeywordColor === 300 && setMontlyKeywordColor(500);
       const { count } = data.main;
       return count;
     }
@@ -112,11 +111,14 @@ const SearchProducts = () => {
                       type='text'
                       placeholder='키워드를 입력해주세요.'
                       onChange={(event) => getKeyword(keywordRef, event)}
-                      onKeyDown={(event) => queryKeyword(keywordRef, event, _dispatch)}
+                      onKeyDown={(event) => queryKeyword(keywordRef, _dispatch, event)}
                       className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
-                  <button className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'>
+                  <button
+                    onClick={() => queryKeyword(keywordRef, _dispatch)}
+                    className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
+                  >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       className='h-6 w-6'
@@ -153,9 +155,7 @@ const SearchProducts = () => {
               </div>
               <div>
                 <span
-                  className={`text-4XL/Bold text-gray-${
-                    _state.text ? '900' : '300'
-                  } lg:text-3XL/medium`}
+                  className={`text-4XL/Bold text-gray-${montlyKeywordColor} lg:text-3XL/medium`}
                 >
                   {montlySearchVolum}
                 </span>
