@@ -143,8 +143,9 @@ const SignIn = () => {
                 </div>
                 <div>
                   {/* TODO 구글로그인 버튼 커스텀 컴포넌트 필요 casey 23.01.20 13:10 + 있지 않을까..? 23.02.3 */}
-                  <div id='google-login-button hidden'></div>
+                  <div id='google-login-button' className='hidden'></div>
                   <button
+                    type='button'
                     className='button-outlined-normal-xLarge-grey-true-false-true w-full'
                     onClick={onClickGooglelogin}
                   >
