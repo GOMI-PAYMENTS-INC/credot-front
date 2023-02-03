@@ -10,7 +10,7 @@ export const Router = () => {
   const { pathname } = useLocation();
   const navigator = useNavigate();
   const isLogin = authTokenStorage.getToken() !== null;
-  const [layoutType, setLayoutType] = useState<TLayoutType>('Plural');
+  const [layoutType, setLayoutType] = useState<TLayoutType>('Default');
 
   useEffect((): void => {
     setLayoutType(getComponentByPathname(pathname));

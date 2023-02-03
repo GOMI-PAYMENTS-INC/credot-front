@@ -2,7 +2,6 @@ import '@/pages/result/style.css';
 
 import { Fragment, useEffect } from 'react';
 
-import { Icons } from '@/components/icons';
 import SelectKeyWordBottomNav from '@/components/layouts/select-keyword-bottom-nav';
 import { SearchResultContainer } from '@/containers/search/search-result.container';
 import SearchProducts from '@/pages/search/SearchProducts';
@@ -43,16 +42,14 @@ const SearchResults = () => {
               {/* 가장 많은 검색 결과 (메인 결과) 시작 */}
               <div className='main-result'>
                 <div className='title flex items-center'>
-                  <h3 className='text-2xl-bold'>
+                  <h3 className='text-2XL/Bold'>
                     &quot;{keywordParam}&quot;로 검색한 결과입니다.
                   </h3>
                   <div
                     className='tooltip ml-[0.59375rem]'
                     data-tip='입력하신 검색어와 연관 키워드들의 플랫폼 내 최근 30일 검색량 및 키워드 연관도를 나타냅니다.'
                   >
-                    <i>
-                      <Icons.ExclamationCircle width={24} height={24} />
-                    </i>
+                    <i>{/* <Icons.ExclamationCircle width={24} height={24} /> */}</i>
                   </div>
                 </div>
                 <div className='search-info-wrap'>
@@ -138,7 +135,7 @@ const SearchResults = () => {
             </div>
           ) : (
             <div className='search-result'>
-              <h3 className='text-2xl-bold'>
+              <h3 className='text-2XL/Bold'>
                 &quot;{keywordParam}&quot; 에 대한 검색 데이터가 존재하지 않습니다.
               </h3>
             </div>
@@ -153,7 +150,7 @@ const SearchResults = () => {
                 {/* 가장 많은 검색 결과 (메인 결과) 시작 */}
                 <div className='main-result'>
                   <div className='title flex items-center'>
-                    <h3 className='text-2xl-bold'>
+                    <h3 className='text-2XL/Bold'>
                       베트남어로 번역 후 &quot;{main?.translated}&quot;로 검색한
                       결과입니다.
                     </h3>
@@ -161,9 +158,7 @@ const SearchResults = () => {
                       className='tooltip ml-[0.59375rem]'
                       data-tip='입력하신 검색어와 연관 키워드들의 플랫폼 내 최근 30일 검색량 및 키워드 연관도를 나타냅니다.'
                     >
-                      <i>
-                        <Icons.ExclamationCircle width={24} height={24} />
-                      </i>
+                      <i>{/* <Icons.ExclamationCircle width={24} height={24} /> */}</i>
                     </div>
                   </div>
                   <div className='search-info-wrap'>
@@ -257,7 +252,7 @@ const SearchResults = () => {
           {main?.translated !== main?.text &&
           Number(subSearchResults?.search.main?.count) < 100 ? (
             <div className='search-result'>
-              <h3 className='text-2xl-bold'>
+              <h3 className='text-2XL/Bold'>
                 &quot;{main?.translated}&quot; 에 대한 검색 데이터가 존재하지 않습니다.
               </h3>
             </div>

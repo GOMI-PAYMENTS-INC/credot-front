@@ -51,8 +51,8 @@ const ResetPassword = () => {
       <div className='mt-[11.56vh] w-full max-w-[26.25rem]'>
         {/* 비밀번호 찾기 폼 시작 */}
         <div className=''>
-          <h3 className='text-2xl-bold mb-5 text-center'>신규 비밀번호 설정</h3>
-          <p className='text-l-regular mb-5 text-center'>
+          <h3 className='mb-5 text-center text-2XL/Bold'>신규 비밀번호 설정</h3>
+          <p className='mb-5 text-center text-L/Regular'>
             임시 비밀번호로 로그인 하셨습니다.
             <br />
             신규 비밀번호를 설정해 주세요.
@@ -66,7 +66,7 @@ const ResetPassword = () => {
               <input
                 id='password'
                 type='password'
-                className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+                className='inputCustom w-full content-center'
                 placeholder='비밀번호'
                 {...register('password', {
                   required: '비밀번호는 필수입력입니다.',
@@ -78,16 +78,14 @@ const ResetPassword = () => {
                   },
                 })}
               />
-              <p className='text-2xs-regular text-functional-error'>
-                {errors?.password?.message}
-              </p>
+              <p className='text-S/Medium text-red-500'>{errors?.password?.message}</p>
             </div>
 
             <div className='space-y-2'>
               <input
                 id='newPassword'
                 type='password'
-                className='w-full content-center rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+                className='inputCustom w-full content-center'
                 placeholder='비밀번호 확인'
                 // @ts-ignore
                 {...register('newPassword', {
@@ -95,9 +93,7 @@ const ResetPassword = () => {
                     value === passwordWatcher || '비밀번호가 일치하지 않습니다.',
                 })}
               />
-              <p className='text-2xs-regular text-functional-error'>
-                {errors?.newPassword?.message}
-              </p>
+              <p className='text-S/Medium text-red-500'>{errors?.newPassword?.message}</p>
             </div>
 
             <div className='mt-16 '>

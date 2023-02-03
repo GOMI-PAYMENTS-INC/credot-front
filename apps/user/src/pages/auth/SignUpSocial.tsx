@@ -48,12 +48,12 @@ const SignUpSocial = () => {
 
   return (
     <Fragment>
-      <h3 className='text-2xl-bold mb-4 text-center'>회원가입</h3>
+      <h3 className='mb-4 text-center text-2XL/Bold'>회원가입</h3>
       <form className='space-y-5' onSubmit={handleSubmit(onValid, onInvalid)}>
         <div className='space-y-2'>
           <div className='space-y-2'>
             <input
-              className=' w-full rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
+              className=' inputCustom w-full'
               type='email'
               placeholder='이메일'
               value={userInfo?.me.email}

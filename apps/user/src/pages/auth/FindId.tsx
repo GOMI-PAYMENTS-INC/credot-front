@@ -2,11 +2,17 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
-import { Icons } from '@/components/icons';
+
 import { FindUserContainer } from '@/containers/auth/find-user.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-import { FindAccountResult } from '@/types/findIdentification.d';
+import {
+  FindAccountResult,
+  SendTemporaryPasswordResult,
+} from '@/types/findIdentification.d';
+import { ReactSVG } from 'react-svg';
+import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
 
 const FindId = () => {
   const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
@@ -39,84 +45,99 @@ const FindId = () => {
       {/* 아이디 찾기 폼 시작 */}
       {!findAccountQuery && responseStatus !== FindAccountResult.STRANGER && (
         <>
-          <h3 className='text-2xl-bold mb-5 text-center'>아이디 찾기</h3>
-          <SmsVerifyCodeForm
-            onChangePhone={(value: string) => {
-              setPhone(value);
-            }}
-            onVerifyCodeSign={(value: string) => {
-              onChangeVerifyCodeSign(value);
-            }}
-            onChangeChildIsValid={(value: boolean) => {
-              setChildIsValid(value);
-            }}
-          />
+          <div className='space-y-8'>
+            <FindIdPasswordTittle
+              title='아이디를 찾을게요.'
+              subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
+            />
+
+            <div>
+              <SmsVerifyCodeForm
+                onChangePhone={(value: string) => {
+                  setPhone(value);
+                }}
+                onVerifyCodeSign={(value: string) => {
+                  onChangeVerifyCodeSign(value);
+                }}
+                onChangeChildIsValid={(value: boolean) => {
+                  setChildIsValid(value);
+                }}
+              />
+            </div>
+          </div>
+
+          <FindIdPasswordBottom />
         </>
       )}
       {/* 아이디 찾기 폼 끝 */}
 
       {/* 아이디 찾기 결과 시작 */}
       {findAccountQuery && (
-        <div>
-          <h3 className='text-2xl-bold mb-5 text-center'>아이디 찾기 완료</h3>
-          <p className='text-l-regular text-center'>
-            회원님께서 가입한 아이디는 아래와 같아요.
-          </p>
-          <ul className='mt-16 grid gap-y-4 '>
-            {findAccountQuery &&
-              findAccountQuery.findAccount.accounts.map((account, index) => (
-                <li className='flex text-primary-red-orange' key={index}>
-                  <a href='#' className='mr-2 '>
-                    <Icons.Copy className='fill-primary-red-orange' />
-                  </a>
-                  {account.email}
-                </li>
-              ))}
-          </ul>
-          <div className='mt-16 grid grid-cols-2 gap-x-2'>
-            <div>
-              <Link to={PATH.FIND_PASSWORD}>
-                <button
-                  type='button'
-                  className='text-xl-medium flex w-full cursor-pointer justify-center rounded  border border-grey-400 p-2.5 text-grey-800'
-                >
-                  비밀번호 찾기
-                </button>
-              </Link>
-            </div>
-            <div>
-              <Link to={PATH.FIND_ID}>
-                <button
-                  type='button'
-                  className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
-                >
-                  로그인 하러가기
-                </button>
-              </Link>
-            </div>
+        <>
+          <div className='space-y-8'>
+            <FindIdPasswordTittle
+              title={`<span class='text-orange-500'>${
+                findAccountQuery ? findAccountQuery.findAccount.accounts : 0
+              }개</span>의 아이디를 찾았어요!`}
+            />
+
+            <ul className='space-y-6'>
+              {findAccountQuery &&
+                findAccountQuery.findAccount.accounts.map((account, index) => (
+                  <li
+                    className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-primary-red-orange'
+                    key={index}
+                  >
+                    <div>{account.email}</div>
+                    <a href='#' className='inline-block text-L/Regular'>
+                      {/*TODO 클립보드 기능 넣어야함*/}
+                      <ReactSVG
+                        src='/assets/icons/Copy.svg'
+                        className='cursor-pointer'
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('style', 'width: 20px; fill: #595959');
+                        }}
+                      />
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </div>
-        </div>
+
+          <FindIdPasswordBottom />
+        </>
       )}
       {/* 아이디 찾기 결과 끝 */}
 
       {/* 조회된 결과가 없는 경우 시작 */}
       {responseStatus === FindAccountResult.STRANGER && (
-        <div className=''>
-          <h3 className='text-2xl-bold mb-5 text-center'>계정 안내</h3>
-          <p className='text-l-regular text-center'>
-            이전에 가입한 계정이 존재하지 않습니다.
-          </p>
-          <div className='mt-16 '>
-            <Link to={PATH.SIGN_UP}>
-              <button
-                type='button'
-                className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
-              >
-                회원가입 하러가기
-              </button>
-            </Link>
+        <>
+          <div className='space-y-8'>
+            <FindIdPasswordTittle
+              title='아이디를 찾을 수 없어요.'
+              subTitle='입력하신 휴대폰 번호로 가입한 계정이 존재하지 않아요.'
+            />
+            <div className='space-y-3'>
+              <div>
+                <Link to={PATH.SIGN_UP}>
+                  <button type='button' className='ButtonPrimary w-full'>
+                    회원가입 하기
+                  </button>
+                </Link>
+              </div>
+              <div>
+                <Link to={PATH.FIND_ID}>
+                  <button
+                    type='button'
+                    className='ButtonPrimary w-full bg-white text-grey-700'
+                  >
+                    다시 아이디 찾기
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       )}
       {/* 조회된 결과가 없는 경우 끝 */}
     </Fragment>

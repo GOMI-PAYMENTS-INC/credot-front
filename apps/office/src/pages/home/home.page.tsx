@@ -314,7 +314,7 @@ export default function HomePage() {
                 <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                   <span className='text-primary-red-orange'>Shopee</span>에서{' '}
                   <span className='text-primary-red-orange'>상위 노출</span>을 원하는{' '}
-                  <span className='text-primary-red-orange'>키워드</span>를 입력하세요.
+                  <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
                 </h1>
               </div>
               <div className='mb-16 lg:mb-6'>
@@ -437,13 +437,13 @@ export default function HomePage() {
             </div>
           </div>
           <div className='grid-12 gap-6'>
-            <div className='xs:col-span-full col-span-4 sm:col-span-10 sm:col-start-2 md:col-span-8  md:col-start-3 lg:col-span-6  lg:col-start-4'>
+            <div className='col-span-4 lg:col-span-6 lg:col-start-4 md:col-span-8 md:col-start-3  sm:col-span-10 sm:col-start-2  xs:col-span-full'>
               <img src={`${IMG_PATH}/Section2/image-1.svg`} alt='' className='w-full' />
             </div>
-            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+            <div className='col-span-4  lg:col-span-6 lg:col-start-4  md:col-span-8 md:col-start-3 sm:col-span-10 sm:col-start-2 xs:col-span-full'>
               <img src={`${IMG_PATH}/Section2/image-2.svg`} alt='' className='w-full' />
             </div>
-            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+            <div className='col-span-4  lg:col-span-6 lg:col-start-4  md:col-span-8 md:col-start-3 sm:col-span-10 sm:col-start-2 xs:col-span-full'>
               <img src={`${IMG_PATH}/Section2/image-3.svg`} alt='' className='w-full' />
             </div>
           </div>
@@ -463,10 +463,10 @@ export default function HomePage() {
             </div>
           </div>
           <div className='grid-12'>
-            <div className='col-span-10 col-start-2 sm:hidden lg:col-span-full'>
+            <div className='col-span-10 col-start-2 lg:col-span-full sm:hidden'>
               <img src={`${IMG_PATH}/Section3/Section3-morion-Large.gif`} alt='' />
             </div>
-            <div className='xs:col-span-full col-span-10 col-start-2 hidden sm:block'>
+            <div className='col-span-10 col-start-2 hidden sm:block xs:col-span-full'>
               <img src={`${IMG_PATH}/Section3/Section3-morion-Small.gif`} alt='' />
             </div>
           </div>
@@ -530,7 +530,7 @@ export default function HomePage() {
                   {tabData[activeTabIndex].name}
                 </div>
               </div>
-              <div className='text-L/Medium md:text-M/Medium break-keep w-9/12 text-gray-900 sm:w-full'>
+              <div className='w-9/12 break-keep text-L/Medium text-gray-900 md:text-M/Medium sm:w-full'>
                 {tabData[activeTabIndex].data.content}
               </div>
             </div>
@@ -692,10 +692,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className='bg-main xs:bg-[40%] sm:bg-[20%] bg-cover bg-center  py-[130px] sm:py-[70px]  lg:py-[105px]'>
+      <section className='bg-main bg-cover bg-center py-[130px] lg:py-[105px]  sm:bg-[20%] sm:py-[70px]  xs:bg-[40%]'>
         <div className='container-padding'>
           <div className='grid-12 justify-items-right items-center sm:gap-y-12'>
-            <div className='text-4XL/Bold lg:text-3XL/Bold break-keep col-span-5  col-start-2 text-white  sm:col-span-full md:col-span-7 md:col-start-1'>
+            <div className='col-span-5 col-start-2 break-keep text-4XL/Bold  text-white lg:text-3XL/Bold  md:col-span-7 md:col-start-1 sm:col-span-full'>
               상위 노출을 위한
               <br />
               쇼피 판매 전략 인사이트
@@ -711,9 +711,9 @@ export default function HomePage() {
       <section>
         <div className='container-padding py-[120px] lg:py-[60px] md:mx-auto  md:mx-auto'>
           <div className='grid-12'>
-            <div className='bg-grey-200 xs:gap-y-[33px] col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center  gap-x-5 rounded-[49px] sm:justify-items-start sm:gap-y-[55px] sm:py-10 sm:pb-0 md:py-[39px]  lg:col-span-full  lg:col-start-1 lg:grid-cols-12  lg:py-[42px]'>
-              <div className='break-keep col-span-5 pl-[53px] sm:col-span-full  sm:col-start-2 sm:pl-0 md:col-span-6  md:pl-[34px] lg:col-span-7'>
-                <div className='bg-grey-900 mb-[13px] inline-block rounded-[33px] px-5 py-[7px]'>
+            <div className='col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center gap-x-5 rounded-[49px]  bg-grey-200 lg:col-span-full lg:col-start-1 lg:grid-cols-12 lg:py-[42px] md:py-[39px] sm:justify-items-start  sm:gap-y-[55px]  sm:py-10 sm:pb-0  xs:gap-y-[33px]'>
+              <div className='col-span-5 break-keep pl-[53px] lg:col-span-7  md:col-span-6 md:pl-[34px] sm:col-span-full  sm:col-start-2 sm:pl-0'>
+                <div className='mb-[13px] inline-block rounded-[33px] bg-grey-900 px-5 py-[7px]'>
                   <span className='text-S/Medium text-white'>Event 2022.12~ 종료시</span>
                 </div>
                 <div className='mb-[20px] text-3XL/Bold'>무제한 사용 이벤트</div>
@@ -723,7 +723,7 @@ export default function HomePage() {
                   별도의 이벤트 종료 안내까지는 무제한 리포트 조회가 가능해요!
                 </div>
               </div>
-              <div className='xs:col-start-1 xs:mb-6 col-span-5 sm:col-span-full sm:col-start-4 md:col-span-6'>
+              <div className='col-span-5 md:col-span-6 sm:col-span-full sm:col-start-4 xs:col-start-1 xs:mb-6'>
                 <img src={`${IMG_PATH}/Section9/Ticket.png`} alt='' />
               </div>
             </div>

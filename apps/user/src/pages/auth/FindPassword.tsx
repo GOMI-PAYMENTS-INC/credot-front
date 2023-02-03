@@ -7,6 +7,8 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { SendTemporaryPasswordResult } from '@/types/findIdentification.d';
+import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
 
 interface IFindPasswordForm {
   email: string;
@@ -61,38 +63,44 @@ const FindPassword = () => {
       {!isSuccessSendTemporaryPassword &&
         sendTemporaryPasswordResponseStatus !== SendTemporaryPasswordResult.STRANGER && (
           <>
-            <h3 className='text-2xl-bold mb-5 text-center'>비밀번호 찾기</h3>
-            <div className='space-y-2'>
-              <input
-                className=' w-full rounded border border-gray-300 px-4  py-2 text-base focus:border-green-400 focus:outline-none'
-                type='email'
-                placeholder='이메일'
-                {...register('email', {
-                  required: '이메일을 입력해주세요.',
-                  pattern: {
-                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                    message: '올바른 이메일 주소를 입력하세요.',
-                  },
-                  onChange: (e) => {
-                    setEmail?.(e.target.value.trim());
-                  },
-                })}
+            <div className='space-y-8'>
+              <FindIdPasswordTittle
+                title='비밀번호를 찾을게요.'
+                subTitle='이메일과 회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
               />
-              <p className='text-2xs-regular text-functional-error'>
-                {errors?.email?.message}
-              </p>
-              <SmsVerifyCodeForm
-                onChangePhone={(value: string) => {
-                  setPhone(value);
-                }}
-                onVerifyCodeSign={(value: string) => {
-                  sendTemporaryPassword(value);
-                }}
-                onChangeChildIsValid={(value: boolean) => {
-                  setChildIsValid(value);
-                }}
-              />
+
+              <div className='space-y-2'>
+                <input
+                  className='inputCustom w-full'
+                  type='email'
+                  placeholder='이메일'
+                  {...register('email', {
+                    required: '이메일을 입력해주세요.',
+                    pattern: {
+                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                      message: '올바른 이메일 주소를 입력해주세요.',
+                    },
+                    onChange: (e) => {
+                      setEmail?.(e.target.value.trim());
+                    },
+                  })}
+                />
+                <p className='text-S/Medium text-red-500'>{errors?.email?.message}</p>
+                <SmsVerifyCodeForm
+                  onChangePhone={(value: string) => {
+                    setPhone(value);
+                  }}
+                  onVerifyCodeSign={(value: string) => {
+                    sendTemporaryPassword(value);
+                  }}
+                  onChangeChildIsValid={(value: boolean) => {
+                    setChildIsValid(value);
+                  }}
+                />
+              </div>
             </div>
+
+            <FindIdPasswordBottom />
           </>
         )}
       {/* 비밀번호 찾기 폼 끝 */}
@@ -100,27 +108,61 @@ const FindPassword = () => {
       {/* 비밀번호 임시발송 완료 끝 */}
       {isSuccessSendTemporaryPassword && (
         <>
-          <h3 className='text-2xl-bold mb-5 text-center'>임시 비밀번호 발송</h3>
-          <p className='text-l-regular text-center'>
-            회원님께서 가입하신 연락처로
-            <br />
-            임시 비밀번호를 발송했습니다.
-          </p>
-          <p className='mt-16  text-center text-primary-red-orange'>{phone}</p>
+          <div className='space-y-8'>
+            <FindIdPasswordTittle
+              title='임시 비밀번호를 발송했어요.'
+              subTitle='회원님께서 가입하신 연락처로<br>임시 비밀번호를 발송했어요.'
+            />
 
-          <div className='mt-16 '>
-            <Link to={PATH.SIGN_IN}>
-              <button
-                type='button'
-                className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
-              >
-                로그인 하러가기
-              </button>
-            </Link>
+            {/*TODO 가운데 숫자 마스킹*/}
+            <div className='rounded-lg border border-grey-300 px-6 py-5 text-center text-primary-red-orange'>
+              {phone}
+            </div>
+
+            <div>
+              <Link to={PATH.SIGN_IN}>
+                <button type='button' className='ButtonPrimary w-full'>
+                  로그인 하기
+                </button>
+              </Link>
+            </div>
           </div>
+
+          <FindIdPasswordBottom />
         </>
       )}
+
       {/* 비밀번호 임시발송 완료 끝 */}
+
+      {/*검색 결과 없음 시작*/}
+      {sendTemporaryPasswordResponseStatus === SendTemporaryPasswordResult.STRANGER && (
+        <div className='space-y-8'>
+          <FindIdPasswordTittle
+            title='일치하는 회원정보가 없어요.'
+            subTitle='이메일 주소 또는 휴대폰 번호를 다시 한 번 확인해주세요.'
+          />
+          <div className='space-y-3'>
+            <div>
+              <Link to={PATH.SIGN_UP}>
+                <button type='button' className='ButtonPrimary w-full'>
+                  회원가입 하기
+                </button>
+              </Link>
+            </div>
+            <div>
+              <Link to={PATH.FIND_PASSWORD}>
+                <button
+                  type='button'
+                  className='ButtonPrimary w-full bg-white text-grey-700'
+                >
+                  다시 비밀번호 찾기
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      {/*검색 결과 없음 끝*/}
     </Fragment>
   );
 };
