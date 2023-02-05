@@ -49,7 +49,7 @@ const SearchProducts = () => {
     }
     if (data && data !== true) {
       const { count } = data.main;
-      return count;
+      return count!.toLocaleString();
     }
   }, [data, isLoading, keywordRef.current.text]);
 
@@ -190,12 +190,20 @@ const SearchProducts = () => {
                           );
                         }
                         return (
-                          <li
-                            key={`${keyword.id}`}
-                            className='float-left mb-3 h-[38px] rounded-[50px] border border-grey-300 px-[10%] leading-9 odd:mr-[4%] lg:mb-2 lg:h-6'
-                          >
-                            {keyword.text}
-                          </li>
+                          <Fragment>
+                            <li
+                              key={`${keyword.id}`}
+                              id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                              className='float-left mb-3 h-[38px] rounded-[50px] border border-grey-300 px-[10%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                            >
+                              {keyword.text}
+                            </li>
+                            <Tooltip
+                              anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                              content={`월간 검색량: ${keyword.count!.toLocaleString()}`}
+                              place='bottom'
+                            />
+                          </Fragment>
                         );
                       })
                     : relativeKeyword}
@@ -209,7 +217,9 @@ const SearchProducts = () => {
                   _state.text === '' && 'opacity-30'
                 }`}
               >
-                <span className='text-L/Bold text-white'>리포트 생성하기</span>
+                <span className='text-L/Bold text-white'>
+                  {_state.text ? `'${_state.text}'로 리포트 생성하기` : '리포트 생성하기'}
+                </span>
               </button>
             </div>
           </div>
