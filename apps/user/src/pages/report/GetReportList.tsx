@@ -1,11 +1,15 @@
 import '@/pages/report/getReportList.css';
-import { ReportContainer } from "@/containers/report/report.container";
+import { getReportList } from '@/containers/report/report.container.refactor';
 
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
+import { useEffect } from 'react';
 
 const GetReportList = () => {
-  const { getList } = ReportContainer();
+  useEffect(() => {
+    getReportList();
+  }, []);
+
   const IMG_PATH = '../../assets/images';
   const navigate = useNavigate();
   return (
