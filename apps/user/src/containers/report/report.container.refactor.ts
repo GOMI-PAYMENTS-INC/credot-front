@@ -41,5 +41,5 @@ export const GetReportList = (queryString: TReportListParamsType = {}) =>
   });
 
 export const createReport = (params: TCreateReportParamsType) => {
-  HTTP.post(REPORT_URL, snakeize({ report: params }));
+  HTTP.post(REPORT_URL, { ...defaultOptions, params: snakeize({ report: params }) });
 };
