@@ -26,6 +26,7 @@ const SearchProducts = () => {
     };
   }, []);
 
+  // TODO: iframeScreen & montlySearchVolum 합칠 수 있는 방법 생각하기
   const iframeScreen = useMemo(() => {
     if (isFalsy(_state.isSearched) && keywordRef.current.text) {
       _dispatch({ type: ActionKind.SwitchMode, payload: true });

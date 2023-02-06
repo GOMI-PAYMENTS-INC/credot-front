@@ -88,9 +88,9 @@ export const routeList: IRoute[] = [
     layoutType: 'Default',
   },
   {
-    description: 'getReportList',
+    description: 'ReportList',
     path: PATH.GET_REPORT_LIST,
-    component: ReportRoutes.GetReportList,
+    component: ReportRoutes.ReportList,
     layoutType: 'Default',
   },
 ];
