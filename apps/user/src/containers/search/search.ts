@@ -38,6 +38,6 @@ export const GetQueryResult = (ref: TSearchRef) => {
       refetchOnWindowFocus: false,
     },
   );
-  const res = data?.search;
-  return [res, isLoading, isError];
+  const response = data?.search;
+  return [response, isLoading, isError];
 };

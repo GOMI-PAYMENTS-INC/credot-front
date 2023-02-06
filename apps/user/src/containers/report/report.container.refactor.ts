@@ -1,8 +1,6 @@
 import { HTTP, defaultOptions, HTTP_METHOD_ENUM } from '@/utils/axiosClient.refactor';
 import { camelize, snakeize } from 'casing';
-import { GlobalEnv } from '@/utils/config';
 
-import axios from 'axios';
 type TReportItem = {
   id: Number;
   userId: Number;
@@ -19,7 +17,7 @@ type TReportItem = {
   updatedAt: Date;
 };
 
-export type TGetReportListParamsType = {
+export type TReportListParamsType = {
   lastId?: number; // 페이징용 리포트id
   limit?: number; // 페이징용 리스트 사이즈
 };
@@ -36,8 +34,11 @@ export type TCreateReportReponseType = {
 };
 const REPORT_URL = 'api/v1/report';
 
-export const getReportList = (queryString: TGetReportListParamsType = {}) =>
-  HTTP.get<{ results: TReportItem }>(REPORT_URL, { params: snakeize(queryString) });
+export const GetReportList = (queryString: TReportListParamsType = {}) =>
+  HTTP.get<{ results: TReportItem }>(REPORT_URL, {
+    ...defaultOptions,
+    params: snakeize(queryString),
+  });
 
 export const createReport = (params: TCreateReportParamsType) => {
   HTTP.post(REPORT_URL, snakeize({ report: params }));

@@ -1,6 +1,6 @@
-import {axiosClient} from "@/utils/axiosClient";
-import {GlobalEnv} from "@/utils/config";
-import {camelize, snakeize} from "casing";
+import { axiosClient } from '@/utils/axiosClient';
+import { GlobalEnv } from '@/utils/config';
+import { camelize, snakeize } from 'casing';
 
 interface IReportItem {
   id: Number;
@@ -18,7 +18,7 @@ interface IReportItem {
   updatedAt: Date;
 }
 
-export interface GetReportListParamsType {
+export interface ReportListParamsType {
   lastId?: number; // 페이징용 리포트id
   limit?: number; // 페이징용 리스트 사이즈
 }
@@ -28,10 +28,9 @@ export interface CreateReportParamsType {
   text: string; // 키워드
 }
 
-const REPORT_URL = "api/v1/report"
+const REPORT_URL = 'api/v1/report';
 
 export const ReportContainer = () => {
-
   const setAuth = () => {
     axiosClient.interceptors.request.use((config) => {
       const token = localStorage.getItem(GlobalEnv.tokenKey);
@@ -40,35 +39,40 @@ export const ReportContainer = () => {
 
       return config;
     });
-  }
+  };
 
-  const getList = async (lastId: number | undefined, limit: number | undefined): Promise<IReportItem[]> => {
+  const getList = async (
+    lastId: number | undefined,
+    limit: number | undefined,
+  ): Promise<IReportItem[]> => {
     setAuth();
 
-    const params: GetReportListParamsType = {
+    const params: ReportListParamsType = {
       lastId: lastId,
       limit: limit,
-    }
+    };
 
-    const { request, status, statusText, data } = await axiosClient.get(REPORT_URL, { params: snakeize(params)})
+    const { request, status, statusText, data } = await axiosClient.get(REPORT_URL, {
+      params: snakeize(params),
+    });
     console.log(REPORT_URL, status, statusText);
     return data;
-  }
+  };
 
   const create = async (country: string, text: string): Promise<any> => {
     setAuth();
 
     const params: CreateReportParamsType = {
       country: country,
-      text: text
-    }
+      text: text,
+    };
 
-    const { data } = await axiosClient.post(REPORT_URL, snakeize({report:params}));
+    const { data } = await axiosClient.post(REPORT_URL, snakeize({ report: params }));
     return camelize(data);
-  }
+  };
 
   return {
     getList,
-    create
+    create,
   };
 };

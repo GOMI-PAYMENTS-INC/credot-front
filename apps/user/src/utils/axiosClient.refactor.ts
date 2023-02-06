@@ -1,8 +1,7 @@
 import { GlobalEnv } from '@/utils/config';
 
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
-
-const token = localStorage.getItem(GlobalEnv.tokenKey);
+import { authTokenStorage } from '@/utils/auth-token';
 
 export enum HTTP_METHOD_ENUM {
   GET = 'GET',
@@ -16,11 +15,12 @@ export const defaultOptions: AxiosRequestConfig = {
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
-    Authorization: token ? `Bearer ${token}` : '',
+    Authorization: authTokenStorage.getToken() ? `${authTokenStorage.getToken()}` : '',
   },
 };
 
 const Axios = axios.create({ baseURL: GlobalEnv.baseUrl });
+// Axios.defaults.withCredentials = true;
 //TODO: axios 공통 onSuccess onFailed 묶기
 export const HTTP = {
   get: async <ResponseType>(
@@ -28,12 +28,13 @@ export const HTTP = {
     options: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.get(url, Object.assign({}, defaultOptions, options));
+      return await Axios.get(url, options);
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw new Error(error.message);
+        console.error(error, 'error message');
+        throw new Error(error.message, error);
       }
-      console.warn(error);
+      console.error(error);
       throw new Error('unknown error');
     }
   },
