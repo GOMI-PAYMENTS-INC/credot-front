@@ -17,9 +17,7 @@ export const Router = () => {
 
     if (
       isFalsy(isLogin) &&
-      [PATH.SEARCH_PRODUCTS, PATH.SEARCH_RESULTS, PATH.GET_REPORT_LIST].some(
-        (path) => path === pathname,
-      )
+      [PATH.SEARCH_PRODUCTS, PATH.GET_REPORT_LIST].some((path) => path === pathname)
     ) {
       navigator(PATH.SIGN_IN);
     }
