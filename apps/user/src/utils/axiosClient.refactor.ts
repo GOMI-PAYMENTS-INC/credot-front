@@ -15,7 +15,9 @@ export const defaultOptions: AxiosRequestConfig = {
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
-    Authorization: authTokenStorage.getToken() ? `${authTokenStorage.getToken()}` : '',
+    Authorization: authTokenStorage.getToken()
+      ? `Bearer ${authTokenStorage.getToken()}`
+      : '',
   },
 };
 
@@ -38,11 +40,21 @@ export const HTTP = {
       throw new Error('unknown error');
     }
   },
-  post: async <ParamType, ResponseType>(
+  post: async <ResponseType>(
     url: string,
-    param: ParamType,
-  ): Promise<AxiosResponse<ResponseType>> =>
-    Axios.post(url, Object.assign({}, defaultOptions, { param: param })),
+    options: AxiosRequestConfig,
+  ): Promise<AxiosResponse<ResponseType>> => {
+    try {
+      return await Axios.post(url, options);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error(error, 'error message');
+        throw new Error(error.message, error);
+      }
+      console.error(error);
+      throw new Error('unknown error');
+    }
+  },
   patch: async <ParamType, ResponseType>(
     url: string,
     param: ParamType,
