@@ -1,13 +1,19 @@
-import '@/pages/report/getReportList.css';
-import { Fragment } from 'react';
+import '@/pages/report/ReportList.css';
+import { GetReportList } from '@/containers/report/report.container';
+
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
+import { useEffect } from 'react';
 
-const GetReportList = () => {
+const ReportList = () => {
+  useEffect(() => {
+    GetReportList();
+  }, []);
+
   const IMG_PATH = '../../assets/images';
   const navigate = useNavigate();
   return (
-    <div className='col-span-12 w-[1180px]'>
+    <div className='col-span-12'>
       <div className='col-span-6 mx-[px] mt-[3px] flex h-[84px] items-center '>
         <h1 className='break-keep text-L/Bold lg:text-2XL/Bold'>리포트 조회</h1>
         <h1 className='break-keep pl-[12px] text-S/Bold text-grey-500 lg:text-2XL/Bold'>
@@ -78,4 +84,4 @@ const GetReportList = () => {
   );
 };
 
-export default GetReportList;
+export default ReportList;

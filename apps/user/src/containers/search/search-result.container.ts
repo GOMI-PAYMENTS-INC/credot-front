@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { CountryType, TranslateType, useSearchQuery } from '@/generated/graphql';
+import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphql-client';
 
 export const SearchResultContainer = () => {
@@ -13,7 +13,6 @@ export const SearchResultContainer = () => {
     graphQLClient,
     {
       country: CountryType.Vn,
-      translateType: TranslateType.Order,
       text: String(keywordParam),
     },
     {
@@ -26,13 +25,12 @@ export const SearchResultContainer = () => {
     graphQLClient,
     {
       country: CountryType.Vn,
-      translateType: TranslateType.Order,
-      text: String(searchResults?.search.main.translated),
+      text: String(searchResults?.search.main.text),
     },
     {
       enabled:
         !!searchResults &&
-        searchResults.search.main.translated !== searchResults.search.main.text,
+        searchResults.search.main.text !== searchResults.search.main.text,
       refetchOnWindowFocus: false,
     },
   );

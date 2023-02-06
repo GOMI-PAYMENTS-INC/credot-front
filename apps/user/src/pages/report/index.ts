@@ -1,3 +1,3 @@
-import GetReportList from './GetReportList';
+import ReportList from './ReportList';
 
-export { GetReportList };
+export { ReportList };

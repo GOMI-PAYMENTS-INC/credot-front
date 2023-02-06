@@ -1,4 +1,4 @@
-import { CountryType, TranslateType, useSearchQuery } from '@/generated/graphql';
+import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphql-client';
 
 import { ChangeEvent, KeyboardEvent, Dispatch } from 'react';
@@ -31,7 +31,6 @@ export const GetQueryResult = (ref: TSearchRef) => {
     graphQLClient,
     {
       country: CountryType.Vn,
-      translateType: TranslateType.Order,
       text: ref.current.text,
     },
     {
@@ -39,6 +38,6 @@ export const GetQueryResult = (ref: TSearchRef) => {
       refetchOnWindowFocus: false,
     },
   );
-  const res = data?.search;
-  return [res, isLoading, isError];
+  const response = data?.search;
+  return [response, isLoading, isError];
 };
