@@ -1,8 +1,7 @@
-import { axiosClient } from '@/utils/axiosClient';
-import { GlobalEnv } from '@/utils/config';
+import { HTTP, defaultOptions, HTTP_METHOD_ENUM } from '@/utils/axiosConfig';
 import { camelize, snakeize } from 'casing';
 
-interface IReportItem {
+type TReportItem = {
   id: Number;
   userId: Number;
   reportUniqueId: String;
@@ -16,63 +15,31 @@ interface IReportItem {
   averagePrice: Number;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
-export interface ReportListParamsType {
+export type TReportListParamsType = {
   lastId?: number; // 페이징용 리포트id
   limit?: number; // 페이징용 리스트 사이즈
-}
+};
 
-export interface CreateReportParamsType {
+export type TCreateReportParamsType = {
   country: string; // 국가코드
   text: string; // 키워드
-}
+};
 
+export type TCreateReportReponseType = {
+  code: string;
+  message: string;
+  data: any;
+};
 const REPORT_URL = 'api/v1/report';
 
-export const ReportContainer = () => {
-  const setAuth = () => {
-    axiosClient.interceptors.request.use((config) => {
-      const token = localStorage.getItem(GlobalEnv.tokenKey);
-      // eslint-disable-next-line no-param-reassign
-      config.headers = { Authorization: token ? `Bearer ${token}` : '' };
+export const GetReportList = (queryString: TReportListParamsType = {}) =>
+  HTTP.get<{ results: TReportItem }>(REPORT_URL, {
+    ...defaultOptions,
+    params: snakeize(queryString),
+  });
 
-      return config;
-    });
-  };
-
-  const getList = async (
-    lastId: number | undefined,
-    limit: number | undefined,
-  ): Promise<IReportItem[]> => {
-    setAuth();
-
-    const params: ReportListParamsType = {
-      lastId: lastId,
-      limit: limit,
-    };
-
-    const { request, status, statusText, data } = await axiosClient.get(REPORT_URL, {
-      params: snakeize(params),
-    });
-    console.log(REPORT_URL, status, statusText);
-    return data;
-  };
-
-  const create = async (country: string, text: string): Promise<any> => {
-    setAuth();
-
-    const params: CreateReportParamsType = {
-      country: country,
-      text: text,
-    };
-
-    const { data } = await axiosClient.post(REPORT_URL, snakeize({ report: params }));
-    return camelize(data);
-  };
-
-  return {
-    getList,
-    create,
-  };
+export const createReport = (params: TCreateReportParamsType) => {
+  HTTP.post(REPORT_URL, { ...defaultOptions, params: snakeize({ report: params }) });
 };

@@ -1,5 +1,5 @@
 import '@/pages/report/ReportList.css';
-import { GetReportList } from '@/containers/report/report.container.refactor';
+import { GetReportList } from '@/containers/report/report.container';
 
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
