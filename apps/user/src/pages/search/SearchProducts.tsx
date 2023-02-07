@@ -1,6 +1,4 @@
-import { useRef, Fragment, useReducer, useMemo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { Fragment, useReducer, useMemo, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
@@ -14,6 +12,7 @@ import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
 
 import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
+import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
@@ -21,22 +20,11 @@ const SearchProducts = () => {
 
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
 
-  const navigate = useNavigate();
-
-  //쇼피 쿼리 `https://shopee.vn/search?keyword=${query}`
-
   useEffect(() => {
     return () => {
       _dispatch({ type: ActionKind.InitializeState });
     };
   }, []);
-
-  // TODO: iframeScreen & montlySearchVolum 합칠 수 있는 방법 생각하기
-  // const iframeScreen = useMemo(() => {
-  //   if (isFalsy(_state.isSearched) && _state.text) {
-  //     _dispatch({ type: ActionKind.SwitchMode, payload: true });
-  //   }
-  // }, [data]);
 
   const montlySearchVolum = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
@@ -60,7 +48,6 @@ const SearchProducts = () => {
       return [1, 2, 3, 4, 5, 6];
     }
     if (isFalsy(_state.keyword) === false && isLoading === true) {
-      console.log('is this called?');
       return (
         <div className='scale-[0.3] pb-20'>
           <div id='loader' />
@@ -82,6 +69,7 @@ const SearchProducts = () => {
 
   return (
     <Fragment>
+      <ModalComponent />
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
