@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="fix: 구글로그인 버튼 안되는 버그 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pnp.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.pnp.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pnp.loader.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/.pnp.loader.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.yarn/cache/typescript-patch-c1bb147628-3e2ab07729.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature/COR-707" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,16 +36,8 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="feature/COR-681" />
-                    <option name="lastUsedInstant" value="1675403356" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feature/COR-770" />
-                    <option name="lastUsedInstant" value="1675072585" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feature/COR-766" />
-                    <option name="lastUsedInstant" value="1675064106" />
+                    <option name="branchName" value="feature/COR-783" />
+                    <option name="lastUsedInstant" value="1675739016" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="develop" />
@@ -136,6 +124,8 @@
       <list>
         <item itemvalue="npm.user:prod-preview" />
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.user:prod-preview" />
+        <item itemvalue="npm.dev" />
         <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
@@ -175,6 +165,14 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/apps/user/src/utils/axiosConfig.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/report/ReportList.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/report/report.container.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/utils/copyToClipboard.js" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

@@ -15,7 +15,7 @@ import {
   IFindIdPasswordBottomProps,
 } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
-import {copyToClipboard} from "@/utils/copyToClipboard";
+import { copyToClipboard } from '@/utils/copyToClipboard';
 
 const FindId = () => {
   const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
@@ -91,31 +91,30 @@ const FindId = () => {
         <>
           <div className='space-y-8'>
             <FindIdPasswordTittle
-              title={`<span class='text-orange-500'>${
-                findAccountQuery ? findAccountQuery.findAccount.accounts.length : 0
-              }개</span>의 아이디를 찾았어요!`}
+              title={`<span class='text-orange-500'>${findAccountQuery.findAccount.accounts.length}개</span>의 아이디를 찾았어요!`}
             />
 
             <ul className='space-y-6'>
-              {findAccountQuery &&
-                findAccountQuery.findAccount.accounts.map((account, index) => (
-                  <li
-                    className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-primary-red-orange'
-                    key={index}
-                  >
-                    <div>{account.email}</div>
-                    <a href='#' className='inline-block text-L/Regular'>
-                      <ReactSVG
-                        src='/assets/icons/Copy.svg'
-                        className='cursor-pointer'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('style', 'width: 20px; fill: #595959');
-                        }}
-                        onClick={() => copyToClipboard('아이디를 복사했어요.', account.email)}
-                      />
-                    </a>
-                  </li>
-                ))}
+              {findAccountQuery.findAccount.accounts.map((account, index) => (
+                <li
+                  className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-primary-red-orange'
+                  key={index}
+                >
+                  <div>{account.email}</div>
+                  <a href='#' className='inline-block text-L/Regular'>
+                    <ReactSVG
+                      src='/assets/icons/Copy.svg'
+                      className='cursor-pointer'
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('style', 'width: 20px; fill: #595959');
+                      }}
+                      onClick={() =>
+                        copyToClipboard('아이디를 복사했어요.', account.email)
+                      }
+                    />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -130,36 +129,34 @@ const FindId = () => {
 
       {/* 조회된 결과가 없는 경우 시작 */}
       {responseStatus === FindAccountResult.STRANGER && (
-        <>
-          <div className='space-y-8'>
-            <FindIdPasswordTittle
-              title='아이디를 찾을 수 없어요.'
-              subTitle='입력하신 휴대폰 번호로 가입한 계정이 존재하지 않아요.'
-            />
-            <div className='space-y-3'>
-              <div>
-                <Link to={PATH.SIGN_UP}>
-                  <button
-                    type='button'
-                    className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
-                  >
-                    회원가입 하기
-                  </button>
-                </Link>
-              </div>
-              <div>
-                <Link to={PATH.FIND_ID}>
-                  <button
-                    type='button'
-                    className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
-                  >
-                    다시 아이디 찾기
-                  </button>
-                </Link>
-              </div>
+        <div className='space-y-8'>
+          <FindIdPasswordTittle
+            title='아이디를 찾을 수 없어요.'
+            subTitle='입력하신 휴대폰 번호로 가입한 계정이 존재하지 않아요.'
+          />
+          <div className='space-y-3'>
+            <div>
+              <Link to={PATH.SIGN_UP}>
+                <button
+                  type='button'
+                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
+                >
+                  회원가입 하기
+                </button>
+              </Link>
+            </div>
+            <div>
+              <Link to={PATH.FIND_ID}>
+                <button
+                  type='button'
+                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
+                >
+                  다시 아이디 찾기
+                </button>
+              </Link>
             </div>
           </div>
-        </>
+        </div>
       )}
       {/* 조회된 결과가 없는 경우 끝 */}
     </Fragment>
