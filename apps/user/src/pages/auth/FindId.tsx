@@ -15,6 +15,7 @@ import {
   IFindIdPasswordBottomProps,
 } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
+import {copyToClipboard} from "@/utils/copyToClipboard";
 
 const FindId = () => {
   const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
@@ -91,7 +92,7 @@ const FindId = () => {
           <div className='space-y-8'>
             <FindIdPasswordTittle
               title={`<span class='text-orange-500'>${
-                findAccountQuery ? findAccountQuery.findAccount.accounts : 0
+                findAccountQuery ? findAccountQuery.findAccount.accounts.length : 0
               }개</span>의 아이디를 찾았어요!`}
             />
 
@@ -104,13 +105,13 @@ const FindId = () => {
                   >
                     <div>{account.email}</div>
                     <a href='#' className='inline-block text-L/Regular'>
-                      {/*TODO 클립보드 기능 넣어야함*/}
                       <ReactSVG
                         src='/assets/icons/Copy.svg'
                         className='cursor-pointer'
                         beforeInjection={(svg) => {
                           svg.setAttribute('style', 'width: 20px; fill: #595959');
                         }}
+                        onClick={() => copyToClipboard('아이디를 복사했어요.', account.email)}
                       />
                     </a>
                   </li>

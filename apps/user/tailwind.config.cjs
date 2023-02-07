@@ -31,6 +31,10 @@ module.exports = {
     },
     extend: {
       ...tailwindConfig.theme.extend,
+
+      content: {
+        'ExclamationCircle': 'url("/assets/icons/ExclamationCircle.svg")',
+      },
     },
   },
 };
