@@ -1,10 +1,15 @@
-import { useRef, Fragment, useReducer, useMemo, useEffect, useState } from 'react';
+import { useRef, Fragment, useReducer, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactSVG } from 'react-svg';
-
+import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
-import { getKeyword, queryKeyword, GetQueryResult } from '@/containers/search';
+import {
+  getKeyword,
+  queryKeyword,
+  queryKeywordByClick,
+  GetQueryResult,
+} from '@/containers/search';
 import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
 
 import { Tooltip } from 'react-tooltip';
@@ -13,8 +18,8 @@ import { CountryType } from '@/generated/graphql';
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const keywordRef = useRef({ text: '', contury: CountryType.Vn });
-  const [data, isLoading, isError] = GetQueryResult(keywordRef);
+
+  const [data, isLoading, isError] = GetQueryResult(_state.keyword);
 
   const navigate = useNavigate();
 
@@ -27,21 +32,17 @@ const SearchProducts = () => {
   }, []);
 
   // TODO: iframeScreen & montlySearchVolum 합칠 수 있는 방법 생각하기
-  const iframeScreen = useMemo(() => {
-    if (isFalsy(_state.isSearched) && keywordRef.current.text) {
-      _dispatch({ type: ActionKind.SwitchMode, payload: true });
-    }
-
-    if (isFalsy(_state.text) === false) {
-      _dispatch({ type: ActionKind.SearchKeyword, payload: keywordRef.current.text });
-    }
-  }, [keywordRef.current.text]);
+  // const iframeScreen = useMemo(() => {
+  //   if (isFalsy(_state.isSearched) && _state.text) {
+  //     _dispatch({ type: ActionKind.SwitchMode, payload: true });
+  //   }
+  // }, [data]);
 
   const montlySearchVolum = useMemo(() => {
-    if (isFalsy(_state.text) && isLoading === true) {
+    if (isFalsy(_state.keyword) && isLoading === true) {
       return '???';
     }
-    if (isFalsy(_state.text) === false && isLoading === true) {
+    if (isFalsy(_state.keyword) === false && isLoading === true) {
       return (
         <div className='scale-[0.3]'>
           <div id='loader' />
@@ -50,15 +51,16 @@ const SearchProducts = () => {
     }
     if (data && data !== true) {
       const { count } = data.main;
-      return count!.toLocaleString();
+      return formatNumber(count);
     }
-  }, [data, isLoading, keywordRef.current.text]);
+  }, [data, isLoading, _state.keyword]);
 
   const relativeKeyword = useMemo(() => {
-    if (isFalsy(_state.text) && isLoading === true) {
+    if (isFalsy(_state.keyword) && isLoading === true) {
       return [1, 2, 3, 4, 5, 6];
     }
-    if (isFalsy(_state.text) === false && isLoading === true) {
+    if (isFalsy(_state.keyword) === false && isLoading === true) {
+      console.log('is this called?');
       return (
         <div className='scale-[0.3] pb-20'>
           <div id='loader' />
@@ -67,11 +69,16 @@ const SearchProducts = () => {
     }
     if (data && data !== true) {
       const { relations } = data;
+      if (isFalsy(relations)) {
+        return (
+          <div className='flex h-[150px] items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
+            연관 키워드가 없어요
+          </div>
+        );
+      }
       return relations;
     }
-  }, [data, isLoading, keywordRef.current.text]);
-
-  iframeScreen;
+  }, [data, isLoading, _state.keyword]);
 
   return (
     <Fragment>
@@ -108,13 +115,14 @@ const SearchProducts = () => {
                     <input
                       type='text'
                       placeholder='키워드를 입력해주세요.'
-                      onChange={(event) => getKeyword(keywordRef, event)}
-                      onKeyDown={(event) => queryKeyword(keywordRef, _dispatch, event)}
+                      value={_state.text}
+                      onChange={(event) => getKeyword(event, _dispatch)}
+                      onKeyDown={(event) => queryKeyword(_state.text, _dispatch, event)}
                       className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
                   <button
-                    onClick={() => queryKeyword(keywordRef, _dispatch)}
+                    onClick={(event) => queryKeyword(_state.text, _dispatch, event)}
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
                     <svg
@@ -154,7 +162,7 @@ const SearchProducts = () => {
               <div>
                 <span
                   className={`text-4XL/Bold text-grey-${
-                    _state.text ? 900 : 300
+                    _state.isSearched ? 900 : 300
                   } lg:text-3XL/medium`}
                 >
                   <p className={`text-4XL/Bold text-grey-300 lg:text-3XL/medium`}></p>
@@ -191,17 +199,19 @@ const SearchProducts = () => {
                           );
                         }
                         return (
-                          <Fragment>
+                          <Fragment key={`${keyword.id}`}>
                             <li
-                              key={`${keyword.id}`}
                               id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                              className='float-left mb-3 h-[38px] rounded-[50px] border border-grey-300 px-[10%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                              className='float-left mb-3 h-[38px] cursor-pointer  rounded-[50px]  border border-grey-300 px-[10%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                              onClick={() => queryKeywordByClick(keyword.text, _dispatch)}
                             >
                               {keyword.text}
                             </li>
                             <Tooltip
                               anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                              content={`월간 검색량: ${keyword.count!.toLocaleString()}`}
+                              content={`월간 검색량: ${
+                                keyword.count && formatNumber(keyword.count)
+                              }`}
                               place='bottom'
                             />
                           </Fragment>
@@ -215,11 +225,13 @@ const SearchProducts = () => {
             <div>
               <button
                 className={`w-full rounded-md bg-primary-red-orange py-4 ${
-                  _state.text === '' && 'opacity-30'
+                  _state.keyword === '' && 'opacity-30'
                 }`}
               >
                 <span className='text-L/Bold text-white'>
-                  {_state.text ? `'${_state.text}'로 리포트 생성하기` : '리포트 생성하기'}
+                  {_state.keyword
+                    ? `'${_state.keyword}'로 리포트 생성하기`
+                    : '리포트 생성하기'}
                 </span>
               </button>
             </div>
@@ -227,9 +239,9 @@ const SearchProducts = () => {
         </div>
       </div>
       <div className='col-span-6 w-full self-center md:hidden'>
-        {_state.isSearched && _state.text ? (
+        {_state.isSearched && _state.keyword ? (
           <iframe
-            src={`https://shopee.vn/search?keyword=${_state.text}`}
+            src={`https://shopee.vn/search?keyword=${_state.keyword}`}
             className='h-[960px] w-[445px]  rounded-2xl pt-[8px]'
             allow='accelerometer; autoplay; clipboard-write;
                encrypted-media; gyroscope; picture-in-picture'
