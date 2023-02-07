@@ -18,21 +18,34 @@ body,
   }
 
   /*input*/
-  .labelCustom {
-    @apply text-S/Medium text-grey-800;
+  .inputCustom-label {
+    @apply ml-0.5 text-S/Medium text-grey-800;
   }
-  .inputCustom {
+  .inputCustom-textBox {
     @apply rounded border border-grey-400 px-4 py-3
-        placeholder:text-grey-500
+    placeholder:text-grey-500
 
-        hover/focus:border-orange-300
-        hover:shadow-inputHover
+    read-only/disabled:bg-grey-200
+    read-only/disabled:text-grey-700
 
-        focus:border-[1.2px]
-        focus:outline-none
+    hover:border-orange-300
+    hover:shadow-inputHover
 
-        disabled:bg-grey-200
-        disabled:text-grey-700;
+    read-only/disabled:hover:border-grey-400
+    read-only/disabled:hover/focus:shadow-none
+    focus:border-[1.2px]
+    focus:border-orange-300
+
+    focus:outline-none
+    read-only/disabled:focus:border-grey-400;
+  }
+
+  .inputCustom-textBox.error {
+    @apply rounded border border-red-500 px-4 py-3
+    placeholder:text-grey-500;
+  }
+  .inputCustom-help {
+    @apply ml-1 text-S/Medium text-red-500;
   }
 
   /* Term */

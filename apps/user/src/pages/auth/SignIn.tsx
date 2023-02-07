@@ -68,7 +68,9 @@ const SignIn = () => {
                 <div className='space-y-2'>
                   <label className='text-S/Medium text-grey-800'>이메일</label>
                   <input
-                    className='w-full  rounded border border-grey-300 px-4  py-3 placeholder:text-grey-500  focus:border-orange-300 focus:outline-none'
+                    className={`inputCustom-textBox w-full ${
+                      errors?.email ? 'error' : ''
+                    }`}
                     type='email'
                     placeholder='이메일'
                     {...register('email', {
@@ -79,12 +81,14 @@ const SignIn = () => {
                       },
                     })}
                   />
-                  <p className='text-S/Medium text-red-500'>{errors?.email?.message}</p>
+                  <p className='inputCustom-help'>{errors?.email?.message}</p>
                 </div>
                 <div className='space-y-2'>
                   <label className='text-S/Medium text-grey-800'>비밀번호</label>
                   <input
-                    className='w-full  rounded border border-grey-300 px-4  py-3 placeholder:text-grey-500  focus:border-orange-300 focus:outline-none'
+                    className={`inputCustom-textBox w-full ${
+                      errors?.password ? 'error' : ''
+                    }`}
                     type='password'
                     placeholder='비밀번호'
                     {...register('password', {

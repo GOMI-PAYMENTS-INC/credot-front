@@ -78,7 +78,7 @@ const FindPassword = () => {
 
               <div className='space-y-2'>
                 <input
-                  className='inputCustom w-full'
+                  className={`inputCustom-textBox w-full ${errors?.email ? 'error' : ''}`}
                   type='email'
                   placeholder='이메일'
                   {...register('email', {
@@ -92,7 +92,7 @@ const FindPassword = () => {
                     },
                   })}
                 />
-                <p className='text-S/Medium text-red-500'>{errors?.email?.message}</p>
+                <p className='inputCustom-help'>{errors?.email?.message}</p>
                 <SmsVerifyCodeForm
                   onChangePhone={(value: string) => {
                     setPhone(value);

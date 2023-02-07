@@ -87,7 +87,9 @@ export const AuthContainer = () => {
     {},
     {
       onSuccess: (res) => {
+        //SNS 회원가입
         const path = !res.me.phone && PATH.SIGN_UP_WITH_GOOGLE;
+
         if (path) {
           navigate(path, { state: { email: res.me.email } });
         }
@@ -220,6 +222,10 @@ export const AuthContainer = () => {
       setToken(res.googleLogin.token);
       handleChangeLoginState(true);
       authTokenStorage.setToken(isLoginStorage, res.googleLogin.token);
+
+      //검색페이지로 이동
+      navigate(PATH.SEARCH_PRODUCTS);
+
       // await refetchUserInfo();
     },
     onError: (err) => {
@@ -340,7 +346,6 @@ export const AuthContainer = () => {
       {
         type: 'standard',
         theme: 'outline',
-        text: 'signin_with',
         width: '416px',
         shape: 'square',
       },

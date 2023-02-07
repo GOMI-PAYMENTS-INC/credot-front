@@ -103,19 +103,19 @@ const SignUp = () => {
           <form className='mt-10 space-y-8' onSubmit={handleSubmit(onValid, onInvalid)}>
             {/*이메일*/}
             <div className='space-y-1'>
-              <label htmlFor='email' className='labelCustom'>
+              <label htmlFor='email' className='inputCustom-label'>
                 이메일
               </label>
               <input
-                className=' inputCustom w-full'
+                className={`inputCustom-textBox w-full ${errors?.email ? 'error' : ''}`}
                 type='email'
                 id='email'
-                placeholder='이메일'
+                placeholder='이메일을 입력해주세요.'
                 {...register('email', {
                   required: '이메일은 필수입력입니다.',
                   pattern: {
                     value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                    message: '올바른 이메일 주소를 입력해주세요.',
+                    message: '올바른 이메일 형식으로 입력해주세요.',
                   },
                   onChange: async (e) => {
                     const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -127,20 +127,22 @@ const SignUp = () => {
                   },
                 })}
               />
-              <p className='text-S/Medium text-red-500'>{errors?.email?.message}</p>
+              <p className='inputCustom-help'>{errors?.email?.message}</p>
             </div>
 
             {/*비밀번호*/}
             <div className='space-y-2'>
               <div className='space-y-1'>
-                <label htmlFor='password' className='labelCustom'>
+                <label htmlFor='password' className='inputCustom-label'>
                   비밀번호
                 </label>
                 <input
                   id='password'
                   type='password'
-                  className='inputCustom w-full content-center'
-                  placeholder='비밀번호'
+                  className={`inputCustom-textBox w-full ${
+                    errors?.password ? 'error' : ''
+                  }`}
+                  placeholder='비밀번호를 입력해주세요. (8자리 이상)'
                   {...register('password', {
                     required: '비밀번호는 필수입력입니다.',
                     pattern: {
@@ -151,23 +153,23 @@ const SignUp = () => {
                     },
                   })}
                 />
-                <p className='text-S/Medium text-red-500'>{errors?.password?.message}</p>
+                <p className='inputCustom-help'>{errors?.password?.message}</p>
               </div>
               <div className='space-y-1'>
                 <input
                   id='confirmPassword'
                   type='password'
-                  className='inputCustom w-full content-center'
-                  placeholder='비밀번호 확인'
+                  className={`inputCustom-textBox w-full ${
+                    errors?.confirmPassword ? 'error' : ''
+                  }`}
+                  placeholder='비밀번호를 한 번 더 입력해주세요.'
                   // @ts-ignore
                   {...register('confirmPassword', {
                     validate: (value: string) =>
-                      value === passwordWatcher || '비밀번호가 일치하지 않습니다.',
+                      value === passwordWatcher || '비밀번호가 일치하지 않아요.',
                   })}
                 />
-                <p className='text-S/Medium text-red-500'>
-                  {errors?.confirmPassword?.message}
-                </p>
+                <p className='inputCustom-help'>{errors?.confirmPassword?.message}</p>
               </div>
             </div>
 

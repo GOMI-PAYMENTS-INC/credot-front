@@ -66,7 +66,9 @@ const ResetPassword = () => {
               <input
                 id='password'
                 type='password'
-                className='inputCustom w-full content-center'
+                className={`inputCustom-textBox w-full ${
+                  errors?.password ? 'error' : ''
+                }`}
                 placeholder='비밀번호'
                 {...register('password', {
                   required: '비밀번호는 필수입력입니다.',
@@ -78,22 +80,24 @@ const ResetPassword = () => {
                   },
                 })}
               />
-              <p className='text-S/Medium text-red-500'>{errors?.password?.message}</p>
+              <p className='inputCustom-help'>{errors?.password?.message}</p>
             </div>
 
             <div className='space-y-2'>
               <input
                 id='newPassword'
                 type='password'
-                className='inputCustom w-full content-center'
+                className={`inputCustom-textBox w-full ${
+                  errors?.newPassword ? 'error' : ''
+                }`}
                 placeholder='비밀번호 확인'
                 // @ts-ignore
                 {...register('newPassword', {
                   validate: (value) =>
-                    value === passwordWatcher || '비밀번호가 일치하지 않습니다.',
+                    value === passwordWatcher || '비밀번호가 일치하지 않아요.',
                 })}
               />
-              <p className='text-S/Medium text-red-500'>{errors?.newPassword?.message}</p>
+              <p className='inputCustom-help'>{errors?.newPassword?.message}</p>
             </div>
 
             <div className='mt-16 '>
