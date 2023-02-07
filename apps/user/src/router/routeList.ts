@@ -1,7 +1,6 @@
 import type { ComponentType } from 'react';
 
 import * as AuthRoutes from '@/pages/auth';
-import SearchResults from '@/pages/result/SearchResults';
 import SearchProducts from '@/pages/search/SearchProducts';
 import * as ReportRoutes from '@/pages/report';
 
@@ -12,7 +11,6 @@ export type TLayoutType =
   | 'FindAccountLayout';
 export const PATH = {
   SEARCH_PRODUCTS: '/',
-  SEARCH_RESULTS: '/search/results',
   SIGN_IN: '/signin',
   SIGN_UP: '/signup',
   SIGN_UP_WITH_GOOGLE: '/signup/social',
@@ -88,9 +86,9 @@ export const routeList: IRoute[] = [
     layoutType: 'Default',
   },
   {
-    description: 'getReportList',
+    description: 'ReportList',
     path: PATH.GET_REPORT_LIST,
-    component: ReportRoutes.GetReportList,
+    component: ReportRoutes.ReportList,
     layoutType: 'Default',
   },
 ];

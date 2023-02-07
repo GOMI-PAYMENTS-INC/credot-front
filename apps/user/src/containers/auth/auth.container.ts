@@ -92,8 +92,10 @@ export const AuthContainer = () => {
           navigate(path, { state: { email: res.me.email } });
         }
       },
-      onError: (err) => {
-        console.error('useMeQuery error : ', err);
+      onError: (error) => {
+        if (error instanceof Error) {
+          throw new Error(error.message, error);
+        }
         // onLogout();
       },
       // refetchOnWindowFocus: false,

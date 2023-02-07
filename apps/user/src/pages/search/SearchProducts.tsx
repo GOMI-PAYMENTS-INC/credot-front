@@ -15,7 +15,6 @@ const SearchProducts = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const keywordRef = useRef({ text: '', contury: CountryType.Vn });
   const [data, isLoading, isError] = GetQueryResult(keywordRef);
-  const [montlyKeywordColor, setMontlyKeywordColor] = useState<`300` | `900`>(`300`);
 
   const navigate = useNavigate();
 
@@ -27,6 +26,7 @@ const SearchProducts = () => {
     };
   }, []);
 
+  // TODO: iframeScreen & montlySearchVolum 합칠 수 있는 방법 생각하기
   const iframeScreen = useMemo(() => {
     if (isFalsy(_state.isSearched) && keywordRef.current.text) {
       _dispatch({ type: ActionKind.SwitchMode, payload: true });
@@ -49,9 +49,8 @@ const SearchProducts = () => {
       );
     }
     if (data && data !== true) {
-      setMontlyKeywordColor(`900`);
       const { count } = data.main;
-      return count;
+      return count!.toLocaleString();
     }
   }, [data, isLoading, keywordRef.current.text]);
 
@@ -154,8 +153,11 @@ const SearchProducts = () => {
               </div>
               <div>
                 <span
-                  className={`text-4XL/Bold text-grey-${montlyKeywordColor} lg:text-3XL/medium`}
+                  className={`text-4XL/Bold text-grey-${
+                    _state.text ? 900 : 300
+                  } lg:text-3XL/medium`}
                 >
+                  <p className={`text-4XL/Bold text-grey-300 lg:text-3XL/medium`}></p>
                   {montlySearchVolum}
                 </span>
               </div>
@@ -189,12 +191,20 @@ const SearchProducts = () => {
                           );
                         }
                         return (
-                          <li
-                            key={`${keyword.id}`}
-                            className='float-left mb-3 h-[38px] rounded-[50px] border border-grey-300 px-[10%] leading-9 odd:mr-[4%] lg:mb-2 lg:h-6'
-                          >
-                            {keyword.text}
-                          </li>
+                          <Fragment>
+                            <li
+                              key={`${keyword.id}`}
+                              id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                              className='float-left mb-3 h-[38px] rounded-[50px] border border-grey-300 px-[10%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                            >
+                              {keyword.text}
+                            </li>
+                            <Tooltip
+                              anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                              content={`월간 검색량: ${keyword.count!.toLocaleString()}`}
+                              place='bottom'
+                            />
+                          </Fragment>
                         );
                       })
                     : relativeKeyword}
@@ -208,7 +218,9 @@ const SearchProducts = () => {
                   _state.text === '' && 'opacity-30'
                 }`}
               >
-                <span className='text-L/Bold text-white'>리포트 생성하기</span>
+                <span className='text-L/Bold text-white'>
+                  {_state.text ? `'${_state.text}'로 리포트 생성하기` : '리포트 생성하기'}
+                </span>
               </button>
             </div>
           </div>

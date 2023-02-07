@@ -7,6 +7,8 @@
     ]
   },
   "scripts": {
+    "postinstall": "husky install",
+    "eslint": "yarn eslint --cache apps/user --ext .tsx ",
     "prepare": "yarn set version berry && yarn install && yarn dlx @yarnpkg/sdks vscode",
     "prepare:user": "cd apps/user && yarn set version berry && yarn install",
     "prepare:office": "cd apps/office && yarn set version berry && yarn install",
@@ -30,6 +32,8 @@
     "swiper": "^8.4.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.22",
@@ -50,6 +54,7 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
+    "husky": "^8.0.0",
     "postcss": "^8.4.18",
     "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.1.13",
