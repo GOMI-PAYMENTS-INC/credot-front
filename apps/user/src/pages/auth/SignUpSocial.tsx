@@ -77,7 +77,7 @@ const SignUpSocial = () => {
               </label>
 
               <input
-                className=' inputCustom w-full'
+                className=' inputCustom-textBox w-full'
                 type='email'
                 id='email'
                 value={userInfo?.me.email}
@@ -162,7 +162,11 @@ const SignUpSocial = () => {
             </div>
 
             <div>
-              {isValid && childIsValid && useAgree && personalAgree ? (
+              {isValid &&
+              childIsValid &&
+              useAgree &&
+              personalAgree &&
+              verifyCodeSign !== '' ? (
                 <button
                   type='submit'
                   className='button-filled-normal-xLarge-primary-false-false-true w-full'

@@ -249,7 +249,11 @@ const SignUp = () => {
             </div>
 
             <div>
-              {isValid && childIsValid && useAgree && personalAgree ? (
+              {isValid &&
+              childIsValid &&
+              useAgree &&
+              personalAgree &&
+              verifyCodeSign !== '' ? (
                 <button
                   type='submit'
                   className='button-filled-normal-xLarge-primary-false-false-true w-full'
