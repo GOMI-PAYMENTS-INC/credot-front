@@ -1,4 +1,4 @@
-import { Fragment, useReducer, useMemo, useEffect, useState } from 'react';
+import { Fragment, useReducer, useMemo, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
@@ -12,7 +12,7 @@ import {
   switchModal,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
-import { SearchModal } from '@/pages/search/UseModal';
+import { SearchModal } from '@/pages/search/SearchModal';
 import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
@@ -24,6 +24,7 @@ const SearchProducts = () => {
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
 
   useEffect(() => {
+    // window 객체에 저장된 키워드가 있을 경우, state에 매핑
     if (isFalsy(window.store) === false) {
       initializeState(window, _dispatch);
     }
@@ -69,7 +70,7 @@ const SearchProducts = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
-  console.log(_state, 'state');
+
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
