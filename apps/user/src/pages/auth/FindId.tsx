@@ -100,7 +100,7 @@ const FindId = () => {
                     <div>{account.email}</div>
                     <a href='#' className='inline-block text-L/Regular'>
                       <ReactSVG
-                        src='/assets/icons/Copy.svg'
+                        src='/assets/icons/outlined/Copy.svg'
                         className='cursor-pointer'
                         beforeInjection={(svg) => {
                           svg.setAttribute('style', 'width: 20px; fill: #595959');
