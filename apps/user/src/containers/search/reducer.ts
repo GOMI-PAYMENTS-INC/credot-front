@@ -15,6 +15,7 @@ const initialState: TState = {
   keyword: '',
   isSearched: false,
   isModalOpen: false,
+  modalType: 'SameKeywordReportExisted',
 };
 
 const reducer = (_state: TState, action: TAction) => {
@@ -40,7 +41,13 @@ const reducer = (_state: TState, action: TAction) => {
       });
       return state;
     case ActionKind.SwitchModal:
-      state.isModalOpen = action.payload;
+      if (action.payload.modalType) {
+        state.modalType = action.payload.modalType;
+      } else {
+        state.modalType = initialState.modalType;
+      }
+
+      state.isModalOpen = action.payload.isModalOpen;
     default:
       return state;
   }

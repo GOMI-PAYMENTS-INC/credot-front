@@ -5,6 +5,8 @@ import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { HTTP, defaultOptions } from '@/utils/axiosConfig';
 import { snakeize } from 'casing';
+import { MODAL_TYPE_ENUM } from '@/pages/search/UseModal';
+
 export const getKeyword = (
   event: ChangeEvent<HTMLInputElement>,
   _dispatch: Dispatch<TAction>,
@@ -42,21 +44,24 @@ export const switchMode = (_dispatch: Dispatch<TAction>, status: boolean) => {
 };
 
 export const switchModal = (
-  count: number,
   _dispatch: Dispatch<TAction>,
   status: boolean,
+  data?: any,
 ) => {
-  if (isFalsy(count)) {
-    //검색량이 없을 경우
-    _dispatch({ type: ActionKind.SwitchModal, payload: status });
-    return;
-  }
   // 검색량 300 미만
-  if (count < 300) {
-    _dispatch({ type: ActionKind.SwitchModal, payload: status });
+  const actionType = ActionKind.SwitchModal;
+  console.log(data, 'data');
+  if (status && data && data.main.count < 300) {
+    _dispatch({
+      type: actionType,
+      payload: {
+        isModalOpen: status,
+        modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
+      },
+    });
     return;
   }
-
+  _dispatch({ type: actionType, payload: { isModalOpen: status } });
   // createReport
 };
 

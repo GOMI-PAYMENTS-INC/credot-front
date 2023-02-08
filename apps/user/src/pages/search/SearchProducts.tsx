@@ -73,12 +73,7 @@ const SearchProducts = () => {
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
-        <SearchModal
-          state={_state}
-          dispatch={_dispatch}
-          type={'SameKeywordReportExisted'}
-          createdAt={'20230208'}
-        />
+        <SearchModal state={_state} dispatch={_dispatch} createdAt={'20230208'} />
       </ModalComponent>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
@@ -236,7 +231,7 @@ const SearchProducts = () => {
                   _state.keyword === '' && 'opacity-30'
                 }`}
                 disabled={_state.keyword === ''}
-                onClick={() => switchModal(0, _dispatch, true)}
+                onClick={() => switchModal(_dispatch, true, data)}
               >
                 <span className='text-L/Bold text-white'>
                   {_state.keyword
