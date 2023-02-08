@@ -36,7 +36,6 @@ const ResetPassword = () => {
   const passwordWatcher = watch('password');
   const onValid = (data: IResetPassword) => {
     if (!userInfo) {
-      console.log('없어~');
       return false;
     }
 
