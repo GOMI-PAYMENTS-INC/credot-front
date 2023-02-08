@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="fix: 빌드 오류-3">
+    <list default="true" id="ccbdaf45-8f64-41b1-a2a9-2c059731eabc" name="Changes" comment="fix: icon경로 재설정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pnp.cjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pnp.loader.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/.pnp.loader.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +21,9 @@
         <option value="TypeScript File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="develop" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -46,15 +49,7 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="feature/COR-681" />
-                    <option name="lastUsedInstant" value="1675403356" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feature/COR-770" />
-                    <option name="lastUsedInstant" value="1675072585" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feature/COR-766" />
-                    <option name="lastUsedInstant" value="1675064106" />
+                    <option name="lastUsedInstant" value="1675752500" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="develop" />
@@ -118,42 +113,42 @@
       <recent name="$PROJECT_DIR$/apps/user/src/containers/report" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.user:prod-build">
-    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="npm.prepare:user">
+    <configuration name="gen" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/apps/user/package.json" />
       <command value="run" />
       <scripts>
-        <script value="dev" />
+        <script value="gen" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="preview" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/apps/user/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="preview" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="serve:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/apps/user/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="serve:dev" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="user:prod-build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="prepare" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="user:prod-build" />
+        <script value="prepare" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="prepare:user" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prepare:user" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="user:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="user:dev" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -171,10 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.user:prod-build" />
+        <item itemvalue="npm.prepare:user" />
+        <item itemvalue="npm.prepare" />
         <item itemvalue="npm.user:prod-preview" />
-        <item itemvalue="npm.dev" />
-        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.gen" />
+        <item itemvalue="npm.user:dev" />
       </list>
     </recent_temporary>
   </component>
@@ -194,6 +190,10 @@
       <workItem from="1675070116849" duration="25446000" />
       <workItem from="1675297244286" duration="597000" />
       <workItem from="1675317996324" duration="5674000" />
+      <workItem from="1675819780007" duration="90000" />
+      <workItem from="1675819874300" duration="68000" />
+      <workItem from="1675819945466" duration="138000" />
+      <workItem from="1675820087463" duration="200000" />
     </task>
     <task id="LOCAL-00001" summary="fix: 빌드 오류">
       <created>1675749159259</created>
@@ -202,17 +202,89 @@
       <option name="project" value="LOCAL" />
       <updated>1675749159259</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="build: graphql gen">
+      <created>1675818979036</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675818979036</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/apps/user/src/pages/report/index.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/report/ReportList.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/graphql/search/query.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/modals/types.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/modals/useModalStatus.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/modals/modal.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/auth/auth.container.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/auth/find-user.container.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/auth/auth-verify-code.container.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/main.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/App.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/router/index.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/router/routeList.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/generated/graphql.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/FindNoResult.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/SignIn.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/index.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/FindId.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/not-authorized.page.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/FindIdPasswordBottom.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/SignUpSocial.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/SignUp.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/ResetPassword.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/FindPassword.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/auth/FindIdPasswordTittle.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/select-keyword-bottom-nav.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/Layout.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/Common2Section.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/SideBar.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/Defalut.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/index.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/Common1Section.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/layouts/FindAccountLayout.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/utils/axiosConfig.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/utils/config.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/utils/isFalsy.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/utils/graphql-client.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/utils/auth-token.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/atom/auth/auth-atom.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/pages/search/SearchProducts.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/graphql/auth/query.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/graphql/auth/mutation.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/components/form/sms-verify-code.form.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/report/report.container.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/search/search-result.container.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/search/index.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/search/search.js" />
+        <option value="$PROJECT_DIR$/apps/user/src/containers/search/reducer.js" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: 레이아웃 명, 구조 수정" />
     <MESSAGE value="edit: 루트 폰트 설정, 검색창 인풋창 클릭 안됨" />
     <MESSAGE value="fix: 구글로그인 버튼 안되는 버그 수정" />
     <MESSAGE value="fix: 빌드 오류" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 빌드 오류" />
+    <MESSAGE value="build: graphql gen" />
+    <MESSAGE value="fix: icon경로 재설정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: icon경로 재설정" />
   </component>
 </project>

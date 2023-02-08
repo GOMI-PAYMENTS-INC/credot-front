@@ -1477,8 +1477,8 @@
             "description": "소셜로그인 제공업체",
             "args": [],
             "type": {
-              "kind": "ENUM",
-              "name": "SocialProvider",
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2755,8 +2755,8 @@
             "description": "소셜 로그인 프로바이더",
             "args": [],
             "type": {
-              "kind": "ENUM",
-              "name": "SocialProvider",
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2808,6 +2808,22 @@
                     "ofType": null
                   }
                 }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "reportInvokeId",
+            "description": "리포트 생성 호출 식별자",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             "isDeprecated": false,

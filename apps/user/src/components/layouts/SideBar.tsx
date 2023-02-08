@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
@@ -11,7 +12,10 @@ const SideBar = () => {
   return (
     <div className='fixed left-0 top-0 h-full w-[200px] border-2 border-solid border-grey-100 bg-white'>
       <div className='flex h-20 items-center justify-evenly'>
-        <ReactSVG src='/assets/icons/OpenMenu.svg' className='h-8 w-8 cursor-pointer' />
+        <ReactSVG
+          src='/assets/icons/outlined/OpenMenu.svg'
+          className='h-8 w-8 cursor-pointer'
+        />
         <ReactSVG
           src='/assets/icons/Logo.svg'
           className='w-30 h-8 cursor-pointer'
