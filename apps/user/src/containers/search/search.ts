@@ -1,8 +1,7 @@
 import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphql-client';
-
+import { ActionKind } from '@/containers/search';
 import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
-import { TAction, ActionKind } from '@/containers/search';
 import { isFalsy } from '@/utils/isFalsy';
 
 export const getKeyword = (
@@ -31,6 +30,10 @@ export const queryKeyword = (
 
   _dispatch({ type: ActionKind.SwitchMode, payload: _switch });
   _dispatch({ type: ActionKind.SearchKeyword });
+};
+
+export const initializeState = (window: Window, _dispatch: Dispatch<TAction>) => {
+  _dispatch({ type: ActionKind.InitializeState, payload: window.store });
 };
 
 export const switchMode = (_dispatch: Dispatch<TAction>, status: boolean) => {

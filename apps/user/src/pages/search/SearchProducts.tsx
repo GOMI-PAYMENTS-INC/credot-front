@@ -6,9 +6,10 @@ import {
   getKeyword,
   queryKeyword,
   queryKeywordByClick,
+  initializeState,
   GetQueryResult,
 } from '@/containers/search';
-import { ActionKind, initialState, reducer } from '@/containers/search/reducer';
+import { initialState, reducer } from '@/containers/search/reducer';
 
 import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
@@ -21,9 +22,9 @@ const SearchProducts = () => {
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
 
   useEffect(() => {
-    return () => {
-      _dispatch({ type: ActionKind.InitializeState });
-    };
+    if (isFalsy(window.store) === false) {
+      initializeState(window, _dispatch);
+    }
   }, []);
 
   const montlySearchVolum = useMemo(() => {
@@ -69,7 +70,7 @@ const SearchProducts = () => {
 
   return (
     <Fragment>
-      <ModalComponent />
+      {/* <ModalComponent /> */}
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>

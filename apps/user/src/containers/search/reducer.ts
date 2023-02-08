@@ -8,21 +8,6 @@ export enum ActionKind {
   InitializeState = 'INITIALIZE_STATE',
 }
 
-export type TAction = {
-  type: ActionKind;
-  payload?: any;
-};
-
-type TState = {
-  //TODO: 국가 선택 가능 시  옵셔널 -> 팔수값으로 변경 (현재는 옵션이 없어 고정값으로 주고 있음)
-  country?: CountryType;
-  text: string;
-  isSearched: boolean;
-  keyword: string;
-};
-
-export type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };
-
 const initialState: TState = {
   country: CountryType.Vn,
   text: '',
@@ -41,13 +26,17 @@ const reducer = (_state: TState, action: TAction) => {
         state.keyword = action.payload;
       } else {
         state.keyword = state.text;
+        window.store = Object.assign({}, state);
       }
       return state;
     case ActionKind.SwitchMode:
       state.isSearched = action.payload;
       return state;
     case ActionKind.InitializeState:
-      return initialState;
+      Object.keys(state).forEach((key) => {
+        state[key] = action.payload[key];
+      });
+      return state;
     default:
       return state;
   }
