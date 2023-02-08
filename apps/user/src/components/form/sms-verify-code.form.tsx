@@ -132,7 +132,7 @@ const SmsVerifyCodeForm = ({
   return (
     <div className='space-y-2'>
       {useLabel && (
-        <label htmlFor='verify' className='labelCustom'>
+        <label htmlFor='verify' className='inputCustom-label'>
           휴대폰 인증
         </label>
       )}
@@ -141,7 +141,7 @@ const SmsVerifyCodeForm = ({
           {/*TODO 발송 후 input들 수정안되게 할 것*/}
           <input
             id='verify'
-            className='inputCustom w-full'
+            className={`inputCustom-textBox w-full ${errors?.phone ? 'error' : ''}`}
             type='text'
             placeholder='휴대폰번호를 숫자만 입력해주세요.'
             maxLength={11}
@@ -191,14 +191,16 @@ const SmsVerifyCodeForm = ({
           {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
         </div>
         <div>
-          <p className='text-S/Medium text-red-500'>{errors?.phone?.message}</p>
+          <p className='inputCustom-help'>{errors?.phone?.message}</p>
         </div>
       </div>
       {!!verifyCodeCount && (
         <div className='space-y-1'>
           <div className='relative w-full content-center'>
             <input
-              className='inputCustom w-full pr-[60px] '
+              className={`inputCustom-textBox w-full pr-[60px] ${
+                errors?.verifyCode ? 'error' : ''
+              }`}
               type='text'
               maxLength={6}
               placeholder='인증번호 6자리를 입력해주세요.'
@@ -227,7 +229,7 @@ const SmsVerifyCodeForm = ({
             )}
             {/* 인증번호 확인 여부에 다른 출력 끝 */}
           </div>
-          <p className='text-S/Medium text-red-500'>{errors?.verifyCode?.message}</p>
+          <p className='inputCustom-help'>{errors?.verifyCode?.message}</p>
         </div>
       )}
     </div>

@@ -14,7 +14,6 @@ export const FindAccountLayout = ({ children }: IFindAccountLayoutProps) => {
   const [activeToggle, setToggle] = useState<string>('id');
 
   useEffect((): void => {
-    console.log(pathname);
     setToggle(pathname);
   }, []);
 

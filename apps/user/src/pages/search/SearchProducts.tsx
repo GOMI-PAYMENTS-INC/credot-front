@@ -149,7 +149,7 @@ const SearchProducts = () => {
                   월간 검색량
                   <ReactSVG
                     id='anchor-montly-search-volum'
-                    src='assets/icons/Help.svg'
+                    src='assets/icons/filled/Help.svg'
                     className='ml-[7px] inline-block'
                   />
                   <Tooltip
@@ -176,7 +176,7 @@ const SearchProducts = () => {
                   이런 키워드들은 어때요?
                   <ReactSVG
                     id='anchor-keyword-tip'
-                    src='assets/icons/Help.svg'
+                    src='assets/icons/filled/Help.svg'
                     className='ml-[7px] inline-block'
                   />
                   <Tooltip

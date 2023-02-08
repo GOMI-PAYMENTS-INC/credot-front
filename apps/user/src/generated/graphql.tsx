@@ -273,7 +273,7 @@ export type User = {
   /** 소셜 provider 고유키 */
   socialId?: Maybe<Scalars['String']>;
   /** 소셜로그인 제공업체 */
-  socialProvider?: Maybe<SocialProvider>;
+  socialProvider?: Maybe<Scalars['String']>;
   /** 수정시각 */
   updatedAt: Scalars['String'];
 };
@@ -331,7 +331,7 @@ export type AccountInfoDto = {
   /** 소셜 로그인 여부 */
   isSocialLogin: Scalars['Boolean'];
   /** 소셜 로그인 프로바이더 */
-  socialProvider?: Maybe<SocialProvider>;
+  socialProvider?: Maybe<Scalars['String']>;
 };
 
 export type ResponseSearch = {
@@ -340,6 +340,8 @@ export type ResponseSearch = {
   main: SearchDto;
   /** 연관 검색 결과 */
   relations: Array<SearchDto>;
+  /** 리포트 생성 호출 식별자 */
+  reportInvokeId: Scalars['String'];
 };
 
 export type SearchDto = {
@@ -407,7 +409,7 @@ export type ChangePasswordMutation = {
       __typename?: 'accountInfoDto';
       email: string;
       isSocialLogin: boolean;
-      socialProvider?: SocialProvider | null;
+      socialProvider?: string | null;
     }>;
   };
 };
@@ -425,7 +427,7 @@ export type SendTemporaryPasswordMutation = {
       __typename?: 'accountInfoDto';
       email: string;
       isSocialLogin: boolean;
-      socialProvider?: SocialProvider | null;
+      socialProvider?: string | null;
     }>;
   };
 };
@@ -453,7 +455,7 @@ export type MeQuery = {
     profileImage?: string | null;
     joinedAt?: string | null;
     isSocialLogin: boolean;
-    socialProvider?: SocialProvider | null;
+    socialProvider?: string | null;
   };
 };
 
@@ -476,7 +478,7 @@ export type FindAccountQuery = {
       __typename?: 'accountInfoDto';
       email: string;
       isSocialLogin: boolean;
-      socialProvider?: SocialProvider | null;
+      socialProvider?: string | null;
     }>;
   };
 };
