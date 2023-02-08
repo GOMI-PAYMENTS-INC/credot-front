@@ -13,7 +13,7 @@ import { initialState, reducer } from '@/containers/search/reducer';
 
 import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
-import { ModalComponent } from '@/components/modals/modal';
+// import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
