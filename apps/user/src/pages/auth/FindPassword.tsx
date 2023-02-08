@@ -9,10 +9,19 @@ import { PATH } from '@/router/routeList';
 import { SendTemporaryPasswordResult } from '@/types/findIdentification.d';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
+import { isFalsy } from '@/utils/isFalsy';
 
 interface IFindPasswordForm {
   email: string;
 }
+
+// 전화번호 가운데 마스킹 처리
+const maskingPhone = (phone: string) => {
+  const maskingPhoneFirst = phone.slice(0, 3);
+  const maskingPhoneMid = '*'.repeat(phone.length - 7);
+  const maskingPhoneLast = phone.slice(3 + phone.length - 7, phone.length);
+  return maskingPhoneFirst + maskingPhoneMid + maskingPhoneLast;
+};
 
 const FindPassword = () => {
   const {
@@ -125,9 +134,8 @@ const FindPassword = () => {
               subTitle='회원님께서 가입하신 연락처로<br>임시 비밀번호를 발송했어요.'
             />
 
-            {/*TODO 가운데 숫자 마스킹*/}
             <div className='rounded-lg border border-grey-300 px-6 py-5 text-center text-primary-red-orange'>
-              {phone}
+              {maskingPhone(phone)}
             </div>
 
             <div>
