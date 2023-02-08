@@ -77,7 +77,7 @@ const SignUpSocial = () => {
               </label>
 
               <input
-                className=' inputCustom-textBox w-full'
+                className=' inputCustom-textbox w-full'
                 type='email'
                 id='email'
                 value={userInfo?.me.email}
@@ -109,7 +109,7 @@ const SignUpSocial = () => {
                   className='termsCheckbox peer'
                   onChange={(e) => onAllCheckbox(e.target.checked)}
                 />
-                <label htmlFor='all-agree' className='termsHeaderCheckboxLabel'>
+                <label htmlFor='all-agree' className='termsHeaderCheckbox-label'>
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                 </label>
               </div>
@@ -117,11 +117,11 @@ const SignUpSocial = () => {
                 <li className='flex items-center justify-between pl-3 '>
                   <input
                     type='checkbox'
-                    id='use-agree'
+                    id='allAgree'
                     {...register('useAgree')}
                     className='termsCheckbox peer'
                   />
-                  <label htmlFor='use-agree' className='termsBodyCheckboxLabel'>
+                  <label htmlFor='allAgree' className='termsBodyCheckbox-label'>
                     이용약관 동의(필수)
                   </label>
 
@@ -136,7 +136,7 @@ const SignUpSocial = () => {
                     {...register('personalAgree')}
                     className='termsCheckbox peer'
                   />
-                  <label htmlFor='personal-agree' className='termsBodyCheckboxLabel'>
+                  <label htmlFor='personal-agree' className='termsBodyCheckbox-label'>
                     개인정보 수집 및 이용 동의(필수)
                   </label>
 
@@ -151,7 +151,7 @@ const SignUpSocial = () => {
                     className='termsCheckbox peer'
                     {...register('marketingAgree')}
                   />
-                  <label htmlFor='marketing-agree' className='termsBodyCheckboxLabel'>
+                  <label htmlFor='marketing-agree' className='termsBodyCheckbox-label'>
                     마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
                   </label>
                   <button className='textButton-secondary-default-small-none'>
