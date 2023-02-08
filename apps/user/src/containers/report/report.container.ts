@@ -1,4 +1,4 @@
-import { HTTP, defaultOptions, HTTP_METHOD_ENUM } from '@/utils/axiosConfig';
+import { HTTP, defaultOptions } from '@/utils/axiosConfig';
 import { camelize, snakeize } from 'casing';
 
 type TReportItem = {

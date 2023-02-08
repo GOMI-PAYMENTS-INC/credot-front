@@ -10,6 +10,18 @@ type TState = {
   text: string;
   isSearched: boolean;
   keyword: string;
+  isModalOpen: boolean;
 };
 
 type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };
+
+type TCreateReportParamsType = {
+  country: string; // 국가코드
+  text: string; // 키워드
+};
+
+type TCreateReportReponseType = {
+  code: string;
+  message: string;
+  data: any;
+};

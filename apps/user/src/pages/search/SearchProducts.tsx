@@ -1,4 +1,4 @@
-import { Fragment, useReducer, useMemo, useEffect } from 'react';
+import { Fragment, useReducer, useMemo, useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
@@ -9,12 +9,13 @@ import {
   queryKeywordByClick,
   initializeState,
   GetQueryResult,
+  switchModal,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
-
+import { SearchModal } from '@/pages/search/UseModal';
 import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
-// import { ModalComponent } from '@/components/modals/modal';
+import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
@@ -68,10 +69,17 @@ const SearchProducts = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
-
+  console.log(_state, 'state');
   return (
     <Fragment>
-      {/* <ModalComponent /> */}
+      <ModalComponent isOpen={_state.isModalOpen}>
+        <SearchModal
+          state={_state}
+          dispatch={_dispatch}
+          type={'SameKeywordReportExisted'}
+          createdAt={'20230208'}
+        />
+      </ModalComponent>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
@@ -118,7 +126,7 @@ const SearchProducts = () => {
                       value={_state.text}
                       onChange={(event) => getKeyword(event, _dispatch)}
                       onKeyDown={(event) => queryKeyword(_state.text, _dispatch, event)}
-                      className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
+                      className='input-bordered input h-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
                   <button
@@ -227,6 +235,8 @@ const SearchProducts = () => {
                 className={`w-full rounded-md bg-primary-red-orange py-4 ${
                   _state.keyword === '' && 'opacity-30'
                 }`}
+                disabled={_state.keyword === ''}
+                onClick={() => switchModal(0, _dispatch, true)}
               >
                 <span className='text-L/Bold text-white'>
                   {_state.keyword

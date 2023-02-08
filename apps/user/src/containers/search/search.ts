@@ -3,7 +3,8 @@ import { graphQLClient } from '@/utils/graphql-client';
 import { ActionKind } from '@/containers/search';
 import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-
+import { HTTP, defaultOptions } from '@/utils/axiosConfig';
+import { snakeize } from 'casing';
 export const getKeyword = (
   event: ChangeEvent<HTMLInputElement>,
   _dispatch: Dispatch<TAction>,
@@ -40,6 +41,25 @@ export const switchMode = (_dispatch: Dispatch<TAction>, status: boolean) => {
   _dispatch({ type: ActionKind.SwitchMode, payload: status });
 };
 
+export const switchModal = (
+  count: number,
+  _dispatch: Dispatch<TAction>,
+  status: boolean,
+) => {
+  if (isFalsy(count)) {
+    //검색량이 없을 경우
+    _dispatch({ type: ActionKind.SwitchModal, payload: status });
+    return;
+  }
+  // 검색량 300 미만
+  if (count < 300) {
+    _dispatch({ type: ActionKind.SwitchModal, payload: status });
+    return;
+  }
+
+  // createReport
+};
+
 export const GetQueryResult = (keyword: string) => {
   const { data, isLoading, isError } = useSearchQuery(
     graphQLClient,
@@ -54,4 +74,9 @@ export const GetQueryResult = (keyword: string) => {
   );
   const response = data?.search;
   return [response, isLoading, isError];
+};
+
+const REPORT_URL = 'api/v1/report';
+export const createReport = (params: TCreateReportParamsType) => {
+  HTTP.post(REPORT_URL, { ...defaultOptions, params: snakeize({ report: params }) });
 };

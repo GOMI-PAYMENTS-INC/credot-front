@@ -6,6 +6,7 @@ export enum ActionKind {
   SwitchMode = 'SWITCH_MODE',
   GetSearchResults = 'GET_SEARCH_RESULTS',
   InitializeState = 'INITIALIZE_STATE',
+  SwitchModal = 'SWITCH_MODAL',
 }
 
 const initialState: TState = {
@@ -13,6 +14,7 @@ const initialState: TState = {
   text: '',
   keyword: '',
   isSearched: false,
+  isModalOpen: false,
 };
 
 const reducer = (_state: TState, action: TAction) => {
@@ -37,6 +39,8 @@ const reducer = (_state: TState, action: TAction) => {
         state[key] = action.payload[key];
       });
       return state;
+    case ActionKind.SwitchModal:
+      state.isModalOpen = action.payload;
     default:
       return state;
   }
