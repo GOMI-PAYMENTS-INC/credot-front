@@ -17,7 +17,7 @@ interface IConfirmClickEvent {
 }
 interface IModalType {
   title: string;
-  content: string;
+  content: JSX.Element;
   onCancel: ICancelClickEvent;
   onConfirm?: IConfirmClickEvent;
 }
@@ -34,7 +34,7 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
         return {
           title: '키워드 수요가 많지 않아요!',
-          content: '다른 키워드로 리포트를 생성하는걸 권장드려요.',
+          content: <p>다른 키워드로 리포트를 생성하는걸 권장드려요.</p>,
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: () => switchModal(dispatch, false),
@@ -50,7 +50,13 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
       case MODAL_TYPE_ENUM.NotBeOverDayReport:
         return {
           title: '24시간 이내로 발행한 동일한 키워드 리포트가 있어요.',
-          content: `생성일 : ${createdAt} 다른 키워드로 다시 검색해주세요.`,
+          content: (
+            <p>
+              생성일 : {`${createdAt}`}
+              <br />
+              다른 키워드로 다시 검색해주세요.
+            </p>
+          ),
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: () => switchModal(dispatch, false),
@@ -60,7 +66,13 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
       default:
         return {
           title: '동일한 키워드 리포트가 있어요.',
-          content: `최근 생성일 : ${createdAt} \n 리포트를 새로 생성할까요?`,
+          content: (
+            <p>
+              최근 생성일 : {`${createdAt}`}
+              <br />
+              리포트를 새로 생성할까요?
+            </p>
+          ),
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: () => switchModal(dispatch, false),
@@ -82,7 +94,11 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
       <header>
         <h3 className='text-center text-2XL/Bold'>{modal.title}</h3>
       </header>
-      {modal.content && <section className='pt-6 text-L/Medium'>{modal.content}</section>}
+      {modal.content && (
+        <section className='pt-6 text-L/Medium'>
+          <p>{modal.content}</p>
+        </section>
+      )}
 
       <footer className='flex justify-between pt-8'>
         <button
@@ -92,7 +108,7 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
         >
           {modal.onCancel.name}
         </button>
-        {modal.onConfirm ? (
+        {modal.onConfirm && (
           <button
             type='button'
             className='button-filled-normal-large-primary-false-false-true h-[48px] w-[172px] border-none bg-orange-500'
@@ -100,7 +116,7 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
           >
             {modal.onConfirm.name}
           </button>
-        ) : null}
+        )}
       </footer>
     </Fragment>
   );
