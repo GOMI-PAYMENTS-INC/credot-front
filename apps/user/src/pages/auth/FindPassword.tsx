@@ -14,6 +14,14 @@ interface IFindPasswordForm {
   email: string;
 }
 
+// 전화번호 가운데 마스킹 처리
+const maskingPhone = (phone: string) => {
+  return phone
+    .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+    .split('-')
+    .reduce((pre, cur, idx) => (idx === 1 ? pre + '****' : pre + cur), '');
+};
+
 const FindPassword = () => {
   const {
     onSendTemporaryPassword,
@@ -125,9 +133,8 @@ const FindPassword = () => {
               subTitle='회원님께서 가입하신 연락처로<br>임시 비밀번호를 발송했어요.'
             />
 
-            {/*TODO 가운데 숫자 마스킹*/}
             <div className='rounded-lg border border-grey-300 px-6 py-5 text-center text-primary-red-orange'>
-              {phone}
+              {maskingPhone(phone)}
             </div>
 
             <div>
