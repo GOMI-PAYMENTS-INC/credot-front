@@ -78,6 +78,7 @@ export const AuthContainer = () => {
   };
 
   // 회원정보 가져오기
+
   const {
     data: userInfo,
     isLoading: isLoadingUserInfo,
@@ -96,6 +97,7 @@ export const AuthContainer = () => {
       },
       onError: (error) => {
         if (error instanceof Error) {
+          console.log(error, 'error : )');
           throw new Error(error.message, error);
         }
         // onLogout();
@@ -284,15 +286,6 @@ export const AuthContainer = () => {
         setSendTemporaryPasswordResponseStatus(
           error.response.errors[0].extensions.exception.status,
         );
-
-        // if (
-        //   error.response.errors[0].extensions.exception.status ===
-        //   SendTemporaryPasswordResult.NOTMATCHCODE
-        // ) {
-        //   toast.error('올바른 인증코드가 아닙니다.');
-        // } else {
-        //   // navigate(PATH.findNoResult);
-        // }
       },
     });
 
@@ -305,7 +298,7 @@ export const AuthContainer = () => {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
       refetchUserInfo();
     }
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     // 로그인한 상태인지 확인
@@ -351,13 +344,6 @@ export const AuthContainer = () => {
       },
     );
   }, []);
-
-  // 로그인 토큰이 남아있는 경우, 유저 정보 가져오기
-  useEffect(() => {
-    if (authTokenStorage.getToken() && !isLogin) {
-      refetchUserInfo();
-    }
-  }, [isLogin]);
 
   return {
     onSendSmsVerifyCode,
