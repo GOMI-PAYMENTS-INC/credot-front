@@ -26,8 +26,8 @@ const reducer = (_state: TState, action: TAction) => {
         state.keyword = action.payload;
       } else {
         state.keyword = state.text;
-        window.store = Object.assign({}, state);
       }
+      window.store = Object.assign({}, state);
       return state;
     case ActionKind.SwitchMode:
       state.isSearched = action.payload;
