@@ -9,7 +9,6 @@ import { PATH } from '@/router/routeList';
 import { SendTemporaryPasswordResult } from '@/types/findIdentification.d';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
-import { isFalsy } from '@/utils/isFalsy';
 
 interface IFindPasswordForm {
   email: string;
@@ -17,10 +16,10 @@ interface IFindPasswordForm {
 
 // 전화번호 가운데 마스킹 처리
 const maskingPhone = (phone: string) => {
-  const maskingPhoneFirst = phone.slice(0, 3);
-  const maskingPhoneMid = '*'.repeat(phone.length - 7);
-  const maskingPhoneLast = phone.slice(3 + phone.length - 7, phone.length);
-  return maskingPhoneFirst + maskingPhoneMid + maskingPhoneLast;
+  return phone
+    .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+    .split('-')
+    .reduce((pre, cur, idx) => (idx === 1 ? pre + '****' : pre + cur), '');
 };
 
 const FindPassword = () => {
