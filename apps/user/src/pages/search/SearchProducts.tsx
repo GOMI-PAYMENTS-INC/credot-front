@@ -2,6 +2,7 @@ import { Fragment, useReducer, useMemo, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
+import { replaceOverLength } from '@/utils/replaceOverLength';
 import {
   getKeyword,
   queryKeyword,
@@ -94,7 +95,17 @@ const SearchProducts = () => {
                   className='bg-transparent py-3 text-S/Medium'
                 >
                   <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                    Vietnam
+                    베트남
+                  </option>
+                </select>
+
+                <select
+                  name='filterOption'
+                  id='filterOption'
+                  className='ml-[20px] bg-transparent py-3 text-S/Medium'
+                >
+                  <option value='연관도순' defaultValue='연관도순'>
+                    연관도순
                   </option>
                 </select>
               </div>
@@ -219,7 +230,7 @@ const SearchProducts = () => {
               >
                 <span className='text-L/Bold text-white'>
                   {_state.keyword
-                    ? `'${_state.keyword}'로 리포트 생성하기`
+                    ? `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`
                     : '리포트 생성하기'}
                 </span>
               </button>
