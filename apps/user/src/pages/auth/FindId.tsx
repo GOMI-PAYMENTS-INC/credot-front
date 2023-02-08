@@ -106,7 +106,7 @@ const FindId = () => {
                     <a href='#' className='inline-block text-L/Regular'>
                       {/*TODO 클립보드 기능 넣어야함*/}
                       <ReactSVG
-                        src='/assets/icons/Copy.svg'
+                        src='/assets/icons/outlined/Copy.svg'
                         className='cursor-pointer'
                         beforeInjection={(svg) => {
                           svg.setAttribute('style', 'width: 20px; fill: #595959');
