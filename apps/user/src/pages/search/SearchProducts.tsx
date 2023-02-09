@@ -1,19 +1,19 @@
-import { Fragment, useReducer, useMemo, useEffect } from 'react';
+import { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
+import { Tooltip } from 'react-tooltip';
+
+import {
+  getKeyword,
+  GetQueryResult,
+  initializeState,
+  queryKeyword,
+  queryKeywordByClick,
+} from '@/containers/search';
+import { initialState, reducer } from '@/containers/search/reducer';
+import { CountryType } from '@/generated/graphql';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import {
-  getKeyword,
-  queryKeyword,
-  queryKeywordByClick,
-  initializeState,
-  GetQueryResult,
-} from '@/containers/search';
-import { initialState, reducer } from '@/containers/search/reducer';
-
-import { Tooltip } from 'react-tooltip';
-import { CountryType } from '@/generated/graphql';
 // import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
