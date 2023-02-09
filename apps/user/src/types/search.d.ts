@@ -23,7 +23,7 @@ type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };
 
 type TCreateReportParamsType = {
   country: string; // 국가코드
-  text: string; // 키워드
+  reportInvokeId: string; // 키워드 아이디
 };
 
 type TCreateReportReponseType = {

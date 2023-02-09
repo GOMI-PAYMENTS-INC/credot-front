@@ -24,6 +24,7 @@ const reducer = (_state: TState, action: TAction) => {
     case ActionKind.GetKeyword:
       state.text = action.payload;
       return state;
+
     case ActionKind.SearchKeyword:
       if (action.payload) {
         state.keyword = action.payload;
@@ -32,14 +33,17 @@ const reducer = (_state: TState, action: TAction) => {
       }
       window.store = Object.assign({}, state);
       return state;
+
     case ActionKind.SwitchMode:
       state.isSearched = action.payload;
       return state;
+
     case ActionKind.InitializeState:
       Object.keys(state).forEach((key) => {
         state[key] = action.payload[key];
       });
       return state;
+
     case ActionKind.SwitchModal:
       if (action.payload.modalType) {
         state.modalType = action.payload.modalType;

@@ -24,26 +24,30 @@ interface IModalType {
 
 interface ISearchModalPrpos {
   createdAt: string;
-  state: TState;
-  dispatch: Dispatch<TAction>;
+  data?: any;
+  _state: TState;
+  _dispatch: Dispatch<TAction>;
 }
 
-export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) => {
+export const SearchModal = ({
+  _state,
+  _dispatch,
+  createdAt,
+  data,
+}: ISearchModalPrpos) => {
   const modalType = () => {
-    switch (state.modalType) {
+    switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
         return {
           title: '키워드 수요가 많지 않아요!',
           content: <p>다른 키워드로 리포트를 생성하는걸 권장드려요.</p>,
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal(dispatch, false),
+            cancelEvent: () => switchModal({ _dispatch }),
           },
           onConfirm: {
             name: '그래도 생성하기',
-            confirmEvent: () => {
-              console.log('생성');
-            },
+            confirmEvent: () => switchModal({ _dispatch, _state, data }),
           },
         };
 
@@ -59,7 +63,7 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal(dispatch, false),
+            cancelEvent: () => switchModal({ _dispatch }),
           },
         };
 
@@ -75,12 +79,12 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal(dispatch, false),
+            cancelEvent: () => switchModal({ _dispatch }),
           },
           onConfirm: {
             name: '새로 생성하기',
             confirmEvent: () => {
-              console.log('생성');
+              switchModal({ _dispatch, _state, data });
             },
           },
         };
@@ -94,11 +98,7 @@ export const SearchModal = ({ state, dispatch, createdAt }: ISearchModalPrpos) =
       <header>
         <h3 className='text-center text-2XL/Bold'>{modal.title}</h3>
       </header>
-      {modal.content && (
-        <section className='pt-6 text-L/Medium'>
-          <p>{modal.content}</p>
-        </section>
-      )}
+      {modal.content && <section className='pt-6 text-L/Medium'>{modal.content}</section>}
 
       <footer className='flex justify-between pt-8'>
         <button

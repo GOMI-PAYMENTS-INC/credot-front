@@ -502,6 +502,7 @@ export type SearchQuery = {
   __typename?: 'Query';
   search: {
     __typename?: 'responseSearch';
+    reportInvokeId: string;
     main: {
       __typename?: 'searchDto';
       id: number;
@@ -843,6 +844,7 @@ export const useSmsVerifyCodeConfirmQuery = <
 export const SearchDocument = `
     query Search($country: CountryType!, $text: String!) {
   search(country: $country, text: $text) {
+    reportInvokeId
     main {
       id
       text

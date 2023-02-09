@@ -14,7 +14,7 @@ import {
 import { initialState, reducer } from '@/containers/search/reducer';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { Tooltip } from 'react-tooltip';
-import { CountryType } from '@/generated/graphql';
+import { SearchQuery, CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
@@ -74,7 +74,12 @@ const SearchProducts = () => {
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
-        <SearchModal state={_state} dispatch={_dispatch} createdAt={'20230208'} />
+        <SearchModal
+          _state={_state}
+          _dispatch={_dispatch}
+          createdAt={'20230209'}
+          data={data}
+        />
       </ModalComponent>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
@@ -232,7 +237,10 @@ const SearchProducts = () => {
                   _state.keyword === '' && 'opacity-30'
                 }`}
                 disabled={_state.keyword === ''}
-                onClick={() => switchModal(_dispatch, true, data)}
+                onClick={() => {
+                  const payload = { _dispatch, status: true, data: data, _state };
+                  switchModal(payload);
+                }}
               >
                 <span className='text-L/Bold text-white'>
                   {_state.keyword
