@@ -99,21 +99,14 @@ export const createReport = async (
   text: string,
   _dispatch: Dispatch<TAction>,
 ) => {
-  console.log({ params: snakeize({ report: params }) }, 'payload');
-  _dispatch({
-    type: ActionKind.SwitchModal,
-    payload: { isModalOpen: false },
-  });
-  toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
-
-  // try {
-  //   const res = await HTTP.post(REPORT_URL, {
-  //     ...defaultOptions,
-  //     params: snakeize({ report: params }),
-  //   });
-  //   console.log(res);
-  //   toast(`'${text}'가 리포트 조회 탭에 추가되었어요.`);
-  // } catch (error) {
-  //   console.error(error, 'error');
-  // }
+  try {
+    await HTTP.post(REPORT_URL, snakeize({ ...params }), defaultOptions);
+    _dispatch({
+      type: ActionKind.SwitchModal,
+      payload: { isModalOpen: false },
+    });
+    toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
+  } catch (error) {
+    toast.error('다시 시도해주세요.', { autoClose: 4000 });
+  }
 };

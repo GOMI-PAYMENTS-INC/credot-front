@@ -12,7 +12,7 @@ export enum HTTP_METHOD_ENUM {
 }
 
 export const defaultOptions: AxiosRequestConfig = {
-  timeout: 10000,
+  // timeout: 10000,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     Authorization: authTokenStorage.getToken()
@@ -40,12 +40,14 @@ export const HTTP = {
       throw new Error('unknown error');
     }
   },
-  post: async <ResponseType>(
+  post: async <ParamType, ResponseType>(
     url: string,
+    param: ParamType,
     options: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.post(url, options);
+      console.log('HTTP METHOD IS CALLED');
+      return await Axios.post(url, { ...param }, options);
     } catch (error) {
       if (error instanceof AxiosError) {
         console.error(error, 'error message');
