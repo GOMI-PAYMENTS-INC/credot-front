@@ -46,7 +46,6 @@ export const HTTP = {
     options: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      console.log('HTTP METHOD IS CALLED');
       return await Axios.post(url, { ...param }, options);
     } catch (error) {
       if (error instanceof AxiosError) {

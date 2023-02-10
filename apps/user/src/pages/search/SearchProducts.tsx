@@ -70,7 +70,7 @@ const SearchProducts = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
-  console.log(_state, '_state');
+
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
