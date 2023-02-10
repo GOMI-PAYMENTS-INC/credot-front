@@ -36,7 +36,6 @@ type TPostCreateReport = {
 };
 
 export const postCreateReport = async (params: TCreateReportParamsType) => {
-  console.log('postCreateReport is called');
   try {
     return await HTTP.post<TCreateReportParamsType, TPostCreateReport>(
       REPORT_URL.postCreateReport,
@@ -51,19 +50,15 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
 type TReportExistedResponseType = {
   code: STATUS_CODE;
   message: string;
-  data: { isDaily: boolean; createdAt: Date }[] | null;
+  data: { is_daily: boolean; created_at: Date } | null;
 };
 
-export const getReportExisted = async (queryString: { keyword: string }) => {
-  console.log('getReportExisted is called');
+export const getReportExisted = async (queryString: { text: string }) => {
   try {
-    return await HTTP.get<{ response: TReportExistedResponseType }>(
-      REPORT_URL.getReportExisted,
-      {
-        ...defaultOptions,
-        params: snakeize(queryString),
-      },
-    );
+    return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
+      ...defaultOptions,
+      params: snakeize(queryString),
+    });
   } catch (error) {
     console.error(error);
   }

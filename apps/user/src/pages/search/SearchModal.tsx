@@ -1,5 +1,6 @@
 import { Dispatch, Fragment } from 'react';
 import { switchModal } from '@/containers/search';
+import { convertTime } from '@/utils/parsingTimezone';
 
 export enum MODAL_TYPE_ENUM {
   SameKeywordReportExisted = 'SameKeywordReportExisted',
@@ -29,7 +30,7 @@ interface ISearchModalPrpos {
 }
 
 export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
-  const { createdAt } = _state;
+  const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
   const modalType = () => {
     switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
@@ -98,19 +99,22 @@ export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
       <footer className='flex justify-between pt-8'>
         <button
           type='button'
-          className='button-filled-normal-large-primary-false-false-true h-[48px] w-[172px] border-none bg-grey-200 text-grey-800'
+          className='h-[48px]border-none button-filled-normal-large-primary-false-false-true w-full bg-grey-200 text-grey-800'
           onClick={() => modal.onCancel.cancelEvent()}
         >
           {modal.onCancel.name}
         </button>
         {modal.onConfirm && (
-          <button
-            type='button'
-            className='button-filled-normal-large-primary-false-false-true h-[48px] w-[172px] border-none bg-orange-500'
-            onClick={() => modal.onConfirm!.confirmEvent()}
-          >
-            {modal.onConfirm.name}
-          </button>
+          <Fragment>
+            <div className='w-4' />
+            <button
+              type='button'
+              className='button-filled-normal-large-primary-false-false-true h-[48px] w-full border-none bg-orange-500'
+              onClick={() => modal.onConfirm!.confirmEvent()}
+            >
+              {modal.onConfirm.name}
+            </button>
+          </Fragment>
         )}
       </footer>
     </Fragment>

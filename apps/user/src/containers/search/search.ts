@@ -49,7 +49,6 @@ type TSwitchModal = {
 };
 
 type TCreateReport = {
-  mode: 'CHECK' | 'WITHOUT_CHECK';
   _dispatch: Dispatch<TAction>;
   data: any; // FIXME: any -> 타입으로 변경
   _state: TState;
@@ -61,17 +60,18 @@ const dailyChecker = (isDaily: boolean) => {
     : MODAL_TYPE_ENUM.SameKeywordReportExisted;
 };
 
-const createReport = async ({ mode, _state, data, _dispatch }: TCreateReport) => {
+const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
   const { text, country } = _state;
+  const actionType = ActionKind.SwitchModal;
   try {
-    if (mode === 'CHECK') {
-      const res = await getReportExisted({ keyword: text });
+    if (_state.isModalOpen === false) {
+      const res = await getReportExisted({ text: text });
       // 리포트가 없을 경우
-      const reportInfo = res?.data.response.data;
+      const reportInfo = res?.data;
       //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
-      if (reportInfo === null || reportInfo === undefined) {
+      if (reportInfo?.data === null || reportInfo?.data === undefined) {
         const postReport = await postCreateReport({
           reportInvokeId: reportInvokeId,
           country: country,
@@ -79,7 +79,7 @@ const createReport = async ({ mode, _state, data, _dispatch }: TCreateReport) =>
 
         if (postReport?.data.code === STATUS_CODE.SUCCESS) {
           _dispatch({
-            type: ActionKind.SwitchModal,
+            type: actionType,
             payload: {
               isModalOpen: false,
             },
@@ -88,17 +88,17 @@ const createReport = async ({ mode, _state, data, _dispatch }: TCreateReport) =>
             autoClose: 4000,
           });
         }
-        // 재요청
         return postReport;
       }
 
-      const [{ isDaily, createdAt }] = reportInfo;
+      const { is_daily, created_at } = reportInfo.data;
+
       _dispatch({
-        type: ActionKind.SwitchModal,
-        payload: { isModalOpen: true, modalType: dailyChecker(isDaily) },
+        type: actionType,
+        payload: { isModalOpen: true, modalType: dailyChecker(is_daily) },
       });
 
-      _dispatch({ type: ActionKind.UpdateCreatedAt, payload: createdAt });
+      _dispatch({ type: ActionKind.UpdateCreatedAt, payload: created_at });
 
       return res;
     }
@@ -124,25 +124,23 @@ const createReport = async ({ mode, _state, data, _dispatch }: TCreateReport) =>
 };
 
 export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
-  const actionType = ActionKind.SwitchModal;
   if (_state) {
     const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
       _dispatch({
-        type: actionType,
+        type: ActionKind.SwitchModal,
         payload: {
           isModalOpen: true,
           modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
         },
       });
-
-      return createReport({ mode: 'CHECK', _state, _dispatch, data });
+      return;
     }
 
-    return createReport({ mode: 'WITHOUT_CHECK', _state, _dispatch, data });
+    return createReport({ _state, _dispatch, data });
   }
   _dispatch({
-    type: actionType,
+    type: ActionKind.SwitchModal,
     payload: { isModalOpen: false },
   });
 };
