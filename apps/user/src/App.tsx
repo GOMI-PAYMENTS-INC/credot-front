@@ -10,7 +10,6 @@ import { Router } from '@/router';
 const App = () => (
   <RecoilRoot>
     <Router />
-
     <ToastContainer
       position='top-center'
       autoClose={1000}

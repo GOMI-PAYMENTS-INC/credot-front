@@ -6,7 +6,7 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-import { SendTemporaryPasswordResult } from '@/types/findIdentification.d';
+import { SendTemporaryPasswordResult } from '@/types/statusCode';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
 
