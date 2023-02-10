@@ -34,7 +34,7 @@ export type TCreateReportReponseType = {
 };
 const REPORT_URL = 'api/v1/report';
 
-export const GetReportList = (queryString: TReportListParamsType = {}) =>
+export const getReportList = (queryString: TReportListParamsType = {}) =>
   HTTP.get<{ results: TReportItem }>(REPORT_URL, {
     ...defaultOptions,
     params: snakeize(queryString),

@@ -8,13 +8,13 @@ import {
   queryKeyword,
   queryKeywordByClick,
   initializeState,
-  GetQueryResult,
   switchModal,
 } from '@/containers/search';
+import { GetQueryResult } from '@/containers/search/search.api';
 import { initialState, reducer } from '@/containers/search/reducer';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { Tooltip } from 'react-tooltip';
-import { SearchQuery, CountryType } from '@/generated/graphql';
+import { CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
@@ -70,16 +70,11 @@ const SearchProducts = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
-
+  console.log(_state, '_state');
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
-        <SearchModal
-          _state={_state}
-          _dispatch={_dispatch}
-          createdAt={'20230209'}
-          data={data}
-        />
+        <SearchModal _state={_state} _dispatch={_dispatch} data={data} />
       </ModalComponent>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />

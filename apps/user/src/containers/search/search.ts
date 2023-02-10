@@ -1,11 +1,9 @@
-import { CountryType, useSearchQuery, SearchQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphql-client';
 import { ActionKind } from '@/containers/search';
 import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { HTTP, defaultOptions } from '@/utils/axiosConfig';
-import { snakeize } from 'casing';
+import { STATUS_CODE } from '@/types/statusCode';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
+import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
 
 export const getKeyword = (
@@ -32,7 +30,7 @@ export const queryKeyword = (
   }
   const _switch = isFalsy(text) === false;
 
-  _dispatch({ type: ActionKind.SwitchMode, payload: _switch });
+  _dispatch({ type: ActionKind.SearchMode, payload: _switch });
   _dispatch({ type: ActionKind.SearchKeyword });
 };
 
@@ -40,8 +38,8 @@ export const initializeState = (window: Window, _dispatch: Dispatch<TAction>) =>
   _dispatch({ type: ActionKind.InitializeState, payload: window.store });
 };
 
-export const switchMode = (_dispatch: Dispatch<TAction>, status: boolean) => {
-  _dispatch({ type: ActionKind.SwitchMode, payload: status });
+export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {
+  _dispatch({ type: ActionKind.SearchMode, payload: status });
 };
 
 type TSwitchModal = {
@@ -49,12 +47,86 @@ type TSwitchModal = {
   data?: any; // FIXME: any -> 타입으로 변경
   _state?: TState;
 };
+
+type TCreateReport = {
+  mode: 'CHECK' | 'WITHOUT_CHECK';
+  _dispatch: Dispatch<TAction>;
+  data: any; // FIXME: any -> 타입으로 변경
+  _state: TState;
+};
+
+const dailyChecker = (isDaily: boolean) => {
+  return isDaily
+    ? MODAL_TYPE_ENUM.NotBeOverDayReport
+    : MODAL_TYPE_ENUM.SameKeywordReportExisted;
+};
+
+const createReport = async ({ mode, _state, data, _dispatch }: TCreateReport) => {
+  //FIXME: 조건문이 너무 많음 리펙터링 필요
+  const { reportInvokeId } = data;
+  const { text, country } = _state;
+  try {
+    if (mode === 'CHECK') {
+      const res = await getReportExisted({ keyword: text });
+      // 리포트가 없을 경우
+      const reportInfo = res?.data.response.data;
+      //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
+      if (reportInfo === null || reportInfo === undefined) {
+        const postReport = await postCreateReport({
+          reportInvokeId: reportInvokeId,
+          country: country,
+        });
+
+        if (postReport?.data.code === STATUS_CODE.SUCCESS) {
+          _dispatch({
+            type: ActionKind.SwitchModal,
+            payload: {
+              isModalOpen: false,
+            },
+          });
+          toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, {
+            autoClose: 4000,
+          });
+        }
+        // 재요청
+        return postReport;
+      }
+
+      const [{ isDaily, createdAt }] = reportInfo;
+      _dispatch({
+        type: ActionKind.SwitchModal,
+        payload: { isModalOpen: true, modalType: dailyChecker(isDaily) },
+      });
+
+      _dispatch({ type: ActionKind.UpdateCreatedAt, payload: createdAt });
+
+      return res;
+    }
+
+    const postReport = await postCreateReport({
+      reportInvokeId: reportInvokeId,
+      country: country,
+    });
+    if (postReport?.data.code === STATUS_CODE.SUCCESS) {
+      _dispatch({
+        type: ActionKind.SwitchModal,
+        payload: {
+          isModalOpen: false,
+        },
+      });
+      toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
+    }
+
+    return postReport;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
   const actionType = ActionKind.SwitchModal;
   if (_state) {
-    const { main, reportInvokeId } = data;
-    const { text, country } = _state;
-
+    const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
       _dispatch({
         type: actionType,
@@ -63,50 +135,14 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
           modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
         },
       });
-      return;
+
+      return createReport({ mode: 'CHECK', _state, _dispatch, data });
     }
-    // _dispatch({ type: actionType, payload: { isModalOpen: true } });
-    createReport({ reportInvokeId: reportInvokeId, country: country }, text, _dispatch);
-    return;
+
+    return createReport({ mode: 'WITHOUT_CHECK', _state, _dispatch, data });
   }
   _dispatch({
     type: actionType,
-    payload: {
-      isModalOpen: false,
-    },
+    payload: { isModalOpen: false },
   });
-};
-
-export const GetQueryResult = (keyword: string) => {
-  const { data, isLoading, isError } = useSearchQuery(
-    graphQLClient,
-    {
-      country: CountryType.Vn,
-      text: keyword,
-    },
-    {
-      enabled: isFalsy(keyword) === false,
-      refetchOnWindowFocus: false,
-    },
-  );
-  const response = data?.search;
-  return [response, isLoading, isError];
-};
-
-const REPORT_URL = 'api/v1/report';
-export const createReport = async (
-  params: TCreateReportParamsType,
-  text: string,
-  _dispatch: Dispatch<TAction>,
-) => {
-  try {
-    await HTTP.post(REPORT_URL, snakeize({ ...params }), defaultOptions);
-    _dispatch({
-      type: ActionKind.SwitchModal,
-      payload: { isModalOpen: false },
-    });
-    toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
-  } catch (error) {
-    toast.error('다시 시도해주세요.', { autoClose: 4000 });
-  }
 };

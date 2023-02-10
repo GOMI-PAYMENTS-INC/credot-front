@@ -15,6 +15,7 @@ export const GetQueryResult = (keyword: string) => {
       text: keyword,
     },
     {
+      //FIXME: 검색어를 입력한 후 매 이벤트마다 함수가 실행됨
       enabled: isFalsy(keyword) === false,
       refetchOnWindowFocus: false,
     },

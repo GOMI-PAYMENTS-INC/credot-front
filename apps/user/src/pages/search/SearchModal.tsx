@@ -23,18 +23,13 @@ interface IModalType {
 }
 
 interface ISearchModalPrpos {
-  createdAt: string;
   data?: any;
   _state: TState;
   _dispatch: Dispatch<TAction>;
 }
 
-export const SearchModal = ({
-  _state,
-  _dispatch,
-  createdAt,
-  data,
-}: ISearchModalPrpos) => {
+export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
+  const { createdAt } = _state;
   const modalType = () => {
     switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:

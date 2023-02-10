@@ -17,6 +17,7 @@ type TState = {
   keyword: string;
   isModalOpen: boolean;
   modalType: TSearchModalType;
+  createdAt: string;
 };
 
 type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };

@@ -1,12 +1,14 @@
 import { CountryType } from '@/generated/graphql';
+import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
 
 export enum ActionKind {
   GetKeyword = 'GET_KEYWORD',
   SearchKeyword = 'SEARCH_KEYWORD',
-  SwitchMode = 'SWITCH_MODE',
+  SearchMode = 'SEARCH_MODE',
   GetSearchResults = 'GET_SEARCH_RESULTS',
   InitializeState = 'INITIALIZE_STATE',
   SwitchModal = 'SWITCH_MODAL',
+  UpdateCreatedAt = 'UPDATE_CREATED_AT',
 }
 
 const initialState: TState = {
@@ -15,7 +17,8 @@ const initialState: TState = {
   keyword: '',
   isSearched: false,
   isModalOpen: false,
-  modalType: 'SameKeywordReportExisted',
+  modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
+  createdAt: '',
 };
 
 const reducer = (_state: TState, action: TAction) => {
@@ -23,6 +26,10 @@ const reducer = (_state: TState, action: TAction) => {
   switch (action.type) {
     case ActionKind.GetKeyword:
       state.text = action.payload;
+      return state;
+
+    case ActionKind.UpdateCreatedAt:
+      state.createdAt = action.payload;
       return state;
 
     case ActionKind.SearchKeyword:
@@ -34,7 +41,7 @@ const reducer = (_state: TState, action: TAction) => {
       window.store = Object.assign({}, state);
       return state;
 
-    case ActionKind.SwitchMode:
+    case ActionKind.SearchMode:
       state.isSearched = action.payload;
       return state;
 
@@ -52,6 +59,7 @@ const reducer = (_state: TState, action: TAction) => {
       }
 
       state.isModalOpen = action.payload.isModalOpen;
+
     default:
       return state;
   }
