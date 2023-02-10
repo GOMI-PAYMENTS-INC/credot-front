@@ -1,7 +1,7 @@
 import { HTTP, defaultOptions, HTTP_METHOD_ENUM } from '@/utils/axiosConfig';
 import { camelize, snakeize } from 'casing';
 
-type TReportItem = {
+export type TReportItem = {
   id: Number;
   userId: Number;
   reportUniqueId: String;
