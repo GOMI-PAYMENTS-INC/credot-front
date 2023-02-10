@@ -334,15 +334,19 @@ export const AuthContainer = () => {
       client_id: GlobalEnv.viteGoogleClientId,
       callback: handleCredentialResponse,
     });
-    window.google?.accounts.id.renderButton(
-      document.getElementById('google-login-button') as HTMLElement,
-      {
-        type: 'standard',
-        theme: 'outline',
-        width: '416px',
-        shape: 'square',
-      },
-    );
+
+    if (pathname === PATH.SIGN_IN) {
+      window.google?.accounts.id.renderButton(
+        document.getElementById('google-login-button') as HTMLElement,
+        {
+          type: 'standard',
+          theme: 'outline',
+          text: 'signin_with',
+          width: '416px',
+          shape: 'square',
+        },
+      );
+    }
   }, []);
 
   return {

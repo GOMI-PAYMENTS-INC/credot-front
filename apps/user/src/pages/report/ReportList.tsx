@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import '@/pages/report/reportList.css';
 
 import { useEffect } from 'react';
@@ -8,43 +8,62 @@ import {
   GetReportList,
   TReportItem,
   TReportListParamsType,
-} from '@/containers/report/report.container';
+} from '@/containers/report/report';
 import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
 import { IStatusTagProps, StatusTag } from '@/components/statusTag';
 import { ReactSVG } from 'react-svg';
 import { AxiosResponse } from 'axios';
-
-const initialReportList: TReportItem[] = [
-  {
-    id: 0,
-    userId: 0,
-    reportUniqueId: '',
-    countryCode: '',
-    channel: '',
-    keyword: '',
-    isMain: false,
-    sortBy: '',
-    itemCount: 0,
-    totalItemCount: 0,
-    averagePrice: 0,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+import { isFalsy } from '@/utils/isFalsy';
+import { data } from 'autoprefixer';
 
 const ReportList = () => {
+  // const [fetchState, setFetchState] = useState(FetchState.DEFAULT);
   const [reportList, setReportList] = useState<TReportItem[]>([]);
 
   useEffect(() => {
-    GetReportList().then(({ data }: AxiosResponse) => {
-      console.log(data);
-      setReportList(data.data.reports);
-    });
+    // const self = this;
+    // GetReportList().then(
+    //   ({ data }: AxiosResponse) => {
+    //     console.log(data);
+    //     setReportList(data.data.reports);
+    //   },
+    //   (error) => {
+    //     self.setState({
+    //       isLoaded: false,
+    //       error,
+    //     });
+    //   },
+    // );
   }, []);
 
   const IMG_PATH = '../../assets/images';
   const navigate = useNavigate();
+  //
+  // const list = useMemo(() => {
+  //   if (isFalsy(reportList) && isLoading === true) {
+  //     return [1, 2, 3, 4, 5, 6];
+  //   }
+  //   if (isFalsy(_state.keyword) === false && isLoading === true) {
+  //     return (
+  //       <div className='scale-[0.3] pb-20'>
+  //         <div id='loader' />
+  //       </div>
+  //     );
+  //   }
+  //   if (data && data !== true) {
+  //     const { relations } = data;
+  //     if (isFalsy(relations)) {
+  //       return (
+  //         <div className='flex h-[150px] items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
+  //           연관 키워드가 없어요
+  //         </div>
+  //       );
+  //     }
+  //     return relations;
+  //   }
+  // }, [data, isLoading, _state.keyword]);
+
   return (
     <Fragment>
       <div className='absolute w-full px-[30px]'>
@@ -107,7 +126,7 @@ const ReportList = () => {
             </thead>
 
             <tbody>
-              {false && (
+              {reportList.length && (
                 <tr>
                   <td colSpan={8}>
                     <div className='grid justify-items-center pt-[104px] text-center'>

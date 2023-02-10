@@ -14,6 +14,7 @@
     "prepare:office": "cd apps/office && yarn set version berry && yarn install",
     "user:dev": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run dev",
     "user:dev-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:dev",
+    "user:dev-preview": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run serve:dev",
     "user:prod-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:prod",
     "user:prod-preview": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run serve:prod",
     "office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev",
