@@ -1,16 +1,5 @@
 import { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
-import {
-  getKeyword,
-  GetQueryResult,
-  initializeState,
-  queryKeyword,
-  queryKeywordByClick,
-} from '@/containers/search';
-import { initialState, reducer } from '@/containers/search/reducer';
-import { CountryType } from '@/generated/graphql';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
