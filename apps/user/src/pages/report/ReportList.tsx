@@ -4,13 +4,13 @@ import '@/pages/report/reportList.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { GetReportList } from '@/containers/report/report.container';
+import { getReportList } from '@/containers/report/report.container';
 import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
 
 const ReportList = () => {
   useEffect(() => {
-    GetReportList();
+    getReportList();
   }, []);
 
   const IMG_PATH = '../../assets/images';

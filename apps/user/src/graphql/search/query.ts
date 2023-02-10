@@ -4,6 +4,7 @@ const searchQuery = {
   search: gql`
     query Search($country: CountryType!, $text: String!) {
       search(country: $country, text: $text) {
+        reportInvokeId
         main {
           id
           text

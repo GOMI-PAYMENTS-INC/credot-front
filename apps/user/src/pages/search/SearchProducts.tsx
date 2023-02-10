@@ -14,7 +14,19 @@ import { CountryType } from '@/generated/graphql';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-// import { ModalComponent } from '@/components/modals/modal';
+import {
+  getKeyword,
+  queryKeyword,
+  queryKeywordByClick,
+  initializeState,
+  switchModal,
+} from '@/containers/search';
+import { GetQueryResult } from '@/containers/search/search.api';
+import { initialState, reducer } from '@/containers/search/reducer';
+import { SearchModal } from '@/pages/search/SearchModal';
+import { Tooltip } from 'react-tooltip';
+import { CountryType } from '@/generated/graphql';
+import { ModalComponent } from '@/components/modals/modal';
 
 const SearchProducts = () => {
   const IMG_PATH = '../../assets/images';
@@ -23,6 +35,7 @@ const SearchProducts = () => {
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
 
   useEffect(() => {
+    // window 객체에 저장된 키워드가 있을 경우, state에 매핑
     if (isFalsy(window.store) === false) {
       initializeState(window, _dispatch);
     }
@@ -71,14 +84,16 @@ const SearchProducts = () => {
 
   return (
     <Fragment>
-      {/* <ModalComponent /> */}
+      <ModalComponent isOpen={_state.isModalOpen}>
+        <SearchModal _state={_state} _dispatch={_dispatch} data={data} />
+      </ModalComponent>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
       </div>
 
       <div className='relative col-span-6 grid items-center'>
         <div className='max-w-[480px] pb-11  lg:pb-6'>
-          <div className=' xs:col-span-full col-span-5  col-start-2 px-8 py-[22px] px-5 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
+          <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px] px-6 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
             <div className='mb-6'>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                 <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
@@ -118,7 +133,7 @@ const SearchProducts = () => {
                       value={_state.text}
                       onChange={(event) => getKeyword(event, _dispatch)}
                       onKeyDown={(event) => queryKeyword(_state.text, _dispatch, event)}
-                      className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
+                      className='input-bordered input h-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
                     />
                   </div>
                   <button
@@ -227,6 +242,11 @@ const SearchProducts = () => {
                 className={`w-full rounded-md bg-primary-red-orange py-4 ${
                   _state.keyword === '' && 'opacity-30'
                 }`}
+                disabled={_state.keyword === ''}
+                onClick={() => {
+                  const payload = { _dispatch, status: true, data: data, _state };
+                  switchModal(payload);
+                }}
               >
                 <span className='text-L/Bold text-white'>
                   {_state.keyword
