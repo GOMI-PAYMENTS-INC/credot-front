@@ -17,7 +17,7 @@ import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
 
-const SearchProducts = () => {
+const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
 
@@ -263,4 +263,4 @@ const SearchProducts = () => {
     </Fragment>
   );
 };
-export default SearchProducts;
+export default SearchKeywords;
