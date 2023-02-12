@@ -11,4 +11,15 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+
+  preview: {
+    port: 8080,
+    proxy: {
+      '/': {
+        target: 'https://gomi-insight.gomicorp.com/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\//, ''),
+      },
+    },
+  },
 });

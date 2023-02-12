@@ -17,7 +17,7 @@ import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
 
-const SearchProducts = () => {
+const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
 
@@ -83,15 +83,15 @@ const SearchProducts = () => {
       <div className='relative col-span-6 grid items-center'>
         <div className='max-w-[480px] pb-11  lg:pb-6'>
           <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px] px-6 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
-            <div className='mb-6'>
+            <div>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                 <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
                 <span className='text-primary-red-orange'>상위 노출</span>을 원하는&nbsp;
                 <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
               </h1>
             </div>
-            <div className='mb-16 lg:mb-6'>
-              <div className='mb-2 flex items-center'>
+            <div>
+              <div className='mt-6 flex items-center'>
                 <ReactSVG src='assets/icons/VietnamFlag.svg' className='pr-[8px]' />
                 <select
                   name='country'
@@ -113,7 +113,7 @@ const SearchProducts = () => {
                   </option>
                 </select>
               </div>
-              <div className='form-control'>
+              <div className='form-control mt-2'>
                 <div className='input-group'>
                   <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
                     <input
@@ -147,8 +147,8 @@ const SearchProducts = () => {
                 </div>
               </div>
             </div>
-            <div className='mb-6 rounded-2xl border border-grey-300 bg-white px-6 py-5 '>
-              <div className='mb-5 lg:mb-4'>
+            <div className='mt-12 rounded-2xl border border-grey-300 bg-white px-6 py-5 '>
+              <div className='lg:mb-4'>
                 <h3 className='text-L/Medium lg:text-S/Regular'>
                   월간 검색량
                   <ReactSVG
@@ -163,7 +163,7 @@ const SearchProducts = () => {
                   />
                 </h3>
               </div>
-              <div>
+              <div className='mt-5'>
                 <span
                   className={`text-4XL/Bold text-grey-${
                     _state.isSearched ? 900 : 300
@@ -174,8 +174,8 @@ const SearchProducts = () => {
                 </span>
               </div>
             </div>
-            <div className='mb-6  rounded-2xl border border-grey-300 bg-white px-6 py-5 lg:mb-4'>
-              <div className='mb-5 lg:mb-4'>
+            <div className='mt-6 rounded-2xl border border-grey-300 bg-white px-6 pt-5 lg:mb-4'>
+              <div className='lg:mb-4'>
                 <h3 className='text-L/Medium lg:text-M/Regular'>
                   이런 키워드들은 어때요?
                   <ReactSVG
@@ -190,7 +190,7 @@ const SearchProducts = () => {
                   />
                 </h3>
               </div>
-              <div className='h-[150px] overflow-x-auto'>
+              <div className='mt-6 h-[170px] overflow-x-auto'>
                 <ul className='overflow-y-hidden text-center'>
                   {Array.isArray(relativeKeyword)
                     ? relativeKeyword.map((keyword) => {
@@ -198,7 +198,7 @@ const SearchProducts = () => {
                           return (
                             <li
                               key={`${keyword}_dummy`}
-                              className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6'
+                              className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%] lg:mb-2 lg:h-6'
                             />
                           );
                         }
@@ -206,7 +206,7 @@ const SearchProducts = () => {
                           <Fragment key={`${keyword.id}`}>
                             <li
                               id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                              className='float-left mb-3 h-[38px] cursor-pointer  rounded-[50px]  border border-grey-300 px-[10%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                              className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
                               onClick={() => queryKeywordByClick(keyword.text, _dispatch)}
                             >
                               {keyword.text}
@@ -226,7 +226,7 @@ const SearchProducts = () => {
               </div>
             </div>
 
-            <div>
+            <div className='mt-10'>
               <button
                 className={`w-full rounded-md bg-primary-red-orange py-4 ${
                   _state.keyword === '' && 'opacity-30'
@@ -263,4 +263,4 @@ const SearchProducts = () => {
     </Fragment>
   );
 };
-export default SearchProducts;
+export default SearchKeywords;
