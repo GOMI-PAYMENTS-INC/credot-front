@@ -90,7 +90,7 @@ const SearchProducts = () => {
                 <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
               </h1>
             </div>
-            <div className='mb-16 lg:mb-6'>
+            <div className='mb-12 lg:mb-6'>
               <div className='mb-2 flex items-center'>
                 <ReactSVG src='assets/icons/VietnamFlag.svg' className='pr-[8px]' />
                 <select
@@ -174,7 +174,7 @@ const SearchProducts = () => {
                 </span>
               </div>
             </div>
-            <div className='mb-6  rounded-2xl border border-grey-300 bg-white px-6 py-5 lg:mb-4'>
+            <div className='mb-6  rounded-2xl border border-grey-300 bg-white px-6 pt-5 lg:mb-4'>
               <div className='mb-5 lg:mb-4'>
                 <h3 className='text-L/Medium lg:text-M/Regular'>
                   이런 키워드들은 어때요?
@@ -190,7 +190,7 @@ const SearchProducts = () => {
                   />
                 </h3>
               </div>
-              <div className='h-[150px] overflow-x-auto'>
+              <div className='h-[170px] overflow-x-auto'>
                 <ul className='overflow-y-hidden text-center'>
                   {Array.isArray(relativeKeyword)
                     ? relativeKeyword.map((keyword) => {
@@ -198,7 +198,7 @@ const SearchProducts = () => {
                           return (
                             <li
                               key={`${keyword}_dummy`}
-                              className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6'
+                              className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%] lg:mb-2 lg:h-6'
                             />
                           );
                         }
@@ -206,7 +206,7 @@ const SearchProducts = () => {
                           <Fragment key={`${keyword.id}`}>
                             <li
                               id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                              className='float-left mb-3 h-[38px] cursor-pointer  rounded-[50px]  border border-grey-300 px-[10%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                              className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
                               onClick={() => queryKeywordByClick(keyword.text, _dispatch)}
                             >
                               {keyword.text}
