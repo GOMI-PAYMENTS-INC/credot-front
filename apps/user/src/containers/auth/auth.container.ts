@@ -59,6 +59,7 @@ export const AuthContainer = () => {
   const handleChangeLoginState = (state: boolean) => {
     setIsLogin(state);
   };
+
   const clearLogin = () => {
     // 로그인 토크 상태 정리
     setToken(null);
@@ -66,7 +67,7 @@ export const AuthContainer = () => {
     handleChangeLoginState(false);
     // 세션, 로컬스토리지에 저장된 토큰 삭제
     authTokenStorage.clearToken();
-
+    window.store = {};
     // 임시 비밀번호로 로그인한 상태 정리
     setTemporaryPasswordLogin(false);
     // 임시 비밀번호로 로그인한 세션 삭제
