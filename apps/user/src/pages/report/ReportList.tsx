@@ -4,11 +4,7 @@ import '@/pages/report/reportList.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  GetReportList,
-  TReportItem,
-  TReportListParamsType,
-} from '@/containers/report/report';
+import { getReportList } from '@/containers/report/report.container';
 import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
 import { IStatusTagProps, StatusTag } from '@/components/statusTag';
@@ -22,19 +18,7 @@ const ReportList = () => {
   const [reportList, setReportList] = useState<TReportItem[]>([]);
 
   useEffect(() => {
-    // const self = this;
-    // GetReportList().then(
-    //   ({ data }: AxiosResponse) => {
-    //     console.log(data);
-    //     setReportList(data.data.reports);
-    //   },
-    //   (error) => {
-    //     self.setState({
-    //       isLoaded: false,
-    //       error,
-    //     });
-    //   },
-    // );
+    getReportList();
   }, []);
 
   const IMG_PATH = '../../assets/images';

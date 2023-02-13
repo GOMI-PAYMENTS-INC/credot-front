@@ -1,4 +1,4 @@
-import { HTTP, defaultOptions, HTTP_METHOD_ENUM } from '@/utils/axiosConfig';
+import { HTTP, defaultOptions } from '@/utils/axiosConfig';
 import { camelize, snakeize } from 'casing';
 import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphql-client';
@@ -37,12 +37,8 @@ export type TCreateReportReponseType = {
 };
 const REPORT_URL = 'api/v1/report';
 
-export const GetReportList = (queryString: TReportListParamsType = {}) =>
+export const getReportList = (queryString: TReportListParamsType = {}) =>
   HTTP.get<{ results: TReportItem }>(REPORT_URL, {
     ...defaultOptions,
     params: snakeize(queryString),
   });
-
-export const createReport = (params: TCreateReportParamsType) => {
-  HTTP.post(REPORT_URL, { ...defaultOptions, params: snakeize({ report: params }) });
-};

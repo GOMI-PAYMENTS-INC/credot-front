@@ -50,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.2.0"],\
             ["autoprefixer", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.4.13"],\
             ["daisyui", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.47.0"],\
+            ["dayjs", "npm:1.11.7"],\
             ["eslint", "npm:8.32.0"],\
             ["eslint-config-airbnb", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:19.0.4"],\
             ["eslint-config-airbnb-base", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:15.0.0"],\
@@ -5188,6 +5189,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["dayjs", [\
+        ["npm:1.11.7", {\
+          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.7-d5cd5b2919-5003a7c1dd.zip/node_modules/dayjs/",\
+          "packageDependencies": [\
+            ["dayjs", "npm:1.11.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["debounce", [\
         ["npm:1.2.1", {\
           "packageLocation": "./.yarn/cache/debounce-npm-1.2.1-b09266a260-682a89506d.zip/node_modules/debounce/",\
@@ -8303,6 +8313,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.2.0"],\
             ["autoprefixer", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.4.13"],\
             ["daisyui", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.47.0"],\
+            ["dayjs", "npm:1.11.7"],\
             ["eslint", "npm:8.32.0"],\
             ["eslint-config-airbnb", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:19.0.4"],\
             ["eslint-config-airbnb-base", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:15.0.0"],\
@@ -8386,6 +8397,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.27.2"],\
             ["casing", "npm:1.1.0"],\
             ["daisyui", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.47.0"],\
+            ["dayjs", "npm:1.11.7"],\
             ["graphql", "npm:16.6.0"],\
             ["graphql-config", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.4.0"],\
             ["graphql-request", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.3.0"],\

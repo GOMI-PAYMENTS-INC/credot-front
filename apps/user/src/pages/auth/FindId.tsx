@@ -5,7 +5,7 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { FindUserContainer } from '@/containers/auth/find-user.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-import { FindAccountResult } from '@/types/findIdentification.d';
+import { FindAccountResult } from '@/types/statusCode';
 import { ReactSVG } from 'react-svg';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';

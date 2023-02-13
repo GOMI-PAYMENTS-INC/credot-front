@@ -10,3 +10,8 @@ export enum FindAccountResult {
   STRANGER = 1002,
   NOTMATCHCODE = 1001,
 }
+
+export enum STATUS_CODE {
+  SUCCESS = '0000',
+  FAILED = '1101',
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useSmsVerifyCodeConfirmQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphql-client';
+import { graphQLClient } from '@/utils/graphqlCient';
 
 export const AuthVerifyCodeContainer = () => {
   const [verifyCode, setVerifyCode] = useState<string>('');
