@@ -34,8 +34,8 @@ export const queryKeyword = (
   _dispatch({ type: ActionKind.SearchKeyword });
 };
 
-export const initializeState = (window: Window, _dispatch: Dispatch<TAction>) => {
-  _dispatch({ type: ActionKind.InitializeState, payload: window.store });
+export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
+  _dispatch({ type: ActionKind.InitializeState, payload: sessionStorage });
 };
 
 export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {

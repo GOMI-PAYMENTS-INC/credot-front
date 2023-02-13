@@ -1,5 +1,6 @@
 import { CountryType } from '@/generated/graphql';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
+import { useSesstionStorage } from '@/utils/useSessionStorage';
 
 export enum ActionKind {
   GetKeyword = 'GET_KEYWORD',
@@ -38,7 +39,8 @@ const reducer = (_state: TState, action: TAction) => {
       } else {
         state.keyword = state.text;
       }
-      window.store = Object.assign({}, state);
+      useSesstionStorage.setItem('keyword', Object.assign({}, state));
+
       return state;
 
     case ActionKind.SearchMode:

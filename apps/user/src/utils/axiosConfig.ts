@@ -1,7 +1,7 @@
 import { GlobalEnv } from '@/utils/config';
 
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
-import { authTokenStorage } from '@/utils/auth-token';
+import { authTokenStorage } from '@/utils/authToken';
 
 export enum HTTP_METHOD_ENUM {
   GET = 'GET',

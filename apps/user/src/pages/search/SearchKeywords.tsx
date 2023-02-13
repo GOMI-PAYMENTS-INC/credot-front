@@ -16,6 +16,7 @@ import { SearchModal } from '@/pages/search/SearchModal';
 import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
+import { useSesstionStorage } from '@/utils/useSessionStorage';
 
 const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
@@ -24,9 +25,10 @@ const SearchKeywords = () => {
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
 
   useEffect(() => {
-    // window 객체에 저장된 키워드가 있을 경우, state에 매핑
-    if (isFalsy(window.store) === false) {
-      initializeState(window, _dispatch);
+    const item = useSesstionStorage.getItem('keyword');
+    console.log(item, 'item');
+    if (isFalsy(item) === false) {
+      initializeState(item, _dispatch);
     }
   }, []);
 
