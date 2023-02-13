@@ -4,7 +4,7 @@ import '@/pages/report/reportList.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { getReportList } from '@/containers/report/report.container';
+import { getReportList } from '@/containers/report/report.api';
 import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
 import { IStatusTagProps, StatusTag } from '@/components/statusTag';

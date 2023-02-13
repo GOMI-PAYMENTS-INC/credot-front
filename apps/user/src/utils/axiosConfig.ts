@@ -1,5 +1,5 @@
 import { GlobalEnv } from '@/utils/config';
-
+import { camelize, snakeize } from 'casing';
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
 import { authTokenStorage } from '@/utils/authToken';
 
@@ -32,7 +32,13 @@ export const HTTP = {
     options: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.get(url, options);
+      if (options.params) {
+        options.params = snakeize(options.params);
+      }
+
+      const res = await Axios.get(url, options);
+      res.data = camelize(res.data);
+      return res;
     } catch (error) {
       if (error instanceof AxiosError) {
         console.error(error, 'error message');
@@ -44,11 +50,16 @@ export const HTTP = {
   },
   post: async <ParamType, ResponseType>(
     url: string,
-    param: ParamType,
+    params: ParamType,
     options: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.post(url, { ...param }, options);
+      if (params) {
+        params = snakeize(params);
+      }
+      const res = await Axios.post(url, { ...params }, options);
+      res.data = camelize(res.data);
+      return res;
     } catch (error) {
       if (error instanceof AxiosError) {
         console.error(error, 'error message');
