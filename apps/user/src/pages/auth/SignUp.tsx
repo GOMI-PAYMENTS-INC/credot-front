@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphql-client';
+import { graphQLClient } from '@/utils/graphqlCient';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { PATH } from '@/router/routeList';
 

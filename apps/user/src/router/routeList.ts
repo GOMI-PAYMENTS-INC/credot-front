@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 
 import * as AuthRoutes from '@/pages/auth';
-import SearchProducts from '@/pages/search/SearchProducts';
+import SearchKeywords from '@/pages/search/SearchKeywords';
 import * as ReportRoutes from '@/pages/report';
 
 export type TLayoutType =
@@ -82,7 +82,7 @@ export const routeList: IRoute[] = [
     //검색
     description: 'searchProducts',
     path: PATH.SEARCH_PRODUCTS,
-    component: SearchProducts,
+    component: SearchKeywords,
     layoutType: 'Default',
   },
   {

@@ -1,5 +1,5 @@
 import { CountryType, useSearchQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphql-client';
+import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP, defaultOptions } from '@/utils/axiosConfig';
 import { snakeize } from 'casing';
@@ -40,7 +40,7 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
     return await HTTP.post<TCreateReportParamsType, TPostCreateReport>(
       REPORT_URL.postCreateReport,
       snakeize({ ...params }),
-      defaultOptions,
+      defaultOptions(),
     );
   } catch (error) {
     console.error(error);
@@ -56,7 +56,7 @@ type TReportExistedResponseType = {
 export const getReportExisted = async (queryString: { text: string }) => {
   try {
     return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
-      ...defaultOptions,
+      ...defaultOptions(),
       params: snakeize(queryString),
     });
   } catch (error) {

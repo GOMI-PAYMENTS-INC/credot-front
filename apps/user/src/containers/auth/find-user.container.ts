@@ -5,7 +5,7 @@ import {
   FindAccountQueryVariables,
   useFindAccountQuery,
 } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphql-client';
+import { graphQLClient } from '@/utils/graphqlCient';
 
 export const FindUserContainer = () => {
   // 아이디 찾기 변수 값

@@ -33,9 +33,10 @@ import {
 } from '@/generated/graphql';
 // import { SendTemporaryPasswordResult } from '@/pages/auth/FindPassword';
 import { PATH } from '@/router/routeList';
-import { authTokenStorage } from '@/utils/auth-token';
+import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/utils/config';
-import { graphQLClient } from '@/utils/graphql-client';
+import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { graphQLClient } from '@/utils/graphqlCient';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
@@ -59,6 +60,7 @@ export const AuthContainer = () => {
   const handleChangeLoginState = (state: boolean) => {
     setIsLogin(state);
   };
+
   const clearLogin = () => {
     // 로그인 토크 상태 정리
     setToken(null);
@@ -66,6 +68,8 @@ export const AuthContainer = () => {
     handleChangeLoginState(false);
     // 세션, 로컬스토리지에 저장된 토큰 삭제
     authTokenStorage.clearToken();
+
+    useSesstionStorage.removeItem('keyword');
 
     // 임시 비밀번호로 로그인한 상태 정리
     setTemporaryPasswordLogin(false);
