@@ -1,5 +1,5 @@
 import { CountryType, useSearchQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphql-client';
+import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP, defaultOptions } from '@/utils/axiosConfig';
 import { snakeize } from 'casing';

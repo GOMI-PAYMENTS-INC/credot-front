@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, useNavigate, matchRoutes } from 'react-rout
 
 import Layout from '@/components/layouts/Layout';
 import { getComponentByPathname, PATH, routeList, TLayoutType } from '@/router/routeList';
-import { authTokenStorage } from '@/utils/auth-token';
+import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 
 export const Router = () => {
