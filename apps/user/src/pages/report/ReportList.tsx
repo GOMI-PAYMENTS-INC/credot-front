@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import '@/pages/report/reportList.css';
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
