@@ -9,7 +9,7 @@ const reportInitialState: TReportState = {
     sorted: 'R',
     currencyUnit: 0,
     basePrice: 0,
-    totalSales_amount: 0,
+    totalSalesAmount: 0,
     avgSalesAmount: 0,
     totalSalesCount: 0,
     avgSalesCount: 0,
