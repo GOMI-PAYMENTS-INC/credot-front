@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
 interface IKeywordInfoProps {

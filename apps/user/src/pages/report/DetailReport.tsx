@@ -1,15 +1,16 @@
 import { Fragment, useReducer, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMainReport } from '@/containers/report/report.api';
 
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
+
 import { isFalsy } from '@/utils/isFalsy';
 import { _getMainReport } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { ReactSVG } from 'react-svg';
+import { isTruthy } from '@/utils/isTruthy';
 
 const DetailReport = () => {
   const routeId = useParams();
@@ -28,7 +29,10 @@ const DetailReport = () => {
       <div className='absolute w-full px-[30px]'>
         <div className='flex h-[84px] items-center border border-t-0 border-b-gray-200 bg-white  px-6'>
           <div className='flex items-center'>
-            <div className='h-5 w-5 cursor-pointer pl-[7px]'>
+            <div
+              className='h-5 w-5 cursor-pointer pl-[7px]'
+              onClick={() => console.log('hi')}
+            >
               <ReactSVG src='/assets/icons/outlined/LeftArrow.svg' />
             </div>
             <h1 className='ml-[14px] text-2XL/Bold text-grey-900'>리포트</h1>
@@ -38,11 +42,14 @@ const DetailReport = () => {
 
       <div className='col-span-10 mt-[116px]'>
         <main className='space-y-[72px]'>
-          <KeywordInfo keywordInfo={main} />
-          <MartketSize />
-          <AnalysisKeyword />
-          <RecommendationOfKeyword />
-
+          {isTruthy(main.createdAt) && (
+            <Fragment>
+              <KeywordInfo keywordInfo={main} />
+              <MartketSize marketSize={main} />
+              <AnalysisKeyword analysisInfo={main} />
+              <RecommendationOfKeyword />
+            </Fragment>
+          )}
           <section></section>
         </main>
       </div>

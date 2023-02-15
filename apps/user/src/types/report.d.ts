@@ -12,10 +12,10 @@ type TMarketSize = {
   totalSalesAmount: number;
   avgSalesAmount: number;
   totalSalesCount: number;
+  avgSalesCount: number;
 };
 
 type TRecommnandKeyword = {
-  avgSalesCount: number;
   searchCount: number;
   competitionProductCount: number;
   competitionRate: number;

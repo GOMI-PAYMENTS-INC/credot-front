@@ -1,7 +1,21 @@
+import { memo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+import { formatNumber } from '@/utils/formatNumber';
+interface IMartketSize {
+  marketSize: TMarketSize;
+}
 
-export const MartketSize = () => {
+export const MartketSize = memo((props: IMartketSize) => {
+  const { totalSalesAmount, avgSalesAmount, totalSalesCount, avgSalesCount } =
+    props.marketSize;
+  const [totalAmount, avgAmount, totalCount, avgCount] = [
+    totalSalesAmount,
+    avgSalesAmount,
+    totalSalesCount,
+    avgSalesCount,
+  ].map((number) => formatNumber(number));
+
   return (
     <section className='col-span-full w-[980px]'>
       <h1 className='text-XL/Bold text-black'>
@@ -28,14 +42,14 @@ export const MartketSize = () => {
               <div className='ml-5 w-1/2'>
                 <p className='text-S/Medium text-grey-800'>매출 합계</p>
                 <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Bold text-grey-900'>100,000</span>
+                  <span className='mr-1 text-2XL/Bold text-grey-900'>{totalAmount}</span>
                   <span className='text-L/Medium text-grey-800'>원</span>
                 </div>
               </div>
               <div className='w-1/2 border-l-[1px] border-dashed pl-5'>
                 <p className='text-S/Medium text-grey-800'>평균 매출</p>
                 <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>973,200</span>
+                  <span className='mr-1 text-2XL/Regular text-grey-900'>{avgAmount}</span>
                   <span className='text-L/Medium text-grey-800'>원</span>
                 </div>
               </div>
@@ -49,14 +63,16 @@ export const MartketSize = () => {
               <div className='ml-5 w-1/2'>
                 <p className='text-S/Medium text-grey-800'>판매량 합계</p>
                 <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>73,200</span>
+                  <span className='mr-1 text-2XL/Regular text-grey-900'>
+                    {totalCount}
+                  </span>
                   <span className='text-L/Medium text-grey-800'>개</span>
                 </div>
               </div>
               <div className='w-1/2 border-l-[1px] border-dashed pl-5'>
                 <p className='text-S/Medium text-grey-800'>평균 판매량</p>
                 <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>973,200</span>
+                  <span className='mr-1 text-2XL/Regular text-grey-900'>{avgCount}</span>
                   <span className='text-L/Medium text-grey-800'>개</span>
                 </div>
               </div>
@@ -66,4 +82,4 @@ export const MartketSize = () => {
       </div>
     </section>
   );
-};
+});

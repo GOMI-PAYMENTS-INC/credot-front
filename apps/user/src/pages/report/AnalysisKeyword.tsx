@@ -1,7 +1,31 @@
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+import { formatNumber } from '@/utils/formatNumber';
+interface IAnalysisKeyword {
+  analysisInfo: TRecommnandKeyword;
+}
 
-export const AnalysisKeyword = () => {
+export const AnalysisKeyword = (props: IAnalysisKeyword) => {
+  const { analysisInfo } = props;
+
+  const [
+    searchCount,
+    competitionProductCount,
+    competitionRate,
+    cpcPrice,
+    cpcRate,
+    avgPrice,
+    evaluateStatus,
+  ] = [
+    analysisInfo.searchCount,
+    analysisInfo.competitionProductCount,
+    analysisInfo.competitionRate,
+    analysisInfo.cpcPrice,
+    analysisInfo.cpcRate,
+    analysisInfo.avgPrice,
+    analysisInfo.evaluateStatus,
+  ].map((number) => formatNumber(number));
+
   return (
     <section className='col-span-full h-[376px] w-[980px]'>
       <h1 className='text-XL/Bold text-black'>키워드 정보</h1>
@@ -71,7 +95,7 @@ export const AnalysisKeyword = () => {
                 <div className='flex h-[96px] w-[295px] items-center justify-center'>
                   <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
-                      <p className='text-XL/Bold text-grey-900'>1 : 7.8</p>
+                      <p className='text-XL/Bold text-grey-900'>{`1 : ${competitionRate}`}</p>
                       <div className='pt-1'>
                         <p className='text-XS/Medium text-grey-800 '>노출 경쟁률</p>
                       </div>
@@ -81,14 +105,16 @@ export const AnalysisKeyword = () => {
                 <div className='flex h-[72px] items-center border-t-[1px] border-dashed'>
                   <div className='flex w-1/2 flex-col items-center'>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>73,200</span>
+                      <span className='text-L/Regular text-grey-900'>{searchCount}</span>
                       <span className='pl-1 text-S/Bold text-grey-800'>건</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>검색량</div>
                   </div>
                   <div className='flex w-1/2 flex-col items-center border-l-[1px] '>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>13,200</span>
+                      <span className='text-L/Regular text-grey-900'>
+                        {competitionProductCount}
+                      </span>
                       <span className='pl-1 text-S/Bold text-grey-800'>건</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>경쟁상품 수</div>
@@ -99,7 +125,7 @@ export const AnalysisKeyword = () => {
                 <div className='flex h-[96px] w-[295px] items-center justify-center'>
                   <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
-                      <p className='text-XL/Bold text-grey-900'>10%</p>
+                      <p className='text-XL/Bold text-grey-900'>{cpcRate}%</p>
                       <div className='pt-1'>
                         <p className='text-XS/Medium text-grey-800 '>CPC 비율</p>
                       </div>
@@ -109,14 +135,14 @@ export const AnalysisKeyword = () => {
                 <div className='flex h-[72px] items-center border-t-[1px] border-dashed'>
                   <div className='flex w-1/2 flex-col items-center'>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>1,200</span>
+                      <span className='text-L/Regular text-grey-900'>{cpcPrice}</span>
                       <span className='pl-1 text-S/Bold text-grey-800'>원</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>CPC</div>
                   </div>
                   <div className='flex w-1/2 flex-col items-center border-l-[1px] '>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>173,200</span>
+                      <span className='text-L/Regular text-grey-900'>{avgPrice}</span>
                       <span className='pl-1 text-S/Bold text-grey-800'>원</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>평균 판매가</div>
