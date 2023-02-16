@@ -1,5 +1,6 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
+import { openBrowser } from '@/containers/report/report.container';
 interface IKeywordInfoProps {
   keywordInfo: KeywordInfo;
 }
@@ -27,13 +28,17 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               <span className=' text-grey-600'>기준</span>
               <span className=' text-grey-800'>{sorted}</span>
               <span className=' text-grey-600'>생성일 기준 환율</span>
-              <span className=' text-grey-800'>{`1VND = ${basePrice} KRW`}</span>
+              <span className=' text-grey-800'>{`100VND = ${basePrice} KRW`}</span>
             </div>
           </div>
         </div>
         <div className='flex h-[168px] w-[179px]'>
           <div className='pt-[30px] pl-[7px]'>
-            <button className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center '>
+            {/* TODO: 현재는 베트남 한정이지만 추후 국가 선택, 검색 기준도 쿼리에 넣어야 함 */}
+            <button
+              onClick={() => openBrowser(`https://shopee.vn/search?keyword=${text}`)}
+              className='] button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
+            >
               키워드 검색결과
               <ReactSVG className='ml-1' src='/assets/icons/outlined/Linkout.svg' />
             </button>

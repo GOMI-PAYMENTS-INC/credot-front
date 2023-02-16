@@ -13,6 +13,7 @@ type TMarketSize = {
   avgSalesAmount: number;
   totalSalesCount: number;
   avgSalesCount: number;
+  basePrice: number;
 };
 
 type TRecommnandKeyword = {
@@ -22,6 +23,7 @@ type TRecommnandKeyword = {
   cpcPrice: number;
   cpcRate: number;
   avgPrice: number;
+  basePrice: number;
   evaluateStatus: string;
 };
 

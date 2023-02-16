@@ -1,7 +1,13 @@
+import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate } from '@/containers/report/report.container';
+import {
+  convertEvaluateStatus,
+  convertScoreToText,
+} from '@/containers/report/report.constant';
+
 interface IAnalysisKeyword {
   analysisInfo: TRecommnandKeyword;
 }
@@ -9,19 +15,12 @@ interface IAnalysisKeyword {
 export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   const { analysisInfo } = props;
 
-  const [
-    cpcPrice,
-    avgPrice,
-    searchCount,
-    competitionProductCount,
-    competitionRate,
-    cpcRate,
-  ] = [
+  const [cpcPrice, avgPrice, searchCount, competitionProductCount, cpcRate] = [
     analysisInfo.cpcPrice,
     analysisInfo.avgPrice,
     analysisInfo.searchCount,
     analysisInfo.competitionProductCount,
-    analysisInfo.competitionRate,
+
     analysisInfo.cpcRate,
   ]
     .map((number, idx) => {
@@ -29,6 +28,14 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
       return convertExachangeRate(number, analysisInfo.basePrice);
     })
     .map((number) => formatNumber(number));
+
+  const keywordReport = useMemo(() => {
+    return analysisInfo.evaluateStatus
+      .split('')
+      .map((score) => convertScoreToText(score));
+  }, [analysisInfo.evaluateStatus]);
+
+  const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
 
   return (
     <section className='col-span-full h-[376px] w-[980px]'>
@@ -55,21 +62,24 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             <div className='flex h-[163px] items-center  text-center'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
                 <div className='flex h-[123px] flex-1 flex-col items-center justify-center '>
-                  <p className='text-2XL/Bold text-blue-600'>매우좋음</p>
+                  {keywordReport[0]}
+                  {/* <p className='text-2XL/Bold text-blue-600'>매우좋음</p> */}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>검색량</p>
                   </div>
                 </div>
                 <div className='flex h-[123px] flex-1 flex-col items-center justify-center border-dashed'>
                   <div className=''>
-                    <p className='text-2XL/Bold text-green-600'>좋음</p>
+                    {keywordReport[1]}
+                    {/* <p className='text-2XL/Bold text-green-600'>좋음</p> */}
                     <div className='pt-2'>
                       <p className='text-XS/Regular text-grey-800'>노출 경쟁</p>
                     </div>
                   </div>
                 </div>
                 <div className='flex h-[123px] flex-1 flex-col items-center justify-center'>
-                  <p className='text-2XL/Bold text-yellow-500'>나쁨</p>
+                  {keywordReport[2]}
+                  {/* <p className='text-2XL/Bold text-yellow-500'>나쁨</p> */}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>CPC 경쟁</p>
                   </div>
@@ -99,7 +109,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 <div className='flex h-[96px] w-[295px] items-center justify-center'>
                   <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
-                      <p className='text-XL/Bold text-grey-900'>{`1 : ${competitionRate}`}</p>
+                      <p className='text-XL/Bold text-grey-900'>{`1 : ${analysisInfo.competitionRate}`}</p>
                       <div className='pt-1'>
                         <p className='text-XS/Medium text-grey-800 '>노출 경쟁률</p>
                       </div>
@@ -168,14 +178,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             <div className='pl-[11px]'>
               <h1 className='text-M/Bold text-grey-900'>요약</h1>
               <div className='pt-1'>
-                <p className='break-all text-S/Regular text-gray-800'>
-                  수요가 많으면서 검색량 대비 경쟁상품 수가 적은 키워드로서, 상품 등록 시
-                  적극적으로 활용하기 좋은 키워드에요.
-                </p>
-                <p className='break-all text-S/Regular text-gray-800'>
-                  CPC 입찰 경쟁이 심한 키워드로서, 판매 전략이 이익보다는 초기 시장 진입을
-                  위한 공격적인 마케팅일 때 CPC광고가 적합해요.
-                </p>
+                <div className='break-all text-S/Regular text-gray-800'>{top}</div>
+                <div className='break-all text-S/Regular text-gray-800'>{bottom}</div>
               </div>
             </div>
           </div>

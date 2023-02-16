@@ -60,6 +60,7 @@ export const RecommendationOfKeyword = () => {
         </thead>
 
         <tbody>
+          <tr className='mt-3 flex' />
           <tr className='border-[1px] border-grey-300'>
             <td>
               <div className='flex'>
