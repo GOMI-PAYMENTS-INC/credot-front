@@ -1,15 +1,17 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, matchRoutes } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { PATH } from '@/router/routeList';
-import * as path from 'path';
+import { routeList } from '@/router/routeList';
+import { isIncluded } from '@/utils/isIncluded';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
   const navigation = useNavigate();
   const { pathname } = useLocation();
+  const [{ route }] = matchRoutes(routeList, pathname) || [];
+  const { path } = route;
 
   return (
     <div className='fixed left-0 top-0 h-full w-[200px] border-2 border-l-0 border-t-0 border-b-0 border-solid border-grey-100 bg-white px-2.5'>
@@ -54,7 +56,7 @@ const SideBar = () => {
             <li onClick={() => navigation(PATH.SEARCH_PRODUCTS)}>
               <div
                 className={`flex items-center rounded-lg py-2 pl-5 ${
-                  pathname === PATH.SEARCH_PRODUCTS &&
+                  isIncluded(path, PATH.SEARCH_PRODUCTS) &&
                   'bg-orange-100 text-primary-red-orange'
                 }`}
               >
@@ -65,7 +67,7 @@ const SideBar = () => {
                     svg.setAttribute(
                       'class',
                       `w-4 fill-grey-800 ${
-                        pathname === PATH.SEARCH_PRODUCTS && 'fill-orange-500'
+                        isIncluded(path, PATH.SEARCH_PRODUCTS) && 'fill-orange-500'
                       }`,
                     );
                   }}
@@ -76,7 +78,7 @@ const SideBar = () => {
             <li onClick={() => navigation(PATH.GET_REPORT_LIST)}>
               <div
                 className={`flex items-center rounded-lg py-2 pl-5 ${
-                  pathname === PATH.GET_REPORT_LIST &&
+                  isIncluded(path, PATH.GET_REPORT_LIST, PATH.ANALYSIS_REPORT_LIST) &&
                   'bg-orange-100 text-primary-red-orange '
                 }`}
               >
@@ -87,7 +89,7 @@ const SideBar = () => {
                     svg.setAttribute(
                       'class',
                       `w-4 fill-grey-800 ${
-                        pathname === PATH.GET_REPORT_LIST && 'fill-orange-500'
+                        isIncluded(path, PATH.GET_REPORT_LIST) && 'fill-orange-500'
                       }`,
                     );
                   }}
