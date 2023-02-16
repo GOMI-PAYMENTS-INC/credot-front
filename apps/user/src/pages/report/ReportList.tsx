@@ -13,7 +13,7 @@ const ReportList = () => {
   }, []);
 
   const IMG_PATH = '../../assets/images';
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   return (
     <Fragment>
       <div className='absolute w-full px-[30px]'>
@@ -84,7 +84,7 @@ const ReportList = () => {
                     </div>
                     <div className='mt-10'>
                       <button
-                        onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
+                        onClick={() => navigation(PATH.SEARCH_PRODUCTS)}
                         className='button-outlined-normal-large-primary-false-false-true'
                       >
                         키워드 검색하기

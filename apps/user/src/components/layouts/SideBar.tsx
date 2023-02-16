@@ -8,10 +8,8 @@ import * as path from 'path';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   const { pathname } = useLocation();
-
-  console.log(pathname, pathname.startsWith(PATH.GET_REPORT_LIST));
 
   return (
     <div className='fixed left-0 top-0 h-full w-[200px] border-2 border-l-0 border-t-0 border-b-0 border-solid border-grey-100 bg-white px-2.5'>
@@ -53,7 +51,7 @@ const SideBar = () => {
             />
           </div>
           <ul className='mx-4'>
-            <li onClick={() => navigate(PATH.SEARCH_PRODUCTS)}>
+            <li onClick={() => navigation(PATH.SEARCH_PRODUCTS)}>
               <div
                 className={`flex items-center rounded-lg py-2 pl-5 ${
                   pathname === PATH.SEARCH_PRODUCTS &&
@@ -75,7 +73,7 @@ const SideBar = () => {
                 <span className='ml-2'>키워드 검색</span>
               </div>
             </li>
-            <li onClick={() => navigate(PATH.GET_REPORT_LIST)}>
+            <li onClick={() => navigation(PATH.GET_REPORT_LIST)}>
               <div
                 className={`flex items-center rounded-lg py-2 pl-5 ${
                   pathname === PATH.GET_REPORT_LIST &&

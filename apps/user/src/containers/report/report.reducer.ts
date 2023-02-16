@@ -47,7 +47,7 @@ export type TReportAction = {
 
 const reportReducer = (_state: TReportState, action: TReportAction) => {
   const state = structuredClone(_state);
-  console.log(action.payload, 'payload');
+
   switch (action.type) {
     case REPORT_ACTION.INITIALIZE_DATA:
       const { type, data } = action.payload;

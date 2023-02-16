@@ -11,7 +11,7 @@ export const Router = () => {
 
   const [{ route }] = matchRoutes(routeList, pathname) || [];
 
-  const navigator = useNavigate();
+  const navigation = useNavigate();
   const isLogin = authTokenStorage.getToken() !== null;
   const [layoutType, setLayoutType] = useState<TLayoutType>('Default');
 
@@ -22,7 +22,7 @@ export const Router = () => {
       isFalsy(isLogin) &&
       [PATH.SEARCH_PRODUCTS, PATH.GET_REPORT_LIST].some((path) => path === route.path)
     ) {
-      navigator(PATH.SIGN_IN);
+      navigation(PATH.SIGN_IN);
     }
   }, [pathname]);
 

@@ -51,7 +51,7 @@ export const AuthContainer = () => {
   );
   const [isSending, setSending] = useState<boolean>(false);
   const { pathname } = useLocation();
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   // TODO 임시비밀번호 발급 오류 관리 필요함
   const [sendTemporaryPasswordResponseStatus, setSendTemporaryPasswordResponseStatus] =
@@ -78,7 +78,7 @@ export const AuthContainer = () => {
   };
   const onLogout = () => {
     clearLogin();
-    navigate(PATH.SIGN_IN);
+    navigation(PATH.SIGN_IN);
   };
 
   // 회원정보 가져오기
@@ -96,12 +96,12 @@ export const AuthContainer = () => {
         const path = !res.me.phone && PATH.SIGN_UP_WITH_GOOGLE;
 
         if (path) {
-          navigate(path, { state: { email: res.me.email } });
+          navigation(path, { state: { email: res.me.email } });
         }
       },
       onError: (error) => {
         if (error instanceof Error) {
-          console.log(error, 'error : )');
+          console.error(error, 'error : )');
           throw new Error(error.message, error);
         }
         // onLogout();
@@ -136,7 +136,7 @@ export const AuthContainer = () => {
       if (res.signup.token) {
         setToken(res.signup.token);
         authTokenStorage.setToken(isLoginStorage, res.signup.token);
-        navigate(PATH.SEARCH_PRODUCTS);
+        navigation(PATH.SEARCH_PRODUCTS);
       }
     },
     onError: () => {
@@ -166,7 +166,7 @@ export const AuthContainer = () => {
         setIdToken('');
         setToken(res.googleSignUp.token);
         authTokenStorage.setToken(isLoginStorage, res.googleSignUp.token);
-        navigate(PATH.SEARCH_PRODUCTS);
+        navigation(PATH.SEARCH_PRODUCTS);
       }
     },
     onError: () => {
@@ -198,10 +198,10 @@ export const AuthContainer = () => {
       if (res.login.popupInfo) {
         sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
         setTemporaryPasswordLogin(true);
-        navigate(PATH.REAPPLY_PASSWORD);
+        navigation(PATH.REAPPLY_PASSWORD);
       } else {
         setTemporaryPasswordLogin(false);
-        navigate(PATH.SEARCH_PRODUCTS);
+        navigation(PATH.SEARCH_PRODUCTS);
       }
     },
     onError: (err) => {
@@ -230,7 +230,7 @@ export const AuthContainer = () => {
       authTokenStorage.setToken(isLoginStorage, res.googleLogin.token);
 
       //검색페이지로 이동
-      navigate(PATH.SEARCH_PRODUCTS);
+      navigation(PATH.SEARCH_PRODUCTS);
 
       // await refetchUserInfo();
     },
@@ -257,7 +257,7 @@ export const AuthContainer = () => {
       toast.success(
         '변경 성공하였습니다. 다음번 방문부터는 변경된 비밀번호를 사용해주세요!',
       );
-      navigate(PATH.SEARCH_PRODUCTS);
+      navigation(PATH.SEARCH_PRODUCTS);
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');
@@ -328,7 +328,7 @@ export const AuthContainer = () => {
         !Object.values(PATH).find((d) => d === pathname) &&
         !pathname.startsWith(PATH.SIGN_IN)
       ) {
-        navigate(PATH.SIGN_IN);
+        navigation(PATH.SIGN_IN);
       }
 
       clearLogin();

@@ -26,7 +26,7 @@ const SearchKeywords = () => {
 
   useEffect(() => {
     const item = useSesstionStorage.getItem('keyword');
-    console.log(item, 'item');
+
     if (isFalsy(item) === false) {
       initializeState(item, _dispatch);
     }
