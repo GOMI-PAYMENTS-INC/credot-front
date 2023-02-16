@@ -1,6 +1,7 @@
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
+import { convertExachangeRate } from '@/containers/report/report.container';
 interface IAnalysisKeyword {
   analysisInfo: TRecommnandKeyword;
 }
@@ -9,22 +10,25 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   const { analysisInfo } = props;
 
   const [
+    cpcPrice,
+    avgPrice,
     searchCount,
     competitionProductCount,
     competitionRate,
-    cpcPrice,
     cpcRate,
-    avgPrice,
-    evaluateStatus,
   ] = [
+    analysisInfo.cpcPrice,
+    analysisInfo.avgPrice,
     analysisInfo.searchCount,
     analysisInfo.competitionProductCount,
     analysisInfo.competitionRate,
-    analysisInfo.cpcPrice,
     analysisInfo.cpcRate,
-    analysisInfo.avgPrice,
-    analysisInfo.evaluateStatus,
-  ].map((number) => formatNumber(number));
+  ]
+    .map((number, idx) => {
+      if (idx > 1) return number;
+      return convertExachangeRate(number, analysisInfo.basePrice);
+    })
+    .map((number) => formatNumber(number));
 
   return (
     <section className='col-span-full h-[376px] w-[980px]'>

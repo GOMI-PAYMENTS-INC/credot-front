@@ -2,19 +2,26 @@ import { memo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
+import { convertExachangeRate } from '@/containers/report/report.container';
 interface IMartketSize {
   marketSize: TMarketSize;
 }
 
 export const MartketSize = memo((props: IMartketSize) => {
-  const { totalSalesAmount, avgSalesAmount, totalSalesCount, avgSalesCount } =
+  const { totalSalesAmount, avgSalesAmount, totalSalesCount, avgSalesCount, basePrice } =
     props.marketSize;
+
   const [totalAmount, avgAmount, totalCount, avgCount] = [
     totalSalesAmount,
     avgSalesAmount,
     totalSalesCount,
     avgSalesCount,
-  ].map((number) => formatNumber(number));
+  ]
+    .map((number, idx) => {
+      if (idx > 1) return number;
+      return convertExachangeRate(number, basePrice);
+    })
+    .map((number) => formatNumber(number));
 
   return (
     <section className='col-span-full w-[980px]'>
