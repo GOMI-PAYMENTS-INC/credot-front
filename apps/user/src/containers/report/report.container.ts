@@ -1,6 +1,7 @@
 import { useState, useLayoutEffect, Dispatch } from 'react';
 import { getMainReport, getRelationReport } from './report.api';
 import { REPORT_ACTION, TReportAction } from '@/containers/report/report.reducer';
+import { TITLE } from '@/types/statusCode';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -8,14 +9,16 @@ export const openBrowser = (url: string) => {
 
 export const convertTitle = (id: string) => {
   switch (id) {
-    case 'MartketSize':
+    case TITLE.REPORT:
+      return '리포트';
+    case TITLE.MARTKET_SIZE:
       return '시장규모';
-    case 'RecommendKeyword':
+    case TITLE.RECOMMEND_KEYWORD:
       return '추천 키워드';
-    case 'KeywordInfo':
+    case TITLE.KEYWORD_INFO:
       return '키워드 정보';
     default:
-      return;
+      return id;
   }
 };
 
@@ -83,4 +86,28 @@ export const useScrollspy = (ids: string[], offset: number = 0) => {
   }, [ids, offset]);
 
   return activeId;
+};
+
+export const updateTitle = (
+  curLocation: number,
+  _dispatch: Dispatch<TReportAction>,
+  name?: string,
+) => {
+  if (curLocation < 100) {
+    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
+    return;
+  }
+  if (curLocation > 100 && curLocation < 299) {
+    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
+  }
+  if (curLocation > 299 && curLocation < 599) {
+    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.MARTKET_SIZE });
+  }
+  if (curLocation > 600) {
+    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.KEYWORD_INFO });
+  }
+};
+
+export const isToggleOpen = (_dispatch: Dispatch<TReportAction>) => {
+  _dispatch({ type: REPORT_ACTION.TOGGLE_CONTROL });
 };

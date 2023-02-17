@@ -63,9 +63,11 @@ type TGetMainReportDataType = {
   [key: string]: string | number | Date | TChannelType | TSortedType | null;
 };
 
+type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type TReportState = {
   main: TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword;
   relation: TGetRelationReportDataType;
+  scrollEvent: { title: TTitle; isOpen: boolean };
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';

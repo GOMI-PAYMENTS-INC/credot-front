@@ -24,7 +24,7 @@ export const MartketSize = memo((props: IMartketSize) => {
     .map((number) => formatNumber(number));
 
   return (
-    <section className='col-span-full w-[980px]'>
+    <section className='col-span-full'>
       <h1 className='text-XL/Bold text-black'>
         시장 규모
         <ReactSVG

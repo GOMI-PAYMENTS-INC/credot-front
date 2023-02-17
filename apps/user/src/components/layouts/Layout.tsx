@@ -4,7 +4,7 @@ import { Common2Section, Common1Section } from '@/components/layouts';
 import { TLayoutType } from '@/router/routeList';
 import { Defalut } from '@/components/layouts/Defalut';
 import { FindAccountLayout } from '@/components/layouts/FindAccountLayout';
-
+import { DetailReportSection } from './DetailReportSection';
 interface LayoutProps {
   children?: ReactNode;
   layoutType: TLayoutType;
@@ -18,6 +18,8 @@ const Layout = ({ children, layoutType }: LayoutProps) => {
         return <Common1Section>{children}</Common1Section>;
       case 'FindAccountLayout':
         return <FindAccountLayout>{children}</FindAccountLayout>;
+      case 'DetailReportLayout':
+        return <DetailReportSection>{children}</DetailReportSection>;
       default:
         return <Defalut>{children}</Defalut>;
     }
