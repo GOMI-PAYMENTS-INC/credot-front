@@ -54,7 +54,15 @@ const ReportList = () => {
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     const limit = Number(e.target.value);
     if (limit) {
-      let statePram: TReportListParamsType = initialState;
+      let statePram = {
+        page: 1,
+        limit: 10,
+        data: {
+          reports: [],
+          totalCount: 0,
+        },
+      };
+
       statePram.page = _state.page;
       statePram.limit = limit;
       setReportList({ _state: statePram, _dispatch }).then((r) => {
@@ -127,7 +135,6 @@ const ReportList = () => {
                 </th>
               </tr>
             </thead>
-
             <tbody>
               <ReportListColumn
                 response={_state.data}

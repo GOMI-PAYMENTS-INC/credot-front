@@ -1,9 +1,13 @@
 import { statusTagSentiment } from '@/types/statusTagSentiment';
-import { TReportItem } from '@/types/report';
+
 import { countryCodeEnum } from '@/types/reportData';
 
 export const reportListConverter = (item: TReportItem) => {
-  let result = {};
+  let result = {
+    status: { text: 'WAIT', sentiment: statusTagSentiment.NEUTRAL },
+    countryCode: { text: countryCodeEnum.VN, iconPath: '/assets/icons/flag/Vietnam.svg' },
+    channel: { iconPath: "'/assets/icons/shop/Shopee.svg'" },
+  };
 
   const status = () => {
     let text = '';
