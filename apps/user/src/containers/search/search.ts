@@ -11,6 +11,8 @@ export const getKeyword = (
   _dispatch: Dispatch<TAction>,
 ): void => {
   const { value } = event.target;
+
+  console.log(value);
   _dispatch({ type: ActionKind.GetKeyword, payload: value });
 };
 
@@ -24,6 +26,7 @@ export const queryKeyword = (
   _dispatch: Dispatch<TAction>,
   event: KeyboardEvent | MouseEvent,
 ) => {
+  console.log('queryKeyword');
   if (event.type === 'keydown') {
     const { key } = event as KeyboardEvent;
     if (key !== 'Enter') return;

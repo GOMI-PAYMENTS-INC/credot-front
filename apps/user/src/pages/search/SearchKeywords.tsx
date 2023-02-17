@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useReducer } from 'react';
+import { Fragment, useReducer, useMemo, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
@@ -50,7 +50,9 @@ const SearchKeywords = () => {
   }, [data, isLoading, _state.keyword]);
 
   const relativeKeyword = useMemo(() => {
+    console.log('relativeKeyword useMemo===');
     if (isFalsy(_state.keyword) && isLoading === true) {
+      console.log('1');
       return [1, 2, 3, 4, 5, 6];
     }
     if (isFalsy(_state.keyword) === false && isLoading === true) {
@@ -94,7 +96,7 @@ const SearchKeywords = () => {
             </div>
             <div>
               <div className='mt-6 flex items-center'>
-                <ReactSVG src='assets/icons/VietnamFlag.svg' className='pr-[8px]' />
+                <ReactSVG src='assets/icons/country/Vietnam.svg' className='pr-[8px]' />
                 <select
                   name='country'
                   id='country'

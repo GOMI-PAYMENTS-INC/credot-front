@@ -26,7 +26,10 @@ const reducer = (_state: TState, action: TAction) => {
   const state = structuredClone(_state);
   switch (action.type) {
     case ActionKind.GetKeyword:
+      console.log(action.payload);
+
       state.text = action.payload;
+      console.log('state', state);
       return state;
 
     case ActionKind.UpdateCreatedAt:
