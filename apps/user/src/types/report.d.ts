@@ -48,36 +48,20 @@ type TCreateReportReponseType = {
   data: any;
 };
 
+type TGetMainReportDataType = {
+  [key: string]: string | number | Date | TChannelType | TSortedType | null;
+};
+
+type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type TReportState = {
-  main: TGetMainReportDataType;
+  main: TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword;
   relation: TGetRelationReportDataType;
+  scrollEvent: { title: TTitle; isOpen: boolean };
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';
 
 type TSortedType = 'R' | 'NONE';
-
-type TGetMainReportDataType = {
-  [key: string]: string | number | Date | TChannelType | TSortedType | null;
-  text: string;
-  country: CountryType;
-  channel: TChannelType;
-  sorted: TSortedType;
-  currencyUnit: number;
-  basePrice: number;
-  totalSales_amount: number;
-  avgSalesAmount: number;
-  totalSalesCount: number;
-  avgSalesCount: number;
-  searchCount: number;
-  competitionProductCount: number;
-  competitionRate: number;
-  cpcPrice: number;
-  cpcRate: number;
-  avgPrice: number;
-  evaluateStatus: string;
-  createdAt: Date | null;
-};
 
 type TGetRelationReportDataType = {
   [key: string]: string | number | Date | null;

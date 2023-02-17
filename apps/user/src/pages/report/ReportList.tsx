@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import React, { ChangeEvent, Fragment, useMemo, useReducer, useState } from 'react';
 import '@/pages/report/reportList.css';
+=======
+import React, { Fragment } from 'react';
+>>>>>>> 2de19a1a024a3234bfc772d4b159d503427ca9af
 
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
@@ -19,6 +23,7 @@ const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, initialState);
   // const [totalCount, setTotalCount] = useState<number>(0);
 
+<<<<<<< HEAD
   useEffect(() => {
     let state: TReportListState;
     if (_state.page === undefined || _state.limit === undefined) {
@@ -68,6 +73,10 @@ const ReportList = () => {
       });
     }
   };
+=======
+  const IMG_PATH = '../../assets/images';
+  const navigation = useNavigate();
+>>>>>>> 2de19a1a024a3234bfc772d4b159d503427ca9af
   return (
     <Fragment>
       <div className='absolute w-full px-[30px]'>

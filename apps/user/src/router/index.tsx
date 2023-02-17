@@ -5,13 +5,14 @@ import Layout from '@/components/layouts/Layout';
 import { getComponentByPathname, PATH, routeList, TLayoutType } from '@/router/routeList';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
+import { isIncluded } from '@/utils/isIncluded';
 
 export const Router = () => {
   const { pathname } = useLocation();
 
   const [{ route }] = matchRoutes(routeList, pathname) || [];
 
-  const navigator = useNavigate();
+  const navigation = useNavigate();
   const isLogin = authTokenStorage.getToken() !== null;
   const [layoutType, setLayoutType] = useState<TLayoutType>('Default');
 
@@ -20,9 +21,14 @@ export const Router = () => {
 
     if (
       isFalsy(isLogin) &&
-      [PATH.SEARCH_PRODUCTS, PATH.GET_REPORT_LIST].some((path) => path === route.path)
+      isIncluded(
+        route.path,
+        PATH.SEARCH_PRODUCTS,
+        PATH.GET_REPORT_LIST,
+        PATH.ANALYSIS_REPORT_LIST,
+      )
     ) {
-      navigator(PATH.SIGN_IN);
+      navigation(PATH.SIGN_IN);
     }
   }, [pathname]);
 

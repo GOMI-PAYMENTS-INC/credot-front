@@ -35,3 +35,10 @@ export enum STATUS_CODE {
   IS_SHOPEE_SYSTEM_FAILED = '9500',
   ERROR = '9999',
 }
+
+export enum TITLE {
+  REPORT = 'Report',
+  MARTKET_SIZE = 'MartketSize',
+  KEYWORD_INFO = 'KeywordInfo',
+  RECOMMEND_KEYWORD = 'RecommendKeyword',
+}

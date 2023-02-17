@@ -17,11 +17,11 @@ interface IResetPassword {
 const ResetPassword = () => {
   const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
 
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   useEffect(() => {
     if (!isTemporaryPasswordLogin) {
-      navigate(PATH.SIGN_IN);
+      navigation(PATH.SIGN_IN);
     }
   }, []);
 

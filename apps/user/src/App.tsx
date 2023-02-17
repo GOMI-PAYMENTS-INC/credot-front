@@ -23,7 +23,7 @@ const App = () => (
       toastClassName='mt-3 z-90'
       closeButton={false}
     />
-    <ReactQueryDevtools initialIsOpen={false} />
+    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
   </RecoilRoot>
 );
 

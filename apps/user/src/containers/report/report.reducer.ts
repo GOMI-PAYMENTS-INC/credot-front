@@ -10,7 +10,7 @@ const reportInitialState: TReportState = {
     sorted: 'R',
     currencyUnit: 0,
     basePrice: 0,
-    totalSales_amount: 0,
+    totalSalesAmount: 0,
     avgSalesAmount: 0,
     totalSalesCount: 0,
     avgSalesCount: 0,
@@ -36,11 +36,15 @@ const reportInitialState: TReportState = {
     batchStatus: TBatchStatusType.NONE,
     createdAt: null,
   },
+  scrollEvent: { title: 'Report', isOpen: false },
 };
 
 export enum REPORT_ACTION {
   INITIALIZE_DATA = 'INITIALIZE_DATA',
+  SCROLL_EVENT = 'SCROLL_EVENT',
+  TOGGLE_CONTROL = 'TOGGLE_CONTROL',
 }
+
 export type TReportAction = {
   type: REPORT_ACTION;
   payload?: any; // FIXME: any 지우기
@@ -48,22 +52,31 @@ export type TReportAction = {
 
 const reportReducer = (_state: TReportState, action: TReportAction) => {
   const state = structuredClone(_state);
-  console.log(action.payload, 'payload');
+
   switch (action.type) {
-    case REPORT_ACTION.INITIALIZE_DATA:
+    case REPORT_ACTION.INITIALIZE_DATA: {
       const { type, data } = action.payload;
       if (type === 'main') {
         Object.keys(state.main).map((key) => {
           state.main[key] = data[key];
         });
+        return state;
       }
       if (type === 'relation') {
         Object.keys(state.relation).map((key) => {
           state.relation[key] = data[key];
+          return state;
         });
       }
+    }
+    case REPORT_ACTION.SCROLL_EVENT: {
+      state.scrollEvent.title = action.payload;
       return state;
-
+    }
+    case REPORT_ACTION.TOGGLE_CONTROL: {
+      state.scrollEvent.isOpen = !state.scrollEvent.isOpen;
+      return state;
+    }
     default:
       return state;
   }

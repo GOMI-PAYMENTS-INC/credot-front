@@ -1,8 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { ReactSVG } from 'react-svg';
 import { Common1Section } from '@/components/layouts/Common1Section';
-import { getComponentByPathname, PATH } from '@/router/routeList';
+import { PATH } from '@/router/routeList';
 import { Link, useLocation } from 'react-router-dom';
 
 export interface IFindAccountLayoutProps {
