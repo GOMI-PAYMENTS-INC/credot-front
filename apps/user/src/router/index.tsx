@@ -5,6 +5,7 @@ import Layout from '@/components/layouts/Layout';
 import { getComponentByPathname, PATH, routeList, TLayoutType } from '@/router/routeList';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
+import { isIncluded } from '@/utils/isIncluded';
 
 export const Router = () => {
   const { pathname } = useLocation();
@@ -20,7 +21,12 @@ export const Router = () => {
 
     if (
       isFalsy(isLogin) &&
-      [PATH.SEARCH_PRODUCTS, PATH.GET_REPORT_LIST].some((path) => path === route.path)
+      isIncluded(
+        route.path,
+        PATH.SEARCH_PRODUCTS,
+        PATH.GET_REPORT_LIST,
+        PATH.ANALYSIS_REPORT_LIST,
+      )
     ) {
       navigation(PATH.SIGN_IN);
     }
