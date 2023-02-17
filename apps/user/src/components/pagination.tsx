@@ -1,11 +1,6 @@
 import { Dispatch, Fragment } from 'react';
-import {
-  initialState,
-  ReportListActionKind,
-} from '@/containers/report/reportList.reducer';
-import { TReportListAction } from '@/types/report';
+
 import { ReactSVG } from 'react-svg';
-import { TReportListResponseData } from '@/containers/report/report.api';
 
 type TPagination = {
   total: number;

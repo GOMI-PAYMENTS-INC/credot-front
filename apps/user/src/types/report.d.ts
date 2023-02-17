@@ -1,11 +1,12 @@
+type TReportListResponseData = {
+  reports: Array<TReportItem>;
+  totalCount: number;
+};
+
 type TReportListResponse = {
   code: STATUS_CODE;
   message: string;
   data: TReportListResponseData;
-};
-type TReportListResponseData = {
-  reports: Array<TReportItem>;
-  totalCount: number;
 };
 
 type TReportListAction = {
@@ -17,6 +18,24 @@ type TReportListState = {
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
   data: TReportListResponseData;
+};
+
+type KeywordInfo = {
+  text: string;
+  country: CountryType;
+  channel: TChannelType;
+  sorted: TSortedType;
+  createdAt: Date | null;
+  currencyUnit: number;
+  basePrice: number;
+};
+
+type TMarketSize = {
+  totalSalesAmount: number;
+  avgSalesAmount: number;
+  totalSalesCount: number;
+  avgSalesCount: number;
+  basePrice: number;
 };
 
 type TRecommnandKeyword = {

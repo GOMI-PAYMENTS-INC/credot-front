@@ -1,6 +1,5 @@
 import { CountryType } from '@/generated/graphql';
 import { TBatchStatusType } from '@/containers/report/report.api';
-import { TReportState } from '@/types/report';
 
 const reportInitialState: TReportState = {
   main: {
