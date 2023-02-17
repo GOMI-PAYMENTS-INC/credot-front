@@ -12,6 +12,7 @@ export enum FindAccountResult {
 }
 
 export enum STATUS_CODE {
+  DEFAULT = '',
   SUCCESS = '0000',
   //     정의된 오류 1xxx 메시지
   USER_NOT_FOUND = '1000',

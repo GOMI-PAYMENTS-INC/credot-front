@@ -1,7 +1,25 @@
+import { ReportListActionKind } from '@/containers/report/reportList.reducer';
+import {
+  TReportListResponse,
+  TReportListResponseData,
+} from '@/containers/report/report.api';
+
+type TReportListAction = {
+  type: ReportListActionKind;
+  payload?: any;
+};
+
+type TReportListState = {
+  page: number; // 페이징용 리포트id
+  limit: number; // 페이징용 리스트 사이즈
+  data: TReportListResponseData;
+};
+
 type TReportItem = {
-  id: Number;
+  id: !Number;
   userId: Number;
   reportUniqueId: String;
+  status: String;
   countryCode: String;
   channel: String;
   keyword: String;
@@ -15,8 +33,8 @@ type TReportItem = {
 };
 
 type TReportListParamsType = {
-  lastId?: number; // 페이징용 리포트id
-  limit?: number; // 페이징용 리스트 사이즈
+  page: number; // 페이징용 리포트id
+  limit: number; // 페이징용 리스트 사이즈
 };
 
 type TCreateReportParamsType = {

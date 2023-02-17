@@ -1,38 +1,42 @@
+import { statusTagSentiment } from '@/types/statusTagSentiment';
+
 export interface IStatusTagProps {
   text: string;
-  sentiment: 'neutral' | 'positive' | 'negative' | 'attentive' | 'informative';
+  sentiment: statusTagSentiment;
 }
 
 export const StatusTag = ({ text, sentiment }: IStatusTagProps) => {
   let statusTagStyle = ' ';
   let badgeStyle = '';
   switch (sentiment) {
-    case 'neutral':
+    case statusTagSentiment.NEUTRAL:
       statusTagStyle = 'bg-grey-100';
       badgeStyle = 'bg-grey-600';
       break;
-    case 'positive':
+    case statusTagSentiment.POSITIVE:
       statusTagStyle = 'bg-green-100';
       badgeStyle = 'bg-green-600';
       break;
-    case 'negative':
+    case statusTagSentiment.NEGATIVE:
       statusTagStyle = 'bg-red-100';
       badgeStyle = 'bg-red-600';
       break;
-    case 'attentive':
+    case statusTagSentiment.ATTENTIVE:
       statusTagStyle = 'bg-yellow-100';
       badgeStyle = 'bg-yellow-500';
       break;
-    case 'informative':
+    case statusTagSentiment.INFORMATIVE:
       statusTagStyle = 'bg-blue-100';
       badgeStyle = 'bg-blue-500';
       break;
   }
 
   return (
-    <div className={`inline-flex items-center rounded p-1 pl-2 ${statusTagStyle}`}>
-      <i className={`inline-block h-2 w-2 rounded-2xl ${badgeStyle}`}></i>
-      <span className='text-gery-900 mx-1 text-XS/Regular'>{text}</span>
+    <div className={`inline-block rounded p-1 pl-2 ${statusTagStyle}`}>
+      <div className=' text-XS/Regular'>
+        <div className={`inline-block h-2 w-2 rounded-xl ${badgeStyle}`}></div>
+        <span className='mx-1 text-grey-900'>{text}</span>
+      </div>
     </div>
   );
 };
