@@ -31,7 +31,6 @@ const getRelationReport = async (id: string) => {
 };
 
 const getReportList = async (queryString: TReportListParamsType) => {
-  console.log('3. report.api.ts > getReportList');
   try {
     return await HTTP.get<TReportListResponse>(REPORT_URL, {
       ...defaultOptions(),

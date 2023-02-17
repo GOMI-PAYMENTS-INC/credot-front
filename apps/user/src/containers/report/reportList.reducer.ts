@@ -15,13 +15,10 @@ const initialState: TReportListState = {
 };
 
 const reportListReducer = (_state: TReportListState, action: TReportListAction) => {
-  console.log('reportListReducer 실행~', _state);
-
   const state = structuredClone(_state);
   switch (action.type) {
     //리포트 목록 초기 출력
     case ReportListActionKind.GetReportList:
-      console.log('4. reportListReducer', state, action);
       state.page = action.payload.page;
       state.limit = action.payload.limit;
       state.data = action.payload.data;

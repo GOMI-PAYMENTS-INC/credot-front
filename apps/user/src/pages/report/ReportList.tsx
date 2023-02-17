@@ -25,9 +25,7 @@ const ReportList = () => {
       state = _state;
     }
 
-    setReportList({ _state: state, _dispatch }).then((r) => {
-      console.log('완료~', _state.data);
-    });
+    setReportList({ _state: state, _dispatch }).then((r) => {});
   }, [_state.page, _state.limit]);
 
   //전체 선택 체크 여부

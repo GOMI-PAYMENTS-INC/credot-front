@@ -31,8 +31,6 @@ export const ReportListColumn = ({
 }: TReportListColumn) => {
   const navigate = useNavigate();
   const IMG_PATH = '../../../../assets/images';
-  console.log('page', page);
-  console.log('limit', limit);
 
   const checkedItemHandler = (code: Number, isChecked: boolean) => {
     if (isChecked) {
@@ -46,10 +44,6 @@ export const ReportListColumn = ({
       setIsCheckedAll(false);
     }
   };
-
-  useEffect(() => {
-    console.log(checkedItems);
-  }, [checkedItems]);
 
   return response.reports.length > 0 ? (
     response.reports.map((report: TReportItem) => {
