@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import React, { ChangeEvent, Fragment, useMemo, useReducer, useState } from 'react';
-import '@/pages/report/reportList.css';
-=======
-import React, { Fragment } from 'react';
->>>>>>> 2de19a1a024a3234bfc772d4b159d503427ca9af
+import { ChangeEvent, Fragment, useReducer, useState } from 'react';
 
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
-import { TReportListResponse } from '@/containers/report/report.api';
+
 import { setReportList } from '@/containers/report';
 import {
   reportListReducer,
@@ -15,15 +10,13 @@ import {
   ReportListActionKind,
 } from '@/containers/report/reportList.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
-import { STATUS_CODE } from '@/types/statusCode';
+
 import Pagination from '@/components/pagination';
-import { TReportListParamsType, TReportListState } from '@/types/report';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, initialState);
   // const [totalCount, setTotalCount] = useState<number>(0);
 
-<<<<<<< HEAD
   useEffect(() => {
     let state: TReportListState;
     if (_state.page === undefined || _state.limit === undefined) {
@@ -73,10 +66,6 @@ const ReportList = () => {
       });
     }
   };
-=======
-  const IMG_PATH = '../../assets/images';
-  const navigation = useNavigate();
->>>>>>> 2de19a1a024a3234bfc772d4b159d503427ca9af
   return (
     <Fragment>
       <div className='absolute w-full px-[30px]'>
@@ -98,10 +87,7 @@ const ReportList = () => {
             <h1 className='text-M/Regular text-grey-800'>
               총 {formatNumber(_state.data.totalCount)}개
             </h1>
-            <button
-              className='button-filled-normal-medium-grey-false-false-true'
-              {/*{checkedItems.length > 0 ? null: `disabled`}*/}
-            >
+            <button className='button-filled-normal-medium-grey-false-false-true'>
               선택 삭제
             </button>
           </div>

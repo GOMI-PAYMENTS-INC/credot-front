@@ -1,11 +1,15 @@
-import { ReportListActionKind } from '@/containers/report/reportList.reducer';
-import {
-  TReportListResponse,
-  TReportListResponseData,
-} from '@/containers/report/report.api';
+type TReportListResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TReportListResponseData;
+};
+type TReportListResponseData = {
+  reports: Array<TReportItem>;
+  totalCount: number;
+};
 
 type TReportListAction = {
-  type: ReportListActionKind;
+  type: 'GET_REPORT_LIST' | 'DELETE_REPORT';
   payload?: any;
 };
 
@@ -13,6 +17,17 @@ type TReportListState = {
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
   data: TReportListResponseData;
+};
+
+type TRecommnandKeyword = {
+  searchCount: number;
+  competitionProductCount: number;
+  competitionRate: number;
+  cpcPrice: number;
+  cpcRate: number;
+  avgPrice: number;
+  basePrice: number;
+  evaluateStatus: string;
 };
 
 type TReportItem = {

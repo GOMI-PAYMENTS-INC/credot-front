@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate } from '@/containers/report/report.container';
+import { convertExachangeRate } from '@/containers/report/report';
 import {
   convertEvaluateStatus,
   convertScoreToText,

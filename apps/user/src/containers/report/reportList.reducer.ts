@@ -1,15 +1,3 @@
-import {
-  TReportItem,
-  TReportListAction,
-  TReportListParamsType,
-  TReportListState,
-} from '@/types/report';
-import {
-  TReportListResponse,
-  TReportListResponseData,
-} from '@/containers/report/report.api';
-import { STATUS_CODE } from '@/types/statusCode';
-
 export enum ReportListActionKind {
   //최초 리스트 가져오기
   GetReportList = 'GET_REPORT_LIST',
