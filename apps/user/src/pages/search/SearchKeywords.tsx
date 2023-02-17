@@ -1,4 +1,4 @@
-import { Fragment, useReducer, useMemo, useEffect } from 'react';
+import { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
@@ -26,7 +26,7 @@ const SearchKeywords = () => {
 
   useEffect(() => {
     const item = useSesstionStorage.getItem('keyword');
-    console.log(item, 'item');
+
     if (isFalsy(item) === false) {
       initializeState(item, _dispatch);
     }

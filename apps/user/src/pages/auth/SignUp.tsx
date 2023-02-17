@@ -107,7 +107,7 @@ const SignUp = () => {
                 이메일
               </label>
               <input
-                className={`inputCustom-textBox w-full ${errors?.email ? 'error' : ''}`}
+                className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
                 type='email'
                 id='email'
                 placeholder='이메일을 입력해주세요.'
@@ -127,7 +127,7 @@ const SignUp = () => {
                   },
                 })}
               />
-              <p className='inputCustom-help'>{errors?.email?.message}</p>
+              <p className='inputCustom-helptext'>{errors?.email?.message}</p>
             </div>
 
             {/*비밀번호*/}
@@ -139,7 +139,7 @@ const SignUp = () => {
                 <input
                   id='password'
                   type='password'
-                  className={`inputCustom-textBox w-full ${
+                  className={`inputCustom-textbox w-full ${
                     errors?.password ? 'error' : ''
                   }`}
                   placeholder='비밀번호를 입력해주세요. (8자리 이상)'
@@ -153,13 +153,13 @@ const SignUp = () => {
                     },
                   })}
                 />
-                <p className='inputCustom-help'>{errors?.password?.message}</p>
+                <p className='inputCustom-helptext'>{errors?.password?.message}</p>
               </div>
               <div className='space-y-1'>
                 <input
                   id='confirmPassword'
                   type='password'
-                  className={`inputCustom-textBox w-full ${
+                  className={`inputCustom-textbox w-full ${
                     errors?.confirmPassword ? 'error' : ''
                   }`}
                   placeholder='비밀번호를 한 번 더 입력해주세요.'
@@ -169,7 +169,7 @@ const SignUp = () => {
                       value === passwordWatcher || '비밀번호가 일치하지 않아요.',
                   })}
                 />
-                <p className='inputCustom-help'>{errors?.confirmPassword?.message}</p>
+                <p className='inputCustom-helptext'>{errors?.confirmPassword?.message}</p>
               </div>
             </div>
 
@@ -196,7 +196,7 @@ const SignUp = () => {
                   className='termsCheckbox peer'
                   onChange={(e) => onAllCheckbox(e.target.checked)}
                 />
-                <label htmlFor='all-agree' className='termsHeaderCheckboxLabel'>
+                <label htmlFor='all-agree' className='termsHeaderCheckbox-label'>
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                 </label>
               </div>
@@ -204,11 +204,11 @@ const SignUp = () => {
                 <li className='flex items-center justify-between pl-3 '>
                   <input
                     type='checkbox'
-                    id='use-agree'
+                    id='allAgree'
                     {...register('useAgree')}
                     className='termsCheckbox peer'
                   />
-                  <label htmlFor='use-agree' className='termsBodyCheckboxLabel'>
+                  <label htmlFor='allAgree' className='termsBodyCheckbox-label'>
                     이용약관 동의(필수)
                   </label>
 
@@ -223,7 +223,7 @@ const SignUp = () => {
                     {...register('personalAgree')}
                     className='termsCheckbox peer'
                   />
-                  <label htmlFor='personal-agree' className='termsBodyCheckboxLabel'>
+                  <label htmlFor='personal-agree' className='termsBodyCheckbox-label'>
                     개인정보 수집 및 이용 동의(필수)
                   </label>
 
@@ -238,7 +238,7 @@ const SignUp = () => {
                     className='termsCheckbox peer'
                     {...register('marketingAgree')}
                   />
-                  <label htmlFor='marketing-agree' className='termsBodyCheckboxLabel'>
+                  <label htmlFor='marketing-agree' className='termsBodyCheckbox-label'>
                     마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
                   </label>
                   <button className='textButton-secondary-default-small-none'>

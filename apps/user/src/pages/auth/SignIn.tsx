@@ -21,7 +21,7 @@ function onClickGooglelogin() {
 }
 
 const SignIn = () => {
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   const { onSubmitSignIn, setIsLoginStorage, isLoginStorage } = AuthContainer();
   const {
     register,
@@ -60,7 +60,7 @@ const SignIn = () => {
               <div className='space-y-2'>
                 <label className='text-S/Medium text-grey-800'>이메일</label>
                 <input
-                  className={`inputCustom-textBox w-full ${errors?.email ? 'error' : ''}`}
+                  className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
                   type='email'
                   placeholder='이메일'
                   {...register('email', {
@@ -71,12 +71,12 @@ const SignIn = () => {
                     },
                   })}
                 />
-                <p className='inputCustom-help'>{errors?.email?.message}</p>
+                <p className='inputCustom-helptext'>{errors?.email?.message}</p>
               </div>
               <div className='space-y-2'>
                 <label className='text-S/Medium text-grey-800'>비밀번호</label>
                 <input
-                  className={`inputCustom-textBox w-full ${
+                  className={`inputCustom-textbox w-full ${
                     errors?.password ? 'error' : ''
                   }`}
                   type='password'
@@ -101,7 +101,7 @@ const SignIn = () => {
                 />
                 <label
                   htmlFor='rememter_me'
-                  className='checkboxLabelCustom text-S/Regular  '
+                  className='checkboxCustom-label bg-[length:24px_24px] bg-[left_top_50%] pl-[30px] text-S/Regular  '
                 >
                   로그인 상태 유지
                 </label>
@@ -109,7 +109,7 @@ const SignIn = () => {
               <div>
                 <button
                   type='button'
-                  onClick={() => navigate(PATH.FIND_ID)}
+                  onClick={() => navigation(PATH.FIND_ID)}
                   className='cursor-pointer justify-center  bg-white py-2.5  px-2 text-S/Bold text-grey-800'
                 >
                   아이디 찾기
@@ -117,7 +117,7 @@ const SignIn = () => {
 
                 <button
                   type='button'
-                  onClick={() => navigate(PATH.FIND_PASSWORD)}
+                  onClick={() => navigation(PATH.FIND_PASSWORD)}
                   className='cursor-pointer justify-center   bg-white py-2.5  px-2 text-S/Bold text-grey-800'
                 >
                   비밀번호 찾기

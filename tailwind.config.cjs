@@ -16,16 +16,31 @@ module.exports = {
         '.textButton-secondary-default-small-none': {
           '@apply py-2 px-1 text-grey-800 text-XS/Medium': {},
         },
-        '.button-filled-normal-large-primary-false-false-true ': {
+        '.button-text-normal-small-grey-false-false-true': {
+          '@apply rounded bg-none p-2 text-grey-800 text-XS/Bold': {},
+        },
+        '.button-filled-normal-medium-grey-false-false-true': {
+          '@apply rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500':
+            {},
+        },
+        '.button-filled-normal-medium-grey-false-true-true': {
+          '@apply rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500':
+            {},
+        },
+        '.button-filled-normal-large-primary-false-false-true': {
           '@apply rounded bg-orange-500 px-2.5 py-3 text-white text-M/Bold': {},
         },
-        '.button-filled-normal-xLarge-primary-false-false-true ': {
+        '.button-filled-normal-xLarge-primary-false-false-true': {
           '@apply rounded bg-orange-500 px-2.5 py-4 text-white text-L/Bold': {},
         },
-        '.button-filled-disabled-xLarge-primary-false-false-true ': {
+        '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
         },
-        '.button-outlined-normal-xLarge-grey-true-false-true ': {
+        '.button-outlined-normal-large-primary-false-false-true': {
+          '@apply rounded bg-white py-3 text-M/Bold text-primary-red-orange border border-orange-300 min-w-[160px]':
+            {},
+        },
+        '.button-outlined-normal-xLarge-grey-true-false-true': {
           '@apply grid gap-x-1 justify-center grid-cols-[24px_auto] rounded bg-white py-4 text-L/Bold text-grey-800 border border-grey-400':
             {},
         },

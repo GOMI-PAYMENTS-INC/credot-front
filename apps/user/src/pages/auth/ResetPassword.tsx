@@ -17,11 +17,11 @@ interface IResetPassword {
 const ResetPassword = () => {
   const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
 
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   useEffect(() => {
     if (!isTemporaryPasswordLogin) {
-      navigate(PATH.SIGN_IN);
+      navigation(PATH.SIGN_IN);
     }
   }, []);
 
@@ -65,7 +65,7 @@ const ResetPassword = () => {
                 <input
                   id='password'
                   type='password'
-                  className={`inputCustom-textBox w-full ${
+                  className={`inputCustom-textbox w-full ${
                     errors?.password ? 'error' : ''
                   }`}
                   placeholder='비밀번호를 입력해주세요. (8자리 이상)'
@@ -79,7 +79,7 @@ const ResetPassword = () => {
                     },
                   })}
                 />
-                <p className='inputCustom-help'>{errors?.password?.message}</p>
+                <p className='inputCustom-helptext'>{errors?.password?.message}</p>
               </div>
 
               <div className='space-y-2'>
@@ -87,7 +87,7 @@ const ResetPassword = () => {
                 <input
                   id='newPassword'
                   type='password'
-                  className={`inputCustom-textBox w-full ${
+                  className={`inputCustom-textbox w-full ${
                     errors?.newPassword ? 'error' : ''
                   }`}
                   placeholder='비밀번호를 한 번 더 입력해주세요.'
@@ -97,7 +97,7 @@ const ResetPassword = () => {
                       value === passwordWatcher || '비밀번호가 일치하지 않아요.',
                   })}
                 />
-                <p className='inputCustom-help'>{errors?.newPassword?.message}</p>
+                <p className='inputCustom-helptext'>{errors?.newPassword?.message}</p>
               </div>
             </div>
             <div className='space-y-3'>

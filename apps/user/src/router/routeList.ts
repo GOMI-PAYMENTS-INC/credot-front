@@ -9,6 +9,7 @@ export type TLayoutType =
   | 'Common1Section'
   | 'Common2Section'
   | 'FindAccountLayout';
+
 export const PATH = {
   SEARCH_PRODUCTS: '/',
   SIGN_IN: '/signin',
@@ -18,9 +19,11 @@ export const PATH = {
   FIND_ID: '/find/id',
   REAPPLY_PASSWORD: '/signin/password',
   GET_REPORT_LIST: '/report/list',
+  ANALYSIS_REPORT_LIST: '/report/list/:id',
 } as const;
 
 type TPathKey = keyof typeof PATH;
+
 export type TPathType = (typeof PATH)[TPathKey];
 export interface IRoute {
   description: string;
@@ -38,49 +41,49 @@ export const signInRouter = {
 export const routeList: IRoute[] = [
   {
     //회원가입
-    description: 'signUp',
+    description: 'SignUp',
     path: PATH.SIGN_UP,
     component: AuthRoutes.SignUp,
     layoutType: 'Common1Section',
   },
   {
     //소셜 로그인
-    description: 'signUpWithGoogle',
+    description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: AuthRoutes.SignUpSocial,
     layoutType: 'Common1Section',
   },
   {
     //비밀번호 찾기
-    description: 'findPassword',
+    description: 'FindPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
     layoutType: 'FindAccountLayout',
   },
   {
     //아이디 찾기
-    description: 'findIdentification',
+    description: 'FindIdentification',
     path: PATH.FIND_ID,
     component: AuthRoutes.FindId,
     layoutType: 'FindAccountLayout',
   },
   {
     //로그인
-    description: 'signIn',
+    description: 'SignIn',
     path: PATH.SIGN_IN,
     component: AuthRoutes.SignIn,
     layoutType: 'Common2Section',
   },
   {
     //비밀번호 재설정
-    description: 'reapplyPassword',
+    description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.ResetPassword,
     layoutType: 'Common2Section',
   },
   {
     //검색
-    description: 'searchProducts',
+    description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchKeywords,
     layoutType: 'Default',
@@ -91,13 +94,20 @@ export const routeList: IRoute[] = [
     component: ReportRoutes.ReportList,
     layoutType: 'Default',
   },
+  {
+    description: 'DetailReport',
+    path: PATH.ANALYSIS_REPORT_LIST,
+    component: ReportRoutes.DetailReport,
+    layoutType: 'Default',
+  },
 ];
 
-export function getComponentByPathname(pathname: string): TLayoutType {
-  const layout = routeList.find((route) => route.path === pathname)?.layoutType;
+export function getComponentByPathname(path: string): TLayoutType {
+  const layout = routeList.find((route) => route.path === path)?.layoutType;
 
   if (layout) {
     return layout;
   }
+
   throw new Error('pathname을 확인해주세요.');
 }

@@ -1,3 +1,3 @@
 import ReportList from './ReportList';
-
-export { ReportList };
+import DetailReport from './DetailReport';
+export { ReportList, DetailReport };
