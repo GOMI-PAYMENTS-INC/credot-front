@@ -8,7 +8,11 @@ import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod'
 import { scrollToTop } from '@/utils/scrollToTop';
 
 import { isFalsy } from '@/utils/isFalsy';
-import { _getMainReport } from '@/containers/report/report.container';
+import {
+  _getMainReport,
+  useScrollspy,
+  convertTitle,
+} from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { ReactSVG } from 'react-svg';
 import { PATH } from '@/router/routeList';
@@ -27,6 +31,9 @@ const DetailReport = () => {
     }
   }, []);
 
+  const ids = ['MartketSize', 'RecommendKeyword', 'KeywordInfo'];
+  const activeId = useScrollspy(ids, 54);
+
   const combinedComponent = useMemo(() => {
     // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
     if (main.createdAt === null) return <Fragment />;
@@ -43,7 +50,7 @@ const DetailReport = () => {
   return (
     <Fragment>
       <div className='absolute w-full px-[30px]'>
-        <div className='flex h-[84px] items-center border border-t-0 border-b-gray-200 bg-white  px-6'>
+        <div className='flex h-[84px] items-center border-b-[1px] border-b-gray-200   px-6'>
           <div className='flex items-center'>
             <div
               className='h-5 w-5 cursor-pointer pl-[7px]'
@@ -62,8 +69,33 @@ const DetailReport = () => {
           <section></section>
         </main>
       </div>
-      <aside className='col-span-2 mt-[116px] w-[180px] bg-slate-100 '>
-        <h1 className='ml-6 py-1 text-S/Medium text-gray-700'>목차</h1>
+      <aside className='col-span-2 mt-[116px] w-[180px]  '>
+        <ul>
+          <p className='flex items-center text-S/Medium text-grey-700'>
+            <ReactSVG
+              wrapper='span'
+              className='mr-2.5  rotate-90'
+              src='/assets/icons/filled/CaretDown.svg'
+            />
+            목차
+          </p>
+
+          {ids.map((id, idx) => {
+            return (
+              <li
+                key={`menu-items-${id}`}
+                className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
+                  idx === 0 && 'mt-1'
+                }`}
+              >
+                <h1 className='ml-6 py-1 text-S/Regular text-gray-700'>
+                  {convertTitle(id)}
+                </h1>
+              </li>
+            );
+          })}
+        </ul>
+
         <button
           className='fixed right-[60px] bottom-8 flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
           onClick={() => scrollToTop()}
