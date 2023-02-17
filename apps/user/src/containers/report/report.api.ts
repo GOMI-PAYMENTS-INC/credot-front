@@ -1,11 +1,4 @@
 import { defaultOptions, HTTP } from '@/utils/axiosConfig';
-import {
-  TGetMainReport,
-  TGetRelationReport,
-  TReportItem,
-  TReportListParamsType,
-} from '@/types/report';
-import { STATUS_CODE } from '@/types/statusCode';
 
 const REPORT_URL = 'api/v1/report';
 
@@ -37,18 +30,7 @@ const getRelationReport = async (id: string) => {
   }
 };
 
-export type TReportListResponse = {
-  code: STATUS_CODE;
-  message: string;
-  data: TReportListResponseData;
-};
-export type TReportListResponseData = {
-  reports: Array<TReportItem>;
-  totalCount: number;
-};
-
 const getReportList = async (queryString: TReportListParamsType) => {
-  console.log('3. report.api.ts > getReportList');
   try {
     return await HTTP.get<TReportListResponse>(REPORT_URL, {
       ...defaultOptions(),

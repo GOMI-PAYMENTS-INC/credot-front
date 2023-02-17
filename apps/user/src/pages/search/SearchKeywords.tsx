@@ -50,9 +50,7 @@ const SearchKeywords = () => {
   }, [data, isLoading, _state.keyword]);
 
   const relativeKeyword = useMemo(() => {
-    console.log('relativeKeyword useMemo===');
     if (isFalsy(_state.keyword) && isLoading === true) {
-      console.log('1');
       return [1, 2, 3, 4, 5, 6];
     }
     if (isFalsy(_state.keyword) === false && isLoading === true) {
