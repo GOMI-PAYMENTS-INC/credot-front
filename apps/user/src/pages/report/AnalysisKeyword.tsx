@@ -38,7 +38,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
 
   return (
-    <section className='col-span-full h-[376px] w-[980px]'>
+    <section className='col-span-full'>
       <h1 className='text-XL/Bold text-black'>키워드 정보</h1>
       <div className='pt-6'>
         <div className='flex divide-x-[1px]  divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
