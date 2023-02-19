@@ -32,34 +32,19 @@ export const convertTitle = (id: string) => {
   }
 };
 
-export const _getMainReport = async (id: string, _dispatch: Dispatch<TReportAction>) => {
+export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
   try {
-    const response = await getMainReport(id);
-    if (response?.data) {
-      const { data } = response.data;
-      _dispatch({
-        type: REPORT_ACTION.INITIALIZE_DATA,
-        payload: { type: 'main', data: data },
-      });
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const _getRelationReport = async (
-  id: string,
-  _dispatch: Dispatch<TReportAction>,
-) => {
-  try {
-    const response = await getRelationReport(id);
-    if (response?.data) {
-      const { data } = response.data;
-      _dispatch({
-        type: REPORT_ACTION.INITIALIZE_DATA,
-        payload: { type: 'relation', data: data },
-      });
-    }
+    const response = await Promise.all([getMainReport(id), getRelationReport(id)]);
+    response.forEach((chunk, idx) => {
+      if (chunk) {
+        const type = idx === 0 ? 'main' : 'relation';
+        const { data } = chunk.data;
+        _dispatch({
+          type: REPORT_ACTION.INITIALIZE_DATA,
+          payload: { type: type, data: data },
+        });
+      }
+    });
   } catch (error) {
     console.error(error);
   }

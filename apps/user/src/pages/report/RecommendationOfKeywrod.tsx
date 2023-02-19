@@ -102,7 +102,10 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
               return (
                 <Fragment key={`product_key_${data.id}`}>
                   <tr className='mt-3 flex' />
-                  <tr className={`border-[1px] ${backgroundColor}`}>
+                  <tr
+                    className={`border-[1px] ${backgroundColor} cursor-pointer hover:bg-grey-200`}
+                    onClick={() => isToggleOpen(_dispatch, false, data.id)}
+                  >
                     <td>
                       <div className='ml-[6px] flex w-[114px]'>
                         <p>{data.text}</p>
@@ -188,11 +191,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <div
-                          id={`toggle_${data.id}`}
-                          className='flex h-5 w-5 cursor-pointer'
-                          onClick={() => isToggleOpen(_dispatch, false, data.id)}
-                        >
+                        <div className='flex h-5 w-5'>
                           <ReactSVG
                             className={
                               isFalsy(toggleEvent.find((event) => event.id === data.id))
