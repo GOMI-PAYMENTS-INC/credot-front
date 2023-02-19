@@ -1,6 +1,4 @@
 import { CountryType } from '@/generated/graphql';
-import { BATCH_STATUS } from '@/types/enum.code';
-import { isFalsy } from '@/utils/isFalsy';
 
 const reportInitialState: TReportState = {
   main: {
@@ -34,6 +32,7 @@ export enum REPORT_ACTION {
   TOGGLE_CONTROL = 'TOGGLE_CONTROL',
   UPDATE_CURRENT = 'UPDATE_CURRENT',
   RECOMMENDATION_TOGGLE_EVENT = 'RECOMMENDATION_TOGGLE_EVENT',
+  INITIALIZE_SCROLL_EVENT = 'INITIALIZE_SCROLL_EVENT',
 }
 
 export type TReportAction = {
@@ -78,6 +77,12 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       } else {
         state.toggleEvent = state.toggleEvent.filter((key) => key.id !== id);
       }
+      return state;
+    }
+    case REPORT_ACTION.INITIALIZE_SCROLL_EVENT: {
+      state.scrollEvent = Object.assign({}, reportInitialState.scrollEvent, {
+        isOpen: state.scrollEvent.isOpen,
+      });
       return state;
     }
     default:
