@@ -35,10 +35,17 @@ export const MartketSize = memo((props: IMartketSize) => {
         />
         <Tooltip
           anchorId='anchor-market-size'
-          html='리포트 생성일 기준, 최근 30일간 상위 30개 상품들이 판매된 매출과 판매량 정보에요.'
+          style={{ background: 'none' }}
           place='right'
-          className='text-XS/Regular text-grey-800' // FIXME: tooltip에는 className 속성 어떻게 적용할지 생각
-        />
+        >
+          <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
+            <p className='text-XS/Regular text-grey-900'>
+              리포트 생성일 기준, 최근 30일간 상위
+              <span className='text-XS/Bold'>{` 30개 `}</span>
+              상품들이 판매된 매출과 판매량 정보에요.
+            </p>
+          </div>
+        </Tooltip>
       </h1>
       <div className='pt-6'>
         <div className='border-grey-30 flex w-full border-t-[1px] border-b-[1px] '>

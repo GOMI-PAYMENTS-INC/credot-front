@@ -36,10 +36,15 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
         />
         <Tooltip
           anchorId='anchor-recommandation-keyword'
-          html='채워넣어보자구 : ).'
+          style={{ backgroundColor: 'white' }}
           place='right'
-          className='text-XS/Regular text-grey-800'
-        />
+        >
+          <div className='rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
+            <p className='text-XS/Regular text-grey-900'>
+              키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.
+            </p>
+          </div>
+        </Tooltip>
       </h1>
 
       <table className=' col-span-full mt-6 h-full w-full  table-auto bg-white'>
