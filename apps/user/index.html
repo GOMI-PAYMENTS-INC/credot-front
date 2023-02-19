@@ -1,16 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/assets/icons/GomiLogo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--  no-referrer-when-downgrade local 테스트시 해당 referrer 적용  -->
     <!--    <meta name="referrer" content="no-referrer-when-downgrade">-->
+    <script>
+      (function () {
+        var w = window;
+        if (w.ChannelIO) {
+          return w.console.error('ChannelIO script included twice.');
+        }
+        var ch = function () {
+          ch.c(arguments);
+        };
+        ch.q = [];
+        ch.c = function (args) {
+          ch.q.push(args);
+        };
+        w.ChannelIO = ch;
+        function l() {
+          if (w.ChannelIOInitialized) {
+            return;
+          }
+          w.ChannelIOInitialized = true;
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+          var x = document.getElementsByTagName('script')[0];
+          if (x.parentNode) {
+            x.parentNode.insertBefore(s, x);
+          }
+        }
+        if (document.readyState === 'complete') {
+          l();
+        } else {
+          w.addEventListener('DOMContentLoaded', l);
+          w.addEventListener('load', l);
+        }
+      })();
+
+      ChannelIO('boot', {
+        pluginKey: 'a44e48a1-a1ab-45b8-bc51-0f89240365cc',
+      });
+    </script>
     <script
       src="https://accounts.google.com/gsi/client"
       strategy="beforeInteractive"
     ></script>
-    <title>GOMI-KEYWORD</title>
+    <title>GOMI-INSIGHT</title>
   </head>
   <body>
     <div id="root"></div>
