@@ -89,7 +89,7 @@ type TGetMainReportDataType = {
 type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type TReportState = {
   main: TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword;
-  relation: TGetRelationReportDataType;
+  relation: TGetRelationReportDataType[];
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
 };
 

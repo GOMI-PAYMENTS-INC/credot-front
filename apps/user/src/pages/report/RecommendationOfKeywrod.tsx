@@ -1,8 +1,19 @@
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { TITLE } from '@/types/enum.code';
+import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
+import { isFalsy } from '@/utils/isFalsy';
+import { openBrowser, roundNumber } from '@/containers/report';
+import { convertRecommendationScoreToText } from '@/containers/report/report.constant';
+import { formatNumber } from '@/utils/formatNumber';
 
-export const RecommendationOfKeyword = () => {
+interface IRecommendationOfKeyword {
+  relation: TGetRelationReportDataType[];
+}
+
+export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
+  const { relation } = props;
+
   return (
     <section id={TITLE.RECOMMEND_KEYWORD}>
       <h1 className='text-XL/Bold text-black'>
@@ -32,7 +43,7 @@ export const RecommendationOfKeyword = () => {
             <th className='w-[82px]' colSpan={1}>
               <p className='px-4  text-XS/Medium'>노출 경쟁</p>
             </th>
-            <th className='w-[82px] ' colSpan={1}>
+            <th className='w-[82px]' colSpan={1}>
               <p className='px-[13px] text-XS/Medium'>CPC 경쟁</p>
             </th>
             <th className='w-[72px]' colSpan={1}>
@@ -62,70 +73,110 @@ export const RecommendationOfKeyword = () => {
 
         <tbody>
           <tr className='mt-3 flex' />
-          <tr className='border-[1px] border-grey-300'>
-            <td>
-              <div className='flex'>
-                <ReactSVG
-                  src='/assets/icons/filled/EmptyBox.svg'
-                  className='ml-3 mr-[10px] flex h-10 w-10 items-center justify-center bg-grey-200'
-                />
-                <div className='flex w-[114px] justify-center self-center bg-grey-200'>
-                  <p className='flex h-5 items-center text-XS/Medium text-grey-900'>
-                    추천 키워드가 없어요.
-                  </p>
-                </div>
-              </div>
-            </td>
-            <th>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-            <th>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-            <th>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-            <th className='bg-grey-100'>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-[43px] rounded-sm bg-grey-300'></div>
-              </div>
-            </th>
-            <th>
-              <div className='flex flex-col flex-wrap-reverse py-3 pr-3'>
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-                <hr className='my-[3px] ml-[62px] border-grey-300' />
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-            <th className='bg-grey-100'>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-[43px] rounded-sm bg-grey-300'></div>
-              </div>
-            </th>
-            <th>
-              <div className='flex flex-col flex-wrap-reverse py-3 pr-3'>
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-                <hr className='my-[3px] ml-[62px] border-grey-300' />
-                <div className='bordered h-5 w-[58px] rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-            <th>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-5 rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-            <th>
-              <div className='flex justify-center'>
-                <div className='bordered h-5 w-5 rounded-sm bg-grey-200'></div>
-              </div>
-            </th>
-          </tr>
+          {isFalsy(relation) ? (
+            <EmptyRecommendation />
+          ) : (
+            relation.map((data) => {
+              const [search, competiton, cpc] = data.evaluateStatus;
+              return (
+                <tr
+                  key={`product_key_${data.id}`}
+                  className='border-[1px] border-grey-300'
+                >
+                  <td>
+                    <div className='ml-[6px] flex w-[114px]'>
+                      <p>{data.text}</p>
+                    </div>
+                  </td>
+                  <th>
+                    <div className='flex justify-center'>
+                      <p>{convertRecommendationScoreToText(search)}</p>
+                    </div>
+                  </th>
+                  <th>
+                    <div className='flex justify-center'>
+                      <p>{convertRecommendationScoreToText(competiton)}</p>
+                    </div>
+                  </th>
+                  <th>
+                    <div className='flex justify-center'>
+                      <p>{convertRecommendationScoreToText(cpc)}</p>
+                    </div>
+                  </th>
+                  <th className='bg-grey-100'>
+                    <div className='flex justify-center'>
+                      <p className='text-S/Bold'>{`1:${roundNumber(
+                        data.competitionRate,
+                      )}`}</p>
+                    </div>
+                  </th>
+                  <th>
+                    <div className='flex flex-col flex-wrap-reverse  py-3 pr-3'>
+                      <div className='bordered flex h-5 w-[58px] justify-end '>
+                        <p className='pl-0.5 text-XS/Medium'>
+                          {formatNumber(data.searchCount)}
+                        </p>
+                        <p className='pl-0.5 text-XS/Medium text-grey-700'>건</p>
+                      </div>
+                      <hr className='my-[3px] ml-[62px] border-grey-300' />
+                      <div className='bordered flex h-5 w-[58px] justify-end '>
+                        <p className='pl-0.5 text-XS/Medium'>
+                          {formatNumber(data.competitionProductCount)}
+                        </p>
+                        <p className='pl-0.5 text-XS/Medium text-grey-700'>개</p>
+                      </div>
+                    </div>
+                  </th>
+                  <th className='bg-grey-100'>
+                    <div className='flex justify-center'>
+                      <div className='h-5 w-[43px]'>
+                        <p className='text-S/Bold'>{`${data.cpcRate}%`}</p>
+                      </div>
+                    </div>
+                  </th>
+                  <th>
+                    <div className='flex flex-col flex-wrap-reverse py-3 pr-3'>
+                      <div className='bordered flex h-5 w-[58px] justify-end '>
+                        <p className='pl-0.5 text-XS/Medium'>
+                          {formatNumber(data.cpcPrice)}
+                        </p>
+                        <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
+                      </div>
+                      <hr className='my-[3px] ml-[62px] border-grey-300' />
+                      <div className='bordered flex h-5 w-[58px] justify-end '>
+                        <p className='pl-0.5 text-XS/Medium'>
+                          {formatNumber(data.avgPrice)}
+                        </p>
+                        <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
+                      </div>
+                    </div>
+                  </th>
+                  <th>
+                    <div className='flex justify-center'>
+                      <div
+                        className='flex h-5 w-5 cursor-pointer items-center'
+                        onClick={() =>
+                          openBrowser(`https://shopee.vn/search?keyword=${data.text}`)
+                        }
+                      >
+                        <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
+                      </div>
+                    </div>
+                  </th>
+                  <th>
+                    <div className='flex justify-center'>
+                      <div className='flex h-5 w-5 cursor-pointer'>
+                        <ReactSVG
+                          className='-rotate-90'
+                          src='/assets/icons/outlined/LeftArrow.svg'
+                        />
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
     </section>

@@ -1,5 +1,5 @@
 import { CountryType } from '@/generated/graphql';
-import { TBatchStatusType } from '@/containers/report/report.api';
+import { BATCH_STATUS } from '@/types/enum.code';
 
 const reportInitialState: TReportState = {
   main: {
@@ -22,19 +22,7 @@ const reportInitialState: TReportState = {
     evaluateStatus: 'AAA',
     createdAt: null,
   },
-  relation: {
-    id: 0,
-    text: '',
-    searchCount: 0,
-    competitionProductCount: 0,
-    competitionRate: 0,
-    cpcPrice: 0,
-    cpcRate: 0,
-    avgPrice: 0,
-    evaluateStatus: 'AAA',
-    batchStatus: TBatchStatusType.NONE,
-    createdAt: null,
-  },
+  relation: [],
   scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
 };
 
@@ -60,14 +48,11 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
         Object.keys(state.main).map((key) => {
           state.main[key] = data[key];
         });
-        return state;
       }
       if (type === 'relation') {
-        Object.keys(state.relation).map((key) => {
-          state.relation[key] = data[key];
-          return state;
-        });
+        state.relation = data;
       }
+      return state;
     }
     case REPORT_ACTION.SCROLL_EVENT: {
       state.scrollEvent.title = action.payload;

@@ -2,14 +2,6 @@ import { defaultOptions, HTTP } from '@/utils/axiosConfig';
 
 const REPORT_URL = 'api/v1/report';
 
-export enum TBatchStatusType {
-  WAIT = 'WAIT', //대기
-  RUN = 'RUN', //실행중
-  DONE = 'DONE', //종료
-  REPLICATE = 'REPLICATE', //재실행
-  NONE = 'NONE',
-}
-
 const getMainReport = async (id: string) => {
   try {
     return await HTTP.get<TGetMainReport>(`${REPORT_URL}/${id}/main`, {

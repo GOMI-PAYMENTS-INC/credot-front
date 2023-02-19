@@ -11,11 +11,11 @@ import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import {
   _getMainReport,
-  useScrollspy,
   convertTitle,
   updateTitle,
   isToggleOpen,
   openBrowser,
+  _getRelationReport,
 } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { ReactSVG } from 'react-svg';
@@ -25,7 +25,6 @@ const DetailReport = () => {
   const routeId = useParams();
   //TODO: useReducer는 부모 컴포넌트로부터 내려오는 구조로 변경할 것
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
-  const { title } = _state.scrollEvent;
 
   const { main, relation } = _state;
   const navigation = useNavigate();
@@ -34,11 +33,11 @@ const DetailReport = () => {
     if (isFalsy(routeId)) return;
     if (routeId.id) {
       _getMainReport(routeId.id, _dispatch);
+      _getRelationReport(routeId.id, _dispatch);
     }
   }, []);
 
   const ids = [TITLE.MARTKET_SIZE, TITLE.KEYWORD_INFO, TITLE.RECOMMEND_KEYWORD];
-  const activeId = useScrollspy(ids, 54);
 
   const combinedComponent = useMemo(() => {
     // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
@@ -48,14 +47,14 @@ const DetailReport = () => {
         <KeywordInfo keywordInfo={main} />
         <MartketSize marketSize={main} />
         <AnalysisKeyword analysisInfo={main} />
-        <RecommendationOfKeyword />
+        <RecommendationOfKeyword relation={relation} />
         <section className='h-[400px]'>하하</section>
         <section className='h-[400px]'>호호</section>
         <section className='h-[400px]'>므므</section>
       </Fragment>
     );
   }, [main]);
-
+  //FIXME: 스크롤 이벤트 최적화하기
   document.addEventListener('scroll', () => {
     updateTitle(window.scrollY, _dispatch, main.text);
   });

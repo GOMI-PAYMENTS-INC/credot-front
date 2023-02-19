@@ -1,3 +1,30 @@
+export const convertRecommendationScoreToText = (status: string) => {
+  switch (status) {
+    case 'A': {
+      return '매우좋음';
+      // return <p className='text-2XL/Bold text-[#1A9CFF]'>매우좋음</p>; //blue-600
+    }
+    case 'B': {
+      return '좋음';
+      // return <p className='text-2XL/Bold text-[#15BD66]'>좋음</p>;
+    }
+    case 'C': {
+      return '보통';
+      // return <p className='text-2XL/Bold text-grey-700'>보통</p>;
+    }
+    case 'D': {
+      return '나쁨';
+      // return <p className='text-2XL/Bold text-[#F4B60D]'>나쁨</p>;
+    }
+    case 'E': {
+      return '매우나쁨';
+      // return <p className='text-2XL/Bold text-[#FF334B]'>매우나쁨</p>;
+    }
+    default:
+    // return;
+  }
+};
+
 export const convertScoreToText = (status: string) => {
   switch (status) {
     case 'A': {
