@@ -99,12 +99,13 @@ export const updateTitle = (
   }
   if (curLocation > 100 && curLocation < 299) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
+    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: '' });
   }
   if (curLocation > 299 && curLocation < 599) {
-    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.MARTKET_SIZE });
+    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
   if (curLocation > 600) {
-    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.KEYWORD_INFO });
+    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
 };
 

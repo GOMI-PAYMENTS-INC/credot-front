@@ -1,9 +1,10 @@
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+import { TITLE } from '@/types/enum.code';
 
 export const RecommendationOfKeyword = () => {
   return (
-    <section>
+    <section id={TITLE.RECOMMEND_KEYWORD}>
       <h1 className='text-XL/Bold text-black'>
         추천 키워드
         <ReactSVG

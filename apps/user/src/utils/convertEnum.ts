@@ -36,6 +36,7 @@ export const convertCountry = (id: string) => {
     case CountryType.Th:
       return '태국';
     default:
-      return new Error('enum 코드를 확인해주세요.');
+      console.error('enum 코드를 확인해주세요.');
+      return '';
   }
 };

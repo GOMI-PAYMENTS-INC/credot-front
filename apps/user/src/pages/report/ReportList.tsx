@@ -1,5 +1,5 @@
 import { ChangeEvent, Fragment, useReducer, useState } from 'react';
-
+import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
@@ -12,6 +12,7 @@ import {
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 
 import Pagination from '@/components/pagination';
+import { BATCH_STATUS } from '@/types/enum.code';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, initialState);
@@ -38,7 +39,9 @@ const ReportList = () => {
     if (checked) {
       const checkedItemsArray: Number[] = [];
       _state.data.reports.forEach(
-        (report) => report.status === 'DONE' && checkedItemsArray.push(report.id),
+        (report) =>
+          isIncluded(report.status, BATCH_STATUS.DONE) &&
+          checkedItemsArray.push(report.id),
       );
       setCheckedItems(checkedItemsArray);
 
@@ -119,7 +122,7 @@ const ReportList = () => {
                   <div className='px-4 py-3 text-XS/Medium'>검색어</div>
                 </th>
                 <th className='w-[128px]'>
-                  <div className='px-4 py-3 text-XS/Medium'>데이터 수집 상태</div>
+                  <div className='px-4 py-3 text-XS/Medium'>수집 상태</div>
                 </th>
                 <th className='w-[128px]'>
                   <div className='px-4 py-3 text-XS/Medium'>국가</div>

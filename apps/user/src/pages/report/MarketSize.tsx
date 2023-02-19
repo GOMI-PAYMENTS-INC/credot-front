@@ -3,6 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate } from '@/containers/report/report.container';
+import { TITLE } from '@/types/enum.code';
 interface IMartketSize {
   marketSize: TMarketSize;
 }
@@ -24,7 +25,7 @@ export const MartketSize = memo((props: IMartketSize) => {
     .map((number) => formatNumber(number));
 
   return (
-    <section className='col-span-full'>
+    <section id={TITLE.MARTKET_SIZE} className='col-span-full'>
       <h1 className='text-XL/Bold text-black'>
         시장 규모
         <ReactSVG

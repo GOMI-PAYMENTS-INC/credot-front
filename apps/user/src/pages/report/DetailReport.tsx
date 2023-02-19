@@ -42,7 +42,7 @@ const DetailReport = () => {
 
   const combinedComponent = useMemo(() => {
     // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
-    if (main.createdAt === null) return <Fragment />;
+
     return (
       <Fragment>
         <KeywordInfo keywordInfo={main} />
@@ -108,15 +108,17 @@ const DetailReport = () => {
                     idx === 0 && 'mt-1'
                   }`}
                 >
-                  <h1
-                    className={`ml-6 py-1 text-S/Regular  ${
-                      id === _state.scrollEvent.title
-                        ? 'text-orange-500'
-                        : 'text-gray-700'
-                    }`}
-                  >
-                    {convertTitle(id)}
-                  </h1>
+                  <a href={`#${id}`}>
+                    <h1
+                      className={`ml-6 py-1 text-S/Regular  ${
+                        id === _state.scrollEvent.current
+                          ? 'text-orange-500'
+                          : 'text-gray-700'
+                      }`}
+                    >
+                      {convertTitle(id)}
+                    </h1>
+                  </a>
                 </li>
               );
             })}

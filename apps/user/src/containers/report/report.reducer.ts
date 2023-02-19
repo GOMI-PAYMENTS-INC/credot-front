@@ -3,7 +3,7 @@ import { TBatchStatusType } from '@/containers/report/report.api';
 
 const reportInitialState: TReportState = {
   main: {
-    text: '',
+    text: 'Loading...',
     country: CountryType.Vn,
     channel: 'SHOPEE',
     sorted: 'R',
@@ -35,13 +35,14 @@ const reportInitialState: TReportState = {
     batchStatus: TBatchStatusType.NONE,
     createdAt: null,
   },
-  scrollEvent: { title: 'Report', isOpen: false },
+  scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
 };
 
 export enum REPORT_ACTION {
   INITIALIZE_DATA = 'INITIALIZE_DATA',
   SCROLL_EVENT = 'SCROLL_EVENT',
   TOGGLE_CONTROL = 'TOGGLE_CONTROL',
+  UPDATE_CURRENT = 'UPDATE_CURRENT',
 }
 
 export type TReportAction = {
@@ -70,6 +71,10 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
     }
     case REPORT_ACTION.SCROLL_EVENT: {
       state.scrollEvent.title = action.payload;
+      return state;
+    }
+    case REPORT_ACTION.UPDATE_CURRENT: {
+      state.scrollEvent.current = action.payload;
       return state;
     }
     case REPORT_ACTION.TOGGLE_CONTROL: {
