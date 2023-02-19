@@ -4,7 +4,7 @@ import { convertTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { capitalize } from '@/utils/capitalize';
-import { reportListConverter } from '@/containers/report/reportListConverter';
+import { reportListConverter } from '@/containers/report/report.container';
 import { Dispatch, Fragment } from 'react';
 
 type TReportListColumn = {

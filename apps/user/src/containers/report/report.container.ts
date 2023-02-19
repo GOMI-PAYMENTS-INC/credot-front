@@ -1,7 +1,17 @@
 import { useState, useLayoutEffect, Dispatch } from 'react';
 import { getMainReport, getRelationReport } from './report.api';
-import { REPORT_ACTION, TReportAction } from '@/containers/report/report.reducer';
+import {
+  REPORT_ACTION,
+  TReportAction,
+  ReportListActionKind,
+} from '@/containers/report/report.reducer';
 import { TITLE } from '@/types/enum.code';
+
+import { getReportList } from '@/containers/report/report.api';
+import { STATUS_CODE } from '@/types/enum.code';
+
+import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
+import { convertBatchStatus } from '@/utils/convertEnum';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -111,4 +121,48 @@ export const updateTitle = (
 
 export const isToggleOpen = (_dispatch: Dispatch<TReportAction>) => {
   _dispatch({ type: REPORT_ACTION.TOGGLE_CONTROL });
+};
+
+type TGetReportList = {
+  _dispatch: Dispatch<TReportListAction>;
+  _state: TReportListState;
+};
+
+export const setReportList = async ({ _state, _dispatch }: TGetReportList) => {
+  try {
+    const res = await getReportList({
+      page: _state.page,
+      limit: _state.limit,
+    });
+    const reportInfo = res?.data;
+    //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
+    if (reportInfo?.code === STATUS_CODE.SUCCESS) {
+      _state.data = reportInfo.data;
+      _dispatch({ type: ReportListActionKind.GetReportList, payload: _state });
+    }
+
+    return reportInfo;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const reportListConverter = (item: TReportItem) => {
+  const result = {
+    status: {
+      text: convertBatchStatus(item.status),
+      sentiment: TAG_SENTIMENT_STATUS.ATTENTIVE,
+    },
+    countryCode: {
+      text: convertBatchStatus(item.countryCode),
+      iconPath: '/assets/icons/flag/Vietnam.svg',
+    },
+    channel: { iconPath: '/assets/icons/shop/Shopee.svg' },
+  };
+
+  if (item.status === BATCH_STATUS.DONE) {
+    result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
+  }
+
+  return result;
 };

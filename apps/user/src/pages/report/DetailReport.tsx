@@ -49,6 +49,9 @@ const DetailReport = () => {
         <MartketSize marketSize={main} />
         <AnalysisKeyword analysisInfo={main} />
         <RecommendationOfKeyword />
+        <section className='h-[400px]'>하하</section>
+        <section className='h-[400px]'>호호</section>
+        <section className='h-[400px]'>므므</section>
       </Fragment>
     );
   }, [main]);

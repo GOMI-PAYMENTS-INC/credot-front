@@ -3,25 +3,25 @@ import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { setReportList } from '@/containers/report';
+import { setReportList } from '@/containers/report/report.container';
 import {
   reportListReducer,
-  initialState,
+  reportListInitialState,
   ReportListActionKind,
-} from '@/containers/report/reportList.reducer';
+} from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 
 import Pagination from '@/components/pagination';
 import { BATCH_STATUS } from '@/types/enum.code';
 
 const ReportList = () => {
-  const [_state, _dispatch] = useReducer(reportListReducer, initialState);
+  const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
   // const [totalCount, setTotalCount] = useState<number>(0);
 
   useEffect(() => {
     let state: TReportListState;
     if (_state.page === undefined || _state.limit === undefined) {
-      state = initialState;
+      state = reportListInitialState;
     } else {
       state = _state;
     }
@@ -141,8 +141,8 @@ const ReportList = () => {
             <tbody>
               <ReportListColumn
                 response={_state.data}
-                page={_state.page || initialState.page}
-                limit={_state.limit || initialState.limit}
+                page={_state.page || reportListInitialState.page}
+                limit={_state.limit || reportListInitialState.limit}
                 checkedItems={checkedItems}
                 setCheckedItems={setCheckedItems}
                 setIsCheckedAll={setIsCheckedAll}
