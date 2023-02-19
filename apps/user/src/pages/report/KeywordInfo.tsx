@@ -27,7 +27,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               </span>
             </div>
             <div className='pt-2 text-S/Medium even:space-x-2'>
-              <span className=' text-grey-600'>기준</span>
+              <span className=' text-grey-600'>수집 기준</span>
               <span className=' text-grey-800'>연관도순</span>
               {/* <span className=' text-grey-800'>{sorted}</span> */}
               <span className=' text-grey-600'>생성일 기준 환율</span>

@@ -89,7 +89,11 @@ const SideBar = () => {
                     svg.setAttribute(
                       'class',
                       `w-4 fill-grey-800 ${
-                        isIncluded(path, PATH.GET_REPORT_LIST) && 'fill-orange-500'
+                        isIncluded(
+                          path,
+                          PATH.GET_REPORT_LIST,
+                          PATH.ANALYSIS_REPORT_LIST,
+                        ) && 'fill-orange-500'
                       }`,
                     );
                   }}
