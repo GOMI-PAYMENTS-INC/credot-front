@@ -6,7 +6,7 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-import { SendTemporaryPasswordResult } from '@/types/statusCode';
+import { SEND_TEMPORARY_PASSWORD_RESULT } from '@/types/enum.code';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
 
@@ -76,7 +76,8 @@ const FindPassword = () => {
     <Fragment>
       {/* 비밀번호 찾기 폼 시작 */}
       {!isSuccessSendTemporaryPassword &&
-        sendTemporaryPasswordResponseStatus !== SendTemporaryPasswordResult.STRANGER && (
+        sendTemporaryPasswordResponseStatus !==
+          SEND_TEMPORARY_PASSWORD_RESULT.STRANGER && (
           <>
             <div className='space-y-8'>
               <FindIdPasswordTittle
@@ -160,7 +161,8 @@ const FindPassword = () => {
       {/* 비밀번호 임시발송 완료 끝 */}
 
       {/*검색 결과 없음 시작*/}
-      {sendTemporaryPasswordResponseStatus === SendTemporaryPasswordResult.STRANGER && (
+      {sendTemporaryPasswordResponseStatus ===
+        SEND_TEMPORARY_PASSWORD_RESULT.STRANGER && (
         <div className='space-y-8'>
           <FindIdPasswordTittle
             title='일치하는 회원정보가 없어요.'

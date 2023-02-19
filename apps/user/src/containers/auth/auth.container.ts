@@ -31,7 +31,7 @@ import {
   useSendTemporaryPasswordMutation,
   useSignupMutation,
 } from '@/generated/graphql';
-// import { SendTemporaryPasswordResult } from '@/pages/auth/FindPassword';
+
 import { PATH } from '@/router/routeList';
 import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/utils/config';

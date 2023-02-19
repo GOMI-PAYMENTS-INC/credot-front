@@ -1,31 +1,32 @@
 import { ChangeEvent, Fragment, useReducer, useState } from 'react';
-
+import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { setReportList } from '@/containers/report';
+import { _getReportList } from '@/containers/report/report.container';
 import {
   reportListReducer,
-  initialState,
+  reportListInitialState,
   ReportListActionKind,
-} from '@/containers/report/reportList.reducer';
+} from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 
 import Pagination from '@/components/pagination';
+import { BATCH_STATUS } from '@/types/enum.code';
 
 const ReportList = () => {
-  const [_state, _dispatch] = useReducer(reportListReducer, initialState);
+  const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
   // const [totalCount, setTotalCount] = useState<number>(0);
 
   useEffect(() => {
     let state: TReportListState;
     if (_state.page === undefined || _state.limit === undefined) {
-      state = initialState;
+      state = reportListInitialState;
     } else {
       state = _state;
     }
 
-    setReportList({ _state: state, _dispatch }).then((r) => {});
+    _getReportList({ _state: state, _dispatch }).then((r) => {});
   }, [_state.page, _state.limit]);
 
   //전체 선택 체크 여부
@@ -38,7 +39,9 @@ const ReportList = () => {
     if (checked) {
       const checkedItemsArray: Number[] = [];
       _state.data.reports.forEach(
-        (report) => report.status === 'DONE' && checkedItemsArray.push(report.id),
+        (report) =>
+          isIncluded(report.status, BATCH_STATUS.DONE) &&
+          checkedItemsArray.push(report.id),
       );
       setCheckedItems(checkedItemsArray);
 
@@ -65,7 +68,7 @@ const ReportList = () => {
 
       statePram.page = _state.page;
       statePram.limit = limit;
-      setReportList({ _state: statePram, _dispatch }).then((r) => {
+      _getReportList({ _state: statePram, _dispatch }).then((r) => {
         if (r) {
           console.log(r);
         }
@@ -119,7 +122,7 @@ const ReportList = () => {
                   <div className='px-4 py-3 text-XS/Medium'>검색어</div>
                 </th>
                 <th className='w-[128px]'>
-                  <div className='px-4 py-3 text-XS/Medium'>데이터 수집 상태</div>
+                  <div className='px-4 py-3 text-XS/Medium'>수집 상태</div>
                 </th>
                 <th className='w-[128px]'>
                   <div className='px-4 py-3 text-XS/Medium'>국가</div>
@@ -138,8 +141,8 @@ const ReportList = () => {
             <tbody>
               <ReportListColumn
                 response={_state.data}
-                page={_state.page || initialState.page}
-                limit={_state.limit || initialState.limit}
+                page={_state.page || reportListInitialState.page}
+                limit={_state.limit || reportListInitialState.limit}
                 checkedItems={checkedItems}
                 setCheckedItems={setCheckedItems}
                 setIsCheckedAll={setIsCheckedAll}

@@ -1,3 +1,48 @@
+export const convertRecommendationScoreToText = (status: string) => {
+  const divStyle = 'h-5 w-[58px] rounded border-[1.5px] text-center';
+  const pStyle = 'px-0.5 py-0.5 text-XS/Medium';
+  switch (status) {
+    case 'A': {
+      return (
+        <div className={`border-[#ABDCFF] ${divStyle}`}>
+          <p className={` text-[#0279D4] ${pStyle}`}>매우좋음</p>
+        </div>
+      );
+    }
+    case 'B': {
+      return (
+        <div className={`border-[#C9F5DF] ${divStyle}`}>
+          <p className={` text-[#187A41] ${pStyle}`}>좋음</p>
+        </div>
+      );
+    }
+    case 'C': {
+      return (
+        <div className={`border-[#D9D9D9] ${divStyle}`}>
+          <p className={` text-[#262626] ${pStyle}`}>보통</p>
+        </div>
+      );
+    }
+    case 'D': {
+      return (
+        <div className={`border-[#F8CB32] ${divStyle}`}>
+          <p className={` text-[#AC6600] ${pStyle}`}>나쁨</p>
+        </div>
+      );
+    }
+    case 'E': {
+      return (
+        <div className={`border-[#FCC5CB] ${divStyle}`}>
+          <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
+        </div>
+      );
+    }
+    default:
+      console.error('상태값을 다시 확인해주세요.');
+      return;
+  }
+};
+
 export const convertScoreToText = (status: string) => {
   switch (status) {
     case 'A': {

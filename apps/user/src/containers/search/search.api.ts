@@ -3,7 +3,7 @@ import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP, defaultOptions } from '@/utils/axiosConfig';
 import { snakeize } from 'casing';
-import { STATUS_CODE } from '@/types/statusCode';
+import { STATUS_CODE } from '@/types/enum.code';
 
 import { isFalsy } from '@/utils/isFalsy';
 

@@ -52,13 +52,13 @@ type TRecommnandKeyword = {
 type TReportItem = {
   id: !Number;
   userId: Number;
-  reportUniqueId: String;
-  status: String;
-  countryCode: String;
-  channel: String;
-  keyword: String;
+  reportUniqueId: string;
+  status: string;
+  countryCode: string;
+  channel: string;
+  keyword: string;
   isMain: Boolean;
-  sortBy: String;
+  sortBy: string;
   itemCount: Number;
   totalItemCount: Number;
   averagePrice: Number;
@@ -89,8 +89,9 @@ type TGetMainReportDataType = {
 type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type TReportState = {
   main: TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword;
-  relation: TGetRelationReportDataType;
-  scrollEvent: { title: TTitle; isOpen: boolean };
+  relation: TGetRelationReportDataType[];
+  scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
+  toggleEvent: { id: number; isOpen: boolean }[];
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';

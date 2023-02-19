@@ -1,31 +1,31 @@
-import { statusTagSentiment } from '@/types/statusTagSentiment';
+import { TAG_SENTIMENT_STATUS } from '@/types/enum.code';
 
 export interface IStatusTagProps {
   text: string;
-  sentiment: statusTagSentiment;
+  sentiment: TAG_SENTIMENT_STATUS;
 }
 
 export const StatusTag = ({ text, sentiment }: IStatusTagProps) => {
   let statusTagStyle = ' ';
   let badgeStyle = '';
   switch (sentiment) {
-    case statusTagSentiment.NEUTRAL:
+    case TAG_SENTIMENT_STATUS.NEUTRAL:
       statusTagStyle = 'bg-grey-100';
       badgeStyle = 'bg-grey-600';
       break;
-    case statusTagSentiment.POSITIVE:
+    case TAG_SENTIMENT_STATUS.POSITIVE:
       statusTagStyle = 'bg-green-100';
       badgeStyle = 'bg-green-600';
       break;
-    case statusTagSentiment.NEGATIVE:
+    case TAG_SENTIMENT_STATUS.NEGATIVE:
       statusTagStyle = 'bg-red-100';
       badgeStyle = 'bg-red-600';
       break;
-    case statusTagSentiment.ATTENTIVE:
+    case TAG_SENTIMENT_STATUS.ATTENTIVE:
       statusTagStyle = 'bg-yellow-100';
       badgeStyle = 'bg-yellow-500';
       break;
-    case statusTagSentiment.INFORMATIVE:
+    case TAG_SENTIMENT_STATUS.INFORMATIVE:
       statusTagStyle = 'bg-blue-100';
       badgeStyle = 'bg-blue-500';
       break;

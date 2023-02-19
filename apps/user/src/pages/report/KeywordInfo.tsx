@@ -1,6 +1,7 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
 import { openBrowser } from '@/containers/report/report.container';
+import { convertCountry } from '@/utils/convertEnum';
 interface IKeywordInfoProps {
   keywordInfo: KeywordInfo;
 }
@@ -16,9 +17,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
           <div>
             <div className='pt-4 text-S/Medium odd:space-x-2'>
               <span className=' text-grey-600'>국가</span>
-              <span className=' text-grey-800'>{country}</span>
+              <span className=' text-grey-800'>{convertCountry(country)}</span>
               <span className=' text-grey-600'>플랫폼</span>
-              <span className=' text-grey-800'>{channel}</span>
+              <span className=' text-grey-800'>Shopee</span>
+              {/* <span className=' text-grey-800'>{channel}</span> */}
               <span className=' text-grey-600'>생성일</span>
               <span className=' text-grey-800'>
                 {convertTime(createdAt!, 'YYYY.MM.DD')}
@@ -26,7 +28,8 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className=' text-grey-600'>기준</span>
-              <span className=' text-grey-800'>{sorted}</span>
+              <span className=' text-grey-800'>연관도순</span>
+              {/* <span className=' text-grey-800'>{sorted}</span> */}
               <span className=' text-grey-600'>생성일 기준 환율</span>
               <span className=' text-grey-800'>{`100VND = ${basePrice} KRW`}</span>
             </div>
