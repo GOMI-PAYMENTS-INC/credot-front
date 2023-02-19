@@ -90,17 +90,17 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                   </td>
                   <th>
                     <div className='flex justify-center'>
-                      <p>{convertRecommendationScoreToText(search)}</p>
+                      {convertRecommendationScoreToText(search)}
                     </div>
                   </th>
                   <th>
                     <div className='flex justify-center'>
-                      <p>{convertRecommendationScoreToText(competiton)}</p>
+                      {convertRecommendationScoreToText(competiton)}
                     </div>
                   </th>
                   <th>
                     <div className='flex justify-center'>
-                      <p>{convertRecommendationScoreToText(cpc)}</p>
+                      {convertRecommendationScoreToText(cpc)}
                     </div>
                   </th>
                   <th className='bg-grey-100'>

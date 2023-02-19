@@ -1,27 +1,43 @@
 export const convertRecommendationScoreToText = (status: string) => {
   switch (status) {
     case 'A': {
-      return '매우좋음';
-      // return <p className='text-2XL/Bold text-[#1A9CFF]'>매우좋음</p>; //blue-600
+      return (
+        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#ABDCFF]'>
+          <p className='px-0.5 py-0.5 text-XS/Medium text-[#0279D4]'>매우좋음</p>
+        </div>
+      );
     }
     case 'B': {
-      return '좋음';
-      // return <p className='text-2XL/Bold text-[#15BD66]'>좋음</p>;
+      return (
+        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#C9F5DF]'>
+          <p className='px-0.5 py-0.5 text-XS/Medium text-[#187A41]'>좋음</p>
+        </div>
+      );
     }
     case 'C': {
-      return '보통';
-      // return <p className='text-2XL/Bold text-grey-700'>보통</p>;
+      return (
+        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#D9D9D9]'>
+          <p className='px-0.5 py-0.5 text-XS/Medium text-[#262626]'>보통</p>
+        </div>
+      );
     }
     case 'D': {
-      return '나쁨';
-      // return <p className='text-2XL/Bold text-[#F4B60D]'>나쁨</p>;
+      return (
+        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#F8CB32]'>
+          <p className='px-0.5 py-0.5 text-XS/Medium text-[#AC6600]'>나쁨</p>
+        </div>
+      );
     }
     case 'E': {
-      return '매우나쁨';
-      // return <p className='text-2XL/Bold text-[#FF334B]'>매우나쁨</p>;
+      return (
+        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#FCC5CB]'>
+          <p className='px-0.5 py-0.5 text-XS/Medium text-[#C9162B]'>매우나쁨</p>
+        </div>
+      );
     }
     default:
-    // return;
+      console.error('상태값을 다시 확인해주세요.');
+      return;
   }
 };
 
