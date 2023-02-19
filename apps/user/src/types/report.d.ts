@@ -52,13 +52,13 @@ type TRecommnandKeyword = {
 type TReportItem = {
   id: !Number;
   userId: Number;
-  reportUniqueId: String;
-  status: String;
-  countryCode: String;
-  channel: String;
-  keyword: String;
+  reportUniqueId: string;
+  status: string;
+  countryCode: string;
+  channel: string;
+  keyword: string;
   isMain: Boolean;
-  sortBy: String;
+  sortBy: string;
   itemCount: Number;
   totalItemCount: Number;
   averagePrice: Number;

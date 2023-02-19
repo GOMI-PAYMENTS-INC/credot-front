@@ -1,9 +1,8 @@
 import { Dispatch } from 'react';
-
 import { getReportList } from '@/containers/report/report.api';
-import { ActionKind } from '@/containers/search';
+
 import { ReportListActionKind } from '@/containers/report/reportList.reducer';
-import { STATUS_CODE } from '@/types/statusCode';
+import { STATUS_CODE } from '@/types/enum.code';
 
 type TGetReportList = {
   _dispatch: Dispatch<TReportListAction>;

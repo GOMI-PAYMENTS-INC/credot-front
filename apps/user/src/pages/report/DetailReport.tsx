@@ -7,7 +7,7 @@ import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
 
 import { scrollToTop } from '@/utils/scrollToTop';
-import { TITLE } from '@/types/statusCode';
+import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import {
   _getMainReport,

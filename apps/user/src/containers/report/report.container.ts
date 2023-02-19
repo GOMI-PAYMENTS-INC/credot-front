@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect, Dispatch } from 'react';
 import { getMainReport, getRelationReport } from './report.api';
 import { REPORT_ACTION, TReportAction } from '@/containers/report/report.reducer';
-import { TITLE } from '@/types/statusCode';
+import { TITLE } from '@/types/enum.code';
 
 export const openBrowser = (url: string) => {
   window.open(url);

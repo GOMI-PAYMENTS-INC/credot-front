@@ -1,82 +1,23 @@
-import { statusTagSentiment } from '@/types/statusTagSentiment';
-
-import { countryCodeEnum } from '@/types/reportData';
+import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
+import { CountryType } from '@/generated/graphql';
+import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 
 export const reportListConverter = (item: TReportItem) => {
-  let result = {
-    status: { text: 'WAIT', sentiment: statusTagSentiment.NEUTRAL },
-    countryCode: { text: countryCodeEnum.VN, iconPath: '/assets/icons/flag/Vietnam.svg' },
-    channel: { iconPath: "'/assets/icons/shop/Shopee.svg'" },
+  const result = {
+    status: {
+      text: convertBatchStatus(item.status),
+      sentiment: TAG_SENTIMENT_STATUS.ATTENTIVE,
+    },
+    countryCode: {
+      text: convertBatchStatus(item.countryCode),
+      iconPath: '/assets/icons/flag/Vietnam.svg',
+    },
+    channel: { iconPath: '/assets/icons/shop/Shopee.svg' },
   };
 
-  const status = () => {
-    let text = '';
-    let sentiment = statusTagSentiment.NEUTRAL;
-    switch (item.status) {
-      case 'WAIT':
-      case 'RUN':
-      case 'REPLICATE':
-        text = '진행중';
-        sentiment = statusTagSentiment.ATTENTIVE;
-        break;
-      case 'DONE':
-        text = '완료';
-        sentiment = statusTagSentiment.POSITIVE;
-        break;
-    }
-    Object.assign(result, {
-      status: {
-        text: text,
-        sentiment: sentiment,
-      },
-    });
-  };
-  status();
-
-  const countryCode = () => {
-    let text = '';
-    let iconPath = '';
-    switch (item.countryCode) {
-      case 'KR':
-        text = countryCodeEnum.KR;
-        iconPath = '';
-        break;
-      case 'US':
-        text = countryCodeEnum.US;
-        iconPath = '';
-        break;
-      case 'VN':
-        text = countryCodeEnum.VN;
-        iconPath = '/assets/icons/flag/Vietnam.svg';
-        break;
-      case 'TH':
-        text = countryCodeEnum.TH;
-        iconPath = '';
-        break;
-    }
-    Object.assign(result, {
-      countryCode: {
-        text: text,
-        iconPath: iconPath,
-      },
-    });
-  };
-  countryCode();
-
-  const channel = () => {
-    let iconPath = '';
-    switch (item.channel) {
-      case 'SHOPEE':
-        iconPath = '/assets/icons/shop/Shopee.svg';
-        break;
-    }
-    Object.assign(result, {
-      channel: {
-        iconPath: iconPath,
-      },
-    });
-  };
-  channel();
+  if (item.status === BATCH_STATUS.DONE) {
+    result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
+  }
 
   return result;
 };

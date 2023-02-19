@@ -5,7 +5,7 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { FindUserContainer } from '@/containers/auth/find-user.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-import { FindAccountResult } from '@/types/statusCode';
+import { FIND_ACCOUNT_RESULT } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
@@ -48,7 +48,7 @@ const FindId = () => {
   return (
     <Fragment>
       {/* 아이디 찾기 폼 시작 */}
-      {!findAccountQuery && responseStatus !== FindAccountResult.STRANGER && (
+      {!findAccountQuery && responseStatus !== FIND_ACCOUNT_RESULT.STRANGER && (
         <>
           <div className='space-y-8'>
             <FindIdPasswordTittle
@@ -125,7 +125,7 @@ const FindId = () => {
       {/* 아이디 찾기 결과 끝 */}
 
       {/* 조회된 결과가 없는 경우 시작 */}
-      {responseStatus === FindAccountResult.STRANGER && (
+      {responseStatus === FIND_ACCOUNT_RESULT.STRANGER && (
         <>
           <div className='space-y-8'>
             <FindIdPasswordTittle

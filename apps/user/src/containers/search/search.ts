@@ -1,7 +1,7 @@
 import { ActionKind } from '@/containers/search';
 import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { STATUS_CODE } from '@/types/statusCode';
+import { STATUS_CODE } from '@/types/enum.code';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
