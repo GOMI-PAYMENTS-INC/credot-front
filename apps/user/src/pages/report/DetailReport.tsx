@@ -47,7 +47,11 @@ const DetailReport = () => {
         <KeywordInfo keywordInfo={main} />
         <MartketSize marketSize={main} />
         <AnalysisKeyword analysisInfo={main} />
-        <RecommendationOfKeyword relation={relation} />
+        <RecommendationOfKeyword
+          relation={relation}
+          _dispatch={_dispatch}
+          toggleEvent={_state.toggleEvent}
+        />
         <section className='h-[400px]'>하하</section>
         <section className='h-[400px]'>호호</section>
         <section className='h-[400px]'>므므</section>
@@ -61,7 +65,7 @@ const DetailReport = () => {
 
   return (
     <Fragment>
-      <div className='sticky top-0 col-span-full w-full'>
+      <div className='sticky top-0 z-10 col-span-full w-full'>
         <div className='flex h-[84px] items-center border-b-[1px] border-b-gray-200 bg-white'>
           <div className='flex items-center'>
             <div
@@ -97,7 +101,7 @@ const DetailReport = () => {
               wrapper='span'
               className={`mr-2.5  ${_state.scrollEvent.isOpen && 'rotate-90'}`}
               src='/assets/icons/filled/CaretDown.svg'
-              onClick={() => isToggleOpen(_dispatch)}
+              onClick={() => isToggleOpen(_dispatch, true)}
             />
             목차
           </p>

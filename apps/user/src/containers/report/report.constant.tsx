@@ -1,37 +1,39 @@
 export const convertRecommendationScoreToText = (status: string) => {
+  const divStyle = 'h-5 w-[58px] rounded border-[1.5px] text-center';
+  const pStyle = 'px-0.5 py-0.5 text-XS/Medium';
   switch (status) {
     case 'A': {
       return (
-        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#ABDCFF]'>
-          <p className='px-0.5 py-0.5 text-XS/Medium text-[#0279D4]'>매우좋음</p>
+        <div className={`border-[#ABDCFF] ${divStyle}`}>
+          <p className={` text-[#0279D4] ${pStyle}`}>매우좋음</p>
         </div>
       );
     }
     case 'B': {
       return (
-        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#C9F5DF]'>
-          <p className='px-0.5 py-0.5 text-XS/Medium text-[#187A41]'>좋음</p>
+        <div className={`border-[#C9F5DF] ${divStyle}`}>
+          <p className={` text-[#187A41] ${pStyle}`}>좋음</p>
         </div>
       );
     }
     case 'C': {
       return (
-        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#D9D9D9]'>
-          <p className='px-0.5 py-0.5 text-XS/Medium text-[#262626]'>보통</p>
+        <div className={`border-[#D9D9D9] ${divStyle}`}>
+          <p className={` text-[#262626] ${pStyle}`}>보통</p>
         </div>
       );
     }
     case 'D': {
       return (
-        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#F8CB32]'>
-          <p className='px-0.5 py-0.5 text-XS/Medium text-[#AC6600]'>나쁨</p>
+        <div className={`border-[#F8CB32] ${divStyle}`}>
+          <p className={` text-[#AC6600] ${pStyle}`}>나쁨</p>
         </div>
       );
     }
     case 'E': {
       return (
-        <div className='h-5 w-[58px] rounded border-[1.5px] border-[#FCC5CB]'>
-          <p className='px-0.5 py-0.5 text-XS/Medium text-[#C9162B]'>매우나쁨</p>
+        <div className={`border-[#FCC5CB] ${divStyle}`}>
+          <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
         </div>
       );
     }

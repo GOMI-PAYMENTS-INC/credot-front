@@ -3,7 +3,7 @@ import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { setReportList } from '@/containers/report/report.container';
+import { _getReportList } from '@/containers/report/report.container';
 import {
   reportListReducer,
   reportListInitialState,
@@ -26,7 +26,7 @@ const ReportList = () => {
       state = _state;
     }
 
-    setReportList({ _state: state, _dispatch }).then((r) => {});
+    _getReportList({ _state: state, _dispatch }).then((r) => {});
   }, [_state.page, _state.limit]);
 
   //전체 선택 체크 여부
@@ -68,7 +68,7 @@ const ReportList = () => {
 
       statePram.page = _state.page;
       statePram.limit = limit;
-      setReportList({ _state: statePram, _dispatch }).then((r) => {
+      _getReportList({ _state: statePram, _dispatch }).then((r) => {
         if (r) {
           console.log(r);
         }

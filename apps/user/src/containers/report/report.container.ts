@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, Dispatch } from 'react';
+import { Dispatch } from 'react';
 import { getMainReport, getRelationReport } from './report.api';
 import {
   REPORT_ACTION,
@@ -95,8 +95,16 @@ export const updateTitle = (
   }
 };
 
-export const isToggleOpen = (_dispatch: Dispatch<TReportAction>) => {
-  _dispatch({ type: REPORT_ACTION.TOGGLE_CONTROL });
+export const isToggleOpen = (
+  _dispatch: Dispatch<TReportAction>,
+  isContent: boolean,
+  id?: number,
+) => {
+  if (isContent) {
+    _dispatch({ type: REPORT_ACTION.TOGGLE_CONTROL });
+  } else {
+    _dispatch({ type: REPORT_ACTION.RECOMMENDATION_TOGGLE_EVENT, payload: { id: id } });
+  }
 };
 
 type TGetReportList = {
@@ -104,7 +112,7 @@ type TGetReportList = {
   _state: TReportListState;
 };
 
-export const setReportList = async ({ _state, _dispatch }: TGetReportList) => {
+export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   try {
     const res = await getReportList({
       page: _state.page,
@@ -139,7 +147,6 @@ export const reportListConverter = (item: TReportItem) => {
   if (item.status === BATCH_STATUS.DONE) {
     result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
   }
-
   return result;
 };
 
