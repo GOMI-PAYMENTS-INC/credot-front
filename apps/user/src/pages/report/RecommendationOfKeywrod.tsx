@@ -36,10 +36,15 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
         />
         <Tooltip
           anchorId='anchor-recommandation-keyword'
-          html='채워넣어보자구 : ).'
+          style={{ backgroundColor: 'white' }}
           place='right'
-          className='text-XS/Regular text-grey-800'
-        />
+        >
+          <div className='rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
+            <p className='text-XS/Regular text-grey-900'>
+              키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.
+            </p>
+          </div>
+        </Tooltip>
       </h1>
 
       <table className=' col-span-full mt-6 h-full w-full  table-auto bg-white'>
@@ -97,7 +102,10 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
               return (
                 <Fragment key={`product_key_${data.id}`}>
                   <tr className='mt-3 flex' />
-                  <tr className={`border-[1px] ${backgroundColor}`}>
+                  <tr
+                    className={`border-[1px] ${backgroundColor} cursor-pointer hover:bg-grey-200`}
+                    onClick={() => isToggleOpen(_dispatch, false, data.id)}
+                  >
                     <td>
                       <div className='ml-[6px] flex w-[114px]'>
                         <p>{data.text}</p>
@@ -183,11 +191,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <div
-                          id={`toggle_${data.id}`}
-                          className='flex h-5 w-5 cursor-pointer'
-                          onClick={() => isToggleOpen(_dispatch, false, data.id)}
-                        >
+                        <div className='flex h-5 w-5'>
                           <ReactSVG
                             className={
                               isFalsy(toggleEvent.find((event) => event.id === data.id))

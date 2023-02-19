@@ -70,7 +70,6 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       return state;
     }
     case REPORT_ACTION.RECOMMENDATION_TOGGLE_EVENT: {
-      console.log(action, 'action');
       const { id } = action.payload;
       const status = state.toggleEvent.find((status) => status.id === id) || false;
 

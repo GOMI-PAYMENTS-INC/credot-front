@@ -35,8 +35,11 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
       .split('')
       .map((score) => convertScoreToText(score));
   }, [analysisInfo.evaluateStatus]);
+  const [search, competition, cpc] = keywordReport;
 
   const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
+  const divStyle = 'h-5 w-[58px] rounded border-[1.5px] text-center';
+  const pStyle = 'px-0.5 py-0.5 text-XS/Medium';
 
   return (
     <section id={TITLE.KEYWORD_INFO} className='col-span-full'>
@@ -54,33 +57,56 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <Tooltip
                   anchorId='anchor-market-evaluation'
-                  html='채워넣어라'
                   place='right'
-                  className='text-XS/Regular text-grey-800'
-                />
+                  style={{ background: 'none' }}
+                >
+                  <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
+                    <p className='text-XS/Regular text-grey-900'>
+                      리포트를 생성하신 키워드를
+                      <span className='text-XS/Bold'>
+                        {`검색량, 노출 경쟁률, 입찰 경쟁률 `}
+                      </span>
+                      관점에서 총 5개 등급으로 평가해요.
+                    </p>
+                    <div className='inline-flex space-x-3 pt-3'>
+                      <div className={`border-[#ABDCFF] ${divStyle}`}>
+                        <p className={` text-[#0279D4] ${pStyle}`}>매우좋음</p>
+                      </div>
+                      <div className={`border-[#C9F5DF] ${divStyle}`}>
+                        <p className={` text-[#187A41] ${pStyle}`}>좋음</p>
+                      </div>
+                      <div className={`border-[#D9D9D9] ${divStyle}`}>
+                        <p className={` text-[#262626] ${pStyle}`}>보통</p>
+                      </div>
+                      <div className={`border-[#F8CB32] ${divStyle}`}>
+                        <p className={` text-[#AC6600] ${pStyle}`}>나쁨</p>
+                      </div>
+                      <div className={`border-[#FCC5CB] ${divStyle}`}>
+                        <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip>
               </span>
             </div>
             <div className='flex h-[163px] items-center  text-center'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
                 <div className='flex h-[123px] flex-1 flex-col items-center justify-center '>
-                  {keywordReport[0]}
-                  {/* <p className='text-2XL/Bold text-blue-600'>매우좋음</p> */}
+                  {search}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>검색량</p>
                   </div>
                 </div>
                 <div className='flex h-[123px] flex-1 flex-col items-center justify-center border-dashed'>
                   <div className=''>
-                    {keywordReport[1]}
-                    {/* <p className='text-2XL/Bold text-green-600'>좋음</p> */}
+                    {competition}
                     <div className='pt-2'>
                       <p className='text-XS/Regular text-grey-800'>노출 경쟁</p>
                     </div>
                   </div>
                 </div>
                 <div className='flex h-[123px] flex-1 flex-col items-center justify-center'>
-                  {keywordReport[2]}
-                  {/* <p className='text-2XL/Bold text-yellow-500'>나쁨</p> */}
+                  {cpc}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>CPC 경쟁</p>
                   </div>
@@ -99,10 +125,32 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <Tooltip
                   anchorId='anchor-market-detail'
-                  html='채워넣어라'
                   place='right'
-                  className='text-XS/Regular text-grey-800'
-                />
+                  style={{ background: 'none' }}
+                >
+                  <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4 text-XS/Regular text-grey-800'>
+                    <div className='flex space-x-3'>
+                      <div className='flex flex-col'>
+                        <p className='text-XS/Bold'>검색량</p>
+                        <span>최근 30일간 검색된 수를 의미해요.</span>
+                        <p className='pt-2 text-XS/Bold'>등록 상품</p>
+                        <span>키워드 검색 시 노출되는 상품 수를 의미해요.</span>
+                      </div>
+                      <div className='flex flex-col'>
+                        <p className='text-XS/Bold'>CPC</p>
+                        <span>키워드 광고 집행을 위한 최소한의 입찰 비용이에요.</span>
+                        <p className='pt-2 text-XS/Bold'>상품 평균가</p>
+                        <span>
+                          해당 키워드 검색 시 노출되는 상품들의 평균 판매 가격이에요.
+                        </span>
+                      </div>
+                      <div className='flex flex-col'>
+                        <p className='text-XS/Bold'>키워드 경쟁률</p>
+                        <span>검색량과 등록 상품 수의 비율이에요.</span>
+                      </div>
+                    </div>
+                  </div>
+                </Tooltip>
               </span>
             </div>
             <div className='flex divide-x-[1px] divide-dotted'>

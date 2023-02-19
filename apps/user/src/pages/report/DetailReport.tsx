@@ -10,12 +10,11 @@ import { scrollToTop } from '@/utils/scrollToTop';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import {
-  _getMainReport,
   convertTitle,
   updateTitle,
   isToggleOpen,
   openBrowser,
-  _getRelationReport,
+  _getReportInfo,
 } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { ReactSVG } from 'react-svg';
@@ -30,10 +29,9 @@ const DetailReport = () => {
   const navigation = useNavigate();
 
   useEffect(() => {
-    if (isFalsy(routeId)) return;
-    if (routeId.id) {
-      _getMainReport(routeId.id, _dispatch);
-      _getRelationReport(routeId.id, _dispatch);
+    if (isFalsy(routeId.id)) return;
+    if (routeId.id && _state.main.createdAt === null) {
+      _getReportInfo(routeId.id, _dispatch);
     }
   }, []);
 
@@ -52,9 +50,7 @@ const DetailReport = () => {
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
         />
-        <section className='h-[400px]'>하하</section>
-        <section className='h-[400px]'>호호</section>
-        <section className='h-[400px]'>므므</section>
+        <section className='h-[200px]'></section>
       </Fragment>
     );
   }, [main]);
