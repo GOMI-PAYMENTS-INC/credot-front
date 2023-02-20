@@ -127,7 +127,7 @@ const DetailReport = () => {
         </ul>
 
         <button
-          className='fixed right-[60px] bottom-8 flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
+          className='fixed right-[60px] bottom-[100ﬁ›‹px] flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
           onClick={() => scrollToTop(_dispatch)}
         >
           <ReactSVG src='/assets/icons/outlined/ToTop.svg' />

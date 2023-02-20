@@ -151,7 +151,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                       </div>
                     </td>
                     <td className='bg-grey-50'>
-                      <div className='flex justify-center'>
+                      <div className='flex justify-center text-center'>
                         <div className='h-5 w-[43px]'>
                           <p className='text-S/Bold'>{`${data.cpcRate}%`}</p>
                         </div>

@@ -20,7 +20,6 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               <span className=' text-grey-800'>{convertCountry(country)}</span>
               <span className=' text-grey-600'>플랫폼</span>
               <span className=' text-grey-800'>Shopee</span>
-              {/* <span className=' text-grey-800'>{channel}</span> */}
               <span className=' text-grey-600'>생성일</span>
               <span className=' text-grey-800'>
                 {convertTime(createdAt!, 'YYYY.MM.DD')}
@@ -29,7 +28,6 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className=' text-grey-600'>수집 기준</span>
               <span className=' text-grey-800'>연관도순</span>
-              {/* <span className=' text-grey-800'>{sorted}</span> */}
               <span className=' text-grey-600'>생성일 기준 환율</span>
               <span className=' text-grey-800'>{`100VND = ${basePrice} KRW`}</span>
             </div>

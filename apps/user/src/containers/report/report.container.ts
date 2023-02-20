@@ -50,8 +50,6 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
   }
 };
 
-export const convertToDesc = () => {};
-
 export const convertExachangeRate = (vnd: number, krw: number) => {
   return Math.floor((vnd / 100) * krw);
 };
@@ -65,17 +63,17 @@ export const updateTitle = (
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
   }
-  if (curLocation > 100 && curLocation < 299) {
+  if (curLocation > 205 && curLocation < 489) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
-    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: '' });
-  }
-  if (curLocation > 299 && curLocation < 599) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
-  if (curLocation > 600 && curLocation < 1034) {
+  if (curLocation > 490 && curLocation < 939) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
-  if (curLocation > 1035) {
+  // if (curLocation > 940 && curLocation < 1034) {
+  //   _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
+  // }
+  if (curLocation > 940) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
   }
 };
