@@ -38,11 +38,18 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             {/* TODO: 현재는 베트남 한정이지만 추후 국가 선택, 검색 기준도 쿼리에 넣어야 함 */}
             <button
               onClick={() => openBrowser(`https://shopee.vn/search?keyword=${text}`)}
-              className='] button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
+              className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
             >
               키워드 검색결과
               <ReactSVG className='ml-1' src='/assets/icons/outlined/Linkout.svg' />
             </button>
+            <div className='mt-8 ml-[45px] rounded border-[1px] border-grey-300 text-center'>
+              <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
+                <option value={10}>상위 10개</option>
+                <option value={20}>상위 20개</option>
+                <option value={30}>상위 30개</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
