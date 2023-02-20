@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate } from '@/containers/report/report.container';
+import { convertExachangeRate, openBrowser } from '@/containers/report/report.container';
 import {
   convertEvaluateStatus,
   convertScoreToText,
@@ -59,6 +59,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   anchorId='anchor-market-evaluation'
                   place='right'
                   style={{ background: 'none' }}
+                  clickable={true}
+                  delayHide={1300}
                 >
                   <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
                     <p className='text-XS/Regular text-grey-900'>
@@ -85,6 +87,16 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                         <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
                       </div>
                     </div>
+                    <p
+                      className='cursor-pointer pt-[14px] text-right text-XS/Bold text-[#FF5100]'
+                      onClick={() =>
+                        openBrowser(
+                          'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
+                        )
+                      }
+                    >
+                      자세히 알아보기
+                    </p>
                   </div>
                 </Tooltip>
               </span>
@@ -127,28 +139,48 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   anchorId='anchor-market-detail'
                   place='right'
                   style={{ background: 'none' }}
+                  // position={{ x: 950, y: 550 }}
+                  clickable={true}
+                  delayHide={1300}
                 >
                   <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4 text-XS/Regular text-grey-800'>
                     <div className='flex space-x-3'>
                       <div className='flex flex-col'>
-                        <p className='text-XS/Bold'>검색량</p>
-                        <span>최근 30일간 검색된 수를 의미해요.</span>
-                        <p className='pt-2 text-XS/Bold'>등록 상품</p>
-                        <span>키워드 검색 시 노출되는 상품 수를 의미해요.</span>
-                      </div>
-                      <div className='flex flex-col'>
-                        <p className='text-XS/Bold'>CPC</p>
-                        <span>키워드 광고 집행을 위한 최소한의 입찰 비용이에요.</span>
-                        <p className='pt-2 text-XS/Bold'>상품 평균가</p>
+                        <p className='pt-2 text-XS/Bold'>노출 경쟁률</p>
                         <span>
-                          해당 키워드 검색 시 노출되는 상품들의 평균 판매 가격이에요.
+                          검색량 대비 경쟁상품 수를 의미해요. 키워드에 대한
+                          <br /> 수요와 공급 비율을 알 수 있어요.
                         </span>
+
+                        <p className='pt-2 text-XS/Bold'>검색량</p>
+                        <span>최근 30일간 검색된 수를 의미해요.</span>
+                        <p className='pt-2 text-XS/Bold'>경쟁상품 수</p>
+                        <span>키워드 검색 시 노출되는 경쟁 상품 수를 의미해요.</span>
                       </div>
+
                       <div className='flex flex-col'>
-                        <p className='text-XS/Bold'>키워드 경쟁률</p>
-                        <span>검색량과 등록 상품 수의 비율이에요.</span>
+                        <p className='pt-2 text-XS/Bold'>CPC 비율</p>
+                        <span>
+                          키워드 검색결과 내 상품들이 판매되는 평균 판매가
+                          <br /> 대비 CPC 금액의 비율을 의미해요. CPC 입찰 경쟁
+                          <br />이 얼마나 심한지 알 수 있어요.
+                        </span>
+                        <p className='pt-2 text-XS/Bold'>CPC</p>
+                        <span>키워드 광고 집행을 위한 최소한의 입찰 비용이에요</span>
+                        <p className='pt-2 text-XS/Bold'>키워드 경쟁률</p>
+                        <span>키워드 검색 시 노출되는 상품들의 평균 판매가에요.</span>
                       </div>
                     </div>
+                    <p
+                      className='cursor-pointer pt-[14px] text-right text-XS/Bold text-[#FF5100]'
+                      onClick={() =>
+                        openBrowser(
+                          'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
+                        )
+                      }
+                    >
+                      자세히 알아보기
+                    </p>
                   </div>
                 </Tooltip>
               </span>
