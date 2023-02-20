@@ -88,12 +88,6 @@ const DetailReport = () => {
           {_state.scrollEvent.title !== TITLE.REPORT && (
             <div className='mr-2.5  w-[120px] rounded border-[1px] border-grey-300 text-center'>
               <p className='py-2.5 text-S/Regular'>상위 10개</p>
-
-              {/* <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
-                <option value={10}>상위 10개</option>
-                <option value={20}>상위 20개</option>
-                <option value={30}>상위 30개</option>
-              </select> */}
             </div>
           )}
         </div>
