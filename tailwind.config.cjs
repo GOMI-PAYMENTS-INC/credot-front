@@ -10,6 +10,12 @@ module.exports = {
     tailwindcssBgSvg,
     ({ addComponents }) => {
       addComponents({
+        '.iconButton-large-normal-ghost-grey': {
+          '@apply p-1 w-8 h-8': {},
+        },
+        '.iconButton-medium-normal-ghost-grey': {
+          '@apply p-1 w-6 h-6': {},
+        },
         '.textButton-primary-default-large-none': {
           '@apply py-3 px-[14px] text-orange-500 text-M/Bold': {},
         },

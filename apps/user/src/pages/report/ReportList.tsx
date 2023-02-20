@@ -78,7 +78,7 @@ const ReportList = () => {
   return (
     <Fragment>
       <div className='absolute w-full px-[30px]'>
-        <div className='flex h-[84px] items-center border border-t-0 border-b-gray-200 bg-white  px-6'>
+        <div className='flex h-[84px] items-center border border-t-0 border-l-0 border-r-0 border-b-gray-200 bg-white px-6'>
           <div className='shrink-0'>
             <h1 className='text-XL/Medium text-grey-900'>리포트 조회</h1>
           </div>
