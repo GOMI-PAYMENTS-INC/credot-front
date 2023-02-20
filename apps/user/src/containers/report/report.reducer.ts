@@ -55,6 +55,10 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       }
       if (type === 'relation') {
         state.relation = data;
+        const [first] = data;
+        if (first) {
+          state.toggleEvent = state.toggleEvent.concat(first);
+        }
       }
       return state;
     }
