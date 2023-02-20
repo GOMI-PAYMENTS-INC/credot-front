@@ -63,6 +63,15 @@ body,
   .termsBodyCheckbox-label {
     @apply inline-block bg-[length:16px_16px] bg-[left_top_50%] bg-no-repeat pl-[22px]  text-S/Regular bg-svg-Outlined/Check-grey-400 peer-checked:bg-svg-Outlined/Check-green-600;
   }
+
+  /* iconButton */
+  .iconButton-large-normal-ghost-grey svg{
+    @apply w-6 h-6 fill-grey-800;
+  }
+
+  .iconButton-medium-normal-ghost-grey svg{
+    @apply w-4 h-4 fill-grey-800;
+  }
 }
 
 #loader {
