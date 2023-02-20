@@ -87,11 +87,13 @@ const DetailReport = () => {
           </div>
           {_state.scrollEvent.title !== TITLE.REPORT && (
             <div className='mr-2.5  w-[120px] rounded border-[1px] border-grey-300 text-center'>
-              <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
+              <p className='py-2.5 text-S/Regular'>상위 10개</p>
+
+              {/* <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
                 <option value={10}>상위 10개</option>
                 <option value={20}>상위 20개</option>
                 <option value={30}>상위 30개</option>
-              </select>
+              </select> */}
             </div>
           )}
         </div>
@@ -102,12 +104,14 @@ const DetailReport = () => {
       </div>
       <aside className='sticky top-[116px] col-span-2 h-fit w-[180px] '>
         <ul>
-          <p className='flex cursor-pointer items-center text-S/Medium text-grey-700'>
+          <p
+            className='flex cursor-pointer items-center text-S/Medium text-grey-700'
+            onClick={() => isToggleOpen(_dispatch, true)}
+          >
             <ReactSVG
               wrapper='span'
               className={`mr-2.5  ${_state.scrollEvent.isOpen && 'rotate-90'}`}
               src='/assets/icons/filled/CaretDown.svg'
-              onClick={() => isToggleOpen(_dispatch, true)}
             />
             목차
           </p>
