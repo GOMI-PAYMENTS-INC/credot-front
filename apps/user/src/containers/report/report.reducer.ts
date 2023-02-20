@@ -24,6 +24,7 @@ const reportInitialState: TReportState = {
   relation: [],
   scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
   toggleEvent: [],
+  spinnerEvent: false,
 };
 
 export enum REPORT_ACTION {
@@ -33,6 +34,7 @@ export enum REPORT_ACTION {
   UPDATE_CURRENT = 'UPDATE_CURRENT',
   RECOMMENDATION_TOGGLE_EVENT = 'RECOMMENDATION_TOGGLE_EVENT',
   INITIALIZE_SCROLL_EVENT = 'INITIALIZE_SCROLL_EVENT',
+  SPINNER_EVENT = 'SPINNER_EVENT',
 }
 
 export type TReportAction = {
@@ -84,6 +86,9 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
         isOpen: state.scrollEvent.isOpen,
       });
       return state;
+    }
+    case REPORT_ACTION.SPINNER_EVENT: {
+      state.spinnerEvent = !state.spinnerEvent;
     }
     default:
       return state;

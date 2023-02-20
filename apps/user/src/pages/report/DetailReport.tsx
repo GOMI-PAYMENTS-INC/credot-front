@@ -46,6 +46,7 @@ const DetailReport = () => {
         <MartketSize marketSize={main} />
         <AnalysisKeyword analysisInfo={main} />
         <RecommendationOfKeyword
+          spinnerEvent={_state.spinnerEvent}
           relation={relation}
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
@@ -62,7 +63,7 @@ const DetailReport = () => {
   return (
     <Fragment>
       <div className='sticky top-0 z-10 col-span-full w-full'>
-        <div className='flex h-[84px] items-center border-b-[1px] border-b-gray-200 bg-white'>
+        <div className='flex h-[84px] items-center justify-between border-b-[1px] border-b-gray-200 bg-white'>
           <div className='flex items-center'>
             <div
               className='h-5 w-5 cursor-pointer pl-[7px]'
@@ -84,6 +85,15 @@ const DetailReport = () => {
               </div>
             )}
           </div>
+          {_state.scrollEvent.title !== TITLE.REPORT && (
+            <div className='mr-2.5  w-[120px] rounded border-[1px] border-grey-300 text-center'>
+              <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
+                <option value={10}>상위 10개</option>
+                <option value={20}>상위 20개</option>
+                <option value={30}>상위 30개</option>
+              </select>
+            </div>
+          )}
         </div>
       </div>
 
@@ -127,7 +137,7 @@ const DetailReport = () => {
         </ul>
 
         <button
-          className='fixed right-[60px] bottom-8 flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
+          className='fixed right-[60px] bottom-[100px] flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
           onClick={() => scrollToTop(_dispatch)}
         >
           <ReactSVG src='/assets/icons/outlined/ToTop.svg' />

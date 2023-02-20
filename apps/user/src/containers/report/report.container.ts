@@ -50,7 +50,23 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
   }
 };
 
-export const convertToDesc = () => {};
+export const _getRelationReport = async (
+  id: string,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  try {
+    const response = await getRelationReport(id);
+    if (response?.data) {
+      const { data } = response.data;
+      _dispatch({
+        type: REPORT_ACTION.INITIALIZE_DATA,
+        payload: { type: 'relation', data: data },
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const convertExachangeRate = (vnd: number, krw: number) => {
   return Math.floor((vnd / 100) * krw);
@@ -64,18 +80,19 @@ export const updateTitle = (
   if (curLocation < 100) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
-  }
-  if (curLocation > 100 && curLocation < 299) {
+  } else {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
-    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: '' });
   }
-  if (curLocation > 299 && curLocation < 599) {
+  if (curLocation > 205 && curLocation < 489) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
-  if (curLocation > 600 && curLocation < 1034) {
+  if (curLocation > 490 && curLocation < 939) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
-  if (curLocation > 1035) {
+  // if (curLocation > 940 && curLocation < 1034) {
+  //   _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
+  // }
+  if (curLocation > 940) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
   }
 };
@@ -140,4 +157,14 @@ export const roundNumber = (number: number) => {
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
   if (secondPlaceNumber === '0') return 0;
   return fixedNumber;
+};
+
+export const delayEvent = (callback: () => void, time: number) => {
+  setTimeout(() => {
+    callback();
+  }, time);
+};
+
+export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
+  _dispatch({ type: REPORT_ACTION.SPINNER_EVENT });
 };
