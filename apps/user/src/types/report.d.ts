@@ -92,6 +92,7 @@ type TReportState = {
   relation: TGetRelationReportDataType[];
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
+  spinnerEvent: boolean;
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';

@@ -50,6 +50,24 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
   }
 };
 
+export const _getRelationReport = async (
+  id: string,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  try {
+    const response = await getRelationReport(id);
+    if (response?.data) {
+      const { data } = response.data;
+      _dispatch({
+        type: REPORT_ACTION.INITIALIZE_DATA,
+        payload: { type: 'relation', data: data },
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const convertExachangeRate = (vnd: number, krw: number) => {
   return Math.floor((vnd / 100) * krw);
 };
@@ -139,4 +157,14 @@ export const roundNumber = (number: number) => {
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
   if (secondPlaceNumber === '0') return 0;
   return fixedNumber;
+};
+
+export const delayEvent = (callback: () => void, time: number) => {
+  setTimeout(() => {
+    callback();
+  }, time);
+};
+
+export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
+  _dispatch({ type: REPORT_ACTION.SPINNER_EVENT });
 };

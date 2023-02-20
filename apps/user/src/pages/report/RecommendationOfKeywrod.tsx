@@ -1,10 +1,12 @@
 import { Dispatch, Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+import { useParams } from 'react-router-dom';
 
-import { TITLE } from '@/types/enum.code';
+import { BATCH_STATUS, TITLE } from '@/types/enum.code';
 import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
+import { isIncluded } from '@/utils/isIncluded';
 
 import { openBrowser, roundNumber } from '@/containers/report';
 import {
@@ -15,16 +17,25 @@ import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/containers/report/report.reducer';
 import { isToggleOpen } from '@/containers/report';
-
+import {
+  _getRelationReport,
+  delayEvent,
+  buttonSpinnerEvent,
+} from '@/containers/report/report.container';
 interface IRecommendationOfKeyword {
   relation: TGetRelationReportDataType[];
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
+  spinnerEvent: boolean;
 }
 
 export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
-  const { relation, _dispatch, toggleEvent } = props;
-
+  const { relation, _dispatch, toggleEvent, spinnerEvent } = props;
+  const batchStatusDoneItems = relation.filter((data) =>
+    isIncluded(data.batchStatus, BATCH_STATUS.DONE),
+  );
+  const isDone = relation.length === batchStatusDoneItems.length;
+  const routeId = useParams();
   return (
     <section id={TITLE.RECOMMEND_KEYWORD}>
       <h1 className='text-XL/Bold text-black'>
@@ -94,7 +105,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
               <EmptyRecommendation />
             </Fragment>
           ) : (
-            relation.map((data) => {
+            batchStatusDoneItems.map((data, idx) => {
               const [search, competiton, cpc] = data.evaluateStatus;
               const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
               const backgroundColor = status ? 'border-grey-300' : 'border-[#FFF5F0]';
@@ -227,6 +238,57 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                         </div>
                       </td>
                     </tr>
+                  )}
+                  {idx === batchStatusDoneItems.length - 1 && isDone === false && (
+                    <Fragment>
+                      <tr className='mt-3 flex' />
+                      <tr>
+                        <td colSpan={10}>
+                          <div className='relative flex items-center justify-center'>
+                            <img
+                              src='/assets/images/EmptyRow.png'
+                              className='relative border-[1px] border-grey-300'
+                            />
+                            <div className='absolute flex flex-col items-center justify-center border-[1px] border-grey-300 bg-white'>
+                              <div className='flex py-3 px-3'>
+                                <p className=' text-S/Regular'>
+                                  추천 키워드의 정보를 수집중이에요. <br /> 새로고침을
+                                  통해 수집현황을 확인해주세요.
+                                </p>
+                                <div className='flex pl-[26px]'>
+                                  <button
+                                    className='button-outlined-small-xLarge-primary-false-false-true relative'
+                                    onClick={() => {
+                                      _getRelationReport(routeId.id!, _dispatch);
+                                      buttonSpinnerEvent(_dispatch);
+                                      delayEvent(
+                                        () => buttonSpinnerEvent(_dispatch),
+                                        1000,
+                                      );
+                                    }}
+                                  >
+                                    {/* <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
+                                      <div className='absolute scale-[0.12] '>
+                                        <div id='loader' />
+                                      </div>
+                                    </div> */}
+                                    {spinnerEvent ? (
+                                      <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
+                                        <div className='absolute scale-[0.12] '>
+                                          <div id='loader' />
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <p className='px-[18px]'>새로고침</p>
+                                    )}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </Fragment>
                   )}
                 </Fragment>
               );

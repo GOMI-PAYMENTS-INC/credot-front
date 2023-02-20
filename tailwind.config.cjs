@@ -48,6 +48,10 @@ module.exports = {
           '@apply rounded bg-white py-4 border-orange-300 text-L/Bold text-primary-red-orange border':
             {},
         },
+        '.button-outlined-small-xLarge-primary-false-false-true': {
+          '@apply rounded bg-white border-orange-300 text-XS/Bold text-primary-red-orange border':
+            {},
+        },
       });
     },
   ],

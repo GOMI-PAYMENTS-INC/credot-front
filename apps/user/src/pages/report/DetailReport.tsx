@@ -46,6 +46,7 @@ const DetailReport = () => {
         <MartketSize marketSize={main} />
         <AnalysisKeyword analysisInfo={main} />
         <RecommendationOfKeyword
+          spinnerEvent={_state.spinnerEvent}
           relation={relation}
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
