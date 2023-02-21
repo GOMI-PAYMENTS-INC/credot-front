@@ -6,7 +6,6 @@ import { MartketSize } from '@/pages/report/MarketSize';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
 
-import { scrollToTop } from '@/utils/scrollToTop';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import {
@@ -15,6 +14,7 @@ import {
   isToggleOpen,
   openBrowser,
   _getReportInfo,
+  scrollToTop,
 } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { ReactSVG } from 'react-svg';

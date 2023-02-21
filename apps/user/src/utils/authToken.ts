@@ -1,4 +1,4 @@
-import { GlobalEnv } from '@/utils/config';
+import { GlobalEnv } from '@/api/config';
 // 로그인 토큰 관리
 export const authTokenStorage = {
   getToken: (): string | null => {

@@ -28,7 +28,7 @@ export const ErrorPage = () => {
         </button>
         <button
           className='button-filled-normal-large-primary-false-false-true h-12 w-[200px] bg-orange-500 text-center'
-          onClick={() => window.location.replace(href)}
+          onClick={() => window.location.reload()}
         >
           <p className='text-M/Bold text-white'>재시도</p>
         </button>
