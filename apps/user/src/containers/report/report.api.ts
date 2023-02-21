@@ -1,4 +1,4 @@
-import { defaultOptions, HTTP } from '@/utils/axiosConfig';
+import { HTTP } from '@/api/axiosConfig';
 
 const REPORT_URL = 'api/v1/report';
 

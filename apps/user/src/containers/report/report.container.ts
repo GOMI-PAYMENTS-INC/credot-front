@@ -133,6 +133,12 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   }
 };
 
+export const scrollToTop = (_dispatch: Dispatch<TReportAction>) => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
+};
+
 export const reportListConverter = (item: TReportItem) => {
   const result = {
     status: {

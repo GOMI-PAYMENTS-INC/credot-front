@@ -1,7 +1,7 @@
 import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
-import { HTTP, defaultOptions } from '@/utils/axiosConfig';
+import { HTTP } from '@/api/axiosConfig';
 import { snakeize } from 'casing';
 import { STATUS_CODE } from '@/types/enum.code';
 
