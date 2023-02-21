@@ -39,8 +39,7 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
   try {
     return await HTTP.post<TCreateReportParamsType, TPostCreateReport>(
       REPORT_URL.postCreateReport,
-      snakeize({ ...params }),
-      defaultOptions(),
+      params,
     );
   } catch (error) {
     console.error(error);
@@ -56,7 +55,6 @@ type TReportExistedResponseType = {
 export const getReportExisted = async (queryString: { text: string }) => {
   try {
     return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
-      ...defaultOptions(),
       params: snakeize(queryString),
     });
   } catch (error) {

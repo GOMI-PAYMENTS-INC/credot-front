@@ -4,9 +4,7 @@ const REPORT_URL = 'api/v1/report';
 
 const getMainReport = async (id: string) => {
   try {
-    return await HTTP.get<TGetMainReport>(`${REPORT_URL}/${id}/main`, {
-      ...defaultOptions(),
-    });
+    return await HTTP.get<TGetMainReport>(`${REPORT_URL}/${id}/main`);
   } catch (error) {
     console.error(error);
   }
@@ -14,9 +12,7 @@ const getMainReport = async (id: string) => {
 
 const getRelationReport = async (id: string) => {
   try {
-    return await HTTP.get<TGetRelationReport>(`${REPORT_URL}/${id}/relation`, {
-      ...defaultOptions(),
-    });
+    return await HTTP.get<TGetRelationReport>(`${REPORT_URL}/${id}/relation`);
   } catch (error) {
     console.error(error);
   }
@@ -24,10 +20,7 @@ const getRelationReport = async (id: string) => {
 
 const getReportList = async (queryString: TReportListParamsType) => {
   try {
-    return await HTTP.get<TReportListResponse>(REPORT_URL, {
-      ...defaultOptions(),
-      params: queryString,
-    });
+    return await HTTP.get<TReportListResponse>(REPORT_URL, { params: queryString });
   } catch (error) {
     console.error(error);
   }
