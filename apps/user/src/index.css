@@ -72,6 +72,7 @@ body,
   .iconButton-medium-normal-ghost-grey svg {
     @apply h-4 w-4 fill-grey-800;
   }
+  /* @/pages/report/DetailReport.tsx에서 title에 사용되는 태그 */
   .detailReport-h1-header {
     @apply -mt-[100px] pt-[100px] text-XL/Bold text-black;
   }
