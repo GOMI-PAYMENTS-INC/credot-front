@@ -87,7 +87,7 @@ const DetailReport = () => {
           </div>
           {_state.scrollEvent.title !== TITLE.REPORT && (
             <div className='mr-2.5  w-[120px] rounded border-[1px] border-grey-300 text-center'>
-              <p className='py-2.5 text-S/Regular'>상위 10개</p>
+              <p className='py-2.5 text-S/Regular'>상위 30개</p>
             </div>
           )}
         </div>

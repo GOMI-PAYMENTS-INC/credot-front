@@ -44,7 +44,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               <ReactSVG className='ml-1' src='/assets/icons/outlined/Linkout.svg' />
             </button>
             <div className='mt-8 ml-[45px] rounded border-[1px] border-grey-300 text-center'>
-              <p className='py-2.5 text-S/Regular'>상위 10개</p>
+              <p className='py-2.5 text-S/Regular'>상위 30개</p>
               {/* <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
                 <option value={10}>상위 10개</option>
                 <option value={20}>상위 20개</option>

@@ -83,7 +83,7 @@ export const updateTitle = (
   } else {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
   }
-  if (curLocation > 205 && curLocation < 489) {
+  if (curLocation > 250 && curLocation < 489) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
   if (curLocation > 490 && curLocation < 939) {
