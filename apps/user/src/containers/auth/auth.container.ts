@@ -34,7 +34,7 @@ import {
 
 import { PATH } from '@/router/routeList';
 import { authTokenStorage } from '@/utils/authToken';
-import { GlobalEnv } from '@/utils/config';
+import { GlobalEnv } from '@/api/config';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
 import { graphQLClient } from '@/utils/graphqlCient';
 
