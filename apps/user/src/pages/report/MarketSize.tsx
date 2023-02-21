@@ -26,10 +26,7 @@ export const MartketSize = memo((props: IMartketSize) => {
 
   return (
     <section className='col-span-full'>
-      <h1
-        id={TITLE.MARTKET_SIZE}
-        className='detailReport-h1-header text-XL/Bold text-black'
-      >
+      <h1 id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
         시장 규모
         <ReactSVG
           id='anchor-market-size'

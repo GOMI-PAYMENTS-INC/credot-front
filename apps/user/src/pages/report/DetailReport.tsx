@@ -98,40 +98,44 @@ const DetailReport = () => {
       </div>
       <aside className='sticky top-[116px] col-span-2 h-fit w-[180px] '>
         <ul>
-          <p
-            className='flex cursor-pointer items-center text-S/Medium text-grey-700'
-            onClick={() => isToggleOpen(_dispatch, true)}
-          >
-            <ReactSVG
-              wrapper='span'
-              className={`mr-2.5  ${_state.scrollEvent.isOpen && 'rotate-90'}`}
-              src='/assets/icons/filled/CaretDown.svg'
-            />
-            목차
-          </p>
-          {_state.scrollEvent.isOpen &&
-            ids.map((id, idx) => {
-              return (
-                <a href={`#${id}`}>
+          <li>
+            <p
+              className='flex cursor-pointer items-center text-S/Medium text-grey-700'
+              onClick={() => isToggleOpen(_dispatch, true)}
+            >
+              <ReactSVG
+                wrapper='span'
+                className={`mr-2.5  ${_state.scrollEvent.isOpen && 'rotate-90'}`}
+                src='/assets/icons/filled/CaretDown.svg'
+              />
+              목차
+            </p>
+          </li>
+          <ul>
+            {_state.scrollEvent.isOpen &&
+              ids.map((id, idx) => {
+                return (
                   <li
                     key={`menu-items-${id}`}
                     className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
                       idx === 0 && 'mt-1'
                     }`}
                   >
-                    <h1
-                      className={`ml-6 py-1 text-S/Regular  ${
-                        id === _state.scrollEvent.current
-                          ? 'text-orange-500'
-                          : 'text-gray-700'
-                      }`}
-                    >
-                      {convertTitle(id)}
-                    </h1>
+                    <a href={`#${id}`} className='flex-auto'>
+                      <h1
+                        className={`ml-6 py-1 text-S/Regular  ${
+                          id === _state.scrollEvent.current
+                            ? 'text-orange-500'
+                            : 'text-gray-700'
+                        }`}
+                      >
+                        {convertTitle(id)}
+                      </h1>
+                    </a>
                   </li>
-                </a>
-              );
-            })}
+                );
+              })}
+          </ul>
         </ul>
 
         <button

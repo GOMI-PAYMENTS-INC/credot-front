@@ -43,10 +43,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
 
   return (
     <section className='col-span-full'>
-      <h1
-        id={TITLE.KEYWORD_INFO}
-        className='detailReport-h1-header text-XL/Bold text-black'
-      >
+      <h1 id={TITLE.KEYWORD_INFO} className='detailReport-h1-header'>
         키워드 정보
       </h1>
       <div className='pt-6'>

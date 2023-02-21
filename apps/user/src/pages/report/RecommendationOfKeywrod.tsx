@@ -38,10 +38,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
   const routeId = useParams();
   return (
     <section>
-      <h1
-        id={TITLE.RECOMMEND_KEYWORD}
-        className='detailReport-h1-header text-XL/Bold text-black'
-      >
+      <h1 id={TITLE.RECOMMEND_KEYWORD} className='detailReport-h1-header'>
         추천 키워드
         <ReactSVG
           id='anchor-recommandation-keyword'
