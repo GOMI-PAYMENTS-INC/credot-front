@@ -60,7 +60,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 <Tooltip
                   anchorId='anchor-market-evaluation'
                   place='right'
-                  style={{ background: 'none' }}
+                  style={{ background: 'none', opacity: 1 }}
                   clickable={true}
                   delayHide={1300}
                 >
@@ -89,16 +89,18 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                         <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
                       </div>
                     </div>
-                    <p
-                      className='cursor-pointer pt-[14px] text-right text-XS/Bold text-[#FF5100]'
-                      onClick={() =>
-                        openBrowser(
-                          'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
-                        )
-                      }
-                    >
-                      자세히 알아보기
-                    </p>
+                    <div className='flex w-full justify-end'>
+                      <p
+                        className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                        onClick={() =>
+                          openBrowser(
+                            'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
+                          )
+                        }
+                      >
+                        자세히 알아보기
+                      </p>
+                    </div>
                   </div>
                 </Tooltip>
               </span>
@@ -140,8 +142,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 <Tooltip
                   anchorId='anchor-market-detail'
                   place='right'
-                  style={{ background: 'none' }}
-                  // position={{ x: 950, y: 550 }}
+                  style={{ background: 'none', opacity: 1, zIndex: 1 }}
                   clickable={true}
                   delayHide={1300}
                 >
@@ -173,16 +174,18 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                         <span>키워드 검색 시 노출되는 상품들의 평균 판매가에요.</span>
                       </div>
                     </div>
-                    <p
-                      className='cursor-pointer pt-[14px] text-right text-XS/Bold text-[#FF5100]'
-                      onClick={() =>
-                        openBrowser(
-                          'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
-                        )
-                      }
-                    >
-                      자세히 알아보기
-                    </p>
+                    <div className='flex w-full justify-end'>
+                      <p
+                        className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                        onClick={() =>
+                          openBrowser(
+                            'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
+                          )
+                        }
+                      >
+                        자세히 알아보기
+                      </p>
+                    </div>
                   </div>
                 </Tooltip>
               </span>
