@@ -145,10 +145,7 @@ export const ReportListColumn = ({
         <tr>
           <td colSpan={8}>
             <div className='grid justify-items-center pt-[104px] text-center'>
-              <img
-                src={`/assets/assets/images/EmptyBox.png`}
-                alt='검색 결과 없음 아이콘'
-              />
+              <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
               <div className='mt-4 text-L/Medium'>
                 <p>조회 가능한 리포트가 없어요.</p>
                 <p>키워드를 검색하여 리포트를 생성해보세요.</p>

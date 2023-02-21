@@ -1,5 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-
+import { ErrorPage } from './pages/ErrorPage';
 interface Props {
   children?: ReactNode;
 }
@@ -24,7 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return <h1>{`크롬 관리자 도구에서 로그를 확인해주세요.`}</h1>;
+      return <ErrorPage />;
     }
 
     return this.props.children;
