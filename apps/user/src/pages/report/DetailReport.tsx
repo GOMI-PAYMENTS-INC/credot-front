@@ -62,7 +62,7 @@ const DetailReport = () => {
 
   return (
     <Fragment>
-      <div className='sticky top-0 z-10 col-span-full w-full'>
+      <header className='sticky top-0 z-10 col-span-full w-full'>
         <div className='flex h-[84px] items-center justify-between border-b-[1px] border-b-gray-200 bg-white'>
           <div className='flex items-center'>
             <div
@@ -91,10 +91,10 @@ const DetailReport = () => {
             </div>
           )}
         </div>
-      </div>
+      </header>
 
       <div className='col-span-10 mt-8'>
-        <main className='space-y-[72px]'>{combinedComponent}</main>
+        <main className='space-y-[100px]'>{combinedComponent}</main>
       </div>
       <aside className='sticky top-[116px] col-span-2 h-fit w-[180px] '>
         <ul>
@@ -112,13 +112,13 @@ const DetailReport = () => {
           {_state.scrollEvent.isOpen &&
             ids.map((id, idx) => {
               return (
-                <li
-                  key={`menu-items-${id}`}
-                  className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
-                    idx === 0 && 'mt-1'
-                  }`}
-                >
-                  <a href={`#${id}`}>
+                <a href={`#${id}`}>
+                  <li
+                    key={`menu-items-${id}`}
+                    className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
+                      idx === 0 && 'mt-1'
+                    }`}
+                  >
                     <h1
                       className={`ml-6 py-1 text-S/Regular  ${
                         id === _state.scrollEvent.current
@@ -128,8 +128,8 @@ const DetailReport = () => {
                     >
                       {convertTitle(id)}
                     </h1>
-                  </a>
-                </li>
+                  </li>
+                </a>
               );
             })}
         </ul>

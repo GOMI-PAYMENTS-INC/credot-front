@@ -37,8 +37,11 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
   const isDone = relation.length === batchStatusDoneItems.length;
   const routeId = useParams();
   return (
-    <section id={TITLE.RECOMMEND_KEYWORD}>
-      <h1 className='text-XL/Bold text-black'>
+    <section>
+      <h1
+        id={TITLE.RECOMMEND_KEYWORD}
+        className='detailReport-h1-header text-XL/Bold text-black'
+      >
         추천 키워드
         <ReactSVG
           id='anchor-recommandation-keyword'
