@@ -23,7 +23,6 @@ export const ReportListColumn = ({
   setIsCheckedAll,
 }: TReportListColumn) => {
   const navigate = useNavigate();
-  const IMG_PATH = '../../../../assets/images';
 
   const checkedItemHandler = (code: Number, isChecked: boolean) => {
     if (isChecked) {
@@ -146,7 +145,10 @@ export const ReportListColumn = ({
         <tr>
           <td colSpan={8}>
             <div className='grid justify-items-center pt-[104px] text-center'>
-              <img src={`${IMG_PATH}/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
+              <img
+                src={`/assets/assets/images/EmptyBox.png`}
+                alt='검색 결과 없음 아이콘'
+              />
               <div className='mt-4 text-L/Medium'>
                 <p>조회 가능한 리포트가 없어요.</p>
                 <p>키워드를 검색하여 리포트를 생성해보세요.</p>

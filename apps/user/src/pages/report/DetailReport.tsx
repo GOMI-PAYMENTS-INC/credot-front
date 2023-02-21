@@ -62,7 +62,7 @@ const DetailReport = () => {
 
   return (
     <Fragment>
-      <div className='sticky top-0 z-10 col-span-full w-full'>
+      <header className='sticky top-0 z-10 col-span-full w-full'>
         <div className='flex h-[84px] items-center justify-between border-b-[1px] border-b-gray-200 bg-white'>
           <div className='flex items-center'>
             <div
@@ -87,53 +87,55 @@ const DetailReport = () => {
           </div>
           {_state.scrollEvent.title !== TITLE.REPORT && (
             <div className='mr-2.5  w-[120px] rounded border-[1px] border-grey-300 text-center'>
-              <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
-                <option value={10}>상위 10개</option>
-                <option value={20}>상위 20개</option>
-                <option value={30}>상위 30개</option>
-              </select>
+              <p className='py-2.5 text-S/Regular'>상위 10개</p>
             </div>
           )}
         </div>
-      </div>
+      </header>
 
       <div className='col-span-10 mt-8'>
-        <main className='space-y-[72px]'>{combinedComponent}</main>
+        <main className='space-y-[100px]'>{combinedComponent}</main>
       </div>
       <aside className='sticky top-[116px] col-span-2 h-fit w-[180px] '>
         <ul>
-          <p className='flex cursor-pointer items-center text-S/Medium text-grey-700'>
-            <ReactSVG
-              wrapper='span'
-              className={`mr-2.5  ${_state.scrollEvent.isOpen && 'rotate-90'}`}
-              src='/assets/icons/filled/CaretDown.svg'
+          <li>
+            <p
+              className='flex cursor-pointer items-center text-S/Medium text-grey-700'
               onClick={() => isToggleOpen(_dispatch, true)}
-            />
-            목차
-          </p>
-          {_state.scrollEvent.isOpen &&
-            ids.map((id, idx) => {
-              return (
-                <li
-                  key={`menu-items-${id}`}
-                  className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
-                    idx === 0 && 'mt-1'
-                  }`}
-                >
-                  <a href={`#${id}`}>
-                    <h1
-                      className={`ml-6 py-1 text-S/Regular  ${
-                        id === _state.scrollEvent.current
-                          ? 'text-orange-500'
-                          : 'text-gray-700'
-                      }`}
-                    >
-                      {convertTitle(id)}
-                    </h1>
-                  </a>
-                </li>
-              );
-            })}
+            >
+              <ReactSVG
+                wrapper='span'
+                className={`mr-2.5  ${_state.scrollEvent.isOpen && 'rotate-90'}`}
+                src='/assets/icons/filled/CaretDown.svg'
+              />
+              목차
+            </p>
+          </li>
+          <ul>
+            {_state.scrollEvent.isOpen &&
+              ids.map((id, idx) => {
+                return (
+                  <li
+                    key={`menu-items-${id}`}
+                    className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
+                      idx === 0 && 'mt-1'
+                    }`}
+                  >
+                    <a href={`#${id}`} className='flex-auto'>
+                      <h1
+                        className={`ml-6 py-1 text-S/Regular  ${
+                          id === _state.scrollEvent.current
+                            ? 'text-orange-500'
+                            : 'text-gray-700'
+                        }`}
+                      >
+                        {convertTitle(id)}
+                      </h1>
+                    </a>
+                  </li>
+                );
+              })}
+          </ul>
         </ul>
 
         <button

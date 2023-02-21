@@ -9,7 +9,7 @@ export type TLayoutType =
   | 'Common1Section'
   | 'Common2Section'
   | 'FindAccountLayout'
-  | 'DetailReportLayout';
+  | 'DetailReportSection';
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',
@@ -99,7 +99,7 @@ export const routeList: IRoute[] = [
     description: 'DetailReport',
     path: PATH.ANALYSIS_REPORT_LIST,
     component: ReportRoutes.DetailReport,
-    layoutType: 'DetailReportLayout',
+    layoutType: 'DetailReportSection',
   },
 ];
 

@@ -39,11 +39,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
 
   const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
   const divStyle = 'h-5 w-[58px] rounded border-[1.5px] text-center';
-  const pStyle = 'px-0.5 py-0.5 text-XS/Medium';
+  const pStyle = 'text-XS/Medium';
 
   return (
-    <section id={TITLE.KEYWORD_INFO} className='col-span-full'>
-      <h1 className='text-XL/Bold text-black'>키워드 정보</h1>
+    <section className='col-span-full'>
+      <h1 id={TITLE.KEYWORD_INFO} className='detailReport-h1-header'>
+        키워드 정보
+      </h1>
       <div className='pt-6'>
         <div className='flex divide-x-[1px]  divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='basis-[390px]'>

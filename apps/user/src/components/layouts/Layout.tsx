@@ -18,7 +18,7 @@ const Layout = ({ children, layoutType }: LayoutProps) => {
         return <Common1Section>{children}</Common1Section>;
       case 'FindAccountLayout':
         return <FindAccountLayout>{children}</FindAccountLayout>;
-      case 'DetailReportLayout':
+      case 'DetailReportSection':
         return <DetailReportSection>{children}</DetailReportSection>;
       default:
         return <Defalut>{children}</Defalut>;
