@@ -1,4 +1,5 @@
 import { HTTP } from '@/api/axiosConfig';
+import { authTokenStorage } from '@/utils/authToken';
 
 const REPORT_URL = 'api/v1/report';
 
@@ -26,4 +27,20 @@ const getReportList = async (queryString: TReportListParamsType) => {
   }
 };
 
-export { getMainReport, getRelationReport, getReportList };
+const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
+  const token = authTokenStorage.getToken();
+  const authorization = token ? `Bearer ${token}` : '';
+
+  try {
+    return await HTTP.delete<TDeleteReportListParamsType, TDeleteReportListResponse>(
+      REPORT_URL,
+      {
+        params: { ids: 534 },
+      },
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getMainReport, getRelationReport, getReportList, deleteReportList };

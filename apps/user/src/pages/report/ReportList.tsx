@@ -3,7 +3,7 @@ import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { _getReportList } from '@/containers/report/report.container';
+import { _getReportList, deleteReports } from '@/containers/report/report.container';
 import {
   reportListReducer,
   reportListInitialState,
@@ -29,15 +29,19 @@ const ReportList = () => {
     _getReportList({ _state: state, _dispatch }).then((r) => {});
   }, [_state.page, _state.limit]);
 
+  useEffect(() => {
+    console.log('_state.data', _state.data);
+  }, [_state.data]);
+
   //전체 선택 체크 여부
   const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
   //체크한 item 배열
-  const [checkedItems, setCheckedItems] = useState<Number[]>([]);
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
   const onCheckAll = (checked: boolean) => {
     //전체 선택
     if (checked) {
-      const checkedItemsArray: Number[] = [];
+      const checkedItemsArray: number[] = [];
       _state.data.reports.forEach(
         (report) =>
           isIncluded(report.status, BATCH_STATUS.DONE) &&
@@ -52,6 +56,10 @@ const ReportList = () => {
 
       setIsCheckedAll(false);
     }
+  };
+
+  const clickDeleteReport = () => {
+    deleteReports(checkedItems, _dispatch);
   };
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -96,7 +104,10 @@ const ReportList = () => {
             <h1 className='text-M/Regular text-grey-800'>
               총 {formatNumber(_state.data.totalCount)}개
             </h1>
-            <button className='button-filled-normal-medium-grey-false-false-true'>
+            <button
+              className='button-filled-normal-medium-grey-false-false-true'
+              onClick={clickDeleteReport}
+            >
               선택 삭제
             </button>
           </div>

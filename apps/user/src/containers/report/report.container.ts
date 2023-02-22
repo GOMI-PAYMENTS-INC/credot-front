@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { getMainReport, getRelationReport } from './report.api';
+import { deleteReportList, getMainReport, getRelationReport } from './report.api';
 import {
   REPORT_ACTION,
   TReportAction,
@@ -12,6 +12,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 
 import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
 import { convertBatchStatus } from '@/utils/convertEnum';
+import { toast } from 'react-toastify';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -156,6 +157,47 @@ export const reportListConverter = (item: TReportItem) => {
     result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
   }
   return result;
+};
+
+export const _deleteReportList = async (ids: number[]) => {
+  try {
+    const response = await deleteReportList({
+      ids: ids,
+    });
+    if (response?.data) {
+      const { data } = response.data;
+      return data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteReports = (
+  checkedItems: number[],
+  _dispatch: Dispatch<TReportListAction>,
+) => {
+  if (checkedItems.length) {
+    console.log(checkedItems);
+    _deleteReportList(checkedItems).then((res) => {
+      console.log('결과나옴!');
+      console.log('@@', res);
+      const result = res?.data;
+      if (result?.data.code === STATUS_CODE.SUCCESS) {
+        _dispatch({
+          type: ReportListActionKind.DeleteReport,
+          payload: {
+            data: result,
+          },
+        });
+        toast.success(`리포트를 삭제했어요.`, {
+          autoClose: 4000,
+        });
+      }
+    });
+  } else {
+    toast.warn('리포트를 선택해주세요.');
+  }
 };
 
 export const roundNumber = (number: number) => {

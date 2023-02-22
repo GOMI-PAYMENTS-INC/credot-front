@@ -55,7 +55,7 @@ type TReportExistedResponseType = {
 export const getReportExisted = async (queryString: { text: string }) => {
   try {
     return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
-      params: snakeize(queryString),
+      params: queryString,
     });
   } catch (error) {
     console.error(error);
