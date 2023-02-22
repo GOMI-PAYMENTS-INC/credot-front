@@ -28,14 +28,11 @@ const getReportList = async (queryString: TReportListParamsType) => {
 };
 
 const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
-  const token = authTokenStorage.getToken();
-  const authorization = token ? `Bearer ${token}` : '';
-
   try {
     return await HTTP.delete<TDeleteReportListParamsType, TDeleteReportListResponse>(
       REPORT_URL,
       {
-        params: { ids: 534 },
+        params: queryString,
       },
     );
   } catch (error) {

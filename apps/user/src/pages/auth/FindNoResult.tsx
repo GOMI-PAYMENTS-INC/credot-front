@@ -15,7 +15,7 @@ const FindNoResult = () => (
           <Link to={PATH.SIGN_UP}>
             <button
               type='button'
-              className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-primary-red-orange p-2.5 text-white'
+              className='text-xl-medium flex w-full cursor-pointer justify-center rounded bg-orange-500 p-2.5 text-white'
             >
               회원가입 하러가기
             </button>

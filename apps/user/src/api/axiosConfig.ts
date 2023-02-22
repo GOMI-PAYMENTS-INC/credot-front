@@ -47,6 +47,15 @@ Axios.interceptors.response.use((response) => {
   return response;
 });
 
+//쿼리 스트링 배열인 경우 ids=1&ids=2 형식으로 바꿔줌
+Axios.defaults.paramsSerializer = (paramObj) => {
+  const params = new URLSearchParams();
+  for (const key in paramObj) {
+    params.append(key, paramObj[key]);
+  }
+  return params.toString();
+};
+
 export const HTTP = {
   get: async <ResponseType>(
     url: string,

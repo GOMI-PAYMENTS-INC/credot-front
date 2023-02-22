@@ -15,9 +15,7 @@ export const ModalComponent = ({ isOpen, children }: ModalComponentProps) => {
   return ReactDOM.createPortal(
     isOpen ? (
       <div className='fixed top-0 z-50 flex  h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-20 p-4 text-center md:inset-0 md:h-full'>
-        <div className='relative h-[244px] w-[400px] max-w-md md:h-auto'>
-          <div className='relative rounded bg-white  px-5 py-7 '>{children}</div>
-        </div>
+        {children}
       </div>
     ) : null,
     document.body,

@@ -104,7 +104,7 @@ const ResetPassword = () => {
               {isValid ? (
                 <button
                   type='submit'
-                  className='button-filled-normal-xLarge-primary-false-false-true w-full'
+                  className='button-filled-normal-xLarge-red-false-false-true w-full'
                 >
                   비밀번호 재설정 하기
                 </button>

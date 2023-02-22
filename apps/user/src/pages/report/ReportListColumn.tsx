@@ -152,7 +152,7 @@ export const ReportListColumn = ({
               <div className='mt-10'>
                 <button
                   onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
-                  className='button-outlined-normal-large-primary-false-false-true'
+                  className='button-outlined-normal-large-red-false-false-true'
                 >
                   키워드 검색하기
                 </button>

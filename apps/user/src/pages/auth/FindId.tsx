@@ -94,7 +94,7 @@ const FindId = () => {
               {findAccountQuery &&
                 findAccountQuery.findAccount.accounts.map((account, index) => (
                   <li
-                    className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-primary-red-orange'
+                    className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-orange-500'
                     key={index}
                   >
                     <div>{account.email}</div>

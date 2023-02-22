@@ -33,29 +33,32 @@ module.exports = {
           '@apply rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500':
             {},
         },
+        '.button-filled-normal-large-red-false-false-true': {
+          '@apply rounded bg-red-600 px-2.5 py-3 text-white text-M/Bold': {},
+        },
+        '.button-filled-normal-large-grey-false-false-true': {
+          '@apply rounded bg-grey-200 px-2.5 py-4 text-grey-800 text-M/Bold': {},
+        },
         '.button-filled-normal-large-primary-false-false-true': {
           '@apply rounded bg-orange-500 px-2.5 py-3 text-white text-M/Bold': {},
-        },
-        '.button-filled-normal-xLarge-primary-false-false-true': {
-          '@apply rounded bg-orange-500 px-2.5 py-4 text-white text-L/Bold': {},
         },
         '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
         },
-        '.button-outlined-normal-large-primary-false-false-true': {
-          '@apply rounded bg-white py-3 text-M/Bold text-primary-red-orange border border-orange-300 min-w-[160px]':
-            {},
+        '.button-outlined-normal-large-grey-false-false': {
+          '@apply rounded bg-white py-3 text-M/Bold text-grey-800 border border-grey-400':
+              {},
         },
         '.button-outlined-normal-xLarge-grey-true-false-true': {
           '@apply grid gap-x-1 justify-center grid-cols-[24px_auto] rounded bg-white py-4 text-L/Bold text-grey-800 border border-grey-400':
             {},
         },
         '.button-outlined-normal-xLarge-primary-false-false-true': {
-          '@apply rounded bg-white py-4 border-orange-300 text-L/Bold text-primary-red-orange border':
+          '@apply rounded bg-white py-4 border-orange-300 text-L/Bold text-orange-500 border':
             {},
         },
         '.button-outlined-small-xLarge-primary-false-false-true': {
-          '@apply rounded bg-white border-orange-300 text-XS/Bold text-primary-red-orange border':
+          '@apply rounded bg-white border-orange-300 text-XS/Bold text-orange-500 border':
             {},
         },
       });
@@ -74,21 +77,16 @@ module.exports = {
     extend: {
       //색상
       colors: {
-        primary: {
-          'red-orange': '#FF5100',
-        },
-
         orange: {
-          900: '#9E2F00',
-          800: '#B83A00',
-          700: '#D54400',
-          600: '#E64900',
-          500: '#FF5100',
-          400: '#FF6C28',
-          300: '#FFA378',
-          200: '#FFDAC8',
           100: '#FFF5F0',
-          60: '#FFF8F5',
+          200: '#FFDAC8',
+          300: '#FFA378',
+          400: '#FF6C28',
+          500: '#FF5100',
+          600: '#E64900',
+          700: '#D54400',
+          800: '#B83A00',
+          900: '#9E2F00',
         },
 
         grey: {
@@ -103,11 +101,53 @@ module.exports = {
           800: '#595959',
           900: '#262626',
         },
-        //text-functional-success, text-orange-500
-        functional: {
-          link: '#4090F7',
-          success: '#72C040',
-          warning: '#EFAF41',
+
+        blue: {
+          100: '#E1F7EC',
+          200: '#D7EEFF',
+          300: '#ABDCFF',
+          400: '#78CBFF',
+          500: '#40B6FF',
+          600: '#0279D4',
+          700: '#0279D4',
+          800: '#095796',
+          900: '#1C476B',
+        },
+
+        green: {
+          100: '#E1F7EC',
+          200: '#C9F5DF',
+          300: '#93EDBF',
+          400: '#64E8A4',
+          500: '#35DB80',
+          600: '#15BD66',
+          700: '#18A352',
+          800: '#187A41',
+          900: '#16592D',
+        },
+
+        red: {
+          100: '#FDF0F2',
+          200: '#FDE1E4',
+          300: '#FCC5CB',
+          400: '#FF96A3',
+          500: '#FF697A',
+          600: '#FF334B',
+          700: '#E5172F',
+          800: '#C9162B',
+          900: '#85101E',
+        },
+
+        yellow: {
+          100: '#FCF6CF',
+          200: '#FBEEA6',
+          300: '#F9E46C',
+          400: '#F8CB32',
+          500: '#F4B60D',
+          600: '#E18700',
+          700: '#AC6600',
+          800: '#864300',
+          900: '#592500',
         },
       },
 

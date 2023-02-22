@@ -163,7 +163,7 @@ const SideBar = () => {
                           <li onClick={() => navigation(child.path)}>
                             <div
                               className={`flex items-center rounded-lg py-2 pl-5 ${
-                                isActive && 'bg-orange-100 text-primary-red-orange'
+                                isActive && 'bg-orange-100 text-orange-500'
                               }`}
                             >
                               <ReactSVG

@@ -18,6 +18,11 @@ type TReportListState = {
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
   data: TReportListResponseData;
+  isDeleteConfirmModalOpen: boolean;
+};
+
+type TReportListCheckedState = {
+  checkedItems: number[];
 };
 
 type TDeleteReportListResponse = {

@@ -312,9 +312,9 @@ export default function HomePage() {
             <div className=' xs:col-span-full col-span-5  col-start-2 px-8 py-[22px] px-5 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
               <div className='mb-6'>
                 <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                  <span className='text-primary-red-orange'>Shopee</span>에서{' '}
-                  <span className='text-primary-red-orange'>상위 노출</span>을 원하는{' '}
-                  <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
+                  <span className='text-orange-500'>Shopee</span>에서{' '}
+                  <span className='text-orange-500'>상위 노출</span>을 원하는{' '}
+                  <span className='text-orange-500'>키워드</span>를 입력해주세요.
                 </h1>
               </div>
               <div className='mb-16 lg:mb-6'>
@@ -392,7 +392,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <button className='w-full rounded-md bg-primary-red-orange py-4'>
+                <button className='w-full rounded-md bg-orange-500 py-4'>
                   <span className='text-L/Bold text-white'>리포트 생성하기</span>
                 </button>
               </div>
@@ -430,8 +430,8 @@ export default function HomePage() {
               <div className='break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p className='mb-2'>이커머스 플랫폼 매출의 86%는</p>
                 <p>
-                  <span className='text-primary-red-orange'>키워드 검색</span>을 통해서
-                  발생한다는 사실!
+                  <span className='text-orange-500'>키워드 검색</span>을 통해서 발생한다는
+                  사실!
                 </p>
               </div>
             </div>
@@ -456,8 +456,7 @@ export default function HomePage() {
               <div className='break-keep text-4XL/Bold md:text-2XL/Bold lg:text-3XL/Bold'>
                 <p className='mb-4'>데이터를 기반으로</p>
                 <p>
-                  <span className='text-primary-red-orange'>상위 노출 노하우</span>를 한
-                  눈에!
+                  <span className='text-orange-500'>상위 노출 노하우</span>를 한 눈에!
                 </p>
               </div>
             </div>
@@ -523,7 +522,7 @@ export default function HomePage() {
           <div className='grid-12 mb-[18px] sm:justify-items-center md:items-start '>
             <div className='xs:col-span-full col-start-3 col-end-7 sm:col-start-2 sm:col-end-12 sm:mb-8 sm:text-center md:col-span-6  md:col-start-1 lg:col-span-5  lg:col-start-2 '>
               <div className='mb-6 '>
-                <div className='mb-4 text-2XL/Bold text-primary-red-orange md:text-L/Bold lg:text-XL/Bold'>
+                <div className='mb-4 text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
                   Insight {tabData[activeTabIndex].data.insightNum}
                 </div>
                 <div className='md:text-2L/Bold text-4XL/Bold  text-grey-900 lg:text-3XL/Bold'>
@@ -553,8 +552,7 @@ export default function HomePage() {
               <div className='break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p className='mb-2'>서비스 오픈 1개월만에</p>
                 <p>
-                  무려 <span className='text-primary-red-orange'>248개사</span>가
-                  이용했어요.
+                  무려 <span className='text-orange-500'>248개사</span>가 이용했어요.
                 </p>
               </div>
             </div>

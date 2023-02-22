@@ -58,3 +58,8 @@ export enum BATCH_STATUS {
   REPLICATE = 'REPLICATE', //재실행
   NONE = 'NONE',
 }
+
+export enum MODAL_SIZE_ENUM {
+  SMALL = 'SMALL',
+  LARGE = 'LARGE',
+}
