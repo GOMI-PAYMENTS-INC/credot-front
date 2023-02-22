@@ -1,7 +1,7 @@
 import { Fragment, useReducer, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
-
+import { SalePrice } from '@/pages/report/SalePrice';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
@@ -35,8 +35,6 @@ const DetailReport = () => {
     }
   }, []);
 
-  const ids = [TITLE.MARTKET_SIZE, TITLE.KEYWORD_INFO, TITLE.RECOMMEND_KEYWORD];
-
   const combinedComponent = useMemo(() => {
     // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
 
@@ -51,6 +49,7 @@ const DetailReport = () => {
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
         />
+        <SalePrice />
         <section className='h-[200px]'></section>
       </Fragment>
     );
@@ -85,11 +84,6 @@ const DetailReport = () => {
               </div>
             )}
           </div>
-          {_state.scrollEvent.title !== TITLE.REPORT && (
-            <div className='mr-2.5  w-[120px] rounded border-[1px] border-grey-300 text-center'>
-              <p className='py-2.5 text-S/Regular'>상위 30개</p>
-            </div>
-          )}
         </div>
       </header>
 
@@ -113,28 +107,30 @@ const DetailReport = () => {
           </li>
           <ul>
             {_state.scrollEvent.isOpen &&
-              ids.map((id, idx) => {
-                return (
-                  <li
-                    key={`menu-items-${id}`}
-                    className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
-                      idx === 0 && 'mt-1'
-                    }`}
-                  >
-                    <a href={`#${id}`} className='flex-auto'>
-                      <h1
-                        className={`ml-6 py-1 text-S/Regular  ${
-                          id === _state.scrollEvent.current
-                            ? 'text-orange-500'
-                            : 'text-gray-700'
-                        }`}
-                      >
-                        {convertTitle(id)}
-                      </h1>
-                    </a>
-                  </li>
-                );
-              })}
+              Object.values(TITLE)
+                .filter((title) => title !== TITLE.REPORT)
+                .map((id, idx) => {
+                  return (
+                    <li
+                      key={`menu-items-${id}`}
+                      className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
+                        idx === 0 && 'mt-1'
+                      }`}
+                    >
+                      <a href={`#${id}`} className='flex-auto'>
+                        <h1
+                          className={`ml-6 py-1 text-S/Regular  ${
+                            id === _state.scrollEvent.current
+                              ? 'text-orange-500'
+                              : 'text-gray-700'
+                          }`}
+                        >
+                          {convertTitle(id)}
+                        </h1>
+                      </a>
+                    </li>
+                  );
+                })}
           </ul>
         </ul>
 

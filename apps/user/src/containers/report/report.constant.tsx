@@ -33,7 +33,7 @@ export const convertRecommendationScoreToText = (status: string) => {
     case 'E': {
       return (
         <div className={`border-[#FCC5CB] ${divStyle}`}>
-          <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
+          <p className={`text-[#C9162B] ${pStyle}`}>매우나쁨</p>
         </div>
       );
     }

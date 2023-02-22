@@ -41,6 +41,7 @@ export enum TITLE {
   MARTKET_SIZE = 'MartketSize',
   KEYWORD_INFO = 'KeywordInfo',
   RECOMMEND_KEYWORD = 'RecommendKeyword',
+  SALE_PRICE = 'SalePrice',
 }
 
 export enum TAG_SENTIMENT_STATUS {

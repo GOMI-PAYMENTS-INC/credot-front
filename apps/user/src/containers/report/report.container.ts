@@ -27,6 +27,8 @@ export const convertTitle = (id: string) => {
       return '추천 키워드';
     case TITLE.KEYWORD_INFO:
       return '키워드 정보';
+    case TITLE.SALE_PRICE:
+      return '판매 가격';
     default:
       return id;
   }
@@ -77,6 +79,7 @@ export const updateTitle = (
   _dispatch: Dispatch<TReportAction>,
   name?: string,
 ) => {
+  console.log(curLocation, 'curLocation');
   if (curLocation < 100) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
