@@ -6,14 +6,6 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { PATH } from '@/router/routeList';
 import { isIncluded } from '../utils/isIncluded';
 
-export enum HTTP_METHOD_ENUM {
-  GET = 'GET',
-  POST = 'POST',
-  PATCH = 'PATCH',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-}
-
 const Axios = axios.create({ baseURL: GlobalEnv.baseUrl });
 
 Axios.interceptors.request.use((config) => {

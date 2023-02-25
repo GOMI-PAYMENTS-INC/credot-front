@@ -7,7 +7,7 @@ import { _getReportList } from '@/containers/report/report.container';
 import {
   reportListReducer,
   reportListInitialState,
-  ReportListActionKind,
+  ReportListAction,
 } from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 
@@ -171,7 +171,7 @@ const ReportList = () => {
             page={_state.page}
             data={_state.data}
             _dispatch={_dispatch}
-            _dispatchType={ReportListActionKind.GetReportList}
+            _dispatchType={ReportListAction.GetReportList}
           />
 
           <div></div>
