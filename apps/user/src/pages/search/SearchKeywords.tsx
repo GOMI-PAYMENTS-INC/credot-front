@@ -17,6 +17,7 @@ import { Tooltip } from 'react-tooltip';
 import { CountryType } from '@/generated/graphql';
 import { ModalComponent } from '@/components/modals/modal';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
@@ -76,7 +77,12 @@ const SearchKeywords = () => {
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
-        <SearchModal _state={_state} _dispatch={_dispatch} data={data} />
+        <SearchModal
+          _state={_state}
+          _dispatch={_dispatch}
+          data={data}
+          size={MODAL_SIZE_ENUM.LARGE}
+        />
       </ModalComponent>
       <div className='absolute left-0 top-0 block lg:hidden'>
         <img src={`${IMG_PATH}/Background.png`} alt='' />
@@ -87,9 +93,9 @@ const SearchKeywords = () => {
           <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px] px-6 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                <span className='text-primary-red-orange'>Shopee</span>에서&nbsp;
-                <span className='text-primary-red-orange'>상위 노출</span>을 원하는&nbsp;
-                <span className='text-primary-red-orange'>키워드</span>를 입력해주세요.
+                <span className='text-orange-500'>Shopee</span>에서&nbsp;
+                <span className='text-orange-500'>상위 노출</span>을 원하는&nbsp;
+                <span className='text-orange-500'>키워드</span>를 입력해주세요.
               </h1>
             </div>
             <div>
@@ -230,7 +236,7 @@ const SearchKeywords = () => {
 
             <div className='mt-10'>
               <button
-                className={`w-full rounded-md bg-primary-red-orange py-4 ${
+                className={`w-full rounded-md bg-orange-500 py-4 ${
                   _state.keyword === '' && 'opacity-30'
                 }`}
                 disabled={_state.keyword === ''}

@@ -169,7 +169,7 @@ const SignUpSocial = () => {
               verifyCodeSign !== '' ? (
                 <button
                   type='submit'
-                  className='button-filled-normal-xLarge-primary-false-false-true w-full'
+                  className='button-filled-normal-xLarge-red-false-false-true w-full'
                 >
                   회원가입
                 </button>

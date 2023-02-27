@@ -6,7 +6,7 @@ const SelectKeyWordBottomNav = () => (
       <div>
         <p className='text-text-M/Medium'>
           선택한 키워드
-          <br />(<span className='text-text-M/Medium text-primary-red-orange'>0</span>/10)
+          <br />(<span className='text-text-M/Medium text-orange-500'>0</span>/10)
         </p>
       </div>
       <div>

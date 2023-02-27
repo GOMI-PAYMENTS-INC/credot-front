@@ -11,9 +11,8 @@ type TReportListColumn = {
   response: TReportListResponseData;
   page?: number; // 페이징용 리포트id
   limit?: number; // 페이징용 리스트 사이즈
-  checkedItems: Number[];
-  setCheckedItems: Dispatch<Number[]>;
-
+  checkedItems: number[];
+  setCheckedItems: Dispatch<number[]>;
   setIsCheckedAll: Dispatch<boolean>;
 };
 export const ReportListColumn = ({
@@ -24,7 +23,7 @@ export const ReportListColumn = ({
 }: TReportListColumn) => {
   const navigate = useNavigate();
 
-  const checkedItemHandler = (code: Number, isChecked: boolean) => {
+  const checkedItemHandler = (code: number, isChecked: boolean) => {
     if (isChecked) {
       //체크 추가할때
       setCheckedItems([...checkedItems, code]);
@@ -153,7 +152,7 @@ export const ReportListColumn = ({
               <div className='mt-10'>
                 <button
                   onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
-                  className='button-outlined-normal-large-primary-false-false-true'
+                  className='button-outlined-normal-large-red-false-false-true'
                 >
                   키워드 검색하기
                 </button>

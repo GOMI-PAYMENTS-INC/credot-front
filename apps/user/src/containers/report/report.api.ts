@@ -26,4 +26,18 @@ const getReportList = async (queryString: TReportListParamsType) => {
   }
 };
 
-export { getMainReport, getRelationReport, getReportList };
+const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
+  try {
+    return await HTTP.delete<TDeleteReportListParamsType, TDeleteReportListResponse>(
+      REPORT_URL,
+      {
+        params: queryString,
+        paramsSerializer: (paramObj) => new URLSearchParams(paramObj).toString(),
+      },
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getMainReport, getRelationReport, getReportList, deleteReportList };

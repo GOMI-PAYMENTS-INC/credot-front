@@ -1,9 +1,9 @@
 import { Dispatch } from 'react';
-import { getMainReport, getRelationReport } from './report.api';
+import { deleteReportList, getMainReport, getRelationReport } from './report.api';
 import {
   REPORT_ACTION,
   TReportAction,
-  ReportListActionKind,
+  REPORT_LIST_ACTION,
 } from '@/containers/report/report.reducer';
 import { TITLE } from '@/types/enum.code';
 
@@ -12,6 +12,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 
 import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
 import { convertBatchStatus } from '@/utils/convertEnum';
+import { toast } from 'react-toastify';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -124,7 +125,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
     //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
     if (reportInfo?.code === STATUS_CODE.SUCCESS) {
       _state.data = reportInfo.data;
-      _dispatch({ type: ReportListActionKind.GetReportList, payload: _state });
+      _dispatch({ type: REPORT_LIST_ACTION.GetReportList, payload: _state });
     }
 
     return reportInfo;
@@ -156,6 +157,74 @@ export const reportListConverter = (item: TReportItem) => {
     result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
   }
   return result;
+};
+
+//리포트 목록 삭제 api
+export const _deleteReportList = async (ids: number[]) => {
+  try {
+    const response = await deleteReportList({
+      ids: ids,
+    });
+    if (response?.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//TODO: setCheckedItems reducer로 관리하게 변경 할 것 - casey 23.02.22
+//리포트 목록 삭제 container
+export const deleteReports = (
+  checkedItems: number[],
+  setCheckedItems: Dispatch<number[]>,
+  _state: TReportListState,
+  _dispatch: Dispatch<TReportListAction>,
+) => {
+  //삭제 실행
+  _deleteReportList(checkedItems).then((result) => {
+    if (result?.code === STATUS_CODE.SUCCESS) {
+      //모달 닫기
+      switchDeleteModal(_dispatch, false);
+
+      //선택된 체크박스 목록 비우기
+      setCheckedItems([]);
+
+      //목록 다시 불러오기
+      _getReportList({ _state: _state, _dispatch }).then(() => {});
+
+      //토스트 알림
+      toast.success(`리포트를 삭제했어요.`);
+    } else {
+      toast.error(`리포트를 삭제할 수 없습니다.`);
+    }
+  });
+};
+
+//리포트 목록 삭제 확인 confirm 모달
+export const openDeleteModal = (
+  checkedItems: number[],
+  _dispatch: Dispatch<TReportListAction>,
+) => {
+  //선택된 상품이 있는지 판단
+  if (checkedItems.length) {
+    switchDeleteModal(_dispatch, true);
+  } else {
+    toast.warn('리포트를 선택해주세요.');
+  }
+};
+
+//리포트 목록 삭제 확인 confirm 모달 상태 변경
+export const switchDeleteModal = (
+  _dispatch: Dispatch<TReportListAction>,
+  isOpen: boolean,
+) => {
+  _dispatch({
+    type: REPORT_LIST_ACTION.DeleteReport,
+    payload: {
+      isDeleteConfirmModalOpen: isOpen,
+    },
+  });
 };
 
 export const roundNumber = (number: number) => {
