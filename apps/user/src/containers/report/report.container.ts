@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, RefObject } from 'react';
 import { getMainReport, getRelationReport } from './report.api';
 import {
   REPORT_ACTION,
@@ -11,7 +11,7 @@ import { getReportList } from '@/containers/report/report.api';
 import { STATUS_CODE } from '@/types/enum.code';
 
 import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
-import { convertBatchStatus } from '@/utils/convertEnum';
+import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -133,9 +133,12 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   }
 };
 
-export const scrollToTop = (_dispatch: Dispatch<TReportAction>) => {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+export const scrollToTop = (
+  _dispatch: Dispatch<TReportAction>,
+  personInfo: RefObject<HTMLDivElement>,
+) => {
+  console.log(personInfo);
+  personInfo.current?.scroll(0, 0);
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
 
@@ -146,7 +149,7 @@ export const reportListConverter = (item: TReportItem) => {
       sentiment: TAG_SENTIMENT_STATUS.ATTENTIVE,
     },
     countryCode: {
-      text: convertBatchStatus(item.countryCode),
+      text: convertCountry(item.countryCode),
       iconPath: '/assets/icons/flag/Vietnam.svg',
     },
     channel: { iconPath: '/assets/icons/shop/Shopee.svg' },

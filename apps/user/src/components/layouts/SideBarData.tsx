@@ -18,6 +18,8 @@ export const menuData = [
         title: '리포트 조회',
         iconPath: '/assets/icons/outlined/FileText.svg',
         path: PATH.GET_REPORT_LIST,
+        //path와 활동화될 페이지가 다른 경우 사용
+        activePath: [PATH.GET_REPORT_LIST, PATH.ANALYSIS_REPORT_LIST],
       },
     ],
   },
