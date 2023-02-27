@@ -47,8 +47,7 @@ const ReportList = () => {
 
   //페이지 목록 불러오기
   useEffect(() => {
-    console.log(_state.page, _state.limit);
-    _getReportList({ _state: _state, _dispatch }).then((r) => {});
+    _getReportList({ _state: _state, _dispatch });
 
     //리스트를 다시 불러올때 체크된 항목 초기화 함
     //페이징 후 체크된 항목이 유지되는 이슈 해결
