@@ -202,10 +202,11 @@ export const deleteReports = (
 };
 
 //리포트 목록 삭제 확인 confirm 모달
-export const openDeleteMode = (
+export const openDeleteModal = (
   checkedItems: number[],
   _dispatch: Dispatch<TReportListAction>,
 ) => {
+  //선택된 상품이 있는지 판단
   if (checkedItems.length) {
     switchDeleteModal(_dispatch, true);
   } else {
