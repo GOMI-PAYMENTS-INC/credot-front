@@ -42,6 +42,9 @@ module.exports = {
         '.button-filled-normal-large-primary-false-false-true': {
           '@apply rounded bg-orange-500 px-2.5 py-3 text-white text-M/Bold': {},
         },
+        '.button-filled-normal-xLarge-red-false-false-true': {
+          '@apply rounded bg-orange-500 px-2.5 py-4 text-white text-L/Bold': {},
+        },
         '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
         },
