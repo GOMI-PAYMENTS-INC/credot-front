@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { getMainReport, getRelationReport } from './report.api';
+import { getMainReport, getRelationReport, getSalePrice } from './report.api';
 import {
   REPORT_ACTION,
   TReportAction,
@@ -12,6 +12,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 
 import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
 import { convertBatchStatus } from '@/utils/convertEnum';
+import { isFalsy } from '@/utils/isFalsy';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -36,14 +37,18 @@ export const convertTitle = (id: string) => {
 
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
   try {
-    const response = await Promise.all([getMainReport(id), getRelationReport(id)]);
+    const response = await Promise.all([
+      getMainReport(id),
+      getRelationReport(id),
+      getSalePrice(id),
+    ]);
+    const dataName = ['main', 'relation', 'price'];
     response.forEach((chunk, idx) => {
       if (chunk) {
-        const type = idx === 0 ? 'main' : 'relation';
         const { data } = chunk.data;
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
-          payload: { type: type, data: data },
+          payload: { type: dataName[idx], data: data },
         });
       }
     });
@@ -79,7 +84,6 @@ export const updateTitle = (
   _dispatch: Dispatch<TReportAction>,
   name?: string,
 ) => {
-  console.log(curLocation, 'curLocation');
   if (curLocation < 100) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
@@ -161,10 +165,19 @@ export const reportListConverter = (item: TReportItem) => {
   return result;
 };
 
-export const roundNumber = (number: number) => {
-  const fixedNumber = number.toFixed(1);
+export const roundNumber = (number: number | string) => {
+  if ((number + '').split('.').length === 1) return number;
+
+  let originNumber = number;
+  if (typeof originNumber === 'string') {
+    originNumber = parseInt(originNumber);
+  }
+
+  const fixedNumber = originNumber.toFixed(1);
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
+
   if (secondPlaceNumber === '0') return 0;
+
   return fixedNumber;
 };
 

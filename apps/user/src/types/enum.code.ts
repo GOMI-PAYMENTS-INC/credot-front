@@ -59,3 +59,9 @@ export enum BATCH_STATUS {
   REPLICATE = 'REPLICATE', //재실행
   NONE = 'NONE',
 }
+
+export enum SORT_BY {
+  PRICE_MIN = 'PRICE_MIN',
+  PRICE_MAX = 'PRICE_MAX',
+  PRICE_AVERAGE = 'PRICE_AVERAGE',
+}

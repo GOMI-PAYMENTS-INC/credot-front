@@ -1,4 +1,5 @@
 import { CountryType } from '@/generated/graphql';
+import { SORT_BY } from '@/types/enum.code';
 
 const reportInitialState: TReportState = {
   main: {
@@ -22,6 +23,7 @@ const reportInitialState: TReportState = {
     createdAt: null,
   },
   relation: [],
+  salePrice: null,
   scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
   toggleEvent: [],
   spinnerEvent: false,
@@ -59,6 +61,9 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
         if (first) {
           state.toggleEvent = state.toggleEvent.concat(first);
         }
+      }
+      if (type === 'price') {
+        state.salePrice = data;
       }
       return state;
     }

@@ -26,4 +26,12 @@ const getReportList = async (queryString: TReportListParamsType) => {
   }
 };
 
-export { getMainReport, getRelationReport, getReportList };
+const getSalePrice = async (id: string) => {
+  try {
+    return await HTTP.get<TSalePriceResponse>(`${REPORT_URL}/${id}/prices`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getMainReport, getRelationReport, getReportList, getSalePrice };

@@ -90,6 +90,7 @@ type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type TReportState = {
   main: TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword;
   relation: TGetRelationReportDataType[];
+  salePrice: TSalePriceData;
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -123,4 +124,56 @@ type TGetRelationReport = {
   code: STATUS_CODE;
   message: string;
   data: TGetRelationReportDataType[];
+};
+
+type TSalePriceResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TSalePriceData;
+};
+
+type TSalePriceData = {
+  [key: string]: string | number | Date | null | Array;
+  id: number;
+  text: string;
+  country: CountryType;
+  channel: TChannelType;
+  priceAnalysisInfo: TPriceAnalysisInfo;
+  itemGradeIndices: number[];
+  totalItemCount: number;
+  items: TSalePriceItems[];
+} | null;
+
+type TPriceAnalysisInfo = {
+  sortBy: SORT_BY;
+  min: number;
+  max: number;
+  avg: number;
+  levelCount: number;
+  levelBound: number;
+  basePrice: number;
+};
+
+type TSalePriceItems = {
+  id: number;
+  insightEeportId: number;
+  reportUniqueId: string;
+  rank: number;
+  itemName: string | null;
+  itemUrl: string | null;
+  itemStockLocation: string | null;
+  storeName: string;
+  storeItemCount: number;
+  storeRatingStar: number;
+  itemPriceMaxBeforeDiscount: number;
+  itemPriceMinBeforeDiscount: number;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  itemPriceAvg: number;
+  itemHasLowestPriceGuarantee: boolean;
+  itemHistoricalSold: number;
+  item30daysSold: number;
+  itemSales: number;
+  itemdescription: string | null;
+  itemBrand: string | null;
 };

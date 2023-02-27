@@ -3,8 +3,20 @@ import { Tooltip } from 'react-tooltip';
 import { TITLE } from '@/types/enum.code';
 import { SalePriceChart } from './SalePriceChart';
 import { openBrowser } from '@/containers/report';
+import { formatNumber } from '@/utils/formatNumber';
+import { convertExachangeRate, roundNumber } from '@/containers/report';
 
-export const SalePrice = () => {
+interface ISalePrice {
+  salePriceInfo: TSalePriceData;
+}
+
+export const SalePrice = (props: ISalePrice) => {
+  const { gradeItems, priceAnalysisInfo } = props.salePriceInfo!;
+  const { min, max, avg, basePrice } = priceAnalysisInfo;
+  const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
+    formatNumber(roundNumber(convertExachangeRate(price, basePrice) / 100000)),
+  );
+  const [high, medium, low] = gradeItems;
   return (
     <section className='col-span-full'>
       <h1 id={TITLE.SALE_PRICE} className='detailReport-h1-header'>
@@ -34,7 +46,7 @@ export const SalePrice = () => {
               <div className='flex flex-col py-9 pl-5'>
                 <p className=' text-S/Medium text-grey-800'>최저가</p>
                 <div className='flex items-center pt-[11px]'>
-                  <p className='text-2XL/Bold text-orange-500'>24,634</p>
+                  <p className='text-2XL/Bold text-orange-500'>{minPrice}</p>
                   <span className='pl-1 text-L/Medium text-grey-800'>원</span>
                 </div>
               </div>
@@ -42,14 +54,14 @@ export const SalePrice = () => {
             <div className='mx-5 flex flex-col border-t-[1px] border-b-[1px] border-dashed py-9'>
               <p className='text-S/Medium text-grey-800'>평균 판매가</p>
               <div className='flex items-center pt-[11px]'>
-                <p className='text-2XL/Bold text-grey-900'>44,634</p>
+                <p className='text-2XL/Bold text-grey-900'>{avgPrice}</p>
                 <span className='pl-1 text-L/Medium text-grey-800'>원</span>
               </div>
             </div>
             <div className='mx-5 flex flex-col py-9'>
               <p className='text-S/Medium text-grey-800'>최고가</p>
               <div className='flex items-center pt-[11px]'>
-                <p className='text-2XL/Regular text-grey-900'>88,634</p>
+                <p className='text-2XL/Regular text-grey-900'>{maxPrice}</p>
                 <span className='pl-1 text-L/Medium text-grey-800'>원</span>
               </div>
             </div>
@@ -79,21 +91,24 @@ export const SalePrice = () => {
             </div>
           </div>
         </div>
-        <div className='mt-[30px] flex w-fit rounded-[8px] bg-grey-200'>
+        <div className='mt-[30px] flex w-fit rounded-[8px] bg-grey-200 text-S/Medium'>
           <div className='flex space-x-2 px-1 py-1'>
             <div className='cursor-pointer rounded bg-white'>
               <p className='px-2 py-2 text-S/Bold'>
-                가격경쟁력 높은 상품 <span className='text-orange-500'>{' 10'}</span>
+                가격경쟁력 높은 상품
+                <span className='text-orange-500'>{` ${high.length}`}</span>
               </p>
             </div>
-            <div className='cursor-pointer rounded bg-white'>
-              <p className='px-2 py-2 text-S/Bold'>
-                가격경쟁력 보통 상품 <span className='text-orange-500'>{' 30'}</span>
+            <div className='cursor-pointer rounded bg-grey-200'>
+              <p className='px-2 py-2  text-grey-700'>
+                가격경쟁력 보통 상품
+                <span className='text-grey-700'>{` ${medium.length}`}</span>
               </p>
             </div>
-            <div className='cursor-pointer rounded bg-white'>
-              <p className='px-2 py-2 text-S/Bold'>
-                가격경쟁력 낮은 상품 <span className='text-orange-500'>{' 10'}</span>
+            <div className='cursor-pointer rounded bg-grey-200'>
+              <p className='px-2 py-2  text-grey-700'>
+                가격경쟁력 낮은 상품
+                <span className='text-grey-700'>{` ${low.length}`}</span>
               </p>
             </div>
           </div>

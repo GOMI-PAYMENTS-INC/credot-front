@@ -37,7 +37,7 @@ const DetailReport = () => {
 
   const combinedComponent = useMemo(() => {
     // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
-
+    if (isFalsy(_state.salePrice)) return;
     return (
       <Fragment>
         <KeywordInfo keywordInfo={main} />
@@ -49,7 +49,7 @@ const DetailReport = () => {
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
         />
-        <SalePrice />
+        <SalePrice salePriceInfo={_state.salePrice} />
         <section className='h-[200px]'></section>
       </Fragment>
     );
