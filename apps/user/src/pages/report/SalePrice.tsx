@@ -86,7 +86,7 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
             <div className='flex h-full  items-center justify-center'>
               <div className='w-full max-w-[680px]'>
-                <SalePriceChart />
+                <SalePriceChart priceChartProps={props.salePriceInfo!} />
               </div>
             </div>
           </div>

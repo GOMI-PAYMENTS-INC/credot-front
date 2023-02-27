@@ -9,9 +9,38 @@ import {
   SubTitle,
 } from 'chart.js';
 
+import { formatNumber } from '@/utils/formatNumber';
+import { convertExachangeRate, roundNumber } from '@/containers/report';
+import { useMemo } from 'react';
+
 import { Bar } from 'react-chartjs-2';
 
-export const SalePriceChart = () => {
+interface ISalePriceChart {
+  priceChartProps: TSalePriceData;
+}
+
+export const SalePriceChart = (props: ISalePriceChart) => {
+  const { min, max, levelBound, levelCount, basePrice } =
+    props.priceChartProps!.priceAnalysisInfo;
+
+  const [minPrice, maxPrice, gap] = [min, max, levelBound].map(
+    (price) => convertExachangeRate(price, basePrice) / 100000,
+  );
+
+  const salePriceData = useMemo(() => {
+    const res = [];
+    for (let index = 0; index < levelCount; index++) {
+      if (index === 0) {
+        res.push([formatNumber(roundNumber(minPrice))]);
+      } else if (index === 6) {
+        res.push([formatNumber(roundNumber(maxPrice))]);
+        return res;
+      } else {
+        res.push([formatNumber(roundNumber(minPrice + gap * (index + 1)))]);
+      }
+    }
+  }, [minPrice, maxPrice]);
+
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, SubTitle);
 
   const options = {
@@ -32,14 +61,22 @@ export const SalePriceChart = () => {
     },
   };
 
-  const labels = [31000, 36000, 4100, 4600, 5100, 5600, 6100];
-  0;
+  const labels = [
+    ['230', '23,116'],
+    ['23,116', '34,558'],
+    ['34,558', '46,001'],
+    ['46,001', '57,444'],
+    ['57,444', '68,887'],
+    ['68,887', '80,330'],
+    ['80,330'],
+  ]; //salePriceData;
+  console.log(salePriceData, 'sale');
   const data = {
     labels,
     datasets: [
       {
         label: '',
-        data: [1000, 2000, 3000, 4000, 5500, 6000, 8000, 1000, 2000, 2000],
+        data: [5, 10, 2, 4, 5, 1, 2], //salePriceData,
         backgroundColor: 'rgba(255,163,120)',
       },
     ],

@@ -18,6 +18,7 @@ import { MartketSize } from '@/pages/report/MarketSize';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { PATH } from '@/router/routeList';
+import { SalePrice } from '@/pages/report/SalePrice';
 
 const DetailReport = () => {
   const routeId = useParams();
@@ -57,7 +58,7 @@ const DetailReport = () => {
   document.addEventListener('scroll', () => {
     updateTitle(window.scrollY, _dispatch, main.text);
   });
-
+  console.log(_state.salePrice);
   return (
     <Fragment>
       <header className='sticky top-0 z-10 col-span-full w-full'>

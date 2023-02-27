@@ -18,7 +18,6 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
 import { convertBatchStatus } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
-import { isFalsy } from '@/utils/isFalsy';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -250,7 +249,7 @@ export const roundNumber = (number: number | string) => {
 
   if (secondPlaceNumber === '0') return 0;
 
-  return fixedNumber;
+  return parseInt(fixedNumber);
 };
 
 export const delayEvent = (callback: () => void, time: number) => {
