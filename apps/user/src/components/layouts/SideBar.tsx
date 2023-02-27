@@ -7,6 +7,8 @@ import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useEffect, useState } from 'react';
 import { menuData } from '@/components/layouts/SideBarData';
+import { reportListInitialState } from '@/containers/report/report.reducer';
+import { _getReportList } from '@/containers/report';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -24,9 +26,11 @@ const SideBar = () => {
   };
 
   //lnb 내 메뉴 열림 여부
-  const [openedMenuList, setOpenedMenuList] = useState<String[]>([]);
+  const [openedMenuList, setOpenedMenuList] = useState<string[]>([
+    Object.values(menuData)[0].key,
+  ]);
 
-  const toggleMenuCollapsed = (menuId: String) => {
+  const toggleMenuCollapsed = (menuId: string) => {
     if (openedMenuList.find((one) => one === menuId)) {
       const filter = openedMenuList.filter((one) => one !== menuId);
       setOpenedMenuList([...filter]);
@@ -51,10 +55,10 @@ const SideBar = () => {
             </button>
           </div>
           <ul>
-            {menuData.map((menu, index) => {
+            {menuData.map((menu, i) => {
               const isActive = isIncluded(path, ...menu.path);
               return (
-                <li className='cursor-pointer text-S/Medium text-grey-800'>
+                <li className='cursor-pointer text-S/Medium text-grey-800' key={i}>
                   <div
                     className={`${
                       isActive ? `bg-orange-100` : `bg-white`
@@ -127,12 +131,12 @@ const SideBar = () => {
             />
           </div>
           <ul>
-            {menuData.map((menu, index) => {
+            {menuData.map((menu, i) => {
               let isCollapsed = false;
               isCollapsed = openedMenuList.includes(menu.key);
 
               return (
-                <li className='cursor-pointer text-S/Medium text-grey-800'>
+                <li className='cursor-pointer text-S/Medium text-grey-800' key={i}>
                   <div
                     className='flex justify-between p-3'
                     onClick={() => toggleMenuCollapsed(menu.key)}
@@ -157,10 +161,10 @@ const SideBar = () => {
                   </div>
                   {isCollapsed && menu.children.length ? (
                     <ul className='mx-4'>
-                      {menu.children.map((child, index) => {
+                      {menu.children.map((child, r) => {
                         const isActive = isIncluded(path, child.path);
                         return (
-                          <li onClick={() => navigation(child.path)}>
+                          <li onClick={() => navigation(child.path)} key={r}>
                             <div
                               className={`flex items-center rounded-lg py-2 pl-5 ${
                                 isActive && 'bg-orange-100 text-primary-red-orange'
