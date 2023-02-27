@@ -5,7 +5,7 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { PATH } from '@/router/routeList';
 import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { menuData } from '@/components/layouts/SideBarData';
 
 const SideBar = () => {
@@ -51,32 +51,30 @@ const SideBar = () => {
             </button>
           </div>
           <ul>
-            {menuData.map((menu) => {
+            {menuData.map((menu, index) => {
               const isActive = isIncluded(path, ...menu.path);
               return (
-                <Fragment key={menu.key}>
-                  <li className='cursor-pointer text-S/Medium text-grey-800'>
-                    <div
-                      className={`${
-                        isActive ? `bg-orange-100` : `bg-white`
-                      } flex justify-between rounded-lg p-3`}
-                      onClick={() => toggleMenuCollapsed(menu.key)}
-                    >
-                      <div className='flex items-center'>
-                        <ReactSVG
-                          src={menu.iconPath}
-                          className='cursor-pointer'
-                          beforeInjection={(svg) => {
-                            svg.setAttribute(
-                              'class',
-                              `h-5 w-5 ${isActive ? 'fill-orange-500' : 'text-grey-900'}`,
-                            );
-                          }}
-                        />
-                      </div>
+                <li className='cursor-pointer text-S/Medium text-grey-800'>
+                  <div
+                    className={`${
+                      isActive ? `bg-orange-100` : `bg-white`
+                    } flex justify-between rounded-lg p-3`}
+                    onClick={() => toggleMenuCollapsed(menu.key)}
+                  >
+                    <div className='flex items-center'>
+                      <ReactSVG
+                        src={menu.iconPath}
+                        className='cursor-pointer'
+                        beforeInjection={(svg) => {
+                          svg.setAttribute(
+                            'class',
+                            `h-5 w-5 ${isActive ? 'fill-orange-500' : 'text-grey-900'}`,
+                          );
+                        }}
+                      />
                     </div>
-                  </li>
-                </Fragment>
+                  </div>
+                </li>
               );
             })}
           </ul>
@@ -129,67 +127,65 @@ const SideBar = () => {
             />
           </div>
           <ul>
-            {menuData.map((menu) => {
+            {menuData.map((menu, index) => {
               let isCollapsed = false;
               isCollapsed = openedMenuList.includes(menu.key);
 
               return (
-                <Fragment key={menu.key}>
-                  <li className='cursor-pointer text-S/Medium text-grey-800'>
-                    <div
-                      className='flex justify-between p-3'
-                      onClick={() => toggleMenuCollapsed(menu.key)}
-                    >
-                      <div className='flex items-center'>
-                        <ReactSVG
-                          src={menu.iconPath}
-                          className='cursor-pointer '
-                          beforeInjection={(svg) => {
-                            svg.setAttribute('class', 'w-5 fill-grey-800');
-                          }}
-                        />
-                        <span className='ml-2'>{menu.title}</span>
-                      </div>
+                <li className='cursor-pointer text-S/Medium text-grey-800'>
+                  <div
+                    className='flex justify-between p-3'
+                    onClick={() => toggleMenuCollapsed(menu.key)}
+                  >
+                    <div className='flex items-center'>
                       <ReactSVG
-                        src='/assets/icons/outlined/Chevronup.svg'
-                        className={`cursor-pointer ${isCollapsed ? `` : `rotate-180`}`}
+                        src={menu.iconPath}
+                        className='cursor-pointer '
                         beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'w-3 fill-grey-800');
+                          svg.setAttribute('class', 'w-5 fill-grey-800');
                         }}
                       />
+                      <span className='ml-2'>{menu.title}</span>
                     </div>
-                    {isCollapsed && menu.children.length ? (
-                      <ul className='mx-4'>
-                        {menu.children.map((child, index) => {
-                          const isActive = isIncluded(path, child.path);
-                          return (
-                            <li onClick={() => navigation(child.path)}>
-                              <div
-                                className={`flex items-center rounded-lg py-2 pl-5 ${
-                                  isActive && 'bg-orange-100 text-primary-red-orange'
-                                }`}
-                              >
-                                <ReactSVG
-                                  src={child.iconPath}
-                                  className='cursor-pointer'
-                                  beforeInjection={(svg) => {
-                                    svg.setAttribute(
-                                      'class',
-                                      `w-4 ${
-                                        isActive ? 'fill-orange-500' : `fill-grey-800 `
-                                      }`,
-                                    );
-                                  }}
-                                />
-                                <span className='ml-2'>{child.title}</span>
-                              </div>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    ) : null}
-                  </li>
-                </Fragment>
+                    <ReactSVG
+                      src='/assets/icons/outlined/Chevronup.svg'
+                      className={`cursor-pointer ${isCollapsed ? `` : `rotate-180`}`}
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', 'w-3 fill-grey-800');
+                      }}
+                    />
+                  </div>
+                  {isCollapsed && menu.children.length ? (
+                    <ul className='mx-4'>
+                      {menu.children.map((child, index) => {
+                        const isActive = isIncluded(path, child.path);
+                        return (
+                          <li onClick={() => navigation(child.path)}>
+                            <div
+                              className={`flex items-center rounded-lg py-2 pl-5 ${
+                                isActive && 'bg-orange-100 text-orange-500'
+                              }`}
+                            >
+                              <ReactSVG
+                                src={child.iconPath}
+                                className='cursor-pointer'
+                                beforeInjection={(svg) => {
+                                  svg.setAttribute(
+                                    'class',
+                                    `w-4 ${
+                                      isActive ? 'fill-orange-500' : `fill-grey-800 `
+                                    }`,
+                                  );
+                                }}
+                              />
+                              <span className='ml-2'>{child.title}</span>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
+                </li>
               );
             })}
           </ul>

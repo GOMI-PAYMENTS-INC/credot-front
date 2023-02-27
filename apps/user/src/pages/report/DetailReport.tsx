@@ -1,23 +1,22 @@
-import { Fragment, useReducer, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { SalePrice } from '@/pages/report/SalePrice';
-import { MartketSize } from '@/pages/report/MarketSize';
-import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
-import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
+import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
-import { TITLE } from '@/types/enum.code';
-import { isFalsy } from '@/utils/isFalsy';
 import {
+  _getReportInfo,
   convertTitle,
-  updateTitle,
   isToggleOpen,
   openBrowser,
-  _getReportInfo,
   scrollToTop,
+  updateTitle,
 } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { ReactSVG } from 'react-svg';
+import { TITLE } from '@/types/enum.code';
+import { isFalsy } from '@/utils/isFalsy';
+import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
+import { MartketSize } from '@/pages/report/MarketSize';
+import { KeywordInfo } from '@/pages/report/KeywordInfo';
+import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { PATH } from '@/router/routeList';
 
 const DetailReport = () => {

@@ -1,5 +1,5 @@
 type TReportListResponseData = {
-  reports: Array<TReportItem>;
+  reports: TReportItem[];
   totalCount: number;
 };
 
@@ -18,6 +18,17 @@ type TReportListState = {
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
   data: TReportListResponseData;
+  isDeleteConfirmModalOpen: boolean;
+};
+
+type TReportListCheckedState = {
+  checkedItems: number[];
+};
+
+type TDeleteReportListResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: any;
 };
 
 type KeywordInfo = {
@@ -50,18 +61,18 @@ type TRecommnandKeyword = {
 };
 
 type TReportItem = {
-  id: !Number;
-  userId: Number;
+  id: !number;
+  userId: number;
   reportUniqueId: string;
   status: string;
   countryCode: string;
   channel: string;
   keyword: string;
-  isMain: Boolean;
+  isMain: boolean;
   sortBy: string;
-  itemCount: Number;
-  totalItemCount: Number;
-  averagePrice: Number;
+  itemCount: number;
+  totalItemCount: number;
+  averagePrice: number;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -69,6 +80,10 @@ type TReportItem = {
 type TReportListParamsType = {
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
+};
+
+type TDeleteReportListParamsType = {
+  ids: number[];
 };
 
 type TCreateReportParamsType = {

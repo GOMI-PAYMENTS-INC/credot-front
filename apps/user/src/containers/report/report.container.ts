@@ -3,7 +3,7 @@ import { getMainReport, getRelationReport, getSalePrice } from './report.api';
 import {
   REPORT_ACTION,
   TReportAction,
-  ReportListAction,
+  REPORT_LIST_ACTION,
 } from '@/containers/report/report.reducer';
 import { TITLE } from '@/types/enum.code';
 
@@ -131,7 +131,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
     //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
     if (reportInfo?.code === STATUS_CODE.SUCCESS) {
       _state.data = reportInfo.data;
-      _dispatch({ type: ReportListAction.GetReportList, payload: _state });
+      _dispatch({ type: REPORT_LIST_ACTION.GetReportList, payload: _state });
     }
 
     return reportInfo;
