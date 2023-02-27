@@ -23,7 +23,7 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
         return {
           title: '키워드 수요가 많지 않아요!',
-          content: <>다른 키워드로 리포트를 생성하는걸 권장드려요. </>,
+          content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: () => switchModal({ _dispatch }),
@@ -38,11 +38,11 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
         return {
           title: '24시간 이내로 발행한 동일한 키워드 리포트가 있어요.',
           content: (
-            <>
+            <Fragment>
               생성일 : {`${createdAt}`}
               <br />
               다른 키워드로 다시 검색해주세요.
-            </>
+            </Fragment>
           ),
           onCancel: {
             name: '다른 키워드 검색',
@@ -54,11 +54,11 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
         return {
           title: '동일한 키워드 리포트가 있어요.',
           content: (
-            <>
+            <Fragment>
               최근 생성일 : {`${createdAt}`}
               <br />
               리포트를 새로 생성할까요?
-            </>
+            </Fragment>
           ),
           onCancel: {
             name: '다른 키워드 검색',

@@ -1,6 +1,4 @@
 import { Dispatch, Fragment } from 'react';
-import { switchModal } from '@/containers/search';
-import { convertTime } from '@/utils/parsingTimezone';
 import { deleteReports, switchDeleteModal } from '@/containers/report';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
@@ -22,19 +20,19 @@ export const ReportListDeleteModal = ({
   const modalType = () => {
     return {
       title: (
-        <>
+        <Fragment>
           선택하신 <span className='text-orange-500'>{checkedItems.length}개</span>의
           키워드 리포트를
           <br />
           영구 삭제할까요?
-        </>
+        </Fragment>
       ),
       content: (
-        <>
+        <Fragment>
           리포트에 입력된
           <br />
           모든 상품 데이터가 삭제돼요
-        </>
+        </Fragment>
       ),
       onCancel: {
         name: '취소',

@@ -1,5 +1,4 @@
 import { HTTP } from '@/api/axiosConfig';
-import { authTokenStorage } from '@/utils/authToken';
 
 const REPORT_URL = 'api/v1/report';
 
@@ -33,6 +32,7 @@ const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
       REPORT_URL,
       {
         params: queryString,
+        paramsSerializer: (paramObj) => new URLSearchParams(paramObj).toString(),
       },
     );
   } catch (error) {

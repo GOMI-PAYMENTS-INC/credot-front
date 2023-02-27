@@ -3,12 +3,7 @@ import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import {
-  _getReportList,
-  deleteReports,
-  openDeleteMode,
-  switchDeleteModal,
-} from '@/containers/report/report.container';
+import { _getReportList, openDeleteModal } from '@/containers/report/report.container';
 import {
   reportListReducer,
   reportListInitialState,
@@ -50,30 +45,20 @@ const ReportList = () => {
     }
   };
 
+  //페이지 목록 불러오기
   useEffect(() => {
-    let state: TReportListState;
-    if (_state.page === undefined || _state.limit === undefined) {
-      state = reportListInitialState;
-    } else {
-      state = _state;
-    }
+    console.log(_state.page, _state.limit);
+    _getReportList({ _state: _state, _dispatch }).then((r) => {});
 
-    _getReportList({ _state: state, _dispatch }).then((r) => {});
+    //리스트를 다시 불러올때 체크된 항목 초기화 함
+    //페이징 후 체크된 항목이 유지되는 이슈 해결
+    setCheckedItems([]);
   }, [_state.page, _state.limit]);
 
-  // useEffect(() => {
-  //   if (_state.isDeleteConfirmModalOpen === true) {
-  //     switchDeleteModal(_dispatch, false);
-  //   }
-  // }, [checkedItems]);
-
-  useEffect(() => {
-    console.log(_state.isDeleteConfirmModalOpen);
-  }, [_state]);
-
+  //선택 삭제 버튼 클릭 시
   const clickDeleteReport = () => {
-    openDeleteMode(checkedItems, _dispatch);
-    // deleteReports(checkedItems, setCheckedItems, { _state, _dispatch });
+    // 삭제 모달 노출
+    openDeleteModal(checkedItems, _dispatch);
   };
 
   const handleSelectSortCount = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -117,7 +102,7 @@ const ReportList = () => {
         <div className='col-span-full mt-[24px] flex min-h-[670px] flex-col rounded border border-grey-300 bg-white'>
           <div className='flex h-[68px] items-center justify-between p-4'>
             <h1 className='text-M/Regular text-grey-800'>
-              총 {formatNumber(_state.data.totalCount)}개{' '}
+              총 {formatNumber(_state.data.totalCount)}개
             </h1>
             <button
               className='button-filled-normal-medium-grey-false-false-true'
