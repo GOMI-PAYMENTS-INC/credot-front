@@ -65,3 +65,8 @@ export enum SORT_BY {
   PRICE_MAX = 'PRICE_MAX',
   PRICE_AVERAGE = 'PRICE_AVERAGE',
 }
+
+export enum MODAL_SIZE_ENUM {
+  SMALL = 'SMALL',
+  LARGE = 'LARGE',
+}

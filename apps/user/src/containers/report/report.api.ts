@@ -34,4 +34,24 @@ const getSalePrice = async (id: string) => {
   }
 };
 
-export { getMainReport, getRelationReport, getReportList, getSalePrice };
+const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
+  try {
+    return await HTTP.delete<TDeleteReportListParamsType, TDeleteReportListResponse>(
+      REPORT_URL,
+      {
+        params: queryString,
+        paramsSerializer: (paramObj) => new URLSearchParams(paramObj).toString(),
+      },
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export {
+  getMainReport,
+  getRelationReport,
+  getReportList,
+  getSalePrice,
+  deleteReportList,
+};
