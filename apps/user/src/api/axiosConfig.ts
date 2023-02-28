@@ -40,8 +40,11 @@ Axios.interceptors.response.use((response) => {
   if (response.data) {
     response.data = camelize(response.data);
   }
-
+  //로그인 상태로 24시간이 지나 토큰이 만료된 상태
   if (isIncluded(response.data.code, STATUS_CODE.INVALID_TOKEN)) {
+    //저장된 토큰 삭제
+    authTokenStorage.clearToken();
+    //로그인 페이지로 이동
     location.replace(PATH.SIGN_IN);
   }
   return response;
