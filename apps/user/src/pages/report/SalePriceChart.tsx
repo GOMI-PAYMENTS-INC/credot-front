@@ -10,7 +10,11 @@ import {
 } from 'chart.js';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate, roundNumber } from '@/containers/report';
+import {
+  convertExachangeRate,
+  roundNumber,
+  countProductsByPrice,
+} from '@/containers/report';
 import { useMemo } from 'react';
 
 import { Bar } from 'react-chartjs-2';
@@ -20,27 +24,33 @@ interface ISalePriceChart {
 }
 
 export const SalePriceChart = (props: ISalePriceChart) => {
-  const { min, max, levelBound, levelCount, basePrice } =
-    props.priceChartProps!.priceAnalysisInfo;
+  const { items, priceAnalysisInfo } = props.priceChartProps!;
+  const { min, max, levelBound, levelCount, basePrice } = priceAnalysisInfo;
 
-  const [minPrice, maxPrice, gap] = [min, max, levelBound].map(
-    (price) => convertExachangeRate(price, basePrice) / 100000,
-  );
-
-  const salePriceData = useMemo(() => {
+  const salePriceScope = useMemo(() => {
     const res = [];
     for (let index = 0; index < levelCount; index++) {
       if (index === 0) {
-        res.push([formatNumber(roundNumber(minPrice))]);
+        res.push(roundNumber(min));
       } else if (index === 6) {
-        res.push([formatNumber(roundNumber(maxPrice))]);
-        return res;
+        res.push(roundNumber(max));
       } else {
-        res.push([formatNumber(roundNumber(minPrice + gap * (index + 1)))]);
+        res.push(roundNumber(min + levelBound * (index + 1)));
       }
     }
-  }, [minPrice, maxPrice]);
+    return res.map((el) => (typeof el === 'string' ? parseInt(el) : el));
+  }, [min, max]);
 
+  const [minPrice, maxPrice, gap] = [min, max, levelBound].map((price) =>
+    convertExachangeRate(price, basePrice),
+  );
+
+  console.log(salePriceScope, 'scope');
+
+  console.log(
+    countProductsByPrice(salePriceScope, props.priceChartProps?.gradeItems!),
+    'test',
+  );
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, SubTitle);
 
   const options = {
@@ -69,14 +79,14 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     ['57,444', '68,887'],
     ['68,887', '80,330'],
     ['80,330'],
-  ]; //salePriceData;
-  console.log(salePriceData, 'sale');
+  ]; //salePriceScope;
+
   const data = {
     labels,
     datasets: [
       {
         label: '',
-        data: [5, 10, 2, 4, 5, 1, 2], //salePriceData,
+        data: [10], //salePriceScope,
         backgroundColor: 'rgba(255,163,120)',
       },
     ],
