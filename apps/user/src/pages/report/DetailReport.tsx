@@ -52,7 +52,12 @@ const DetailReport = () => {
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
         />
-        <SalePrice salePriceInfo={_state.salePrice} />
+        <SalePrice
+          salePriceInfo={_state.salePrice?.data!}
+          list={_state.salePrice.list}
+          focus={_state.salePrice.focus}
+          _dispatch={_dispatch}
+        />
         <section className='h-[200px]'></section>
       </Fragment>
     );

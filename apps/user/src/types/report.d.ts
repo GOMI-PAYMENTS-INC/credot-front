@@ -102,10 +102,17 @@ type TGetMainReportDataType = {
 };
 
 type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
+
+type GRADE_TYPE = 'high' | 'medium' | 'low';
+
 type TReportState = {
   main: (TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword) | null;
   relation: TGetRelationReportDataType[];
-  salePrice: TSalePriceData;
+  salePrice: {
+    data: TSalePriceData | null;
+    focus: GRADE_TYPE;
+    list: TSalePriceItems[] | [];
+  };
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;

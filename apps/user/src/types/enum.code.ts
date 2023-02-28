@@ -70,3 +70,15 @@ export enum MODAL_SIZE_ENUM {
   SMALL = 'SMALL',
   LARGE = 'LARGE',
 }
+
+export enum REPORT_DETAIL_TYPE {
+  MAIN = 'main',
+  RELATION = 'relation',
+  PRICE = 'price',
+}
+
+export enum GRADE_ITEMS {
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
+}

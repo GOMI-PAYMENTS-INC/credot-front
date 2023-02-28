@@ -45,12 +45,6 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     convertExachangeRate(price, basePrice),
   );
 
-  console.log(salePriceScope, 'scope');
-
-  console.log(
-    countProductsByPrice(salePriceScope, props.priceChartProps?.gradeItems!),
-    'test',
-  );
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, SubTitle);
 
   const options = {

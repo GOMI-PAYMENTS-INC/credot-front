@@ -1,22 +1,35 @@
+import { Dispatch } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
-import { TITLE } from '@/types/enum.code';
-import { SalePriceChart } from './SalePriceChart';
+
+import { TITLE, GRADE_ITEMS } from '@/types/enum.code';
+import { SalePriceChart } from '@/pages/report/SalePriceChart';
 import { openBrowser } from '@/containers/report';
+
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate, roundNumber } from '@/containers/report';
 import { SalePriceTable } from '@/pages/report/SalePriceTable';
+
+import {
+  selectSalePriceCompetitionType,
+  convertGrade,
+} from '@/containers/report/report.container';
+import { TReportAction } from '@/containers/report/report.reducer';
 interface ISalePrice {
   salePriceInfo: TSalePriceData;
+  _dispatch: Dispatch<TReportAction>;
+  list: TSalePriceItems[];
+  focus: GRADE_TYPE;
 }
 
 export const SalePrice = (props: ISalePrice) => {
-  const { gradeItems, priceAnalysisInfo } = props.salePriceInfo!;
+  const { _dispatch, salePriceInfo, list, focus } = props;
+  const { gradeItems, priceAnalysisInfo } = salePriceInfo!;
   const { min, max, avg, basePrice } = priceAnalysisInfo;
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExachangeRate(price, basePrice))),
   );
-  const [low, medium, high] = gradeItems;
+  const [lowLength, mediumLength, highLength] = gradeItems.map((item) => item.length);
 
   return (
     <section className='col-span-full'>
@@ -94,27 +107,42 @@ export const SalePrice = (props: ISalePrice) => {
         </div>
         <div className='mt-[30px] flex w-fit rounded-[8px] bg-grey-200 text-S/Medium'>
           <div className='flex space-x-2 px-1 py-1'>
-            <div className='cursor-pointer rounded bg-white'>
-              <p className='px-2 py-2 text-S/Bold'>
-                가격경쟁력 높은 상품
-                <span className='text-orange-500'>{` ${high.length}`}</span>
-              </p>
-            </div>
-            <div className='cursor-pointer rounded bg-grey-200'>
-              <p className='px-2 py-2  text-grey-700'>
-                가격경쟁력 보통 상품
-                <span className='text-grey-700'>{` ${medium.length}`}</span>
-              </p>
-            </div>
-            <div className='cursor-pointer rounded bg-grey-200'>
-              <p className='px-2 py-2  text-grey-700'>
-                가격경쟁력 낮은 상품
-                <span className='text-grey-700'>{` ${low.length}`}</span>
-              </p>
-            </div>
+            {Object.values(GRADE_ITEMS).map((item, idx) => {
+              const countItem =
+                item === GRADE_ITEMS.HIGH
+                  ? highLength
+                  : item === GRADE_ITEMS.MEDIUM
+                  ? mediumLength
+                  : lowLength;
+
+              const highlight =
+                item === focus
+                  ? {
+                      divStyle: 'bg-white',
+                      spanStyle: 'text-orange-500',
+                      textStyle: 'text-S/Bold',
+                    }
+                  : {
+                      divStyle: 'bg-grey-200',
+                      spanStyle: 'text-grey-700',
+                      textStyle: '',
+                    };
+              return (
+                <div
+                  className={`cursor-pointer rounded ${highlight.divStyle}`}
+                  key={`${item}_${idx}`}
+                  onClick={() => selectSalePriceCompetitionType(item, _dispatch)}
+                >
+                  <p className={`px-2 py-2 ${highlight.textStyle}`}>
+                    {`가격경쟁력 ${convertGrade(item)} 상품`}
+                    <span className={highlight.spanStyle}>{` ${countItem}`}</span>
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
-        <SalePriceTable salePriceTableProps={gradeItems!} />
+        <SalePriceTable salePriceItemList={list} />
       </div>
     </section>
   );

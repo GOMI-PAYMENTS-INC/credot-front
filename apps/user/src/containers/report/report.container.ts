@@ -11,7 +11,7 @@ import {
   TReportAction,
   REPORT_LIST_ACTION,
 } from '@/containers/report/report.reducer';
-import { TITLE } from '@/types/enum.code';
+import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
 
 import { getReportList } from '@/containers/report/report.api';
 import { STATUS_CODE } from '@/types/enum.code';
@@ -35,6 +35,8 @@ export const convertTitle = (id: string) => {
       return '추천 키워드';
     case TITLE.KEYWORD_INFO:
       return '키워드 정보';
+    case TITLE.SALE_PRICE:
+      return '판매 가격';
     default:
       return id;
   }
@@ -149,7 +151,6 @@ export const scrollToTop = (
   _dispatch: Dispatch<TReportAction>,
   personInfo: RefObject<HTMLDivElement>,
 ) => {
-  console.log(personInfo);
   personInfo.current?.scroll(0, 0);
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
@@ -275,22 +276,20 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[][]
     medium: { min: medium[0].itemPriceMin, max: medium[medium.length - 1].itemPriceMin },
     high: { min: high[0].itemPriceMin, max: high[high.length - 1].itemPriceMin },
   };
-  console.log(boundary, 'boundary');
+
   return scope.map((price, idx) => {
     if (idx === scope.length - 1) {
       return high.filter((item) => item.itemPriceMin === price);
     }
     const maxPrice = scope[idx + 1];
-    console.log(price, 'price');
+
     if (boundary.low.max >= price) {
-      console.log(price, 'price by MIN', maxPrice, 'max by MIN');
       low.filter(
         (item) => item.itemPriceMin >= price || item.itemPriceMin < maxPrice - 1,
       );
     }
 
     if (boundary.medium.min >= price && boundary.medium.max < maxPrice) {
-      console.log(price, 'price by MEDIUM', maxPrice, 'max by MEDIUM');
       medium.filter(
         (item) => item.itemPriceMin > price || item.itemPriceMin < maxPrice - 1,
       );
@@ -301,7 +300,6 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[][]
       boundary.high.max < price &&
       boundary.high.max < maxPrice
     ) {
-      console.log(price, 'price by HIGH', maxPrice, 'max by HIGH');
       high.filter(
         (item) => item.itemPriceMin > price || item.itemPriceMin < maxPrice - 1,
       );
@@ -340,4 +338,22 @@ export const onScrollDetail = (
 ): void => {
   const scrollTop = (event.target as HTMLElement).scrollTop;
   updateTitle(scrollTop, _dispatch, main.text);
+};
+
+export const selectSalePriceCompetitionType = (
+  focus: GRADE_TYPE,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  _dispatch({ type: REPORT_ACTION.FOCUS_ITEMS, payload: { focus: focus } });
+};
+
+export const convertGrade = (item: GRADE_ITEMS) => {
+  switch (item) {
+    case GRADE_ITEMS.HIGH:
+      return '높은';
+    case GRADE_ITEMS.HIGH:
+      return '보통';
+    default:
+      return '낮은';
+  }
 };
