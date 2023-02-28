@@ -103,11 +103,13 @@ export const updateTitle = (
   if (curLocation > 490 && curLocation < 939) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
-  // if (curLocation > 940 && curLocation < 1034) {
-  //   _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
-  // }
-  if (curLocation > 940) {
+
+  if (curLocation > 940 && curLocation < 1964) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
+  }
+
+  if (curLocation > 1964) {
+    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.SALE_PRICE });
   }
 };
 
