@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 html,
-body,
-#root {
+body {
   height: 100%;
 }
 
@@ -19,7 +18,10 @@ body,
 
 @layer base {
   .container {
-    @apply min-w-[1320px] max-w-[1320px];
+    @apply min-w-[1180px] max-w-[1180px] mx-auto my-0;
+  }
+  .container-common {
+    @apply min-w-[1320px] max-w-[1320px] m-auto;
   }
 }
 
@@ -76,7 +78,7 @@ body,
 
   /* iconButton */
   .iconButton-large-normal-ghost-grey svg {
-    @apply h-6 w-6 fill-grey-800;
+    @apply h-6 w-6 fill-grey-600;
   }
 
   .iconButton-medium-normal-ghost-grey svg {
@@ -84,7 +86,7 @@ body,
   }
   /* @/pages/report/DetailReport.tsx에서 title에 사용되는 태그 */
   .detailReport-h1-header {
-    @apply -mt-[100px] pt-[100px] text-XL/Bold text-black;
+    @apply text-XL/Bold text-black;
   }
 }
 

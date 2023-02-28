@@ -9,7 +9,7 @@ export interface ICommon1SectionProps {
 }
 export const Common1Section = ({ children }: ICommon1SectionProps) => (
   <div className='h-full  w-full bg-orange-100'>
-    <div className='container h-full w-full '>
+    <div className='container-common h-full w-full '>
       <div className='flex h-full w-full flex-col items-center justify-center'>
         <div>
           <Link to={PATH.SEARCH_PRODUCTS}>

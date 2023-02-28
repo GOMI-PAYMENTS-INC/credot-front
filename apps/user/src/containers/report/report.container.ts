@@ -1,10 +1,11 @@
-import { Dispatch } from 'react';
 import {
   deleteReportList,
   getMainReport,
   getRelationReport,
   getSalePrice,
 } from './report.api';
+import { ChangeEvent, Dispatch, RefObject } from 'react';
+
 import {
   REPORT_ACTION,
   TReportAction,
@@ -16,7 +17,8 @@ import { getReportList } from '@/containers/report/report.api';
 import { STATUS_CODE } from '@/types/enum.code';
 
 import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
-import { convertBatchStatus } from '@/utils/convertEnum';
+
+import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
 
 export const openBrowser = (url: string) => {
@@ -143,9 +145,12 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   }
 };
 
-export const scrollToTop = (_dispatch: Dispatch<TReportAction>) => {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+export const scrollToTop = (
+  _dispatch: Dispatch<TReportAction>,
+  personInfo: RefObject<HTMLDivElement>,
+) => {
+  console.log(personInfo);
+  personInfo.current?.scroll(0, 0);
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
 
@@ -156,7 +161,7 @@ export const reportListConverter = (item: TReportItem) => {
       sentiment: TAG_SENTIMENT_STATUS.ATTENTIVE,
     },
     countryCode: {
-      text: convertBatchStatus(item.countryCode),
+      text: convertCountry(item.countryCode),
       iconPath: '/assets/icons/flag/Vietnam.svg',
     },
     channel: { iconPath: '/assets/icons/shop/Shopee.svg' },
@@ -302,4 +307,37 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[][]
       );
     }
   });
+};
+//리스트 > 출력 개수 변경시
+export const onChangeSortCount = (
+  event: ChangeEvent<HTMLSelectElement>,
+  _state: TReportListState,
+  _dispatch: Dispatch<TReportListAction>,
+) => {
+  const limit = Number(event.target.value);
+  if (limit) {
+    let statePram = {
+      page: 1,
+      limit: 10,
+      data: {
+        reports: [],
+        totalCount: 0,
+      },
+      isDeleteConfirmModalOpen: false,
+    };
+
+    statePram.page = _state.page;
+    statePram.limit = limit;
+    _getReportList({ _state: statePram, _dispatch });
+  }
+};
+
+// 상세페이지 > 스크롤 시 상단 헤더 내용 변경
+export const onScrollDetail = (
+  event: React.UIEvent<HTMLElement>,
+  _dispatch: Dispatch<TReportAction>,
+  main: KeywordInfo,
+): void => {
+  const scrollTop = (event.target as HTMLElement).scrollTop;
+  updateTitle(scrollTop, _dispatch, main.text);
 };

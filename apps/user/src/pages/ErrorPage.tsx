@@ -1,8 +1,6 @@
 export const ErrorPage = () => {
-  const href = window.location.href;
-
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center text-center'>
+    <div className='flex h-screen w-screen flex-col items-center justify-center text-center'>
       <div>
         <img src='/assets/images/ErrorPage.png' />
       </div>
