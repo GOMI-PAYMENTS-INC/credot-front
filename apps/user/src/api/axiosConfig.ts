@@ -93,9 +93,10 @@ export const HTTP = {
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> =>
     Axios.patch(url, Object.assign({}, options, { param: param })),
-  delete: async <ResponseType>(
+  delete: async <ParamType, ResponseType>(
     url: string,
     options: AxiosRequestConfig,
+    param?: ParamType,
   ): Promise<AxiosResponse<ResponseType>> =>
     Axios.delete(url, Object.assign({}, options)),
   put: async <ParamType, ResponseType>(

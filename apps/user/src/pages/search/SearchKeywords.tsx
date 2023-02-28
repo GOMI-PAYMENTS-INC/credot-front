@@ -18,6 +18,7 @@ import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
@@ -77,7 +78,12 @@ const SearchKeywords = () => {
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
-        <SearchModal _state={_state} _dispatch={_dispatch} data={data} />
+        <SearchModal
+          _state={_state}
+          _dispatch={_dispatch}
+          data={data}
+          size={MODAL_SIZE_ENUM.LARGE}
+        />
       </ModalComponent>
       <div className='container relative flex grid grid-cols-12 items-center'>
         <div className='absolute left-[-20%] top-0  z-[-1] block'>
@@ -230,7 +236,7 @@ const SearchKeywords = () => {
 
             <div className='mt-10'>
               <button
-                className={`w-full rounded-md bg-primary-red-orange py-4 ${
+                className={`w-full rounded-md bg-orange-500 py-4 ${
                   _state.keyword === '' && 'opacity-30'
                 }`}
                 disabled={_state.keyword === ''}

@@ -13,10 +13,10 @@ const Header = () => (
         />
       </div>
       <div className='space-x-4'>
-        <button className='border-grey-400 text-M/Bold text-grey-800 rounded-md border p-3 lg:hidden'>
+        <button className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 lg:hidden'>
           로그인
         </button>
-        <button className='bg-primary-red-orange text-M/Bold md:text-primary-red-orange rounded-md p-3 text-white md:bg-white'>
+        <button className='rounded-md bg-orange-500 p-3 text-M/Bold text-white md:bg-white md:text-orange-500'>
           무료 시작하기
         </button>
       </div>

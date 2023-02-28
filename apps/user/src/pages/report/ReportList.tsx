@@ -3,41 +3,32 @@ import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { _getReportList } from '@/containers/report/report.container';
+import { _getReportList, openDeleteModal } from '@/containers/report/report.container';
 import {
   reportListReducer,
   reportListInitialState,
-  ReportListActionKind,
+  REPORT_LIST_ACTION,
 } from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 
 import Pagination from '@/components/pagination';
-import { BATCH_STATUS } from '@/types/enum.code';
+import { BATCH_STATUS, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { SearchModal } from '@/pages/search/SearchModal';
+import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
+import { ModalComponent } from '@/components/modals/modal';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
-  // const [totalCount, setTotalCount] = useState<number>(0);
-
-  useEffect(() => {
-    let state: TReportListState;
-    if (_state.page === undefined || _state.limit === undefined) {
-      state = reportListInitialState;
-    } else {
-      state = _state;
-    }
-
-    _getReportList({ _state: state, _dispatch }).then((r) => {});
-  }, [_state.page, _state.limit]);
 
   //전체 선택 체크 여부
   const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
   //체크한 item 배열
-  const [checkedItems, setCheckedItems] = useState<Number[]>([]);
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
   const onCheckAll = (checked: boolean) => {
     //전체 선택
     if (checked) {
-      const checkedItemsArray: Number[] = [];
+      const checkedItemsArray: number[] = [];
       _state.data.reports.forEach(
         (report) =>
           isIncluded(report.status, BATCH_STATUS.DONE) &&
@@ -54,7 +45,22 @@ const ReportList = () => {
     }
   };
 
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  //페이지 목록 불러오기
+  useEffect(() => {
+    _getReportList({ _state: _state, _dispatch });
+
+    //리스트를 다시 불러올때 체크된 항목 초기화 함
+    //페이징 후 체크된 항목이 유지되는 이슈 해결
+    setCheckedItems([]);
+  }, [_state.page, _state.limit]);
+
+  //선택 삭제 버튼 클릭 시
+  const clickDeleteReport = () => {
+    // 삭제 모달 노출
+    openDeleteModal(checkedItems, _dispatch);
+  };
+
+  const handleSelectSortCount = (e: ChangeEvent<HTMLSelectElement>) => {
     const limit = Number(e.target.value);
     if (limit) {
       let statePram = {
@@ -64,6 +70,7 @@ const ReportList = () => {
           reports: [],
           totalCount: 0,
         },
+        isDeleteConfirmModalOpen: false,
       };
 
       statePram.page = _state.page;
@@ -90,9 +97,82 @@ const ReportList = () => {
               </span>
             </div>
           </div>
+          <div className='col-span-full mt-[84px]'>
+            {/* 테이블 */}
+            <div className='col-span-full mt-[24px] flex min-h-[670px] flex-col rounded border border-grey-300 bg-white'>
+              <div className='flex h-[68px] items-center justify-between p-4'>
+                <h1 className='text-M/Regular text-grey-800'>
+                  총 {formatNumber(_state.data.totalCount)}개
+                </h1>
+                <button
+                  className='button-filled-normal-medium-grey-false-false-true'
+                  onClick={clickDeleteReport}
+                >
+                  선택 삭제
+                </button>
+                <ModalComponent isOpen={_state.isDeleteConfirmModalOpen}>
+                  <ReportListDeleteModal
+                    checkedItems={checkedItems}
+                    setCheckedItems={setCheckedItems}
+                    _state={_state}
+                    _dispatch={_dispatch}
+                    size={MODAL_SIZE_ENUM.SMALL}
+                  />
+                </ModalComponent>
+              </div>
+              <table className='col-span-full bg-white '>
+                <thead className='h-[40px] border-t border-b border-grey-300 bg-grey-100 text-left'>
+                  <tr>
+                    <th className='w-[56px] text-center text-XS/Medium'>
+                      <input
+                        type='checkbox'
+                        id='allCheck'
+                        className='checkboxCustom peer'
+                        checked={isCheckedAll}
+                        onChange={(e) => onCheckAll(e.target.checked)}
+                      />
+                      <label
+                        htmlFor='allCheck'
+                        className='checkboxCustom-label  bg-[length:20px_20px] bg-[left_50%_top_50%] text-transparent'
+                      >
+                        전체 선택
+                      </label>
+                    </th>
+                    <th className='w-[556px]'>
+                      <div className='px-4 py-3 text-XS/Medium'>검색어</div>
+                    </th>
+                    <th className='w-[128px]'>
+                      <div className='px-4 py-3 text-XS/Medium'>수집 상태</div>
+                    </th>
+                    <th className='w-[128px]'>
+                      <div className='px-4 py-3 text-XS/Medium'>국가</div>
+                    </th>
+                    <th className='w-[128px]'>
+                      <div className='px-4 py-3 text-XS/Medium'>쇼핑몰</div>
+                    </th>
+                    <th className='w-[128px]'>
+                      <div className='px-4 py-3 text-XS/Medium'>리포트 생성일</div>
+                    </th>
+                    <th className='w-[56px]'>
+                      <div className='px-4 py-3 text-XS/Medium'></div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ReportListColumn
+                    response={_state.data}
+                    page={_state.page || reportListInitialState.page}
+                    limit={_state.limit || reportListInitialState.limit}
+                    checkedItems={checkedItems}
+                    setCheckedItems={setCheckedItems}
+                    setIsCheckedAll={setIsCheckedAll}
+                  />
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </header>
-
       {/*컨텐츠*/}
       <section className='grow overflow-y-scroll'>
         <div className='min-h-screen bg-grey-50'>
@@ -173,7 +253,6 @@ const ReportList = () => {
                   <option value={50}>50개씩</option>
                   <option value={100}>100개씩</option>
                 </select>
-
                 <Pagination
                   total={_state.data.totalCount}
                   limit={_state.limit}

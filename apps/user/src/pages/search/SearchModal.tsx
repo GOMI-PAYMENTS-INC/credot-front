@@ -1,6 +1,7 @@
 import { Dispatch, Fragment } from 'react';
 import { switchModal } from '@/containers/search';
 import { convertTime } from '@/utils/parsingTimezone';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 export enum MODAL_TYPE_ENUM {
   SameKeywordReportExisted = 'SameKeywordReportExisted',
@@ -8,35 +9,21 @@ export enum MODAL_TYPE_ENUM {
   NotBeOverDayReport = 'NotBeOverDayReport',
 }
 
-interface ICancelClickEvent {
-  name: string;
-  cancelEvent: () => void;
-}
-interface IConfirmClickEvent {
-  name: string;
-  confirmEvent: () => void;
-}
-interface IModalType {
-  title: string;
-  content: JSX.Element;
-  onCancel: ICancelClickEvent;
-  onConfirm?: IConfirmClickEvent;
-}
-
 interface ISearchModalPrpos {
   data?: any;
   _state: TState;
   _dispatch: Dispatch<TAction>;
+  size: string;
 }
 
-export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
+export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos) => {
   const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
   const modalType = () => {
     switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
         return {
           title: '키워드 수요가 많지 않아요!',
-          content: <p>다른 키워드로 리포트를 생성하는걸 권장드려요.</p>,
+          content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: () => switchModal({ _dispatch }),
@@ -51,11 +38,11 @@ export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
         return {
           title: '24시간 이내로 발행한 동일한 키워드 리포트가 있어요.',
           content: (
-            <p>
+            <Fragment>
               생성일 : {`${createdAt}`}
               <br />
               다른 키워드로 다시 검색해주세요.
-            </p>
+            </Fragment>
           ),
           onCancel: {
             name: '다른 키워드 검색',
@@ -67,11 +54,11 @@ export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
         return {
           title: '동일한 키워드 리포트가 있어요.',
           content: (
-            <p>
+            <Fragment>
               최근 생성일 : {`${createdAt}`}
               <br />
               리포트를 새로 생성할까요?
-            </p>
+            </Fragment>
           ),
           onCancel: {
             name: '다른 키워드 검색',
@@ -91,32 +78,54 @@ export const SearchModal = ({ _state, _dispatch, data }: ISearchModalPrpos) => {
 
   return (
     <Fragment>
-      <header>
-        <h3 className='text-center text-2XL/Bold'>{modal.title}</h3>
-      </header>
-      {modal.content && <section className='pt-6 text-L/Medium'>{modal.content}</section>}
+      <div
+        className={`${
+          size === MODAL_SIZE_ENUM.LARGE ? ' h-[244px] w-[400px]' : 'h-[211px] w-[298px]'
+        } relative max-w-md md:h-auto`}
+      >
+        <div className='relative rounded bg-white  px-5 py-7 '>
+          <header>
+            <h3
+              className={`${
+                size === MODAL_SIZE_ENUM.LARGE ? ' text-2XL/Bold' : 'text-L/Bold'
+              } text-center`}
+            >
+              {modal.title}
+            </h3>
+          </header>
+          {modal.content && (
+            <section
+              className={`${
+                size === MODAL_SIZE_ENUM.LARGE ? 'text-L/Medium' : 'text-M/Medium'
+              } pt-6  text-grey-800`}
+            >
+              {modal.content}
+            </section>
+          )}
 
-      <footer className='flex justify-between pt-8'>
-        <button
-          type='button'
-          className='h-[48px]border-none button-filled-normal-large-primary-false-false-true w-full bg-grey-200 text-grey-800'
-          onClick={() => modal.onCancel.cancelEvent()}
-        >
-          {modal.onCancel.name}
-        </button>
-        {modal.onConfirm && (
-          <Fragment>
-            <div className='w-4' />
+          <footer className='flex justify-between pt-8'>
             <button
               type='button'
-              className='button-filled-normal-large-primary-false-false-true h-[48px] w-full border-none bg-orange-500'
-              onClick={() => modal.onConfirm!.confirmEvent()}
+              className='button-filled-normal-large-grey-false-false-true w-full'
+              onClick={() => modal.onCancel.cancelEvent()}
             >
-              {modal.onConfirm.name}
+              {modal.onCancel.name}
             </button>
-          </Fragment>
-        )}
-      </footer>
+            {modal.onConfirm && (
+              <Fragment>
+                <div className='w-4' />
+                <button
+                  type='button'
+                  className='button-filled-normal-large-primary-false-false-true w-full'
+                  onClick={() => modal.onConfirm!.confirmEvent()}
+                >
+                  {modal.onConfirm.name}
+                </button>
+              </Fragment>
+            )}
+          </footer>
+        </div>
+      </div>
     </Fragment>
   );
 };

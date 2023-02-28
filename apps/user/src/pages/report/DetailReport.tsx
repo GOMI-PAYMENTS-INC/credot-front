@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect, useMemo, useReducer, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
@@ -11,11 +12,13 @@ import {
   scrollToTop,
   updateTitle,
 } from '@/containers/report/report.container';
-import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
-import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { MartketSize } from '@/pages/report/MarketSize';
+import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';\
+import { TITLE } from '@/types/enum.code';
+import { isFalsy } from '@/utils/isFalsy';
 import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
+import { MartketSize } from '@/pages/report/MarketSize';
+import { KeywordInfo } from '@/pages/report/KeywordInfo';
+import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';\
 import { PATH } from '@/router/routeList';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';

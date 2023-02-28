@@ -31,7 +31,7 @@ body {
     @apply hidden;
   }
   .checkboxCustom-label {
-    @apply inline-block bg-no-repeat bg-svg-Filled/CheckSquareUnchecked-grey-500 peer-checked:bg-svg-Filled/CheckSquare-primary-red-orange;
+    @apply inline-block bg-no-repeat bg-svg-Filled/CheckSquareUnchecked-grey-500 peer-checked:bg-svg-Filled/CheckSquare-orange-500;
   }
 
   /*input*/

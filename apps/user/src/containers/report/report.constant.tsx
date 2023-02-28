@@ -238,7 +238,6 @@ const SCORE = {
       <p>
         검색량과 경쟁수준이 모두 보통인 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           상품 등록에 사용 시 큰 효과를 기대하기는 어려워요.
         </span>
       </p>
@@ -272,7 +271,6 @@ const SCORE = {
       <p>
         검색량만큼 경쟁상품도 많은 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -291,7 +289,6 @@ const SCORE = {
       <p>
         검색량과 경쟁수준이 모두 보통인 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           상품 등록에 사용 시 큰 효과를 기대하기는 어려워요.
         </span>
       </p>
@@ -327,7 +324,6 @@ const SCORE = {
       <p>
         검색량만큼 경쟁상품도 많은 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -345,7 +341,6 @@ const SCORE = {
       <p>
         검색량과 경쟁수준이 모두 보통인 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           상품 등록에 사용 시 큰 효과를 기대하기는 어려워요.
         </span>
       </p>
@@ -428,7 +423,6 @@ const SCORE = {
       <p>
         검색량은 많지만, 경쟁이 아주 심한 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -480,7 +474,6 @@ const SCORE = {
       <p>
         검색량은 많지만, 경쟁이 아주 심한 키워드에요.
         <span className='text-S/Bold'>
-          {' '}
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>

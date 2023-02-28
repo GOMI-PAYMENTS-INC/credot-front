@@ -134,7 +134,7 @@ const FindPassword = () => {
               subTitle='회원님께서 가입하신 연락처로<br>임시 비밀번호를 발송했어요.'
             />
 
-            <div className='rounded-lg border border-grey-300 px-6 py-5 text-center text-primary-red-orange'>
+            <div className='rounded-lg border border-grey-300 px-6 py-5 text-center text-orange-500'>
               {maskingPhone(phone)}
             </div>
 
