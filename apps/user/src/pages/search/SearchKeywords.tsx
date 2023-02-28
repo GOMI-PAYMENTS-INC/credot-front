@@ -1,21 +1,22 @@
-import { Fragment, useReducer, useMemo, useEffect } from 'react';
+import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
+import { Tooltip } from 'react-tooltip';
+
+import { ModalComponent } from '@/components/modals/modal';
+import {
+  getKeyword,
+  initializeState,
+  queryKeyword,
+  queryKeywordByClick,
+  switchModal,
+} from '@/containers/search';
+import { initialState, reducer } from '@/containers/search/reducer';
+import { GetQueryResult } from '@/containers/search/search.api';
+import { CountryType } from '@/generated/graphql';
+import { SearchModal } from '@/pages/search/SearchModal';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import {
-  getKeyword,
-  queryKeyword,
-  queryKeywordByClick,
-  initializeState,
-  switchModal,
-} from '@/containers/search';
-import { GetQueryResult } from '@/containers/search/search.api';
-import { initialState, reducer } from '@/containers/search/reducer';
-import { SearchModal } from '@/pages/search/SearchModal';
-import { Tooltip } from 'react-tooltip';
-import { CountryType } from '@/generated/graphql';
-import { ModalComponent } from '@/components/modals/modal';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
@@ -84,18 +85,17 @@ const SearchKeywords = () => {
           size={MODAL_SIZE_ENUM.LARGE}
         />
       </ModalComponent>
-      <div className='absolute left-0 top-0 block lg:hidden'>
-        <img src={`${IMG_PATH}/Background.png`} alt='' />
-      </div>
-
-      <div className='relative col-span-6 grid items-center'>
-        <div className='max-w-[480px] pb-11  lg:pb-6'>
+      <div className='container relative flex grid grid-cols-12 items-center'>
+        <div className='absolute left-[-20%] top-0  z-[-1] block'>
+          <img src={`${IMG_PATH}/Background.png`} alt='' />
+        </div>
+        <div className='col-span-6 max-w-[480px] pb-11'>
           <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px] px-6 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                <span className='text-orange-500'>Shopee</span>에서&nbsp;
-                <span className='text-orange-500'>상위 노출</span>을 원하는&nbsp;
-                <span className='text-orange-500'>키워드</span>를 입력해주세요.
+                <span className='text-orange-600'>상위 노출</span>을 원하는
+                <br />
+                <span className='text-orange-600'>키워드</span>를 검색해주세요.
               </h1>
             </div>
             <div>
@@ -254,19 +254,19 @@ const SearchKeywords = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className='col-span-6 w-full self-center md:hidden'>
-        {_state.isSearched && _state.keyword ? (
-          <iframe
-            src={`https://shopee.vn/search?keyword=${_state.keyword}`}
-            className='h-[960px] w-[445px]  rounded-2xl pt-[8px]'
-            allow='accelerometer; autoplay; clipboard-write;
+        <div className='col-span-6 w-full self-center md:hidden'>
+          {_state.isSearched && _state.keyword ? (
+            <iframe
+              src={`https://shopee.vn/search?keyword=${_state.keyword}`}
+              className='h-[960px] w-[445px]  rounded-2xl pt-[8px]'
+              allow='accelerometer; autoplay; clipboard-write;
                encrypted-media; gyroscope; picture-in-picture'
-            sandbox='allow-same-origin allow-scripts'
-          />
-        ) : (
-          <img src={`${IMG_PATH}/Img-Skeleton.png`} className='max-w-[460px]' />
-        )}
+              sandbox='allow-same-origin allow-scripts'
+            />
+          ) : (
+            <img src={`${IMG_PATH}/Img-Skeleton.png`} className='max-w-[460px]' />
+          )}
+        </div>
       </div>
     </Fragment>
   );

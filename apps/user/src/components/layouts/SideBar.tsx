@@ -2,10 +2,9 @@ import { useLocation, useNavigate, matchRoutes } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { PATH } from '@/router/routeList';
 import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { menuData } from '@/components/layouts/SideBarData';
 
 const SideBar = () => {
@@ -24,9 +23,11 @@ const SideBar = () => {
   };
 
   //lnb 내 메뉴 열림 여부
-  const [openedMenuList, setOpenedMenuList] = useState<String[]>([]);
+  const [openedMenuList, setOpenedMenuList] = useState<string[]>([
+    Object.values(menuData)[0].key,
+  ]);
 
-  const toggleMenuCollapsed = (menuId: String) => {
+  const toggleMenuCollapsed = (menuId: string) => {
     if (openedMenuList.find((one) => one === menuId)) {
       const filter = openedMenuList.filter((one) => one !== menuId);
       setOpenedMenuList([...filter]);
@@ -37,7 +38,7 @@ const SideBar = () => {
 
   if (lnbCollapsed) {
     return (
-      <aside className='flex w-[64px] flex-[0_0_64px] flex-col justify-between border border-l-0 border-t-0 border-b-0 border-grey-100 bg-white px-2.5'>
+      <aside className='flex w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white px-2.5'>
         <div>
           <div className='flex h-20 items-center justify-center'>
             <button
@@ -51,10 +52,13 @@ const SideBar = () => {
             </button>
           </div>
           <ul>
-            {menuData.map((menu, index) => {
+            {menuData.map((menu, menuIndex) => {
               const isActive = isIncluded(path, ...menu.path);
               return (
-                <li className='cursor-pointer text-S/Medium text-grey-800'>
+                <li
+                  className='cursor-pointer text-S/Medium text-grey-800'
+                  key={menuIndex}
+                >
                   <div
                     className={`${
                       isActive ? `bg-orange-100` : `bg-white`
@@ -85,7 +89,7 @@ const SideBar = () => {
               <ReactSVG
                 src='/assets/icons/outlined/QuestionCircle.svg'
                 beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'fill-grey-900 h-4 w-4 ');
+                  svg.setAttribute('class', 'h-4 w-4 ');
                 }}
               />
             </button>
@@ -95,7 +99,7 @@ const SideBar = () => {
               <ReactSVG
                 src='/assets/icons/outlined/Logout.svg'
                 beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'fill-grey-900 h-4 w-4 ');
+                  svg.setAttribute('class', 'h-4 w-4 ');
                 }}
               />
             </button>
@@ -105,7 +109,7 @@ const SideBar = () => {
     );
   } else {
     return (
-      <aside className='flex w-[200px] flex-[0_0_200px] flex-col justify-between border border-l-0 border-t-0 border-b-0 border-grey-100 bg-white px-2.5'>
+      <aside className='flex w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white px-2.5'>
         <div>
           <div className='flex h-20 items-center'>
             <button
@@ -127,14 +131,26 @@ const SideBar = () => {
             />
           </div>
           <ul>
-            {menuData.map((menu, index) => {
-              let isCollapsed = false;
-              isCollapsed = openedMenuList.includes(menu.key);
+            {menuData.map((menu, menuIndex) => {
+              //FIXME 리듀서 상태관리로 수정할 것 casey 23.02.28
+              //상위 메뉴가 켜진 상태
+              let isCollapsedActive = false;
+              //상위 메뉴가 접힌 상태
+              let isCollapsed = openedMenuList.includes(menu.key);
+              //접혔을 때
+              if (isCollapsed === false) {
+                isCollapsedActive = isIncluded(path, ...menu.path);
+              }
 
               return (
-                <li className='cursor-pointer text-S/Medium text-grey-800'>
+                <li
+                  className='cursor-pointer text-S/Medium text-grey-800'
+                  key={menuIndex}
+                >
                   <div
-                    className='flex justify-between p-3'
+                    className={`flex justify-between rounded-lg p-3  ${
+                      isCollapsedActive && 'bg-orange-100 text-orange-600'
+                    }`}
                     onClick={() => toggleMenuCollapsed(menu.key)}
                   >
                     <div className='flex items-center'>
@@ -142,7 +158,12 @@ const SideBar = () => {
                         src={menu.iconPath}
                         className='cursor-pointer '
                         beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'w-5 fill-grey-800');
+                          svg.setAttribute(
+                            'class',
+                            `w-5 ${
+                              isCollapsedActive ? 'fill-orange-500' : `fill-grey-800 `
+                            }`,
+                          );
                         }}
                       />
                       <span className='ml-2'>{menu.title}</span>
@@ -157,10 +178,15 @@ const SideBar = () => {
                   </div>
                   {isCollapsed && menu.children.length ? (
                     <ul className='mx-4'>
-                      {menu.children.map((child, index) => {
-                        const isActive = isIncluded(path, child.path);
+                      {menu.children.map((child, childIndex) => {
+                        let isActive: boolean;
+                        if (child.activePath.length) {
+                          isActive = isIncluded(path, ...child.activePath);
+                        } else {
+                          isActive = isIncluded(path, child.path);
+                        }
                         return (
-                          <li onClick={() => navigation(child.path)}>
+                          <li onClick={() => navigation(child.path)} key={childIndex}>
                             <div
                               className={`flex items-center rounded-lg py-2 pl-5 ${
                                 isActive && 'bg-orange-100 text-orange-500'
