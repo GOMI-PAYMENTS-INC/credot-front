@@ -7,7 +7,7 @@ import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate, roundNumber } from '@/containers/report';
 
 interface ISalePriceTable {
-  salePriceTableProps: TSalePriceData;
+  salePriceTableProps: TSalePriceItems[][];
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {

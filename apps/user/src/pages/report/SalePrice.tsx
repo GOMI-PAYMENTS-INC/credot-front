@@ -114,7 +114,7 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
           </div>
         </div>
-        <SalePriceTable salePriceTableProps={props.salePriceInfo!} />
+        <SalePriceTable salePriceTableProps={gradeItems!} />
       </div>
     </section>
   );

@@ -29,17 +29,18 @@ const DetailReport = () => {
 
   const { main, relation } = _state;
   const navigation = useNavigate();
+  const contentSection = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isFalsy(routeId.id)) return;
-    if (routeId.id && _state.main.createdAt === null) {
+    if (routeId.id && _state.main === null) {
       _getReportInfo(routeId.id, _dispatch);
     }
   }, []);
 
   const combinedComponent = useMemo(() => {
-    // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
-    if (isFalsy(_state.salePrice)) return;
+    if (main === null) return <Fragment></Fragment>;
+
     return (
       <Fragment>
         <KeywordInfo keywordInfo={main} />
@@ -57,7 +58,14 @@ const DetailReport = () => {
     );
   }, [main]);
 
-  const contentSection = useRef<HTMLDivElement>(null);
+  if (isFalsy(main))
+    return (
+      <div className='flex h-full flex-col items-center justify-center self-center'>
+        <div className='absolute scale-[0.3] pb-[84px]'>
+          <div id='loader' />
+        </div>
+      </div>
+    );
 
   return (
     <Fragment>
@@ -80,7 +88,7 @@ const DetailReport = () => {
                   <ReactSVG
                     src='/assets/icons/outlined/Linkout.svg'
                     onClick={() =>
-                      openBrowser(`https://shopee.vn/search?keyword=${main.text}`)
+                      openBrowser(`https://shopee.vn/search?keyword=${main!.text}`)
                     }
                   />
                 </div>
@@ -98,7 +106,7 @@ const DetailReport = () => {
       {/*컨텐츠  */}
       <section
         className='grow overflow-y-scroll'
-        onScroll={(event) => onScrollDetail(event, _dispatch, main)}
+        onScroll={(event) => onScrollDetail(event, _dispatch, main!)}
         ref={contentSection}
       >
         <div>

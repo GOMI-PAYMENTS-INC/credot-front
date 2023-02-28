@@ -2,26 +2,7 @@ import { CountryType } from '@/generated/graphql';
 import { SORT_BY } from '@/types/enum.code';
 
 const reportInitialState: TReportState = {
-  main: {
-    text: 'Loading...',
-    country: CountryType.Vn,
-    channel: 'SHOPEE',
-    sorted: 'R',
-    currencyUnit: 0,
-    basePrice: 0,
-    totalSalesAmount: 0,
-    avgSalesAmount: 0,
-    totalSalesCount: 0,
-    avgSalesCount: 0,
-    searchCount: 0,
-    competitionProductCount: 0,
-    competitionRate: 0,
-    cpcPrice: 0,
-    cpcRate: 0,
-    avgPrice: 0,
-    evaluateStatus: 'AAA',
-    createdAt: null,
-  },
+  main: null,
   relation: [],
   salePrice: null,
   scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
@@ -51,9 +32,7 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
     case REPORT_ACTION.INITIALIZE_DATA: {
       const { type, data } = action.payload;
       if (type === 'main') {
-        Object.keys(state.main).map((key) => {
-          state.main[key] = data[key];
-        });
+        state.main = data;
       }
       if (type === 'relation') {
         state.relation = data;
