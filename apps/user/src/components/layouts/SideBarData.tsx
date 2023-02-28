@@ -12,6 +12,7 @@ export const menuData = [
         title: '키워드 검색',
         iconPath: '/assets/icons/outlined/Search.svg',
         path: PATH.SEARCH_PRODUCTS,
+        activePath: [],
       },
       {
         key: 'keywordAnalyze-2',

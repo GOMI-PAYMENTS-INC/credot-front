@@ -6,6 +6,7 @@ import {
   _getReportInfo,
   convertTitle,
   isToggleOpen,
+  onScrollDetail,
   openBrowser,
   scrollToTop,
   updateTitle,
@@ -50,15 +51,11 @@ const DetailReport = () => {
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
         />
-        <section className='h-[200px]'></section>
       </Fragment>
     );
   }, [main]);
 
   const contentSection = useRef<HTMLDivElement>(null);
-  const onScroll = (e: any) => {
-    updateTitle(e.target.scrollTop, _dispatch, main.text);
-  };
 
   return (
     <Fragment>
@@ -96,13 +93,13 @@ const DetailReport = () => {
         </div>
       </header>
 
-      {/*컨텐츠*/}
+      {/*컨텐츠  */}
       <section
         className='grow overflow-y-scroll'
-        onScroll={onScroll}
+        onScroll={(event) => onScrollDetail(event, _dispatch, main)}
         ref={contentSection}
       >
-        <div className='min-h-screen'>
+        <div>
           <div className='container pt-8'>
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div className='grid grid-cols-12 gap-x-6'>

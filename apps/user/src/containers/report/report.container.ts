@@ -177,3 +177,12 @@ export const delayEvent = (callback: () => void, time: number) => {
 export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
   _dispatch({ type: REPORT_ACTION.SPINNER_EVENT });
 };
+
+export const onScrollDetail = (
+  event: React.UIEvent<HTMLElement>,
+  _dispatch: Dispatch<TReportAction>,
+  main: KeywordInfo,
+): void => {
+  const scrollTop = (event.target as HTMLElement).scrollTop;
+  updateTitle(scrollTop, _dispatch, main.text);
+};

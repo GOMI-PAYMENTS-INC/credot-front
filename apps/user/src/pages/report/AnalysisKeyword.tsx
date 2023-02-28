@@ -42,7 +42,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   const pStyle = 'text-XS/Medium';
 
   return (
-    <div>
+    <section>
       <h1 id={TITLE.KEYWORD_INFO} className='detailReport-h1-header'>
         키워드 정보
       </h1>
@@ -271,6 +271,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

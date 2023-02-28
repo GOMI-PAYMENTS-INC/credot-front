@@ -182,8 +182,6 @@ const ReportList = () => {
                   _dispatch={_dispatch}
                   _dispatchType={ReportListActionKind.GetReportList}
                 />
-
-                <div></div>
               </div>
             </div>
           </div>

@@ -52,10 +52,13 @@ const SideBar = () => {
             </button>
           </div>
           <ul>
-            {menuData.map((menu, i) => {
+            {menuData.map((menu, menuIndex) => {
               const isActive = isIncluded(path, ...menu.path);
               return (
-                <li className='cursor-pointer text-S/Medium text-grey-800' key={i}>
+                <li
+                  className='cursor-pointer text-S/Medium text-grey-800'
+                  key={menuIndex}
+                >
                   <div
                     className={`${
                       isActive ? `bg-orange-100` : `bg-white`
@@ -128,8 +131,11 @@ const SideBar = () => {
             />
           </div>
           <ul>
-            {menuData.map((menu, i) => {
+            {menuData.map((menu, menuIndex) => {
+              //FIXME 리듀서 상태관리로 수정할 것 casey 23.02.28
+              //상위 메뉴가 켜진 상태
               let isCollapsedActive = false;
+              //상위 메뉴가 접힌 상태
               let isCollapsed = openedMenuList.includes(menu.key);
               //접혔을 때
               if (isCollapsed === false) {
@@ -137,7 +143,10 @@ const SideBar = () => {
               }
 
               return (
-                <li className='cursor-pointer text-S/Medium text-grey-800' key={i}>
+                <li
+                  className='cursor-pointer text-S/Medium text-grey-800'
+                  key={menuIndex}
+                >
                   <div
                     className={`flex justify-between rounded-lg p-3  ${
                       isCollapsedActive && 'bg-orange-100 text-primary-red-orange'
@@ -169,7 +178,7 @@ const SideBar = () => {
                   </div>
                   {isCollapsed && menu.children.length ? (
                     <ul className='mx-4'>
-                      {menu.children.map((child, r) => {
+                      {menu.children.map((child, childIndex) => {
                         let isActive: boolean;
                         if (child.activePath) {
                           isActive = isIncluded(path, ...child.activePath);
@@ -177,7 +186,7 @@ const SideBar = () => {
                           isActive = isIncluded(path, child.path);
                         }
                         return (
-                          <li onClick={() => navigation(child.path)} key={r}>
+                          <li onClick={() => navigation(child.path)} key={childIndex}>
                             <div
                               className={`flex items-center rounded-lg py-2 pl-5 ${
                                 isActive && 'bg-orange-100 text-primary-red-orange'

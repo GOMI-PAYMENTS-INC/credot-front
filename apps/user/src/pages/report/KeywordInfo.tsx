@@ -10,7 +10,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
   const { text, country, channel, sorted, createdAt, currencyUnit, basePrice } =
     props.keywordInfo;
   return (
-    <div>
+    <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>
         <div className='basis-full py-8 pl-2'>
           <h1 className='break-all text-3XL/Bold text-gray-900'>{text}</h1>
@@ -54,6 +54,6 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
