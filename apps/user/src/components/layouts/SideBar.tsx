@@ -149,7 +149,7 @@ const SideBar = () => {
                 >
                   <div
                     className={`flex justify-between rounded-lg p-3  ${
-                      isCollapsedActive && 'bg-orange-100 text-primary-red-orange'
+                      isCollapsedActive && 'bg-orange-100 text-orange-600'
                     }`}
                     onClick={() => toggleMenuCollapsed(menu.key)}
                   >
@@ -180,7 +180,7 @@ const SideBar = () => {
                     <ul className='mx-4'>
                       {menu.children.map((child, childIndex) => {
                         let isActive: boolean;
-                        if (child.activePath) {
+                        if (child.activePath.length) {
                           isActive = isIncluded(path, ...child.activePath);
                         } else {
                           isActive = isIncluded(path, child.path);

@@ -18,7 +18,7 @@ body {
 
 @layer base {
   .container {
-    @apply min-w-[1180px] max-w-[1180px] m-auto;
+    @apply min-w-[1180px] max-w-[1180px] mx-auto my-0;
   }
   .container-common {
     @apply min-w-[1320px] max-w-[1320px] m-auto;

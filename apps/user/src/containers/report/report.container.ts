@@ -1,5 +1,4 @@
-
-import { Dispatch, RefObject } from 'react';
+import { ChangeEvent, Dispatch, RefObject } from 'react';
 import { deleteReportList, getMainReport, getRelationReport } from './report.api';
 import {
   REPORT_ACTION,
@@ -249,6 +248,31 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
   _dispatch({ type: REPORT_ACTION.SPINNER_EVENT });
 };
 
+//리스트 > 출력 개수 변경시
+export const onChangeSortCount = (
+  event: ChangeEvent<HTMLSelectElement>,
+  _state: TReportListState,
+  _dispatch: Dispatch<TReportListAction>,
+) => {
+  const limit = Number(event.target.value);
+  if (limit) {
+    let statePram = {
+      page: 1,
+      limit: 10,
+      data: {
+        reports: [],
+        totalCount: 0,
+      },
+      isDeleteConfirmModalOpen: false,
+    };
+
+    statePram.page = _state.page;
+    statePram.limit = limit;
+    _getReportList({ _state: statePram, _dispatch });
+  }
+};
+
+// 상세페이지 > 스크롤 시 상단 헤더 내용 변경
 export const onScrollDetail = (
   event: React.UIEvent<HTMLElement>,
   _dispatch: Dispatch<TReportAction>,

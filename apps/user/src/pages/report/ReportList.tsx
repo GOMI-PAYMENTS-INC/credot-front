@@ -1,9 +1,13 @@
-import { ChangeEvent, Fragment, useReducer, useState } from 'react';
+import { Fragment, useReducer, useState } from 'react';
 import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { _getReportList, openDeleteModal } from '@/containers/report/report.container';
+import {
+  _getReportList,
+  onChangeSortCount,
+  openDeleteModal,
+} from '@/containers/report/report.container';
 import {
   reportListReducer,
   reportListInitialState,
@@ -13,7 +17,6 @@ import { ReportListColumn } from '@/pages/report/ReportListColumn';
 
 import Pagination from '@/components/pagination';
 import { BATCH_STATUS, MODAL_SIZE_ENUM } from '@/types/enum.code';
-import { SearchModal } from '@/pages/search/SearchModal';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
 import { ModalComponent } from '@/components/modals/modal';
 
@@ -60,28 +63,6 @@ const ReportList = () => {
     openDeleteModal(checkedItems, _dispatch);
   };
 
-  const handleSelectSortCount = (e: ChangeEvent<HTMLSelectElement>) => {
-    const limit = Number(e.target.value);
-    if (limit) {
-      let statePram = {
-        page: 1,
-        limit: 10,
-        data: {
-          reports: [],
-          totalCount: 0,
-        },
-        isDeleteConfirmModalOpen: false,
-      };
-
-      statePram.page = _state.page;
-      statePram.limit = limit;
-      _getReportList({ _state: statePram, _dispatch }).then((r) => {
-        if (r) {
-          console.log(r);
-        }
-      });
-    }
-  };
   return (
     <Fragment>
       {/*헤더*/}
@@ -97,80 +78,6 @@ const ReportList = () => {
               </span>
             </div>
           </div>
-          <div className='col-span-full mt-[84px]'>
-            {/* 테이블 */}
-            <div className='col-span-full mt-[24px] flex min-h-[670px] flex-col rounded border border-grey-300 bg-white'>
-              <div className='flex h-[68px] items-center justify-between p-4'>
-                <h1 className='text-M/Regular text-grey-800'>
-                  총 {formatNumber(_state.data.totalCount)}개
-                </h1>
-                <button
-                  className='button-filled-normal-medium-grey-false-false-true'
-                  onClick={clickDeleteReport}
-                >
-                  선택 삭제
-                </button>
-                <ModalComponent isOpen={_state.isDeleteConfirmModalOpen}>
-                  <ReportListDeleteModal
-                    checkedItems={checkedItems}
-                    setCheckedItems={setCheckedItems}
-                    _state={_state}
-                    _dispatch={_dispatch}
-                    size={MODAL_SIZE_ENUM.SMALL}
-                  />
-                </ModalComponent>
-              </div>
-              <table className='col-span-full bg-white '>
-                <thead className='h-[40px] border-t border-b border-grey-300 bg-grey-100 text-left'>
-                  <tr>
-                    <th className='w-[56px] text-center text-XS/Medium'>
-                      <input
-                        type='checkbox'
-                        id='allCheck'
-                        className='checkboxCustom peer'
-                        checked={isCheckedAll}
-                        onChange={(e) => onCheckAll(e.target.checked)}
-                      />
-                      <label
-                        htmlFor='allCheck'
-                        className='checkboxCustom-label  bg-[length:20px_20px] bg-[left_50%_top_50%] text-transparent'
-                      >
-                        전체 선택
-                      </label>
-                    </th>
-                    <th className='w-[556px]'>
-                      <div className='px-4 py-3 text-XS/Medium'>검색어</div>
-                    </th>
-                    <th className='w-[128px]'>
-                      <div className='px-4 py-3 text-XS/Medium'>수집 상태</div>
-                    </th>
-                    <th className='w-[128px]'>
-                      <div className='px-4 py-3 text-XS/Medium'>국가</div>
-                    </th>
-                    <th className='w-[128px]'>
-                      <div className='px-4 py-3 text-XS/Medium'>쇼핑몰</div>
-                    </th>
-                    <th className='w-[128px]'>
-                      <div className='px-4 py-3 text-XS/Medium'>리포트 생성일</div>
-                    </th>
-                    <th className='w-[56px]'>
-                      <div className='px-4 py-3 text-XS/Medium'></div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ReportListColumn
-                    response={_state.data}
-                    page={_state.page || reportListInitialState.page}
-                    limit={_state.limit || reportListInitialState.limit}
-                    checkedItems={checkedItems}
-                    setCheckedItems={setCheckedItems}
-                    setIsCheckedAll={setIsCheckedAll}
-                  />
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </header>
       {/*컨텐츠*/}
@@ -180,14 +87,26 @@ const ReportList = () => {
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div className='min-h-[670px]'>
               {/* 테이블 */}
-              <div className='flex flex-col rounded border border-grey-300 bg-white'>
+              <div className='col-span-full mt-[24px] flex min-h-[670px] flex-col rounded border border-grey-300 bg-white'>
                 <div className='flex h-[68px] items-center justify-between p-4'>
                   <h1 className='text-M/Regular text-grey-800'>
                     총 {formatNumber(_state.data.totalCount)}개
                   </h1>
-                  <button className='button-filled-normal-medium-grey-false-false-true'>
+                  <button
+                    className='button-filled-normal-medium-grey-false-false-true'
+                    onClick={clickDeleteReport}
+                  >
                     선택 삭제
                   </button>
+                  <ModalComponent isOpen={_state.isDeleteConfirmModalOpen}>
+                    <ReportListDeleteModal
+                      checkedItems={checkedItems}
+                      setCheckedItems={setCheckedItems}
+                      _state={_state}
+                      _dispatch={_dispatch}
+                      size={MODAL_SIZE_ENUM.SMALL}
+                    />
+                  </ModalComponent>
                 </div>
                 <table className='col-span-full bg-white '>
                   <thead className='h-[40px] border-t border-b border-grey-300 bg-grey-100 text-left'>
@@ -244,7 +163,7 @@ const ReportList = () => {
                 <select
                   name='limit'
                   defaultValue={10}
-                  onChange={handleSelect}
+                  onChange={(event) => onChangeSortCount(event, _state, _dispatch)}
                   className='rounded-md
              border border-grey-400 px-3 py-2.5 text-S/Regular text-grey-900'
                 >
@@ -259,8 +178,9 @@ const ReportList = () => {
                   page={_state.page}
                   data={_state.data}
                   _dispatch={_dispatch}
-                  _dispatchType={ReportListActionKind.GetReportList}
+                  _dispatchType={REPORT_LIST_ACTION.GetReportList}
                 />
+                <div className='opacity-0'>숨겨진 영역</div>
               </div>
             </div>
           </div>

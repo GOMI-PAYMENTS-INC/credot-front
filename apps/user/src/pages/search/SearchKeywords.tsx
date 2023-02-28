@@ -93,9 +93,9 @@ const SearchKeywords = () => {
           <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px] px-6 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                <span className='text-primary-red-orange'>상위 노출</span>을 원하는
+                <span className='text-orange-600'>상위 노출</span>을 원하는
                 <br />
-                <span className='text-primary-red-orange'>키워드</span>를 검색해주세요.
+                <span className='text-orange-600'>키워드</span>를 검색해주세요.
               </h1>
             </div>
             <div>
