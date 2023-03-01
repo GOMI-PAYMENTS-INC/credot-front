@@ -7,8 +7,7 @@ interface IKeywordInfoProps {
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, channel, sorted, createdAt, currencyUnit, basePrice } =
-    props.keywordInfo;
+  const { text, country, createdAt, basePrice } = props.keywordInfo;
   return (
     <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>

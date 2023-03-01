@@ -97,18 +97,18 @@ export const updateTitle = (
   } else {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
   }
-  if (curLocation > 250 && curLocation < 489) {
+  if (curLocation > 210 && curLocation < 459) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
-  if (curLocation > 490 && curLocation < 939) {
+  if (curLocation > 460 && curLocation < 884) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
 
-  if (curLocation > 940 && curLocation < 1964) {
+  if (curLocation > 885 && curLocation < 1934) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
   }
 
-  if (curLocation > 1964) {
+  if (curLocation > 1935) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.SALE_PRICE });
   }
 };
