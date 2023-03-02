@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, matchRoutes } from 'react-router-dom';
+import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
@@ -143,12 +143,9 @@ const SideBar = () => {
               }
 
               return (
-                <li
-                  className='cursor-pointer text-S/Medium text-grey-800'
-                  key={menuIndex}
-                >
+                <li className='' key={menuIndex}>
                   <div
-                    className={`flex justify-between rounded-lg p-3  ${
+                    className={`flex justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
                       isCollapsedActive && 'bg-orange-100 text-orange-600'
                     }`}
                     onClick={() => toggleMenuCollapsed(menu.key)}
@@ -188,7 +185,7 @@ const SideBar = () => {
                         return (
                           <li onClick={() => navigation(child.path)} key={childIndex}>
                             <div
-                              className={`flex items-center rounded-lg py-2 pl-5 ${
+                              className={`flex items-center rounded-lg py-2 pl-5 text-S/Medium text-grey-800 ${
                                 isActive && 'bg-orange-100 text-orange-500'
                               }`}
                             >
@@ -216,22 +213,49 @@ const SideBar = () => {
             })}
           </ul>
         </div>
-        <div>
-          <ul className='mb-4 text-S/Bold text-grey-800'>
-            <li>
-              <button className='button-text-normal-small-grey-false-false-true'>
-                도움말
-              </button>
-            </li>
-            <li>
-              <button
-                className='button-text-normal-small-grey-false-false-true'
-                onClick={onLogout}
-              >
-                로그아웃
-              </button>
-            </li>
-          </ul>
+        <div className='divide-y divide-grey-300'>
+          <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
+            <div className='flex items-center'>
+              <ReactSVG
+                src='/assets/icons/outlined/QuestionCircle.svg'
+                className='cursor-pointer '
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', `w-5 fill-grey-800`);
+                }}
+              />
+              <a href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'>
+                <span className='ml-2'>사용자 가이드</span>
+              </a>
+            </div>
+          </div>
+
+          <div className='space-y-3 py-6 px-[6px]'>
+            <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5'>
+              <span className='text-XS/Medium text-grey-100'>무료체험</span>
+            </div>
+            <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-[#FF8C04]'></div>
+            <div className='flex items-center justify-between'>
+              <div className='text-XS/Medium'>리포트 발행 수</div>
+              <ReactSVG
+                src='/assets/icons/outlined/Infinity.svg'
+                className='cursor-pointer '
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', `w-5 fill-grey-800`);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className='flex items-center justify-between px-[6px] py-[18px]'>
+            <p className='text-S/Medium text-grey-800'>Gomi@example.com</p>
+            <ReactSVG
+              src='/assets/icons/outlined/ArrowRight-Small.svg'
+              className='cursor-pointer '
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', `w-6 fill-grey-800`);
+              }}
+            />
+          </div>
         </div>
       </aside>
     );
