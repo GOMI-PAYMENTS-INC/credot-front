@@ -142,7 +142,7 @@ const SignIn = () => {
                   onClick={onClickGooglelogin}
                 >
                   <ReactSVG
-                    src='assets/icons/Google.svg'
+                    src='/assets/icons/Google.svg'
                     className='inline-block w-full'
                   />
                   구글 로그인

@@ -9,17 +9,19 @@ import { Dispatch, Fragment } from 'react';
 
 type TReportListColumn = {
   response: TReportListResponseData;
-  page?: number; // 페이징용 리포트id
-  limit?: number; // 페이징용 리스트 사이즈
+  page: number; // 페이징용 리포트id
+  limit: number; // 페이징용 리스트 사이즈
   checkedItems: number[];
   setCheckedItems: Dispatch<number[]>;
   setIsCheckedAll: Dispatch<boolean>;
+  spinnerEvent: boolean;
 };
 export const ReportListColumn = ({
   response,
   checkedItems,
   setCheckedItems,
   setIsCheckedAll,
+  spinnerEvent,
 }: TReportListColumn) => {
   const navigate = useNavigate();
 
@@ -38,7 +40,17 @@ export const ReportListColumn = ({
 
   return (
     <Fragment>
-      {response.reports.length > 0 ? (
+      {spinnerEvent === false ? (
+        <tr>
+          <td colSpan={8}>
+            <div className='grid justify-items-center pt-[255px] text-center'>
+              <div className='scale-[0.3]'>
+                <div id='loader' />
+              </div>
+            </div>
+          </td>
+        </tr>
+      ) : response.reports.length > 0 ? (
         response.reports.map((report: TReportItem, idx) => {
           const reportConverterData = reportListConverter(report);
 
@@ -47,8 +59,8 @@ export const ReportListColumn = ({
 
           return (
             <tr
-              className={`border border-l-0 border-r-0 border-t-0 border-grey-200 ${
-                report.status !== 'DONE' ? 'bg-grey-100 text-grey-700' : 'text-grey-800 '
+              className={`border border-l-0 border-r-0 border-t-0 border-grey-300 last:border-b-0 hover:bg-grey-200 ${
+                report.status !== 'DONE' ? 'bg-grey-100 opacity-50' : 'text-grey-800 '
               }`}
               key={`table_row_${idx}`}
             >
@@ -128,12 +140,7 @@ export const ReportListColumn = ({
                       : (e) => e.preventDefault()
                   }
                   beforeInjection={(svg) => {
-                    svg.setAttribute(
-                      'class',
-                      `w-6  ${
-                        report.status !== 'DONE' ? 'fill-grey-700' : 'fill-grey-600 '
-                      }`,
-                    );
+                    svg.setAttribute('class', `w-6 fill-grey-600`);
                   }}
                 />
               </td>
