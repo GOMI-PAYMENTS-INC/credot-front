@@ -110,7 +110,7 @@ const DetailReport = () => {
                   <li>
                     <p
                       className='flex cursor-pointer items-center text-S/Medium text-grey-700'
-                      onClick={(수ㅇ) => isToggleOpen(_dispatch, true)}
+                      onClick={() => isToggleOpen(_dispatch, true)}
                     >
                       <ReactSVG
                         wrapper='span'

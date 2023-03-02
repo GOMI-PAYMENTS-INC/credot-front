@@ -40,7 +40,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
     <section>
       <div id={TITLE.RECOMMEND_KEYWORD} className='detailReport-h1-header'>
         <h1>추천 키워드</h1>
-        <div className='relative'>
+        <div>
           <ReactSVG
             id='anchor-recommandation-keyword'
             src='/assets/icons/outlined/QuestionCircle.svg'

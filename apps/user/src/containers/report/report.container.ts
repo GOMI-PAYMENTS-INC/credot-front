@@ -282,7 +282,7 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
 };
 
 //리스트 > 출력 개수 변경시
-export const onChangeSortCount = (
+export const onChangeOffsetCount = (
   event: ChangeEvent<HTMLSelectElement>,
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
@@ -291,17 +291,17 @@ export const onChangeSortCount = (
   //변경 할 출력 갯수
   const limit = Number(event.target.value);
   if (limit && _state.page && _state.limit) {
-    const oldSort = _state.page * _state.limit;
-    const newSort = _state.page * limit;
+    const oldOffset = _state.page * _state.limit;
+    const newOffset = _state.page * limit;
     let goPage;
-    if (oldSort < newSort) {
-      goPage = Math.ceil(oldSort / limit);
+    if (oldOffset < newOffset) {
+      goPage = Math.ceil(oldOffset / limit);
     } else {
-      if (Math.ceil(total / limit) < Math.ceil(oldSort / limit)) {
+      if (Math.ceil(total / limit) < Math.ceil(oldOffset / limit)) {
         // 총 페이지 갯수
         goPage = Math.ceil(total / limit);
       } else {
-        goPage = Math.ceil(oldSort / limit);
+        goPage = Math.ceil(oldOffset / limit);
       }
     }
 

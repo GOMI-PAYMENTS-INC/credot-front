@@ -38,6 +38,131 @@ export const ReportListColumn = ({
     }
   };
 
+  const ListColumn = () => {
+    return (
+      <>
+        {response.reports.length > 0 ? (
+          response.reports.map((report: TReportItem, idx) => {
+            const reportConverterData = reportListConverter(report);
+
+            let isChecked = false;
+            isChecked = checkedItems.includes(report.id);
+
+            return (
+              <tr
+                className={`border border-l-0 border-r-0 border-t-0 border-grey-300 last:border-b-0 hover:bg-grey-200 ${
+                  report.status !== 'DONE' ? 'bg-grey-100 opacity-50' : 'text-grey-800 '
+                }`}
+                key={`table_row_${idx}`}
+              >
+                <td className='text-center '>
+                  <input
+                    type='checkbox'
+                    name='reports[]'
+                    id={`Check-${report.id}`}
+                    className='checkboxCustom peer'
+                    disabled={report.status !== 'DONE'}
+                    onChange={(e) => checkedItemHandler(report.id, e.target.checked)}
+                    checked={isChecked}
+                  />
+                  <label
+                    htmlFor={`Check-${report.id}`}
+                    className='checkboxCustom-label  bg-[length:20px_20px] bg-[left_50%_top_50%] text-transparent'
+                  >
+                    선택
+                  </label>
+                </td>
+                <td className='p-4'>
+                  <p className='text-M/Regular'>
+                    {report.status === 'DONE' ? (
+                      <Link to={`${PATH.GET_REPORT_LIST}/${report.id}`}>
+                        {report.keyword}
+                      </Link>
+                    ) : (
+                      report.keyword
+                    )}
+                  </p>
+                </td>
+                <td className='p-4'>
+                  <StatusTag
+                    text={reportConverterData.status.text}
+                    sentiment={reportConverterData.status.sentiment}
+                  ></StatusTag>
+                </td>
+                <td className='p-4'>
+                  <div className='flex items-center'>
+                    <ReactSVG
+                      src={reportConverterData.countryCode.iconPath}
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', 'w-4 h-4');
+                      }}
+                    ></ReactSVG>
+                    <p className='ml-2 text-S/Regular'>
+                      {reportConverterData.countryCode.text}
+                    </p>
+                  </div>
+                </td>
+                <td className='p-4'>
+                  <div className='flex items-center'>
+                    <ReactSVG
+                      src={reportConverterData.channel.iconPath}
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', 'w-4 h-4');
+                      }}
+                    ></ReactSVG>
+                    <p className='ml-2 text-S/Regular'>{capitalize(report.channel)}</p>
+                  </div>
+                </td>
+                <td className='p-4'>
+                  <p className='text-S/Regular'>
+                    {report.status !== 'DONE' ? (
+                      <span>-</span>
+                    ) : (
+                      convertTime(report.updatedAt.toString(), 'YYYY.MM.DD')
+                    )}
+                  </p>
+                </td>
+                <td className='p-4'>
+                  <ReactSVG
+                    src='/assets/icons/outlined/ChevronRight2.svg'
+                    onClick={
+                      report.status === 'DONE'
+                        ? () => navigate(`${PATH.GET_REPORT_LIST}/${report.id}`)
+                        : (e) => e.preventDefault()
+                    }
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', `w-6 fill-grey-600`);
+                    }}
+                  />
+                </td>
+              </tr>
+            );
+          })
+        ) : (
+          <tr>
+            <td colSpan={8}>
+              <div className='grid justify-items-center pt-[104px] text-center'>
+                <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
+                <div className='mt-4 text-L/Medium'>
+                  <p>조회 가능한 리포트가 없어요.</p>
+                  <p>키워드를 검색하여 리포트를 생성해보세요.</p>
+                </div>
+                <div className='mt-10'>
+                  <button
+                    onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
+                    className='button-outlined-normal-large-red-false-false-true min-w-[160px]'
+                  >
+                    키워드 검색하기
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        )}
+      </>
+    );
+  };
+
   return (
     <Fragment>
       {spinnerEvent === false ? (
@@ -50,123 +175,8 @@ export const ReportListColumn = ({
             </div>
           </td>
         </tr>
-      ) : response.reports.length > 0 ? (
-        response.reports.map((report: TReportItem, idx) => {
-          const reportConverterData = reportListConverter(report);
-
-          let isChecked = false;
-          isChecked = checkedItems.includes(report.id);
-
-          return (
-            <tr
-              className={`border border-l-0 border-r-0 border-t-0 border-grey-300 last:border-b-0 hover:bg-grey-200 ${
-                report.status !== 'DONE' ? 'bg-grey-100 opacity-50' : 'text-grey-800 '
-              }`}
-              key={`table_row_${idx}`}
-            >
-              <td className='text-center '>
-                <input
-                  type='checkbox'
-                  name='reports[]'
-                  id={`Check-${report.id}`}
-                  className='checkboxCustom peer'
-                  disabled={report.status !== 'DONE'}
-                  onChange={(e) => checkedItemHandler(report.id, e.target.checked)}
-                  checked={isChecked}
-                />
-                <label
-                  htmlFor={`Check-${report.id}`}
-                  className='checkboxCustom-label  bg-[length:20px_20px] bg-[left_50%_top_50%] text-transparent'
-                >
-                  선택
-                </label>
-              </td>
-              <td className='p-4'>
-                <p className='text-M/Regular'>
-                  {report.status === 'DONE' ? (
-                    <Link to={`${PATH.GET_REPORT_LIST}/${report.id}`}>
-                      {report.keyword}
-                    </Link>
-                  ) : (
-                    report.keyword
-                  )}
-                </p>
-              </td>
-              <td className='p-4'>
-                <StatusTag
-                  text={reportConverterData.status.text}
-                  sentiment={reportConverterData.status.sentiment}
-                ></StatusTag>
-              </td>
-              <td className='p-4'>
-                <div className='flex items-center'>
-                  <ReactSVG
-                    src={reportConverterData.countryCode.iconPath}
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'w-4 h-4');
-                    }}
-                  ></ReactSVG>
-                  <p className='ml-2 text-S/Regular'>
-                    {reportConverterData.countryCode.text}
-                  </p>
-                </div>
-              </td>
-              <td className='p-4'>
-                <div className='flex items-center'>
-                  <ReactSVG
-                    src={reportConverterData.channel.iconPath}
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'w-4 h-4');
-                    }}
-                  ></ReactSVG>
-                  <p className='ml-2 text-S/Regular'>{capitalize(report.channel)}</p>
-                </div>
-              </td>
-              <td className='p-4'>
-                <p className='text-S/Regular'>
-                  {report.status !== 'DONE' ? (
-                    <span>-</span>
-                  ) : (
-                    convertTime(report.updatedAt.toString(), 'YYYY.MM.DD')
-                  )}
-                </p>
-              </td>
-              <td className='p-4'>
-                <ReactSVG
-                  src='/assets/icons/outlined/ChevronRight2.svg'
-                  onClick={
-                    report.status === 'DONE'
-                      ? () => navigate(`${PATH.GET_REPORT_LIST}/${report.id}`)
-                      : (e) => e.preventDefault()
-                  }
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', `w-6 fill-grey-600`);
-                  }}
-                />
-              </td>
-            </tr>
-          );
-        })
       ) : (
-        <tr>
-          <td colSpan={8}>
-            <div className='grid justify-items-center pt-[104px] text-center'>
-              <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
-              <div className='mt-4 text-L/Medium'>
-                <p>조회 가능한 리포트가 없어요.</p>
-                <p>키워드를 검색하여 리포트를 생성해보세요.</p>
-              </div>
-              <div className='mt-10'>
-                <button
-                  onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
-                  className='button-outlined-normal-large-red-false-false-true'
-                >
-                  키워드 검색하기
-                </button>
-              </div>
-            </div>
-          </td>
-        </tr>
+        <ListColumn />
       )}
     </Fragment>
   );

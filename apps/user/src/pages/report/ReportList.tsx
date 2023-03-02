@@ -5,7 +5,7 @@ import { formatNumber } from '@/utils/formatNumber';
 
 import {
   _getReportList,
-  onChangeSortCount,
+  onChangeOffsetCount,
   onClickDeleteReport,
   onClickReload,
   openDeleteModal,
@@ -179,7 +179,7 @@ const ReportList = () => {
                   name='limit'
                   defaultValue={10}
                   onChange={(event) =>
-                    onChangeSortCount(event, _state, _dispatch, _state.data.totalCount)
+                    onChangeOffsetCount(event, _state, _dispatch, _state.data.totalCount)
                   }
                   className='rounded-md
              border border-grey-400 px-3 py-2.5 text-S/Regular text-grey-900'
