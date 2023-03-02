@@ -48,8 +48,16 @@ module.exports = {
         '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
         },
+        '.button-outlined-normal-large-red-false-false-true': {
+          '@apply rounded bg-white py-3 text-M/Bold text-orange-500 border border-orange-300':
+              {},
+        },
         '.button-outlined-normal-large-grey-false-false': {
           '@apply rounded bg-white py-3 text-M/Bold text-grey-800 border border-grey-400':
+              {},
+        },
+        '.button-filled-normal-medium-grey-true-false-true': {
+          '@apply flex items-center space-x-0.5 rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500':
               {},
         },
         '.button-outlined-normal-xLarge-grey-true-false-true': {

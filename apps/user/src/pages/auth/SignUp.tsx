@@ -117,9 +117,9 @@ const SignUp = () => {
                     value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                     message: '올바른 이메일 형식으로 입력해주세요.',
                   },
-                  onChange: async (e) => {
+                  onChange: async (event) => {
                     const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-                    if (regex.test(e.target.value.trim())) {
+                    if (regex.test(event.target.value.trim())) {
                       setIsOnExistsEmail(true);
                       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                       existsEmailQuery;
@@ -194,7 +194,7 @@ const SignUp = () => {
                   type='checkbox'
                   id='all-agree'
                   className='termsCheckbox peer'
-                  onChange={(e) => onAllCheckbox(e.target.checked)}
+                  onChange={(event) => onAllCheckbox(event.target.checked)}
                 />
                 <label htmlFor='all-agree' className='termsHeaderCheckbox-label'>
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.

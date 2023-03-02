@@ -5,7 +5,9 @@ import { formatNumber } from '@/utils/formatNumber';
 
 import {
   _getReportList,
-  onChangeSortCount,
+  onChangeOffsetCount,
+  onClickDeleteReport,
+  onClickReload,
   openDeleteModal,
 } from '@/containers/report/report.container';
 import {
@@ -19,6 +21,8 @@ import Pagination from '@/components/pagination';
 import { BATCH_STATUS, MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
 import { ModalComponent } from '@/components/modals/modal';
+import { isFalsy } from '@/utils/isFalsy';
+import { ReactSVG } from 'react-svg';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
@@ -32,7 +36,7 @@ const ReportList = () => {
     //전체 선택
     if (checked) {
       const checkedItemsArray: number[] = [];
-      _state.data.reports.forEach(
+      _state.data.reports?.forEach(
         (report) =>
           isIncluded(report.status, BATCH_STATUS.DONE) &&
           checkedItemsArray.push(report.id),
@@ -55,13 +59,7 @@ const ReportList = () => {
     //리스트를 다시 불러올때 체크된 항목 초기화 함
     //페이징 후 체크된 항목이 유지되는 이슈 해결
     setCheckedItems([]);
-  }, [_state.page, _state.limit]);
-
-  //선택 삭제 버튼 클릭 시
-  const clickDeleteReport = () => {
-    // 삭제 모달 노출
-    openDeleteModal(checkedItems, _dispatch);
-  };
+  }, []);
 
   return (
     <Fragment>
@@ -73,7 +71,7 @@ const ReportList = () => {
               <h1 className='text-XL/Medium text-grey-900'>리포트 조회</h1>
             </div>
             <div className='shrink-0'>
-              <span className='pl-[12px] text-S/Medium text-grey-800'>
+              <span className='pl-[12px] text-S/Medium text-grey-700'>
                 조회할 키워드 리포트를 선택해주세요.
               </span>
             </div>
@@ -81,23 +79,37 @@ const ReportList = () => {
         </div>
       </header>
       {/*컨텐츠*/}
-      <section className='grow overflow-y-scroll'>
-        <div className='min-h-screen bg-grey-50'>
+      <section className='grow overflow-y-auto'>
+        <div className='min-h-full bg-grey-50'>
           <div className='container pt-[24px]'>
             {/*하단 페이지 별로 변경해야하는 부분*/}
-            <div className='min-h-[670px]'>
+            <div>
               {/* 테이블 */}
-              <div className='col-span-full mt-[24px] flex min-h-[670px] flex-col rounded border border-grey-300 bg-white'>
+              <div className='mt-[24px] flex min-h-[693px] flex-col rounded rounded border border-grey-300 bg-white'>
                 <div className='flex h-[68px] items-center justify-between p-4'>
                   <h1 className='text-M/Regular text-grey-800'>
                     총 {formatNumber(_state.data.totalCount)}개
                   </h1>
-                  <button
-                    className='button-filled-normal-medium-grey-false-false-true'
-                    onClick={clickDeleteReport}
-                  >
-                    선택 삭제
-                  </button>
+                  <div className='flex space-x-3'>
+                    <button
+                      className='button-filled-normal-medium-grey-true-false-true'
+                      onClick={() => onClickReload(_state, _dispatch)}
+                    >
+                      <ReactSVG
+                        src='/assets/icons/outlined/Reload.svg'
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'w-4 h-4 fill-grey-800');
+                        }}
+                      ></ReactSVG>
+                      <span>새로고침</span>
+                    </button>
+                    <button
+                      className='button-filled-normal-medium-grey-false-false-true'
+                      onClick={() => onClickDeleteReport(checkedItems, _dispatch)}
+                    >
+                      선택 삭제
+                    </button>
+                  </div>
                   <ModalComponent isOpen={_state.isDeleteConfirmModalOpen}>
                     <ReportListDeleteModal
                       checkedItems={checkedItems}
@@ -108,7 +120,7 @@ const ReportList = () => {
                     />
                   </ModalComponent>
                 </div>
-                <table className='col-span-full bg-white '>
+                <table className='col-span-full'>
                   <thead className='h-[40px] border-t border-b border-grey-300 bg-grey-100 text-left'>
                     <tr>
                       <th className='w-[56px] text-center text-XS/Medium'>
@@ -117,7 +129,7 @@ const ReportList = () => {
                           id='allCheck'
                           className='checkboxCustom peer'
                           checked={isCheckedAll}
-                          onChange={(e) => onCheckAll(e.target.checked)}
+                          onChange={(evnet) => onCheckAll(evnet.target.checked)}
                         />
                         <label
                           htmlFor='allCheck'
@@ -148,22 +160,27 @@ const ReportList = () => {
                   </thead>
                   <tbody>
                     <ReportListColumn
-                      response={_state.data}
+                      response={_state.data || reportListInitialState.data}
                       page={_state.page || reportListInitialState.page}
                       limit={_state.limit || reportListInitialState.limit}
                       checkedItems={checkedItems}
                       setCheckedItems={setCheckedItems}
                       setIsCheckedAll={setIsCheckedAll}
+                      spinnerEvent={
+                        _state.spinnerEvent || reportListInitialState.spinnerEvent
+                      }
                     />
                   </tbody>
                 </table>
               </div>
 
-              <div className='flex justify-between py-[22px]'>
+              <div className='flex items-center justify-between py-[22px]'>
                 <select
                   name='limit'
                   defaultValue={10}
-                  onChange={(event) => onChangeSortCount(event, _state, _dispatch)}
+                  onChange={(event) =>
+                    onChangeOffsetCount(event, _state, _dispatch, _state.data.totalCount)
+                  }
                   className='rounded-md
              border border-grey-400 px-3 py-2.5 text-S/Regular text-grey-900'
                 >
@@ -174,11 +191,11 @@ const ReportList = () => {
                 </select>
                 <Pagination
                   total={_state.data.totalCount}
-                  limit={_state.limit}
-                  page={_state.page}
+                  page={_state.page || reportListInitialState.page}
+                  limit={_state.limit || reportListInitialState.limit}
                   data={_state.data}
                   _dispatch={_dispatch}
-                  _dispatchType={REPORT_LIST_ACTION.GetReportList}
+                  _dispatchType={REPORT_LIST_ACTION.GET_REPORT_LIST}
                 />
                 <div className='opacity-0'>숨겨진 영역</div>
               </div>

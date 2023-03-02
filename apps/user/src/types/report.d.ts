@@ -10,7 +10,7 @@ type TReportListResponse = {
 };
 
 type TReportListAction = {
-  type: 'GET_REPORT_LIST' | 'DELETE_REPORT';
+  type: 'GET_REPORT_LIST' | 'DELETE_REPORT' | 'SPINNER_EVENT';
   payload?: any;
 };
 
@@ -19,10 +19,12 @@ type TReportListState = {
   limit: number; // 페이징용 리스트 사이즈
   data: TReportListResponseData;
   isDeleteConfirmModalOpen: boolean;
+  spinnerEvent: boolean;
 };
 
-type TReportListCheckedState = {
-  checkedItems: number[];
+type TGetReportList = {
+  _dispatch: Dispatch<TReportListAction>;
+  _state: TReportListState;
 };
 
 type TDeleteReportListResponse = {

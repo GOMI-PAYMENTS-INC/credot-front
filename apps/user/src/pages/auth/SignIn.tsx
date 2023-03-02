@@ -97,7 +97,7 @@ const SignIn = () => {
                   type='checkbox'
                   className='checkboxCustom peer'
                   checked={isLoginStorage}
-                  onChange={(e) => onLoginStorageCheck(e)}
+                  onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
                   htmlFor='rememter_me'
@@ -142,7 +142,7 @@ const SignIn = () => {
                   onClick={onClickGooglelogin}
                 >
                   <ReactSVG
-                    src='assets/icons/Google.svg'
+                    src='/assets/icons/Google.svg'
                     className='inline-block w-full'
                   />
                   구글 로그인

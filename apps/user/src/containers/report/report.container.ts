@@ -2,15 +2,17 @@ import { ChangeEvent, Dispatch, RefObject } from 'react';
 import { deleteReportList, getMainReport, getRelationReport } from './report.api';
 import {
   REPORT_ACTION,
-  TReportAction,
   REPORT_LIST_ACTION,
+  TReportAction,
 } from '@/containers/report/report.reducer';
-import { TITLE } from '@/types/enum.code';
+import {
+  BATCH_STATUS,
+  STATUS_CODE,
+  TAG_SENTIMENT_STATUS,
+  TITLE,
+} from '@/types/enum.code';
 
 import { getReportList } from '@/containers/report/report.api';
-import { STATUS_CODE } from '@/types/enum.code';
-
-import { TAG_SENTIMENT_STATUS, BATCH_STATUS } from '@/types/enum.code';
 
 import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
@@ -110,23 +112,29 @@ export const isToggleOpen = (
     _dispatch({ type: REPORT_ACTION.RECOMMENDATION_TOGGLE_EVENT, payload: { id: id } });
   }
 };
-
-type TGetReportList = {
-  _dispatch: Dispatch<TReportListAction>;
-  _state: TReportListState;
-};
-
 export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   try {
+    //isLoading 준비중
+    _dispatch({
+      type: REPORT_LIST_ACTION.SPINNER_EVENT,
+      payload: { spinnerEvent: false },
+    });
+
     const res = await getReportList({
       page: _state.page,
       limit: _state.limit,
     });
     const reportInfo = res?.data;
-    //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
     if (reportInfo?.code === STATUS_CODE.SUCCESS) {
+      //데이터 담기
       _state.data = reportInfo.data;
-      _dispatch({ type: REPORT_LIST_ACTION.GetReportList, payload: _state });
+      _dispatch({ type: REPORT_LIST_ACTION.GET_REPORT_LIST, payload: _state });
+
+      //isLoading 완료
+      _dispatch({
+        type: REPORT_LIST_ACTION.SPINNER_EVENT,
+        payload: { spinnerEvent: true },
+      });
     }
 
     return reportInfo;
@@ -191,17 +199,38 @@ export const deleteReports = (
       //모달 닫기
       switchDeleteModal(_dispatch, false);
 
-      //선택된 체크박스 목록 비우기
-      setCheckedItems([]);
+      // 총 페이지 갯수
+      const numPages = Math.ceil(_state.data.totalCount / _state.limit);
+      //페이지에서 모든 item을 삭제한 경우, 하나 작은 숫자의 페이지로 이동한다.
+      console.log(_state.data.reports.length, checkedItems.length);
+      if (1 < numPages && _state.data.reports.length === checkedItems.length) {
+        _state.page = _state.page - 1;
+      }
 
       //목록 다시 불러오기
-      _getReportList({ _state: _state, _dispatch }).then(() => {});
+      _getReportList({ _state: _state, _dispatch }).then(() => {
+        //선택된 체크박스 목록 비우기
+        setCheckedItems([]);
+      });
 
       //토스트 알림
       toast.success(`리포트를 삭제했어요.`);
     } else {
       toast.error(`리포트를 삭제할 수 없습니다.`);
     }
+  });
+};
+
+//리포트 목록 삭제 확인 confirm 모달 상태 변경
+export const switchDeleteModal = (
+  _dispatch: Dispatch<TReportListAction>,
+  isOpen: boolean,
+) => {
+  _dispatch({
+    type: REPORT_LIST_ACTION.DELETE_REPORT,
+    payload: {
+      isDeleteConfirmModalOpen: isOpen,
+    },
   });
 };
 
@@ -218,17 +247,21 @@ export const openDeleteModal = (
   }
 };
 
-//리포트 목록 삭제 확인 confirm 모달 상태 변경
-export const switchDeleteModal = (
+//선택 삭제 버튼 클릭 시
+export const onClickDeleteReport = (
+  checkedItems: number[],
   _dispatch: Dispatch<TReportListAction>,
-  isOpen: boolean,
 ) => {
-  _dispatch({
-    type: REPORT_LIST_ACTION.DeleteReport,
-    payload: {
-      isDeleteConfirmModalOpen: isOpen,
-    },
-  });
+  // 삭제 모달 노출
+  openDeleteModal(checkedItems, _dispatch);
+};
+
+//리포트 목록 > 새로고침 버튼 클릭시
+export const onClickReload = (
+  _state: TReportListState,
+  _dispatch: Dispatch<TReportListAction>,
+) => {
+  _getReportList({ _state, _dispatch });
 };
 
 export const roundNumber = (number: number) => {
@@ -249,26 +282,36 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
 };
 
 //리스트 > 출력 개수 변경시
-export const onChangeSortCount = (
+export const onChangeOffsetCount = (
   event: ChangeEvent<HTMLSelectElement>,
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
+  total: number,
 ) => {
+  //변경 할 출력 갯수
   const limit = Number(event.target.value);
-  if (limit) {
-    let statePram = {
-      page: 1,
-      limit: 10,
-      data: {
-        reports: [],
-        totalCount: 0,
-      },
-      isDeleteConfirmModalOpen: false,
-    };
+  if (limit && _state.page && _state.limit) {
+    const oldOffset = _state.page * _state.limit;
+    const newOffset = _state.page * limit;
+    let goPage;
+    if (oldOffset < newOffset) {
+      goPage = Math.ceil(oldOffset / limit);
+    } else {
+      if (Math.ceil(total / limit) < Math.ceil(oldOffset / limit)) {
+        // 총 페이지 갯수
+        goPage = Math.ceil(total / limit);
+      } else {
+        goPage = Math.ceil(oldOffset / limit);
+      }
+    }
 
-    statePram.page = _state.page;
-    statePram.limit = limit;
-    _getReportList({ _state: statePram, _dispatch });
+    _getReportList(<TGetReportList>{
+      _state: {
+        page: goPage,
+        limit: limit,
+      },
+      _dispatch,
+    });
   }
 };
 
