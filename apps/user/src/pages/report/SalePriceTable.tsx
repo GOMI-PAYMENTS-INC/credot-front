@@ -5,21 +5,23 @@ import { SalePriceChart } from './SalePriceChart';
 import { openBrowser } from '@/containers/report';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate, roundNumber } from '@/containers/report';
-
+import { Fragment } from 'react';
+import { replaceOverLength } from '@/utils/replaceOverLength';
 interface ISalePriceTable {
   salePriceItemList: TSalePriceItems[];
+  basePrice: number;
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {
-  const { salePriceItemList } = props;
+  const { salePriceItemList, basePrice } = props;
   return (
     <table
       id='scrollbar'
-      className='col-span-full mt-[27px] block h-[436px] w-full overflow-y-auto bg-white'
+      className='col-span-full mt-[27px] block h-[436px] w-full overflow-y-auto rounded-xl border-[1px] bg-white'
     >
       <thead className='h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
-          <th className='w-[424px] text-left' colSpan={1}>
+          <th className='w-[422px] text-left' colSpan={1}>
             <p className=' pl-3 text-XS/Medium'>상품</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
@@ -45,56 +47,90 @@ export const SalePriceTable = (props: ISalePriceTable) => {
               key={`${item.id}_${idx}`}
             >
               <td>
-                <div className='flex items-center '>
-                  <div className='my-2 ml-4 h-14 w-14 bg-grey-500'></div>
-                  <div className=' py-4'>
-                    <p className=' pl-[11px] text-left text-S/Regular text-grey-900'>
-                      {item.itemName}
+                <div className='flex items-center'>
+                  <img className='my-2 ml-4 h-14 w-14' src={item.itemImage} />
+
+                  <div className='basis-full py-4'>
+                    <p className=' w-[320px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
+                      {replaceOverLength(item.itemName!, 70)}
                     </p>
                   </div>
                 </div>
               </td>
               <td>
-                <div className='flex flex-col flex-wrap-reverse py-3 pr-3'>
-                  <div className='bordered flex h-5 w-[58px] justify-end '>
-                    <p className='pl-0.5 text-XS/Medium'>
-                      {formatNumber(item.itemPriceMin)}
-                    </p>
-                    <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
-                  </div>
-                  <hr className='my-[3px] ml-[62px] border-grey-300' />
-                  <div className='bordered flex h-5 w-[58px] justify-end '>
-                    <p className='pl-0.5 text-XS/Medium'>
-                      {formatNumber(item.itemPriceMax)}
-                    </p>
-                    <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
-                  </div>
-                </div>
+                {item.itemPriceMax === item.itemPriceMin ? (
+                  <Fragment>
+                    <div className='flex items-center justify-end'>
+                      <p className='texgt-grey-800 text-S/Medium'>
+                        {formatNumber(
+                          roundNumber(convertExachangeRate(item.itemPriceMin, basePrice)),
+                        )}
+                      </p>
+                      <p className='pl-0.5 text-grey-700'>원</p>
+                    </div>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <div className='flex flex-col flex-wrap-reverse py-3 pr-3 text-XS/Medium'>
+                      <div className='bordered flex h-5 w-[104px] justify-between'>
+                        <p className='text-grey-700'>최저</p>
+                        <div className='flex'>
+                          <p className='pl-0.5'>
+                            {formatNumber(
+                              roundNumber(
+                                convertExachangeRate(item.itemPriceMin, basePrice),
+                              ),
+                            )}
+                          </p>
+                          <p className='pl-0.5 text-grey-700'>원</p>
+                        </div>
+                      </div>
+                      <hr className='my-[3px]  w-[104px] border-grey-300' />
+                      <div className='bordered flex h-5 w-[104px] justify-between'>
+                        <p className='text-grey-700'>최고</p>
+                        <div className='flex'>
+                          <p className='pl-0.5'>
+                            {formatNumber(
+                              roundNumber(
+                                convertExachangeRate(item.itemPriceMax, basePrice),
+                              ),
+                            )}
+                          </p>
+                          <p className='pl-0.5 text-grey-700'>원</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Fragment>
+                )}
               </td>
               <td>
-                <div className='flex justify-center'>
-                  <p>{formatNumber(item.itemSales)}</p>
-                  <span>원</span>
+                <div className='flex justify-center text-S/Medium'>
+                  <p>
+                    {formatNumber(
+                      roundNumber(convertExachangeRate(item.itemSales, basePrice)),
+                    )}
+                  </p>
+                  <p className='pl-0.5 text-grey-700'>원</p>
                 </div>
               </td>
 
               <td>
                 <div className='flex justify-center'>
                   <p>{item.item30daysSold}</p>
-                  <span>개</span>
+                  <p className='pl-0.5 text-grey-700'>개</p>
                 </div>
               </td>
               <td>
                 <div className='flex justify-center'>
                   <p>{item.rank}</p>
-                  <span>위</span>
+                  <p className='pl-0.5 text-grey-700'>위</p>
                 </div>
               </td>
               <td>
                 <div className='flex justify-center'>
                   <div
                     className='flex h-5 w-5 cursor-pointer items-center'
-                    onClick={() => openBrowser(`https://shopee.vn/search?keyword=`)}
+                    onClick={() => openBrowser(item.itemUrl!)}
                   >
                     <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
                   </div>

@@ -71,7 +71,7 @@ const DetailReport = () => {
         </div>
       </div>
     );
-  console.log(_state, '_state');
+
   return (
     <Fragment>
       {/*헤더*/}

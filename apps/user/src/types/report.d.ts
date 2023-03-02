@@ -181,6 +181,7 @@ type TSalePriceItems = {
   id: number;
   insightEeportId: number;
   reportUniqueId: string;
+  itemImage: string;
   rank: number;
   itemName: string | null;
   itemUrl: string | null;
@@ -196,6 +197,7 @@ type TSalePriceItems = {
   itemHasLowestPriceGuarantee: boolean;
   itemHistoricalSold: number;
   item30daysSold: number;
+  item30daySales: number;
   itemSales: number;
   itemdescription: string | null;
   itemBrand: string | null;

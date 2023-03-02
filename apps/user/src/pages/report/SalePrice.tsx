@@ -142,7 +142,7 @@ export const SalePrice = (props: ISalePrice) => {
             })}
           </div>
         </div>
-        <SalePriceTable salePriceItemList={list} />
+        <SalePriceTable salePriceItemList={list} basePrice={basePrice} />
       </div>
     </section>
   );
