@@ -18,10 +18,10 @@ body {
 
 @layer base {
   .container {
-    @apply min-w-[1180px] max-w-[1180px] mx-auto my-0;
+    @apply mx-auto my-0 min-w-[1180px] max-w-[1180px];
   }
   .container-common {
-    @apply min-w-[1320px] max-w-[1320px] m-auto;
+    @apply m-auto min-w-[1320px] max-w-[1320px];
   }
 }
 
@@ -86,7 +86,7 @@ body {
   }
   /* @/pages/report/DetailReport.tsx에서 title에 사용되는 태그 */
   .detailReport-h1-header {
-    @apply text-XL/Bold text-black;
+    @apply relative text-XL/Bold text-black;
   }
 }
 
