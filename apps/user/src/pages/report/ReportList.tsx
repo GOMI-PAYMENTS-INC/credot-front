@@ -129,7 +129,7 @@ const ReportList = () => {
                           id='allCheck'
                           className='checkboxCustom peer'
                           checked={isCheckedAll}
-                          onChange={(e) => onCheckAll(e.target.checked)}
+                          onChange={(evnet) => onCheckAll(evnet.target.checked)}
                         />
                         <label
                           htmlFor='allCheck'

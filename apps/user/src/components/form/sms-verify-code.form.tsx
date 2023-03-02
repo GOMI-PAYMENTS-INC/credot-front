@@ -152,9 +152,9 @@ const SmsVerifyCodeForm = ({
                 value: /(010)[0-9]{8}$/g,
                 message: '올바른 휴대폰번호를 입력해주세요.',
               },
-              onChange: (e) => {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                onChangePhone?.(e.target.value);
+              onChange: (event) => {
+                event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                onChangePhone?.(event.target.value);
               },
             })}
           />
@@ -211,8 +211,8 @@ const SmsVerifyCodeForm = ({
                   value: /[0-9]{6}$/g,
                   message: '인증번호 6자리를 입력해주세요.',
                 },
-                onChange: (e) => {
-                  onChangeVerifyCodeCheck(e);
+                onChange: (event) => {
+                  onChangeVerifyCodeCheck(event);
                 },
               })}
             />

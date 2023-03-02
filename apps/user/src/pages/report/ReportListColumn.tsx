@@ -62,7 +62,9 @@ export const ReportListColumn = ({
                     id={`Check-${report.id}`}
                     className='checkboxCustom peer'
                     disabled={report.status !== 'DONE'}
-                    onChange={(e) => checkedItemHandler(report.id, e.target.checked)}
+                    onChange={(event) =>
+                      checkedItemHandler(report.id, event.target.checked)
+                    }
                     checked={isChecked}
                   />
                   <label
@@ -128,7 +130,7 @@ export const ReportListColumn = ({
                     onClick={
                       report.status === 'DONE'
                         ? () => navigate(`${PATH.GET_REPORT_LIST}/${report.id}`)
-                        : (e) => e.preventDefault()
+                        : (event) => event.preventDefault()
                     }
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', `w-6 fill-grey-600`);

@@ -97,7 +97,7 @@ const SignIn = () => {
                   type='checkbox'
                   className='checkboxCustom peer'
                   checked={isLoginStorage}
-                  onChange={(e) => onLoginStorageCheck(e)}
+                  onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
                   htmlFor='rememter_me'

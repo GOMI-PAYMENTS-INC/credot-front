@@ -31,8 +31,8 @@ export const FindAccountLayout = ({ children }: IFindAccountLayoutProps) => {
                 activeToggle === PATH.FIND_ID &&
                 ' bg-white font-bold text-grey-900 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]'
               } block rounded-lg py-3`}
-              onClick={(e) => {
-                changeActiveToggle(e, PATH.FIND_ID);
+              onClick={(event) => {
+                changeActiveToggle(event, PATH.FIND_ID);
               }}
             >
               아이디 찾기
@@ -45,8 +45,8 @@ export const FindAccountLayout = ({ children }: IFindAccountLayoutProps) => {
                 activeToggle === PATH.FIND_PASSWORD &&
                 ' bg-white font-bold text-grey-900 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]'
               } block rounded-lg py-3`}
-              onClick={(e) => {
-                changeActiveToggle(e, PATH.FIND_PASSWORD);
+              onClick={(event) => {
+                changeActiveToggle(event, PATH.FIND_PASSWORD);
               }}
             >
               비밀번호 찾기

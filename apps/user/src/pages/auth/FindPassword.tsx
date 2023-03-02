@@ -96,8 +96,8 @@ const FindPassword = () => {
                       value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                       message: '올바른 이메일 주소를 입력해주세요.',
                     },
-                    onChange: (e) => {
-                      setEmail?.(e.target.value.trim());
+                    onChange: (event) => {
+                      setEmail?.(event.target.value.trim());
                     },
                   })}
                 />
