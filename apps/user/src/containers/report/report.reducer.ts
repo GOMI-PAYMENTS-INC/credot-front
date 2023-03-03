@@ -1,27 +1,10 @@
-import { CountryType } from '@/generated/graphql';
+import { REPORT_DETAIL_TYPE, GRADE_ITEMS } from '@/types/enum.code';
+import { isFalsy } from '@/utils/isFalsy';
 
 const reportInitialState: TReportState = {
-  main: {
-    text: 'Loading...',
-    country: CountryType.Vn,
-    channel: 'SHOPEE',
-    sorted: 'R',
-    currencyUnit: 0,
-    basePrice: 0,
-    totalSalesAmount: 0,
-    avgSalesAmount: 0,
-    totalSalesCount: 0,
-    avgSalesCount: 0,
-    searchCount: 0,
-    competitionProductCount: 0,
-    competitionRate: 0,
-    cpcPrice: 0,
-    cpcRate: 0,
-    avgPrice: 0,
-    evaluateStatus: 'AAA',
-    createdAt: null,
-  },
+  main: null,
   relation: [],
+  salePrice: { data: null, focus: GRADE_ITEMS.HIGH, list: [] },
   scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
   toggleEvent: [],
   spinnerEvent: false,
@@ -35,6 +18,7 @@ export enum REPORT_ACTION {
   RECOMMENDATION_TOGGLE_EVENT = 'RECOMMENDATION_TOGGLE_EVENT',
   INITIALIZE_SCROLL_EVENT = 'INITIALIZE_SCROLL_EVENT',
   SPINNER_EVENT = 'SPINNER_EVENT',
+  FOCUS_ITEMS = 'FOCUS_ITEMS',
 }
 
 export type TReportAction = {
@@ -48,16 +32,21 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
   switch (action.type) {
     case REPORT_ACTION.INITIALIZE_DATA: {
       const { type, data } = action.payload;
-      if (type === 'main') {
-        Object.keys(state.main).map((key) => {
-          state.main[key] = data[key];
-        });
+      if (type === REPORT_DETAIL_TYPE.MAIN) {
+        state.main = data;
       }
-      if (type === 'relation') {
+      if (type === REPORT_DETAIL_TYPE.RELATION) {
         state.relation = data;
         const [first] = data;
         if (first) {
           state.toggleEvent = state.toggleEvent.concat(first);
+        }
+      }
+      if (type === REPORT_DETAIL_TYPE.PRICE) {
+        state.salePrice.data = data;
+        if (isFalsy(data.gradeItems) === false) {
+          const [low, medium, high] = data.gradeItems;
+          state.salePrice.list = high;
         }
       }
       return state;
@@ -93,6 +82,26 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
     }
     case REPORT_ACTION.SPINNER_EVENT: {
       state.spinnerEvent = !state.spinnerEvent;
+    }
+    case REPORT_ACTION.FOCUS_ITEMS: {
+      state.salePrice.focus = action.payload.focus;
+
+      const [low, medium, high] = state.salePrice.data?.gradeItems!;
+
+      switch (action.payload.focus) {
+        case GRADE_ITEMS.HIGH: {
+          state.salePrice.list = high;
+          break;
+        }
+        case GRADE_ITEMS.MEDIUM: {
+          state.salePrice.list = medium;
+          break;
+        }
+        default: {
+          state.salePrice.list = low;
+        }
+      }
+      return state;
     }
     default:
       return state;

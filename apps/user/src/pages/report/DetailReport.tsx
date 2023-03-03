@@ -20,6 +20,8 @@ import { PATH } from '@/router/routeList';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
+import { SalePrice } from '@/pages/report/SalePrice';
+
 const DetailReport = () => {
   const routeId = useParams();
   //TODO: useReducer는 부모 컴포넌트로부터 내려오는 구조로 변경할 것
@@ -27,18 +29,17 @@ const DetailReport = () => {
 
   const { main, relation } = _state;
   const navigation = useNavigate();
+  const contentSection = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isFalsy(routeId.id)) return;
-    if (routeId.id && _state.main.createdAt === null) {
+    if (routeId.id && _state.main === null) {
       _getReportInfo(routeId.id, _dispatch);
     }
   }, []);
 
-  const ids = [TITLE.MARTKET_SIZE, TITLE.KEYWORD_INFO, TITLE.RECOMMEND_KEYWORD];
-
   const combinedComponent = useMemo(() => {
-    // createdAt이 null인 경우는 데이터가 아예 존재하지 않는 경우 -> 어떤 페이지를 보여줄지 여쭤봐야함
+    if (main === null) return <Fragment></Fragment>;
 
     return (
       <Fragment>
@@ -51,11 +52,25 @@ const DetailReport = () => {
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
         />
+        <SalePrice
+          salePriceInfo={_state.salePrice?.data!}
+          list={_state.salePrice.list}
+          focus={_state.salePrice.focus}
+          _dispatch={_dispatch}
+        />
+        <section className='h-[200px]'></section>
       </Fragment>
     );
   }, [main]);
 
-  const contentSection = useRef<HTMLDivElement>(null);
+  if (isFalsy(main))
+    return (
+      <div className='flex h-full flex-col items-center justify-center self-center'>
+        <div className='absolute scale-[0.3] pb-[84px]'>
+          <div id='loader' />
+        </div>
+      </div>
+    );
 
   return (
     <Fragment>
@@ -78,7 +93,7 @@ const DetailReport = () => {
                   <ReactSVG
                     src='/assets/icons/outlined/Linkout.svg'
                     onClick={() =>
-                      openBrowser(`https://shopee.vn/search?keyword=${main.text}`)
+                      openBrowser(`https://shopee.vn/search?keyword=${main!.text}`)
                     }
                   />
                 </div>
@@ -96,7 +111,7 @@ const DetailReport = () => {
       {/*컨텐츠  */}
       <section
         className='grow overflow-y-scroll'
-        onScroll={(event) => onScrollDetail(event, _dispatch, main)}
+        onScroll={(event) => onScrollDetail(event, _dispatch, main!)}
         ref={contentSection}
       >
         <div className='min-h-full bg-white'>
@@ -122,28 +137,30 @@ const DetailReport = () => {
                   </li>
                   <ul>
                     {_state.scrollEvent.isOpen &&
-                      ids.map((id, idx) => {
-                        return (
-                          <li
-                            key={`menu-items-${id}`}
-                            className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
-                              idx === 0 && 'mt-1'
-                            }`}
-                          >
-                            <a href={`#${id}`} className='flex-auto'>
-                              <h1
-                                className={`ml-6 py-1 text-S/Regular  ${
-                                  id === _state.scrollEvent.current
-                                    ? 'text-orange-500'
-                                    : 'text-gray-700'
-                                }`}
-                              >
-                                {convertTitle(id)}
-                              </h1>
-                            </a>
-                          </li>
-                        );
-                      })}
+                      Object.values(TITLE)
+                        .filter((title) => title !== TITLE.REPORT)
+                        .map((id, idx) => {
+                          return (
+                            <li
+                              key={`menu-items-${id}`}
+                              className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
+                                idx === 0 && 'mt-1'
+                              }`}
+                            >
+                              <a href={`#${id}`} className='flex-auto'>
+                                <h1
+                                  className={`ml-6 py-1 text-S/Regular  ${
+                                    id === _state.scrollEvent.current
+                                      ? 'text-orange-500'
+                                      : 'text-gray-700'
+                                  }`}
+                                >
+                                  {convertTitle(id)}
+                                </h1>
+                              </a>
+                            </li>
+                          );
+                        })}
                   </ul>
                 </ul>
 

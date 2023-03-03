@@ -1,4 +1,4 @@
-import { useMemo, ReactNode } from 'react';
+import { useMemo, ReactNode, Fragment } from 'react';
 
 import { Common2Section, Common1Section } from '@/components/layouts';
 import { TLayoutType } from '@/router/routeList';
@@ -17,8 +17,10 @@ const Layout = ({ children, layoutType }: LayoutProps) => {
         return <Common1Section>{children}</Common1Section>;
       case 'FindAccountLayout':
         return <FindAccountLayout>{children}</FindAccountLayout>;
-      default:
+      case 'Default':
         return <Defalut>{children}</Defalut>;
+      default:
+        return <Fragment>{children}</Fragment>;
     }
   }, [layoutType]);
 

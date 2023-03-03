@@ -6,14 +6,6 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { PATH } from '@/router/routeList';
 import { isIncluded } from '../utils/isIncluded';
 
-export enum HTTP_METHOD_ENUM {
-  GET = 'GET',
-  POST = 'POST',
-  PATCH = 'PATCH',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-}
-
 const Axios = axios.create({ baseURL: GlobalEnv.baseUrl });
 
 Axios.interceptors.request.use((config) => {
@@ -37,9 +29,6 @@ Axios.interceptors.request.use((config) => {
 });
 
 Axios.interceptors.response.use((response) => {
-  if (response.data) {
-    response.data = camelize(response.data);
-  }
   //로그인 상태로 24시간이 지나 토큰이 만료된 상태
   if (isIncluded(response.data.code, STATUS_CODE.INVALID_TOKEN)) {
     //저장된 토큰 삭제
@@ -47,6 +36,15 @@ Axios.interceptors.response.use((response) => {
     //로그인 페이지로 이동
     location.replace(PATH.SIGN_IN);
   }
+
+  if (response.data.code === STATUS_CODE.ERROR) {
+    throw new Error(response.data.message);
+  }
+
+  if (response.data) {
+    response.data = camelize(response.data);
+  }
+
   return response;
 });
 

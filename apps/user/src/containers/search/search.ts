@@ -1,4 +1,4 @@
-import { ActionKind } from '@/containers/search';
+import { SearchAction } from '@/containers/search';
 import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { STATUS_CODE } from '@/types/enum.code';
@@ -12,12 +12,12 @@ export const getKeyword = (
 ): void => {
   const { value } = event.target;
 
-  _dispatch({ type: ActionKind.GetKeyword, payload: value });
+  _dispatch({ type: SearchAction.GetKeyword, payload: value });
 };
 
 export const queryKeywordByClick = (text: string, _dispatch: Dispatch<TAction>) => {
-  _dispatch({ type: ActionKind.GetKeyword, payload: text });
-  _dispatch({ type: ActionKind.SearchKeyword, payload: text });
+  _dispatch({ type: SearchAction.GetKeyword, payload: text });
+  _dispatch({ type: SearchAction.SearchKeyword, payload: text });
 };
 
 export const queryKeyword = (
@@ -31,16 +31,16 @@ export const queryKeyword = (
   }
   const _switch = isFalsy(text) === false;
 
-  _dispatch({ type: ActionKind.SearchMode, payload: _switch });
-  _dispatch({ type: ActionKind.SearchKeyword });
+  _dispatch({ type: SearchAction.SearchMode, payload: _switch });
+  _dispatch({ type: SearchAction.SearchKeyword });
 };
 
 export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
-  _dispatch({ type: ActionKind.InitializeState, payload: sessionStorage });
+  _dispatch({ type: SearchAction.InitializeState, payload: sessionStorage });
 };
 
 export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {
-  _dispatch({ type: ActionKind.SearchMode, payload: status });
+  _dispatch({ type: SearchAction.SearchMode, payload: status });
 };
 
 type TSwitchModal = {
@@ -65,7 +65,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
   const { text, country } = _state;
-  const actionType = ActionKind.SwitchModal;
+  const actionType = SearchAction.SwitchModal;
   try {
     if (_state.isModalOpen === false) {
       const res = await getReportExisted({ text: text });
@@ -99,7 +99,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
         payload: { isModalOpen: true, modalType: dailyChecker(is_daily) },
       });
 
-      _dispatch({ type: ActionKind.UpdateCreatedAt, payload: created_at });
+      _dispatch({ type: SearchAction.UpdateCreatedAt, payload: created_at });
 
       return res;
     }
@@ -110,7 +110,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
     });
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
       _dispatch({
-        type: ActionKind.SwitchModal,
+        type: SearchAction.SwitchModal,
         payload: {
           isModalOpen: false,
         },
@@ -129,7 +129,7 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
     const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
       _dispatch({
-        type: ActionKind.SwitchModal,
+        type: SearchAction.SwitchModal,
         payload: {
           isModalOpen: true,
           modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
@@ -141,7 +141,7 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
     return createReport({ _state, _dispatch, data });
   }
   _dispatch({
-    type: ActionKind.SwitchModal,
+    type: SearchAction.SwitchModal,
     payload: { isModalOpen: false },
   });
 };

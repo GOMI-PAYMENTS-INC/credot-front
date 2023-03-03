@@ -3,12 +3,14 @@ import type { ComponentType } from 'react';
 import * as AuthRoutes from '@/pages/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';
 import * as ReportRoutes from '@/pages/report';
+import { ErrorPage } from '@/pages/ErrorPage';
 
 export type TLayoutType =
   | 'Default'
   | 'Common1Section'
   | 'Common2Section'
-  | 'FindAccountLayout';
+  | 'FindAccountLayout'
+  | null;
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',
@@ -20,6 +22,7 @@ export const PATH = {
   REAPPLY_PASSWORD: '/signin/password',
   GET_REPORT_LIST: '/report/list',
   ANALYSIS_REPORT_LIST: '/report/list/:id',
+  ERROR_PAGE: '/error',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -100,12 +103,18 @@ export const routeList: IRoute[] = [
     component: ReportRoutes.DetailReport,
     layoutType: 'Default',
   },
+  {
+    description: 'ErrorPage',
+    path: PATH.ERROR_PAGE,
+    component: ErrorPage,
+    layoutType: null,
+  },
 ];
 
 export function getComponentByPathname(path: string): TLayoutType {
   const layout = routeList.find((route) => route.path === path)?.layoutType;
 
-  if (layout) {
+  if (layout || layout === null) {
     return layout;
   }
 

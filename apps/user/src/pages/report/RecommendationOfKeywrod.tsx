@@ -110,7 +110,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
             batchStatusDoneItems.map((data, idx) => {
               const [search, competiton, cpc] = data.evaluateStatus;
               const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
-              const backgroundColor = status ? 'border-grey-300' : 'border-[#FFF5F0]';
+              const backgroundColor = status ? 'border-grey-300' : 'border-orange-200';
               const { top, bottom } = convertEvaluateStatus(data.evaluateStatus);
               return (
                 <Fragment key={`product_key_${data.id}`}>
@@ -221,7 +221,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                     <tr>
                       <td
                         colSpan={10}
-                        className='border-[1px] border-[#FFF5F0] bg-orange-100'
+                        className='border-[1px] border-orange-200 bg-orange-100'
                       >
                         <div className='bg-orange-100'>
                           <div className='my-2.5 mx-2.5 border-[1px] border-grey-300 bg-white'>
