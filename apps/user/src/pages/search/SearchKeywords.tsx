@@ -14,11 +14,11 @@ import { initialState, reducer } from '@/containers/search/reducer';
 import { GetQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
 import { SearchModal } from '@/pages/search/SearchModal';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
@@ -85,12 +85,12 @@ const SearchKeywords = () => {
           size={MODAL_SIZE_ENUM.LARGE}
         />
       </ModalComponent>
-      <div className='container relative  grid grid-cols-12 items-center'>
+      <div className='container relative  grid h-full grid-cols-12 items-center'>
         <div className='absolute left-[-20%] top-0  z-[-1] block'>
           <img src='/assets/images/Background.png' />
         </div>
-        <div className='col-span-6 max-w-[480px] pb-11'>
-          <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px]  pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
+        <div className='col-span-6'>
+          <div className='px-[50px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
                 <span className='text-orange-600'>상위 노출</span>을 원하는
@@ -279,11 +279,11 @@ const SearchKeywords = () => {
             )}
           </div>
         </div>
-        <div className='col-span-6 w-full max-w-[460px] self-center md:hidden'>
+        <div className='x-[50px] col-span-6 h-[900px] w-[458px] self-center'>
           {_state.isSearched && _state.keyword ? (
             <iframe
               src={`https://shopee.vn/search?keyword=${_state.keyword}`}
-              className='h-[960px] w-full rounded-2xl pt-[8px]'
+              className=' h-[900px] w-[458px] rounded-2xl pt-[8px]'
               allow='accelerometer; autoplay; clipboard-write;
                encrypted-media; gyroscope; picture-in-picture'
               sandbox='allow-same-origin allow-scripts'

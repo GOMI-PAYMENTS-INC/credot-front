@@ -8,7 +8,6 @@ import {
   onChangeOffsetCount,
   onClickDeleteReport,
   onClickReload,
-  openDeleteModal,
 } from '@/containers/report/report.container';
 import {
   reportListReducer,
@@ -21,7 +20,6 @@ import Pagination from '@/components/pagination';
 import { BATCH_STATUS, MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
 import { ModalComponent } from '@/components/modals/modal';
-import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
 
 const ReportList = () => {

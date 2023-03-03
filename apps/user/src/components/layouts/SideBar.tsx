@@ -1,11 +1,16 @@
-import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
+import { useLocation, useNavigate, matchRoutes } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { menuData } from '@/components/layouts/SideBarData';
+import {
+  sidebarInitialState,
+  sidebarReducer,
+} from '@/containers/sidebar/sidebar.reducer';
+import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -14,36 +19,18 @@ const SideBar = () => {
   const [{ route }] = matchRoutes(routeList, pathname) || [];
   const { path } = route;
 
-  //lnb 열림 여부
-  const [lnbCollapsed, setLnbCollapsed] = useState<boolean>(false);
+  const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
 
-  //lnb 제어
-  const toggleLnbCollapsed = () => {
-    setLnbCollapsed(!lnbCollapsed);
-  };
-
-  //lnb 내 메뉴 열림 여부
-  const [openedMenuList, setOpenedMenuList] = useState<string[]>([
-    Object.values(menuData)[0].key,
-  ]);
-
-  const toggleMenuCollapsed = (menuId: string) => {
-    if (openedMenuList.find((one) => one === menuId)) {
-      const filter = openedMenuList.filter((one) => one !== menuId);
-      setOpenedMenuList([...filter]);
-    } else {
-      setOpenedMenuList([...openedMenuList, menuId]);
-    }
-  };
-
-  if (lnbCollapsed) {
+  const { userInfo } = AuthContainer();
+  const userId = userInfo ? userInfo.me.email : '';
+  if (_state.openedSidebar) {
     return (
       <aside className='flex w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white px-2.5'>
         <div>
           <div className='flex h-20 items-center justify-center'>
             <button
               className='iconButton-large-normal-ghost-grey'
-              onClick={toggleLnbCollapsed}
+              onClick={() => toggleSidebar(_dispatch)}
             >
               <ReactSVG
                 src='/assets/icons/outlined/MenuOpen.svg'
@@ -63,7 +50,7 @@ const SideBar = () => {
                     className={`${
                       isActive ? `bg-orange-100` : `bg-white`
                     } flex justify-between rounded-lg p-3`}
-                    onClick={() => toggleMenuCollapsed(menu.key)}
+                    onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
                   >
                     <div className='flex items-center'>
                       <ReactSVG
@@ -109,11 +96,11 @@ const SideBar = () => {
     );
   } else {
     return (
-      <aside className='flex w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white px-2.5'>
-        <div>
+      <aside className='flex w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white'>
+        <div className='px-2.5'>
           <div className='flex h-20 items-center'>
             <button
-              onClick={toggleLnbCollapsed}
+              onClick={() => toggleSidebar(_dispatch)}
               className='iconButton-large-normal-ghost-grey'
             >
               <ReactSVG
@@ -136,7 +123,7 @@ const SideBar = () => {
               //상위 메뉴가 켜진 상태
               let isCollapsedActive = false;
               //상위 메뉴가 접힌 상태
-              let isCollapsed = openedMenuList.includes(menu.key);
+              let isCollapsed = _state.openedDepthList.includes(menu.key);
               //접혔을 때
               if (isCollapsed === false) {
                 isCollapsedActive = isIncluded(path, ...menu.path);
@@ -145,10 +132,10 @@ const SideBar = () => {
               return (
                 <li className='' key={menuIndex}>
                   <div
-                    className={`flex justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
+                    className={`flex cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
                       isCollapsedActive && 'bg-orange-100 text-orange-600'
                     }`}
-                    onClick={() => toggleMenuCollapsed(menu.key)}
+                    onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
                   >
                     <div className='flex items-center'>
                       <ReactSVG
@@ -183,11 +170,12 @@ const SideBar = () => {
                           isActive = isIncluded(path, child.path);
                         }
                         return (
-                          <li onClick={() => navigation(child.path)} key={childIndex}>
+                          <li key={childIndex}>
                             <div
-                              className={`flex items-center rounded-lg py-2 pl-5 text-S/Medium text-grey-800 ${
+                              className={`flex cursor-pointer items-center rounded-lg py-2 pl-5 text-S/Medium ${
                                 isActive && 'bg-orange-100 text-orange-500'
                               }`}
+                              onClick={() => navigation(child.path)}
                             >
                               <ReactSVG
                                 src={child.iconPath}
@@ -214,26 +202,27 @@ const SideBar = () => {
           </ul>
         </div>
         <div className='divide-y divide-grey-300'>
-          <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
-            <div className='flex items-center'>
-              <ReactSVG
-                src='/assets/icons/outlined/QuestionCircle.svg'
-                className='cursor-pointer '
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', `w-5 fill-grey-800`);
-                }}
-              />
-              <a href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'>
-                <span className='ml-2'>사용자 가이드</span>
-              </a>
+          <div className='px-2.5 '>
+            <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
+              <div className='flex items-center'>
+                <ReactSVG
+                  src='/assets/icons/outlined/QuestionCircle.svg'
+                  className='cursor-pointer '
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', `w-5 fill-grey-800`);
+                  }}
+                />
+                <a href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'>
+                  <span className='ml-2'>사용자 가이드</span>
+                </a>
+              </div>
             </div>
           </div>
-
-          <div className='space-y-3 py-6 px-[6px]'>
-            <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5'>
+          <div className='space-y-3 py-6 px-4'>
+            <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5 leading-none'>
               <span className='text-XS/Medium text-grey-100'>무료체험</span>
             </div>
-            <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-[#FF8C04]'></div>
+            <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-orange-300'></div>
             <div className='flex items-center justify-between'>
               <div className='text-XS/Medium'>리포트 발행 수</div>
               <ReactSVG
@@ -245,16 +234,43 @@ const SideBar = () => {
               />
             </div>
           </div>
-
-          <div className='flex items-center justify-between px-[6px] py-[18px]'>
-            <p className='text-S/Medium text-grey-800'>Gomi@example.com</p>
-            <ReactSVG
-              src='/assets/icons/outlined/ArrowRight-Small.svg'
-              className='cursor-pointer '
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', `w-6 fill-grey-800`);
-              }}
-            />
+          <div className='relative'>
+            <a href='#' onClick={() => onClickUserMenu(_dispatch)}>
+              <div className='flex cursor-pointer items-center justify-between px-4 py-[18px]'>
+                <p className='text-S/Medium text-grey-800'>{userId}</p>
+                <ReactSVG
+                  src='/assets/icons/outlined/ArrowRight-Small.svg'
+                  className='cursor-pointer '
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', `w-6 fill-grey-800`);
+                  }}
+                />
+              </div>
+            </a>
+            {_state.openedUserMenu ? (
+              <div className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
+                <ul className=''>
+                  {/*<li className='px-4 py-3'>*/}
+                  {/*  <a className='text-S/Regular text-grey-900'>계정 정보</a>*/}
+                  {/*</li>*/}
+                  {/*<li className='px-4 py-3'>*/}
+                  {/*  <a className='text-S/Regular text-grey-900'>요금제</a>*/}
+                  {/*</li>*/}
+                  {/*<li className='px-4 py-3'>*/}
+                  {/*  <a className='text-S/Regular text-grey-900'>공지사항</a>*/}
+                  {/*</li>*/}
+                  <li className='px-4 py-3'>
+                    <a
+                      href='#'
+                      onClick={onLogout}
+                      className='text-S/Regular text-red-700'
+                    >
+                      로그아웃
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       </aside>

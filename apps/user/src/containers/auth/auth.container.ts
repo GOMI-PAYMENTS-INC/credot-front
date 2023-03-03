@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
@@ -92,6 +92,8 @@ export const AuthContainer = () => {
     {},
     {
       onSuccess: (res) => {
+        console.log('userInfo', res);
+
         //SNS 회원가입
         const path = !res.me.phone && PATH.SIGN_UP_WITH_GOOGLE;
 
@@ -297,17 +299,18 @@ export const AuthContainer = () => {
     sendTemporaryPassword(variables);
   // 유저 임시 비밀번호 발급 끝
 
-  useEffect(() => {
+  useMemo(() => {
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
       refetchUserInfo();
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     // 로그인한 상태인지 확인
     const storageToken = authTokenStorage.getToken();
     if (storageToken) {
+      console.log('setToken(storageToken);');
       // 가져온 토큰 셋팅
       setToken(storageToken);
 
