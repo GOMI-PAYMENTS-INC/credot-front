@@ -94,6 +94,26 @@ body {
   }
 }
 
+/* Works on Firefox */
+table#scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #ffa378;
+}
+
+/* Works on Chrome, Edge, and Safari */
+table#scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+table#scrollbar::-webkit-scrollbar-track {
+  background-color: gray;
+}
+
+table#scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ffa378;
+  border-radius: 10px;
+}
+
 #loader {
   margin: 27px auto;
   font-size: 25px;

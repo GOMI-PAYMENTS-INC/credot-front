@@ -18,7 +18,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
   return (
     <table
       id='scrollbar'
-      className='col-span-full mt-[27px] block h-[436px] w-full overflow-y-auto rounded-xl border-[1px] bg-white'
+      className='overflow-y col-span-full mt-[27px] block h-[436px] w-full overflow-y-auto rounded-xl border-[1px] bg-white'
     >
       <thead className='sticky top-0 z-10 h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
