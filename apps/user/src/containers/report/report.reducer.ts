@@ -112,8 +112,10 @@ export { reportInitialState, reportReducer };
 
 export enum REPORT_LIST_ACTION {
   //최초 리스트 가져오기
-  GetReportList = 'GET_REPORT_LIST',
-  DeleteReport = 'DELETE_REPORT',
+  GET_REPORT_LIST = 'GET_REPORT_LIST',
+  //리포트 삭제
+  DELETE_REPORT = 'DELETE_REPORT',
+  SPINNER_EVENT = 'SPINNER_EVENT',
 }
 
 const reportListInitialState: TReportListState = {
@@ -124,21 +126,27 @@ const reportListInitialState: TReportListState = {
     totalCount: 0,
   },
   isDeleteConfirmModalOpen: false,
+  spinnerEvent: false,
 };
 
 const reportListReducer = (_state: TReportListState, action: TReportListAction) => {
   const state = structuredClone(_state);
   switch (action.type) {
     //리포트 목록 초기 출력
-    case REPORT_LIST_ACTION.GetReportList:
+    case REPORT_LIST_ACTION.GET_REPORT_LIST:
       state.page = action.payload.page;
       state.limit = action.payload.limit;
       state.data = action.payload.data;
       return state;
 
-    case REPORT_LIST_ACTION.DeleteReport:
+    case REPORT_LIST_ACTION.DELETE_REPORT:
       state.isDeleteConfirmModalOpen = action.payload.isDeleteConfirmModalOpen;
       return state;
+
+    case REPORT_LIST_ACTION.SPINNER_EVENT: {
+      state.spinnerEvent = action.payload.spinnerEvent;
+      return state;
+    }
 
     default:
       return state;

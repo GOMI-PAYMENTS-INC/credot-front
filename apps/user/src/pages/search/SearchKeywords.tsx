@@ -21,6 +21,7 @@ import { useSesstionStorage } from '@/utils/useSessionStorage';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 const SearchKeywords = () => {
+  const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
 
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
@@ -99,7 +100,7 @@ const SearchKeywords = () => {
             </div>
             <div>
               <div className='mt-6 flex items-center'>
-                <ReactSVG src='assets/icons/country/Vietnam.svg' className='pr-[8px]' />
+                <ReactSVG src='/assets/icons/country/Vietnam.svg' className='pr-[8px]' />
                 <select
                   name='country'
                   id='country'

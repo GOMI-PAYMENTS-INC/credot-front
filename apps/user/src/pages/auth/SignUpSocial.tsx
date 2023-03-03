@@ -107,7 +107,7 @@ const SignUpSocial = () => {
                   type='checkbox'
                   id='all-agree'
                   className='termsCheckbox peer'
-                  onChange={(e) => onAllCheckbox(e.target.checked)}
+                  onChange={(event) => onAllCheckbox(event.target.checked)}
                 />
                 <label htmlFor='all-agree' className='termsHeaderCheckbox-label'>
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.

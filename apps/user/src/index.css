@@ -86,7 +86,11 @@ body {
   }
   /* @/pages/report/DetailReport.tsx에서 title에 사용되는 태그 */
   .detailReport-h1-header {
-    @apply relative text-XL/Bold text-black;
+    @apply relative flex items-center text-XL/Bold text-black;
+    /* @apply text-XL/Bold text-black ; */
+  }
+  .detailReport-h1-header svg {
+    @apply h-4 w-4 fill-grey-500;
   }
 }
 

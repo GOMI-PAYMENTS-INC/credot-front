@@ -114,7 +114,7 @@ const DetailReport = () => {
         onScroll={(event) => onScrollDetail(event, _dispatch, main!)}
         ref={contentSection}
       >
-        <div>
+        <div className='min-h-full bg-white'>
           <div className='container pt-8'>
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div className='grid grid-cols-12 gap-x-6'>
