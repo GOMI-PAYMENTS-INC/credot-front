@@ -1,8 +1,8 @@
-import { useLocation, useNavigate, matchRoutes } from 'react-router-dom';
+import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { routeList } from '@/router/routeList';
+import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useReducer } from 'react';
 import { menuData } from '@/components/layouts/SideBarData';
@@ -109,13 +109,15 @@ const SideBar = () => {
               />
             </button>
 
-            <ReactSVG
-              src='/assets/icons/Logo.svg'
-              className='cursor-pointer'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', 'w-[124.5px] ml-3');
-              }}
-            />
+            <Link to={PATH.SEARCH_PRODUCTS}>
+              <ReactSVG
+                src='/assets/icons/Logo.svg'
+                className='cursor-pointer'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'w-[124.5px] ml-3');
+                }}
+              />
+            </Link>
           </div>
           <ul>
             {menuData.map((menu, menuIndex) => {

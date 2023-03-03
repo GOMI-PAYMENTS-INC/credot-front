@@ -92,8 +92,6 @@ export const AuthContainer = () => {
     {},
     {
       onSuccess: (res) => {
-        console.log('userInfo', res);
-
         //SNS 회원가입
         const path = !res.me.phone && PATH.SIGN_UP_WITH_GOOGLE;
 
