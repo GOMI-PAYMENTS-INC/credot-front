@@ -14,12 +14,13 @@ interface ISalePriceTable {
 
 export const SalePriceTable = (props: ISalePriceTable) => {
   const { salePriceItemList, basePrice } = props;
+  //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
     <table
       id='scrollbar'
       className='col-span-full mt-[27px] block h-[436px] w-full overflow-y-auto rounded-xl border-[1px] bg-white'
     >
-      <thead className='h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
+      <thead className='sticky top-0 z-10 h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[422px] text-left' colSpan={1}>
             <p className=' pl-3 text-XS/Medium'>상품</p>
@@ -27,10 +28,10 @@ export const SalePriceTable = (props: ISalePriceTable) => {
           <th className='w-[128px] text-right' colSpan={1}>
             <p className='px-4  text-XS/Medium'>판매가</p>
           </th>
-          <th className='w-[128px] text-center' colSpan={1}>
+          <th className='w-[128px] text-right' colSpan={1}>
             <p className='px-4  text-XS/Medium'>월 추정 매출</p>
           </th>
-          <th className='w-[120px] text-center' colSpan={1}>
+          <th className='w-[120px] text-right' colSpan={1}>
             <p className='px-[13px] text-XS/Medium'>월 판매량</p>
           </th>
           <th className='w-[100px] text-center' colSpan={1}>
@@ -52,7 +53,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
 
                   <div className='basis-full py-4'>
                     <p className=' w-[320px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
-                      {replaceOverLength(item.itemName!, 70)}
+                      {replaceOverLength(item.itemName, 70)}
                     </p>
                   </div>
                 </div>
@@ -60,13 +61,13 @@ export const SalePriceTable = (props: ISalePriceTable) => {
               <td>
                 {item.itemPriceMax === item.itemPriceMin ? (
                   <Fragment>
-                    <div className='flex items-center justify-end'>
+                    <div className='flex items-center justify-end px-4'>
                       <p className='texgt-grey-800 text-S/Medium'>
                         {formatNumber(
-                          roundNumber(convertExachangeRate(item.itemPriceMin, basePrice)),
+                          roundNumber(convertExachangeRate(item.itemPriceAvg, basePrice)),
                         )}
                       </p>
-                      <p className='pl-0.5 text-grey-700'>원</p>
+                      <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
                     </div>
                   </Fragment>
                 ) : (
@@ -82,7 +83,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                               ),
                             )}
                           </p>
-                          <p className='pl-0.5 text-grey-700'>원</p>
+                          <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
                         </div>
                       </div>
                       <hr className='my-[3px]  w-[104px] border-grey-300' />
@@ -96,7 +97,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                               ),
                             )}
                           </p>
-                          <p className='pl-0.5 text-grey-700'>원</p>
+                          <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
                         </div>
                       </div>
                     </div>
@@ -104,33 +105,38 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                 )}
               </td>
               <td>
-                <div className='flex justify-center text-S/Medium'>
+                <div className='flex items-center justify-end px-4 text-S/Medium'>
                   <p>
                     {formatNumber(
-                      roundNumber(convertExachangeRate(item.itemSales, basePrice)),
+                      roundNumber(
+                        convertExachangeRate(
+                          item.itemPriceAvg * item.item30daysSold,
+                          basePrice,
+                        ),
+                      ),
                     )}
                   </p>
-                  <p className='pl-0.5 text-grey-700'>원</p>
+                  <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
                 </div>
               </td>
 
               <td>
-                <div className='flex justify-center'>
+                <div className='flex items-center justify-end px-[13px] text-S/Medium'>
                   <p>{item.item30daysSold}</p>
-                  <p className='pl-0.5 text-grey-700'>개</p>
+                  <p className='pl-0.5 text-XS/Medium text-grey-700'>개</p>
                 </div>
               </td>
               <td>
-                <div className='flex justify-center'>
+                <div className='flex items-center justify-center text-S/Medium'>
                   <p>{item.rank}</p>
-                  <p className='pl-0.5 text-grey-700'>위</p>
+                  <p className='pl-0.5 text-XS/Medium text-grey-700'>위</p>
                 </div>
               </td>
               <td>
-                <div className='flex justify-center'>
+                <div className='flex justify-center text-S/Medium'>
                   <div
                     className='flex h-5 w-5 cursor-pointer items-center'
-                    onClick={() => openBrowser(item.itemUrl!)}
+                    onClick={() => openBrowser(item.itemUrl)}
                   >
                     <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
                   </div>

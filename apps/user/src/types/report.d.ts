@@ -183,8 +183,8 @@ type TSalePriceItems = {
   reportUniqueId: string;
   itemImage: string;
   rank: number;
-  itemName: string | null;
-  itemUrl: string | null;
+  itemName: string;
+  itemUrl: string;
   itemStockLocation: string | null;
   storeName: string;
   storeItemCount: number;
