@@ -1,5 +1,6 @@
-import { Dispatch } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { SIDE_BAR_ACTION, TSidebarAction } from '@/containers/sidebar/sidebar.reducer';
+import { useComponentVisible } from '@/utils/useComponentVisible';
 
 //사이드 바 토클
 export const toggleSidebar = (_dispatch: Dispatch<TSidebarAction>) => {
@@ -27,7 +28,6 @@ export const toggleDepth2Menu = (
     });
   }
 };
-
 //사이드바 하단 마이메뉴 토글
 export const onClickUserMenu = (_dispatch: Dispatch<TSidebarAction>) => {
   _dispatch({ type: SIDE_BAR_ACTION.TOGGLE_USER_MENU });

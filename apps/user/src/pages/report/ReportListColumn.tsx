@@ -74,16 +74,17 @@ export const ReportListColumn = ({
                     선택
                   </label>
                 </td>
-                <td className='p-4'>
-                  <p className='text-M/Regular'>
-                    {report.status === 'DONE' ? (
-                      <Link to={`${PATH.GET_REPORT_LIST}/${report.id}`}>
-                        {report.keyword}
-                      </Link>
-                    ) : (
-                      report.keyword
-                    )}
-                  </p>
+                <td className='text-M/Regular'>
+                  {report.status === 'DONE' ? (
+                    <Link
+                      to={`${PATH.GET_REPORT_LIST}/${report.id}`}
+                      className='block w-full py-4'
+                    >
+                      {report.keyword}
+                    </Link>
+                  ) : (
+                    report.keyword
+                  )}
                 </td>
                 <td className='p-4'>
                   <StatusTag

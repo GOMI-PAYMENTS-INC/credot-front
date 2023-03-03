@@ -308,7 +308,6 @@ export const AuthContainer = () => {
     // 로그인한 상태인지 확인
     const storageToken = authTokenStorage.getToken();
     if (storageToken) {
-      console.log('setToken(storageToken);');
       // 가져온 토큰 셋팅
       setToken(storageToken);
 
