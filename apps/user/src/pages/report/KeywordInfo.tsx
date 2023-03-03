@@ -7,8 +7,7 @@ interface IKeywordInfoProps {
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, channel, sorted, createdAt, currencyUnit, basePrice } =
-    props.keywordInfo;
+  const { text, country, createdAt, basePrice } = props.keywordInfo;
   return (
     <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>
@@ -27,7 +26,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className=' text-grey-600'>수집 기준</span>
-              <span className=' text-grey-800'>연관도순</span>
+              <span className=' text-grey-800'>연관도순 상위 50개</span>
               <span className=' text-grey-600'>생성일 기준 환율</span>
               <span className=' text-grey-800'>{`100VND = ${basePrice} KRW`}</span>
             </div>
@@ -43,14 +42,6 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               키워드 검색결과
               <ReactSVG className='ml-1' src='/assets/icons/outlined/Linkout.svg' />
             </button>
-            <div className='mt-8 ml-[45px] rounded border-[1px] border-grey-300 text-center'>
-              <p className='py-2.5 text-S/Regular'>상위 30개</p>
-              {/* <select name='countSelect' className='py-2.5 text-S/Regular' disabled>
-                <option value={10}>상위 10개</option>
-                <option value={20}>상위 20개</option>
-                <option value={30}>상위 30개</option>
-              </select> */}
-            </div>
           </div>
         </div>
       </div>

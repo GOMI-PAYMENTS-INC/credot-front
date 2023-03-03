@@ -2,7 +2,7 @@ import { CountryType } from '@/generated/graphql';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
 
-export enum ActionKind {
+export enum SearchAction {
   GetKeyword = 'GET_KEYWORD',
   SearchKeyword = 'SEARCH_KEYWORD',
   SearchMode = 'SEARCH_MODE',
@@ -25,15 +25,15 @@ const initialState: TState = {
 const reducer = (_state: TState, action: TAction) => {
   const state = structuredClone(_state);
   switch (action.type) {
-    case ActionKind.GetKeyword:
+    case SearchAction.GetKeyword:
       state.text = action.payload;
       return state;
 
-    case ActionKind.UpdateCreatedAt:
+    case SearchAction.UpdateCreatedAt:
       state.createdAt = action.payload;
       return state;
 
-    case ActionKind.SearchKeyword:
+    case SearchAction.SearchKeyword:
       if (action.payload) {
         state.keyword = action.payload;
       } else {
@@ -43,17 +43,17 @@ const reducer = (_state: TState, action: TAction) => {
 
       return state;
 
-    case ActionKind.SearchMode:
+    case SearchAction.SearchMode:
       state.isSearched = action.payload;
       return state;
 
-    case ActionKind.InitializeState:
+    case SearchAction.InitializeState:
       Object.keys(state).forEach((key) => {
         state[key] = action.payload[key];
       });
       return state;
 
-    case ActionKind.SwitchModal:
+    case SearchAction.SwitchModal:
       if (action.payload.modalType) {
         state.modalType = action.payload.modalType;
       } else {

@@ -1,11 +1,18 @@
+import {
+  deleteReportList,
+  getMainReport,
+  getRelationReport,
+  getSalePrice,
+} from './report.api';
 import { ChangeEvent, Dispatch, RefObject } from 'react';
-import { deleteReportList, getMainReport, getRelationReport } from './report.api';
+
 import {
   REPORT_ACTION,
   REPORT_LIST_ACTION,
   TReportAction,
 } from '@/containers/report/report.reducer';
 import {
+  GRADE_ITEMS,
   BATCH_STATUS,
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
@@ -31,6 +38,8 @@ export const convertTitle = (id: string) => {
       return '추천 키워드';
     case TITLE.KEYWORD_INFO:
       return '키워드 정보';
+    case TITLE.SALE_PRICE:
+      return '판매 가격';
     default:
       return id;
   }
@@ -38,14 +47,18 @@ export const convertTitle = (id: string) => {
 
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
   try {
-    const response = await Promise.all([getMainReport(id), getRelationReport(id)]);
+    const response = await Promise.all([
+      getMainReport(id),
+      getRelationReport(id),
+      getSalePrice(id),
+    ]);
+    const dataName = ['main', 'relation', 'price'];
     response.forEach((chunk, idx) => {
       if (chunk) {
-        const type = idx === 0 ? 'main' : 'relation';
         const { data } = chunk.data;
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
-          payload: { type: type, data: data },
+          payload: { type: dataName[idx], data: data },
         });
       }
     });
@@ -87,17 +100,19 @@ export const updateTitle = (
   } else {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
   }
-  if (curLocation > 250 && curLocation < 489) {
+  if (curLocation > 210 && curLocation < 459) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
-  if (curLocation > 490 && curLocation < 939) {
+  if (curLocation > 460 && curLocation < 884) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
-  // if (curLocation > 940 && curLocation < 1034) {
-  //   _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
-  // }
-  if (curLocation > 940) {
+
+  if (curLocation > 885 && curLocation < 1934) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
+  }
+
+  if (curLocation > 1935) {
+    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.SALE_PRICE });
   }
 };
 
@@ -147,7 +162,6 @@ export const scrollToTop = (
   _dispatch: Dispatch<TReportAction>,
   personInfo: RefObject<HTMLDivElement>,
 ) => {
-  console.log(personInfo);
   personInfo.current?.scroll(0, 0);
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
@@ -263,11 +277,20 @@ export const onClickReload = (
   _getReportList({ _state, _dispatch });
 };
 
-export const roundNumber = (number: number) => {
-  const fixedNumber = number.toFixed(1);
+export const roundNumber = (number: number | string) => {
+  if ((number + '').split('.').length === 1) return number;
+
+  let originNumber = number;
+  if (typeof originNumber === 'string') {
+    originNumber = parseInt(originNumber);
+  }
+
+  const fixedNumber = originNumber.toFixed(1);
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
+
   if (secondPlaceNumber === '0') return 0;
-  return fixedNumber;
+
+  return parseInt(fixedNumber);
 };
 
 export const delayEvent = (callback: () => void, time: number) => {
@@ -280,6 +303,44 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
   _dispatch({ type: REPORT_ACTION.SPINNER_EVENT });
 };
 
+export const countProductsByPrice = (scope: number[], items: TSalePriceItems[][]) => {
+  const [low, medium, high] = items;
+
+  const boundary = {
+    low: { min: low[0].itemPriceMin, max: low[low.length - 1].itemPriceMin },
+    medium: { min: medium[0].itemPriceMin, max: medium[medium.length - 1].itemPriceMin },
+    high: { min: high[0].itemPriceMin, max: high[high.length - 1].itemPriceMin },
+  };
+
+  return scope.map((price, idx) => {
+    if (idx === scope.length - 1) {
+      return high.filter((item) => item.itemPriceMin === price);
+    }
+    const maxPrice = scope[idx + 1];
+
+    if (boundary.low.max >= price) {
+      low.filter(
+        (item) => item.itemPriceMin >= price || item.itemPriceMin < maxPrice - 1,
+      );
+    }
+
+    if (boundary.medium.min >= price && boundary.medium.max < maxPrice) {
+      medium.filter(
+        (item) => item.itemPriceMin > price || item.itemPriceMin < maxPrice - 1,
+      );
+    }
+
+    if (
+      boundary.high.min < price &&
+      boundary.high.max < price &&
+      boundary.high.max < maxPrice
+    ) {
+      high.filter(
+        (item) => item.itemPriceMin > price || item.itemPriceMin < maxPrice - 1,
+      );
+    }
+  });
+};
 //리스트 > 출력 개수 변경시
 export const onChangeOffsetCount = (
   event: ChangeEvent<HTMLSelectElement>,
@@ -322,4 +383,22 @@ export const onScrollDetail = (
 ): void => {
   const scrollTop = (event.target as HTMLElement).scrollTop;
   updateTitle(scrollTop, _dispatch, main.text);
+};
+
+export const selectSalePriceCompetitionType = (
+  focus: GRADE_TYPE,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  _dispatch({ type: REPORT_ACTION.FOCUS_ITEMS, payload: { focus: focus } });
+};
+
+export const convertGrade = (item: GRADE_ITEMS) => {
+  switch (item) {
+    case GRADE_ITEMS.HIGH:
+      return '높은';
+    case GRADE_ITEMS.HIGH:
+      return '보통';
+    default:
+      return '낮은';
+  }
 };

@@ -41,6 +41,7 @@ export enum TITLE {
   MARTKET_SIZE = 'MartketSize',
   KEYWORD_INFO = 'KeywordInfo',
   RECOMMEND_KEYWORD = 'RecommendKeyword',
+  SALE_PRICE = 'SalePrice',
 }
 
 export enum TAG_SENTIMENT_STATUS {
@@ -59,7 +60,25 @@ export enum BATCH_STATUS {
   NONE = 'NONE',
 }
 
+export enum SORT_BY {
+  PRICE_MIN = 'PRICE_MIN',
+  PRICE_MAX = 'PRICE_MAX',
+  PRICE_AVERAGE = 'PRICE_AVERAGE',
+}
+
 export enum MODAL_SIZE_ENUM {
   SMALL = 'SMALL',
   LARGE = 'LARGE',
+}
+
+export enum REPORT_DETAIL_TYPE {
+  MAIN = 'main',
+  RELATION = 'relation',
+  PRICE = 'price',
+}
+
+export enum GRADE_ITEMS {
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
 }

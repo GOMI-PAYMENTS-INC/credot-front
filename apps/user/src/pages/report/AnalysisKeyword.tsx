@@ -21,7 +21,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     analysisInfo.avgPrice,
     analysisInfo.searchCount,
     analysisInfo.competitionProductCount,
-
     analysisInfo.cpcRate,
   ]
     .map((number, idx) => {

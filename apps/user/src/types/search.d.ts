@@ -1,5 +1,5 @@
 type TAction = {
-  type: ActionKind;
+  type: SearchAction;
   payload?: any;
 };
 

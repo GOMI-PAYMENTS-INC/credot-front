@@ -104,9 +104,17 @@ type TGetMainReportDataType = {
 };
 
 type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
+
+type GRADE_TYPE = 'high' | 'medium' | 'low';
+
 type TReportState = {
-  main: TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword;
+  main: (TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword) | null;
   relation: TGetRelationReportDataType[];
+  salePrice: {
+    data: TSalePriceData | null;
+    focus: GRADE_TYPE;
+    list: TSalePriceItems[] | [];
+  };
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -140,4 +148,59 @@ type TGetRelationReport = {
   code: STATUS_CODE;
   message: string;
   data: TGetRelationReportDataType[];
+};
+
+type TSalePriceResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TSalePriceData;
+};
+
+type TSalePriceData = {
+  [key: string]: string | number | Date | null | Array;
+  id: number;
+  text: string;
+  country: CountryType;
+  channel: TChannelType;
+  gradeItems: TSalePriceItems[][];
+  priceAnalysisInfo: TPriceAnalysisInfo;
+  itemGradeIndices: number[];
+  totalItemCount: number;
+  items: TSalePriceItems[];
+} | null;
+
+type TPriceAnalysisInfo = {
+  sortBy: SORT_BY;
+  min: number;
+  max: number;
+  avg: number;
+  levelCount: number;
+  levelBound: number;
+  basePrice: number;
+};
+
+type TSalePriceItems = {
+  id: number;
+  insightEeportId: number;
+  reportUniqueId: string;
+  itemImage: string;
+  rank: number;
+  itemName: string;
+  itemUrl: string;
+  itemStockLocation: string | null;
+  storeName: string;
+  storeItemCount: number;
+  storeRatingStar: number;
+  itemPriceMaxBeforeDiscount: number;
+  itemPriceMinBeforeDiscount: number;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  itemPriceAvg: number;
+  itemHasLowestPriceGuarantee: boolean;
+  itemHistoricalSold: number;
+  item30daysSold: number;
+  item30daySales: number;
+  itemSales: number;
+  itemdescription: string | null;
+  itemBrand: string | null;
 };
