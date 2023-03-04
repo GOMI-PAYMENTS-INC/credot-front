@@ -90,28 +90,29 @@ export const convertExachangeRate = (vnd: number, krw: number) => {
 };
 
 export const updateTitle = (
-  curLocation: number,
+  curHeight: number,
   _dispatch: Dispatch<TReportAction>,
   name?: string,
 ) => {
-  if (curLocation < 100) {
+  console.log(curHeight, 'curHeight');
+  if (curHeight < 100) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
   } else {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
   }
-  if (curLocation > 210 && curLocation < 459) {
+  if (curHeight > 203 && curHeight < 452) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
-  if (curLocation > 460 && curLocation < 884) {
+  if (curHeight > 453 && curHeight < 870) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
 
-  if (curLocation > 885 && curLocation < 1934) {
+  if (curHeight > 871 && curHeight < 1569) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
   }
 
-  if (curLocation > 1935) {
+  if (curHeight > 1570) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.SALE_PRICE });
   }
 };
@@ -160,7 +161,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
 
 export const scrollToTop = (
   _dispatch: Dispatch<TReportAction>,
-  personInfo: RefObject<HTMLDivElement>,
+  personInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
   personInfo.current?.scroll(0, 0);
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });

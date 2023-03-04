@@ -1,10 +1,9 @@
-import { Dispatch } from 'react';
+import { Dispatch, useRef, RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { TITLE, GRADE_ITEMS } from '@/types/enum.code';
 import { SalePriceChart } from '@/pages/report/SalePriceChart';
-import { openBrowser } from '@/containers/report';
 
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate, roundNumber } from '@/containers/report';
@@ -13,6 +12,7 @@ import { SalePriceTable } from '@/pages/report/SalePriceTable';
 import {
   selectSalePriceCompetitionType,
   convertGrade,
+  scrollToTop,
 } from '@/containers/report/report.container';
 import { TReportAction } from '@/containers/report/report.reducer';
 interface ISalePrice {
@@ -20,10 +20,11 @@ interface ISalePrice {
   _dispatch: Dispatch<TReportAction>;
   list: TSalePriceItems[];
   focus: GRADE_TYPE;
+  scollerRef: RefObject<HTMLTableSectionElement>;
 }
 
 export const SalePrice = (props: ISalePrice) => {
-  const { _dispatch, salePriceInfo, list, focus } = props;
+  const { _dispatch, salePriceInfo, list, focus, scollerRef } = props;
   const { gradeItems, priceAnalysisInfo } = salePriceInfo!;
   const { min, max, avg, basePrice } = priceAnalysisInfo;
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
@@ -131,7 +132,10 @@ export const SalePrice = (props: ISalePrice) => {
                 <div
                   className={`cursor-pointer rounded ${highlight.divStyle}`}
                   key={`${item}_${idx}`}
-                  onClick={() => selectSalePriceCompetitionType(item, _dispatch)}
+                  onClick={() => {
+                    selectSalePriceCompetitionType(item, _dispatch);
+                    scrollToTop(_dispatch, scollerRef);
+                  }}
                 >
                   <p className={`px-2 py-2 ${highlight.textStyle}`}>
                     {`가격경쟁력 ${convertGrade(item)}`}
@@ -142,7 +146,11 @@ export const SalePrice = (props: ISalePrice) => {
             })}
           </div>
         </div>
-        <SalePriceTable salePriceItemList={list} basePrice={basePrice} />
+        <SalePriceTable
+          scollerRef={scollerRef}
+          salePriceItemList={list}
+          basePrice={basePrice}
+        />
       </div>
     </section>
   );

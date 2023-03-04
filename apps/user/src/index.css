@@ -86,8 +86,7 @@ body {
   }
   /* @/pages/report/DetailReport.tsx에서 title에 사용되는 태그 */
   .detailReport-h1-header {
-    @apply relative flex items-center text-XL/Bold text-black;
-    /* @apply text-XL/Bold text-black ; */
+    @apply relative -mt-[40px] flex items-center pt-[40px] text-XL/Bold text-black;
   }
   .detailReport-h1-header svg {
     @apply h-4 w-4 fill-grey-500;
@@ -95,21 +94,17 @@ body {
 }
 
 /* Works on Firefox */
-table#scrollbar {
+tbody#scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #ffa378;
 }
 
 /* Works on Chrome, Edge, and Safari */
-table#scrollbar::-webkit-scrollbar {
+tbody#scrollbar::-webkit-scrollbar {
   width: 4px;
 }
 
-table#scrollbar::-webkit-scrollbar-track {
-  background-color: gray;
-}
-
-table#scrollbar::-webkit-scrollbar-thumb {
+tbody#scrollbar::-webkit-scrollbar-thumb {
   background-color: #ffa378;
   border-radius: 10px;
 }

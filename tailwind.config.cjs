@@ -50,15 +50,15 @@ module.exports = {
         },
         '.button-outlined-normal-large-red-false-false-true': {
           '@apply rounded bg-white py-3 text-M/Bold text-orange-500 border border-orange-300':
-              {},
+            {},
         },
         '.button-outlined-normal-large-grey-false-false': {
           '@apply rounded bg-white py-3 text-M/Bold text-grey-800 border border-grey-400':
-              {},
+            {},
         },
         '.button-filled-normal-medium-grey-true-false-true': {
           '@apply flex items-center space-x-0.5 rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500':
-              {},
+            {},
         },
         '.button-outlined-normal-xLarge-grey-true-false-true': {
           '@apply grid gap-x-1 justify-center grid-cols-[24px_auto] rounded bg-white py-4 text-L/Bold text-grey-800 border border-grey-400':
@@ -87,8 +87,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        0 : "linear-gradient(90deg, #FF5100 0%, #FF8C04 100%)",
-        1 : "linear-gradient(90deg, #FF6C28 0%, #FFA378 100%)",
+        0: 'linear-gradient(90deg, #FF5100 0%, #FF8C04 100%)',
+        1: 'linear-gradient(90deg, #FF6C28 0%, #FFA378 100%)',
       },
       //색상
       colors: {

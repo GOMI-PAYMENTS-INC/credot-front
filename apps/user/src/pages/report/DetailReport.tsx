@@ -9,7 +9,6 @@ import {
   onScrollDetail,
   openBrowser,
   scrollToTop,
-  updateTitle,
 } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
@@ -29,7 +28,9 @@ const DetailReport = () => {
 
   const { main, relation } = _state;
   const navigation = useNavigate();
+
   const contentSection = useRef<HTMLDivElement>(null);
+  const scrollController = useRef<HTMLTableSectionElement>(null);
 
   useEffect(() => {
     if (isFalsy(routeId.id)) return;
@@ -53,6 +54,7 @@ const DetailReport = () => {
           toggleEvent={_state.toggleEvent}
         />
         <SalePrice
+          scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}
           list={_state.salePrice.list}
           focus={_state.salePrice.focus}
@@ -166,7 +168,10 @@ const DetailReport = () => {
 
                 <button
                   className='fixed right-[60px] bottom-[100px] flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
-                  onClick={() => scrollToTop(_dispatch, contentSection)}
+                  onClick={() => {
+                    scrollToTop(_dispatch, contentSection);
+                    scrollToTop(_dispatch, scrollController);
+                  }}
                 >
                   <ReactSVG src='/assets/icons/outlined/ToTop.svg' />
                 </button>
