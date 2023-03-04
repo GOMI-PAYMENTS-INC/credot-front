@@ -39,7 +39,7 @@ export const convertTitle = (id: string) => {
     case TITLE.KEYWORD_INFO:
       return '키워드 정보';
     case TITLE.SALE_PRICE:
-      return '판매 가격';
+      return '가격 분석';
     default:
       return id;
   }
@@ -90,28 +90,28 @@ export const convertExachangeRate = (vnd: number, krw: number) => {
 };
 
 export const updateTitle = (
-  curLocation: number,
+  curHeight: number,
   _dispatch: Dispatch<TReportAction>,
   name?: string,
 ) => {
-  if (curLocation < 100) {
+  if (curHeight < 100) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
   } else {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
   }
-  if (curLocation > 210 && curLocation < 459) {
+  if (curHeight > 203 && curHeight < 452) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
   }
-  if (curLocation > 460 && curLocation < 884) {
+  if (curHeight > 453 && curHeight < 870) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
   }
 
-  if (curLocation > 885 && curLocation < 1934) {
+  if (curHeight > 871 && curHeight < 1569) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
   }
 
-  if (curLocation > 1935) {
+  if (curHeight > 1570) {
     _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.SALE_PRICE });
   }
 };
@@ -160,7 +160,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
 
 export const scrollToTop = (
   _dispatch: Dispatch<TReportAction>,
-  personInfo: RefObject<HTMLDivElement>,
+  personInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
   personInfo.current?.scroll(0, 0);
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
@@ -396,7 +396,7 @@ export const convertGrade = (item: GRADE_ITEMS) => {
   switch (item) {
     case GRADE_ITEMS.HIGH:
       return '높은';
-    case GRADE_ITEMS.HIGH:
+    case GRADE_ITEMS.MEDIUM:
       return '보통';
     default:
       return '낮은';

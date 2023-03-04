@@ -1,26 +1,26 @@
+import { RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
-import { TITLE } from '@/types/enum.code';
-import { SalePriceChart } from './SalePriceChart';
+
 import { openBrowser } from '@/containers/report';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExachangeRate, roundNumber } from '@/containers/report';
 import { Fragment } from 'react';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+
 interface ISalePriceTable {
   salePriceItemList: TSalePriceItems[];
   basePrice: number;
+  scollerRef: RefObject<HTMLTableSectionElement>;
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {
-  const { salePriceItemList, basePrice } = props;
+  const { salePriceItemList, basePrice, scollerRef } = props;
+
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
-    <table
-      id='scrollbar'
-      className='overflow-y col-span-full mt-[27px] block h-[436px] w-full overflow-y-auto rounded-xl border-[1px] bg-white'
-    >
-      <thead className='sticky top-0 z-10 h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
+    <table className='overflow-y col-span-full mt-[27px] block h-[436px] w-full rounded-xl border-[1px] bg-white'>
+      <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[422px] text-left' colSpan={1}>
             <p className=' pl-3 text-XS/Medium'>상품</p>
@@ -40,14 +40,22 @@ export const SalePriceTable = (props: ISalePriceTable) => {
           <th className='w-[80px] text-right' colSpan={1}></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody
+        id='scrollbar'
+        className='block h-[393px] w-full overflow-y-auto '
+        ref={scollerRef}
+      >
         {salePriceItemList.map((item, idx) => {
           return (
             <tr
-              className='border-[1px] border-grey-300 text-right'
+              className={
+                idx === salePriceItemList.length - 1
+                  ? 'w-full border-grey-300 text-right'
+                  : 'w-full border-b-[1px] border-grey-300 text-right'
+              }
               key={`${item.id}_${idx}`}
             >
-              <td>
+              <td className='w-[422px]'>
                 <div className='flex items-center'>
                   <img className='my-2 ml-4 h-14 w-14' src={item.itemImage} />
 
@@ -58,7 +66,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                   </div>
                 </div>
               </td>
-              <td>
+              <td className='w-[128px]'>
                 {item.itemPriceMax === item.itemPriceMin ? (
                   <Fragment>
                     <div className='flex items-center justify-end px-4'>
@@ -104,7 +112,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                   </Fragment>
                 )}
               </td>
-              <td>
+              <td className='w-[128px]'>
                 <div className='flex items-center justify-end px-4 text-S/Medium'>
                   <p>
                     {formatNumber(
@@ -120,19 +128,19 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                 </div>
               </td>
 
-              <td>
+              <td className='w-[120px]'>
                 <div className='flex items-center justify-end px-[13px] text-S/Medium'>
                   <p>{item.item30daysSold}</p>
                   <p className='pl-0.5 text-XS/Medium text-grey-700'>개</p>
                 </div>
               </td>
-              <td>
+              <td className='w-[100px]'>
                 <div className='flex items-center justify-center text-S/Medium'>
                   <p>{item.rank}</p>
                   <p className='pl-0.5 text-XS/Medium text-grey-700'>위</p>
                 </div>
               </td>
-              <td>
+              <td className='w-[80px]'>
                 <div className='flex justify-center text-S/Medium'>
                   <div
                     className='flex h-5 w-5 cursor-pointer items-center'
