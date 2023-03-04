@@ -94,7 +94,6 @@ export const updateTitle = (
   _dispatch: Dispatch<TReportAction>,
   name?: string,
 ) => {
-  console.log(curHeight, 'curHeight');
   if (curHeight < 100) {
     _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
     return;
