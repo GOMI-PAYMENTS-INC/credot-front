@@ -39,7 +39,7 @@ export const convertTitle = (id: string) => {
     case TITLE.KEYWORD_INFO:
       return '키워드 정보';
     case TITLE.SALE_PRICE:
-      return '판매 가격';
+      return '가격 분석';
     default:
       return id;
   }
@@ -396,7 +396,7 @@ export const convertGrade = (item: GRADE_ITEMS) => {
   switch (item) {
     case GRADE_ITEMS.HIGH:
       return '높은';
-    case GRADE_ITEMS.HIGH:
+    case GRADE_ITEMS.MEDIUM:
       return '보통';
     default:
       return '낮은';

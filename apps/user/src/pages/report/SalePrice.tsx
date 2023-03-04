@@ -34,7 +34,7 @@ export const SalePrice = (props: ISalePrice) => {
   return (
     <section className='col-span-full'>
       <h1 id={TITLE.SALE_PRICE} className='detailReport-h1-header'>
-        판매 가격
+        가격 분석
       </h1>
       <div className='pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
@@ -134,7 +134,7 @@ export const SalePrice = (props: ISalePrice) => {
                   onClick={() => selectSalePriceCompetitionType(item, _dispatch)}
                 >
                   <p className={`px-2 py-2 ${highlight.textStyle}`}>
-                    {`가격경쟁력 ${convertGrade(item)} 상품`}
+                    {`가격경쟁력 ${convertGrade(item)}`}
                     <span className={highlight.spanStyle}>{` ${countItem}`}</span>
                   </p>
                 </div>
