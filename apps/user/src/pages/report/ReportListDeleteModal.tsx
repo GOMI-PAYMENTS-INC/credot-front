@@ -27,13 +27,7 @@ export const ReportListDeleteModal = ({
           영구 삭제할까요?
         </Fragment>
       ),
-      content: (
-        <Fragment>
-          리포트에 입력된
-          <br />
-          모든 상품 데이터가 삭제돼요
-        </Fragment>
-      ),
+      content: <Fragment>삭제된 리포트는 복구가 불가능해요</Fragment>,
       onCancel: {
         name: '취소',
         cancelEvent: () => switchDeleteModal(_dispatch, false),

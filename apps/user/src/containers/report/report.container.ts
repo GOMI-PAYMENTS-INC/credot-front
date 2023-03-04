@@ -216,7 +216,6 @@ export const deleteReports = (
       // 총 페이지 갯수
       const numPages = Math.ceil(_state.data.totalCount / _state.limit);
       //페이지에서 모든 item을 삭제한 경우, 하나 작은 숫자의 페이지로 이동한다.
-      console.log(_state.data.reports.length, checkedItems.length);
       if (1 < numPages && _state.data.reports.length === checkedItems.length) {
         _state.page = _state.page - 1;
       }

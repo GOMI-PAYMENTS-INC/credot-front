@@ -14,11 +14,11 @@ import { initialState, reducer } from '@/containers/search/reducer';
 import { GetQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
 import { SearchModal } from '@/pages/search/SearchModal';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 const SearchKeywords = () => {
   const IMG_PATH = '../../assets/images';
@@ -85,14 +85,14 @@ const SearchKeywords = () => {
           size={MODAL_SIZE_ENUM.LARGE}
         />
       </ModalComponent>
-      <div className='container relative  grid grid-cols-12 items-center'>
+      <div className='container relative  grid h-full grid-cols-12 items-center'>
         <div className='absolute left-[-20%] top-0  z-[-1] block'>
           <img src='/assets/images/Background.png' />
         </div>
-        <div className='col-span-6 max-w-[480px] pb-11'>
-          <div className=' xs:col-span-full col-span-5  col-start-2 py-[22px]  pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
+        <div className='col-span-6'>
+          <div className='px-[50px]'>
             <div>
-              <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
+              <h1 className='break-keep text-3XL/Bold'>
                 <span className='text-orange-600'>상위 노출</span>을 원하는
                 <br />
                 <span className='text-orange-600'>키워드</span>를 검색해주세요.
@@ -130,7 +130,7 @@ const SearchKeywords = () => {
                       value={_state.text}
                       onChange={(event) => getKeyword(event, _dispatch)}
                       onKeyDown={(event) => queryKeyword(_state.text, _dispatch, event)}
-                      className='input-bordered input h-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
+                      className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                     />
                   </div>
                   <button
@@ -177,8 +177,8 @@ const SearchKeywords = () => {
             ) : (
               <Fragment>
                 <div className='mt-12 rounded-2xl border border-grey-300 bg-white px-6 py-5 '>
-                  <div className='lg:mb-4'>
-                    <h3 className='text-L/Medium lg:text-S/Regular'>
+                  <div className=''>
+                    <h3 className='text-L/Medium'>
                       월간 검색량
                       <ReactSVG
                         id='anchor-montly-search-volum'
@@ -196,16 +196,16 @@ const SearchKeywords = () => {
                     <span
                       className={`text-4XL/Bold text-grey-${
                         _state.isSearched ? 900 : 300
-                      } lg:text-3XL/medium`}
+                      }`}
                     >
-                      <p className={`text-4XL/Bold text-grey-300 lg:text-3XL/medium`}></p>
+                      <p className={`text-4XL/Bold text-grey-300`}></p>
                       {montlySearchVolum}
                     </span>
                   </div>
                 </div>
-                <div className='mt-6 rounded-2xl border border-grey-300 bg-white px-6 pt-5 lg:mb-4'>
-                  <div className='lg:mb-4'>
-                    <h3 className='text-L/Medium lg:text-M/Regular'>
+                <div className='mt-6 rounded-2xl border border-grey-300 bg-white px-6 pt-5'>
+                  <div className=''>
+                    <h3 className='text-L/Medium'>
                       이런 키워드들은 어때요?
                       <ReactSVG
                         id='anchor-keyword-tip'
@@ -227,7 +227,7 @@ const SearchKeywords = () => {
                               return (
                                 <li
                                   key={`${keyword}_dummy`}
-                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%] lg:mb-2 lg:h-6'
+                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
                                 />
                               );
                             }
@@ -235,7 +235,7 @@ const SearchKeywords = () => {
                               <Fragment key={`${keyword.id}`}>
                                 <li
                                   id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500 lg:mb-2 lg:h-6'
+                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
                                   onClick={() =>
                                     queryKeywordByClick(keyword.text, _dispatch)
                                   }
@@ -279,11 +279,11 @@ const SearchKeywords = () => {
             )}
           </div>
         </div>
-        <div className='col-span-6 w-full max-w-[460px] self-center md:hidden'>
+        <div className='x-[50px] col-span-6 h-[900px] w-[458px] self-center'>
           {_state.isSearched && _state.keyword ? (
             <iframe
               src={`https://shopee.vn/search?keyword=${_state.keyword}`}
-              className='h-[960px] w-full rounded-2xl pt-[8px]'
+              className=' h-[900px] w-[458px] rounded-2xl pt-[8px]'
               allow='accelerometer; autoplay; clipboard-write;
                encrypted-media; gyroscope; picture-in-picture'
               sandbox='allow-same-origin allow-scripts'

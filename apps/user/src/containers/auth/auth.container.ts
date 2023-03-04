@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
@@ -297,12 +297,12 @@ export const AuthContainer = () => {
     sendTemporaryPassword(variables);
   // 유저 임시 비밀번호 발급 끝
 
-  useEffect(() => {
+  useMemo(() => {
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
       refetchUserInfo();
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     // 로그인한 상태인지 확인
