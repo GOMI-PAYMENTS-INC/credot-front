@@ -11,6 +11,7 @@ import {
   sidebarReducer,
 } from '@/containers/sidebar/sidebar.reducer';
 import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
+import { openBrowser } from '@/containers/report';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -217,9 +218,17 @@ const SideBar = () => {
                       svg.setAttribute('class', `w-5 fill-grey-800`);
                     }}
                   />
-                  <a href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'>
-                    <span className='ml-2'>사용자 가이드</span>
-                  </a>
+
+                  <span
+                    onClick={() =>
+                      openBrowser(
+                        'https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34',
+                      )
+                    }
+                    className='ml-2 cursor-pointer'
+                  >
+                    사용자 가이드
+                  </span>
                 </div>
               </div>
             </div>
@@ -232,7 +241,7 @@ const SideBar = () => {
                 <div className='text-XS/Medium'>리포트 발행 수</div>
                 <ReactSVG
                   src='/assets/icons/outlined/Infinity.svg'
-                  className='cursor-pointer '
+                  // className='cursor-pointer '
                   beforeInjection={(svg) => {
                     svg.setAttribute('class', `w-5 fill-grey-800`);
                   }}
