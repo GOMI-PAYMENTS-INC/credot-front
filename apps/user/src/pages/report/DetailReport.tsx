@@ -120,7 +120,7 @@ const DetailReport = () => {
           <div className='container pt-8'>
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div className='grid grid-cols-12 gap-x-6'>
-              <div className='col-span-10 space-y-10'>{combinedComponent}</div>
+              <div className='col-span-10 space-y-[72px]'>{combinedComponent}</div>
 
               <aside className='sticky top-8 col-span-2 h-fit w-[180px] '>
                 <ul>
