@@ -1,6 +1,5 @@
 import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { SIDE_BAR_ACTION, TSidebarAction } from '@/containers/sidebar/sidebar.reducer';
-import { useComponentVisible } from '@/utils/useComponentVisible';
 
 //사이드 바 토클
 export const toggleSidebar = (_dispatch: Dispatch<TSidebarAction>) => {
