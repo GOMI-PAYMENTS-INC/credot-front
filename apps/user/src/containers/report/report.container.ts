@@ -160,9 +160,10 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
 
 export const scrollToTop = (
   _dispatch: Dispatch<TReportAction>,
-  personInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
+  scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
-  personInfo.current?.scroll(0, 0);
+  scrollInfo.current?.scroll(0, 0);
+  if (scrollInfo.current?.tagName === 'TBODY') return;
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
 
