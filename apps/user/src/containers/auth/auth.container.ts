@@ -14,10 +14,8 @@ import {
   ChangePasswordInput,
   GoogleLoginMutationVariables,
   GoogleSignUpInput,
-  LoginInput,
   MutationChangePasswordArgs,
   MutationGoogleSignUpArgs,
-  MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
   SendTemporaryPasswordMutationVariables,
@@ -187,41 +185,27 @@ export const AuthContainer = () => {
   // 소셜 회원가입 끝
 
   // 로컬 로그인 시작
-  const { mutate: loginMutate, error: loginMutateError } = useLoginMutation(
-    graphQLClient,
-    {
-      onSuccess: (res) => {
-        // 로그인 토큰 설정
-        setToken(res.login.token);
-        authTokenStorage.setToken(isLoginStorage, res.login.token);
-        // isLogin 상태 변경
-        handleChangeLoginState(true);
-        // 임시비밀번호로 로그인 한 경우
-        if (res.login.popupInfo) {
-          sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
-          setTemporaryPasswordLogin(true);
-          navigation(PATH.REAPPLY_PASSWORD);
-        } else {
-          setTemporaryPasswordLogin(false);
-          navigation(PATH.SEARCH_PRODUCTS);
-        }
-      },
-
-      onError: (err) => {
-        console.error(err);
-      },
+  const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
+    onSuccess: (res) => {
+      // 로그인 토큰 설정
+      setToken(res.login.token);
+      authTokenStorage.setToken(isLoginStorage, res.login.token);
+      // isLogin 상태 변경
+      handleChangeLoginState(true);
+      // 임시비밀번호로 로그인 한 경우
+      if (res.login.popupInfo) {
+        sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
+        setTemporaryPasswordLogin(true);
+        navigation(PATH.REAPPLY_PASSWORD);
+      } else {
+        setTemporaryPasswordLogin(false);
+        navigation(PATH.SEARCH_PRODUCTS);
+      }
     },
-  );
 
-  const onSubmitSignIn = (value: LoginInput) => {
-    const loginFormValue: MutationLoginArgs = {
-      login: {
-        email: value.email,
-        password: value.password,
-      },
-    };
-    loginMutate(loginFormValue);
-  };
+    onError: (err) => {},
+  });
+
   // 로컬 로그인 끝
 
   // 구글 로그인 시작
@@ -358,8 +342,7 @@ export const AuthContainer = () => {
   return {
     onSendSmsVerifyCode,
     onSubmitSignUp,
-    onSubmitSignIn,
-    loginMutateError,
+    loginMutate,
     onSubmitSignUpSocial,
     onLogout,
     onGoogleLoginButton,

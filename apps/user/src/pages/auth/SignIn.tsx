@@ -3,12 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { LoginInput } from '@/generated/graphql';
+import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
-import { isFalsy } from '@/utils/isFalsy';
-import { toast } from 'react-toastify';
 import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 
 interface ISignInForm {
@@ -25,8 +23,7 @@ function onClickGooglelogin() {
 
 const SignIn = () => {
   const navigation = useNavigate();
-  const { onSubmitSignIn, setIsLoginStorage, isLoginStorage, loginMutateError } =
-    AuthContainer();
+  const { loginMutate, setIsLoginStorage, isLoginStorage } = AuthContainer();
   const {
     register,
     handleSubmit,
@@ -36,46 +33,40 @@ const SignIn = () => {
     mode: 'onChange',
   });
 
-  const onValid = (data: ISignInForm) => {
-    const loginInput: LoginInput = {
-      email: data?.email,
-      password: data?.password,
+  const onValid = (value: ISignInForm) => {
+    const loginFormValue: MutationLoginArgs = {
+      login: {
+        email: value.email,
+        password: value.password,
+      },
     };
-    onSubmitSignIn(loginInput);
-  };
+    loginMutate(loginFormValue, {
+      onError: (err) => {
+        const error = JSON.parse(JSON.stringify(err));
 
-  // const onInvalid = (errorData: FieldErrors) => {
-  //   console.error('error : ', errorData);
-  //   // toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
-  // };
+        //오류 코드
+        const errorCode = error.response.errors[0].extensions.code;
 
-  useEffect(() => {
-    if (isFalsy(loginMutateError) === false) {
-      //오류 json 변환
-      const error = JSON.parse(JSON.stringify(loginMutateError));
-
-      //오류 코드
-      const errorCode = error.response.errors[0].extensions.code;
-
-      //useForm error 처리
-      if (errorCode) {
-        switch (errorCode) {
-          case STATUS_CODE.INVALID_PASSWORD:
-            setError('password', {
-              type: 'custom',
-              message: '비밀번호가 일치하지 않아요.',
-            });
-            break;
-          case STATUS_CODE.USER_NOT_EXIST:
-            setError('email', {
-              type: 'custom',
-              message: '존재하지 않는 이메일 주소에요.',
-            });
-            break;
+        //useForm error 처리
+        if (errorCode) {
+          switch (errorCode) {
+            case STATUS_CODE.INVALID_PASSWORD:
+              setError('password', {
+                type: 'custom',
+                message: '비밀번호가 일치하지 않아요.',
+              });
+              break;
+            case STATUS_CODE.USER_NOT_EXIST:
+              setError('email', {
+                type: 'custom',
+                message: '존재하지 않는 이메일 주소에요.',
+              });
+              break;
+          }
         }
-      }
-    }
-  }, [loginMutateError]);
+      },
+    });
+  };
 
   const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoginStorage(e.target.checked);
@@ -107,7 +98,10 @@ const SignIn = () => {
                       },
                     })}
                   />
-                  <InputIcon status={errors?.email ? INPUTSTATUS.ERROR : undefined} />
+                  <InputIcon
+                    status={errors?.email ? INPUTSTATUS.ERROR : undefined}
+                    iconSize={5}
+                  />
                 </div>
                 <p className='inputCustom-helptext'>{errors?.email?.message}</p>
               </div>
@@ -132,6 +126,7 @@ const SignIn = () => {
                     />
                     <InputIcon
                       status={errors?.password ? INPUTSTATUS.ERROR : undefined}
+                      iconSize={5}
                     />
                   </div>
                   <p className='inputCustom-helptext'>{errors?.password?.message}</p>

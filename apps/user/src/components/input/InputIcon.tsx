@@ -12,16 +12,20 @@ export enum INPUTSTATUS {
 }
 type TInputIcon = {
   status?: INPUTSTATUS;
+  iconSize?: number;
 };
 
-export const InputIcon = ({ status }: TInputIcon) => {
-  let iconPath = null;
+export const InputIcon = ({ status, iconSize = 4 }: TInputIcon) => {
+  let iconPath = '';
+  let iconStyle = '';
 
   switch (status) {
     case INPUTSTATUS.ERROR:
+      iconStyle = 'fill-red-600';
       iconPath = '/assets/icons/outlined/ExclamationCircle.svg';
       break;
     case INPUTSTATUS.COMPLETED:
+      iconStyle = 'fill-red-600';
       iconPath = '/assets/icons/outlined/Check.svg';
       break;
     default:
@@ -29,12 +33,12 @@ export const InputIcon = ({ status }: TInputIcon) => {
 
   return (
     <Fragment>
-      {iconPath ? (
+      {iconPath !== '' ? (
         <ReactSVG
           src={iconPath}
           className='inputCustom-icon'
           beforeInjection={(svg) => {
-            svg.setAttribute('class', `w-4 h-4 fill-orange-500`);
+            svg.setAttribute('class', `w-${iconSize} h-${iconSize} ${iconStyle}`);
           }}
         />
       ) : null}
