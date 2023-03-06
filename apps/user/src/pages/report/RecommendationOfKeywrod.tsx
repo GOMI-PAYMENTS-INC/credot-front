@@ -32,7 +32,7 @@ interface IRecommendationOfKeyword {
 export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
   const { relation, _dispatch, toggleEvent, spinnerEvent } = props;
   const batchStatusDoneItems = relation.filter((data) =>
-    isIncluded(data.batchStatus, BATCH_STATUS.DONE),
+    isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
   );
   const isDone = relation.length === batchStatusDoneItems.length;
 
