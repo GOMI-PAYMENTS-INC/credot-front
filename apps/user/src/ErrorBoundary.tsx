@@ -24,7 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      location.replace('/error');
+      location.assign('/error');
       return;
     }
 
