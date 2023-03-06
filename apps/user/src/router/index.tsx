@@ -26,7 +26,6 @@ export const Router = () => {
         PATH.SEARCH_PRODUCTS,
         PATH.GET_REPORT_LIST,
         PATH.ANALYSIS_REPORT_LIST,
-        PATH.ERROR_PAGE,
       )
     ) {
       navigation(PATH.SIGN_IN);
