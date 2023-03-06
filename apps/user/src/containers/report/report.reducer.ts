@@ -5,7 +5,7 @@ const reportInitialState: TReportState = {
   main: null,
   relation: [],
   salePrice: { data: null, focus: GRADE_ITEMS.HIGH, list: [] },
-  scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
+  scrollEvent: { title: 'Report', isOpen: true, current: 'Report' },
   toggleEvent: [],
   spinnerEvent: false,
 };
@@ -82,6 +82,7 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
     }
     case REPORT_ACTION.SPINNER_EVENT: {
       state.spinnerEvent = !state.spinnerEvent;
+      return state;
     }
     case REPORT_ACTION.FOCUS_ITEMS: {
       state.salePrice.focus = action.payload.focus;

@@ -48,13 +48,16 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
       <div className='pt-6'>
         <div className='flex divide-x-[1px]  divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='basis-[390px]'>
-            <div className='flex h-10 items-center bg-grey-100 pl-5 text-left'>
-              <span className='text-S/Medium text-grey-900'>종합 평가</span>
-              <span>
+            <div className='keywordInfo-span-subtitle'>
+              <span>종합 평가</span>
+              <span className='fill-grey-500'>
                 <ReactSVG
                   id='anchor-market-evaluation'
                   src='/assets/icons/outlined/QuestionCircle.svg'
-                  className='pl-[7px]'
+                  className='fill-grey-500 pl-[7px]'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                  }}
                 />
                 <Tooltip
                   anchorId='anchor-market-evaluation'
@@ -130,13 +133,16 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             </div>
           </div>
           <div className='flex-1'>
-            <div className='flex h-10 w-full items-center bg-grey-100 pl-5 text-left '>
-              <span className=' text-S/Medium text-grey-900'>상세 데이터</span>
+            <div className='keywordInfo-span-subtitle'>
+              <span>상세 데이터</span>
               <span>
                 <ReactSVG
                   id='anchor-market-detail'
                   src='/assets/icons/outlined/QuestionCircle.svg'
                   className='pl-[7px]'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                  }}
                 />
                 <Tooltip
                   anchorId='anchor-market-detail'

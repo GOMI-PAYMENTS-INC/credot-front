@@ -16,10 +16,8 @@ export const ErrorPage = () => {
         <button
           className='button-filled-normal-large-primary-false-false-true h-12 w-[200px] bg-grey-200'
           onClick={async () => {
-            window.history.back();
-            setTimeout(() => {
-              window.location.reload();
-            }, 100);
+            history.go(-1);
+            setTimeout(() => window.location.reload(), 100);
           }}
         >
           <p className='text-M/Bold text-grey-800'>이전 화면으로</p>
