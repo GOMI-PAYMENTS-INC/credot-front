@@ -1,6 +1,5 @@
 import { RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
 
 import { openBrowser } from '@/containers/report';
 import { formatNumber } from '@/utils/formatNumber';

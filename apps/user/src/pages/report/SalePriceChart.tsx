@@ -5,7 +5,6 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
   SubTitle,
 } from 'chart.js';
 
