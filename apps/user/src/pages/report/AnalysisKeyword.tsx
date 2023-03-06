@@ -55,6 +55,9 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   id='anchor-market-evaluation'
                   src='/assets/icons/outlined/QuestionCircle.svg'
                   className='fill-grey-500 pl-[7px]'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                  }}
                 />
                 <Tooltip
                   anchorId='anchor-market-evaluation'
@@ -137,6 +140,9 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   id='anchor-market-detail'
                   src='/assets/icons/outlined/QuestionCircle.svg'
                   className='pl-[7px]'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                  }}
                 />
                 <Tooltip
                   anchorId='anchor-market-detail'

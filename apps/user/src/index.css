@@ -95,13 +95,6 @@ body {
   .keywordInfo-span-subtitle {
     @apply flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
   }
-  .keywordInfo-span-subtitle svg {
-    @apply h-4 w-4 fill-grey-500;
-  }
-
-  .fillSVG svg {
-    @apply h-4 w-4 fill-grey-500;
-  }
 }
 
 /* Works on Firefox */

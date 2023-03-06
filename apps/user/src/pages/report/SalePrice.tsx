@@ -40,13 +40,16 @@ export const SalePrice = (props: ISalePrice) => {
       <div className='pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='col-span-2 '>
-            <div className='fillSVG flex bg-grey-100'>
+            <div className='flex bg-grey-100'>
               <div className='py-2.5 pl-5 '>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
               </div>
               <ReactSVG
                 id='anchor-market-salesInfo'
                 src='/assets/icons/outlined/QuestionCircle.svg'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                }}
                 className='flex self-center pl-[5px]'
               />
               <Tooltip
@@ -154,11 +157,14 @@ export const SalePrice = (props: ISalePrice) => {
               })}
             </div>
           </div>
-          <div className='fillSVG ml-[11px]'>
+          <div className='ml-[11px]'>
             <ReactSVG
               id='anchor-market-salesChart'
               src='/assets/icons/outlined/QuestionCircle.svg'
               className='flex self-center pl-[5px]'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+              }}
             />
             <Tooltip
               anchorId='anchor-market-salesChart'
