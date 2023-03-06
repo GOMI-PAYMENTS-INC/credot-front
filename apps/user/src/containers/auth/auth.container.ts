@@ -187,29 +187,31 @@ export const AuthContainer = () => {
   // 소셜 회원가입 끝
 
   // 로컬 로그인 시작
-  const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
-    onSuccess: (res) => {
-      // 로그인 토큰 설정
-      setToken(res.login.token);
-      authTokenStorage.setToken(isLoginStorage, res.login.token);
-      // isLogin 상태 변경
-      handleChangeLoginState(true);
-      // 임시비밀번호로 로그인 한 경우
-      if (res.login.popupInfo) {
-        sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
-        setTemporaryPasswordLogin(true);
-        navigation(PATH.REAPPLY_PASSWORD);
-      } else {
-        setTemporaryPasswordLogin(false);
-        navigation(PATH.SEARCH_PRODUCTS);
-      }
+  const { mutate: loginMutate, error: loginMutateError } = useLoginMutation(
+    graphQLClient,
+    {
+      onSuccess: (res) => {
+        // 로그인 토큰 설정
+        setToken(res.login.token);
+        authTokenStorage.setToken(isLoginStorage, res.login.token);
+        // isLogin 상태 변경
+        handleChangeLoginState(true);
+        // 임시비밀번호로 로그인 한 경우
+        if (res.login.popupInfo) {
+          sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
+          setTemporaryPasswordLogin(true);
+          navigation(PATH.REAPPLY_PASSWORD);
+        } else {
+          setTemporaryPasswordLogin(false);
+          navigation(PATH.SEARCH_PRODUCTS);
+        }
+      },
+
+      onError: (err) => {
+        console.error(err);
+      },
     },
-    onError: (err) => {
-      const error = JSON.parse(JSON.stringify(err));
-      console.error('로그인 실패 : ', error);
-      toast.error('아이디 또는 패스워드를 다시 한 번 확인해주세요.');
-    },
-  });
+  );
 
   const onSubmitSignIn = (value: LoginInput) => {
     const loginFormValue: MutationLoginArgs = {
@@ -357,6 +359,7 @@ export const AuthContainer = () => {
     onSendSmsVerifyCode,
     onSubmitSignUp,
     onSubmitSignIn,
+    loginMutateError,
     onSubmitSignUpSocial,
     onLogout,
     onGoogleLoginButton,
