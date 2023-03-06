@@ -142,15 +142,15 @@ const SignIn = () => {
             <div className='flex items-center justify-between'>
               <div className='flex items-center'>
                 <input
-                  id='rememter_me'
-                  name='rememter_me'
+                  id='remember_me'
+                  name='remember_me'
                   type='checkbox'
                   className='checkboxCustom peer'
                   checked={isLoginStorage}
                   onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
-                  htmlFor='rememter_me'
+                  htmlFor='remember_me'
                   className='checkboxCustom-label bg-[length:24px_24px] bg-[left_top_50%] pl-[30px] text-S/Regular  '
                 >
                   로그인 상태 유지
