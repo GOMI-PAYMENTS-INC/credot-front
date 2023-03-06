@@ -102,12 +102,59 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
         </thead>
 
         <tbody>
-          {isFalsy(relation) || isFalsy(isDone) ? (
+          {isFalsy(relation) && (
             <Fragment>
               <tr className='mt-3 flex' />
               <EmptyRecommendation />
             </Fragment>
-          ) : (
+          )}
+
+          {isFalsy(relation) === false && isFalsy(batchStatusDoneItems) && (
+            <Fragment>
+              <tr className='mt-3 flex' />
+              <tr>
+                <td colSpan={10}>
+                  <div className='relative flex items-center justify-center'>
+                    <img
+                      src='/assets/images/EmptyRow.png'
+                      className='relative border-[1px] border-grey-300'
+                    />
+                    <div className='absolute flex flex-col items-center justify-center border-[1px] border-grey-300 bg-white'>
+                      <div className='flex py-3 px-3'>
+                        <p className=' text-S/Regular'>
+                          추천 키워드의 정보를 수집중이에요. <br /> 새로고침을 통해
+                          수집현황을 확인해주세요.
+                        </p>
+                        <div className='flex pl-[26px]'>
+                          <button
+                            className='button-outlined-small-xLarge-primary-false-false-true relative'
+                            onClick={() => {
+                              _getRelationReport(routeId.id!, _dispatch);
+                              buttonSpinnerEvent(_dispatch);
+                              delayEvent(() => buttonSpinnerEvent(_dispatch), 1000);
+                            }}
+                          >
+                            {spinnerEvent ? (
+                              <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
+                                <div className='absolute scale-[0.12] '>
+                                  <div id='loader' />
+                                </div>
+                              </div>
+                            ) : (
+                              <p className='px-[18px]'>새로고침</p>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </Fragment>
+          )}
+
+          {isFalsy(relation) === false &&
+            isFalsy(batchStatusDoneItems) === false &&
             batchStatusDoneItems.map((data, idx) => {
               const [search, competiton, cpc] = data.evaluateStatus;
               const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
@@ -270,11 +317,6 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                                       );
                                     }}
                                   >
-                                    {/* <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
-                                      <div className='absolute scale-[0.12] '>
-                                        <div id='loader' />
-                                      </div>
-                                    </div> */}
                                     {spinnerEvent ? (
                                       <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
                                         <div className='absolute scale-[0.12] '>
@@ -295,8 +337,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                   )}
                 </Fragment>
               );
-            })
-          )}
+            })}
         </tbody>
       </table>
     </section>
