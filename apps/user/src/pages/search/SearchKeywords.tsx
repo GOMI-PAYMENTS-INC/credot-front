@@ -74,7 +74,7 @@ const SearchKeywords = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
-
+  console.log(data, 'Data');
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -260,9 +260,14 @@ const SearchKeywords = () => {
                 <div className='mt-10'>
                   <button
                     className={`w-full rounded-md bg-orange-500 py-4 ${
-                      _state.keyword === '' && 'opacity-30'
+                      (_state.keyword === '' ||
+                        (typeof data !== 'boolean' && data?.main.count === 0)) &&
+                      'opacity-30'
                     }`}
-                    disabled={_state.keyword === ''}
+                    disabled={
+                      _state.keyword === '' ||
+                      (typeof data !== 'boolean' && data?.main.count === 0)
+                    }
                     onClick={() => {
                       const payload = { _dispatch, status: true, data: data, _state };
                       switchModal(payload);
