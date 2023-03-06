@@ -35,6 +35,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
     isIncluded(data.batchStatus, BATCH_STATUS.DONE),
   );
   const isDone = relation.length === batchStatusDoneItems.length;
+
   const routeId = useParams();
   return (
     <section>
@@ -101,7 +102,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
         </thead>
 
         <tbody>
-          {isFalsy(relation) ? (
+          {isFalsy(relation) || isFalsy(isDone) ? (
             <Fragment>
               <tr className='mt-3 flex' />
               <EmptyRecommendation />

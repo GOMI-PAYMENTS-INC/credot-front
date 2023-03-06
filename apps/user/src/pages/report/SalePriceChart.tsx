@@ -39,8 +39,14 @@ export const SalePriceChart = (props: ISalePriceChart) => {
         res.push(roundNumber(min + levelBound * (index + 1)));
       }
     }
-    return res.map((el) => (typeof el === 'string' ? parseInt(el) : el));
+    return res.map((price) => (typeof price === 'string' ? parseInt(price) : price));
   }, [min, max]);
+
+  const countProducts = useMemo(() => {
+    const countProducts = countProductsByPrice(salePriceScope, items);
+    const maxCount = Math.max(...countProducts);
+    return { countProducts: countProducts, max: maxCount };
+  }, [salePriceScope]);
 
   const [minPrice, maxPrice, gap] = [min, max, levelBound].map((price) =>
     convertExachangeRate(price, basePrice),
@@ -56,7 +62,6 @@ export const SalePriceChart = (props: ISalePriceChart) => {
         beginAtZero: true,
         steps: 5,
         stepValue: 5,
-        max: 20 + 5,
       },
     },
 
@@ -89,21 +94,12 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const labels = [
-    ['230', '23,116'],
-    ['23,116', '34,558'],
-    ['34,558', '46,001'],
-    ['46,001', '57,444'],
-    ['57,444', '68,887'],
-    ['68,887', '80,330'],
-    ['80,330'],
-  ]; //salePriceScope;
-
+  const labels = salePriceScope.map((price) => formatNumber(price));
   const data = {
     labels,
     datasets: [
       {
-        data: [2, 4, 14, 20, 15, 4, 1], //salePriceScope,
+        data: countProducts.countProducts,
         backgroundColor: 'rgba(255,163,120)',
       },
     ],

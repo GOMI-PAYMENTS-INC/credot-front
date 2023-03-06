@@ -5,7 +5,7 @@ const reportInitialState: TReportState = {
   main: null,
   relation: [],
   salePrice: { data: null, focus: GRADE_ITEMS.HIGH, list: [] },
-  scrollEvent: { title: 'Report', isOpen: false, current: 'Report' },
+  scrollEvent: { title: 'Report', isOpen: true, current: 'Report' },
   toggleEvent: [],
   spinnerEvent: false,
 };
