@@ -52,6 +52,7 @@ const DetailReport = () => {
           relation={relation}
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
+          basePrice={main.basePrice}
         />
         <SalePrice
           scollerRef={scrollController}
