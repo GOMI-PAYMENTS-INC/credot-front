@@ -30,7 +30,7 @@ export const SalePrice = (props: ISalePrice) => {
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExachangeRate(price, basePrice))),
   );
-  const [lowLength, mediumLength, highLength] = gradeItems.map((item) => item.length);
+  const [highLength, mediumLength, lowLength] = gradeItems.map((item) => item.length);
 
   return (
     <section className='col-span-full'>

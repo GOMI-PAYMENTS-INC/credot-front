@@ -21,16 +21,18 @@ import {
   _getRelationReport,
   delayEvent,
   buttonSpinnerEvent,
+  convertExachangeRate,
 } from '@/containers/report/report.container';
 interface IRecommendationOfKeyword {
   relation: TGetRelationReportDataType[];
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  basePrice: number;
 }
 
 export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
-  const { relation, _dispatch, toggleEvent, spinnerEvent } = props;
+  const { relation, _dispatch, toggleEvent, spinnerEvent, basePrice } = props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
   );
@@ -222,14 +224,18 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                       <div className='flex flex-col flex-wrap-reverse py-3 pr-3'>
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
-                            {formatNumber(data.cpcPrice)}
+                            {formatNumber(
+                              roundNumber(convertExachangeRate(data.cpcPrice, basePrice)),
+                            )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
                         </div>
                         <hr className='my-[3px] ml-[62px] border-grey-300' />
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
-                            {formatNumber(data.avgPrice)}
+                            {formatNumber(
+                              roundNumber(convertExachangeRate(data.avgPrice, basePrice)),
+                            )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
                         </div>

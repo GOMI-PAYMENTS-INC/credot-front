@@ -371,10 +371,10 @@ export const selectSalePriceCompetitionType = (
 export const convertGrade = (item: GRADE_ITEMS) => {
   switch (item) {
     case GRADE_ITEMS.HIGH:
-      return '높은';
+      return '높음';
     case GRADE_ITEMS.MEDIUM:
       return '보통';
     default:
-      return '낮은';
+      return '낮음';
   }
 };
