@@ -290,8 +290,7 @@ export const roundNumber = (number: number | string) => {
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
 
   if (secondPlaceNumber === '0') return 0;
-
-  return parseInt(fixedNumber);
+  return fixedNumber;
 };
 
 export const delayEvent = (callback: () => void, time: number) => {

@@ -94,7 +94,9 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const labels = salePriceScope.map((price) => formatNumber(price));
+  const labels = salePriceScope.map((price) =>
+    formatNumber(convertExachangeRate(price, basePrice)),
+  );
   const data = {
     labels,
     datasets: [
