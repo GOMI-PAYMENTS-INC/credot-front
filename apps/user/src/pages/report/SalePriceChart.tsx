@@ -25,14 +25,13 @@ interface ISalePriceChart {
 export const SalePriceChart = (props: ISalePriceChart) => {
   const { items, priceAnalysisInfo, gradeItems } = props.priceChartProps!;
   const { min, max, levelBound, levelCount, basePrice } = priceAnalysisInfo;
-  const [low, avg, high] = gradeItems;
 
   const salePriceScope = useMemo(() => {
     const res = [];
     for (let index = 0; index < levelCount; index++) {
       if (index === 0) {
         res.push(roundNumber(min));
-      } else if (index === 6) {
+      } else if (index === levelCount) {
         res.push(roundNumber(max));
       } else {
         res.push(roundNumber(min + levelBound * (index + 1)));
@@ -44,12 +43,9 @@ export const SalePriceChart = (props: ISalePriceChart) => {
   const countProducts = useMemo(() => {
     const countProducts = countProductsByPrice(salePriceScope, items);
     const maxCount = Math.max(...countProducts);
+
     return { countProducts: countProducts, max: maxCount };
   }, [salePriceScope]);
-
-  const [minPrice, maxPrice, gap] = [min, max, levelBound].map((price) =>
-    convertExachangeRate(price, basePrice),
-  );
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, SubTitle);
 
@@ -59,8 +55,6 @@ export const SalePriceChart = (props: ISalePriceChart) => {
       y: {
         display: true,
         beginAtZero: true,
-        steps: 5,
-        stepValue: 5,
       },
     },
 

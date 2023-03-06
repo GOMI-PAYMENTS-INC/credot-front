@@ -305,17 +305,17 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
 
 export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) => {
   const store = new Set();
-  return scope
-    .map((price) =>
-      items.filter((item) => {
-        if (store.has(item.id) === false && item.itemPriceMin <= price) {
-          store.add(item.id);
-          return items;
-        }
-        return;
-      }),
-    )
-    .map((data) => data.length);
+  const res = scope.map((price) =>
+    items.filter((item) => {
+      if (store.has(item.id) === false && item.itemPriceMin <= price) {
+        store.add(item.id);
+        return item;
+      }
+      return;
+    }),
+  );
+
+  return res.map((data) => data.length);
 };
 //리스트 > 출력 개수 변경시
 export const onChangeOffsetCount = (
