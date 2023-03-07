@@ -155,7 +155,7 @@ export const SalePrice = (props: ISalePrice) => {
                     }}
                   >
                     <p className={`px-2 py-2 ${highlight.textStyle}`}>
-                      {`가격경쟁력 ${convertGrade(item)}`}
+                      {`가격 ${convertGrade(item)} 상품`}
                       <span className={highlight.spanStyle}>{` ${countItem}`}</span>
                     </p>
                   </div>
@@ -180,11 +180,11 @@ export const SalePrice = (props: ISalePrice) => {
               <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4 text-XS/Regular text-grey-800'>
                 <div className='flex space-x-3'>
                   <div className='flex flex-col'>
-                    <p className='pt-2 text-XS/Bold'>가격경쟁력 높음</p>
+                    <p className='pt-2 text-XS/Bold'>가격 높음 상품</p>
                     <span>최저가순 상위 1~10위 상품들이에요.</span>
-                    <p className='pt-2 text-XS/Bold'>가격경쟁력 보통</p>
+                    <p className='pt-2 text-XS/Bold'>가격 보통 상품</p>
                     <span>최저가순 상위 11~30위 상품들이에요.</span>
-                    <p className='pt-2 text-XS/Bold'>가격경쟁력 낮음</p>
+                    <p className='pt-2 text-XS/Bold'>가격 낮음 상품</p>
                     <span>최저가순 상위 31~50위 상품들이에요.</span>
                   </div>
                   <div className='flex flex-col'>

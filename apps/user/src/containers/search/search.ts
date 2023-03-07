@@ -92,14 +92,14 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
         return postReport;
       }
 
-      const { is_daily, created_at } = reportInfo.data;
+      const { isDaily, createdAt } = reportInfo.data;
 
       _dispatch({
         type: actionType,
-        payload: { isModalOpen: true, modalType: dailyChecker(is_daily) },
+        payload: { isModalOpen: true, modalType: dailyChecker(isDaily) },
       });
 
-      _dispatch({ type: SearchAction.UpdateCreatedAt, payload: created_at });
+      _dispatch({ type: SearchAction.UpdateCreatedAt, payload: createdAt });
 
       return res;
     }

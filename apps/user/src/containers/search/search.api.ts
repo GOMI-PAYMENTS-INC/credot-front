@@ -49,7 +49,7 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
 type TReportExistedResponseType = {
   code: STATUS_CODE;
   message: string;
-  data: { is_daily: boolean; created_at: Date } | null;
+  data: { isDaily: boolean; createdAt: Date } | null;
 };
 
 export const getReportExisted = async (queryString: { text: string }) => {
