@@ -145,7 +145,7 @@ export const SalePrice = (props: ISalePrice) => {
                     key={`${item}_${idx}`}
                     onClick={() => {
                       selectSalePriceCompetitionType(item, _dispatch);
-                      scrollToTop(_dispatch, scollerRef);
+                      scollerRef.current?.scroll(0, 0);
                     }}
                   >
                     <p className={`px-2 py-2 ${highlight.textStyle}`}>

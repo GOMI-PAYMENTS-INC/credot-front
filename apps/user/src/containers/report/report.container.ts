@@ -4,7 +4,7 @@ import {
   getRelationReport,
   getSalePrice,
 } from './report.api';
-import { ChangeEvent, Dispatch, RefObject } from 'react';
+import { ChangeEvent, Dispatch, RefObject, SetStateAction } from 'react';
 
 import {
   REPORT_ACTION,
@@ -93,28 +93,7 @@ export const updateTitle = (
   curHeight: number,
   _dispatch: Dispatch<TReportAction>,
   name?: string,
-) => {
-  if (curHeight < 100) {
-    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: TITLE.REPORT });
-    return;
-  } else {
-    _dispatch({ type: REPORT_ACTION.SCROLL_EVENT, payload: name });
-  }
-  if (curHeight > 203 && curHeight < 452) {
-    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.MARTKET_SIZE });
-  }
-  if (curHeight > 453 && curHeight < 870) {
-    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.KEYWORD_INFO });
-  }
-
-  if (curHeight > 871 && curHeight < 1569) {
-    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.RECOMMEND_KEYWORD });
-  }
-
-  if (curHeight > 1570) {
-    _dispatch({ type: REPORT_ACTION.UPDATE_CURRENT, payload: TITLE.SALE_PRICE });
-  }
-};
+) => {};
 
 export const isToggleOpen = (
   _dispatch: Dispatch<TReportAction>,
@@ -156,15 +135,6 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   } catch (error) {
     console.error(error);
   }
-};
-
-export const scrollToTop = (
-  _dispatch: Dispatch<TReportAction>,
-  scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
-) => {
-  scrollInfo.current?.scroll(0, 0);
-  if (scrollInfo.current?.tagName === 'TBODY') return;
-  _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
 
 export const reportListConverter = (item: TReportItem) => {
@@ -351,16 +321,6 @@ export const onChangeOffsetCount = (
   }
 };
 
-// 상세페이지 > 스크롤 시 상단 헤더 내용 변경
-export const onScrollDetail = (
-  event: React.UIEvent<HTMLElement>,
-  _dispatch: Dispatch<TReportAction>,
-  main: KeywordInfo,
-): void => {
-  const scrollTop = (event.target as HTMLElement).scrollTop;
-  updateTitle(scrollTop, _dispatch, main.text);
-};
-
 export const selectSalePriceCompetitionType = (
   focus: GRADE_TYPE,
   _dispatch: Dispatch<TReportAction>,
@@ -395,4 +355,54 @@ export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
   });
 
   return removedOutliner;
+};
+
+export const onScrollDetail = (
+  _state: TScrollEvent,
+  _setState: Dispatch<SetStateAction<TScrollEvent>>,
+  name: string = '',
+): void => {
+  const { scrollY } = _state;
+
+  if (scrollY < 100) {
+    _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
+    return;
+  } else {
+    _setState(Object.assign({}, _state, { title: name }));
+  }
+  if (scrollY > 203 && scrollY < 452) {
+    _setState(Object.assign({}, _state, { current: TITLE.MARTKET_SIZE }));
+  }
+  if (scrollY > 453 && scrollY < 870) {
+    _setState(Object.assign({}, _state, { current: TITLE.KEYWORD_INFO }));
+  }
+
+  if (scrollY > 871 && scrollY < 1569) {
+    _setState(Object.assign({}, _state, { current: TITLE.RECOMMEND_KEYWORD }));
+  }
+
+  if (scrollY > 1570) {
+    _setState(Object.assign({}, _state, { current: TITLE.SALE_PRICE }));
+  }
+};
+
+export const switchContents = (
+  _state: TScrollEvent,
+  _setState: Dispatch<SetStateAction<TScrollEvent>>,
+) => {
+  _setState(Object.assign({}, _state, { isOpen: !_state.isOpen }));
+};
+
+export const scrollToTop = (
+  _setState: Dispatch<SetStateAction<TScrollEvent>>,
+  scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
+) => {
+  scrollInfo.current?.scroll(0, 0);
+  if (scrollInfo.current?.tagName === 'TBODY') return;
+  _setState({
+    scrollY: 0,
+    title: 'Report',
+    isOpen: true,
+    current: 'Report',
+  });
 };
