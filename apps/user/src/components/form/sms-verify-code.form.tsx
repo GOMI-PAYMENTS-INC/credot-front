@@ -84,7 +84,7 @@ const SmsVerifyCodeForm = ({
     if (onConfirmVerifyCode.isError) {
       setError('verifyCode', {
         type: 'custom',
-        message: '인증번호가 올바르지 않습니다.',
+        message: '인증번호가 올바르지 않아요.',
       });
     }
   }, [onConfirmVerifyCode.isError]);
@@ -228,10 +228,12 @@ const SmsVerifyCodeForm = ({
                 },
               })}
             />
-            <InputIcon
-              status={errors?.verifyCode ? INPUTSTATUS.ERROR : undefined}
-              iconSize={5}
-            />
+            {/* 인증번호 확인 여부에 다른 출력 시작 */}
+            {verifyCodeSign ? (
+              <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
+            ) : (
+              <InputIcon time={{ minutes, seconds }} />
+            )}
           </div>
           {errors?.verifyCode?.message && (
             <p className='inputCustom-helptext'>{errors?.verifyCode?.message}</p>
