@@ -75,7 +75,14 @@ const SideBar = () => {
           </div>
           <ul className='mb-6 space-y-6 leading-none'>
             <li className='text-center'>
-              <button className='iconButton-medium-normal-ghost-grey'>
+              <button
+                className='iconButton-medium-normal-ghost-grey'
+                onClick={() =>
+                  openBrowser(
+                    'https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34',
+                  )
+                }
+              >
                 <ReactSVG
                   src='/assets/icons/outlined/QuestionCircle.svg'
                   beforeInjection={(svg) => {
@@ -218,17 +225,13 @@ const SideBar = () => {
                       svg.setAttribute('class', `w-5 fill-grey-800`);
                     }}
                   />
-
-                  <span
-                    onClick={() =>
-                      openBrowser(
-                        'https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34',
-                      )
-                    }
+                  <a
+                    href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'
+                    target='_blank'
                     className='ml-2 cursor-pointer'
                   >
                     사용자 가이드
-                  </span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -261,30 +264,6 @@ const SideBar = () => {
                   />
                 </div>
               </a>
-              {_state.openedUserMenu ? (
-                <div className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
-                  <ul className=''>
-                    {/*<li className='px-4 py-3'>*/}
-                    {/*  <a className='text-S/Regular text-grey-900'>계정 정보</a>*/}
-                    {/*</li>*/}
-                    {/*<li className='px-4 py-3'>*/}
-                    {/*  <a className='text-S/Regular text-grey-900'>요금제</a>*/}
-                    {/*</li>*/}
-                    {/*<li className='px-4 py-3'>*/}
-                    {/*  <a className='text-S/Regular text-grey-900'>공지사항</a>*/}
-                    {/*</li>*/}
-                    <li className='px-4 py-3'>
-                      <a
-                        href='#'
-                        onClick={onLogout}
-                        className='text-S/Regular text-red-700'
-                      >
-                        로그아웃
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              ) : null}
             </div>
           </div>
         </div>
