@@ -79,7 +79,9 @@ const ResetPassword = () => {
                     },
                   })}
                 />
-                <p className='inputCustom-helptext'>{errors?.password?.message}</p>
+                {errors?.password?.message && (
+                  <p className='inputCustom-helptext'>{errors?.password?.message}</p>
+                )}
               </div>
 
               <div className='space-y-2'>
@@ -93,11 +95,13 @@ const ResetPassword = () => {
                   placeholder='비밀번호를 한 번 더 입력해주세요.'
                   // @ts-ignore
                   {...register('newPassword', {
-                    validate: (value) =>
+                    validate: (value: string) =>
                       value === passwordWatcher || '비밀번호가 일치하지 않아요.',
                   })}
                 />
-                <p className='inputCustom-helptext'>{errors?.newPassword?.message}</p>
+                {errors?.newPassword?.message && (
+                  <p className='inputCustom-helptext'>{errors?.newPassword?.message}</p>
+                )}
               </div>
             </div>
             <div className='space-y-3'>

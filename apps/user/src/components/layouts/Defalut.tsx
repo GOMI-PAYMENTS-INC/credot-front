@@ -9,9 +9,11 @@ export interface IDefalutProps {
 export const Defalut = ({ children }: IDefalutProps) => {
   return (
     <Fragment>
-      <div className='flex h-full'>
-        <SideBar />
-        <div className='flex w-full flex-col'>{children}</div>
+      <div className='h-screen'>
+        <div className='flex h-full'>
+          <SideBar />
+          <div className='flex w-full flex-col'>{children}</div>
+        </div>
       </div>
     </Fragment>
   );

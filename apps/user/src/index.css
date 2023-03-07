@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 html,
-body {
+body,
+#root,
+main{
   height: 100%;
+  min-width: 1000px;
 }
 
 @layer base {
@@ -21,7 +24,7 @@ body {
     @apply mx-auto my-0 min-w-[1180px] max-w-[1180px];
   }
   .container-common {
-    @apply m-auto min-w-[1320px] max-w-[1320px];
+    @apply m-auto w-full max-w-[1320px];
   }
 }
 
@@ -36,7 +39,7 @@ body {
 
   /*input*/
   .inputCustom-group{
-    @apply space-y-2;
+    @apply space-y-1;
   }
   .inputCustom-label {
     @apply ml-0.5 text-S/Medium text-grey-800;

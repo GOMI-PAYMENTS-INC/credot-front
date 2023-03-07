@@ -7,11 +7,13 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 
 interface ISignUpSocialForm {
   idToken: string;
   phone: string;
   verifyCode: string;
+  allCheckBox: boolean;
   useAgree: boolean;
   personalAgree: boolean;
   marketingAgree: boolean;
@@ -32,8 +34,10 @@ const SignUpSocial = () => {
   } = useForm<ISignUpSocialForm>({
     mode: 'onChange',
   });
+  const allCheckBox = watch('allCheckBox');
   const useAgree = watch('useAgree');
   const personalAgree = watch('personalAgree');
+  const marketingAgree = watch('marketingAgree');
 
   const onValid = () => {
     const signUpInput: GoogleSignUpInput = {
@@ -49,6 +53,7 @@ const SignUpSocial = () => {
   };
 
   const onAllCheckbox = (value: boolean) => {
+    setValue('allCheckBox', value);
     setValue('useAgree', value);
     setValue('personalAgree', value);
     setValue('marketingAgree', value);
@@ -66,24 +71,25 @@ const SignUpSocial = () => {
       <div className='flex h-full flex-col justify-between'>
         <div>
           <div>
-            <h3 className='text-left text-3XL/medium'>회원가입</h3>
+            <h3 className='text-left text-3XL/medium text-grey-800'>회원가입</h3>
           </div>
 
           <form className='mt-10 space-y-8' onSubmit={handleSubmit(onValid, onInvalid)}>
             {/*이메일*/}
-            <div className='space-y-1'>
-              <label htmlFor='email' className='inputCustom-label'>
+            <div className='inputCustom-group'>
+              <label className='inputCustom-label' htmlFor='email'>
                 이메일
               </label>
-
-              <input
-                className=' inputCustom-textbox w-full'
-                type='email'
-                id='email'
-                value={userInfo?.me.email}
-                placeholder='이메일'
-                readOnly
-              />
+              <div className='inputCustom-textbox-wrap'>
+                <input
+                  className=' inputCustom-textbox w-full'
+                  type='email'
+                  id='email'
+                  value={userInfo?.me.email}
+                  placeholder='이메일'
+                  readOnly
+                />
+              </div>
             </div>
 
             {/*휴대폰 인증*/}
@@ -106,6 +112,8 @@ const SignUpSocial = () => {
                 <input
                   type='checkbox'
                   id='all-agree'
+                  checked={allCheckBox}
+                  {...register('allCheckBox')}
                   className='termsCheckbox peer'
                   onChange={(event) => onAllCheckbox(event.target.checked)}
                 />
@@ -118,7 +126,20 @@ const SignUpSocial = () => {
                   <input
                     type='checkbox'
                     id='allAgree'
-                    {...register('useAgree')}
+                    checked={useAgree}
+                    {...register('useAgree', {
+                      onChange: (event) => {
+                        if (allCheckBox) {
+                          if (event.target.checked === false) {
+                            setValue('allCheckBox', false);
+                          }
+                        } else {
+                          if (marketingAgree && personalAgree && event.target.checked) {
+                            setValue('allCheckBox', true);
+                          }
+                        }
+                      },
+                    })}
                     className='termsCheckbox peer'
                   />
                   <label htmlFor='allAgree' className='termsBodyCheckbox-label'>
@@ -133,7 +154,20 @@ const SignUpSocial = () => {
                   <input
                     type='checkbox'
                     id='personal-agree'
-                    {...register('personalAgree')}
+                    checked={personalAgree}
+                    {...register('personalAgree', {
+                      onChange: (event) => {
+                        if (allCheckBox) {
+                          if (event.target.checked === false) {
+                            setValue('allCheckBox', false);
+                          }
+                        } else {
+                          if (useAgree && marketingAgree && event.target.checked) {
+                            setValue('allCheckBox', true);
+                          }
+                        }
+                      },
+                    })}
                     className='termsCheckbox peer'
                   />
                   <label htmlFor='personal-agree' className='termsBodyCheckbox-label'>
@@ -149,7 +183,20 @@ const SignUpSocial = () => {
                     type='checkbox'
                     id='marketing-agree'
                     className='termsCheckbox peer'
-                    {...register('marketingAgree')}
+                    checked={marketingAgree}
+                    {...register('marketingAgree', {
+                      onChange: (event) => {
+                        if (allCheckBox) {
+                          if (event.target.checked === false) {
+                            setValue('allCheckBox', false);
+                          }
+                        } else {
+                          if (useAgree && personalAgree && event.target.checked) {
+                            setValue('allCheckBox', true);
+                          }
+                        }
+                      },
+                    })}
                   />
                   <label htmlFor='marketing-agree' className='termsBodyCheckbox-label'>
                     마케팅 정보 활용 및 서비스 관련 수신 동의(선택)

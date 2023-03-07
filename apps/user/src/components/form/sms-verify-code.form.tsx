@@ -9,6 +9,7 @@ import {
   CountryType,
   SendSmsVerificationCodeMutationVariables,
 } from '@/generated/graphql';
+import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 
 export interface SmsVerifyCodeProps {
   useLabel?: boolean;
@@ -130,38 +131,50 @@ const SmsVerifyCodeForm = ({
   };
 
   return (
-    <div className='space-y-2'>
+    <div className='space-y-1'>
       {useLabel && (
-        <label htmlFor='verify' className='inputCustom-label'>
-          휴대폰 인증
-        </label>
+        <div>
+          <label className='inputCustom-label' htmlFor='email'>
+            휴대폰 인증
+          </label>
+        </div>
       )}
-      <div className='space-y-1'>
-        <div className='flex items-center'>
-          {/*TODO 발송 후 input들 수정안되게 할 것*/}
-          <input
-            id='verify'
-            className={`inputCustom-textbox w-full ${errors?.phone ? 'error' : ''}`}
-            type='text'
-            placeholder='휴대폰번호를 숫자만 입력해주세요.'
-            maxLength={11}
-            disabled={phoneDisable}
-            {...register('phone', {
-              required: '휴대폰번호 필수입력입니다.',
-              pattern: {
-                value: /(010)[0-9]{8}$/g,
-                message: '올바른 휴대폰번호를 입력해주세요.',
-              },
-              onChange: (event) => {
-                event.target.value = event.target.value.replace(/[^0-9]/g, '');
-                onChangePhone?.(event.target.value);
-              },
-            })}
-          />
+      <div className='flex items-start'>
+        <div className='inputCustom-group grow'>
+          <div className='inputCustom-textbox-wrap'>
+            <input
+              className={`inputCustom-textbox w-full ${errors?.phone ? 'error' : ''}`}
+              id='verify'
+              type='text'
+              placeholder='휴대폰번호를 숫자만 입력해주세요.'
+              maxLength={11}
+              disabled={phoneDisable}
+              {...register('phone', {
+                required: '휴대폰번호 입력해주세요.',
+                pattern: {
+                  value: /(010)[0-9]{8}$/g,
+                  message: '올바른 휴대폰번호를 입력해주세요.',
+                },
+                onChange: (event) => {
+                  event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                  onChangePhone?.(event.target.value);
+                },
+              })}
+            />
+            <InputIcon
+              status={errors?.phone ? INPUTSTATUS.ERROR : undefined}
+              iconSize={5}
+            />
+          </div>
+          {errors?.phone?.message && (
+            <p className='inputCustom-helptext'>{errors?.phone?.message}</p>
+          )}
+        </div>
 
-          {/* 발송 여부에 따른 버튼 출력이 다름 시작 */}
-          {/* 발송하기전 */}
-          {/* eslint-disable-next-line no-nested-ternary */}
+        {/* 발송 여부에 따른 버튼 출력이 다름 시작 */}
+        {/* 발송하기전 */}
+        {/* eslint-disable-next-line no-nested-ternary */}
+        <div className='basis-[102px]'>
           {verifyCodeCount === 0 ? (
             <button
               type='button'
@@ -188,19 +201,18 @@ const SmsVerifyCodeForm = ({
               재발송
             </button>
           )}
-          {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
         </div>
-        <div>
-          <p className='inputCustom-helptext'>{errors?.phone?.message}</p>
-        </div>
+        {/* 발송 여부에 따른 버튼 출력이 다름 끝 */}
       </div>
+
       {!!verifyCodeCount && (
-        <div className='space-y-1'>
-          <div className='relative w-full content-center'>
+        <div className='inputCustom-group'>
+          <div className='inputCustom-textbox-wrap'>
             <input
-              className={`inputCustom-textbox w-full pr-[60px] ${
+              className={`inputCustom-textbox w-full ${
                 errors?.verifyCode ? 'error' : ''
               }`}
+              id='verifyCode'
               type='text'
               maxLength={6}
               placeholder='인증번호 6자리를 입력해주세요.'
@@ -216,20 +228,14 @@ const SmsVerifyCodeForm = ({
                 },
               })}
             />
-
-            {/* 인증번호 확인 여부에 다른 출력 시작 */}
-            {verifyCodeSign ? (
-              <span className='inline-block w-1/12 '>
-                {/* <Icons.Check className='my-0 mx-auto w-4 fill-functional-success' /> */}
-              </span>
-            ) : (
-              <span className='absolute right-4 top-3 inline-block w-1/6 text-right text-orange-500'>
-                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-              </span>
-            )}
-            {/* 인증번호 확인 여부에 다른 출력 끝 */}
+            <InputIcon
+              status={errors?.verifyCode ? INPUTSTATUS.ERROR : undefined}
+              iconSize={5}
+            />
           </div>
-          <p className='inputCustom-helptext'>{errors?.verifyCode?.message}</p>
+          {errors?.verifyCode?.message && (
+            <p className='inputCustom-helptext'>{errors?.verifyCode?.message}</p>
+          )}
         </div>
       )}
     </div>
