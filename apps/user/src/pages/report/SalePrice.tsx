@@ -12,7 +12,7 @@ import { SalePriceTable } from '@/pages/report/SalePriceTable';
 import {
   selectSalePriceCompetitionType,
   convertGrade,
-  scrollToTop,
+  changeSalePriceData,
 } from '@/containers/report/report.container';
 import { TReportAction } from '@/containers/report/report.reducer';
 interface ISalePrice {
@@ -25,11 +25,14 @@ interface ISalePrice {
 
 export const SalePrice = (props: ISalePrice) => {
   const { _dispatch, salePriceInfo, list, focus, scollerRef } = props;
-  const { gradeItems, priceAnalysisInfo } = salePriceInfo!;
-  const { min, max, avg, basePrice } = priceAnalysisInfo;
+  const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
+  const { basePrice } = priceAnalysisInfo;
+
+  const { min, max, levelBound, avg } = changeSalePriceData(items);
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExachangeRate(price, basePrice))),
   );
+
   const [highLength, mediumLength, lowLength] = gradeItems.map((item) => item.length);
 
   return (
@@ -111,7 +114,10 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
             <div className='flex h-full  items-center justify-center'>
               <div className='w-full max-w-[680px]'>
-                <SalePriceChart priceChartProps={props.salePriceInfo!} />
+                <SalePriceChart
+                  priceChartProps={props.salePriceInfo!}
+                  changedPrice={{ min: min, max: max, levelBound: levelBound }}
+                />
               </div>
             </div>
           </div>

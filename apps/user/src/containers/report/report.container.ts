@@ -357,6 +357,22 @@ export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
   return removedOutliner;
 };
 
+export const changeSalePriceData = (items: TSalePriceItems[]) => {
+  const removedOutlinerItmes = removeOutlinerinItems(items);
+  const min = removedOutlinerItmes[0].itemPriceMin;
+  const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
+  const levelBound = (max - min) / 10;
+  const avg =
+    removedOutlinerItmes.reduce((pre, item) => pre + item.itemPriceMin, 0) /
+    removedOutlinerItmes.length;
+  console.log(removedOutlinerItmes);
+  console.log(
+    { min: min, max: max, levelBound: levelBound, avg: avg },
+    '{ min: min, max: max, levelBound: levelBound, avg: avg }',
+  );
+  return { min: min, max: max, levelBound: levelBound, avg: avg };
+};
+
 export const onScrollDetail = (
   _state: TScrollEvent,
   _setState: Dispatch<SetStateAction<TScrollEvent>>,

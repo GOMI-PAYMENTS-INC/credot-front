@@ -20,16 +20,13 @@ import { Bar } from 'react-chartjs-2';
 
 interface ISalePriceChart {
   priceChartProps: TSalePriceData;
+  changedPrice: { min: number; max: number; levelBound: number };
 }
 
 export const SalePriceChart = (props: ISalePriceChart) => {
   const { items, priceAnalysisInfo } = props.priceChartProps!;
   const { levelCount, basePrice } = priceAnalysisInfo;
-
-  const removedOutlinerItmes = removeOutlinerinItems(items);
-  const min = removedOutlinerItmes[0].itemPriceMin;
-  const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
-  const levelBound = (max - min) / 10;
+  const { min, max, levelBound } = props.changedPrice;
 
   const salePriceScope = useMemo(() => {
     const res = [];
