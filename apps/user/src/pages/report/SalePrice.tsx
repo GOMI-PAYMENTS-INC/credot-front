@@ -1,4 +1,4 @@
-import { Dispatch, useRef, RefObject } from 'react';
+import { Dispatch, RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
@@ -40,7 +40,7 @@ export const SalePrice = (props: ISalePrice) => {
       <div className='pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='col-span-2 '>
-            <div className='flex bg-grey-100'>
+            <div className='relative flex bg-grey-100'>
               <div className='py-2.5 pl-5 '>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
               </div>
@@ -157,7 +157,7 @@ export const SalePrice = (props: ISalePrice) => {
               })}
             </div>
           </div>
-          <div className='ml-[11px]'>
+          <div className='relative ml-[11px]'>
             <ReactSVG
               id='anchor-market-salesChart'
               src='/assets/icons/outlined/QuestionCircle.svg'
@@ -176,13 +176,11 @@ export const SalePrice = (props: ISalePrice) => {
                   <div className='flex flex-col'>
                     <p className='pt-2 text-XS/Bold'>가격경쟁력 높음</p>
                     <span>최저가순 상위 1~10위 상품들이에요.</span>
-
                     <p className='pt-2 text-XS/Bold'>가격경쟁력 보통</p>
                     <span>최저가순 상위 11~30위 상품들이에요.</span>
                     <p className='pt-2 text-XS/Bold'>가격경쟁력 낮음</p>
                     <span>최저가순 상위 31~50위 상품들이에요.</span>
                   </div>
-
                   <div className='flex flex-col'>
                     <p className='pt-2 text-XS/Bold'>판매가</p>
                     <span>키워드 검색결과 내 상품들이 판매되는 평균 판매가</span>
