@@ -331,11 +331,11 @@ export const selectSalePriceCompetitionType = (
 export const convertGrade = (item: GRADE_ITEMS) => {
   switch (item) {
     case GRADE_ITEMS.HIGH:
-      return '높음';
+      return '낮은';
     case GRADE_ITEMS.MEDIUM:
       return '보통';
     default:
-      return '낮음';
+      return '높은';
   }
 };
 
@@ -365,11 +365,7 @@ export const changeSalePriceData = (items: TSalePriceItems[]) => {
   const avg =
     removedOutlinerItmes.reduce((pre, item) => pre + item.itemPriceMin, 0) /
     removedOutlinerItmes.length;
-  console.log(removedOutlinerItmes);
-  console.log(
-    { min: min, max: max, levelBound: levelBound, avg: avg },
-    '{ min: min, max: max, levelBound: levelBound, avg: avg }',
-  );
+
   return { min: min, max: max, levelBound: levelBound, avg: avg };
 };
 
@@ -393,11 +389,11 @@ export const onScrollDetail = (
     _setState(Object.assign({}, _state, { current: TITLE.KEYWORD_INFO }));
   }
 
-  if (scrollY > 871 && scrollY < 1569) {
+  if (scrollY > 871 && scrollY < 1523) {
     _setState(Object.assign({}, _state, { current: TITLE.RECOMMEND_KEYWORD }));
   }
 
-  if (scrollY > 1570) {
+  if (scrollY > 1524) {
     _setState(Object.assign({}, _state, { current: TITLE.SALE_PRICE }));
   }
 };
