@@ -15,7 +15,7 @@ import {
   countProductsByPrice,
 } from '@/containers/report';
 import { useMemo } from 'react';
-
+import { removeOutlinerinItems } from '@/containers/report/report.container';
 import { Bar } from 'react-chartjs-2';
 
 interface ISalePriceChart {
@@ -23,8 +23,13 @@ interface ISalePriceChart {
 }
 
 export const SalePriceChart = (props: ISalePriceChart) => {
-  const { items, priceAnalysisInfo, gradeItems } = props.priceChartProps!;
-  const { min, max, levelBound, levelCount, basePrice } = priceAnalysisInfo;
+  const { items, priceAnalysisInfo } = props.priceChartProps!;
+  const { levelCount, basePrice } = priceAnalysisInfo;
+
+  const removedOutlinerItmes = removeOutlinerinItems(items);
+  const min = removedOutlinerItmes[0].itemPriceMin;
+  const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
+  const levelBound = (max - min) / 10;
 
   const salePriceScope = useMemo(() => {
     const res = [];

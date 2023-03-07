@@ -378,3 +378,21 @@ export const convertGrade = (item: GRADE_ITEMS) => {
       return '낮음';
   }
 };
+
+export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
+  const median = Math.floor(items.length / 2);
+  const scope = Math.floor(items.length / 4);
+  const Q3 = items[median + scope].itemPriceMin;
+  const Q1 = items[median - scope].itemPriceMin;
+  const IQR = Q3 - Q1;
+
+  const removedOutliner = items.filter((item) => {
+    if (Q1 - 1.5 * IQR < item.itemPriceMin && Q3 + 1.5 * IQR > item.itemPriceMin) {
+      return item;
+    }
+
+    return false;
+  });
+
+  return removedOutliner;
+};
