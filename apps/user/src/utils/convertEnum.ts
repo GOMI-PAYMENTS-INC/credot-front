@@ -19,6 +19,7 @@ export const convertTitle = (id: string) => {
 export const convertBatchStatus = (id: string) => {
   switch (id) {
     case BATCH_STATUS.DONE:
+    case BATCH_STATUS.REPLICATE:
       return '완료';
     default:
       return '진행중';

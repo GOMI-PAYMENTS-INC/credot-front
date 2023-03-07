@@ -1,12 +1,13 @@
-import React, { Fragment } from 'react';
-import { FieldErrors, useForm } from 'react-hook-form';
+import React, { Fragment, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
-import { LoginInput } from '@/generated/graphql';
+import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { ReactSVG } from 'react-svg';
+import { STATUS_CODE } from '@/types/enum.code';
+import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 
 interface ISignInForm {
   email: string;
@@ -22,26 +23,49 @@ function onClickGooglelogin() {
 
 const SignIn = () => {
   const navigation = useNavigate();
-  const { onSubmitSignIn, setIsLoginStorage, isLoginStorage } = AuthContainer();
+  const { loginMutate, setIsLoginStorage, isLoginStorage } = AuthContainer();
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ISignInForm>({
     mode: 'onChange',
   });
 
-  const onValid = (data: ISignInForm) => {
-    const loginInput: LoginInput = {
-      email: data?.email,
-      password: data?.password,
+  const onValid = (value: ISignInForm) => {
+    const loginFormValue: MutationLoginArgs = {
+      login: {
+        email: value.email,
+        password: value.password,
+      },
     };
-    onSubmitSignIn(loginInput);
-  };
+    loginMutate(loginFormValue, {
+      onError: (err) => {
+        const error = JSON.parse(JSON.stringify(err));
 
-  const onInvalid = (errorData: FieldErrors) => {
-    console.error('error : ', errorData);
-    toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+        //오류 코드
+        const errorCode = error.response.errors[0].extensions.code;
+
+        //useForm error 처리
+        if (errorCode) {
+          switch (errorCode) {
+            case STATUS_CODE.INVALID_PASSWORD:
+              setError('password', {
+                type: 'custom',
+                message: '비밀번호가 일치하지 않아요.',
+              });
+              break;
+            case STATUS_CODE.USER_NOT_EXIST:
+              setError('email', {
+                type: 'custom',
+                message: '존재하지 않는 이메일 주소에요.',
+              });
+              break;
+          }
+        }
+      },
+    });
   };
 
   const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,53 +78,74 @@ const SignIn = () => {
         <h3 className='text-center text-3XL/medium'>로그인</h3>
       </div>
       <div className='mt-10 space-y-12'>
-        <form onSubmit={handleSubmit(onValid, onInvalid)}>
+        <form onSubmit={handleSubmit(onValid)}>
           <div className='space-y-6'>
             <div className='space-y-8'>
-              <div className='space-y-2'>
-                <label className='text-S/Medium text-grey-800'>이메일</label>
-                <input
-                  className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
-                  type='email'
-                  placeholder='이메일'
-                  {...register('email', {
-                    required: '이메일을 입력해주세요.',
-                    pattern: {
-                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                      message: '올바른 이메일 주소를 입력해주세요.',
-                    },
-                  })}
-                />
+              <div className='inputCustom-group'>
+                <label className='inputCustom-label'>이메일</label>
+                <div className='inputCustom-textbox-wrap'>
+                  <input
+                    className={`inputCustom-textbox w-full ${
+                      errors?.email ? 'error' : ''
+                    }`}
+                    type='email'
+                    placeholder='이메일'
+                    {...register('email', {
+                      required: '이메일을 입력해주세요.',
+                      pattern: {
+                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                        message: '올바른 이메일 주소를 입력해주세요.',
+                      },
+                    })}
+                  />
+                  <InputIcon
+                    status={errors?.email ? INPUTSTATUS.ERROR : undefined}
+                    iconSize={5}
+                  />
+                </div>
                 <p className='inputCustom-helptext'>{errors?.email?.message}</p>
               </div>
               <div className='space-y-2'>
-                <label className='text-S/Medium text-grey-800'>비밀번호</label>
-                <input
-                  className={`inputCustom-textbox w-full ${
-                    errors?.password ? 'error' : ''
-                  }`}
-                  type='password'
-                  placeholder='비밀번호를 입력해주세요. (8자리 이상)'
-                  {...register('password', {
-                    required: '비밀번호를 입력해주세요.',
-                  })}
-                />
-                <p className=' text-S/Medium text-red-500'>{errors?.password?.message}</p>
+                <div className='inputCustom-group'>
+                  <label className='inputCustom-label'>비밀번호</label>
+                  <div className='inputCustom-textbox-wrap'>
+                    <input
+                      className={`inputCustom-textbox w-full ${
+                        errors?.password ? 'error' : ''
+                      }`}
+                      type='password'
+                      placeholder='비밀번호를 입력해주세요. (8자리 이상)'
+                      {...register('password', {
+                        required: '비밀번호를 입력해주세요.',
+                        pattern: {
+                          // : 모든 글자 8자리 이상 입력
+                          value: /^.{8,}$/,
+                          message: '비밀번호는 8자리 이상 입력해주세요.',
+                        },
+                      })}
+                    />
+                    <InputIcon
+                      status={errors?.password ? INPUTSTATUS.ERROR : undefined}
+                      iconSize={5}
+                    />
+                  </div>
+                  <p className='inputCustom-helptext'>{errors?.password?.message}</p>
+                </div>
               </div>
             </div>
 
             <div className='flex items-center justify-between'>
               <div className='flex items-center'>
                 <input
-                  id='rememter_me'
-                  name='rememter_me'
+                  id='remember_me'
+                  name='remember_me'
                   type='checkbox'
                   className='checkboxCustom peer'
                   checked={isLoginStorage}
                   onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
-                  htmlFor='rememter_me'
+                  htmlFor='remember_me'
                   className='checkboxCustom-label bg-[length:24px_24px] bg-[left_top_50%] pl-[30px] text-S/Regular  '
                 >
                   로그인 상태 유지

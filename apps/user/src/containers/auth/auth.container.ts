@@ -14,10 +14,8 @@ import {
   ChangePasswordInput,
   GoogleLoginMutationVariables,
   GoogleSignUpInput,
-  LoginInput,
   MutationChangePasswordArgs,
   MutationGoogleSignUpArgs,
-  MutationLoginArgs,
   MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
   SendTemporaryPasswordMutationVariables,
@@ -204,22 +202,10 @@ export const AuthContainer = () => {
         navigation(PATH.SEARCH_PRODUCTS);
       }
     },
-    onError: (err) => {
-      const error = JSON.parse(JSON.stringify(err));
-      console.error('로그인 실패 : ', error);
-      toast.error('아이디 또는 패스워드를 다시 한 번 확인해주세요.');
-    },
+
+    onError: (err) => {},
   });
 
-  const onSubmitSignIn = (value: LoginInput) => {
-    const loginFormValue: MutationLoginArgs = {
-      login: {
-        email: value.email,
-        password: value.password,
-      },
-    };
-    loginMutate(loginFormValue);
-  };
   // 로컬 로그인 끝
 
   // 구글 로그인 시작
@@ -356,7 +342,7 @@ export const AuthContainer = () => {
   return {
     onSendSmsVerifyCode,
     onSubmitSignUp,
-    onSubmitSignIn,
+    loginMutate,
     onSubmitSignUpSocial,
     onLogout,
     onGoogleLoginButton,
