@@ -160,9 +160,10 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
 
 export const scrollToTop = (
   _dispatch: Dispatch<TReportAction>,
-  personInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
+  scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
-  personInfo.current?.scroll(0, 0);
+  scrollInfo.current?.scroll(0, 0);
+  if (scrollInfo.current?.tagName === 'TBODY') return;
   _dispatch({ type: REPORT_ACTION.INITIALIZE_SCROLL_EVENT });
 };
 
@@ -289,8 +290,7 @@ export const roundNumber = (number: number | string) => {
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
 
   if (secondPlaceNumber === '0') return 0;
-
-  return parseInt(fixedNumber);
+  return fixedNumber;
 };
 
 export const delayEvent = (callback: () => void, time: number) => {
@@ -303,43 +303,19 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
   _dispatch({ type: REPORT_ACTION.SPINNER_EVENT });
 };
 
-export const countProductsByPrice = (scope: number[], items: TSalePriceItems[][]) => {
-  const [low, medium, high] = items;
+export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) => {
+  const store = new Set();
+  const res = scope.map((price) =>
+    items.filter((item) => {
+      if (store.has(item.id) === false && item.itemPriceMin <= price) {
+        store.add(item.id);
+        return item;
+      }
+      return;
+    }),
+  );
 
-  const boundary = {
-    low: { min: low[0].itemPriceMin, max: low[low.length - 1].itemPriceMin },
-    medium: { min: medium[0].itemPriceMin, max: medium[medium.length - 1].itemPriceMin },
-    high: { min: high[0].itemPriceMin, max: high[high.length - 1].itemPriceMin },
-  };
-
-  return scope.map((price, idx) => {
-    if (idx === scope.length - 1) {
-      return high.filter((item) => item.itemPriceMin === price);
-    }
-    const maxPrice = scope[idx + 1];
-
-    if (boundary.low.max >= price) {
-      low.filter(
-        (item) => item.itemPriceMin >= price || item.itemPriceMin < maxPrice - 1,
-      );
-    }
-
-    if (boundary.medium.min >= price && boundary.medium.max < maxPrice) {
-      medium.filter(
-        (item) => item.itemPriceMin > price || item.itemPriceMin < maxPrice - 1,
-      );
-    }
-
-    if (
-      boundary.high.min < price &&
-      boundary.high.max < price &&
-      boundary.high.max < maxPrice
-    ) {
-      high.filter(
-        (item) => item.itemPriceMin > price || item.itemPriceMin < maxPrice - 1,
-      );
-    }
-  });
+  return res.map((data) => data.length);
 };
 //리스트 > 출력 개수 변경시
 export const onChangeOffsetCount = (
@@ -395,10 +371,10 @@ export const selectSalePriceCompetitionType = (
 export const convertGrade = (item: GRADE_ITEMS) => {
   switch (item) {
     case GRADE_ITEMS.HIGH:
-      return '높은';
+      return '높음';
     case GRADE_ITEMS.MEDIUM:
       return '보통';
     default:
-      return '낮은';
+      return '낮음';
   }
 };

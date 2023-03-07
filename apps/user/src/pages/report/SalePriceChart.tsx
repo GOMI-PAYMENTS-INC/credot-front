@@ -5,7 +5,6 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
   SubTitle,
 } from 'chart.js';
 
@@ -26,25 +25,27 @@ interface ISalePriceChart {
 export const SalePriceChart = (props: ISalePriceChart) => {
   const { items, priceAnalysisInfo, gradeItems } = props.priceChartProps!;
   const { min, max, levelBound, levelCount, basePrice } = priceAnalysisInfo;
-  const [low, avg, high] = gradeItems;
 
   const salePriceScope = useMemo(() => {
     const res = [];
     for (let index = 0; index < levelCount; index++) {
       if (index === 0) {
         res.push(roundNumber(min));
-      } else if (index === 6) {
+      } else if (index === levelCount) {
         res.push(roundNumber(max));
       } else {
         res.push(roundNumber(min + levelBound * (index + 1)));
       }
     }
-    return res.map((el) => (typeof el === 'string' ? parseInt(el) : el));
+    return res.map((price) => (typeof price === 'string' ? parseInt(price) : price));
   }, [min, max]);
 
-  const [minPrice, maxPrice, gap] = [min, max, levelBound].map((price) =>
-    convertExachangeRate(price, basePrice),
-  );
+  const countProducts = useMemo(() => {
+    const countProducts = countProductsByPrice(salePriceScope, items);
+    const maxCount = Math.max(...countProducts);
+
+    return { countProducts: countProducts, max: maxCount };
+  }, [salePriceScope]);
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, SubTitle);
 
@@ -54,9 +55,6 @@ export const SalePriceChart = (props: ISalePriceChart) => {
       y: {
         display: true,
         beginAtZero: true,
-        steps: 5,
-        stepValue: 5,
-        max: 20 + 5,
       },
     },
 
@@ -89,21 +87,14 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const labels = [
-    ['230', '23,116'],
-    ['23,116', '34,558'],
-    ['34,558', '46,001'],
-    ['46,001', '57,444'],
-    ['57,444', '68,887'],
-    ['68,887', '80,330'],
-    ['80,330'],
-  ]; //salePriceScope;
-
+  const labels = salePriceScope.map((price) =>
+    formatNumber(convertExachangeRate(price, basePrice)),
+  );
   const data = {
     labels,
     datasets: [
       {
-        data: [2, 4, 14, 20, 15, 4, 1], //salePriceScope,
+        data: countProducts.countProducts,
         backgroundColor: 'rgba(255,163,120)',
       },
     ],
