@@ -375,26 +375,36 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
+  const [first, second, third, fourth] = document.getElementsByClassName(
+    'detailReport-h1-header',
+  );
+
+  const [marketSize, keywordInfo, recommendKeyword, salePrice] = [
+    first,
+    second,
+    third,
+    fourth,
+  ].map((element) => (element as HTMLElement).offsetTop - 100);
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
     return;
-  } else {
-    _setState(Object.assign({}, _state, { title: name }));
   }
-  if (scrollY > 203 && scrollY < 452) {
-    _setState(Object.assign({}, _state, { current: TITLE.MARTKET_SIZE }));
+  if (scrollY >= marketSize && scrollY < keywordInfo) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
   }
-  if (scrollY > 453 && scrollY < 870) {
-    _setState(Object.assign({}, _state, { current: TITLE.KEYWORD_INFO }));
+  if (scrollY >= keywordInfo && scrollY < recommendKeyword) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
-  if (scrollY > 871 && scrollY < 1523) {
-    _setState(Object.assign({}, _state, { current: TITLE.RECOMMEND_KEYWORD }));
+  if (scrollY >= recommendKeyword && scrollY < salePrice) {
+    _setState(
+      Object.assign({}, _state, { title: name, current: TITLE.RECOMMEND_KEYWORD }),
+    );
   }
 
-  if (scrollY > 1524) {
-    _setState(Object.assign({}, _state, { current: TITLE.SALE_PRICE }));
+  if (scrollY >= salePrice) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
   }
 };
 

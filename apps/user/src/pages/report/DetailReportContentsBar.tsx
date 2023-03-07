@@ -1,5 +1,5 @@
 import { ReactSVG } from 'react-svg';
-import { useState, RefObject, useEffect, Dispatch, SetStateAction } from 'react';
+import { RefObject, useEffect, Dispatch, SetStateAction } from 'react';
 import {
   _getReportInfo,
   convertTitle,
@@ -13,7 +13,7 @@ import { TITLE } from '@/types/enum.code';
 interface IDetailReportContentsBarProps {
   contentSection?: RefObject<HTMLDivElement>;
   scrollController?: RefObject<HTMLTableSectionElement>;
-  scrollEvent: { scrollY: number; title: string; isOpen: boolean; current: string };
+  scrollEvent: TScrollEvent;
   setScrollEvent: Dispatch<SetStateAction<TScrollEvent>>;
   title: string;
 }
@@ -24,6 +24,7 @@ export const DetailReportContentsBar = (props: IDetailReportContentsBarProps) =>
 
   useEffect(() => {
     let name = scrollY > 100 ? title : '';
+
     onScrollDetail(scrollEvent, setScrollEvent, name);
   }, [scrollY]);
 

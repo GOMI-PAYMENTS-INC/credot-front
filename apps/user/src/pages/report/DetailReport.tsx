@@ -122,7 +122,7 @@ const DetailReport = () => {
         onScroll={(event) => {
           setScrollEvent(
             Object.assign({}, scrollEvent, {
-              scrollY: [(event.target as HTMLElement).scrollTop],
+              scrollY: (event.target as HTMLElement).scrollTop,
             }),
           );
         }}
@@ -130,7 +130,6 @@ const DetailReport = () => {
       >
         <div className='min-h-full bg-white'>
           <div className='container pt-8'>
-            {/*하단 페이지 별로 변경해야하는 부분*/}
             <div className='grid grid-cols-12 gap-x-6'>
               <div className='col-span-10 space-y-[72px]'>{combinedComponent}</div>
               <DetailReportContentsBar
