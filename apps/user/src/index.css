@@ -35,8 +35,14 @@ body {
   }
 
   /*input*/
+  .inputCustom-group{
+    @apply space-y-2;
+  }
   .inputCustom-label {
     @apply ml-0.5 text-S/Medium text-grey-800;
+  }
+  .inputCustom-textbox-wrap{
+    @apply relative
   }
   .inputCustom-textbox {
     @apply rounded border border-grey-400 px-4 py-3
@@ -56,10 +62,12 @@ body {
     focus:outline-none
     read-only/disabled:focus:border-grey-400;
   }
-
   .inputCustom-textbox.error {
-    @apply rounded border border-red-500 px-4 py-3
+    @apply rounded border border-red-500 pl-4 pr-11 py-3
     placeholder:text-grey-500;
+  }
+  .inputCustom-icon{
+    @apply absolute right-4 top-1/2 translate-y-[-50%]
   }
   .inputCustom-helptext {
     @apply ml-1 text-S/Medium text-red-500;
