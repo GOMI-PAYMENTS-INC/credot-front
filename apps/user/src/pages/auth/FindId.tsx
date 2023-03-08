@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 
-import { FindUserContainer } from '@/containers/auth/find-user.container';
+import { FindUserContainer } from '@/containers/auth/findUser.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { FIND_ACCOUNT_RESULT } from '@/types/enum.code';

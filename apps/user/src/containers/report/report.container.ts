@@ -150,7 +150,7 @@ export const reportListConverter = (item: TReportItem) => {
     channel: { iconPath: '/assets/icons/shop/Shopee.svg' },
   };
 
-  if (item.status === BATCH_STATUS.DONE) {
+  if (item.status === BATCH_STATUS.DONE || item.status === BATCH_STATUS.REPLICATE) {
     result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
   }
   return result;

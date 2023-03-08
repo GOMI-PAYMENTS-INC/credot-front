@@ -13,7 +13,7 @@ export const FindIdPasswordBottom = ({
   buttonText,
   buttonLink,
 }: IFindIdPasswordBottomProps) => (
-  <div className='flex items-center justify-center text-center'>
+  <div className='mt-10 flex items-center justify-center text-center'>
     <div className='mr-1 text-M/Regular text-grey-700'>{text}</div>
     <Link to={buttonLink}>
       <button className='textButton-primary-default-large-none'>{buttonText}</button>

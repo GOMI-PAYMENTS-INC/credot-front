@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -103,7 +103,9 @@ const SignIn = () => {
                     iconSize={5}
                   />
                 </div>
-                <p className='inputCustom-helptext'>{errors?.email?.message}</p>
+                {errors?.email?.message && (
+                  <p className='inputCustom-helptext'>{errors?.email?.message}</p>
+                )}
               </div>
               <div className='space-y-2'>
                 <div className='inputCustom-group'>
@@ -129,7 +131,9 @@ const SignIn = () => {
                       iconSize={5}
                     />
                   </div>
-                  <p className='inputCustom-helptext'>{errors?.password?.message}</p>
+                  {errors?.password?.message && (
+                    <p className='inputCustom-helptext'>{errors?.password?.message}</p>
+                  )}
                 </div>
               </div>
             </div>

@@ -5,7 +5,7 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useReducer } from 'react';
-import { menuData } from '@/components/layouts/SideBarData';
+import { menuData } from '@/containers/sidebar/sideBarData';
 import {
   sidebarInitialState,
   sidebarReducer,

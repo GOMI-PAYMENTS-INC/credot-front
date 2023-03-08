@@ -8,10 +8,10 @@ export interface ICommon1SectionProps {
   children?: ReactNode;
 }
 export const Common1Section = ({ children }: ICommon1SectionProps) => (
-  <div className='h-full  w-full bg-orange-100'>
+  <div className='bg-orange-100 pb-5 pt-10'>
     <div className='container-common h-full w-full '>
-      <div className='flex h-full w-full flex-col items-center justify-center'>
-        <div>
+      <div className='flex h-full w-full flex-col items-center'>
+        <div className=''>
           <Link to={PATH.SEARCH_PRODUCTS}>
             <ReactSVG
               src='/assets/icons/Logo.svg'
@@ -22,7 +22,7 @@ export const Common1Section = ({ children }: ICommon1SectionProps) => (
             />
           </Link>
         </div>
-        <div className='mt-8 box-border h-[calc(100vh-72px-48px)] w-full max-w-[536px] rounded-3xl bg-white px-[60px] py-[48px] pb-[32px] shadow-[0_0_16px_8px_rgba(0,0,0,0.02)]'>
+        <div className='mt-10 box-border w-full max-w-[536px] basis-[calc(100vh-112px-20px)] rounded-3xl bg-white px-[60px] py-[48px] pb-[32px] shadow-[0_0_16px_8px_rgba(0,0,0,0.02)]'>
           {children}
         </div>
       </div>

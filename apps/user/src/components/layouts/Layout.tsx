@@ -24,7 +24,7 @@ const Layout = ({ children, layoutType }: LayoutProps) => {
     }
   }, [layoutType]);
 
-  return <main className='h-screen'>{renderLayout}</main>;
+  return <main>{renderLayout}</main>;
 };
 
 export default Layout;

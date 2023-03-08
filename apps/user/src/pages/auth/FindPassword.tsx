@@ -101,7 +101,9 @@ const FindPassword = () => {
                     },
                   })}
                 />
-                <p className='inputCustom-helptext'>{errors?.email?.message}</p>
+                {errors?.email?.message && (
+                  <p className='inputCustom-helptext'>{errors?.email?.message}</p>
+                )}
                 <SmsVerifyCodeForm
                   onChangePhone={(value: string) => {
                     setPhone(value);
