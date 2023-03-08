@@ -30,13 +30,14 @@ const ReportList = () => {
   //체크한 item 배열
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
+  //모든 약관 동의 체크 핸들러
   const onCheckAll = (checked: boolean) => {
     //전체 선택
     if (checked) {
       const checkedItemsArray: number[] = [];
       _state.data.reports?.forEach(
         (report) =>
-          isIncluded(report.status, BATCH_STATUS.DONE) &&
+          isIncluded(report.status, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE) &&
           checkedItemsArray.push(report.id),
       );
       setCheckedItems(checkedItemsArray);
@@ -45,7 +46,7 @@ const ReportList = () => {
     } else {
       //전체 해제
       setCheckedItems([]);
-
+      //모든 약관 동의 해제
       setIsCheckedAll(false);
     }
   };

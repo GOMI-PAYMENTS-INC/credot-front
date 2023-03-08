@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -8,22 +8,79 @@ import { GoogleSignUpInput } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { agreeTermList } from '@/containers/auth/signUpData';
 
 interface ISignUpSocialForm {
   idToken: string;
   phone: string;
   verifyCode: string;
-  allCheckBox: boolean;
-  useAgree: boolean;
-  personalAgree: boolean;
-  marketingAgree: boolean;
+  requiredAgreeTerm: boolean;
 }
 
 const SignUpSocial = () => {
   const { onSubmitSignUpSocial, userInfo, idToken } = AuthContainer();
   const [phone, setPhone] = useState('');
+
+  //휴대폰 인증 후 리턴 받은 결과 코드
   const [verifyCodeSign, setVerifyCodeSign] = useState('');
+
+  //휴대폰 인증 여부
   const [childIsValid, setChildIsValid] = useState(false);
+
+  //전체 선택 체크 여부
+  const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
+  //체크한 item 배열
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+
+  //이용약관 자세히 보기한 목록
+  const [openedAgreeDetailList, setOpenedAgreeDetailList] = useState<number[]>([]);
+
+  //모든 약관 동의 체크 핸들러
+  const onCheckAll = (checked: boolean) => {
+    //전체 선택
+    if (checked) {
+      const checkedItemsArray: string[] = [];
+      agreeTermList.forEach((agreeTerm) => checkedItemsArray.push(agreeTerm.id));
+      setCheckedItems(checkedItemsArray);
+
+      setIsCheckedAll(true);
+    } else {
+      //전체 해제
+      setCheckedItems([]);
+      //모든 약관 동의 해제
+      setIsCheckedAll(false);
+    }
+  };
+
+  //약관 동의 체크 박스 핸들러
+  const checkedItemHandler = (code: string, isChecked: boolean) => {
+    if (isChecked) {
+      //체크 추가할때
+      setCheckedItems([...checkedItems, code]);
+
+      //모두 체크되었을 때
+      if (agreeTermList.length === checkedItems.length + 1) {
+        setIsCheckedAll(true);
+      }
+    } else if (!isChecked && checkedItems.find((one) => one === code)) {
+      //체크 해제할때 checkedItems에 있을 경우
+      const filter = checkedItems.filter((one) => one !== code);
+      setCheckedItems([...filter]);
+
+      setIsCheckedAll(false);
+    }
+  };
+
+  //약관 자세히 보기 핸들러
+  const onClickOpenAgreeDetail = (index: number) => {
+    if (openedAgreeDetailList.includes(index)) {
+      const filter = openedAgreeDetailList.filter((one) => one !== index);
+
+      setOpenedAgreeDetailList([...filter]);
+    } else {
+      setOpenedAgreeDetailList([...openedAgreeDetailList, index]);
+    }
+  };
 
   const {
     register,
@@ -34,10 +91,7 @@ const SignUpSocial = () => {
   } = useForm<ISignUpSocialForm>({
     mode: 'onChange',
   });
-  const allCheckBox = watch('allCheckBox');
-  const useAgree = watch('useAgree');
-  const personalAgree = watch('personalAgree');
-  const marketingAgree = watch('marketingAgree');
+  const requiredAgreeTerm = watch('requiredAgreeTerm');
 
   const onValid = () => {
     const signUpInput: GoogleSignUpInput = {
@@ -52,12 +106,19 @@ const SignUpSocial = () => {
     toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
   };
 
-  const onAllCheckbox = (value: boolean) => {
-    setValue('allCheckBox', value);
-    setValue('useAgree', value);
-    setValue('personalAgree', value);
-    setValue('marketingAgree', value);
-  };
+  //필수 체크인 항목의 목록
+  const requiredAgreeTermList = agreeTermList.filter((agreeTerm) => agreeTerm.required);
+  //체크된 항목이 변경되는 경우, 필수 선택항목이 선탹된 것인지 판단
+  useEffect(() => {
+    for (let i = 0; i < requiredAgreeTermList.length; i++) {
+      if (checkedItems.indexOf(requiredAgreeTermList[i].id) < 0) {
+        setValue('requiredAgreeTerm', false);
+        break;
+      }
+
+      setValue('requiredAgreeTerm', true);
+    }
+  }, [checkedItems]);
 
   //하단 고정 레이아웃 문구
   const accountBottomInfo = {
@@ -111,109 +172,67 @@ const SignUpSocial = () => {
               <div className='rounded-md bg-grey-100 px-2.5 py-2'>
                 <input
                   type='checkbox'
-                  id='all-agree'
-                  checked={allCheckBox}
-                  {...register('allCheckBox')}
+                  id='allAgree'
+                  checked={isCheckedAll}
                   className='termsCheckbox peer'
-                  onChange={(event) => onAllCheckbox(event.target.checked)}
+                  onChange={(evnet) => onCheckAll(evnet.target.checked)}
                 />
-                <label htmlFor='all-agree' className='termsHeaderCheckbox-label'>
+                <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                 </label>
               </div>
               <ul className='space-y-2'>
-                <li className='flex items-center justify-between pl-3 '>
-                  <input
-                    type='checkbox'
-                    id='allAgree'
-                    checked={useAgree}
-                    {...register('useAgree', {
-                      onChange: (event) => {
-                        if (allCheckBox) {
-                          if (event.target.checked === false) {
-                            setValue('allCheckBox', false);
-                          }
-                        } else {
-                          if (marketingAgree && personalAgree && event.target.checked) {
-                            setValue('allCheckBox', true);
-                          }
-                        }
-                      },
-                    })}
-                    className='termsCheckbox peer'
-                  />
-                  <label htmlFor='allAgree' className='termsBodyCheckbox-label'>
-                    이용약관 동의(필수)
-                  </label>
+                {agreeTermList.map((agreeTerm, index) => {
+                  //항목별 체크 여부
+                  let isChecked = false;
+                  isChecked = checkedItems.includes(agreeTerm.id);
 
-                  <button className='textButton-secondary-default-small-none'>
-                    보기
-                  </button>
-                </li>
-                <li className='flex items-center justify-between pl-3'>
-                  <input
-                    type='checkbox'
-                    id='personal-agree'
-                    checked={personalAgree}
-                    {...register('personalAgree', {
-                      onChange: (event) => {
-                        if (allCheckBox) {
-                          if (event.target.checked === false) {
-                            setValue('allCheckBox', false);
+                  //항목별 자세히 보기 여부
+                  let isOpened = false;
+                  isOpened = openedAgreeDetailList.includes(index);
+                  return (
+                    <li key={index}>
+                      <div className='flex items-center justify-between pl-3'>
+                        <input
+                          type='checkbox'
+                          id={agreeTerm.id}
+                          checked={isChecked}
+                          className='termsCheckbox peer'
+                          onChange={(event) =>
+                            checkedItemHandler(agreeTerm.id, event.target.checked)
                           }
-                        } else {
-                          if (useAgree && marketingAgree && event.target.checked) {
-                            setValue('allCheckBox', true);
-                          }
-                        }
-                      },
-                    })}
-                    className='termsCheckbox peer'
-                  />
-                  <label htmlFor='personal-agree' className='termsBodyCheckbox-label'>
-                    개인정보 수집 및 이용 동의(필수)
-                  </label>
+                        />
+                        <label htmlFor={agreeTerm.id} className='termsBodyCheckbox-label'>
+                          {`${agreeTerm.label} ${
+                            agreeTerm.required ? '(필수)' : '(선택)'
+                          }`}
+                        </label>
 
-                  <button className='textButton-secondary-default-small-none'>
-                    보기
-                  </button>
-                </li>
-                <li className='flex items-center justify-between pl-3'>
-                  <input
-                    type='checkbox'
-                    id='marketing-agree'
-                    className='termsCheckbox peer'
-                    checked={marketingAgree}
-                    {...register('marketingAgree', {
-                      onChange: (event) => {
-                        if (allCheckBox) {
-                          if (event.target.checked === false) {
-                            setValue('allCheckBox', false);
-                          }
-                        } else {
-                          if (useAgree && personalAgree && event.target.checked) {
-                            setValue('allCheckBox', true);
-                          }
-                        }
-                      },
-                    })}
-                  />
-                  <label htmlFor='marketing-agree' className='termsBodyCheckbox-label'>
-                    마케팅 정보 활용 및 서비스 관련 수신 동의(선택)
-                  </label>
-                  <button className='textButton-secondary-default-small-none'>
-                    보기
-                  </button>
-                </li>
+                        <button
+                          className='textButton-secondary-default-small-none'
+                          type='button'
+                          onClick={() => onClickOpenAgreeDetail(index)}
+                        >
+                          {isOpened ? '접기' : '보기'}
+                        </button>
+                      </div>
+                      {isOpened && (
+                        <div className='mt-1.5 ml-[30px]'>
+                          <textarea
+                            readOnly
+                            className='h-[138px] w-full rounded border border-grey-400 px-4 py-3 text-S/Regular text-grey-900'
+                            value={agreeTerm.detail}
+                          ></textarea>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
             <div>
-              {isValid &&
-              childIsValid &&
-              useAgree &&
-              personalAgree &&
-              verifyCodeSign !== '' ? (
+              {isValid && childIsValid && requiredAgreeTerm && verifyCodeSign !== '' ? (
                 <button
                   type='submit'
                   className='button-filled-normal-xLarge-red-false-false-true w-full'

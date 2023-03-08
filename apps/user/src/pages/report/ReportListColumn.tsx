@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { capitalize } from '@/utils/capitalize';
 import { reportListConverter } from '@/containers/report/report.container';
 import { Dispatch, Fragment } from 'react';
+import { BATCH_STATUS } from '@/types/enum.code';
 
 type TReportListColumn = {
   response: TReportListResponseData;
@@ -25,10 +26,23 @@ export const ReportListColumn = ({
 }: TReportListColumn) => {
   const navigate = useNavigate();
 
+  //약관 동의 체크 박스 핸들러
   const checkedItemHandler = (code: number, isChecked: boolean) => {
     if (isChecked) {
       //체크 추가할때
       setCheckedItems([...checkedItems, code]);
+
+      //모두 체크되었을 때
+      if (
+        response.reports.filter(
+          (report) =>
+            report.status === BATCH_STATUS.DONE ||
+            report.status === BATCH_STATUS.REPLICATE,
+        ).length ===
+        checkedItems.length + 1
+      ) {
+        setIsCheckedAll(true);
+      }
     } else if (!isChecked && checkedItems.find((one) => one === code)) {
       //체크 해제할때 checkedItems에 있을 경우
       const filter = checkedItems.filter((one) => one !== code);
