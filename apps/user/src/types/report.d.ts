@@ -204,3 +204,10 @@ type TSalePriceItems = {
   itemdescription: string | null;
   itemBrand: string | null;
 };
+
+type TScrollEvent = {
+  scrollY: number;
+  title: string;
+  isOpen: boolean;
+  current: string;
+};
