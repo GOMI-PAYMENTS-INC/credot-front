@@ -114,11 +114,9 @@ export const AuthContainer = () => {
     graphQLClient,
     {
       onSuccess: () => {
-        toast.success('발송 성공하였습니다.');
         setSending(true);
       },
       onError: () => {
-        toast.error('발송 실패하였습니다.');
         setSending(false);
       },
     },
