@@ -8,13 +8,7 @@ import {
   SubTitle,
 } from 'chart.js';
 
-import { formatNumber } from '@/utils/formatNumber';
-import {
-  convertExachangeRate,
-  roundNumber,
-  countProductsByPrice,
-  setChartLabels,
-} from '@/containers/report';
+import { roundNumber, countProductsByPrice, setChartLabels } from '@/containers/report';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 
