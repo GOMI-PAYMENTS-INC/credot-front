@@ -21,7 +21,7 @@ import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
 
 const SearchKeywords = () => {
-  const IMG_PATH = '../../assets/images';
+  const IMG_PATH = '/assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
 
   const [data, isLoading, isError] = GetQueryResult(_state.keyword);
