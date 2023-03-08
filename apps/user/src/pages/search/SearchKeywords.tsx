@@ -11,7 +11,7 @@ import {
   switchModal,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
-import { GetQueryResult } from '@/containers/search/search.api';
+import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
@@ -21,14 +21,11 @@ import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
 
 const SearchKeywords = () => {
-  const IMG_PATH = '../../assets/images';
   const [_state, _dispatch] = useReducer(reducer, initialState);
-
-  const [data, isLoading, isError] = GetQueryResult(_state.keyword);
+  const [data, isLoading, isError] = getQueryResult(_state.keyword);
 
   useEffect(() => {
     const item = useSesstionStorage.getItem('keyword');
-
     if (isFalsy(item) === false) {
       initializeState(item, _dispatch);
     }
@@ -74,6 +71,20 @@ const SearchKeywords = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
+
+  const isMonthlyCountZero = typeof data !== 'boolean' && data?.main.count === 0;
+
+  const reportCreatorButtonText = useMemo(() => {
+    if (isMonthlyCountZero === true) {
+      return '수요가 없는 키워드에요. 다른 키워드를 검색해주세요';
+    }
+
+    if (isFalsy(_state.keyword)) {
+      return '리포트 생성하기';
+    }
+
+    return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
+  }, [_state.keyword, isMonthlyCountZero]);
 
   return (
     <Fragment>
@@ -260,23 +271,16 @@ const SearchKeywords = () => {
                 <div className='mt-10'>
                   <button
                     className={`w-full rounded-md bg-orange-500 py-4 ${
-                      (_state.keyword === '' ||
-                        (typeof data !== 'boolean' && data?.main.count === 0)) &&
-                      'opacity-30'
+                      (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
                     }`}
-                    disabled={
-                      _state.keyword === '' ||
-                      (typeof data !== 'boolean' && data?.main.count === 0)
-                    }
+                    disabled={_state.keyword === '' || isMonthlyCountZero}
                     onClick={() => {
                       const payload = { _dispatch, status: true, data: data, _state };
                       switchModal(payload);
                     }}
                   >
                     <span className='text-L/Bold text-white'>
-                      {_state.keyword
-                        ? `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`
-                        : '리포트 생성하기'}
+                      {reportCreatorButtonText}
                     </span>
                   </button>
                 </div>
