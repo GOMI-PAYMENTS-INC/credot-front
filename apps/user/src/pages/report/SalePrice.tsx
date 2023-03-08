@@ -40,9 +40,18 @@ export const SalePrice = (props: ISalePrice) => {
       <h1 id={TITLE.SALE_PRICE} className='detailReport-h1-header'>
         가격 분석
       </h1>
-      <div className='pt-6'>
+      <div className='pt-4'>
+        <div className='flex  border-[1px] border-grey-300 py-3 px-3'>
+          <p className='text-S/Regular text-grey-800'>
+            <span className='text-S/Bold text-grey-800'>이상값(outliner)제외 안내 :</span>
+            판매가 분포와 평균값 해석에 악영향을 끼치는 이상값들을 통계학적으로 계산하여
+            제외 후 나타낸 자료입니다.
+          </p>
+        </div>
+      </div>
+      <div className='pt-4'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
-          <div className='col-span-2 '>
+          <div className='col-span-2 flex flex-col'>
             <div className='relative flex bg-grey-100'>
               <div className='py-2.5 pl-5 '>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
@@ -60,7 +69,7 @@ export const SalePrice = (props: ISalePrice) => {
                 place='right'
                 style={{ background: 'none', opacity: 1 }}
               >
-                <div className='flex w-[684px] justify-between rounded-[3px] border-[1px] border-grey-200 bg-white py-4 px-4 text-gray-900'>
+                <div className='flex justify-between rounded-[3px] border-[1px] border-grey-200 bg-white py-4 px-4 text-gray-900'>
                   <div>
                     <h1 className='text-XS/Medium'>최저가</h1>
                     <p className='pt-0.5 text-XS/Regular text-gray-800'>
@@ -73,42 +82,34 @@ export const SalePrice = (props: ISalePrice) => {
                       상품들이 판매되는 가격의 평균값이에요.
                     </p>
                   </div>
-                  <div>
-                    <h1 className='text-XS/Medium'>최고가</h1>
-                    <p className='pt-0.5 text-XS/Regular text-gray-800'>
-                      가장 비싼 상품의 판매가격이에요.
-                    </p>
-                  </div>
                 </div>
               </Tooltip>
             </div>
-            <div className='flex flex-col space-x-5'>
-              <div className='flex flex-col py-9 pl-5'>
-                <p className=' text-S/Medium text-grey-800'>최저가</p>
-                <div className='flex items-center pt-[11px]'>
-                  <p className='text-2XL/Bold text-orange-500'>{minPrice}</p>
-                  <span className='pl-1 text-L/Medium text-grey-800'>원</span>
+            <div className='flex-grow-1 flex h-full flex-col justify-center '>
+              <div className='flex h-[186px] flex-col justify-center'>
+                <div className='flex flex-col pl-5'>
+                  <p className=' text-S/Medium text-grey-800'>최저가</p>
+                  <div className='flex items-center pt-[11px]'>
+                    <p className='text-2XL/Bold text-orange-500'>{minPrice}</p>
+                    <span className='pl-1 text-L/Medium text-grey-800'>원</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className='mx-5 flex flex-col border-t-[1px] border-b-[1px] border-dashed py-9'>
-              <p className='text-S/Medium text-grey-800'>평균 판매가</p>
-              <div className='flex items-center pt-[11px]'>
-                <p className='text-2XL/Bold text-grey-900'>{avgPrice}</p>
-                <span className='pl-1 text-L/Medium text-grey-800'>원</span>
-              </div>
-            </div>
-            <div className='mx-5 flex flex-col py-9'>
-              <p className='text-S/Medium text-grey-800'>최고가</p>
-              <div className='flex items-center pt-[11px]'>
-                <p className='text-2XL/Regular text-grey-900'>{maxPrice}</p>
-                <span className='pl-1 text-L/Medium text-grey-800'>원</span>
+
+              <div className='mx-5 flex flex-col border-t-[1px] '>
+                <div className='flex h-[186px] flex-col justify-center'>
+                  <p className='text-S/Medium text-grey-800'>평균 판매가</p>
+                  <div className='flex items-center pt-[11px]'>
+                    <p className='text-2XL/Bold text-grey-900'>{avgPrice}</p>
+                    <span className='pl-1 text-L/Medium text-grey-800'>원</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div className='col-span-8 col-start-3 h-full border-l-[1px] border-grey-300'>
             <div className='flex bg-grey-100'>
-              <div className='py-2.5 pl-5 '>
+              <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 분포 차트</p>
               </div>
             </div>
