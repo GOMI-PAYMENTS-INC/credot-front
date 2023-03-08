@@ -13,18 +13,20 @@ import {
   convertExachangeRate,
   roundNumber,
   countProductsByPrice,
+  setChartLabels,
 } from '@/containers/report';
 import { useMemo } from 'react';
-
 import { Bar } from 'react-chartjs-2';
 
 interface ISalePriceChart {
   priceChartProps: TSalePriceData;
+  changedPrice: { min: number; max: number; levelBound: number };
 }
 
 export const SalePriceChart = (props: ISalePriceChart) => {
-  const { items, priceAnalysisInfo, gradeItems } = props.priceChartProps!;
-  const { min, max, levelBound, levelCount, basePrice } = priceAnalysisInfo;
+  const { items, priceAnalysisInfo } = props.priceChartProps!;
+  const { levelCount, basePrice } = priceAnalysisInfo;
+  const { min, max, levelBound } = props.changedPrice;
 
   const salePriceScope = useMemo(() => {
     const res = [];
@@ -87,9 +89,8 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const labels = salePriceScope.map((price) =>
-    formatNumber(convertExachangeRate(price, basePrice)),
-  );
+  const labels = setChartLabels(salePriceScope, basePrice);
+
   const data = {
     labels,
     datasets: [

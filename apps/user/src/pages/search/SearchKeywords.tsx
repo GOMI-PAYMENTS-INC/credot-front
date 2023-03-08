@@ -74,7 +74,7 @@ const SearchKeywords = () => {
       return relations;
     }
   }, [data, isLoading, _state.keyword]);
-  console.log(data, 'Data');
+
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
