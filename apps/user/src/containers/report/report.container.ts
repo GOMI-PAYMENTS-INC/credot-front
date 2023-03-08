@@ -275,9 +275,13 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
 
 export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) => {
   const store = new Set();
-  const res = scope.map((price) =>
+  const res = scope.map((price, idx) =>
     items.filter((item) => {
-      if (store.has(item.id) === false && item.itemPriceMin <= price) {
+      if (idx === 0 && item.itemPriceMin <= price) {
+        store.add(item.id);
+        return item;
+      }
+      if (store.has(item.id) === false && item.itemPriceMin < price) {
         store.add(item.id);
         return item;
       }
@@ -440,7 +444,7 @@ export const setChartLabels = (
       convertExachangeRate(salePriceScope[idx + 1], basePrice) - 1,
     );
     if (idx === salePriceScope.length - 1) {
-      return pre.concat([[_cur + '이상']]);
+      return pre.concat([_cur]);
     }
     return pre.concat([[_cur, `~${_next}`]]);
   }, init);
