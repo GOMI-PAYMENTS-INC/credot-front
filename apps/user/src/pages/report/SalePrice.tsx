@@ -28,7 +28,7 @@ export const SalePrice = (props: ISalePrice) => {
   const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
-  const { min, max, levelBound, avg } = changeSalePriceData(items);
+  const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(items);
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExachangeRate(price, basePrice))),
   );
@@ -117,7 +117,12 @@ export const SalePrice = (props: ISalePrice) => {
               <div className='w-full max-w-[750px]'>
                 <SalePriceChart
                   priceChartProps={props.salePriceInfo!}
-                  changedPrice={{ min: min, max: max, levelBound: levelBound }}
+                  changedPrice={{
+                    min: min,
+                    max: max,
+                    levelBound: levelBound,
+                    removedOutlinerItmes: removedOutlinerItmes,
+                  }}
                 />
               </div>
             </div>
