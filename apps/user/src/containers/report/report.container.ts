@@ -276,15 +276,17 @@ export const buttonSpinnerEvent = (_dispatch: Dispatch<TReportAction>) => {
 export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) => {
   const store = new Set();
   const res = scope.map((price, idx) =>
-    items.filter((item) => {
-      if (idx === 0 && item.itemPriceMin <= price) {
+    items.filter((item, itemIdx) => {
+      if ((idx === 0 || itemIdx === items.length - 1) && item.itemPriceMin <= price) {
         store.add(item.id);
         return item;
       }
+
       if (store.has(item.id) === false && item.itemPriceMin < price) {
         store.add(item.id);
         return item;
       }
+
       return;
     }),
   );
@@ -365,12 +367,19 @@ export const changeSalePriceData = (items: TSalePriceItems[]) => {
   const removedOutlinerItmes = removeOutlinerinItems(items);
   const min = removedOutlinerItmes[0].itemPriceMin;
   const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
+
   const levelBound = (max - min) / 10;
   const avg =
     removedOutlinerItmes.reduce((pre, item) => pre + item.itemPriceMin, 0) /
     removedOutlinerItmes.length;
 
-  return { min: min, max: max, levelBound: levelBound, avg: avg };
+  return {
+    min: min,
+    max: max,
+    levelBound: levelBound,
+    avg: avg,
+    removedOutlinerItmes: removedOutlinerItmes,
+  };
 };
 
 export const onScrollDetail = (
