@@ -280,9 +280,11 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) 
       if ((idx === 0 || itemIdx === items.length - 1) && item.itemPriceMin <= price) {
         store.add(item.id);
         return item;
-      }
-
-      if (store.has(item.id) === false && item.itemPriceMin < price) {
+      } else if (
+        store.has(item.id) === false &&
+        item.itemPriceMin < scope[idx + 1] &&
+        item.itemPriceMin > price
+      ) {
         store.add(item.id);
         return item;
       }
@@ -290,7 +292,7 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) 
       return;
     }),
   );
-
+  console.log(res, 'res');
   return res.map((data) => data.length);
 };
 //리스트 > 출력 개수 변경시

@@ -49,6 +49,7 @@ export const SalePriceChart = (props: ISalePriceChart) => {
 
   const countProducts = useMemo(() => {
     const countProducts = countProductsByPrice(salePriceScope, removedOutlinerItmes);
+
     const maxCount = Math.max(...countProducts);
 
     return { countProducts: countProducts, max: maxCount };
