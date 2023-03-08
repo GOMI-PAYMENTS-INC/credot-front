@@ -13,6 +13,7 @@ import {
   convertExachangeRate,
   roundNumber,
   countProductsByPrice,
+  setChartLabels,
 } from '@/containers/report';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -88,19 +89,8 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const init: string[][] = [];
-  const labels = salePriceScope.reduce((pre, cur, idx) => {
-    const _cur = formatNumber(convertExachangeRate(cur, basePrice));
-    const _next = formatNumber(
-      convertExachangeRate(salePriceScope[idx + 1], basePrice) - 1,
-    );
-    if (idx === salePriceScope.length - 1) {
-      return pre.concat([[_cur + '이상']]);
-    }
-    return pre.concat([[_cur, `~${_next}`]]);
-  }, init);
+  const labels = setChartLabels(salePriceScope, basePrice);
 
-  console.log(labels, 'labels');
   const data = {
     labels,
     datasets: [

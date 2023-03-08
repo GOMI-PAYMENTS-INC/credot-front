@@ -20,7 +20,7 @@ import {
 } from '@/types/enum.code';
 
 import { getReportList } from '@/containers/report/report.api';
-
+import { formatNumber } from '@/utils/formatNumber';
 import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
 
@@ -378,7 +378,7 @@ export const onScrollDetail = (
   const [first, second, third, fourth] = document.getElementsByClassName(
     'detailReport-h1-header',
   );
-
+  //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
   const [marketSize, keywordInfo, recommendKeyword, salePrice] = [
     first,
     second,
@@ -427,4 +427,21 @@ export const scrollToTop = (
     isOpen: true,
     current: 'Report',
   });
+};
+
+export const setChartLabels = (
+  salePriceScope: number[],
+  basePrice: number,
+): string[][] => {
+  const init: string[][] = [];
+  return salePriceScope.reduce((pre, cur, idx) => {
+    const _cur = formatNumber(convertExachangeRate(cur, basePrice));
+    const _next = formatNumber(
+      convertExachangeRate(salePriceScope[idx + 1], basePrice) - 1,
+    );
+    if (idx === salePriceScope.length - 1) {
+      return pre.concat([[_cur + '이상']]);
+    }
+    return pre.concat([[_cur, `~${_next}`]]);
+  }, init);
 };
