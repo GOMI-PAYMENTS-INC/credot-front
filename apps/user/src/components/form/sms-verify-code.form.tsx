@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-// import { Icons } from '@/components/icons';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { AuthVerifyCodeContainer } from '@/containers/auth/auth-verify-code.container';
 import {
@@ -101,7 +100,7 @@ const SmsVerifyCodeForm = ({
 
   // 인증번호 발송 프로세스
   const sendSmsVerifyCode = () => {
-    if (errors.phone) {
+    if (!phoneNumber) {
       return;
     }
     if (!isSending) {
@@ -148,7 +147,7 @@ const SmsVerifyCodeForm = ({
               type='text'
               placeholder='휴대폰번호를 숫자만 입력해주세요.'
               maxLength={11}
-              disabled={phoneDisable}
+              disabled={phoneDisable || !!verifyCodeSign}
               {...register('phone', {
                 required: '휴대폰번호 입력해주세요.',
                 pattern: {
@@ -160,6 +159,11 @@ const SmsVerifyCodeForm = ({
                   onChangePhone?.(event.target.value);
                 },
               })}
+              onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                if (event.keyCode === 13) {
+                  sendSmsVerifyCode();
+                }
+              }}
             />
             <InputIcon
               status={errors?.phone ? INPUTSTATUS.ERROR : undefined}
