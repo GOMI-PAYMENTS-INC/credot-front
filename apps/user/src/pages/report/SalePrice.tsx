@@ -113,7 +113,7 @@ export const SalePrice = (props: ISalePrice) => {
               </div>
             </div>
             <div className='flex h-full  items-center justify-center'>
-              <div className='w-full max-w-[680px]'>
+              <div className='w-full max-w-[750px]'>
                 <SalePriceChart
                   priceChartProps={props.salePriceInfo!}
                   changedPrice={{ min: min, max: max, levelBound: levelBound }}

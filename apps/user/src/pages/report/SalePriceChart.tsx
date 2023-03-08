@@ -15,7 +15,6 @@ import {
   countProductsByPrice,
 } from '@/containers/report';
 import { useMemo } from 'react';
-import { removeOutlinerinItems } from '@/containers/report/report.container';
 import { Bar } from 'react-chartjs-2';
 
 interface ISalePriceChart {
@@ -89,9 +88,19 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const labels = salePriceScope.map((price) =>
-    formatNumber(convertExachangeRate(price, basePrice)),
-  );
+  const init: string[][] = [];
+  const labels = salePriceScope.reduce((pre, cur, idx) => {
+    const _cur = formatNumber(convertExachangeRate(cur, basePrice));
+    const _next = formatNumber(
+      convertExachangeRate(salePriceScope[idx + 1], basePrice) - 1,
+    );
+    if (idx === salePriceScope.length - 1) {
+      return pre.concat([[_cur + '이상']]);
+    }
+    return pre.concat([[_cur, `~${_next}`]]);
+  }, init);
+
+  console.log(labels, 'labels');
   const data = {
     labels,
     datasets: [
