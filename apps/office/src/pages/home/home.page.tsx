@@ -17,7 +17,7 @@ export default function HomePage() {
       changeFaqTab(faqIndex);
     }
   };
-  const IMG_PATH = '../../../assets/images';
+  const IMG_PATH = '/assets/images';
   const tabData = [
     {
       name: '시장 규모',
@@ -235,7 +235,7 @@ export default function HomePage() {
       brand: 'WT코퍼레이션',
       subject: '전략적인 판매를 할 수 있도록 도와줍니다.',
       content:
-        '지금까지는 상품 수로 매출 승부를 걸었다면, 이제는 고미 키워드를 통해 전략적인 상품 소싱이 가능하기 때문에 상품당 매출을 130%까지 상승시켰습니다.',
+        '지금까지는 상품 수로 매출 승부를 걸었다면, 이제는 고미인사이트를 통해 전략적인 상품 소싱이 가능하기 때문에 상품당 매출을 130%까지 상승시켰습니다.',
     },
     {
       imgName: 'lab.png',
