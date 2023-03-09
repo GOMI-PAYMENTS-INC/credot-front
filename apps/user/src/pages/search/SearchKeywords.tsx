@@ -72,6 +72,20 @@ const SearchKeywords = () => {
     }
   }, [data, isLoading, _state.keyword]);
 
+  const isMonthlyCountZero = typeof data !== 'boolean' && data?.main.count === 0;
+
+  const reportCreatorButtonText = useMemo(() => {
+    if (isMonthlyCountZero === true) {
+      return '수요가 없는 키워드에요. 다른 키워드를 검색해주세요';
+    }
+
+    if (isFalsy(_state.keyword)) {
+      return '리포트 생성하기';
+    }
+
+    return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
+  }, [_state.keyword, isMonthlyCountZero]);
+
   return (
     <Fragment>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -220,35 +234,35 @@ const SearchKeywords = () => {
                     <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
-                            if (typeof keyword === 'number') {
-                              return (
-                                <li
-                                  key={`${keyword}_dummy`}
-                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
-                                />
-                              );
-                            }
+                          if (typeof keyword === 'number') {
                             return (
-                              <Fragment key={`${keyword.id}`}>
-                                <li
-                                  id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                  onClick={() =>
-                                    queryKeywordByClick(keyword.text, _dispatch)
-                                  }
-                                >
-                                  {keyword.text}
-                                </li>
-                                <Tooltip
-                                  anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  content={`월간 검색량: ${
-                                    keyword.count && formatNumber(keyword.count)
-                                  }`}
-                                  place='bottom'
-                                />
-                              </Fragment>
+                              <li
+                                key={`${keyword}_dummy`}
+                                className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
+                              />
                             );
-                          })
+                          }
+                          return (
+                            <Fragment key={`${keyword.id}`}>
+                              <li
+                                id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
+                                onClick={() =>
+                                  queryKeywordByClick(keyword.text, _dispatch)
+                                }
+                              >
+                                {keyword.text}
+                              </li>
+                              <Tooltip
+                                anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                content={`월간 검색량: ${
+                                  keyword.count && formatNumber(keyword.count)
+                                }`}
+                                place='bottom'
+                              />
+                            </Fragment>
+                          );
+                        })
                         : relativeKeyword}
                     </ul>
                   </div>
