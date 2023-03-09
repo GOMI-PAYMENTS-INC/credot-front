@@ -9,6 +9,7 @@ import { PATH } from '@/router/routeList';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
+import { useLocation } from 'react-router-dom';
 
 interface ISignUpSocialForm {
   idToken: string;
@@ -18,7 +19,8 @@ interface ISignUpSocialForm {
 }
 
 const SignUpSocial = () => {
-  const { onSubmitSignUpSocial, userInfo, idToken } = AuthContainer();
+  const { onSubmitSignUpSocial } = AuthContainer();
+  let location = useLocation();
   const [phone, setPhone] = useState('');
 
   //휴대폰 인증 후 리턴 받은 결과 코드
@@ -83,19 +85,16 @@ const SignUpSocial = () => {
   };
 
   const {
-    register,
     setValue,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
-  } = useForm<ISignUpSocialForm>({
-    mode: 'onChange',
-  });
+    formState: { isValid },
+  } = useForm<ISignUpSocialForm>();
   const requiredAgreeTerm = watch('requiredAgreeTerm');
 
   const onValid = () => {
     const signUpInput: GoogleSignUpInput = {
-      idToken,
+      idToken: location.state.token,
       phone,
       verifyCodeSign,
     };
@@ -146,7 +145,7 @@ const SignUpSocial = () => {
                   className=' inputCustom-textbox w-full'
                   type='email'
                   id='email'
-                  value={userInfo?.me.email}
+                  value={location.state?.email}
                   placeholder='이메일'
                   readOnly
                 />
