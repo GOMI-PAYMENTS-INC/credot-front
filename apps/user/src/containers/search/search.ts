@@ -64,11 +64,11 @@ const dailyChecker = (isDaily: boolean) => {
 const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
-  const { text, country } = _state;
+  const { keyword, country } = _state;
   const actionType = SearchAction.SwitchModal;
   try {
     if (_state.isModalOpen === false) {
-      const res = await getReportExisted({ text: text });
+      const res = await getReportExisted({ text: keyword });
       // 리포트가 없을 경우
       const reportInfo = res?.data;
       //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
@@ -85,7 +85,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
               isModalOpen: false,
             },
           });
-          toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, {
+          toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, {
             autoClose: 4000,
           });
         }
@@ -115,7 +115,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
           isModalOpen: false,
         },
       });
-      toast.success(`'${text}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
+      toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
     }
 
     return postReport;

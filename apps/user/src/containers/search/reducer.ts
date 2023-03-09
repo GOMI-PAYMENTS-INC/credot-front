@@ -37,7 +37,7 @@ const reducer = (_state: TState, action: TAction) => {
       if (action.payload) {
         state.keyword = action.payload;
       } else {
-        state.keyword = state.text;
+        state.keyword = state.text.trim();
       }
       useSesstionStorage.setItem('keyword', Object.assign({}, state));
 

@@ -7,7 +7,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 
 import { isFalsy } from '@/utils/isFalsy';
 
-export const GetQueryResult = (keyword: string) => {
+export const getQueryResult = (keyword: string) => {
   const { data, isLoading, isError } = useSearchQuery(
     graphQLClient,
     {
