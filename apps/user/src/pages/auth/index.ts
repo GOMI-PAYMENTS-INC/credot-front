@@ -1,4 +1,5 @@
 import FindId from './FindId';
+import FindIdRefactor from './FindIdRefactor';
 import FindNoResult from './FindNoResult';
 import FindPassword from './FindPassword';
 import ResetPassword from './ResetPassword';
@@ -14,4 +15,5 @@ export {
   SignIn,
   SignUpSocial,
   SignUp,
+  FindIdRefactor,
 };

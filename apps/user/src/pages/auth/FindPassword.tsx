@@ -7,8 +7,8 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { SEND_TEMPORARY_PASSWORD_RESULT } from '@/types/enum.code';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
-import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
+import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
+import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 
 interface IFindPasswordForm {
   email: string;
@@ -80,7 +80,7 @@ const FindPassword = () => {
           SEND_TEMPORARY_PASSWORD_RESULT.STRANGER && (
           <>
             <div className='space-y-8'>
-              <FindIdPasswordTittle
+              <FindAccountTittle
                 title='비밀번호를 찾을게요.'
                 subTitle='이메일과 회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
               />
@@ -118,7 +118,7 @@ const FindPassword = () => {
               </div>
             </div>
 
-            <FindIdPasswordBottom
+            <FindAccountBottom
               buttonText={accountBottomInfo.buttonText}
               text={accountBottomInfo.text}
               buttonLink={accountBottomInfo.buttonLink}
@@ -131,7 +131,7 @@ const FindPassword = () => {
       {isSuccessSendTemporaryPassword && (
         <>
           <div className='space-y-8'>
-            <FindIdPasswordTittle
+            <FindAccountTittle
               title='임시 비밀번호를 발송했어요.'
               subTitle='회원님께서 가입하신 연락처로<br>임시 비밀번호를 발송했어요.'
             />
@@ -152,7 +152,7 @@ const FindPassword = () => {
             </div>
           </div>
 
-          <FindIdPasswordBottom
+          <FindAccountBottom
             buttonText={accountBottomInfo.buttonText}
             text={accountBottomInfo.text}
             buttonLink={accountBottomInfo.buttonLink}
@@ -166,7 +166,7 @@ const FindPassword = () => {
       {sendTemporaryPasswordResponseStatus ===
         SEND_TEMPORARY_PASSWORD_RESULT.STRANGER && (
         <div className='space-y-8'>
-          <FindIdPasswordTittle
+          <FindAccountTittle
             title='일치하는 회원정보가 없어요.'
             subTitle='이메일 주소 또는 휴대폰 번호를 다시 한 번 확인해주세요.'
           />

@@ -1,9 +1,9 @@
-interface IFindIdPasswordTittleForm {
+interface IFindAccountTittleForm {
   title: string;
   subTitle?: string;
 }
 
-export const FindIdPasswordTittle = ({ title, subTitle }: IFindIdPasswordTittleForm) => {
+export const FindAccountTittle = ({ title, subTitle }: IFindAccountTittleForm) => {
   return (
     <div className='text-grey-800'>
       <div className='mb-1 text-3XL/medium'>

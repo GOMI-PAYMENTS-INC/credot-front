@@ -6,7 +6,7 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
 
@@ -251,7 +251,7 @@ const SignUpSocial = () => {
             </div>
           </form>
         </div>
-        <FindIdPasswordBottom
+        <FindAccountBottom
           buttonText={accountBottomInfo.buttonText}
           text={accountBottomInfo.text}
           buttonLink={accountBottomInfo.buttonLink}

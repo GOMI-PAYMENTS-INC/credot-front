@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 
 import { PATH } from '@/router/routeList';
 import { ICommon1SectionProps } from '@/components/layouts';
-export interface IFindIdPasswordBottomProps {
+export interface IFindAccountBottom {
   text: string;
   buttonText: string;
   buttonLink: string;
 }
-export const FindIdPasswordBottom = ({
+export const FindAccountBottom = ({
   text,
   buttonText,
   buttonLink,
-}: IFindIdPasswordBottomProps) => (
+}: IFindAccountBottom) => (
   <div className='mt-10 flex items-center justify-center text-center'>
     <div className='mr-1 text-M/Regular text-grey-700'>{text}</div>
     <Link to={buttonLink}>

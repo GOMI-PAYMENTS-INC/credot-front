@@ -7,8 +7,8 @@ import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { FIND_ACCOUNT_RESULT } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
-import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
+import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
+import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 
 const FindId = () => {
@@ -51,7 +51,7 @@ const FindId = () => {
       {!findAccountQuery && responseStatus !== FIND_ACCOUNT_RESULT.STRANGER && (
         <>
           <div className='space-y-8'>
-            <FindIdPasswordTittle
+            <FindAccountTittle
               title='아이디를 찾을게요.'
               subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
             />
@@ -71,7 +71,7 @@ const FindId = () => {
             </div>
           </div>
 
-          <FindIdPasswordBottom
+          <FindAccountBottom
             buttonText={accountBottomInfo.buttonText}
             text={accountBottomInfo.text}
             buttonLink={accountBottomInfo.buttonLink}
@@ -84,7 +84,7 @@ const FindId = () => {
       {findAccountQuery && (
         <>
           <div className='space-y-8'>
-            <FindIdPasswordTittle
+            <FindAccountTittle
               title={`<span class='text-orange-500'>${
                 findAccountQuery ? findAccountQuery.findAccount.accounts.length : 0
               }개</span>의 아이디를 찾았어요!`}
@@ -115,7 +115,7 @@ const FindId = () => {
             </ul>
           </div>
 
-          <FindIdPasswordBottom
+          <FindAccountBottom
             buttonText={accountBottomInfo.buttonText}
             text={accountBottomInfo.text}
             buttonLink={accountBottomInfo.buttonLink}
@@ -128,7 +128,7 @@ const FindId = () => {
       {responseStatus === FIND_ACCOUNT_RESULT.STRANGER && (
         <>
           <div className='space-y-8'>
-            <FindIdPasswordTittle
+            <FindAccountTittle
               title='아이디를 찾을 수 없어요.'
               subTitle='입력하신 휴대폰 번호로 가입한 계정이 존재하지 않아요.'
             />

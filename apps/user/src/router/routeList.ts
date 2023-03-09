@@ -35,7 +35,7 @@ export interface IRoute {
 export const signInRouter = {
   description: 'signIn',
   path: PATH.SIGN_IN,
-  component: AuthRoutes.FindId,
+  component: AuthRoutes.FindIdRefactor,
 };
 
 export const routeList: IRoute[] = [
@@ -64,7 +64,7 @@ export const routeList: IRoute[] = [
     //아이디 찾기
     description: 'FindIdentification',
     path: PATH.FIND_ID,
-    component: AuthRoutes.FindId,
+    component: AuthRoutes.FindIdRefactor,
     layoutType: 'FindAccountLayout',
   },
   {
