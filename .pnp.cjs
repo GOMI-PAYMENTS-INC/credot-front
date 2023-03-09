@@ -2726,6 +2726,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@hookform/error-message", [\
+        ["npm:2.0.1", {\
+          "packageLocation": "./.yarn/cache/@hookform-error-message-npm-2.0.1-f3d86a1ac0-eb3c33ab3f.zip/node_modules/@hookform/error-message/",\
+          "packageDependencies": [\
+            ["@hookform/error-message", "npm:2.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/@hookform-error-message-virtual-fc349559ae/0/cache/@hookform-error-message-npm-2.0.1-f3d86a1ac0-eb3c33ab3f.zip/node_modules/@hookform/error-message/",\
+          "packageDependencies": [\
+            ["@hookform/error-message", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.0.1"],\
+            ["@types/react", "npm:18.0.27"],\
+            ["@types/react-dom", "npm:18.0.10"],\
+            ["@types/react-hook-form", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:18.2.0"],\
+            ["react-hook-form", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:7.42.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react-hook-form",\
+            "@types/react",\
+            "react-dom",\
+            "react-hook-form",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@humanwhocodes/config-array", [\
         ["npm:0.11.8", {\
           "packageLocation": "./.yarn/cache/@humanwhocodes-config-array-npm-0.11.8-7955bfecc2-0fd6b3c54f.zip/node_modules/@humanwhocodes/config-array/",\
@@ -8405,6 +8435,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@graphql-codegen/typescript", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.8.7"],\
             ["@graphql-codegen/typescript-operations", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.5.12"],\
             ["@graphql-codegen/typescript-react-query", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.1.0"],\
+            ["@hookform/error-message", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.0.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
             ["@tanstack/react-query-devtools", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.22.0"],\
