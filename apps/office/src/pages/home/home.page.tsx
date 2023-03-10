@@ -11,7 +11,6 @@ export default function HomePage() {
   const [activeFaqIndex, changeFaqTab] = useState<number[]>([]);
   const onClickTab = (tabIndex: number) => changeActiveTab(tabIndex);
   const onClickFaq = (faqIndex: number) => {
-    console.log(activeFaqIndex, faqIndex);
     if (activeFaqIndex.find((one) => one === faqIndex)) {
       //체크 해제할때 checkedItems에 있을 경우
       const activeFaqFilter = activeFaqIndex.filter((one) => one !== faqIndex);
@@ -162,7 +161,7 @@ export default function HomePage() {
       brand: 'WT코퍼레이션',
       subject: '전략적인 판매를 할 수 있도록 도와줍니다.',
       content:
-        '지금까지는 상품 수로 매출 승부를 걸었다면, 이제는 고미 키워드를 통해 전략적인 상품 소싱이 가능하기 때문에 상품당 매출을 130%까지 상승시켰습니다.',
+        '지금까지는 상품 수로 매출 승부를 걸었다면, 이제는 고미인사이트를 통해 전략적인 상품 소싱이 가능하기 때문에 상품당 매출을 130%까지 상승시켰습니다.',
     },
     {
       imgName: 'lab.png',
@@ -210,7 +209,7 @@ export default function HomePage() {
     {
       subject: '어떤 장점이 있고 언제 도움을 받을 수 있나요?',
       content:
-        '데이터를 기반으로 쇼피 진입을 위한 유리한 키워드, 시장 규모 분석, 적절한 판매가, 경쟁사 분석에 대한 리포트를 제공해요. 신규 상품을 소싱하여 업로드하거나 이미 판매중인 상품의 품질 개선을 위해 사용할 수 있어요.',
+        '데이터를 기반으로 쇼피 진입을 위한 유리한 키워드, 적절한 판매가, 경쟁사 분석에 대한 결과를 알려드려요. 신규 상품을 업로드하거나 이미 판매중인 상품의 품질 개선을 위해 사용할 수 있어요.',
     },
     {
       subject: '서비스 이용료가 궁금해요!',

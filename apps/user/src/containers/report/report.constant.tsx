@@ -104,16 +104,16 @@ const SCORE = {
   CAA: {
     top: (
       <p>
-        검색량은 적지만, 그만큼 경쟁이 수월한 키워드에요.
-        <span className='text-S/Bold'> 신규 상품 등록 시 공략하기 좋을 수 있어요.</span>
+        검색량은 적지만,
+        <span className='text-S/Bold'>
+          그만큼 경쟁이 수월한 키워드에요. 신규 상품 등록 시 공략하기 좋을 수 있어요.
+        </span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가도 낮은 편이라,
-        <span className='text-S/Bold'>
-          CPC광고 효율과 매출이 모두 잘 나올 수 있는 키워드
-        </span>
+        <span className='text-S/Bold'>CPC광고를 집행해도 나쁘지 않을 키워드에요.</span>
         에요.
       </p>
     ),
@@ -145,19 +145,23 @@ const SCORE = {
     ),
     bottom: (
       <p>
-        CPC 입찰가도 낮은 편이라,
+        CPC 입찰가는 보통 수준이라,
         <span className='text-S/Bold'>
-          CPC광고 효율과 매출이 모두 잘 나올 수 있는 키워드
+          광고 집행 시 효율을 주기적으로 체크하는걸 권장
         </span>
-        에요.
+        드려요.
       </p>
     ),
   },
+
   CAB: {
     top: (
       <p>
-        검색량이 많지는 않지만 경쟁이 수월하여,
-        <span className='text-S/Bold'>신규 상품 등록 시 공략하기 좋은 키워드에요.</span>
+        검색량은 적지만,
+        <span className='text-S/Bold'>
+          {' '}
+          그만큼 경쟁이 수월한 키워드에요. 신규 상품 등록 시 공략하기 좋을 수 있어요.
+        </span>
       </p>
     ),
     bottom: (
@@ -173,22 +177,6 @@ const SCORE = {
   AAC: {
     top: (
       <p>
-        검색량은 적지만, 그만큼 경쟁이 수월한 키워드에요.
-        <span className='text-S/Bold'> 신규 상품 등록 시 공략하기 좋을 수 있어요.</span>
-      </p>
-    ),
-    bottom: (
-      <p>
-        CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
-          광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
-        </span>
-      </p>
-    ),
-  },
-  BAC: {
-    top: (
-      <p>
         검색량이 많으면서 경쟁상품 수는 적은 키워드에요!
         <span className='text-S/Bold'> 상품 등록 시 적극적으로 활용하는 것을 추천</span>
         해요.
@@ -196,16 +184,34 @@ const SCORE = {
     ),
     bottom: (
       <p>
-        CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
+        CPC광고는 입찰가가 높은 편이라,
+        <span className='text-S/Bold'>
+          이익보다는 초기 시장 진입을 위한 공격적인 마케팅에 적합
+        </span>
         해요.
       </p>
     ),
   },
-  CAC: {
+
+  BAC: {
     top: (
       <p>
         검색량이 많지는 않지만 경쟁이 수월하여,
+        <span className='text-S/Bold'> 신규 상품 등록 시 공략하기 좋은 키워드에요. </span>
+      </p>
+    ),
+    bottom: (
+      <p>
+        CPC광고는 입찰가는 높은 편이라,
+        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+      </p>
+    ),
+  },
+
+  CAC: {
+    top: (
+      <p>
+        검색량은 적지만, 그만큼 경쟁이 수월한 키워드에요.
         <span className='text-S/Bold'>신규 상품 등록 시 공략하기 좋은 키워드에요.</span>
       </p>
     ),
@@ -347,12 +353,12 @@ const SCORE = {
     ),
     bottom: (
       <p>
-        CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
-        해요.
+        CPC 입찰가도 높은 편이라,
+        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
       </p>
     ),
   },
+
   CBC: {
     top: (
       <p>
@@ -362,9 +368,8 @@ const SCORE = {
     ),
     bottom: (
       <p>
-        CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
-        해요.
+        CPC 입찰가도 높은 편이라,
+        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
       </p>
     ),
   },
@@ -372,7 +377,7 @@ const SCORE = {
   ACA: {
     top: (
       <p>
-        검색량은 많지만, 경쟁이 아주 심한 키워드에요.
+        검색량만큼 경쟁상품도 많은 키워드에요.
         <span className='text-S/Bold'>
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
@@ -397,16 +402,15 @@ const SCORE = {
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'>
-          CPC광고를 통해 매출을 노려볼 수 있는 키워드에요.
-        </span>
+        <span className='text-S/Bold'>CPC광고를 통해 매출을 노려볼 수 있는 키워드</span>
+        에요.
       </p>
     ),
   },
   CCA: {
     top: (
       <p>
-        검색량 대비 경쟁이 치열한 키워드에요.
+        검색량은 적은데 경쟁이 치열한 키워드에요.
         <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
@@ -455,7 +459,7 @@ const SCORE = {
   CCB: {
     top: (
       <p>
-        검색량 대비 경쟁이 치열한 키워드에요.
+        검색량은 적은데 경쟁이 치열한 키워드에요.
         <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
@@ -468,7 +472,6 @@ const SCORE = {
       </p>
     ),
   },
-
   ACC: {
     top: (
       <p>
@@ -495,24 +498,22 @@ const SCORE = {
     ),
     bottom: (
       <p>
-        CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
-        해요.
+        CPC광고는 입찰가가 높은 편이라,
+        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
       </p>
     ),
   },
   CCC: {
     top: (
       <p>
-        검색량 대비 경쟁이 치열한 키워드에요.
+        검색량은 적은데 경쟁이 치열한 키워드에요.
         <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
-        CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
-        해요.
+        CPC 입찰가도 높은 편이라,
+        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
       </p>
     ),
   },
@@ -531,5 +532,6 @@ export const convertEvaluateStatus = (score: string) => {
       return 'C';
     })
     .join('');
+
   return SCORE[key as keyof typeof SCORE];
 };
