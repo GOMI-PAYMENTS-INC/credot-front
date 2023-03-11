@@ -19,6 +19,7 @@ import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { SearchKeywordsImageBox } from '@/pages/search/SearchKeywordsImageBox';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
@@ -298,7 +299,7 @@ const SearchKeywords = () => {
               sandbox='allow-same-origin allow-scripts'
             />
           ) : (
-            <img src='/assets/images/Frame.png' />
+            <SearchKeywordsImageBox />
           )}
         </div>
       </div>
