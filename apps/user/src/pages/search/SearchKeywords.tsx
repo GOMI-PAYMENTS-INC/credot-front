@@ -289,7 +289,7 @@ const SearchKeywords = () => {
             )}
           </div>
         </div>
-        <div className='x-[50px] col-span-6 h-[900px] w-[458px] self-center'>
+        <div className='x-[50px] col-span-6 flex h-[900px] w-[458px] flex-col self-center'>
           {_state.isSearched && _state.keyword ? (
             <iframe
               src={`https://shopee.vn/search?keyword=${_state.keyword}`}
