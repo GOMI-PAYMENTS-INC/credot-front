@@ -1,11 +1,12 @@
 import { Fragment, useState, useEffect, useMemo } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
 import { PATH } from '@/router/routeList';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { VarifyCodeInput } from '@/pages/auth/VarifyCodeInput';
 
 import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
 import { useForm } from 'react-hook-form';
@@ -32,41 +33,53 @@ const FindIdRefactor = () => {
   const phoneNumber = getValues('phone');
 
   const requestVerifyCodeButton = useMemo((): {
-    className: string;
-    text: string;
-    disabled: boolean;
-    phoneNumberInput: boolean;
+    phone: {
+      className: string;
+      text: string;
+      disabled: boolean;
+      phoneNumberInput: boolean;
+    };
     verifyCodeInput: boolean;
   } => {
-    // case 1. 최초 요청 활성화
     const eventOption = {
-      className: 'button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]',
-      text: '인증',
-      disabled: false,
-      phoneNumberInput: false,
+      phone: {
+        className:
+          'button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]',
+        text: '인증',
+        disabled: false,
+        phoneNumberInput: false,
+      },
       verifyCodeInput: false,
     };
 
     if (isVerification.firstCalled === true && isVerification.theElseCalled === false) {
-      eventOption.className =
+      eventOption.phone.className =
         'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
-      eventOption.text = '재발송';
+      eventOption.phone.text = '재발송';
     }
 
     if (isVerification.firstCalled === true && isVerification.theElseCalled === true) {
-      eventOption.className =
+      eventOption.phone.className =
         'ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500';
-      eventOption.text = '재발송';
-      eventOption.disabled = true;
-      eventOption.phoneNumberInput = true;
+      eventOption.phone.text = '재발송';
+      eventOption.phone.disabled = true;
+      eventOption.phone.phoneNumberInput = true;
     }
 
     return eventOption;
   }, [isVerification]);
-  console.log(requestVerifyCodeButton, 'requestVerifyCodeButton');
-  const { className, disabled, text, phoneNumberInput, verifyCodeInput } =
-    requestVerifyCodeButton;
-  console.log(isVerification, 'isVerification');
+
+  const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
+
+  const isPhoneVerifyPrepared = () => {
+    if (getValues('phone').length === 11 && isFalsy(errors.phone)) {
+      isClickVerifyBtn(isVerification, setIsVerification);
+      return true;
+    }
+    setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
+    return false;
+  };
+
   return (
     <Fragment>
       {/* {!findAccountQuery && responseStatus !== FIND_ACCOUNT_RESULT.STRANGER && ( */}
@@ -88,16 +101,21 @@ const FindIdRefactor = () => {
                   type='text'
                   placeholder='휴대폰번호를 숫자만 입력해주세요.'
                   maxLength={11}
-                  disabled={phoneNumberInput} // 요청이 성공적으로 보내졌을 경우, 카운트가 0이 될 때 까지
+                  disabled={phoneNumberInput}
                   {...register('phone', {
-                    required: '휴대폰번호 입력해주세요.',
                     pattern: {
                       value: /(010)[0-9]{8}$/g,
                       message: '올바른 휴대폰번호를 입력해주세요.',
                     },
+                    onChange: (event) => {
+                      event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                    },
                   })}
                   onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                    if (event.code !== 'Enter' || errors.phone) return;
+                    if (event.code !== 'Enter') return;
+                    if (isPhoneVerifyPrepared() === false) return;
+
+                    console.log(errors, 'error');
 
                     console.log('success to request api');
                   }}
@@ -114,58 +132,64 @@ const FindIdRefactor = () => {
             </div>
 
             <div className='basis-[102px]'>
-              {
-                <button
-                  type='button'
-                  className={className}
-                  onClick={() => {
-                    isClickVerifyBtn(isVerification, setIsVerification);
-                  }}
-                  disabled={disabled}
-                >
-                  {text}
-                </button>
-              }
+              <button
+                className={className}
+                onClick={() => {
+                  if (isPhoneVerifyPrepared() === false) return;
+                }}
+                disabled={disabled}
+              >
+                {text}
+              </button>
             </div>
           </div>
 
-          {/* {!!verifyCodeCount && ( */}
-          <div className='inputCustom-group'>
-            <div className='inputCustom-textbox-wrap'>
-              <input
-                className={`inputCustom-textbox w-full ${
-                  isFalsy(errors.verifyCode) === false && 'error'
-                }`}
-                id='verifyCode'
-                type='text'
-                maxLength={6}
-                placeholder='인증번호 6자리를 입력해주세요.'
-                disabled={verifyCodeInput}
-                {...register('verifyCode', {
-                  pattern: {
-                    value: /[0-9]{6}$/g,
-                    message: '인증번호 6자리를 입력해주세요.',
-                  },
-                })}
-              />
-              <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
-              {/* {verifyCodeSign ? (
-                    <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
-                  ) : (
-                    <InputIcon time={{ minutes, seconds }} />
-                  )}
-                   */}
-            </div>
-            {isFalsy(errors.verifyCode) === false && (
-              <ErrorMessage
-                errors={errors}
-                name='verifyCode'
-                render={({ message }) => (
-                  <p className='inputCustom-helptext'>{message}</p>
-                )}
-              />
-            )}
-          </div>
+          {isVerification.firstCalled && (
+            <VarifyCodeInput
+              isDisabled={requestVerifyCodeButton.verifyCodeInput}
+              setIsVerification={setIsVerification}
+              isVerification={isVerification}
+            />
+            // <div className='inputCustom-group'>
+            //   <div className='inputCustom-textbox-wrap'>
+            //     <input
+            //       className={`inputCustom-textbox w-full ${
+            //         isFalsy(errors.verifyCode) === false && 'error'
+            //       }`}
+            //       id='verifyCode'
+            //       type='text'
+            //       maxLength={6}
+            //       placeholder='인증번호 6자리를 입력해주세요.'
+            //       disabled={requestVerifyCodeButton.verifyCodeInput}
+            //       {...register('verifyCode', {
+            //         pattern: {
+            //           value: /[0-9]{6}$/g,
+            //           message: '인증번호 6자리를 입력해주세요.',
+            //         },
+            //         onChange: (event) => {
+            //           event.target.value = event.target.value.replace(/[^0-9]/g, '');
+            //         },
+            //       })}
+            //     />
+            //     <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
+            //     {/* {verifyCodeSign ? (
+            //         <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
+            //       ) : (
+            //         <InputIcon time={{ minutes, seconds }} />
+            //       )}
+            //        */}
+            //   </div>
+            //   {isFalsy(errors.verifyCode) === false && (
+            //     <ErrorMessage
+            //       errors={errors}
+            //       name='verifyCode'
+            //       render={({ message }) => (
+            //         <p className='inputCustom-helptext'>{message}</p>
+            //       )}
+            //     />
+            //   )}
+            // </div>
+          )}
         </div>
       </div>
       {/* )} */}

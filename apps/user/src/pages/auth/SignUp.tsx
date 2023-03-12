@@ -8,7 +8,7 @@ import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { PATH } from '@/router/routeList';
-import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
 
 interface ISignUpForm {
@@ -227,7 +227,9 @@ const SignUp = () => {
                         message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
                       },
                       validate: (value: string) =>
-                        (value && /\s/.test(value)) && '비밀번호에 공백은 사용할 수 없어요.',
+                        value &&
+                        /\s/.test(value) &&
+                        '비밀번호에 공백은 사용할 수 없어요.',
                     })}
                   />
                   <InputIcon

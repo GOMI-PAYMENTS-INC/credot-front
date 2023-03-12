@@ -7,7 +7,7 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
 import { PATH } from '@/router/routeList';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
 import { useLocation } from 'react-router-dom';
 
