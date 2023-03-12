@@ -5,10 +5,7 @@ import { Defalut as Layout } from '@/components/layouts';
 import {
   _getReportInfo,
   convertTitle,
-  isToggleOpen,
-  onScrollDetail,
   openBrowser,
-  scrollToTop,
 } from '@/containers/report/report.container';
 
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
