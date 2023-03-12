@@ -4,7 +4,7 @@ import { PATH } from '@/router/paths';
 import SvgIcon from '@/util/SvgIcon';
 
 const Footer = () => {
-  const IMG_PATH = '/public/assets/images';
+  const IMG_PATH = '/assets/images';
   return (
     <footer className='py-[56px] text-grey-900'>
       <div className='container'>

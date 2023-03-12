@@ -20,7 +20,7 @@ export default function HomePage() {
     }
   };
 
-  const IMG_PATH = '/public/assets/images';
+  const IMG_PATH = '/assets/images';
   const tabData = [
     {
       name: '시장 분석',
