@@ -4,12 +4,6 @@ import * as AuthRoutes from '@/pages/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';
 import * as ReportRoutes from '@/pages/report';
 
-export type TLayoutType =
-  | 'Default'
-  | 'Common1Section'
-  | 'Common2Section'
-  | 'FindAccountLayout';
-
 export const PATH = {
   SEARCH_PRODUCTS: '/',
   SIGN_IN: '/signin',
@@ -29,7 +23,6 @@ export interface IRoute {
   description: string;
   path: TPathType;
   component: ComponentType;
-  layoutType: TLayoutType;
 }
 
 export const signInRouter = {
@@ -44,70 +37,51 @@ export const routeList: IRoute[] = [
     description: 'SignUp',
     path: PATH.SIGN_UP,
     component: AuthRoutes.SignUp,
-    layoutType: 'Common1Section',
   },
   {
     //소셜 로그인
     description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: AuthRoutes.SignUpSocial,
-    layoutType: 'Common1Section',
   },
   {
     //비밀번호 찾기
     description: 'FindPassword',
     path: PATH.FIND_PASSWORD,
     component: AuthRoutes.FindPassword,
-    layoutType: 'FindAccountLayout',
   },
   {
     //아이디 찾기
     description: 'FindIdentification',
     path: PATH.FIND_ID,
     component: AuthRoutes.FindId,
-    layoutType: 'FindAccountLayout',
   },
   {
     //로그인
     description: 'SignIn',
     path: PATH.SIGN_IN,
     component: AuthRoutes.SignIn,
-    layoutType: 'Common2Section',
   },
   {
     //비밀번호 재설정
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.ResetPassword,
-    layoutType: 'Common2Section',
   },
   {
     //검색
     description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchKeywords,
-    layoutType: 'Default',
   },
   {
     description: 'ReportList',
     path: PATH.GET_REPORT_LIST,
     component: ReportRoutes.ReportList,
-    layoutType: 'Default',
   },
   {
     description: 'DetailReport',
     path: PATH.ANALYSIS_REPORT_LIST,
     component: ReportRoutes.DetailReport,
-    layoutType: 'Default',
   },
 ];
-
-export function getComponentByPathname(path: string): TLayoutType {
-  const layout = routeList.find((route) => route.path === path)?.layoutType;
-
-  if (layout || layout === null) {
-    return layout;
-  }
-
-  throw new Error('pathname을 확인해주세요.');
-}

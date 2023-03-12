@@ -82,3 +82,15 @@ export enum GRADE_ITEMS {
   MEDIUM = 'medium',
   LOW = 'low',
 }
+
+export enum PATH {
+  SEARCH_PRODUCTS = '/',
+  SIGN_IN = '/signin',
+  SIGN_UP = '/signup',
+  SIGN_UP_WITH_GOOGLE = '/signup/social',
+  FIND_PASSWORD = '/find/password',
+  FIND_ID = '/find/id',
+  REAPPLY_PASSWORD = '/signin/password',
+  GET_REPORT_LIST = '/report/list',
+  ANALYSIS_REPORT_LIST = '/report/list/:id',
+}

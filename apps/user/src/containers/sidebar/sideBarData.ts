@@ -1,4 +1,4 @@
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 
 export const menuData = [
   {

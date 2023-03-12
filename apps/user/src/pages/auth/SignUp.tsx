@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-
+import { Common1Section as Layout } from '@/components/layouts/Common1Section';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
 
@@ -159,7 +159,7 @@ const SignUp = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       <div className='flex flex-col justify-between'>
         <div>
           <div>
@@ -227,7 +227,9 @@ const SignUp = () => {
                         message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
                       },
                       validate: (value: string) =>
-                        (value && /\s/.test(value)) && '비밀번호에 공백은 사용할 수 없어요.',
+                        value &&
+                        /\s/.test(value) &&
+                        '비밀번호에 공백은 사용할 수 없어요.',
                     })}
                   />
                   <InputIcon
@@ -371,7 +373,7 @@ const SignUp = () => {
           buttonLink={accountBottomInfo.buttonLink}
         />
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 

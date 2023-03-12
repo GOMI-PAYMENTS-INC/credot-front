@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { ReactSVG } from 'react-svg';
 import { Link } from 'react-router-dom';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 
 export interface ICommon1SectionProps {
   children?: ReactNode;

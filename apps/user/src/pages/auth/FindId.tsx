@@ -1,10 +1,10 @@
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
-
+import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { FindUserContainer } from '@/containers/auth/findUser.container';
 import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { FIND_ACCOUNT_RESULT } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
@@ -46,7 +46,7 @@ const FindId = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       {/* 아이디 찾기 폼 시작 */}
       {!findAccountQuery && responseStatus !== FIND_ACCOUNT_RESULT.STRANGER && (
         <>
@@ -158,7 +158,7 @@ const FindId = () => {
         </>
       )}
       {/* 조회된 결과가 없는 경우 끝 */}
-    </Fragment>
+    </Layout>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 
 const FindNoResult = () => (
   <div className='flex h-screen w-full justify-center'>
