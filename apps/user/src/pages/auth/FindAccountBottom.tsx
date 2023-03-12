@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { ICommon1SectionProps } from '@/components/layouts';
 export interface IFindAccountBottom {
   text: string;

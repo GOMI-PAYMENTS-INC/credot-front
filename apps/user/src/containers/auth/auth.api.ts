@@ -8,7 +8,7 @@ import {
   SendSmsVerificationCodeMutationVariables,
   useSignupMutation,
 } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { toast } from 'react-toastify';
 import { authTokenStorage } from '@/utils/authToken';

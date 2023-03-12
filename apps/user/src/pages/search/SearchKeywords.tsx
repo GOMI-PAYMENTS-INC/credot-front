@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
-
+import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/modal';
 import {
   getKeyword,
@@ -87,7 +87,7 @@ const SearchKeywords = () => {
   }, [_state.keyword, isMonthlyCountZero]);
 
   return (
-    <Fragment>
+    <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
         <SearchModal
           _state={_state}
@@ -302,7 +302,7 @@ const SearchKeywords = () => {
           )}
         </div>
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 export default SearchKeywords;

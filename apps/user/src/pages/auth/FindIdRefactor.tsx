@@ -3,11 +3,11 @@ import { isFalsy } from '@/utils/isFalsy';
 
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { VarifyCodeInput } from '@/pages/auth/VarifyCodeInput';
-
+import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
@@ -81,7 +81,7 @@ const FindIdRefactor = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       {/* {!findAccountQuery && responseStatus !== FIND_ACCOUNT_RESULT.STRANGER && ( */}
       <div className='space-y-8'>
         <FindAccountTittle
@@ -266,7 +266,7 @@ const FindIdRefactor = () => {
         text='계정이 기억나셨나요?'
         buttonLink={PATH.SIGN_IN}
       />
-    </Fragment>
+    </Layout>
   );
 };
 

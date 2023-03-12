@@ -2,7 +2,7 @@ import { Fragment, useReducer, useState } from 'react';
 import { isIncluded } from '@/utils/isIncluded';
 import { useEffect } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
-
+import { Defalut as Layout } from '@/components/layouts';
 import {
   _getReportList,
   onChangeOffsetCount,
@@ -61,7 +61,7 @@ const ReportList = () => {
   }, []);
 
   return (
-    <Fragment>
+    <Layout>
       {/*헤더*/}
       <header className='border-b-[1px] border-b-gray-200 bg-white'>
         <div className='container'>
@@ -202,7 +202,7 @@ const ReportList = () => {
           </div>
         </div>
       </section>
-    </Fragment>
+    </Layout>
   );
 };
 

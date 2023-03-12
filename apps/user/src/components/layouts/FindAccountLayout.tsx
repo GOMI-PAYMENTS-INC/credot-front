@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import { Common1Section } from '@/components/layouts/Common1Section';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { Link, useLocation } from 'react-router-dom';
 
 export interface IFindAccountLayoutProps {

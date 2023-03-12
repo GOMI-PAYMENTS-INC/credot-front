@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-
+import { Common1Section as Layout } from '@/components/layouts/Common1Section';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { PATH } from '@/router/routeList';
+
+import { PATH } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
 
@@ -159,7 +160,7 @@ const SignUp = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       <div className='flex flex-col justify-between'>
         <div>
           <div>
@@ -373,7 +374,7 @@ const SignUp = () => {
           buttonLink={accountBottomInfo.buttonLink}
         />
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 

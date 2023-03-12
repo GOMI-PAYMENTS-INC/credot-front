@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { MutationLoginArgs } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
@@ -73,7 +73,7 @@ const SignIn = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       <div>
         <h3 className='text-center text-3XL/medium'>로그인</h3>
       </div>
@@ -216,7 +216,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 export default SignIn;

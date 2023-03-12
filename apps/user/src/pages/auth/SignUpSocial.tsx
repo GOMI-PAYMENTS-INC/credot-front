@@ -1,13 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { Common1Section as Layout } from '@/components/layouts/Common1Section';
 
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
+
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { PATH } from '@/types/enum.code';
+
 import { agreeTermList } from '@/containers/auth/signUpData';
 import { useLocation } from 'react-router-dom';
 
@@ -127,7 +130,7 @@ const SignUpSocial = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       <div className='flex h-full flex-col justify-between'>
         <div>
           <div>
@@ -256,7 +259,7 @@ const SignUpSocial = () => {
           buttonLink={accountBottomInfo.buttonLink}
         />
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 
