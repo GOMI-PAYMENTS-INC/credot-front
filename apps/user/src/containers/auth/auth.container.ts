@@ -30,7 +30,7 @@ import {
   useSignupMutation,
 } from '@/generated/graphql';
 
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/api/config';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
@@ -90,8 +90,7 @@ export const AuthContainer = () => {
     graphQLClient,
     {},
     {
-      onSuccess: (res) => {
-      },
+      onSuccess: (res) => {},
       onError: (error) => {
         if (error instanceof Error) {
           console.error(error, 'error : )');
@@ -218,9 +217,9 @@ export const AuthContainer = () => {
   const handleCredentialResponse = (response: CredentialResponse) => {
     if (response.credential) {
       setIdToken(response.credential);
-      onGoogleLoginButton({idToken: response.credential});
+      onGoogleLoginButton({ idToken: response.credential });
     }
-  }
+  };
   // 구글 로그인 끝
 
   // 비밀번호 변경
@@ -273,23 +272,21 @@ export const AuthContainer = () => {
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
 
-        refetchUserInfo().then(
-        (value)=>{
-          //토큰은 있지만 로그인 상태가 아닌 경우
-          if(!isLogin) {
-            //소셜 회원가입인 경우 전화번호 인증이 필요함
-            const path = value.data?.me.phone === '' && PATH.SIGN_UP_WITH_GOOGLE;
+      refetchUserInfo().then((value) => {
+        //토큰은 있지만 로그인 상태가 아닌 경우
+        if (!isLogin) {
+          //소셜 회원가입인 경우 전화번호 인증이 필요함
+          const path = value.data?.me.phone === '' && PATH.SIGN_UP_WITH_GOOGLE;
 
-            if (path) {
-              clearLogin();
-              navigation(path, {state: {email: value.data?.me.email, token: idToken}});
-            } else {
-              handleChangeLoginState(true);
-              navigation(PATH.SEARCH_PRODUCTS);
-            }
+          if (path) {
+            clearLogin();
+            navigation(path, { state: { email: value.data?.me.email, token: idToken } });
+          } else {
+            handleChangeLoginState(true);
+            navigation(PATH.SEARCH_PRODUCTS);
           }
         }
-      )
+      });
     }
   }, [token]);
 

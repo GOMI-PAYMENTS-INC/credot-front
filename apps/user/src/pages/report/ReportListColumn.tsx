@@ -1,4 +1,4 @@
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { StatusTag } from '@/components/statusTag';
 import { convertTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';

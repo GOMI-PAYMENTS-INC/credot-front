@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { ChangePasswordInput } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { Fragment, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
@@ -52,7 +53,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       <div>
         <h3 className='text-center text-3XL/medium'>비밀번호 재설정</h3>
       </div>
@@ -142,7 +143,7 @@ const ResetPassword = () => {
           </div>
         </form>
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 export default ResetPassword;

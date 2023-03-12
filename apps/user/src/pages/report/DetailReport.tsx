@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
-
+import { Defalut as Layout } from '@/components/layouts';
 import {
   _getReportInfo,
   convertTitle,
@@ -17,7 +17,7 @@ import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
@@ -86,7 +86,7 @@ const DetailReport = () => {
     );
 
   return (
-    <Fragment>
+    <Layout>
       {/*헤더*/}
       <header className='border-b-[1px] border-b-gray-200 bg-white'>
         <div className='container'>
@@ -143,7 +143,7 @@ const DetailReport = () => {
           </div>
         </div>
       </section>
-    </Fragment>
+    </Layout>
   );
 };
 

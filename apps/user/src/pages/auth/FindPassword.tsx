@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-
+import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { SEND_TEMPORARY_PASSWORD_RESULT } from '@/types/enum.code';
 import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
 import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
@@ -73,7 +73,7 @@ const FindPassword = () => {
   };
 
   return (
-    <Fragment>
+    <Layout>
       {/* 비밀번호 찾기 폼 시작 */}
       {!isSuccessSendTemporaryPassword &&
         sendTemporaryPasswordResponseStatus !==
@@ -195,7 +195,7 @@ const FindPassword = () => {
         </div>
       )}
       {/*검색 결과 없음 끝*/}
-    </Fragment>
+    </Layout>
   );
 };
 
