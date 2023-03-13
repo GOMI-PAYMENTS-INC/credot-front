@@ -1,36 +1,53 @@
 import { Fragment, useState, useEffect, useMemo } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
 import { PATH } from '@/types/enum.code';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+
 import { VarifyCodeInput } from '@/pages/auth/VarifyCodeInput';
 import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
+
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
+import { copyToClipboard } from '@/utils/copyToClipboard';
+import { ReactSVG } from 'react-svg';
+
+import { useSmsVerify } from '@/containers/auth/auth.api';
+import { CountryType } from '@/generated/graphql';
 
 const FindIdRefactor = () => {
   const {
     register,
-    watch,
     setError,
     getValues,
     formState: { errors, isValid },
-  } = useForm<TVerifyCodeForm>({
+  } = useForm<TFindAccountErrorType>({
     mode: 'onChange',
   });
+  const phoneNumber = getValues('phone');
 
-  const [isVerification, setIsVerification] = useState({
+  const [isVerification, setIsVerification] = useState<TVerifyButtonState>({
     firstCalled: false,
     //theElseCalled가 false가 되는 시점은 시간이 다 흘렀을 때
     theElseCalled: true,
+    isExceeded: false,
+    verifyCode: '',
   });
+  const { _verifyPhoneNumber, data, isLoading } = useSmsVerify(
+    phoneNumber,
+    isVerification,
+    setIsVerification,
+    setError,
+  );
 
-  // 인증요청 시 필요한 값
-  const phoneNumber = getValues('phone');
+  useEffect(() => {
+    if (isFalsy(isVerification.verifyCode)) return;
+    console.log(isVerification.verifyCode, 'verifyCode');
+  }, [isVerification.verifyCode]);
 
   const requestVerifyCodeButton = useMemo((): {
     phone: {
@@ -73,7 +90,7 @@ const FindIdRefactor = () => {
 
   const isPhoneVerifyPrepared = () => {
     if (getValues('phone').length === 11 && isFalsy(errors.phone)) {
-      isClickVerifyBtn(isVerification, setIsVerification);
+      _verifyPhoneNumber();
       return true;
     }
     setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
@@ -94,7 +111,7 @@ const FindIdRefactor = () => {
             <div className='inputCustom-group grow'>
               <div className='inputCustom-textbox-wrap'>
                 <input
-                  className={`inputCustom-textbox w-full ${
+                  className={`inputCustom-textbox w-full  ${
                     isFalsy(errors.phone) === false && 'error'
                   }`}
                   id='verify'
@@ -113,11 +130,8 @@ const FindIdRefactor = () => {
                   })}
                   onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
                     if (event.code !== 'Enter') return;
-                    if (isPhoneVerifyPrepared() === false) return;
-
-                    console.log(errors, 'error');
-
-                    console.log('success to request api');
+                    console.log('ho');
+                    isPhoneVerifyPrepared();
                   }}
                 />
                 <InputIcon status={errors?.phone && INPUTSTATUS.ERROR} iconSize={5} />
@@ -134,103 +148,56 @@ const FindIdRefactor = () => {
             <div className='basis-[102px]'>
               <button
                 className={className}
-                onClick={() => {
-                  if (isPhoneVerifyPrepared() === false) return;
-                }}
+                onClick={() => isPhoneVerifyPrepared()}
                 disabled={disabled}
               >
                 {text}
               </button>
             </div>
           </div>
-
           {isVerification.firstCalled && (
             <VarifyCodeInput
               isDisabled={requestVerifyCodeButton.verifyCodeInput}
               setIsVerification={setIsVerification}
               isVerification={isVerification}
+              setError={setError}
+              errors={errors}
             />
-            // <div className='inputCustom-group'>
-            //   <div className='inputCustom-textbox-wrap'>
-            //     <input
-            //       className={`inputCustom-textbox w-full ${
-            //         isFalsy(errors.verifyCode) === false && 'error'
-            //       }`}
-            //       id='verifyCode'
-            //       type='text'
-            //       maxLength={6}
-            //       placeholder='인증번호 6자리를 입력해주세요.'
-            //       disabled={requestVerifyCodeButton.verifyCodeInput}
-            //       {...register('verifyCode', {
-            //         pattern: {
-            //           value: /[0-9]{6}$/g,
-            //           message: '인증번호 6자리를 입력해주세요.',
-            //         },
-            //         onChange: (event) => {
-            //           event.target.value = event.target.value.replace(/[^0-9]/g, '');
-            //         },
-            //       })}
-            //     />
-            //     <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
-            //     {/* {verifyCodeSign ? (
-            //         <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
-            //       ) : (
-            //         <InputIcon time={{ minutes, seconds }} />
-            //       )}
-            //        */}
-            //   </div>
-            //   {isFalsy(errors.verifyCode) === false && (
-            //     <ErrorMessage
-            //       errors={errors}
-            //       name='verifyCode'
-            //       render={({ message }) => (
-            //         <p className='inputCustom-helptext'>{message}</p>
-            //       )}
-            //     />
-            //   )}
-            // </div>
           )}
         </div>
       </div>
       {/* )} */}
 
-      {/* 아이디 찾기 결과 시작
-      {findAccountQuery && (
-        <div className='space-y-8'>
-          <FindAccountTittle
-            title={`<span class='text-orange-500'>${
-              findAccountQuery ? findAccountQuery.findAccount.accounts.length : 0
-            }개</span>의 아이디를 찾았어요!`}
-          />
+      {/* <div className='space-y-8'>
+        <FindAccountTittle
+          title={`<span class='text-orange-500'>${3}개</span>의 아이디를 찾았어요!`}
+        />
 
-          <ul className='space-y-6'>
-            {findAccountQuery &&
-              findAccountQuery.findAccount.accounts.map((account, index) => (
-                <li
-                  className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-orange-500'
-                  key={index}
-                >
-                  <div>{account.email}</div>
-                  <a href='#' className='inline-block text-L/Regular'>
-                    <ReactSVG
-                      src='/assets/icons/outlined/Copy.svg'
-                      className='cursor-pointer'
-                      beforeInjection={(svg) => {
-                        svg.setAttribute('style', 'width: 20px; fill: #595959');
-                      }}
-                      onClick={() =>
-                        copyToClipboard('아이디를 복사했어요.', account.email)
-                      }
-                    />
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </div>
-      )} */}
+        <ul className='space-y-6'>
+          {[1, 2, 3, 4, 5].map((account, index) => (
+            <li
+              className='flex cursor-pointer items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-orange-500'
+              key={index}
+              onClick={() =>
+                copyToClipboard('아이디를 복사했어요.', `account.email_${account}`)
+              }
+            >
+              <div>{`account.email_${account}`}</div>
 
-      {/* 조회된 결과가 없는 경우 시작
-      {responseStatus === FIND_ACCOUNT_RESULT.STRANGER && (
+              <ReactSVG
+                src='/assets/icons/outlined/Copy.svg'
+                className='cursor-pointer'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('style', 'width: 20px; fill: #595959');
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div> */}
+
+      {/* 조회된 결과가 없는 경우*/}
+      {/* {
         <div className='space-y-8'>
           <FindAccountTittle
             title='아이디를 찾을 수 없어요.'
@@ -259,7 +226,7 @@ const FindIdRefactor = () => {
             </div>
           </div>
         </div>
-      )} */}
+      } */}
 
       <FindAccountBottom
         buttonText='로그인 하러가기'

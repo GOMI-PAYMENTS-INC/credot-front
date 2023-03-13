@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import {
   useSmsVerifyCodeConfirmQuery,
   CountryType,
@@ -10,37 +10,48 @@ import {
 } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { graphQLClient } from '@/utils/graphqlCient';
-import { toast } from 'react-toastify';
-import { authTokenStorage } from '@/utils/authToken';
 
-export const useSmsVerify = async (number: string = '') => {
-  const payload = {
-    phone: '01032982455',
-    country: CountryType.Kr,
-  };
+import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
+import { UseFormSetError } from 'react-hook-form';
+
+export const useSmsVerify = (
+  phone: string = '',
+  isVerifcication: TVerifyButtonState,
+  setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
+  setError: UseFormSetError<TFindAccountErrorType>,
+) => {
+  const { firstCalled, theElseCalled } = isVerifcication;
 
   const {
     mutate: mutateRequestVerify,
     data,
     isError,
+    isLoading,
   } = useSendSmsVerificationCodeMutation(graphQLClient, {
-    onSuccess: async (res) => {
-      console.log(res, 'res');
-
-      // setSending(true);
+    onSuccess: () => {
+      isClickVerifyBtn(isVerifcication, setIsVerification);
     },
     onError: (err) => {
-      console.log(err, 'err');
-      // setSending(false);
+      const [response] = err.errors;
+      if (firstCalled && theElseCalled) {
+        setError('verifyCode', { message: response.message });
+        return;
+      }
+      setError('phone', { message: response.message });
+      isClickVerifyBtn(isVerifcication, setIsVerification, { theElseCalled: false });
     },
   });
-  try {
-  } catch (error) {}
-  const res = await mutateRequestVerify(payload);
-  console.log(res, 'Res');
-  console.log(data, 'data');
 
-  //   return mutateRequestVerify(payload);
+  const payload = {
+    phone: phone,
+    country: CountryType.Kr,
+  };
+  console.log('hi');
+  const _verifyPhoneNumber = () => {
+    if (phone?.length !== 11 || firstCalled === true) return;
+    mutateRequestVerify(payload);
+  };
+  return { _verifyPhoneNumber, data, isLoading };
 };
 
 // 회원가입 시작

@@ -526,7 +526,21 @@ export const SendSmsVerificationCodeDocument = `
 }
     `;
 export const useSendSmsVerificationCodeMutation = <
-  TError extends unknown,
+  TError extends {
+    errors: [
+      {
+        message: string;
+        locations: Array<{ line: number; column: number }>;
+        path: [string];
+        extensions: {
+          code: number;
+          status: 'UNAUTHORIZED';
+          classification: 'Exception';
+        };
+      },
+    ];
+    data: null;
+  },
   TContext extends unknown,
 >(
   client: GraphQLClient,

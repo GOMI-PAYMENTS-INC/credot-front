@@ -1,38 +1,63 @@
+import { useState, Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { useState, Dispatch, SetStateAction } from 'react';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
+
 import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
-
+import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
 interface IVarifyCode {
   isDisabled: boolean;
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
+  setError: UseFormSetError<TFindAccountErrorType>;
+  errors: Partial<FieldErrorsImpl<TFindAccountErrorType>>;
 }
 
 export const VarifyCodeInput = (props: IVarifyCode) => {
-  const [time, setTime] = useState({ minutes: 1, seconds: 0 });
+  const initializeTime = { minutes: 1, seconds: 0 };
+  const [time, setTime] = useState(initializeTime);
+  const { isDisabled, setIsVerification, isVerification, setError, errors } = props;
 
-  const { isDisabled, setIsVerification, isVerification } = props;
-  const {
-    register,
-    watch,
-    setError,
-    getValues,
-    formState: { errors, isValid },
-  } = useForm<TVerifyCodeForm>({
+  useEffect(() => {
+    //TODO: container에 로직 넣기
+    if (isVerification.theElseCalled) {
+      setTime(Object.assign({}, time, initializeTime));
+      setError('verifyCode', { message: undefined });
+    }
+    if (isVerification.isExceeded) {
+      setTime(Object.assign({}, time, { minutes: 5, seconds: 0 }));
+    }
+  }, [isVerification.theElseCalled, isVerification.isExceeded]);
+
+  const { register } = useForm<{ verifyCode: string }>({
     mode: 'onChange',
   });
   const disable = time.minutes === 0 && time.seconds === 0;
+
   useInterval(
+    //TODO: container에 로직 넣기
     () => {
       if (time.minutes === 0 && time.seconds === 1) {
-        setIsVerification(Object.assign({}, isVerification, { theElseCalled: false }));
-        setError('verifyCode', { message: '인증시간이 만료었어요. 다시 인증해주세요.' });
+        isClickVerifyBtn(isVerification, setIsVerification);
+        //TODO: 조건문 중첩 피하기 # 리펙터링 -> 함수로 분리하기
+        if (isVerification.isExceeded) {
+          setIsVerification(Object.assign({}, isVerification, { isExceeded: false }));
+        } else {
+          setError('verifyCode', {
+            message: '인증시간이 만료었어요. 다시 인증해주세요.',
+          });
+        }
       }
       if (time.minutes > 0 && time.seconds === 0) {
-        setTime(Object.assign({}, time, { minutes: time.minutes - 1, seconds: 3 }));
+        setTime(Object.assign({}, time, { minutes: time.minutes - 1, seconds: 59 }));
+
+        if (isVerification.isExceeded) {
+          setError('verifyCode', {
+            message: `인증번호 발송 횟수를 초과했어요. 5분간 인증이 불가능해요.`,
+          });
+        }
+
         return;
       }
 
@@ -55,7 +80,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
           type='text'
           maxLength={6}
           placeholder='인증번호 6자리를 입력해주세요.'
-          disabled={disable}
+          readOnly={disable || isVerification.isExceeded}
           {...register('verifyCode', {
             pattern: {
               value: /[0-9]{6}$/g,
@@ -63,17 +88,18 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
             },
             onChange: (event) => {
               event.target.value = event.target.value.replace(/[^0-9]/g, '');
+
+              if (event.target.value?.length === 6) {
+                //TODO: container에 로직 넣기
+                setIsVerification(
+                  Object.assign({}, isVerification, { verifyCode: event.target.value }),
+                );
+              }
             },
           })}
+          onBlur={() => {}}
         />
         <InputIcon time={time} />
-        {/* <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} /> */}
-        {/* {verifyCodeSign ? (
-          <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
-        ) : (
-          <InputIcon time={{ minutes, seconds }} />
-        )}
-         */}
       </div>
       {isFalsy(errors.verifyCode) === false && (
         <ErrorMessage
