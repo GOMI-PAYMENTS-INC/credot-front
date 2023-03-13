@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
 import { PATH } from '@/router/paths';
-import SvgIcon from '@/util/SvgIcon';
-
 const Footer = () => {
   const IMG_PATH = '/assets/images';
   return (
@@ -11,12 +10,10 @@ const Footer = () => {
         <div className='flex items-center justify-between sm:flex-wrap'>
           <div className='mr-4 sm:mr-0 sm:w-full'>
             <Link to={PATH.HOME}>
-              <SvgIcon
-                iconName='Logo'
-                svgProp={{
-                  width: 166,
-                  height: 32,
-                  className: '',
+              <ReactSVG
+                src='/assets/icons/Logo.svg'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'w-[166px] h-8');
                 }}
               />
             </Link>

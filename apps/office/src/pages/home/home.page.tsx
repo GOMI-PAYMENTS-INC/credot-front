@@ -1,10 +1,10 @@
 import 'swiper/swiper.min.css';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import SvgIcon from '@/util/SvgIcon';
 import { SERVICE_INFO } from '@/router/paths';
+import { ReactSVG } from 'react-svg';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
@@ -178,25 +178,25 @@ export default function HomePage() {
       imgName: 'Reseller.png',
       name: '리셀러',
       content:
-        '수요는 많지만 경쟁도가 낮은 키워드를 공략하여,최고의 상품 리스팅 전략을 수립할 수 있어요.',
+        '소싱할 상품에 대한 수요와 적정 판매가를 미리 파악하고 진입이 유리한 키워드 및 콘텐츠 전략을 수립할 수 있어요.',
     },
     {
       imgName: 'Brand.png',
       name: '브랜드사',
       content:
-        '쇼피에서 수요가 많은 경쟁 브랜드와 판매자를 미리 분석하여 적절한 가격과 포지셔닝 정책을 수립할 수 있어요,',
+        '시장규모와 인기 브랜드 정보를 파악하여, 자사 상품의 성공 가능성을 미리 검토하고 가격 및 포지셔닝 전략을 수립할 수 있어요.',
     },
     {
       imgName: 'Marketer.png',
       name: '마케터',
       content:
-        '키워드의 검색량, 경쟁도, CPC 금액을 종합 분석한 리포트를 통해 효율이 가장 높은 키워드 전략을 수립할 수 있어요',
+        '키워드의 검색량, 경쟁도, CPC 금액을 종합 분석한 리포트를 통해 효율 높은 키워드 전략을 수립할 수 있어요',
     },
     {
       imgName: 'MD.png',
       name: 'MD',
       content:
-        '데이터를 기반으로 해외에 수출할 상품의 사업성을 종합적으로 미리 파악할 수 있어요.',
+        '데이터를 기반으로 해외에 수출할  상품의 사업성을 종합적으로 미리 파악할 수 있어요.',
     },
   ];
 
@@ -230,21 +230,59 @@ export default function HomePage() {
   return (
     <main>
       <section className='h-[560px] w-full bg-[#FAFAF9]'>
-        <div className='container flex h-full flex-col items-center justify-center text-center'>
-          <h1 className='xs:text-2XL/Bold break-keep text-4XL/Bold sm:text-3XL/Bold'>
-            <span className='gradientTitle'>데이터 기반의 판매전략 수립</span>을 위한
-            <br />
-            <span className='gradientTitle '>Shopee 종합 분석</span>솔루션
-          </h1>
-          <p className='mt-12 text-L/Medium text-grey-700'>
-            동남아시아 No.1 마켓플레이스 Shopee의 상위노출 상품들을 분석하여
-            <br />
-            시장 정보와 최고의 판매 전략을 제공해요!
-          </p>
+        <div className='container relative h-full'>
+          <div className='relative z-10 flex h-full flex-col items-center justify-center text-center'>
+            <h1 className='xs:text-2XL/Bold break-keep text-4XL/Bold sm:text-3XL/Bold'>
+              <span className='gradientTitle'>데이터 기반의 판매전략 수립</span>을 위한
+              <br />
+              <span className='gradientTitle '>Shopee 종합 분석</span>솔루션
+            </h1>
+            <p className='mt-12 text-L/Medium text-grey-700'>
+              동남아시아 No.1 마켓플레이스 Shopee의 상위노출 상품들을 분석하여
+              <br />
+              시장 정보와 최고의 판매 전략을 제공해요!
+            </p>
+          </div>
+          <div className='absolute right-3 bottom-10 flex h-12 w-12 items-center justify-center rounded-full bg-grey-500'>
+            <ReactSVG
+              src='/assets/icons/File.svg'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', 'fill-white w-6 h-6');
+              }}
+            />
+          </div>
+          <div className='absolute left-0  top-0 h-full w-full'>
+            <div className='relative left-0 top-0 h-full w-full'>
+              <ReactSVG
+                src='/assets/icons/Signal.svg'
+                className='animation-ico absolute left-[194px] top-[43px] flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'w-8 h-8');
+                }}
+              />
+              <div className='animation-ico absolute left-[38px] top-[180px]  h-3 w-3 rounded-full bg-orange-400'></div>
+              <ReactSVG
+                src='/assets/icons/Bulb.svg'
+                className='animation-ico animation-ico-2 absolute left-[89px] bottom-[209px] flex  h-12 w-12 items-center justify-center rounded-full bg-yellow-400 shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-white w-6 h-6');
+                }}
+              />
+              <div className='animation-ico absolute left-[162px] bottom-[106px] h-3.5 w-3.5 rounded-full bg-grey-400'></div>
+              <ReactSVG
+                src='/assets/icons/Shopee.svg'
+                className='animation-ico xs:hidden absolute right-[198px] top-[-10px] flex  h-16 w-16 items-center justify-center rounded-full bg-[#EA501F] shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-white w-8 h-9');
+                }}
+              />
+              <div className='animation-ico xs:hidden absolute right-[12px] top-[200px] h-6 w-6 rounded-full bg-orange-200 sm:hidden'></div>
+            </div>
+          </div>
         </div>
       </section>
       <section>
-        <div className='xs:py-[60px] container py-[100px] md:mx-auto  md:mx-auto lg:py-20'>
+        <div className='xs:py-[60px] container py-[100px] md:mx-auto md:mx-auto lg:py-20'>
           <div className='xs:mb-[56px] mb-20 lg:mb-[70px]'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
@@ -329,18 +367,19 @@ export default function HomePage() {
                 >
                   <div className=' flex items-center  justify-center'>
                     <i className='mr-1'>
-                      <SvgIcon
-                        iconName={tab.icoName}
-                        svgProp={{
-                          width: 20,
-                          height: 20,
-                          className: `md:w-[14px] ${
-                            index === activeTabIndex
-                              ? 'fill-white'
-                              : tab.launching
-                              ? 'fill-grey-800'
-                              : 'fill-grey-500'
-                          }`,
+                      <ReactSVG
+                        src={`/assets/icons/${tab.icoName}.svg`}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute(
+                            'class',
+                            `md:w-[14px] w-5 h-5 ${
+                              index === activeTabIndex
+                                ? 'fill-white'
+                                : tab.launching
+                                ? 'fill-grey-800'
+                                : 'fill-grey-500'
+                            }`,
+                          );
                         }}
                       />
                     </i>
@@ -390,7 +429,7 @@ export default function HomePage() {
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>서비스 오픈 1개월만에</p>
                 <p className='mt-2'>
-                  무려 <span className='text-orange-400'>248개사</span>가 이용했어요.
+                  무려 <span className='text-orange-400'>248개 사</span>가 이용했어요.
                 </p>
               </div>
             </div>
@@ -625,14 +664,12 @@ export default function HomePage() {
                         <p className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
                           {qna.subject}
                         </p>
-                        <SvgIcon
-                          iconName='Up'
-                          wrapperStyle={`absolute top-1 right-0 lg:text-L/Medium text-L/Medium text-grey-700 
+                        <ReactSVG
+                          src='/assets/icons/Up.svg'
+                          className={`absolute top-1 right-0 text-L/Medium text-grey-700 lg:text-L/Medium 
                       ${isOpened ? 'rotate-0' : 'rotate-180'}`}
-                          svgProp={{
-                            width: 24,
-                            height: 24,
-                            className: 'fill-grey-900',
+                          beforeInjection={(svg) => {
+                            svg.setAttribute('class', 'w-6 h-6 fill-grey-900');
                           }}
                         />
                       </dt>
