@@ -2,17 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .container {
+    @apply max-w-[1440px] px-[60px] sm:max-w-[540px] sm:px-[24px]
+        md:max-w-[768px] md:px-[24px] lg:max-w-[992px] lg:px-[12px];
+  }
+}
 
 @layer components {
-    .grid-12 {
-        @apply grid grid-cols-12 gap-x-6 xs:grid-cols-2 md:gap-x-5 sm:gap-x-6;
-    }
-
-    .container-padding {
-        @apply container px-[60px] lg:px-4 md:px-6 sm:px-4 xs:px-6  ;
-    }
-
-    .container-tab {
-        @apply container px-[60px] lg:px-4 md:px-6 sm:px-0  xs:mx-6 xs:pr-6;
-    }
+  .container-tab {
+    @apply sm:px-[24px] md:px-[24px] lg:px-[12px];
+  }
 }
+
+/*메인 홈 시작*/
+.gradientTitle {
+  background: linear-gradient(90deg, #ff5401 0%, #ff8a00 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.bg-main {
+  background-image: url('/assets/images/Section9/Background.png');
+}
+
+.animation-ico {
+  animation-iteration-count: infinite;
+}
+
+.animation-ico:nth-child(1) {
+  transform-origin: 50% 30%;
+  animation-name: shake-1;
+  animation-duration: 2s;
+  animation-delay: 0.5s;
+}
+.animation-ico:nth-child(2) {
+  transform-origin: 50% 30%;
+  animation-name: shake-2;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.3s;
+}
+.animation-ico:nth-child(3) {
+  transform-origin: 50% 30%;
+  animation-name: shake-2;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.5s;
+}
+.animation-ico:nth-child(4) {
+  transform-origin: 50% 30%;
+  animation-name: shake-3;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.2s;
+}
+.animation-ico:nth-child(5) {
+  transform-origin: 50% 30%;
+  animation-name: shake-3;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.5s;
+}
+.animation-ico:nth-child(6) {
+  transform-origin: 50% 30%;
+  animation-name: shake-2;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.4s;
+}
+
+@keyframes shake-1 {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(10px) rotate(10deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes shake-2 {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(10px) rotate(-30deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+@keyframes shake-3 {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateX(-5px) translateY(-5px) rotate(10deg);
+  }
+
+  100% {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+/*메인 홈 끝*/
