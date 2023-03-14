@@ -21,7 +21,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
   const { register } = useForm<{ verifyCode: string }>({
     mode: 'onChange',
   });
-
+  console.log(errors, 'errors');
   useEffect(() => {
     //TODO: container에 로직 넣기
     if (isVerification.theElseCalled) {
@@ -30,9 +30,12 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
     }
     if (isVerification.isExceeded) {
       setTime(Object.assign({}, time, { minutes: 5, seconds: 0 }));
+      setError('verifyCode', {
+        message: '인증번호 발송 횟수를 초과했어요. 5분간 인증이 불가능해요.',
+      });
     }
   }, [isVerification.theElseCalled, isVerification.isExceeded]);
-  const disable = time.minutes !== 0 && time.seconds !== 0;
+  const disable = time.minutes === 0 && time.seconds === 0;
 
   useInterval(
     //TODO: container에 로직 넣기
@@ -56,13 +59,6 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
       }
       if (time.minutes > 0 && time.seconds === 0) {
         setTime(Object.assign({}, time, { minutes: time.minutes - 1, seconds: 59 }));
-
-        if (isVerification.isExceeded) {
-          setError('verifyCode', {
-            message: `인증번호 발송 횟수를 초과했어요. 5분간 인증이 불가능해요.`,
-          });
-        }
-
         return;
       }
 
@@ -73,7 +69,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
     },
     disable ? null : 1000,
   );
-  console.log(isVerification, 'isVerification');
+
   return (
     <div className='inputCustom-group'>
       <div className='inputCustom-textbox-wrap'>
@@ -86,7 +82,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
           maxLength={6}
           placeholder='인증번호 6자리를 입력해주세요.'
           readOnly={
-            [disable, isVerification.theElseCalled].every(
+            [isFalsy(disable), isVerification.theElseCalled].every(
               (disable) => disable === false,
             ) || isVerification.isExceeded
           }

@@ -46,6 +46,20 @@ export const activateVerifyCode = (
   _setState(Object.assign({}, _state, { activeVerifyCode: true, theElseCalled: true }));
 };
 
+export const exccedVerifyTry = (
+  _state: TVerifyButtonState,
+  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
+) => {
+  _setState(
+    Object.assign({}, _state, {
+      activeVerifyCode: true,
+      firstCalled: true,
+      theElseCalled: true,
+      isExceeded: true,
+    }),
+  );
+};
+
 export const getVerifyCodeSignatureNumber = (
   verifyCodeSignatureNumber: string,
   _state: TVerifyButtonState,

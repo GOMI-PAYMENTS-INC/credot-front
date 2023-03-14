@@ -13,25 +13,26 @@ import {
   activateVerifyCode,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
+  exccedVerifyTry,
 } from '@/containers/auth/auth.container.refac';
 import { UseFormSetError } from 'react-hook-form';
-import { isFalsy } from '@/utils/isFalsy';
 
 export const useFindId = (
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TFindAccountErrorType>,
 ) => {
-  const { firstCalled, theElseCalled } = isVerification;
-
   const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation(
     graphQLClient,
     {
+      onSuccess: () => {
+        activateVerifyCode(isVerification, setIsVerification);
+      },
       onError: (err) => {
         const [error] = err.response.errors;
-        //5회 초과
         if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
-          setError('verifyCode', { message: error.message });
+          exccedVerifyTry(isVerification, setIsVerification);
+
           return;
         }
         setError('phone', { message: error.message });
@@ -48,11 +49,7 @@ export const useFindId = (
       country: CountryType.Kr,
     };
 
-    mutateRequestVerify(payload, {
-      onSuccess: () => {
-        activateVerifyCode(isVerification, setIsVerification);
-      },
-    });
+    mutateRequestVerify(payload);
   };
 
   const _checkSmsVerifyCode = (phone: string = '') => {
