@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
@@ -9,17 +9,13 @@ import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { VarifyCodeInput } from '@/pages/auth/VarifyCodeInput';
 import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import {
-  isClickVerifyBtn,
   findIdInitialState,
+  eventHandlerByFindId,
 } from '@/containers/auth/auth.container.refac';
 import { GetFoundIdResult } from '@/pages/auth/GetFoundIdResult';
 
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
-import { copyToClipboard } from '@/utils/copyToClipboard';
-import { ReactSVG } from 'react-svg';
-
 import { useFindId } from '@/containers/auth/auth.api';
 
 const FindIdRefactor = () => {
@@ -27,7 +23,7 @@ const FindIdRefactor = () => {
     register,
     setError,
     getValues,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<TFindAccountErrorType>({
     mode: 'onChange',
   });
@@ -35,55 +31,21 @@ const FindIdRefactor = () => {
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(findIdInitialState);
 
-  const { _verifyPhoneNumber, _authSmsVerifyCode, _getUserAccount } = useFindId(
+  const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useFindId(
     isVerification,
     setIsVerification,
     setError,
-    getValues('phone'),
   );
 
-  _authSmsVerifyCode(getValues('phone'));
+  _checkSmsVerifyCode(getValues('phone'));
 
   const [userAccounts] = _getUserAccount({
     phone: getValues('phone'),
     verifyCodeSign: isVerification.verifyCodeSignatureNumber,
   });
 
-  const requestVerifyCodeButton = useMemo((): {
-    phone: {
-      className: string;
-      text: string;
-      disabled: boolean;
-      phoneNumberInput: boolean;
-    };
-    verifyCodeInput: boolean;
-  } => {
-    const eventOption = {
-      phone: {
-        className:
-          'button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]',
-        text: '인증',
-        disabled: false,
-        phoneNumberInput: false,
-      },
-      verifyCodeInput: false,
-    };
-
-    if (isVerification.firstCalled === true && isVerification.theElseCalled === false) {
-      eventOption.phone.className =
-        'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
-      eventOption.phone.text = '재발송';
-    }
-
-    if (isVerification.firstCalled === true && isVerification.theElseCalled === true) {
-      eventOption.phone.className =
-        'ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500';
-      eventOption.phone.text = '재발송';
-      eventOption.phone.disabled = true;
-      eventOption.phone.phoneNumberInput = true;
-    }
-
-    return eventOption;
+  const requestVerifyCodeButton = useMemo(() => {
+    return eventHandlerByFindId(isVerification);
   }, [isVerification.firstCalled, isVerification.theElseCalled]);
 
   const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
@@ -91,8 +53,7 @@ const FindIdRefactor = () => {
   const isPhoneVerifyPrepared = () => {
     const phoneNumber = getValues('phone');
     if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
-      isClickVerifyBtn(isVerification, setIsVerification);
-      _verifyPhoneNumber(phoneNumber);
+      _getVerifyCode(phoneNumber);
       return true;
     }
     setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
@@ -107,7 +68,6 @@ const FindIdRefactor = () => {
             title='아이디를 찾을게요.'
             subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
           />
-
           <div className='space-y-1'>
             <div className='flex items-start'>
               <div className='inputCustom-group grow'>
@@ -158,7 +118,6 @@ const FindIdRefactor = () => {
             </div>
             {isVerification.activeVerifyCode && (
               <VarifyCodeInput
-                isDisabled={requestVerifyCodeButton.verifyCodeInput}
                 setIsVerification={setIsVerification}
                 isVerification={isVerification}
                 setError={setError}
@@ -169,6 +128,7 @@ const FindIdRefactor = () => {
         </div>
       ) : (
         <GetFoundIdResult
+          setIsVerification={setIsVerification}
           userAccounts={userAccounts?.findAccount.accounts}
           isExistedAccount={isVerification.isExistedAccount}
         />

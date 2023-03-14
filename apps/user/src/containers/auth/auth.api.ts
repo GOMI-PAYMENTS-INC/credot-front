@@ -5,7 +5,7 @@ import {
   useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
 } from '@/generated/graphql';
-import { PATH } from '@/types/enum.code';
+import { STATUS_CODE } from '@/types/enum.code';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
@@ -21,29 +21,26 @@ export const useFindId = (
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TFindAccountErrorType>,
-  phone: string = '',
 ) => {
   const { firstCalled, theElseCalled } = isVerification;
 
   const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation(
     graphQLClient,
     {
-      onSuccess: () => {
-        activateVerifyCode(isVerification, setIsVerification);
-      },
       onError: (err) => {
-        const [response] = err.errors;
-        if (firstCalled && theElseCalled) {
-          setError('verifyCode', { message: response.message });
+        const [error] = err.response.errors;
+        //5회 초과
+        if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
+          setError('verifyCode', { message: error.message });
           return;
         }
-        setError('phone', { message: response.message });
+        setError('phone', { message: error.message });
         isClickVerifyBtn(isVerification, setIsVerification, { theElseCalled: false });
       },
     },
   );
 
-  const _verifyPhoneNumber = (phone: string = '') => {
+  const _getVerifyCode = (phone: string = '') => {
     if (phone?.length !== 11) return;
 
     const payload = {
@@ -51,10 +48,14 @@ export const useFindId = (
       country: CountryType.Kr,
     };
 
-    mutateRequestVerify(payload);
+    mutateRequestVerify(payload, {
+      onSuccess: () => {
+        activateVerifyCode(isVerification, setIsVerification);
+      },
+    });
   };
 
-  const _authSmsVerifyCode = (phone: string = '') => {
+  const _checkSmsVerifyCode = (phone: string = '') => {
     const { verifyCode } = isVerification;
 
     useSmsVerifyCodeConfirmQuery(
@@ -71,8 +72,9 @@ export const useFindId = (
           }
         },
         onError: (err) => {
-          const [response] = err.errors;
-          setError('verifyCode', { message: response.message });
+          const [error] = err.response.errors;
+
+          setError('verifyCode', { message: error.message });
           return;
         },
       },
@@ -106,5 +108,5 @@ export const useFindId = (
     return [data];
   };
 
-  return { _verifyPhoneNumber, _authSmsVerifyCode, _getUserAccount };
+  return { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount };
 };

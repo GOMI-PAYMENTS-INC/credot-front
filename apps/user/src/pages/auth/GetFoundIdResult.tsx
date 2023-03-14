@@ -1,11 +1,11 @@
-import { Fragment } from 'react';
+import { Fragment, Dispatch, SetStateAction } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { AUTH_RESPONSE_TYPE, PATH } from '@/types/enum.code';
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
-
+import { initializeAuteState } from '@/containers/auth/auth.container.refac';
 interface IGetFoundIdResultProps {
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
   userAccounts?: Array<{
@@ -13,9 +13,10 @@ interface IGetFoundIdResultProps {
     isSocialLogin: boolean;
     socialProvider?: string | null;
   }>;
+  setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
 }
 export const GetFoundIdResult = (props: IGetFoundIdResultProps) => {
-  const { isExistedAccount, userAccounts } = props;
+  const { isExistedAccount, userAccounts, setIsVerification } = props;
   return (
     <Fragment>
       {isExistedAccount === AUTH_RESPONSE_TYPE.FILLED && isTruthy(userAccounts) ? (
@@ -29,12 +30,7 @@ export const GetFoundIdResult = (props: IGetFoundIdResultProps) => {
               <li
                 className='flex cursor-pointer items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-orange-500'
                 key={index}
-                onClick={() =>
-                  copyToClipboard(
-                    '아이디를 복사했어요.',
-                    `account.email_${account.email}`,
-                  )
-                }
+                onClick={() => copyToClipboard('아이디를 복사했어요.', account.email)}
               >
                 <div>{account.email}</div>
 
@@ -69,6 +65,7 @@ export const GetFoundIdResult = (props: IGetFoundIdResultProps) => {
             <div>
               <Link to={PATH.FIND_ID}>
                 <button
+                  onClick={() => initializeAuteState(setIsVerification)}
                   type='button'
                   className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
                 >

@@ -527,19 +527,21 @@ export const SendSmsVerificationCodeDocument = `
     `;
 export const useSendSmsVerificationCodeMutation = <
   TError extends {
-    errors: [
-      {
-        message: string;
-        locations: Array<{ line: number; column: number }>;
-        path: [string];
-        extensions: {
-          code: number;
-          status: 'UNAUTHORIZED' | 'BAD_REQUEST';
-          classification: 'Exception';
-        };
-      },
-    ];
-    data: null;
+    response: {
+      errors: [
+        {
+          message: string;
+          locations: Array<{ line: number; column: number }>;
+          path: [string];
+          extensions: {
+            code: number;
+            status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+            classification: 'Exception';
+          };
+        },
+      ];
+      data: null;
+    };
   },
   TContext extends unknown,
 >(
@@ -839,19 +841,21 @@ export const SmsVerifyCodeConfirmDocument = `
 export const useSmsVerifyCodeConfirmQuery = <
   TData extends SmsVerifyCodeConfirmQuery,
   TError extends {
-    errors: [
-      {
-        message: string;
-        locations: Array<{ line: number; column: number }>;
-        path: [string];
-        extensions: {
-          code: string;
-          status: 'UNAUTHORIZED' | 'BAD_REQUEST';
-          classification: 'Exception';
-        };
-      },
-    ];
-    data: null;
+    response: {
+      errors: [
+        {
+          message: string;
+          locations: Array<{ line: number; column: number }>;
+          path: [string];
+          extensions: {
+            code: string;
+            status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+            classification: 'Exception';
+          };
+        },
+      ];
+      data: null;
+    };
   },
 >(
   client: GraphQLClient,

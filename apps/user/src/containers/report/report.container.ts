@@ -293,7 +293,7 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) 
     }),
   );
   //TODO: 해당 console.log는 제거
-  console.log(res, 'removed outliner');
+
   return res.map((data) => data.length);
 };
 //리스트 > 출력 개수 변경시

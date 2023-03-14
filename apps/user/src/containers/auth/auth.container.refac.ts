@@ -39,7 +39,11 @@ export const activateVerifyCode = (
   _state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
-  _setState(Object.assign({}, _state, { activeVerifyCode: !_state.activeVerifyCode }));
+  if (_state.firstCalled === false) {
+    _setState(Object.assign({}, _state, { activeVerifyCode: true, firstCalled: true }));
+    return;
+  }
+  _setState(Object.assign({}, _state, { activeVerifyCode: true, theElseCalled: true }));
 };
 
 export const getVerifyCodeSignatureNumber = (
@@ -62,4 +66,51 @@ export const isAccountExisted = (
     return;
   }
   _setState(Object.assign({}, _state, { isExistedAccount: AUTH_RESPONSE_TYPE.FILLED }));
+};
+
+export const initializeAuteState = (
+  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
+) => _setState(Object.assign({}, findIdInitialState));
+
+export const eventHandlerByFindId = (isVerification: TVerifyButtonState) => {
+  const eventOption = {
+    phone: {
+      className: 'button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]',
+      text: '인증',
+      disabled: false,
+      phoneNumberInput: false,
+    },
+    verifyCodeInput: false,
+  };
+
+  if (isVerification.firstCalled && isVerification.theElseCalled === false) {
+    eventOption.phone.className =
+      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
+    eventOption.phone.text = '재발송';
+  }
+
+  if (
+    (isVerification.firstCalled && isVerification.theElseCalled) ||
+    isVerification.isExceeded
+  ) {
+    eventOption.phone.className =
+      'ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500';
+    eventOption.phone.text = '재발송';
+    eventOption.phone.disabled = true;
+    eventOption.phone.phoneNumberInput = true;
+  }
+
+  if (
+    isVerification.firstCalled &&
+    isVerification.activeVerifyCode &&
+    isVerification.theElseCalled === false
+  ) {
+    eventOption.phone.className =
+      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
+    eventOption.phone.text = '재발송';
+    eventOption.phone.disabled = false;
+    eventOption.phone.phoneNumberInput = false;
+  }
+
+  return eventOption;
 };

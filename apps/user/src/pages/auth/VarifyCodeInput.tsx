@@ -7,7 +7,6 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
 import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
 interface IVarifyCode {
-  isDisabled: boolean;
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
   setError: UseFormSetError<TFindAccountErrorType>;
@@ -17,7 +16,11 @@ interface IVarifyCode {
 export const VarifyCodeInput = (props: IVarifyCode) => {
   const initializeTime = { minutes: 1, seconds: 0 };
   const [time, setTime] = useState(initializeTime);
-  const { isDisabled, setIsVerification, isVerification, setError, errors } = props;
+  const { setIsVerification, isVerification, setError, errors } = props;
+
+  const { register } = useForm<{ verifyCode: string }>({
+    mode: 'onChange',
+  });
 
   useEffect(() => {
     //TODO: container에 로직 넣기
@@ -29,11 +32,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
       setTime(Object.assign({}, time, { minutes: 5, seconds: 0 }));
     }
   }, [isVerification.theElseCalled, isVerification.isExceeded]);
-
-  const { register } = useForm<{ verifyCode: string }>({
-    mode: 'onChange',
-  });
-  const disable = time.minutes === 0 && time.seconds === 0;
+  const disable = time.minutes !== 0 && time.seconds !== 0;
 
   useInterval(
     //TODO: container에 로직 넣기
@@ -42,7 +41,12 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
         isClickVerifyBtn(isVerification, setIsVerification);
         //TODO: 조건문 중첩 피하기 # 리펙터링 -> 함수로 분리하기
         if (isVerification.isExceeded) {
-          setIsVerification(Object.assign({}, isVerification, { isExceeded: false }));
+          setIsVerification(
+            Object.assign({}, isVerification, {
+              isExceeded: false,
+              theElseCalled: false,
+            }),
+          );
         } else {
           setError('verifyCode', {
             message: '인증시간이 만료었어요. 다시 인증해주세요.',
@@ -69,7 +73,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
     },
     disable ? null : 1000,
   );
-
+  console.log(isVerification, 'isVerification');
   return (
     <div className='inputCustom-group'>
       <div className='inputCustom-textbox-wrap'>
@@ -81,7 +85,11 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
           type='text'
           maxLength={6}
           placeholder='인증번호 6자리를 입력해주세요.'
-          readOnly={disable || isVerification.isExceeded}
+          readOnly={
+            [disable, isVerification.theElseCalled].every(
+              (disable) => disable === false,
+            ) || isVerification.isExceeded
+          }
           {...register('verifyCode', {
             pattern: {
               value: /[0-9]{6}$/g,
@@ -98,7 +106,6 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
               }
             },
           })}
-          onBlur={() => {}}
         />
         <InputIcon time={time} />
       </div>
