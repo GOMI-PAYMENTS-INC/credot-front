@@ -94,3 +94,8 @@ export enum PATH {
   GET_REPORT_LIST = '/report/list',
   ANALYSIS_REPORT_LIST = '/report/list/:id',
 }
+
+export enum AUTH_RESPONSE_TYPE {
+  FILLED = 'FILLED',
+  EMPTY = 'EMPTY',
+}

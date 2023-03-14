@@ -1,125 +1,110 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import {
   useSmsVerifyCodeConfirmQuery,
   CountryType,
-  FindAccountQueryVariables,
   useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
-  SendSmsVerificationCodeMutationVariables,
-  useSignupMutation,
 } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { graphQLClient } from '@/utils/graphqlCient';
-
-import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
+import { isTruthy } from '@/utils/isTruthy';
+import {
+  isClickVerifyBtn,
+  activateVerifyCode,
+  getVerifyCodeSignatureNumber,
+  isAccountExisted,
+} from '@/containers/auth/auth.container.refac';
 import { UseFormSetError } from 'react-hook-form';
+import { isFalsy } from '@/utils/isFalsy';
 
-export const useSmsVerify = (
-  phone: string = '',
-  isVerifcication: TVerifyButtonState,
+export const useFindId = (
+  isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TFindAccountErrorType>,
+  phone: string = '',
 ) => {
-  const { firstCalled, theElseCalled } = isVerifcication;
+  const { firstCalled, theElseCalled } = isVerification;
 
-  const {
-    mutate: mutateRequestVerify,
-    data,
-    isError,
-    isLoading,
-  } = useSendSmsVerificationCodeMutation(graphQLClient, {
-    onSuccess: () => {
-      isClickVerifyBtn(isVerifcication, setIsVerification);
+  const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation(
+    graphQLClient,
+    {
+      onSuccess: () => {
+        activateVerifyCode(isVerification, setIsVerification);
+      },
+      onError: (err) => {
+        const [response] = err.errors;
+        if (firstCalled && theElseCalled) {
+          setError('verifyCode', { message: response.message });
+          return;
+        }
+        setError('phone', { message: response.message });
+        isClickVerifyBtn(isVerification, setIsVerification, { theElseCalled: false });
+      },
     },
-    onError: (err) => {
-      const [response] = err.errors;
-      if (firstCalled && theElseCalled) {
-        setError('verifyCode', { message: response.message });
-        return;
-      }
-      setError('phone', { message: response.message });
-      isClickVerifyBtn(isVerifcication, setIsVerification, { theElseCalled: false });
-    },
-  });
+  );
 
-  const payload = {
-    phone: phone,
-    country: CountryType.Kr,
-  };
-  console.log('hi');
-  const _verifyPhoneNumber = () => {
-    if (phone?.length !== 11 || firstCalled === true) return;
+  const _verifyPhoneNumber = (phone: string = '') => {
+    if (phone?.length !== 11) return;
+
+    const payload = {
+      phone: phone,
+      country: CountryType.Kr,
+    };
+
     mutateRequestVerify(payload);
   };
-  return { _verifyPhoneNumber, data, isLoading };
-};
 
-// 회원가입 시작
+  const _authSmsVerifyCode = (phone: string = '') => {
+    const { verifyCode } = isVerification;
 
-export const authVerifyCodeContainer = () => {
-  const [verifyCode, setVerifyCode] = useState<string>('');
-  const [verifyCodeSign, setVerifyCodeSign] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-
-  const onConfirmVerifyCode = useSmsVerifyCodeConfirmQuery(
-    graphQLClient,
-    { phone, verifyCode },
-    {
-      enabled: !!verifyCode && verifyCode.length > 5,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        if (data.smsVerifyCodeConfirm.signature) {
-          setVerifyCodeSign(data.smsVerifyCodeConfirm.signature);
-        }
-      },
-      onError: (err) => {
-        const error = JSON.parse(JSON.stringify(err));
-        console.error('onChangeVerifyCodeCheck error : ', error);
-      },
-    },
-  );
-
-  return {
-    verifyCodeSign,
-    setVerifyCodeSign,
-    setVerifyCode,
-    setPhone,
-    onConfirmVerifyCode,
-  };
-};
-
-export const findUserContainer = () => {
-  // 아이디 찾기 변수 값
-  const [findAccount, setFindAccount] = useState<FindAccountQueryVariables>();
-  const [responseStatus, setResponseStatus] = useState<number>(0);
-
-  const { data: findAccountQuery } = useFindAccountQuery(
-    graphQLClient,
-    {
-      user: !findAccount?.user
-        ? {
-            phone: '',
-            verifyCodeSign: '',
+    useSmsVerifyCodeConfirmQuery(
+      graphQLClient,
+      { phone, verifyCode },
+      {
+        enabled: phone?.length === 11 && verifyCode?.length === 6,
+        refetchOnWindowFocus: false,
+        onSuccess: (res) => {
+          setError('verifyCode', { message: undefined });
+          const { signature } = res.smsVerifyCodeConfirm;
+          if (signature) {
+            getVerifyCodeSignatureNumber(signature, isVerification, setIsVerification);
           }
-        : findAccount.user,
-      country: findAccount?.country ? findAccount.country : CountryType.Vn,
-    },
-    {
-      enabled: !!findAccount,
-      refetchOnWindowFocus: false,
-      onSuccess: (res) => {
-        console.log('useFindAccountQuery success', res);
+        },
+        onError: (err) => {
+          const [response] = err.errors;
+          setError('verifyCode', { message: response.message });
+          return;
+        },
       },
-      onError: (err) => {
-        const error = JSON.parse(JSON.stringify(err));
-        setResponseStatus(error.response.errors[0].extensions.exception.status);
-      },
-    },
-  );
-
-  return {
-    setFindAccount,
-    findAccountQuery,
-    responseStatus,
+    );
   };
+
+  const _getUserAccount = (user: { phone: string; verifyCodeSign: string }) => {
+    // "상태에 따라 아이디가 없습니다."  | "아이디 출력"
+    const { data } = useFindAccountQuery(
+      graphQLClient,
+      {
+        user,
+        country: CountryType.Kr,
+      },
+      {
+        enabled: isTruthy(user.verifyCodeSign),
+        refetchOnWindowFocus: false,
+        onSuccess: (res) => {
+          isAccountExisted(
+            res.findAccount.accounts?.length,
+            isVerification,
+            setIsVerification,
+          );
+        },
+        onError: (err) => {
+          // 계정 없음
+        },
+      },
+    );
+
+    return [data];
+  };
+
+  return { _verifyPhoneNumber, _authSmsVerifyCode, _getUserAccount };
 };

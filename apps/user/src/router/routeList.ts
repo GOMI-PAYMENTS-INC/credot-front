@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react';
+import { ComponentType } from 'react';
 
 import * as AuthRoutes from '@/pages/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';

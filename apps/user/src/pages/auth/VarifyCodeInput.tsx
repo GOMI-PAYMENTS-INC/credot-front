@@ -47,6 +47,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
           setError('verifyCode', {
             message: '인증시간이 만료었어요. 다시 인증해주세요.',
           });
+          isClickVerifyBtn(isVerification, setIsVerification);
         }
       }
       if (time.minutes > 0 && time.seconds === 0) {
