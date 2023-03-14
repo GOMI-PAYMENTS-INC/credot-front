@@ -11,6 +11,7 @@ import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLay
 import {
   findIdInitialState,
   eventHandlerByFindId,
+  isPhoneVerifyPrepared,
 } from '@/containers/auth/auth.container.refac';
 import { FindIdResult } from '@/pages/auth/FindIdResult';
 
@@ -50,14 +51,16 @@ const FindId = () => {
 
   const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
 
-  const isPhoneVerifyPrepared = () => {
+  const clickVerifyButton = () => {
     const phoneNumber = getValues('phone');
-    if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
-      _getVerifyCode(phoneNumber);
-      return true;
-    }
-    setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
-    return false;
+    const isValid = isPhoneVerifyPrepared(
+      phoneNumber,
+      errors,
+      isVerification,
+      setIsVerification,
+      setError,
+    );
+    return isValid && _getVerifyCode(phoneNumber);
   };
 
   return (
@@ -92,7 +95,7 @@ const FindId = () => {
                     })}
                     onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
                       if (event.code !== 'Enter') return;
-                      isPhoneVerifyPrepared();
+                      clickVerifyButton();
                     }}
                   />
                   <InputIcon status={errors?.phone && INPUTSTATUS.ERROR} iconSize={5} />
@@ -109,7 +112,7 @@ const FindId = () => {
               <div className='basis-[102px]'>
                 <button
                   className={className}
-                  onClick={() => isPhoneVerifyPrepared()}
+                  onClick={() => clickVerifyButton()}
                   disabled={disabled}
                 >
                   {text}

@@ -9,7 +9,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
-  isClickVerifyBtn,
+  clickVerifyBtn,
   activateVerifyCode,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
@@ -36,7 +36,7 @@ export const useFindId = (
           return;
         }
         setError('phone', { message: error.message });
-        isClickVerifyBtn(isVerification, setIsVerification, { theElseCalled: false });
+        clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
       },
     },
   );

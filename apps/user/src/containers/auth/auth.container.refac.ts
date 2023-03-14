@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
+import { UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
+import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 
 export const findIdInitialState = {
   firstCalled: false,
@@ -12,46 +14,51 @@ export const findIdInitialState = {
   isExistedAccount: null,
 };
 
-export const isClickVerifyBtn = (
-  _state: TVerifyButtonState,
+export const clickVerifyBtn = (
+  state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
   option?: { firstCalled: boolean } | { theElseCalled: boolean },
 ) => {
-  const { firstCalled, theElseCalled } = _state;
-
+  const { firstCalled, theElseCalled } = state;
+  const _state = mergeCopiedValue(state);
   if (firstCalled === false) {
-    const payload = Object.assign({}, _state, { firstCalled: true });
-    _setState(payload);
+    _setState(_state({ firstCalled: true }));
     return;
   }
 
   if (option) {
-    const payload = Object.assign({}, _state, { option });
-    _setState(payload);
+    _setState(_state(option));
     return;
   }
 
-  const payload = Object.assign({}, _state, { theElseCalled: !theElseCalled });
-  _setState(payload);
+  _setState(_state({ theElseCalled: !theElseCalled }));
 };
 
 export const activateVerifyCode = (
-  _state: TVerifyButtonState,
+  state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
-  if (_state.firstCalled === false) {
-    _setState(Object.assign({}, _state, { activeVerifyCode: true, firstCalled: true }));
+  const _state = mergeCopiedValue(state);
+  if (state.firstCalled === false) {
+    _setState(
+      _state({
+        activeVerifyCode: true,
+        firstCalled: true,
+      }),
+    );
     return;
   }
-  _setState(Object.assign({}, _state, { activeVerifyCode: true, theElseCalled: true }));
+  _setState(Object.assign({}, state, { activeVerifyCode: true, theElseCalled: true }));
 };
 
 export const exccedVerifyTry = (
-  _state: TVerifyButtonState,
+  state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
+  const _state = mergeCopiedValue(state);
+
   _setState(
-    Object.assign({}, _state, {
+    _state({
       activeVerifyCode: true,
       firstCalled: true,
       theElseCalled: true,
@@ -62,29 +69,29 @@ export const exccedVerifyTry = (
 
 export const getVerifyCodeSignatureNumber = (
   verifyCodeSignatureNumber: string,
-  _state: TVerifyButtonState,
+  state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
-  _setState(
-    Object.assign({}, _state, { verifyCodeSignatureNumber: verifyCodeSignatureNumber }),
-  );
+  const _state = mergeCopiedValue(state);
+  _setState(_state({ verifyCodeSignatureNumber: verifyCodeSignatureNumber }));
 };
 
 export const isAccountExisted = (
   accountsLength: number | undefined,
-  _state: TVerifyButtonState,
+  state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
+  const _state = mergeCopiedValue(state);
   if (isFalsy(accountsLength)) {
-    _setState(Object.assign({}, _state, { isExistedAccount: AUTH_RESPONSE_TYPE.EMPTY }));
+    _setState(_state({ isExistedAccount: AUTH_RESPONSE_TYPE.EMPTY }));
     return;
   }
-  _setState(Object.assign({}, _state, { isExistedAccount: AUTH_RESPONSE_TYPE.FILLED }));
+  _setState(_state({ isExistedAccount: AUTH_RESPONSE_TYPE.FILLED }));
 };
 
 export const initializeAuteState = (
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
-) => _setState(Object.assign({}, findIdInitialState));
+) => _setState(mergeCopiedValue(findIdInitialState)());
 
 export const eventHandlerByFindId = (isVerification: TVerifyButtonState) => {
   const eventOption = {
@@ -127,4 +134,20 @@ export const eventHandlerByFindId = (isVerification: TVerifyButtonState) => {
   }
 
   return eventOption;
+};
+
+export const isPhoneVerifyPrepared = (
+  phoneNumber: string,
+  errors: Partial<FieldErrorsImpl<TFindAccountErrorType>>,
+  state: TVerifyButtonState,
+  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
+  setError: UseFormSetError<TFindAccountErrorType>,
+) => {
+  if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
+    clickVerifyBtn(state, _setState);
+    return true;
+  }
+
+  setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
+  return false;
 };
