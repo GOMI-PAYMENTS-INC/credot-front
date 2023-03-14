@@ -15,7 +15,7 @@ interface IResetPassword {
   newPassword: string;
 }
 
-const ResetPassword = () => {
+const TemporaryPassword = () => {
   const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
 
   const navigation = useNavigate();
@@ -146,4 +146,4 @@ const ResetPassword = () => {
     </Layout>
   );
 };
-export default ResetPassword;
+export default TemporaryPassword;

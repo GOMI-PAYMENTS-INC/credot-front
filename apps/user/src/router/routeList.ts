@@ -66,7 +66,7 @@ export const routeList: IRoute[] = [
     //비밀번호 재설정
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
-    component: AuthRoutes.ResetPassword,
+    component: AuthRoutes.TemporaryPassword,
   },
   {
     //검색
