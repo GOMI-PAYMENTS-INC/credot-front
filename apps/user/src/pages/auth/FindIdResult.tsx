@@ -6,7 +6,7 @@ import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
 import { initializeAuteState } from '@/containers/auth/auth.container.refac';
-interface IGetFoundIdResultProps {
+interface IFindIdResultProps {
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
   userAccounts?: Array<{
     email: string;
@@ -15,7 +15,7 @@ interface IGetFoundIdResultProps {
   }>;
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
 }
-export const GetFoundIdResult = (props: IGetFoundIdResultProps) => {
+export const FindIdResult = (props: IFindIdResultProps) => {
   const { isExistedAccount, userAccounts, setIsVerification } = props;
   return (
     <Fragment>

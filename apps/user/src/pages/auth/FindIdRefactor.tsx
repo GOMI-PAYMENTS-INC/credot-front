@@ -12,7 +12,7 @@ import {
   findIdInitialState,
   eventHandlerByFindId,
 } from '@/containers/auth/auth.container.refac';
-import { GetFoundIdResult } from '@/pages/auth/GetFoundIdResult';
+import { FindIdResult } from '@/pages/auth/FindIdResult';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
@@ -127,7 +127,7 @@ const FindIdRefactor = () => {
           </div>
         </div>
       ) : (
-        <GetFoundIdResult
+        <FindIdResult
           setIsVerification={setIsVerification}
           userAccounts={userAccounts?.findAccount.accounts}
           isExistedAccount={isVerification.isExistedAccount}
