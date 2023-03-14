@@ -21,7 +21,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
   const { register } = useForm<{ verifyCode: string }>({
     mode: 'onChange',
   });
-  console.log(errors, 'errors');
+
   useEffect(() => {
     //TODO: container에 로직 넣기
     if (isVerification.theElseCalled) {
