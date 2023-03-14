@@ -7,7 +7,7 @@ import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
-import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
 interface ISignInForm {
   email: string;

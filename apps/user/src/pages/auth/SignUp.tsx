@@ -6,9 +6,10 @@ import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
+
 import { PATH } from '@/types/enum.code';
-import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
 
 interface ISignUpForm {
@@ -367,7 +368,7 @@ const SignUp = () => {
             </div>
           </form>
         </div>
-        <FindIdPasswordBottom
+        <FindAccountBottom
           buttonText={accountBottomInfo.buttonText}
           text={accountBottomInfo.text}
           buttonLink={accountBottomInfo.buttonLink}

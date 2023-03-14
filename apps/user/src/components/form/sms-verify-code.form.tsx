@@ -8,7 +8,7 @@ import {
   CountryType,
   SendSmsVerificationCodeMutationVariables,
 } from '@/generated/graphql';
-import { InputIcon, INPUTSTATUS } from '@/components/input/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
 export interface SmsVerifyCodeProps {
   useLabel?: boolean;
@@ -56,13 +56,12 @@ const SmsVerifyCodeForm = ({
       if (seconds > 0) {
         setSeconds(seconds - 1);
       }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(countdown);
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-        }
+
+      if (minutes === 0) {
+        clearInterval(countdown);
+      } else {
+        setMinutes(minutes - 1);
+        setSeconds(59);
       }
     }, 1000);
     return () => clearInterval(countdown);

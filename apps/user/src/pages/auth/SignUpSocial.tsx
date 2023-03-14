@@ -6,8 +6,11 @@ import { Common1Section as Layout } from '@/components/layouts/Common1Section';
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
+
+import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { PATH } from '@/types/enum.code';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
+
 import { agreeTermList } from '@/containers/auth/signUpData';
 import { useLocation } from 'react-router-dom';
 
@@ -250,7 +253,7 @@ const SignUpSocial = () => {
             </div>
           </form>
         </div>
-        <FindIdPasswordBottom
+        <FindAccountBottom
           buttonText={accountBottomInfo.buttonText}
           text={accountBottomInfo.text}
           buttonLink={accountBottomInfo.buttonLink}
