@@ -6128,6 +6128,7 @@ __metadata:
     react-dom: ^18.2.0
     react-hook-form: ^7.39.6
     react-router-dom: ^6.4.2
+    react-svg: ^16.0.0
     react-toastify: ^9.1.1
     recoil: ^0.7.6
     swiper: ^8.4.5
@@ -6218,6 +6219,7 @@ __metadata:
     react-dom: ^18.2.0
     react-hook-form: ^7.39.6
     react-router-dom: ^6.4.2
+    react-svg: ^16.0.0
     react-toastify: ^9.1.1
     recoil: ^0.7.6
     swiper: ^8.4.5

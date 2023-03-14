@@ -70,6 +70,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:18.2.0"],\
             ["react-hook-form", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:7.42.1"],\
             ["react-router-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:6.7.0"],\
+            ["react-svg", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:16.0.0"],\
             ["react-toastify", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:9.1.1"],\
             ["recoil", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.7.6"],\
             ["swiper", "npm:8.4.6"],\
@@ -8382,6 +8383,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:18.2.0"],\
             ["react-hook-form", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:7.42.1"],\
             ["react-router-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:6.7.0"],\
+            ["react-svg", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:16.0.0"],\
             ["react-toastify", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:9.1.1"],\
             ["recoil", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.7.6"],\
             ["swiper", "npm:8.4.6"],\
@@ -8414,6 +8416,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:18.2.0"],\
             ["react-hook-form", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:7.42.1"],\
             ["react-router-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:6.7.0"],\
+            ["react-svg", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:16.0.0"],\
             ["react-toastify", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:9.1.1"],\
             ["recoil", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.7.6"],\
             ["swiper", "npm:8.4.6"],\
@@ -8460,7 +8463,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:18.2.0"],\
             ["react-hook-form", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:7.42.1"],\
             ["react-router-dom", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:6.7.0"],\
-            ["react-svg", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:16.0.0"],\
+            ["react-svg", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:16.0.0"],\
             ["react-toastify", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:9.1.1"],\
             ["react-tooltip", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:5.7.3"],\
             ["recoil", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.7.6"],\
@@ -10154,10 +10157,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:16.0.0", {\
-          "packageLocation": "./.yarn/__virtual__/react-svg-virtual-f3f2c58c59/0/cache/react-svg-npm-16.0.0-b63428ab4d-30b192c56e.zip/node_modules/react-svg/",\
+        ["virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:16.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-svg-virtual-8c2f311534/0/cache/react-svg-npm-16.0.0-b63428ab4d-30b192c56e.zip/node_modules/react-svg/",\
           "packageDependencies": [\
-            ["react-svg", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:16.0.0"],\
+            ["react-svg", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:16.0.0"],\
             ["@babel/runtime", "npm:7.20.7"],\
             ["@tanem/svg-injector", "npm:10.1.45"],\
             ["@types/prop-types", "npm:15.7.5"],\
