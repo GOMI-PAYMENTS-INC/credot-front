@@ -8,7 +8,7 @@ import {
   FindPasswordInput,
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
-import { toast } from 'react-toastify';
+
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
@@ -112,8 +112,6 @@ export const useFindAccount = (
     graphQLClient,
     {
       onSuccess: (res) => {
-        toast.success('신규 비밀번호 발송 성공하였습니다.');
-
         if (res.sendTemporaryPassword.accounts) {
           isAccountExisted(
             res.sendTemporaryPassword.accounts.length,
