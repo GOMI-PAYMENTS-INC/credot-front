@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { isTruthy } from '@/utils/isTruthy';
 import { ReactSVG } from 'react-svg';
-import { convertTime } from '@/utils/parsingTimezone';
+import { SearchCurrentTime } from '@/pages/search/SearchCurrentTime';
 
 export const SearchKeywordsImageBox = () => {
   const data = null;
@@ -12,21 +12,14 @@ export const SearchKeywordsImageBox = () => {
     }
     return [1, 2, 3, 4, 5];
   }, []);
-  const now = convertTime('', 'hh:mm');
 
   return (
     <div className='flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[1px] border-grey-300 shadow-[0_8px_16px_-15px_rgba(0,0,0,0.5)]'>
       <header className=''>
-        <div className='mt-[19px] flex h-4 items-center justify-between pl-5'>
-          <div className='flex items-center'>
-            <img src='/assets/images/StatusGomiIcon.png' />
-            <p className='pl-[6px] text-L/Medium'>{now}</p>
-          </div>
-          <ReactSVG src='/assets/icons/filled/StatusStatusIcons.svg' />
-        </div>
+        <SearchCurrentTime />
         <div className='pt-[25px] pl-6'>
-          {/* <h1 className='text-2XL/Bold'>키워드를 검색해주세요.</h1> */}
-          <h1 className='text-2XL/Bold'>불러오는 중...</h1>
+          <h1 className='text-2XL/Bold'>키워드를 검색해주세요.</h1>
+          {/* <h1 className='text-2XL/Bold'>불러오는 중...</h1> */}
 
           <p className='pt-2 text-S/Medium text-grey-700'>
             Shopee에 등록된 상품 이미지를 미리 보여드릴게요.

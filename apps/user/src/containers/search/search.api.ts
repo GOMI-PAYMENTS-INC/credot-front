@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
-import { snakeize } from 'casing';
 import { STATUS_CODE } from '@/types/enum.code';
-
 import { isFalsy } from '@/utils/isFalsy';
 
 export const getQueryResult = (keyword: string) => {
+  const [storeId, setStoreId] = useState('');
   const { data, isLoading, isError } = useSearchQuery(
     graphQLClient,
     {
@@ -21,18 +21,19 @@ export const getQueryResult = (keyword: string) => {
     },
   );
   const response = data?.search;
+
+  if (data?.search.reportInvokeId && data?.search.reportInvokeId !== storeId) {
+    setStoreId(data.search.reportInvokeId);
+    getProductImages({ reportInvokeId: data.search.reportInvokeId });
+  }
+
   return [response, isLoading, isError];
 };
 
 const REPORT_URL = {
   postCreateReport: 'api/v1/report',
   getReportExisted: 'api/v1/report/exist',
-};
-
-type TPostCreateReport = {
-  code: STATUS_CODE;
-  message: string;
-  data: null;
+  getProductImage: `/api/v1/keyword/{reportInvokeId}/image`,
 };
 
 export const postCreateReport = async (params: TCreateReportParamsType) => {
@@ -46,17 +47,21 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
   }
 };
 
-type TReportExistedResponseType = {
-  code: STATUS_CODE;
-  message: string;
-  data: { isDaily: boolean; createdAt: Date } | null;
-};
-
 export const getReportExisted = async (queryString: { text: string }) => {
   try {
     return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
       params: queryString,
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProductImages = async (queryString: { reportInvokeId: string }) => {
+  try {
+    return await HTTP.get<TGetProductImageResponseType>(
+      `/api/v1/keyword/${queryString.reportInvokeId}/image`,
+    );
   } catch (error) {
     console.error(error);
   }

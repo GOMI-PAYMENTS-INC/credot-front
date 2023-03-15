@@ -10,7 +10,7 @@ type TSearchModalType =
 
 type TState = {
   //TODO: 국가 선택 가능 시  옵셔널 -> 팔수값으로 변경 (현재는 옵션이 없어 고정값으로 주고 있음)
-  [key: string]: string | boolean;
+  [key: string]: string | boolean | [];
   country?: CountryType;
   text: string;
   isSearched: boolean;
@@ -18,6 +18,7 @@ type TState = {
   isModalOpen: boolean;
   modalType: TSearchModalType;
   createdAt: string;
+  productImages: TGetProductImageResponseType | [];
 };
 
 type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };
@@ -31,4 +32,23 @@ type TCreateReportReponseType = {
   code: string;
   message: string;
   data: any;
+};
+
+type TPostCreateReport = {
+  code: STATUS_CODE;
+  message: string;
+  data: null;
+};
+
+type TReportExistedResponseType = {
+  code: STATUS_CODE;
+  message: string;
+  data: { isDaily: boolean; createdAt: Date } | null;
+};
+
+type TGetProductImageResponseType = {
+  data: {
+    keywrod: string;
+    imageUrl: string;
+  }[];
 };

@@ -145,3 +145,5 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
     payload: { isModalOpen: false },
   });
 };
+
+export const _getProductImages = () => {};

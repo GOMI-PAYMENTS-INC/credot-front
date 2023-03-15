@@ -11,7 +11,7 @@ import {
   switchModal,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
-import { getQueryResult } from '@/containers/search/search.api';
+import { getQueryResult, getProductImages } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
@@ -24,6 +24,8 @@ import { SearchKeywordsImageBox } from '@/pages/search/SearchKeywordsImageBox';
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const [data, isLoading, isError] = getQueryResult(_state.keyword);
+
+  console.log(data, 'Data');
 
   useEffect(() => {
     const item = useSesstionStorage.getItem('keyword');
@@ -235,35 +237,35 @@ const SearchKeywords = () => {
                     <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
-                          if (typeof keyword === 'number') {
+                            if (typeof keyword === 'number') {
+                              return (
+                                <li
+                                  key={`${keyword}_dummy`}
+                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
+                                />
+                              );
+                            }
                             return (
-                              <li
-                                key={`${keyword}_dummy`}
-                                className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
-                              />
+                              <Fragment key={`${keyword.id}`}>
+                                <li
+                                  id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
+                                  onClick={() =>
+                                    queryKeywordByClick(keyword.text, _dispatch)
+                                  }
+                                >
+                                  {keyword.text}
+                                </li>
+                                <Tooltip
+                                  anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                  content={`월간 검색량: ${
+                                    keyword.count && formatNumber(keyword.count)
+                                  }`}
+                                  place='bottom'
+                                />
+                              </Fragment>
                             );
-                          }
-                          return (
-                            <Fragment key={`${keyword.id}`}>
-                              <li
-                                id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                onClick={() =>
-                                  queryKeywordByClick(keyword.text, _dispatch)
-                                }
-                              >
-                                {keyword.text}
-                              </li>
-                              <Tooltip
-                                anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                content={`월간 검색량: ${
-                                  keyword.count && formatNumber(keyword.count)
-                                }`}
-                                place='bottom'
-                              />
-                            </Fragment>
-                          );
-                        })
+                          })
                         : relativeKeyword}
                     </ul>
                   </div>
@@ -289,18 +291,16 @@ const SearchKeywords = () => {
             )}
           </div>
         </div>
-        <div className='x-[50px] col-span-6 flex h-[900px] w-[458px] flex-col self-center'>
-          {_state.isSearched && _state.keyword ? (
-            <iframe
+        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
+          {/* <iframe
               src={`https://shopee.vn/search?keyword=${_state.keyword}`}
               className=' h-[900px] w-[458px] rounded-2xl pt-[8px]'
               allow='accelerometer; autoplay; clipboard-write;
                encrypted-media; gyroscope; picture-in-picture'
               sandbox='allow-same-origin allow-scripts'
-            />
-          ) : (
-            <SearchKeywordsImageBox />
-          )}
+            /> */}
+
+          <SearchKeywordsImageBox />
         </div>
       </div>
     </Layout>
