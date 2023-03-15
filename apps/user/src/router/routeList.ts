@@ -48,7 +48,7 @@ export const routeList: IRoute[] = [
     //비밀번호 찾기
     description: 'FindPassword',
     path: PATH.FIND_PASSWORD,
-    component: AuthRoutes.FindPassword,
+    component: AuthRoutes.FindPasswordRef,
   },
   {
     //아이디 찾기

@@ -4,8 +4,11 @@ import {
   CountryType,
   useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
+  useSendTemporaryPasswordMutation,
+  FindPasswordInput,
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
+import { toast } from 'react-toastify';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
@@ -17,7 +20,7 @@ import {
 } from '@/containers/auth/auth.container.refac';
 import { UseFormSetError } from 'react-hook-form';
 
-export const useFindId = (
+export const useFindAccount = (
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TFindAccountErrorType>,
@@ -105,5 +108,39 @@ export const useFindId = (
     return [data];
   };
 
-  return { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount };
+  const { mutate: sendTemporaryPassword } = useSendTemporaryPasswordMutation(
+    graphQLClient,
+    {
+      onSuccess: (res) => {
+        toast.success('신규 비밀번호 발송 성공하였습니다.');
+
+        if (res.sendTemporaryPassword.accounts) {
+          isAccountExisted(
+            res.sendTemporaryPassword.accounts.length,
+            isVerification,
+            setIsVerification,
+          );
+        }
+        //성공된 회면으로 전환
+      },
+      onError: (err) => {
+        console.log(err, 'error');
+        //없음
+      },
+    },
+  );
+
+  const _sendTemporaryPassword = (user: FindPasswordInput) => {
+    const isValid = Object.values(user).every((userData) => isTruthy(userData));
+
+    if (isValid) {
+      const payload = {
+        user,
+        country: CountryType.Kr,
+      };
+      sendTemporaryPassword(payload);
+    }
+  };
+
+  return { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount, _sendTemporaryPassword };
 };

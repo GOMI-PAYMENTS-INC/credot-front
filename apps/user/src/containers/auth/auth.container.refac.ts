@@ -4,7 +4,7 @@ import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
 import { UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 
-export const findIdInitialState = {
+export const findAccountInitialState = {
   firstCalled: false,
   activeVerifyCode: false,
   theElseCalled: true,
@@ -14,6 +14,13 @@ export const findIdInitialState = {
   isExistedAccount: null,
 };
 
+export const maskingPhone = (phone: string) => {
+  return phone
+    .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+    .split('-')
+    .reduce((pre, cur, idx) => (idx === 1 ? pre + '****' : pre + cur), '');
+};
+
 export const clickVerifyBtn = (
   state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
@@ -21,6 +28,7 @@ export const clickVerifyBtn = (
 ) => {
   const { firstCalled, theElseCalled } = state;
   const _state = mergeCopiedValue(state);
+
   if (firstCalled === false) {
     _setState(_state({ firstCalled: true }));
     return;
@@ -91,9 +99,9 @@ export const isAccountExisted = (
 
 export const initializeAuteState = (
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
-) => _setState(mergeCopiedValue(findIdInitialState)());
+) => _setState(mergeCopiedValue(findAccountInitialState)());
 
-export const eventHandlerByFindId = (isVerification: TVerifyButtonState) => {
+export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) => {
   const eventOption = {
     phone: {
       className: 'button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]',
@@ -142,12 +150,18 @@ export const isPhoneVerifyPrepared = (
   state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TFindAccountErrorType>,
+  email?: string,
 ) => {
+  if (email !== undefined && isFalsy(email)) {
+    setError('email', { message: '이메일은 필수입력입니다.' });
+    return false;
+  }
+
   if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
     clickVerifyBtn(state, _setState);
     return true;
   }
 
-  setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
+  setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
   return false;
 };

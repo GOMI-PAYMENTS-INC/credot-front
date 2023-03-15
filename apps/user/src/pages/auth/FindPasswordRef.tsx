@@ -1,25 +1,27 @@
-import { useState, useMemo } from 'react';
-import { isFalsy } from '@/utils/isFalsy';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-
+import { useState, useMemo, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { PATH } from '@/types/enum.code';
+import { ErrorMessage } from '@hookform/error-message';
+import { useFindAccount } from '@/containers/auth/auth.api';
+
+import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { isFalsy } from '@/utils/isFalsy';
 
-import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
-import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
+import { FindPasswordResult } from '@/pages/auth/FindPasswordResult';
+import { VerifyCodeInput } from './VerifyCodeInput';
 import {
   findAccountInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/containers/auth/auth.container.refac';
-import { FindIdResult } from '@/pages/auth/FindIdResult';
 
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { useFindAccount } from '@/containers/auth/auth.api';
+export const FindPasswordRef = () => {
+  const [isVerification, setIsVerification] = useState<TVerifyButtonState>(
+    findAccountInitialState,
+  );
 
-const FindId = () => {
   const {
     register,
     setError,
@@ -29,22 +31,11 @@ const FindId = () => {
     mode: 'onChange',
   });
 
-  const [isVerification, setIsVerification] = useState<TVerifyButtonState>(
-    findAccountInitialState,
-  );
-
-  const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useFindAccount(
+  const { _getVerifyCode, _checkSmsVerifyCode, _sendTemporaryPassword } = useFindAccount(
     isVerification,
     setIsVerification,
     setError,
   );
-
-  _checkSmsVerifyCode(getValues('phone'));
-
-  const [userAccounts] = _getUserAccount({
-    phone: getValues('phone'),
-    verifyCodeSign: isVerification.verifyCodeSignatureNumber,
-  });
 
   const requestVerifyCodeButton = useMemo(() => {
     return eventHandlerByFindAccount(isVerification);
@@ -53,26 +44,66 @@ const FindId = () => {
   const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
 
   const clickVerifyButton = () => {
-    const phoneNumber = getValues('phone');
+    const { email, phone } = getValues();
+
     const isValid = isPhoneVerifyPrepared(
-      phoneNumber,
+      phone,
       errors,
       isVerification,
       setIsVerification,
       setError,
+      email,
     );
-    return isValid && _getVerifyCode(phoneNumber);
+
+    return isValid && _getVerifyCode(phone);
   };
 
+  _checkSmsVerifyCode(getValues('phone'));
+
+  useEffect(() => {
+    if (
+      isVerification.verifyCodeSignatureNumber &&
+      isVerification.isExistedAccount === null
+    ) {
+      console.log('hi');
+      _sendTemporaryPassword({
+        email: getValues('email'),
+        phone: getValues('phone'),
+        verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+      });
+    }
+  }, [isVerification.verifyCodeSignatureNumber]);
   return (
     <Layout>
       {isVerification.isExistedAccount === null ? (
         <div className='space-y-8'>
           <FindAccountTittle
-            title='아이디를 찾을게요.'
-            subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
+            title='비밀번호를 찾을게요.'
+            subTitle='이메일과 회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
           />
-          <div className='space-y-1'>
+
+          <div className='space-y-2'>
+            <input
+              className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
+              type='email'
+              placeholder='이메일'
+              disabled={phoneNumberInput || isVerification.isExceeded}
+              {...register('email', {
+                required: '이메일은 필수입력입니다.',
+                pattern: {
+                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                  message: '올바른 이메일 주소를 입력해주세요.',
+                },
+                onChange: (event) => {
+                  event.target.value = event.target.value.replace(/\s/g, '');
+                },
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name='email'
+              render={({ message }) => <p className='inputCustom-helptext'>{message}</p>}
+            />
             <div className='flex items-start'>
               <div className='inputCustom-group grow'>
                 <div className='inputCustom-textbox-wrap'>
@@ -99,7 +130,6 @@ const FindId = () => {
                       clickVerifyButton();
                     }}
                   />
-                  <InputIcon status={errors?.phone && INPUTSTATUS.ERROR} iconSize={5} />
                 </div>
                 <ErrorMessage
                   errors={errors}
@@ -109,7 +139,6 @@ const FindId = () => {
                   )}
                 />
               </div>
-
               <div className='basis-[102px]'>
                 <button
                   className={className}
@@ -131,13 +160,11 @@ const FindId = () => {
           </div>
         </div>
       ) : (
-        <FindIdResult
-          setIsVerification={setIsVerification}
-          userAccounts={userAccounts?.findAccount.accounts}
+        <FindPasswordResult
+          phone={getValues('phone')}
           isExistedAccount={isVerification.isExistedAccount}
         />
       )}
-
       <FindAccountBottom
         buttonText='로그인 하러가기'
         text='계정이 기억나셨나요?'
@@ -147,4 +174,4 @@ const FindId = () => {
   );
 };
 
-export default FindId;
+export default FindPasswordRef;

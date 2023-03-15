@@ -6,14 +6,14 @@ import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
 import { clickVerifyBtn } from '@/containers/auth/auth.container.refac';
-interface IVarifyCode {
+interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
   setError: UseFormSetError<TFindAccountErrorType>;
   errors: Partial<FieldErrorsImpl<TFindAccountErrorType>>;
 }
 
-export const VarifyCodeInput = (props: IVarifyCode) => {
+export const VerifyCodeInput = (props: IVerifyCode) => {
   const initializeTime = { minutes: 1, seconds: 0 };
   const [time, setTime] = useState(initializeTime);
   const { setIsVerification, isVerification, setError, errors } = props;
@@ -23,16 +23,16 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
   });
 
   useEffect(() => {
+    if (isVerification.theElseCalled) {
+      setTime(Object.assign({}, time, initializeTime));
+      setError('verifyCode', { message: undefined });
+    }
     if (isVerification.isExceeded) {
       setTime(Object.assign({}, time, { minutes: 5, seconds: 0 }));
       setError('verifyCode', {
         message: '인증번호 발송 횟수를 초과했어요. 5분간 인증이 불가능해요.',
       });
     }
-    return () => {
-      setTime(Object.assign({}, time, initializeTime));
-      setError('verifyCode', { message: undefined });
-    };
   }, [isVerification.theElseCalled, isVerification.isExceeded]);
   const disable = time.minutes === 0 && time.seconds === 0;
 
@@ -53,6 +53,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
           setError('verifyCode', {
             message: '인증시간이 만료었어요. 다시 인증해주세요.',
           });
+          console.log('is this called?');
           clickVerifyBtn(isVerification, setIsVerification);
         }
       }

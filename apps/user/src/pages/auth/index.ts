@@ -4,5 +4,13 @@ import TemporaryPassword from './TemporaryPassword';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import SignUpSocial from './SignUpSocial';
-
-export { FindPassword, TemporaryPassword, SignIn, SignUpSocial, SignUp, FindId };
+import FindPasswordRef from './FindPasswordRef';
+export {
+  FindPassword,
+  TemporaryPassword,
+  SignIn,
+  SignUpSocial,
+  SignUp,
+  FindId,
+  FindPasswordRef,
+};
