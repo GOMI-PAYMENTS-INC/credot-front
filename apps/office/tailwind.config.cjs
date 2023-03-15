@@ -12,7 +12,7 @@ module.exports = {
       lg: { max: '992px' },
       md: { max: '768px' },
       sm: { max: '576px' },
-      xs: { max: '431px' },
+      xs: { max: '430px' },
     },
 
     container: {
@@ -20,22 +20,28 @@ module.exports = {
       center: true,
 
       // or have default horizontal padding
-      padding: {},
+      // padding: {
+      //   xl: '60px',
+      //   lg: '12px',
+      //   md: '24px',
+      //   sm: '24px',
+      // },
       // default breakpoints but with 40px removed
-      screens: {
-        xl: '1320px',
-        lg: '960px',
-        md: '720px',
-        sm: '540px',
-      },
+      // screens: {
+      //   //xl이상인 경우
+      //   lg: '1440px',
+      //   md: '992px',
+      //   sm: '768px',
+      //   xs: '540px'
+      // },
     },
 
     extend: {
       ...tailwindConfig.theme.extend,
 
-      backgroundImage: {
-        main: "url('./src/assets/images/Section8/Background.png')",
-      },
+      // backgroundImage: {
+      //   main: "url('../src/assets/images/Section9/Background.png')",
+      // },
 
       gridTemplateColumns: {
         //선택한 키워드 아이템 내부 grid

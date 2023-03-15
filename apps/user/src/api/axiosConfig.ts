@@ -3,7 +3,7 @@ import { camelize, snakeize } from 'casing';
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
 import { authTokenStorage } from '@/utils/authToken';
 import { STATUS_CODE } from '@/types/enum.code';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { isIncluded } from '../utils/isIncluded';
 
 const Axios = axios.create({ baseURL: GlobalEnv.baseUrl });

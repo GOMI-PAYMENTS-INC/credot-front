@@ -24,7 +24,7 @@ export enum STATUS_CODE {
   USER_ALREADY_EXISTS = '1006',
   INVALID_USER = '1000',
   WRONG_PHONE = '1007',
-
+  NOT_RETRY_VERIFY_CODE = '1008',
   NOT_EXIST_SEARCH_KEYWORD = '1101',
 
   INVALID_PATH = '9400',
@@ -81,4 +81,21 @@ export enum GRADE_ITEMS {
   HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low',
+}
+
+export enum PATH {
+  SEARCH_PRODUCTS = '/',
+  SIGN_IN = '/signin',
+  SIGN_UP = '/signup',
+  SIGN_UP_WITH_GOOGLE = '/signup/social',
+  FIND_PASSWORD = '/find/password',
+  FIND_ID = '/find/id',
+  REAPPLY_PASSWORD = '/signin/password',
+  GET_REPORT_LIST = '/report/list',
+  ANALYSIS_REPORT_LIST = '/report/list/:id',
+}
+
+export enum AUTH_RESPONSE_TYPE {
+  FILLED = 'FILLED',
+  EMPTY = 'EMPTY',
 }

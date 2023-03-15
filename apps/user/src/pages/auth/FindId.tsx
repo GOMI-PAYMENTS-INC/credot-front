@@ -1,164 +1,145 @@
-import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
-import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
+import { useState, useMemo } from 'react';
+import { isFalsy } from '@/utils/isFalsy';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
-import { FindUserContainer } from '@/containers/auth/findUser.container';
-import { CountryType, FindAccountQueryVariables } from '@/generated/graphql';
-import { PATH } from '@/router/routeList';
-import { FIND_ACCOUNT_RESULT } from '@/types/enum.code';
-import { ReactSVG } from 'react-svg';
-import { FindIdPasswordBottom } from '@/pages/auth/FindIdPasswordBottom';
-import { FindIdPasswordTittle } from '@/pages/auth/FindIdPasswordTittle';
-import { copyToClipboard } from '@/utils/copyToClipboard';
+import { PATH } from '@/types/enum.code';
+import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
+import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+
+import { VarifyCodeInput } from '@/pages/auth/VarifyCodeInput';
+import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
+import {
+  findIdInitialState,
+  eventHandlerByFindId,
+} from '@/containers/auth/auth.container.refac';
+import { FindIdResult } from '@/pages/auth/FindIdResult';
+
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
+import { useFindId } from '@/containers/auth/auth.api';
 
 const FindId = () => {
-  const { setFindAccount, findAccountQuery, responseStatus } = FindUserContainer();
+  const {
+    register,
+    setError,
+    getValues,
+    formState: { errors },
+  } = useForm<TFindAccountErrorType>({
+    mode: 'onChange',
+  });
 
-  const [phone, setPhone] = useState('');
-  const [childIsValid, setChildIsValid] = useState(false);
+  const [isVerification, setIsVerification] =
+    useState<TVerifyButtonState>(findIdInitialState);
 
-  // 인증번호 맞는지 DB 체크
-  const changeWriteVerifyCodeSign = (verifyCodeSign: string) => {
-    const params: FindAccountQueryVariables = {
-      user: {
-        /** 전화번호 */
-        phone,
-        /** 인증번호 */
-        verifyCodeSign,
-      },
-      country: CountryType.Kr,
-    };
-    setFindAccount(params);
-  };
+  const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useFindId(
+    isVerification,
+    setIsVerification,
+    setError,
+  );
 
-  // 인증번호가 올바른지 DB 체크.
-  const onChangeVerifyCodeSign = (value: string) => {
-    if (value && childIsValid) {
-      changeWriteVerifyCodeSign(value);
+  _checkSmsVerifyCode(getValues('phone'));
+
+  const [userAccounts] = _getUserAccount({
+    phone: getValues('phone'),
+    verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+  });
+
+  const requestVerifyCodeButton = useMemo(() => {
+    return eventHandlerByFindId(isVerification);
+  }, [isVerification.firstCalled, isVerification.theElseCalled]);
+
+  const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
+
+  const isPhoneVerifyPrepared = () => {
+    const phoneNumber = getValues('phone');
+    if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
+      _getVerifyCode(phoneNumber);
+      return true;
     }
-  };
-
-  //하단 고정 레이아웃 문구
-  const accountBottomInfo = {
-    text: '계정이 기억나셨나요?',
-    buttonText: '로그인 하러가기',
-    buttonLink: PATH.SIGN_IN,
+    setError('phone', { message: '핸드폰 번호를 확인해주세요.' });
+    return false;
   };
 
   return (
-    <Fragment>
-      {/* 아이디 찾기 폼 시작 */}
-      {!findAccountQuery && responseStatus !== FIND_ACCOUNT_RESULT.STRANGER && (
-        <>
-          <div className='space-y-8'>
-            <FindIdPasswordTittle
-              title='아이디를 찾을게요.'
-              subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
-            />
+    <Layout>
+      {isVerification.isExistedAccount === null ? (
+        <div className='space-y-8'>
+          <FindAccountTittle
+            title='아이디를 찾을게요.'
+            subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
+          />
+          <div className='space-y-1'>
+            <div className='flex items-start'>
+              <div className='inputCustom-group grow'>
+                <div className='inputCustom-textbox-wrap'>
+                  <input
+                    className={`inputCustom-textbox w-full  ${
+                      isFalsy(errors.phone) === false && 'error'
+                    }`}
+                    id='verify'
+                    type='text'
+                    placeholder='휴대폰번호를 숫자만 입력해주세요.'
+                    maxLength={11}
+                    disabled={phoneNumberInput}
+                    {...register('phone', {
+                      pattern: {
+                        value: /(010)[0-9]{8}$/g,
+                        message: '올바른 휴대폰번호를 입력해주세요.',
+                      },
+                      onChange: (event) => {
+                        event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                      },
+                    })}
+                    onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                      if (event.code !== 'Enter') return;
+                      isPhoneVerifyPrepared();
+                    }}
+                  />
+                  <InputIcon status={errors?.phone && INPUTSTATUS.ERROR} iconSize={5} />
+                </div>
+                <ErrorMessage
+                  errors={errors}
+                  name='phone'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
+              </div>
 
-            <div>
-              <SmsVerifyCodeForm
-                onChangePhone={(value: string) => {
-                  setPhone(value);
-                }}
-                onVerifyCodeSign={(value: string) => {
-                  onChangeVerifyCodeSign(value);
-                }}
-                onChangeChildIsValid={(value: boolean) => {
-                  setChildIsValid(value);
-                }}
+              <div className='basis-[102px]'>
+                <button
+                  className={className}
+                  onClick={() => isPhoneVerifyPrepared()}
+                  disabled={disabled}
+                >
+                  {text}
+                </button>
+              </div>
+            </div>
+            {isVerification.activeVerifyCode && (
+              <VarifyCodeInput
+                setIsVerification={setIsVerification}
+                isVerification={isVerification}
+                setError={setError}
+                errors={errors}
               />
-            </div>
+            )}
           </div>
-
-          <FindIdPasswordBottom
-            buttonText={accountBottomInfo.buttonText}
-            text={accountBottomInfo.text}
-            buttonLink={accountBottomInfo.buttonLink}
-          />
-        </>
+        </div>
+      ) : (
+        <FindIdResult
+          setIsVerification={setIsVerification}
+          userAccounts={userAccounts?.findAccount.accounts}
+          isExistedAccount={isVerification.isExistedAccount}
+        />
       )}
-      {/* 아이디 찾기 폼 끝 */}
 
-      {/* 아이디 찾기 결과 시작 */}
-      {findAccountQuery && (
-        <>
-          <div className='space-y-8'>
-            <FindIdPasswordTittle
-              title={`<span class='text-orange-500'>${
-                findAccountQuery ? findAccountQuery.findAccount.accounts.length : 0
-              }개</span>의 아이디를 찾았어요!`}
-            />
-
-            <ul className='space-y-6'>
-              {findAccountQuery &&
-                findAccountQuery.findAccount.accounts.map((account, index) => (
-                  <li
-                    className='flex flex items-center justify-between rounded-lg border border-grey-300 px-5 py-3 text-orange-500'
-                    key={index}
-                  >
-                    <div>{account.email}</div>
-                    <a href='#' className='inline-block text-L/Regular'>
-                      <ReactSVG
-                        src='/assets/icons/outlined/Copy.svg'
-                        className='cursor-pointer'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('style', 'width: 20px; fill: #595959');
-                        }}
-                        onClick={() =>
-                          copyToClipboard('아이디를 복사했어요.', account.email)
-                        }
-                      />
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </div>
-
-          <FindIdPasswordBottom
-            buttonText={accountBottomInfo.buttonText}
-            text={accountBottomInfo.text}
-            buttonLink={accountBottomInfo.buttonLink}
-          />
-        </>
-      )}
-      {/* 아이디 찾기 결과 끝 */}
-
-      {/* 조회된 결과가 없는 경우 시작 */}
-      {responseStatus === FIND_ACCOUNT_RESULT.STRANGER && (
-        <>
-          <div className='space-y-8'>
-            <FindIdPasswordTittle
-              title='아이디를 찾을 수 없어요.'
-              subTitle='입력하신 휴대폰 번호로 가입한 계정이 존재하지 않아요.'
-            />
-            <div className='space-y-3'>
-              <div>
-                <Link to={PATH.SIGN_UP}>
-                  <button
-                    type='button'
-                    className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
-                  >
-                    회원가입 하기
-                  </button>
-                </Link>
-              </div>
-              <div>
-                <Link to={PATH.FIND_ID}>
-                  <button
-                    type='button'
-                    className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
-                  >
-                    다시 아이디 찾기
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      {/* 조회된 결과가 없는 경우 끝 */}
-    </Fragment>
+      <FindAccountBottom
+        buttonText='로그인 하러가기'
+        text='계정이 기억나셨나요?'
+        buttonLink={PATH.SIGN_IN}
+      />
+    </Layout>
   );
 };
 

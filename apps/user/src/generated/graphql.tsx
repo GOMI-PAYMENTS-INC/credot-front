@@ -526,7 +526,23 @@ export const SendSmsVerificationCodeDocument = `
 }
     `;
 export const useSendSmsVerificationCodeMutation = <
-  TError extends unknown,
+  TError extends {
+    response: {
+      errors: [
+        {
+          message: string;
+          locations: Array<{ line: number; column: number }>;
+          path: [string];
+          extensions: {
+            code: number;
+            status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+            classification: 'Exception';
+          };
+        },
+      ];
+      data: null;
+    };
+  },
   TContext extends unknown,
 >(
   client: GraphQLClient,
@@ -824,7 +840,23 @@ export const SmsVerifyCodeConfirmDocument = `
     `;
 export const useSmsVerifyCodeConfirmQuery = <
   TData extends SmsVerifyCodeConfirmQuery,
-  TError extends unknown,
+  TError extends {
+    response: {
+      errors: [
+        {
+          message: string;
+          locations: Array<{ line: number; column: number }>;
+          path: [string];
+          extensions: {
+            code: string;
+            status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+            classification: 'Exception';
+          };
+        },
+      ];
+      data: null;
+    };
+  },
 >(
   client: GraphQLClient,
   variables: SmsVerifyCodeConfirmQueryVariables,

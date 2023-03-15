@@ -12,7 +12,7 @@ export const Common2Section = ({ children }: ICommon2SectionProps) => (
           <div className='grid grid-cols-12 gap-x-6'>
             {/*좌측 이미지 시작*/}
             <div className='col-span-5 col-start-2'>
-              <img src='../../assets/images/LoginInfoImg1.png' alt='' />
+              <img src='/assets/images/LoginInfoImg1.png' alt='' />
             </div>
             {/*좌측 이미지 끝*/}
 

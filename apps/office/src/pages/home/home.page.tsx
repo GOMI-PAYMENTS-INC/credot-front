@@ -3,209 +3,135 @@ import 'swiper/swiper.min.css';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import SvgIcon from '@/util/SvgIcon';
+import { SERVICE_INFO } from '@/router/paths';
+import { ReactSVG } from 'react-svg';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
-  const [activeFaqIndex, changeFaqTab] = useState<number>(0);
+  const [activeFaqIndex, changeFaqTab] = useState<number[]>([]);
   const onClickTab = (tabIndex: number) => changeActiveTab(tabIndex);
   const onClickFaq = (faqIndex: number) => {
-    // 같은걸 토글 하는 경우
-    if (activeFaqIndex === faqIndex) {
-      changeFaqTab(0);
+    if (activeFaqIndex.find((one) => one === faqIndex)) {
+      //체크 해제할때 checkedItems에 있을 경우
+      const activeFaqFilter = activeFaqIndex.filter((one) => one !== faqIndex);
+      changeFaqTab([...activeFaqFilter]);
     } else {
-      changeFaqTab(faqIndex);
+      changeFaqTab([...activeFaqIndex, faqIndex]);
     }
   };
-  const IMG_PATH = '../../../assets/images';
+
+  const IMG_PATH = '/assets/images';
   const tabData = [
     {
-      name: '시장 규모',
-      icoName: (
-        <SvgIcon
-          iconName='Shopping'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      name: '시장 분석',
+      icoName: 'Shopping',
+      launching: true,
       data: {
         insightNum: '1',
         content:
-          '상위 노출 상품들의 판매량과 매출을 파악하여 해당 키워드의 시장 규모를 추산해볼 수 있어요.',
-        img: '1.png',
+          '월별 검색량 트랜드와 함께, 상위 노출 상품들의 판매량과 매출을 파악하여 해당 키워드에 대한 시장 규모를 추산해볼 수 있어요.',
+        img: '1-New.png',
       },
     },
     {
-      name: '브랜드 정보',
-      icoName: (
-        <SvgIcon
-          iconName='Trophy'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      name: '키워드 분석',
+      icoName: 'KeywordSearch',
+      launching: true,
       data: {
         insightNum: '2',
         content:
-          '검색 결과 내 브랜드들을 매출 순위별로 파악하여 트랜드 및 시장 수요를 예측할 수 있으며, 각 브랜드별 주력 상품에 대한 정보도 제공해요.',
-        img: '2.png',
+          '키워드의 검색량, 등록 상품 수, CPC 금액, \n' +
+          '평균 판매가를 종합적으로 분석하여, 저렴한 가격으로 매출을 많이 낼 수 있는 키워드인지 여부를 \n' +
+          '판단할 수 있어요',
+        img: '2-New.png',
       },
     },
     {
-      name: '키워드 품질',
-      icoName: (
-        <SvgIcon
-          iconName='Like'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      name: '추천 키워드',
+      icoName: 'Like',
+      launching: true,
       data: {
         insightNum: '3',
         content:
-          '키워드의 검색량, 등록 상품 수, CPC 금액, 평균 판매가를 종합적으로 분석하여, 저렴한 가격으로 매출을 많이 낼 수 있는 키워드인지 여부를 판단할 수 있어요',
-        img: '3.png',
+          '키워드 검색 이후 많이 검색된 연관 키워드들의 정보를 파악하여. 노출이 쉽고 광고비가 저렴한 키워드 공략이 가능해요.',
+        img: '3-New.png',
       },
     },
     {
-      name: '연관 키워드',
-      icoName: (
-        <SvgIcon
-          iconName='Link'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      name: '판매가 분석',
+      icoName: 'DollarCircle',
+      launching: true,
       data: {
         insightNum: '4',
         content:
-          '키워드 검색 이후 많이 검색된 연관 키워드들의 정보를 파악하여. 노출이 쉽고 광고비가 저렴한 키워드 공략이 가능해요.',
-        img: '4.png',
+          '상위 노출 상품들의 판매가격을 분석하여, 적절한 판매가격 산정할 수 있어요.',
+        img: '4-New.png',
       },
     },
     {
-      name: '판매 가격',
-      icoName: (
-        <SvgIcon
-          iconName='DollarCircle'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      name: '브랜드 분석',
+      icoName: 'Brand',
+      launching: false,
       data: {
         insightNum: '5',
         content:
-          '상위 노출 상품들의 판매가격을 분석하여, 적절한 판매가격 산정할 수 있어요.',
-        img: '5.png',
+          '검색 결과 내 브랜드들을 매출 순위별로 파악하여 트랜드 및 시장 수요를 예측할 수 있으며, \n' +
+          '각 브랜드별 주력 상품에 대한 정보도 제공해요.',
+        img: '5-New.png',
       },
     },
     {
       name: '카테고리 분석',
-      icoName: (
-        <SvgIcon
-          iconName='Appstore'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      icoName: 'Appstore',
+      launching: false,
       data: {
         insightNum: '6',
-        content: '상위 노출에 유리한 카테고리 등록이 무엇인지 알 수 있어요.',
-        img: '6.png',
+        content: '상위 노출에 유리한 카테고리 등록이 무엇인지 \n' + '알 수 있어요.',
+        img: '6-New.png',
       },
     },
     {
       name: '상품명 분석',
-      icoName: (
-        <SvgIcon
-          iconName='Edit'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      icoName: 'Edit',
+      launching: false,
       data: {
         insightNum: '7',
         content:
           '상위 노출 상품들의 상품명 내 공통 키워드를 추출할 수 있고, 적절한 상품명 길이도 알 수 있어요.',
-        img: '7.png',
+        img: '7-New.png',
       },
     },
     {
       name: '썸네일 분석',
-      icoName: (
-        <SvgIcon
-          iconName='FileImage'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      icoName: 'FileImage',
+      launching: false,
       data: {
         insightNum: '8',
         content:
           '상위 노출 상품들의 이미지 썸네일 수, 영상 썸네일 등록률, 영상 썸네일의 평균 길이를 파악해 적절한 썸네일 콘텐츠 전략을 수립할 수 있어요.',
-        img: '8.png',
+        img: '8-New.png',
       },
     },
     {
       name: '평점/리뷰 분석',
-      icoName: (
-        <SvgIcon
-          iconName='Star'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      icoName: 'Star',
+      launching: false,
       data: {
         insightNum: '9',
         content:
           '상위 노출 상품들의 평균 평점과 평점이 높은 상품들을 한 눈에 모아 볼 수 있어, 평점 관리를 위한 레퍼런스로 삼을 수 있어요.',
-        img: '9.png',
+        img: '9-New.png',
       },
     },
     {
       name: 'CS/셀러 분석',
-      icoName: (
-        <SvgIcon
-          iconName='Smile'
-          svgProp={{
-            width: 20,
-            height: 20,
-            className: 'fill-grey-500 md:w-[14px]',
-          }}
-        />
-      ),
+      icoName: 'Smile',
+      launching: false,
       data: {
         insightNum: '10',
         content:
           '상위 노출 상품들을 판매하는 셀러들의 판매 경력, 문의 응답 시간 등 디테일한 정보를 제공해요. 베스트 셀러가 되기 위한 운영 조건을 알 수 있어요.',
-        img: '10.png',
+        img: '10-New.png',
       },
     },
   ];
@@ -235,7 +161,7 @@ export default function HomePage() {
       brand: 'WT코퍼레이션',
       subject: '전략적인 판매를 할 수 있도록 도와줍니다.',
       content:
-        '지금까지는 상품 수로 매출 승부를 걸었다면, 이제는 고미 키워드를 통해 전략적인 상품 소싱이 가능하기 때문에 상품당 매출을 130%까지 상승시켰습니다.',
+        '지금까지는 상품 수로 매출 승부를 걸었다면, 이제는 고미인사이트를 통해 전략적인 상품 소싱이 가능하기 때문에 상품당 매출을 130%까지 상승시켰습니다.',
     },
     {
       imgName: 'lab.png',
@@ -252,25 +178,25 @@ export default function HomePage() {
       imgName: 'Reseller.png',
       name: '리셀러',
       content:
-        '수요는 많지만 경쟁도가 낮은 키워드를 공략하여,최고의 상품 리스팅 전략을 수립할 수 있어요.',
+        '소싱할 상품에 대한 수요와 적정 판매가를 미리 파악하고 진입이 유리한 키워드 및 콘텐츠 전략을 수립할 수 있어요.',
     },
     {
       imgName: 'Brand.png',
       name: '브랜드사',
       content:
-        '쇼피에서 수요가 많은 경쟁 브랜드와 판매자를 미리 분석하여 적절한 가격과 포지셔닝 정책을 수립할 수 있어요,',
+        '시장규모와 인기 브랜드 정보를 파악하여, 자사 상품의 성공 가능성을 미리 검토하고 가격 및 포지셔닝 전략을 수립할 수 있어요.',
     },
     {
       imgName: 'Marketer.png',
       name: '마케터',
       content:
-        '키워드의 검색량, 경쟁도, CPC 금액을 종합 분석한 리포트를 통해 효율이 가장 높은 키워드 전략을 수립할 수 있어요',
+        '키워드의 검색량, 경쟁도, CPC 금액을 종합 분석한 리포트를 통해 효율 높은 키워드 전략을 수립할 수 있어요',
     },
     {
       imgName: 'MD.png',
       name: 'MD',
       content:
-        '데이터를 기반으로 해외에 수출할 상품의 사업성을 종합적으로 미리 파악할 수 있어요.',
+        '데이터를 기반으로 해외에 수출할  상품의 사업성을 종합적으로 미리 파악할 수 있어요.',
     },
   ];
 
@@ -293,7 +219,7 @@ export default function HomePage() {
     {
       subject: '지원하는 국가와 플랫폼이 어떤게 있을까요?',
       content:
-        "현재는 ‘쇼피'의 모든 국가별 데이터를 제공해요. 이후 사용자의 니즈에 따라 라자다, 아마존과 같은 플랫폼의 인사이트도 점진적으로 추가될 예정이에요.",
+        '현재는 Shopee 베트남에 대한 인사이트를 제공해요. 이후 Shopee의 모든 국가를 지원할 예정이며, 라자다, 아마존과 같은 마켓 플레이스의 인사이트도 점진적으로 추가될 예정이에요. 회원가입 시 업데이트 소식을 빠르게 받아보실 수 있어요!',
     },
     {
       subject: '고미 인사이트는 어떤 서비스인가요?',
@@ -302,257 +228,208 @@ export default function HomePage() {
     },
   ];
   return (
-    <main className='overflow-hidden'>
-      <section className=' bg-[#FAFAF9]'>
-        <div className='container-padding relative'>
-          <div className=' absolute left-0 top-0 block lg:hidden'>
-            <img src={`${IMG_PATH}/Section1/Background.png`} alt='' />
+    <main>
+      <section className='h-[560px] w-full bg-[#FAFAF9]'>
+        <div className='container relative h-full'>
+          <div className='relative z-10 flex h-full flex-col items-center justify-center text-center'>
+            <h1 className='xs:text-2XL/Bold break-keep text-4XL/Bold sm:text-3XL/Bold'>
+              <span className='gradientTitle'>데이터 기반의 판매전략 수립</span>을 위한
+              <br />
+              <span className='gradientTitle '>Shopee 종합 분석</span>솔루션
+            </h1>
+            <p className='mt-12 text-L/Medium text-grey-700'>
+              동남아시아 No.1 마켓플레이스 Shopee의 상위노출 상품들을 분석하여
+              <br />
+              시장 정보와 최고의 판매 전략을 제공해요!
+            </p>
           </div>
-          <div className='grid-12 relative items-center  justify-items-center  pb-11 lg:pb-6'>
-            <div className=' xs:col-span-full col-span-5  col-start-2 px-8 py-[22px] px-5 pb-5 pt-[54px] sm:col-span-8 sm:col-start-3 sm:px-0 md:col-span-6 md:col-start-4 md:px-0 md:py-[42px] lg:pt-[22px]'>
-              <div className='mb-6'>
-                <h1 className='break-keep text-3XL/Bold lg:text-2XL/Bold'>
-                  <span className='text-orange-500'>Shopee</span>에서
-                  <span className='text-orange-500'>상위 노출</span>을 원하는
-                  <span className='text-orange-500'>키워드</span>를 입력해주세요.
-                </h1>
-              </div>
-              <div className='mb-16 lg:mb-6'>
-                <div className='mb-2'>
-                  <select
-                    name='country'
-                    id='country'
-                    className='bg-transparent py-3 text-S/Medium'
-                  >
-                    <option value='Vietnam' defaultValue='Vietnam'>
-                      Vietnam
-                    </option>
-                    <option value='Vietnam1'>Vietna1</option>
-                    <option value='Vietnam2'>Vietnam2</option>
-                  </select>
-                </div>
-                <div className='form-control'>
-                  <div className='input-group'>
-                    <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
-                      <input
-                        type='text'
-                        placeholder='키워드를 입력해주세요.'
-                        className='input-bordered input h-full  w-full w-full rounded-r-none border-0 bg-white lg:text-S/Medium'
-                      />
-                    </div>
-                    <button className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'>
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        className='h-6 w-6'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        stroke='currentColor'
-                      >
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
-                          d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className='mb-6 rounded-2xl border border-grey-300 bg-white px-6 py-5 '>
-                <div className='mb-5 lg:mb-4'>
-                  <h3 className='text-L/Medium lg:text-S/Regular'>
-                    월간 검색량
-                    <SvgIcon iconName='Help' wrapperStyle='inline-block ml-[7px]' />
-                  </h3>
-                </div>
-                <div>
-                  <span className='text-4XL/Bold text-grey-300 lg:text-3XL/medium'>
-                    ???
-                  </span>
-                </div>
-              </div>
-              <div className='mb-6  rounded-2xl border border-grey-300 bg-white px-6 py-5 lg:mb-4'>
-                <div className='mb-5 lg:mb-4'>
-                  <h3 className='text-L/Medium lg:text-M/Regular'>
-                    이런 키워드들은 어때요?
-                    <SvgIcon iconName='Help' wrapperStyle='inline-block ml-[7px]' />
-                  </h3>
-                </div>
-                <div>
-                  <ul className='overflow-y-hidden'>
-                    <li className='float-left mb-3 h-[38px] w-[36%] rounded-[50px] border border-grey-300 bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                    <li className='float-left mb-3 h-[38px] w-[60%] rounded-[50px] border border-grey-300  bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                    <li className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300  bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                    <li className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                    <li className='float-left mb-3 h-[38px] w-[28%] rounded-[50px] border border-grey-300  bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                    <li className='float-left mb-3 h-[38px] w-[68%] rounded-[50px] border border-grey-300 bg-grey-100 odd:mr-[4%] lg:mb-2 lg:h-6' />
-                  </ul>
-                </div>
-              </div>
-
-              <div>
-                <button className='w-full rounded-md bg-orange-500 py-4'>
-                  <span className='text-L/Bold text-white'>리포트 생성하기</span>
-                </button>
-              </div>
-            </div>
-            <div
-              className='col-span-5
-   block   md:hidden'
-            >
-              <img
-                src={`${IMG_PATH}/Section1/Img-Skeleton.png`}
-                alt=''
-                className='w-full max-w-[400px]'
-              />
-            </div>
-          </div>
-          <div className=' block flex justify-center  pb-8 lg:hidden '>
-            <SvgIcon
-              iconName='DoubleRight'
-              svgProp={{
-                width: 24,
-                height: 24,
-                className: 'fill-grey-900',
+          <div className='absolute right-3 bottom-10 flex h-12 w-12 items-center justify-center rounded-full bg-grey-500'>
+            <ReactSVG
+              src='/assets/icons/File.svg'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', 'fill-white w-6 h-6');
               }}
             />
+          </div>
+          <div className='absolute left-0  top-0 h-full w-full'>
+            <div className='relative left-0 top-0 h-full w-full'>
+              <ReactSVG
+                src='/assets/icons/Signal.svg'
+                className='animation-ico absolute left-[194px] top-[43px] flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'w-8 h-8');
+                }}
+              />
+              <div className='animation-ico absolute left-[38px] top-[180px]  h-3 w-3 rounded-full bg-orange-400'></div>
+              <ReactSVG
+                src='/assets/icons/Bulb.svg'
+                className='animation-ico animation-ico-2 absolute left-[89px] bottom-[209px] flex  h-12 w-12 items-center justify-center rounded-full bg-yellow-400 shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-white w-6 h-6');
+                }}
+              />
+              <div className='animation-ico absolute left-[162px] bottom-[106px] h-3.5 w-3.5 rounded-full bg-grey-400'></div>
+              <ReactSVG
+                src='/assets/icons/Shopee.svg'
+                className='animation-ico xs:hidden absolute right-[198px] top-[-10px] flex  h-16 w-16 items-center justify-center rounded-full bg-[#EA501F] shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-white w-8 h-9');
+                }}
+              />
+              <div className='animation-ico xs:hidden absolute right-[12px] top-[200px] h-6 w-6 rounded-full bg-orange-200 sm:hidden'></div>
+            </div>
           </div>
         </div>
       </section>
       <section>
-        <div className='container-padding xs:py-[60px] py-[100px] md:mx-auto  md:mx-auto lg:py-20'>
-          <div className='grid-12 xs:mb-[56px] mb-20 lg:mb-[70px]'>
-            <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1'>
-              <div className='mb-5 text-2XL/Bold text-grey-800  md:text-XL/Bold lg:mb-6'>
+        <div className='xs:py-[60px] container py-[100px] md:mx-auto md:mx-auto lg:py-20'>
+          <div className='xs:mb-[56px] mb-20 lg:mb-[70px]'>
+            <div className='text-center'>
+              <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
                 알고 계신가요?
               </div>
-              <div className='break-keep text-3XL/Bold md:text-2XL/Bold'>
-                <p className='mb-2'>이커머스 플랫폼 매출의 86%는</p>
-                <p>
-                  <span className='text-orange-500'>키워드 검색</span>을 통해서 발생한다는
+              <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
+                <p>이커머스 플랫폼 매출의 86%는</p>
+                <p className='mt-2'>
+                  <span className='text-orange-400'>키워드 검색</span>을 통해서 발생한다는
                   사실!
                 </p>
               </div>
             </div>
           </div>
-          <div className='grid-12 gap-6'>
+          <div className='grid grid-cols-12 gap-6'>
             <div className='xs:col-span-full col-span-4 sm:col-span-10 sm:col-start-2 md:col-span-8  md:col-start-3 lg:col-span-6  lg:col-start-4'>
-              <img src={`${IMG_PATH}/Section2/image-1.svg`} alt='' className='w-full' />
+              <img src={`${IMG_PATH}/Section2/Search.png`} alt='' className='w-full' />
             </div>
             <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
-              <img src={`${IMG_PATH}/Section2/image-2.svg`} alt='' className='w-full' />
+              <img src={`${IMG_PATH}/Section2/Firstpage.png`} alt='' className='w-full' />
             </div>
             <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
-              <img src={`${IMG_PATH}/Section2/image-3.svg`} alt='' className='w-full' />
+              <img src={`${IMG_PATH}/Section2/Click.png`} alt='' className='w-full' />
             </div>
           </div>
         </div>
       </section>
       <section className='bg-grey-50'>
-        <div className='container-padding pt-[100px]  pb-[74px] md:mx-auto md:pb-20  lg:py-20 '>
-          <div className='grid-12 mb-14 sm:mb-10 lg:mb-[72px] '>
-            <div className='xs:col-span-full col-span-8 col-start-3 text-center lg:col-span-full  lg:col-start-1'>
-              <div className='break-keep text-4XL/Bold md:text-2XL/Bold lg:text-3XL/Bold'>
-                <p className='mb-4'>데이터를 기반으로</p>
+        <div className='container pt-[100px]  pb-[74px] md:mx-auto md:pb-20  lg:py-20 '>
+          <div className='xs:mb-[56px] mb-20 lg:mb-[70px]'>
+            <div className='text-center'>
+              <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
+                검색결과 상위 50개 상품들을 분석하여
+              </div>
+              <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>
-                  <span className='text-orange-500'>상위 노출 노하우</span>를 한 눈에!
+                  <span className='text-orange-400'>시장 정보</span>와{' '}
+                  <span className='text-orange-400'>상위 노출 노하우</span>를 한 눈에!
                 </p>
               </div>
             </div>
           </div>
-          <div className='grid-12'>
-            <div className='col-span-10 col-start-2 sm:hidden lg:col-span-full'>
-              <img src={`${IMG_PATH}/Section3/Section3-morion-Large.gif`} alt='' />
+          <div className='xs:max-w-full mx-auto mt-5 max-w-[960px] sm:max-w-[446px] md:max-w-full'>
+            <div className='sm:hidden'>
+              <img src={`${IMG_PATH}/Section3/Animation-Desktop.gif`} alt='' />
             </div>
-            <div className='xs:col-span-full col-span-10 col-start-2 hidden sm:block'>
-              <img src={`${IMG_PATH}/Section3/Section3-morion-Small.gif`} alt='' />
+            <div className='hidden sm:block'>
+              <img src={`${IMG_PATH}/Section3/Animation-Mobile.gif`} alt='' />
             </div>
           </div>
         </div>
       </section>
       <section>
-        <div className='container-padding pt-[100px]  sm:pt-[60px]  md:mx-auto'>
-          <div className='grid-12 mb-[70px] sm:mb-10 lg:mb-[72px]'>
-            <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1 '>
-              <div className='mb-6 text-2XL/Bold text-orange-500  md:text-XL/Bold'>
-                상위 노출을 위한 모든 것
-              </div>
-              <div className='break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
-                <div className=' sm:hidden'>
-                  <p className='mb-2'>상위 100개 상품에 대한 15가지의 인사이트와</p>
-                  <p>개별 상품 분석까지!</p>
+        <div className='pt-[100px]  sm:pt-[60px]  md:mx-auto'>
+          <div className='container'>
+            <div className='mb-[70px] sm:mb-10 lg:mb-[72px]'>
+              <div className='text-center'>
+                <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
+                  베스트 셀러가 되기 위한
                 </div>
-                <div className=' hidden sm:block'>
-                  <p className='mb-2'>
-                    상위 100개 상품에 대한 15가지의 인사이트와 개별 상품 분석까지!
-                  </p>
+                <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
+                  <p>10여가지 종합 인사이트!</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className='container-tab'>
-          <div className='grid-12 mb-[100px] pb-8 sm:mb-10 sm:block  sm:pb-0 lg:mb-[72px] lg:pb-0 '>
-            <div className='col-span-8 col-start-3 md:col-span-full md:col-start-1 lg:col-span-10 lg:col-start-2'>
-              <ul className='grid-rows-tab grid grid-cols-5 grid-rows-1  gap-y-6 gap-x-8 sm:flex sm:overflow-x-auto lg:gap-x-4 lg:gap-y-6'>
-                {tabData.map((tab, index) => (
-                  <li
-                    key={index}
-                    tabIndex={index}
-                    onClick={() => onClickTab(index)}
-                    className={`lg: col-span-1 shrink-0 rounded-[30px] py-4 text-M/Bold sm:px-4   sm:text-S/Bold md:py-3 md:text-S/Medium
+
+          <div className='container-tab mx-auto mb-[100px] max-w-[870px] pb-8 sm:mb-10 sm:block sm:overflow-x-auto sm:pb-0 md:max-w-[720px] lg:mb-[72px] lg:pb-0'>
+            <ul className='mx-auto grid grid-cols-5 grid-rows-1 gap-y-4 gap-x-8 sm:inline-flex sm:gap-x-4'>
+              {tabData.map((tab, index) => (
+                <li
+                  key={index}
+                  onClick={() => onClickTab(index)}
+                  className={`shrink-0 rounded-[30px] py-4 text-M/Bold sm:px-4 sm:text-S/Bold md:py-3 md:text-S/Medium
                       ${
                         index === activeTabIndex
                           ? 'bg-grey-900 text-white'
+                          : tab.launching
+                          ? 'border border-grey-400 bg-white text-grey-800'
                           : 'bg-grey-200 text-grey-500'
                       }`}
-                  >
-                    <div className=' flex items-center  justify-center'>
-                      <i className='mr-1'>{tab.icoName}</i>
-                      <span>{tab.name}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                >
+                  <div className=' flex items-center  justify-center'>
+                    <i className='mr-1'>
+                      <ReactSVG
+                        src={`/assets/icons/${tab.icoName}.svg`}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute(
+                            'class',
+                            `md:w-[14px] w-5 h-5 ${
+                              index === activeTabIndex
+                                ? 'fill-white'
+                                : tab.launching
+                                ? 'fill-grey-800'
+                                : 'fill-grey-500'
+                            }`,
+                          );
+                        }}
+                      />
+                    </i>
+                    <span>{tab.name}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-        <div className='container-padding pb-[100px]  sm:pb-[60px]  md:mx-auto'>
-          <div className='grid-12 mb-[18px] sm:justify-items-center md:items-start '>
-            <div className='xs:col-span-full col-start-3 col-end-7 sm:col-start-2 sm:col-end-12 sm:mb-8 sm:text-center md:col-span-6  md:col-start-1 lg:col-span-5  lg:col-start-2 '>
-              <div className='mb-6 '>
-                <div className='mb-4 text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
-                  Insight {tabData[activeTabIndex].data.insightNum}
-                </div>
-                <div className='md:text-2L/Bold text-4XL/Bold  text-grey-900 lg:text-3XL/Bold'>
-                  {tabData[activeTabIndex].name}
+
+          <div className='mx-auto max-w-[870px] md:max-w-[720px]'>
+            <div className='container'>
+              <div className='pb-[100px] sm:pb-[60px]'>
+                <div className='mx-auto mb-[18px] flex justify-between sm:flex-wrap sm:justify-center md:items-start '>
+                  <div className='mr-6 sm:mb-8 sm:text-center'>
+                    <div className=''>
+                      <div className='mb-4 text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
+                        Insight {tabData[activeTabIndex].data.insightNum}
+                      </div>
+                      <div className='md:text-2L/Bold text-4XL/Bold text-grey-900 lg:text-3XL/Bold'>
+                        {tabData[activeTabIndex].name}
+                      </div>
+                    </div>
+                    <div className='mt-6 break-keep text-L/Medium text-grey-900 sm:w-full md:text-M/Medium'>
+                      {tabData[activeTabIndex].data.content}
+                    </div>
+                  </div>
+                  <div className='shrink-0 basis-[424px] sm:basis-[280px] md:basis-[345px]'>
+                    <img
+                      src={`${IMG_PATH}/Section5/${tabData[activeTabIndex].data.img}`}
+                      alt=''
+                    />
+                  </div>
                 </div>
               </div>
-              <div className='w-9/12 break-keep text-L/Medium text-grey-900 sm:w-full md:text-M/Medium'>
-                {tabData[activeTabIndex].data.content}
-              </div>
-            </div>
-            <div className='xs:col-span-full col-span-4 sm:col-start-2 sm:col-end-12 sm:max-w-[280px]   md:col-span-6  lg:col-span-5 '>
-              <img
-                src={`${IMG_PATH}/Section5/${tabData[activeTabIndex].data.img}`}
-                alt=''
-              />
             </div>
           </div>
         </div>
       </section>
-      <section className='bg-grey-50'>
-        <div className='container-padding pt-[100px]  pb-[122px] md:mx-auto md:pt-[77px]  md:pb-[90px] lg:pb-[113px] '>
-          <div className='grid-12 mb-20 md:mb-[61.3px] '>
-            <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1 '>
-              <div className='mb-5 text-2XL/Bold text-grey-800 md:text-XL/Bold lg:mb-6 '>
+      <section className='overflow-hidden bg-grey-50'>
+        <div className='container pt-[100px]  pb-[122px] md:mx-auto md:pt-[77px]  md:pb-[90px] lg:pb-[113px] '>
+          <div className='mb-20 md:mb-[61.3px] '>
+            <div className='text-center'>
+              <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
                 고미 인사이트가 함께합니다
               </div>
-              <div className='break-keep text-3XL/Bold md:text-2XL/Bold'>
-                <p className='mb-2'>서비스 오픈 1개월만에</p>
-                <p>
-                  무려 <span className='text-orange-500'>248개사</span>가 이용했어요.
+              <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
+                <p>서비스 오픈 1개월만에</p>
+                <p className='mt-2'>
+                  무려 <span className='text-orange-400'>248개 사</span>가 이용했어요.
                 </p>
               </div>
             </div>
@@ -581,7 +458,7 @@ export default function HomePage() {
               {partnerData.map((partener, index) => (
                 <SwiperSlide
                   key={index}
-                  className='shadow-partner-card rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
+                  className='shadow-partner-card !h-auto rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
                 >
                   <div className='mb-6 md:mb-[18.54px]'>
                     <div className='flex'>
@@ -652,28 +529,53 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <section className='bg-[#FFFBF8]'>
+        <div className='container py-[80px]'>
+          <div className='mb-20 md:mb-[61.3px] '>
+            <div className='text-center'>
+              <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
+                고미 인사이트와 함께
+              </div>
+              <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
+                <p>잘 팔릴 상품인지 미리 확인하고</p>
+                <p className='mt-2'>
+                  <span className='text-orange-400'>상위노출을 통해 </span>매출 선순환
+                  구조를 만드세요!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='flex justify-center'>
+            <img
+              src={`${IMG_PATH}/Section7/Section7.png`}
+              alt=''
+              className='w-full max-w-[754px] md:max-w-[540px]'
+            />
+          </div>
+        </div>
+      </section>
       <section>
-        <div className='container-padding pt-[100px] pb-[126px] sm:py-[60px] md:mx-auto  md:pb-[40px] lg:pb-[100px]'>
-          <div className='grid-12 mb-20 sm:mb-[56px]'>
-            <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1  '>
-              <div className='mb-6 text-2XL/Bold text-orange-500  md:text-XL/Bold'>
+        <div className='container pt-[100px] pb-[126px] sm:py-[60px] md:mx-auto  md:pb-[40px] lg:pb-[100px]'>
+          <div className='mb-20 sm:mb-[56px]'>
+            <div className='text-center'>
+              <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
                 누가, 어떻게 활용할 수 있을 까요?
               </div>
-              <div className='break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
+              <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
                 <p>쇼피에 상품을 판매하는 누구나!</p>
               </div>
             </div>
           </div>
           <div>
-            <ul className='grid-12'>
+            <ul className='flex md:flex-wrap '>
               {userTargetData.map((userTarget, index) => (
                 <li
                   key={index}
-                  className='xs:col-span-full xs:odd:col-start-1 col-span-3 p-2.5 sm:col-span-10 sm:col-start-2 sm:mb-5 sm:last:mb-0 md:col-span-5 md:mb-[50px] md:odd:col-start-2 '
+                  className='w-[calc(100%/4)] p-2.5 sm:mb-5 sm:w-full sm:last:mb-0 md:mb-[50px] md:w-[calc(100%/2)]'
                 >
                   <div className='mb-6 lg:mb-4 '>
                     <img
-                      src={`${IMG_PATH}/Section7/${userTarget.imgName}`}
+                      src={`${IMG_PATH}/Section8/${userTarget.imgName}`}
                       alt=''
                       className='w-full '
                     />
@@ -690,29 +592,32 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className='bg-main xs:bg-[40%] bg-cover bg-center py-[130px]  sm:bg-[20%] sm:py-[70px]  lg:py-[105px]'>
-        <div className='container-padding'>
-          <div className='grid-12 justify-items-right items-center sm:gap-y-12'>
-            <div className='col-span-5 col-start-2 break-keep text-4XL/Bold  text-white sm:col-span-full  md:col-span-7 md:col-start-1 lg:text-3XL/Bold'>
-              상위 노출을 위한
-              <br />
-              쇼피 판매 전략 인사이트
-            </div>
-            <div className='col-span-3 col-start-9 text-right sm:col-span-full md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-8'>
-              <button className='rounded bg-white py-4 px-4 text-L/Bold text-grey-800'>
-                고미 인사이트 바로 시작하기
-              </button>
+      <section className='bg-main xs:bg-[40%] bg-cover bg-center py-[130px] sm:bg-[20%] sm:py-[70px]  lg:py-[105px]'>
+        <div className='container'>
+          <div className='mx-auto max-w-[1096px]'>
+            <div className='flex items-center justify-between sm:flex-wrap'>
+              <div className='break-keep text-4XL/Bold text-white sm:w-full lg:text-3XL/Bold'>
+                잘 팔릴 상품을 <br />잘 파는 방법
+              </div>
+              <div className='text-right sm:mt-12  sm:w-full'>
+                <button
+                  className='w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:w-[306px] md:w-[286px] lg:w-[306px]'
+                  onClick={() => window.open(`${SERVICE_INFO}`, '_blank')}
+                >
+                  고미 인사이트 바로 시작하기
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section>
-        <div className='container-padding py-[120px] md:mx-auto md:mx-auto  lg:py-[60px]'>
-          <div className='grid-12'>
-            <div className='xs:gap-y-[33px] col-span-10 col-start-2 grid min-h-[300px] grid-cols-10 items-center justify-items-center gap-x-5  rounded-[49px] bg-grey-200 sm:justify-items-start sm:gap-y-[55px] sm:py-10 sm:pb-0 md:py-[39px]  lg:col-span-full  lg:col-start-1 lg:grid-cols-12  lg:py-[42px]'>
-              <div className='col-span-5 break-keep pl-[53px] sm:col-span-full  sm:col-start-2 sm:pl-0 md:col-span-6  md:pl-[34px] lg:col-span-7'>
+        <div className='container py-[120px] md:mx-auto md:mx-auto lg:py-[60px]'>
+          <div className='mx-auto max-w-[1096px]'>
+            <div className='flex items-center justify-between rounded-[49px] bg-grey-200 pl-[52px] sm:flex-wrap sm:justify-items-start sm:pb-0 md:py-10 md:pl-[33px] lg:py-[42px] '>
+              <div className='break-keep'>
                 <div className='mb-[13px] inline-block rounded-[33px] bg-grey-900 px-5 py-[7px]'>
-                  <span className='text-S/Medium text-white'>Event 2022.12~ 종료시</span>
+                  <span className='text-S/Medium text-white'>Event 2023.03~ 종료시</span>
                 </div>
                 <div className='mb-[20px] text-3XL/Bold'>무제한 사용 이벤트</div>
                 <div className='text-grey-700'>
@@ -721,8 +626,9 @@ export default function HomePage() {
                   별도의 이벤트 종료 안내까지는 무제한 리포트 조회가 가능해요!
                 </div>
               </div>
-              <div className='xs:col-start-1 xs:mb-6 col-span-5 sm:col-span-full sm:col-start-4 md:col-span-6'>
-                <img src={`${IMG_PATH}/Section9/Ticket.png`} alt='' />
+
+              <div className='xs:mt-[33px] sm:mt-[55px]'>
+                <img src={`${IMG_PATH}/Section10/Ticket.png`} alt='' />
               </div>
             </div>
           </div>
@@ -730,49 +636,54 @@ export default function HomePage() {
       </section>
 
       <section className='bg-grey-50 py-[120px] lg:py-[80px]'>
-        <div className='container-padding'>
-          <div className='grid-12 mb-12'>
-            <div className='col-span-8 col-start-3 text-center lg:col-span-full lg:col-start-1 '>
-              <div className='mb-6 text-2XL/Bold text-orange-500 lg:mb-8'>
-                자주 묻는 질문을 모았어요.
-              </div>
-              <div className='break-keep text-3XL/Bold text-grey-900'>
-                <p>FAQ</p>
+        <div className='container'>
+          <div className='mx-auto max-w-[1096px]'>
+            <div>
+              <div className='text-center'>
+                <div className='mb-6 text-2XL/Bold text-orange-500 lg:mb-8'>
+                  자주 묻는 질문을 모았어요.
+                </div>
+                <div className='break-keep text-3XL/Bold text-grey-900'>
+                  <p>FAQ</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='grid-12'>
-            <div className='col-span-10 col-start-2  rounded-[20.107px] bg-white px-12 py-14 lg:col-span-full lg:col-start-1  lg:py-6  lg:px-6'>
-              {qnaData.map((qna, index) => (
-                <dl
-                  key={index}
-                  className='border border-t-0 border-l-0 border-r-0  border-b-grey-300 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-6'
-                  onClick={() => onClickFaq(index + 1)}
-                >
-                  <dt className='relative'>
-                    <p className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
-                      {qna.subject}
-                    </p>
-                    <SvgIcon
-                      iconName='Up'
-                      wrapperStyle={`absolute top-1 right-0 lg:text-L/Medium text-L/Medium text-grey-700 
-                      ${activeFaqIndex === index + 1 ? 'rotate-0' : 'rotate-180'}`}
-                      svgProp={{
-                        width: 24,
-                        height: 24,
-                        className: 'fill-grey-900',
-                      }}
-                    />
-                  </dt>
-                  <dd
-                    className={`mt-4 text-L/Medium text-grey-700 lg:text-M/Medium  ${
-                      activeFaqIndex === index + 1 ? 'block' : 'hidden'
-                    }`}
-                  >
-                    {qna.content}
-                  </dd>
-                </dl>
-              ))}
+            <div className='mt-12'>
+              <div className='rounded-[20.107px] bg-white px-12 py-14  lg:py-6 lg:px-6'>
+                {qnaData.map((qna, index) => {
+                  let isOpened = false;
+                  isOpened = activeFaqIndex.includes(index);
+
+                  return (
+                    <dl
+                      key={index}
+                      className='border border-t-0 border-l-0 border-r-0 border-b-grey-300 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-6'
+                      onClick={() => onClickFaq(index)}
+                    >
+                      <dt className='relative'>
+                        <p className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
+                          {qna.subject}
+                        </p>
+                        <ReactSVG
+                          src='/assets/icons/Up.svg'
+                          className={`absolute top-1 right-0 text-L/Medium text-grey-700 lg:text-L/Medium 
+                      ${isOpened ? 'rotate-0' : 'rotate-180'}`}
+                          beforeInjection={(svg) => {
+                            svg.setAttribute('class', 'w-6 h-6 fill-grey-900');
+                          }}
+                        />
+                      </dt>
+                      <dd
+                        className={`mt-4 text-L/Medium text-grey-700 lg:text-M/Medium  ${
+                          isOpened ? 'block' : 'hidden'
+                        }`}
+                      >
+                        {qna.content}
+                      </dd>
+                    </dl>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

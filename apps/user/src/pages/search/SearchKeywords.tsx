@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
-
+import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/modal';
 import {
   getKeyword,
@@ -88,7 +88,7 @@ const SearchKeywords = () => {
   }, [_state.keyword, isMonthlyCountZero]);
 
   return (
-    <Fragment>
+    <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
         <SearchModal
           _state={_state}
@@ -235,35 +235,35 @@ const SearchKeywords = () => {
                     <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
-                            if (typeof keyword === 'number') {
-                              return (
-                                <li
-                                  key={`${keyword}_dummy`}
-                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
-                                />
-                              );
-                            }
+                          if (typeof keyword === 'number') {
                             return (
-                              <Fragment key={`${keyword.id}`}>
-                                <li
-                                  id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                  onClick={() =>
-                                    queryKeywordByClick(keyword.text, _dispatch)
-                                  }
-                                >
-                                  {keyword.text}
-                                </li>
-                                <Tooltip
-                                  anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  content={`월간 검색량: ${
-                                    keyword.count && formatNumber(keyword.count)
-                                  }`}
-                                  place='bottom'
-                                />
-                              </Fragment>
+                              <li
+                                key={`${keyword}_dummy`}
+                                className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
+                              />
                             );
-                          })
+                          }
+                          return (
+                            <Fragment key={`${keyword.id}`}>
+                              <li
+                                id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
+                                onClick={() =>
+                                  queryKeywordByClick(keyword.text, _dispatch)
+                                }
+                              >
+                                {keyword.text}
+                              </li>
+                              <Tooltip
+                                anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                content={`월간 검색량: ${
+                                  keyword.count && formatNumber(keyword.count)
+                                }`}
+                                place='bottom'
+                              />
+                            </Fragment>
+                          );
+                        })
                         : relativeKeyword}
                     </ul>
                   </div>
@@ -303,7 +303,7 @@ const SearchKeywords = () => {
           )}
         </div>
       </div>
-    </Fragment>
+    </Layout>
   );
 };
 export default SearchKeywords;

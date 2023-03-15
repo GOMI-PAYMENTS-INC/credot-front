@@ -30,7 +30,7 @@ import {
   useSignupMutation,
 } from '@/generated/graphql';
 
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/api/config';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
@@ -62,8 +62,10 @@ export const AuthContainer = () => {
   const clearLogin = () => {
     // 로그인 토크 상태 정리
     setToken(null);
+
     // 로그인 상태 해제
     handleChangeLoginState(false);
+
     // 세션, 로컬스토리지에 저장된 토큰 삭제
     authTokenStorage.clearToken();
 
@@ -80,7 +82,6 @@ export const AuthContainer = () => {
   };
 
   // 회원정보 가져오기
-
   const {
     data: userInfo,
     isLoading: isLoadingUserInfo,
@@ -89,14 +90,7 @@ export const AuthContainer = () => {
     graphQLClient,
     {},
     {
-      onSuccess: (res) => {
-        //SNS 회원가입
-        const path = !res.me.phone && PATH.SIGN_UP_WITH_GOOGLE;
-
-        if (path) {
-          navigation(path, { state: { email: res.me.email } });
-        }
-      },
+      onSuccess: (res) => {},
       onError: (error) => {
         if (error instanceof Error) {
           console.error(error, 'error : )');
@@ -200,23 +194,15 @@ export const AuthContainer = () => {
         navigation(PATH.SEARCH_PRODUCTS);
       }
     },
-
     onError: (err) => {},
   });
-
   // 로컬 로그인 끝
 
   // 구글 로그인 시작
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.googleLogin.token);
-      handleChangeLoginState(true);
       authTokenStorage.setToken(isLoginStorage, res.googleLogin.token);
-
-      //검색페이지로 이동
-      navigation(PATH.SEARCH_PRODUCTS);
-
-      // await refetchUserInfo();
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
@@ -227,6 +213,7 @@ export const AuthContainer = () => {
   const onGoogleLoginButton = ({ idToken }: GoogleLoginMutationVariables) => {
     googleLoginMutate({ idToken });
   };
+
   const handleCredentialResponse = (response: CredentialResponse) => {
     if (response.credential) {
       setIdToken(response.credential);
@@ -284,7 +271,22 @@ export const AuthContainer = () => {
   useMemo(() => {
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
-      refetchUserInfo();
+
+      refetchUserInfo().then((value) => {
+        //토큰은 있지만 로그인 상태가 아닌 경우
+        if (!isLogin) {
+          //소셜 회원가입인 경우 전화번호 인증이 필요함
+          const path = value.data?.me.phone === '' && PATH.SIGN_UP_WITH_GOOGLE;
+
+          if (path) {
+            clearLogin();
+            navigation(path, { state: { email: value.data?.me.email, token: idToken } });
+          } else {
+            handleChangeLoginState(true);
+            navigation(PATH.SEARCH_PRODUCTS);
+          }
+        }
+      });
     }
   }, [token]);
 
@@ -338,6 +340,7 @@ export const AuthContainer = () => {
   }, []);
 
   return {
+    clearLogin,
     onSendSmsVerifyCode,
     onSubmitSignUp,
     loginMutate,
