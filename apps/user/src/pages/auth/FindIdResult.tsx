@@ -2,10 +2,13 @@ import { Fragment, Dispatch, SetStateAction } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { AUTH_RESPONSE_TYPE, PATH } from '@/types/enum.code';
 import { Link } from 'react-router-dom';
+
 import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
+
 import { initializeAuteState } from '@/containers/auth/auth.container.refac';
+import { UseFormSetValue } from 'react-hook-form';
 interface IFindIdResultProps {
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
   userAccounts?: Array<{
@@ -14,9 +17,10 @@ interface IFindIdResultProps {
     socialProvider?: string | null;
   }>;
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
+  setValue: UseFormSetValue<TFindAccountErrorType>;
 }
 export const FindIdResult = (props: IFindIdResultProps) => {
-  const { isExistedAccount, userAccounts, setIsVerification } = props;
+  const { isExistedAccount, userAccounts, setIsVerification, setValue } = props;
   return (
     <Fragment>
       {isExistedAccount === AUTH_RESPONSE_TYPE.FILLED && isTruthy(userAccounts) ? (
@@ -64,7 +68,7 @@ export const FindIdResult = (props: IFindIdResultProps) => {
             </div>
             <div>
               <button
-                onClick={() => initializeAuteState(setIsVerification)}
+                onClick={() => initializeAuteState(setIsVerification, setValue)}
                 type='button'
                 className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
               >

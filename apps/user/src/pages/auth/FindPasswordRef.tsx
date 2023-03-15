@@ -26,6 +26,7 @@ export const FindPasswordRef = () => {
     register,
     setError,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm<TFindAccountErrorType>({
     mode: 'onChange',
@@ -164,6 +165,7 @@ export const FindPasswordRef = () => {
           phone={getValues('phone')}
           isExistedAccount={isVerification.isExistedAccount}
           setIsVerification={setIsVerification}
+          setValue={setValue}
         />
       )}
       <FindAccountBottom

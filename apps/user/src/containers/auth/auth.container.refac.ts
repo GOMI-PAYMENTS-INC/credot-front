@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
-import { UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
+import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 
 export const findAccountInitialState = {
@@ -99,7 +99,12 @@ export const isAccountExisted = (
 
 export const initializeAuteState = (
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
-) => _setState(mergeCopiedValue(findAccountInitialState)());
+  setValue: UseFormSetValue<TFindAccountErrorType>,
+) => {
+  _setState(mergeCopiedValue(findAccountInitialState)());
+  const types = ['phone', 'verifyCode', 'email'] as const;
+  types.forEach((type) => setValue(type, ''));
+};
 
 export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) => {
   const eventOption = {

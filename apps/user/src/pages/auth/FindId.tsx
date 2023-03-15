@@ -24,6 +24,7 @@ const FindId = () => {
     register,
     setError,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm<TFindAccountErrorType>({
     mode: 'onChange',
@@ -133,6 +134,7 @@ const FindId = () => {
       ) : (
         <FindIdResult
           setIsVerification={setIsVerification}
+          setValue={setValue}
           userAccounts={userAccounts?.findAccount.accounts}
           isExistedAccount={isVerification.isExistedAccount}
         />
