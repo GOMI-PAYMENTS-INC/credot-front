@@ -110,7 +110,8 @@ export const SalePrice = (props: ISalePrice) => {
               </div>
             </div>
           </div>
-          <div className='col-span-8 col-start-3 h-full border-l-[1px] border-grey-300'>
+
+          <div className='col-span-8 col-start-3 flex h-full flex-col border-l-[1px] border-grey-300'>
             <div className='flex bg-grey-100'>
               <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 분포 차트</p>
