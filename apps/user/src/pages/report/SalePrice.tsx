@@ -28,7 +28,10 @@ export const SalePrice = (props: ISalePrice) => {
   const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
-  const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(items);
+  const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(
+    items,
+    basePrice,
+  );
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExachangeRate(price, basePrice))),
   );
