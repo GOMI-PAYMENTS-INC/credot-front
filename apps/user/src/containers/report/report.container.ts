@@ -350,8 +350,18 @@ export const convertGrade = (item: GRADE_ITEMS) => {
 export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
   const median = Math.floor(items.length / 2);
   const scope = Math.floor(items.length / 4);
-  const Q3 = items[median + scope].itemPriceMin;
-  const Q1 = items[median - scope].itemPriceMin;
+  let Q3: number, Q1: number;
+  const lowLength = median - scope - 1;
+  const highLength = median + scope - 1;
+
+  if (lowLength % 2 === 1) {
+    Q1 = (items[lowLength].itemPriceMin + items[lowLength + 1].itemPriceMin) / 2;
+    Q3 = (items[highLength].itemPriceMin + items[highLength + 1].itemPriceMin) / 2;
+  } else {
+    Q1 = items[lowLength].itemPriceMin;
+    Q3 = items[highLength].itemPriceMin;
+  }
+
   const IQR = Q3 - Q1;
 
   const removedOutliner = items.filter((item) => {
@@ -361,6 +371,9 @@ export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
 
     return false;
   });
+
+  console.log(((Q1 - 1.5 * IQR) / 100) * 5.54, 'Q1');
+  console.log(((Q3 + 1.5 * IQR) / 100) * 5.54, 'Q3');
 
   return removedOutliner;
 };
