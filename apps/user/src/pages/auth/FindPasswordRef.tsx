@@ -66,7 +66,6 @@ export const FindPasswordRef = () => {
       isVerification.verifyCodeSignatureNumber &&
       isVerification.isExistedAccount === null
     ) {
-      console.log('hi');
       _sendTemporaryPassword({
         email: getValues('email'),
         phone: getValues('phone'),
