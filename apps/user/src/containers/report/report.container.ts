@@ -347,12 +347,12 @@ export const convertGrade = (item: GRADE_ITEMS) => {
   }
 };
 
-export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
+export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: number) => {
   const median = Math.floor(items.length / 2);
   const scope = Math.floor(items.length / 4);
   let Q3: number, Q1: number;
   const lowLength = median - scope - 1;
-  const highLength = median + scope - 1;
+  const highLength = median + scope;
 
   if (lowLength % 2 === 1) {
     Q1 = (items[lowLength].itemPriceMin + items[lowLength + 1].itemPriceMin) / 2;
@@ -371,15 +371,17 @@ export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
 
     return false;
   });
-
-  console.log(((Q1 - 1.5 * IQR) / 100) * 5.54, 'Q1');
-  console.log(((Q3 + 1.5 * IQR) / 100) * 5.54, 'Q3');
+  console.log((Q1 / 100) * basePrice, 'Q1');
+  console.log((Q3 / 100) * basePrice, 'Q3');
+  console.log((IQR / 100) * basePrice, 'IQR');
+  console.log(((Q1 - 1.5 * IQR) / 100) * basePrice, 'Min');
+  console.log(((Q3 + 1.5 * IQR) / 100) * basePrice, 'Max');
 
   return removedOutliner;
 };
 
-export const changeSalePriceData = (items: TSalePriceItems[]) => {
-  const removedOutlinerItmes = removeOutlinerinItems(items);
+export const changeSalePriceData = (items: TSalePriceItems[], basePrice: number) => {
+  const removedOutlinerItmes = removeOutlinerinItems(items, basePrice);
   const min = removedOutlinerItmes[0].itemPriceMin;
   const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
 
