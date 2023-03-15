@@ -49,7 +49,7 @@ const TemporaryPassword = () => {
   };
 
   const onInvalid = () => {
-    toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+    toast.error('입력값을 재확인 해주십시오.', { autoClose: 3000 });
   };
 
   return (

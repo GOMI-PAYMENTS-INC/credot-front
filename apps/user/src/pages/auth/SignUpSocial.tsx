@@ -105,7 +105,7 @@ const SignUpSocial = () => {
   };
 
   const onInvalid = () => {
-    toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+    toast.error('입력값을 재확인 해주십시오.', { autoClose: 3000 });
   };
 
   //필수 체크인 항목의 목록
