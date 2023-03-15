@@ -63,15 +63,13 @@ export const FindIdResult = (props: IFindIdResultProps) => {
               </Link>
             </div>
             <div>
-              <Link to={PATH.FIND_ID}>
-                <button
-                  onClick={() => initializeAuteState(setIsVerification)}
-                  type='button'
-                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
-                >
-                  다시 아이디 찾기
-                </button>
-              </Link>
+              <button
+                onClick={() => initializeAuteState(setIsVerification)}
+                type='button'
+                className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
+              >
+                다시 아이디 찾기
+              </button>
             </div>
           </div>
         </div>

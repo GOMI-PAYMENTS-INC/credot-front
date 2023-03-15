@@ -122,7 +122,7 @@ export const useFindAccount = (
         //성공된 회면으로 전환
       },
       onError: (err) => {
-        console.log(err, 'error');
+        isAccountExisted(undefined, isVerification, setIsVerification);
         //없음
       },
     },

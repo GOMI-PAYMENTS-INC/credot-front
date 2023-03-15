@@ -163,6 +163,7 @@ export const FindPasswordRef = () => {
         <FindPasswordResult
           phone={getValues('phone')}
           isExistedAccount={isVerification.isExistedAccount}
+          setIsVerification={setIsVerification}
         />
       )}
       <FindAccountBottom

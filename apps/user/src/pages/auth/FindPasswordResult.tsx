@@ -1,17 +1,21 @@
+import { Fragment, Dispatch, SetStateAction } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { Link } from 'react-router-dom';
 import { PATH, AUTH_RESPONSE_TYPE } from '@/types/enum.code';
-import { maskingPhone } from '@/containers/auth/auth.container.refac';
+import {
+  maskingPhone,
+  initializeAuteState,
+} from '@/containers/auth/auth.container.refac';
 import { SendTemporaryPasswordMutation } from '@/generated/graphql';
-import { Fragment } from 'react';
 
 interface IFindPasswordResult {
   phone: string;
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
+  setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
 }
 
 export const FindPasswordResult = (props: IFindPasswordResult) => {
-  const { phone, isExistedAccount } = props;
+  const { phone, isExistedAccount, setIsVerification } = props;
   return (
     <Fragment>
       {isExistedAccount === AUTH_RESPONSE_TYPE.FILLED ? (
@@ -57,6 +61,7 @@ export const FindPasswordResult = (props: IFindPasswordResult) => {
               <Link to={PATH.FIND_PASSWORD}>
                 <button
                   type='button'
+                  onClick={() => initializeAuteState(setIsVerification)}
                   className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
                 >
                   다시 비밀번호 찾기
