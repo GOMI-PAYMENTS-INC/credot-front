@@ -427,34 +427,40 @@ export default function HomePage() {
               ))}
             </ul>
           </div>
-
-          <div className='mx-auto max-w-[870px] md:max-w-[720px]'>
-            <div className='container'>
+          <div className='container'>
+            <div className='relative mx-auto max-w-[870px] pb-[98px] sm:pb-[115px] md:max-w-[720px]'>
               <Swiper
-                className='banner'
+                className='banner sm:max-w-[382px]'
                 slidesPerView={1}
                 onSlideChange={(e) => changeActiveTab(e.activeIndex)}
                 onSwiper={(swiper) => setSwiper(swiper)}
               >
                 {tabData.map((tab, index) => (
                   <SwiperSlide key={index} className=''>
-                    <div className='pb-[100px] sm:pb-[60px]'>
-                      <div className='mx-auto mb-[18px] flex justify-between sm:flex-wrap sm:justify-center md:items-start '>
+                    <div className=''>
+                      <div className='mx-auto flex justify-between sm:flex-wrap sm:justify-center md:items-start '>
                         <div className='mr-6 sm:mb-8 sm:text-center'>
-                          <div className=''>
-                            <div className='mb-4 text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
+                          <div>
+                            <div className='text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
                               Insight {tab.data.insightNum}
                             </div>
-                            <div className='md:text-2L/Bold text-4XL/Bold text-grey-900 lg:text-3XL/Bold'>
+                            {tab.launching || (
+                              <div className='mt-3 sm:mt-1'>
+                                <div className='inline-block rounded-sm border-[2px] border-orange-300 p-1 text-XS/Regular text-orange-700'>
+                                  출시 예정
+                                </div>
+                              </div>
+                            )}
+                            <div className='mt-4 text-4XL/Bold  text-grey-900 sm:mt-2 md:text-2XL/Bold lg:text-3XL/Bold'>
                               {tab.name}
                             </div>
                           </div>
-                          <div className='mt-6 break-keep text-L/Medium text-grey-900 sm:w-full md:text-M/Medium'>
+                          <div className='mt-6 break-keep text-L/Medium text-grey-900 sm:mt-4 sm:w-full md:text-M/Medium'>
                             {tab.data.content}
                           </div>
                         </div>
                         <div className='flex basis-full justify-center'>
-                          <div className='max-w-[424px] sm:max-w-[280px] md:max-w-[345px]'>
+                          <div className='w-[424px] sm:w-[280px] md:w-[345px]'>
                             <img src={`${IMG_PATH}/Section5/${tab.data.img}`} alt='' />
                           </div>
                         </div>
@@ -462,29 +468,29 @@ export default function HomePage() {
                     </div>
                   </SwiperSlide>
                 ))}
-                <div className='absolute top-1/2 z-10 hidden w-full translate-y-[-50%] justify-between sm:flex '>
-                  <ReactSVG
-                    src={`/assets/icons/Tab.svg`}
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'w-[38px] h-[38px]');
-                    }}
-                    onClick={onClickPrevTab}
-                  />
-                  <ReactSVG
-                    src={`/assets/icons/Tab.svg`}
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'w-[38px] h-[38px] rotate-180');
-                    }}
-                    onClick={onClickNextTab}
-                  />
-                </div>
               </Swiper>
+              <div className='absolute top-1/2 z-10 hidden w-full translate-y-[-50%] justify-between sm:flex '>
+                <ReactSVG
+                  src={`/assets/icons/Tab.svg`}
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'w-[38px] h-[38px]');
+                  }}
+                  onClick={onClickPrevTab}
+                />
+                <ReactSVG
+                  src={`/assets/icons/Tab.svg`}
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'w-[38px] h-[38px] rotate-180');
+                  }}
+                  onClick={onClickNextTab}
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
       <section className='overflow-hidden bg-grey-50'>
-        <div className='container pt-[100px]  pb-[122px] md:mx-auto md:pt-[77px]  md:pb-[90px] lg:pb-[113px] '>
+        <div className='container pt-[100px] pb-[122px] sm:pb-[60px] md:mx-auto md:pt-[77px] md:pb-[100px] lg:pb-[80px] '>
           <div className='mb-20 md:mb-[61.3px] '>
             <div className='text-center'>
               <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
