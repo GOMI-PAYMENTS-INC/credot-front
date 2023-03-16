@@ -96,7 +96,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
                         onClick={() =>
                           openBrowser(
-                            'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
+                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
                           )
                         }
                       >
@@ -184,7 +184,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
                         onClick={() =>
                           openBrowser(
-                            'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
+                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
                           )
                         }
                       >

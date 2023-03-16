@@ -15,7 +15,7 @@ interface IResetPassword {
   newPassword: string;
 }
 
-const ResetPassword = () => {
+const TemporaryPassword = () => {
   const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
 
   const navigation = useNavigate();
@@ -49,7 +49,7 @@ const ResetPassword = () => {
   };
 
   const onInvalid = () => {
-    toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+    toast.error('입력값을 재확인 해주십시오.', { autoClose: 3000 });
   };
 
   return (
@@ -123,27 +123,10 @@ const ResetPassword = () => {
                 </button>
               )}
             </div>
-            <div className='border border-grey-300 p-3'>
-              <div className='mb-2.5 flex items-center'>
-                <div>
-                  <ReactSVG
-                    src='/assets/icons/filled/ExclamationCircle.svg'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-900 h-4 w-4 ');
-                    }}
-                  />
-                </div>
-                <div className='ml-1.5 text-S/Bold'>임시 비밀번호 안내</div>
-              </div>
-              <div className='text-XS/Regular'>
-                임시 비밀번호로 로그인 하셨습니다. 임시 비밀번호는 발급된 후 n시간동안
-                유효합니다. 비밀번호를 꼭 변경해주세요.
-              </div>
-            </div>
           </div>
         </form>
       </div>
     </Layout>
   );
 };
-export default ResetPassword;
+export default TemporaryPassword;
