@@ -6,11 +6,17 @@ import { Autoplay, Pagination, Navigation } from 'swiper';
 
 import { SERVICE_INFO } from '@/router/paths';
 import { ReactSVG } from 'react-svg';
+import { Swiper as SwiperClass } from 'swiper/types';
 
 export default function HomePage() {
-  const [activeTabIndex, changeActiveTab] = useState<number>(1);
+  const [activeTabIndex, changeActiveTab] = useState<number>(0);
   const [activeFaqIndex, changeFaqTab] = useState<number[]>([]);
-  const onClickTab = (tabIndex: number) => changeActiveTab(tabIndex);
+  const onChangeTab = (tabIndex: number) => {
+    changeActiveTab(tabIndex);
+    //하단 내용 변경
+    slideTo(tabIndex);
+  };
+
   const onClickFaq = (faqIndex: number) => {
     if (activeFaqIndex.find((one) => one === faqIndex)) {
       //체크 해제할때 checkedItems에 있을 경우
@@ -21,20 +27,23 @@ export default function HomePage() {
     }
   };
 
-  //탭 이동 네비게이션-이전
+  //탭 이동 네비게이션-다음
   const onClickNextTab = () => {
     if (activeTabIndex !== tabData.length - 1) {
       const nextTab = activeTabIndex + 1;
-      changeActiveTab(nextTab);
+      onChangeTab(nextTab);
     }
   };
-  //탭 이동 네비게이션-다음
+  //탭 이동 네비게이션-이전
   const onClickPrevTab = () => {
     if (activeTabIndex !== 0) {
       const prevTab = activeTabIndex - 1;
-      changeActiveTab(prevTab);
+      onChangeTab(prevTab);
     }
   };
+
+  const [swiper, setSwiper] = useState<SwiperClass>();
+  const slideTo = (index: number) => swiper?.slideTo(index);
 
   const IMG_PATH = '/assets/images';
   const tabData = [
@@ -380,11 +389,11 @@ export default function HomePage() {
           </div>
 
           <div className='container-tab mx-auto mb-[100px] max-w-[870px] overflow-x-auto pb-8 sm:mb-10 sm:block sm:pb-0 md:max-w-[720px]  lg:mb-[72px] lg:pb-0'>
-            <ul className='mx-auto grid grid-cols-[repeat(5,_minmax(119px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 sm:gap-y-2 '>
+            <ul className='swiper-pagination mx-auto grid grid-cols-[repeat(5,_minmax(119px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 sm:gap-y-2 '>
               {tabData.map((tab, index) => (
                 <li
                   key={index}
-                  onClick={() => onClickTab(index)}
+                  onClick={() => onChangeTab(index)}
                   className={`shrink-0 rounded-[30px] py-4 text-M/Bold md:py-3 md:text-S/Medium
                       ${
                         index === activeTabIndex
@@ -421,47 +430,55 @@ export default function HomePage() {
 
           <div className='mx-auto max-w-[870px] md:max-w-[720px]'>
             <div className='container'>
-              <div className='pb-[100px] sm:pb-[60px]'>
-                <div className='mx-auto mb-[18px] flex justify-between sm:flex-wrap sm:justify-center md:items-start '>
-                  <div className='mr-6 sm:mb-8 sm:text-center'>
-                    <div className=''>
-                      <div className='mb-4 text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
-                        Insight {tabData[activeTabIndex].data.insightNum}
+              <Swiper
+                className='banner'
+                slidesPerView={1}
+                onSlideChange={(e) => changeActiveTab(e.activeIndex)}
+                onSwiper={(swiper) => setSwiper(swiper)}
+              >
+                {tabData.map((tab, index) => (
+                  <SwiperSlide key={index} className=''>
+                    <div className='pb-[100px] sm:pb-[60px]'>
+                      <div className='mx-auto mb-[18px] flex justify-between sm:flex-wrap sm:justify-center md:items-start '>
+                        <div className='mr-6 sm:mb-8 sm:text-center'>
+                          <div className=''>
+                            <div className='mb-4 text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
+                              Insight {tab.data.insightNum}
+                            </div>
+                            <div className='md:text-2L/Bold text-4XL/Bold text-grey-900 lg:text-3XL/Bold'>
+                              {tab.name}
+                            </div>
+                          </div>
+                          <div className='mt-6 break-keep text-L/Medium text-grey-900 sm:w-full md:text-M/Medium'>
+                            {tab.data.content}
+                          </div>
+                        </div>
+                        <div className='flex basis-full justify-center'>
+                          <div className='max-w-[424px] sm:max-w-[280px] md:max-w-[345px]'>
+                            <img src={`${IMG_PATH}/Section5/${tab.data.img}`} alt='' />
+                          </div>
+                        </div>
                       </div>
-                      <div className='md:text-2L/Bold text-4XL/Bold text-grey-900 lg:text-3XL/Bold'>
-                        {tabData[activeTabIndex].name}
-                      </div>
                     </div>
-                    <div className='mt-6 break-keep text-L/Medium text-grey-900 sm:w-full md:text-M/Medium'>
-                      {tabData[activeTabIndex].data.content}
-                    </div>
-                  </div>
-                  <div className='relative flex basis-full justify-center'>
-                    <div className='max-w-[424px] sm:max-w-[280px] md:max-w-[345px]'>
-                      <img
-                        src={`${IMG_PATH}/Section5/${tabData[activeTabIndex].data.img}`}
-                        alt=''
-                      />
-                    </div>
-                    <div className='absolute top-1/2 hidden w-full translate-y-[-50%] justify-between sm:flex '>
-                      <ReactSVG
-                        src={`/assets/icons/Tab.svg`}
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'w-[38px] h-[38px]');
-                        }}
-                        onClick={onClickPrevTab}
-                      />
-                      <ReactSVG
-                        src={`/assets/icons/Tab.svg`}
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'w-[38px] h-[38px] rotate-180');
-                        }}
-                        onClick={onClickNextTab}
-                      />
-                    </div>
-                  </div>
+                  </SwiperSlide>
+                ))}
+                <div className='absolute top-1/2 z-10 hidden w-full translate-y-[-50%] justify-between sm:flex '>
+                  <ReactSVG
+                    src={`/assets/icons/Tab.svg`}
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'w-[38px] h-[38px]');
+                    }}
+                    onClick={onClickPrevTab}
+                  />
+                  <ReactSVG
+                    src={`/assets/icons/Tab.svg`}
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'w-[38px] h-[38px] rotate-180');
+                    }}
+                    onClick={onClickNextTab}
+                  />
                 </div>
-              </div>
+              </Swiper>
             </div>
           </div>
         </div>
@@ -693,7 +710,6 @@ export default function HomePage() {
                 <div className='mb-6 text-2XL/Bold text-orange-500 lg:mb-8'>
                   자주 묻는 질문을 모았어요.
                 </div>
-                정
                 <div className='break-keep text-3XL/Bold text-grey-900'>
                   <p>FAQ</p>
                 </div>
