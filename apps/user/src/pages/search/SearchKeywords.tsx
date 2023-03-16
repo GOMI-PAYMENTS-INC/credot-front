@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
+import React, { Fragment, useEffect, useMemo, useReducer, Suspense } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { Defalut as Layout } from '@/components/layouts/Defalut';
@@ -9,9 +9,10 @@ import {
   queryKeyword,
   queryKeywordByClick,
   switchModal,
+  initializeImages,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
-import { getQueryResult, getProductImages } from '@/containers/search/search.api';
+import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
@@ -19,13 +20,11 @@ import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
-import { SearchKeywordsImageBox } from '@/pages/search/SearchKeywordsImageBox';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const [data, isLoading, isError] = getQueryResult(_state.keyword);
-
-  console.log(data, 'Data');
+  const { response, isLoading, isError } = getQueryResult(_state.keyword, _dispatch);
 
   useEffect(() => {
     const item = useSesstionStorage.getItem('keyword');
@@ -45,11 +44,11 @@ const SearchKeywords = () => {
         </div>
       );
     }
-    if (data && data !== true) {
-      const { count } = data.main;
+    if (response) {
+      const { count } = response.main;
       return formatNumber(count);
     }
-  }, [data, isLoading, _state.keyword]);
+  }, [response, isLoading, _state.keyword]);
 
   const relativeKeyword = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
@@ -62,8 +61,8 @@ const SearchKeywords = () => {
         </div>
       );
     }
-    if (data && data !== true) {
-      const { relations } = data;
+    if (response) {
+      const { relations } = response;
       if (isFalsy(relations)) {
         return (
           <div className='flex h-[150px] items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
@@ -73,9 +72,9 @@ const SearchKeywords = () => {
       }
       return relations;
     }
-  }, [data, isLoading, _state.keyword]);
+  }, [response, isLoading, _state.keyword]);
 
-  const isMonthlyCountZero = typeof data !== 'boolean' && data?.main.count === 0;
+  const isMonthlyCountZero = typeof response !== 'boolean' && response?.main.count === 0;
 
   const reportCreatorButtonText = useMemo(() => {
     if (isMonthlyCountZero === true) {
@@ -95,7 +94,7 @@ const SearchKeywords = () => {
         <SearchModal
           _state={_state}
           _dispatch={_dispatch}
-          data={data}
+          data={response}
           size={MODAL_SIZE_ENUM.LARGE}
         />
       </ModalComponent>
@@ -143,12 +142,16 @@ const SearchKeywords = () => {
                       placeholder='키워드를 입력해주세요.'
                       value={_state.text}
                       onChange={(event) => getKeyword(event, _dispatch)}
-                      onKeyDown={(event) => queryKeyword(_state.text, _dispatch, event)}
+                      onKeyDown={(event) => {
+                        queryKeyword(_state.text, _dispatch, event);
+                      }}
                       className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                     />
                   </div>
                   <button
-                    onClick={(event) => queryKeyword(_state.text, _dispatch, event)}
+                    onClick={(event) => {
+                      queryKeyword(_state.text, _dispatch, event);
+                    }}
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
                     <svg
@@ -218,7 +221,7 @@ const SearchKeywords = () => {
                   </div>
                 </div>
                 <div className='mt-6 rounded-2xl border border-grey-300 bg-white px-6 pt-5'>
-                  <div className=''>
+                  <div>
                     <h3 className='text-L/Medium'>
                       이런 키워드들은 어때요?
                       <ReactSVG
@@ -234,7 +237,7 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-6 h-[170px] overflow-x-auto'>
-                    <ul className='overflow-y-hidden text-center'>
+                    <ul className='overflow-y-hidden text-center' id='scrollbar'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
                             if (typeof keyword === 'number') {
@@ -278,7 +281,12 @@ const SearchKeywords = () => {
                     }`}
                     disabled={_state.keyword === '' || isMonthlyCountZero}
                     onClick={() => {
-                      const payload = { _dispatch, status: true, data: data, _state };
+                      const payload = {
+                        _dispatch,
+                        status: true,
+                        response: response,
+                        _state,
+                      };
                       switchModal(payload);
                     }}
                   >
@@ -291,16 +299,14 @@ const SearchKeywords = () => {
             )}
           </div>
         </div>
-        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
-          {/* <iframe
-              src={`https://shopee.vn/search?keyword=${_state.keyword}`}
-              className=' h-[900px] w-[458px] rounded-2xl pt-[8px]'
-              allow='accelerometer; autoplay; clipboard-write;
-               encrypted-media; gyroscope; picture-in-picture'
-              sandbox='allow-same-origin allow-scripts'
-            /> */}
 
-          <SearchKeywordsImageBox />
+        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
+          <SearchKeywordImages
+            images={_state.productImages ? _state.productImages : null}
+            isError={isError}
+            isLoading={isLoading}
+            keyword={_state.keyword}
+          />
         </div>
       </div>
     </Layout>

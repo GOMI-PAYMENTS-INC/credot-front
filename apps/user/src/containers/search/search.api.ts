@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, Dispatch } from 'react';
 import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
 import { STATUS_CODE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
+import { isTruthy } from '@/utils/isTruthy';
 
-export const getQueryResult = (keyword: string) => {
-  const [storeId, setStoreId] = useState('');
+import { getProductImages } from '@/containers/search/search';
+
+export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) => {
   const { data, isLoading, isError } = useSearchQuery(
     graphQLClient,
     {
@@ -18,22 +20,31 @@ export const getQueryResult = (keyword: string) => {
       //FIXME: 검색어를 입력한 후 매 이벤트마다 함수가 실행됨
       enabled: isFalsy(keyword) === false,
       refetchOnWindowFocus: false,
+      onSuccess: async (res) => {
+        try {
+          const images = await _getProductImages({
+            reportInvokeId: res.search.reportInvokeId,
+          });
+
+          if (images && images.data.data !== null) {
+            getProductImages(images.data, _dispatch);
+          }
+          return;
+        } catch (error) {
+          console.error(error, 'error');
+        }
+      },
     },
   );
   const response = data?.search;
 
-  if (data?.search.reportInvokeId && data?.search.reportInvokeId !== storeId) {
-    setStoreId(data.search.reportInvokeId);
-    getProductImages({ reportInvokeId: data.search.reportInvokeId });
-  }
-
-  return [response, isLoading, isError];
+  return { response, isLoading, isError };
 };
 
 const REPORT_URL = {
   postCreateReport: 'api/v1/report',
   getReportExisted: 'api/v1/report/exist',
-  getProductImage: `/api/v1/keyword/{reportInvokeId}/image`,
+  getProductImage: `/api/v1/keyword/`,
 };
 
 export const postCreateReport = async (params: TCreateReportParamsType) => {
@@ -57,11 +68,10 @@ export const getReportExisted = async (queryString: { text: string }) => {
   }
 };
 
-export const getProductImages = async (queryString: { reportInvokeId: string }) => {
+export const _getProductImages = async (queryString: { reportInvokeId: string }) => {
   try {
-    return await HTTP.get<TGetProductImageResponseType>(
-      `/api/v1/keyword/${queryString.reportInvokeId}/image`,
-    );
+    const url = REPORT_URL.getProductImage + queryString.reportInvokeId + '/image';
+    return await HTTP.get<TGetProductImageResponseType>(url);
   } catch (error) {
     console.error(error);
   }

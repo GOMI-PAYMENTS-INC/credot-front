@@ -33,6 +33,7 @@ export const queryKeyword = (
 
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });
+  _dispatch({ type: SearchAction.InitialIzeImages });
 };
 
 export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
@@ -146,4 +147,15 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
   });
 };
 
-export const _getProductImages = () => {};
+export const getProductImages = (
+  data: TGetProductImageResponseType,
+  _dispatch: Dispatch<TAction>,
+) => {
+  _dispatch({
+    type: SearchAction.GetProductImages,
+    payload: data,
+  });
+};
+
+export const initializeImages = (_dispatch: Dispatch<TAction>) =>
+  _dispatch({ type: SearchAction.InitialIzeImages });

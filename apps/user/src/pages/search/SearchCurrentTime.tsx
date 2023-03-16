@@ -4,7 +4,7 @@ import { convertTime } from '@/utils/parsingTimezone';
 import { useInterval } from '@/components/useInterval';
 
 export const SearchCurrentTime = () => {
-  const [time, setTitme] = useState('');
+  const [time, setTitme] = useState(convertTime('', 'hh:mm'));
 
   useInterval(() => {
     const now = convertTime('', 'hh:mm');
