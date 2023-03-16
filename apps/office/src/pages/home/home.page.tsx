@@ -499,7 +499,7 @@ export default function HomePage() {
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>서비스 오픈 1개월만에</p>
                 <p className='mt-2'>
-                  무려 <span className='text-orange-400'>248개 사</span>가 이용했어요.
+                  무려 <span className='text-orange-400'>248개사</span>가 이용했어요.
                 </p>
               </div>
             </div>
