@@ -9,8 +9,6 @@ module.exports = {
       jsx: true,
     },
   },
-  // ESList 가 구문 분석을 위해 사용하는 파서
-  parser: '@typescript-eslint/parser',
   // 사전 정의된 전역 변수 사용을 정의
   // browser, node 설정을 하지 않으면  console, require  // 같은 사전에 정의된 전역변수 환경에 있는  static  메서드를 인식할 수 없어 에러가 발생한다.
   env: {
@@ -19,7 +17,7 @@ module.exports = {
     // 'jest/globals': true,
   },
   plugins: ['@typescript-eslint', 'react-hooks', 'simple-import-sort'],
-  extends: ['airbnb-typescript', 'plugin:react/recommended'],
+  extends: ['plugin:react/recommended'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -30,6 +28,7 @@ module.exports = {
   rules: {
     // top level require 가 아니면 error    'global-require': 'off',
     // jsx 파일의 확장자
+
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     // import 순서
     'simple-import-sort/imports': 'error',
@@ -47,15 +46,16 @@ module.exports = {
   },
   overrides: [
     {
-      files: '**/*.+(ts|tsx)',
+      files: './apps/*.ts?(x)',
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: './tsconfig.json',
+        project: ['./tsconfig.json', './apps/**/tsconfig.json'],
       },
       plugins: ['@typescript-eslint'],
-      extends: ['airbnb-base', 'airbnb-typescript/base'],
+      extends: ['airbnb-base', 'airbnb-typescript/base', 'airbnb-typescript'],
       rules: {
-        // devDependencies 에 선언되지 않은 외부 모듈을 가져올 때 error        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+        // devDependencies 에 선언되지 않은 외부 모듈을 가져올 때 error
+        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 
         // named export 허용
         'import/prefer-default-export': 'off',
@@ -80,6 +80,7 @@ module.exports = {
           'error',
           'ignorePackages',
           {
+            cjs: 'never',
             js: 'never',
             jsx: 'never',
             ts: 'never',

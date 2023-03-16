@@ -1,24 +1,31 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+/.yarn/install-state.gz
+# Swap the comments on the following lines if you don't wish to use zero-installs
+# Documentation here: https://yarnpkg.com/features/zero-installs
+!/.yarn/cache
+#/.pnp.*
 
 node_modules
-dist
-dist-ssr
-*.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# dist folder
+dist
+
+# Typescript incremental build info
+tsconfig.tsbuildinfo
+
+# ESLint cache file
+.eslintcache
+
+# macOS DSStore
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# msw Service Worker
+mockServiceWorker.js
+
+# webstrom ignore 
+**/.idea/workspace.xml 
+**/.idea/tasks.xml

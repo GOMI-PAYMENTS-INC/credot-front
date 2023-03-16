@@ -1,28 +1,45 @@
 {
   "name": "kr-core-gomi-keyword-front",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "workspaces": {
+    "packages": [
+      "apps/*"
+    ]
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "build:dev": "tsc && vite build --mode development",
-    "build:prod": "tsc && vite build",
-    "serve:dev": "yarn build:dev && vite preview",
-    "serve:prod": "yarn build:prod && vite preview"
+    "postinstall": "husky install",
+    "lint": "yarn eslint --cache apps/user --ext .tsx ",
+    "prepare": "yarn set version berry && yarn install && yarn dlx @yarnpkg/sdks vscode",
+    "prepare:user": "cd apps/user && yarn set version berry && yarn install",
+    "prepare:office": "cd apps/office && yarn set version berry && yarn install",
+    "user:dev": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run dev",
+    "user:dev-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:dev",
+    "user:dev-preview": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run serve:dev",
+    "user:prod-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:prod",
+    "user:prod-preview": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run serve:prod",
+    "user:gen": "yarn workspace kr-core-gomi-keyword-front-user run gen",
+    "office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev",
+    "office:dev-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:dev",
+    "office:prod-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:prod",
+    "office:dev-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:dev",
+    "office:prod-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:prod"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.13.0",
-    "graphql": "^16.6.0",
+    "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.2"
+    "react-hook-form": "^7.39.6",
+    "react-router-dom": "^6.4.2",
+    "react-toastify": "^9.1.1",
+    "recoil": "^0.7.6",
+    "swiper": "^8.4.5"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.8",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
-    "@types/node": "^18.11.7",
+    "@types/node": "^18.11.18",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
@@ -41,19 +58,25 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
-    "graphql-config": "^4.3.6",
+    "husky": "^8.0.0",
     "postcss": "^8.4.18",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.1.13",
+    "react-svg": "^16.0.0",
     "tailwindcss": "^3.2.1",
+    "tailwindcss-bg-svg": "^2.0.0",
     "ts-node": "^10.9.1",
+    "tslib": "^1",
     "typescript": "^4.8.4",
-    "vite": "3.1.8"
+    "vite": "3.1.8",
+    "vite-plugin-svgr": "^2.2.2"
   },
-  "packageManager": "yarn@3.2.4",
   "dependenciesMeta": {
     "eslint@8.26.0": {
       "unplugged": true
     }
-  }
+  },
+  "description": "gomi-insight",
+  "repository": "https://github.com/gomicorp/kr-core-gomi-keyword-front.git",
+  "packageManager": "yarn@3.4.1"
 }
