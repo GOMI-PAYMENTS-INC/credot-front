@@ -127,7 +127,6 @@ const FindPassword = () => {
         )}
       {/* 비밀번호 찾기 폼 끝 */}
 
-      {/* 비밀번호 임시발송 완료 끝 */}
       {isSuccessSendTemporaryPassword && (
         <>
           <div className='space-y-8'>
@@ -159,8 +158,6 @@ const FindPassword = () => {
           />
         </>
       )}
-
-      {/* 비밀번호 임시발송 완료 끝 */}
 
       {/*검색 결과 없음 시작*/}
       {sendTemporaryPasswordResponseStatus ===

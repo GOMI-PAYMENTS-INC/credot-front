@@ -1,19 +1,19 @@
-import { useState, Dispatch, SetStateAction, useEffect, useMemo } from 'react';
+import { useState, Dispatch, SetStateAction, useEffect } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { InputIcon } from '@/components/InputIcon';
 import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
-import { isClickVerifyBtn } from '@/containers/auth/auth.container.refac';
-interface IVarifyCode {
+import { clickVerifyBtn } from '@/containers/auth/auth.container.refac';
+interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
   setError: UseFormSetError<TFindAccountErrorType>;
   errors: Partial<FieldErrorsImpl<TFindAccountErrorType>>;
 }
 
-export const VarifyCodeInput = (props: IVarifyCode) => {
+export const VerifyCodeInput = (props: IVerifyCode) => {
   const initializeTime = { minutes: 1, seconds: 0 };
   const [time, setTime] = useState(initializeTime);
   const { setIsVerification, isVerification, setError, errors } = props;
@@ -23,7 +23,6 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
   });
 
   useEffect(() => {
-    //TODO: container에 로직 넣기
     if (isVerification.theElseCalled) {
       setTime(Object.assign({}, time, initializeTime));
       setError('verifyCode', { message: undefined });
@@ -41,7 +40,7 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
     //TODO: container에 로직 넣기
     () => {
       if (time.minutes === 0 && time.seconds === 1) {
-        isClickVerifyBtn(isVerification, setIsVerification);
+        clickVerifyBtn(isVerification, setIsVerification);
         //TODO: 조건문 중첩 피하기 # 리펙터링 -> 함수로 분리하기
         if (isVerification.isExceeded) {
           setIsVerification(
@@ -54,7 +53,8 @@ export const VarifyCodeInput = (props: IVarifyCode) => {
           setError('verifyCode', {
             message: '인증시간이 만료었어요. 다시 인증해주세요.',
           });
-          isClickVerifyBtn(isVerification, setIsVerification);
+
+          clickVerifyBtn(isVerification, setIsVerification, { theElseCalled: false });
         }
       }
       if (time.minutes > 0 && time.seconds === 0) {
