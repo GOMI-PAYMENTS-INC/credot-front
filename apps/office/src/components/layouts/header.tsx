@@ -25,7 +25,7 @@ const Header = () => {
             로그인
           </button>
           <button
-            className='rounded-md bg-orange-500 p-3 text-M/Bold text-white md:bg-white md:text-orange-500'
+            className='rounded-md bg-orange-500 p-3 text-M/Bold text-white'
             onClick={() => window.open(`${SERVICE_INFO}`, '_blank')}
           >
             무료 시작하기

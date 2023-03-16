@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html{
+  min-width: 430px;
+}
+
 @layer base {
   .container {
     @apply max-w-[1440px] px-[60px] sm:max-w-[540px] sm:px-[24px]
@@ -31,7 +36,7 @@
   animation-iteration-count: infinite;
 }
 
-.animation-ico:nth-child(1) {
+.animation-ico:nth-child(1){
   transform-origin: 50% 30%;
   animation-name: shake-1;
   animation-duration: 2s;
@@ -41,36 +46,37 @@
   transform-origin: 50% 30%;
   animation-name: shake-2;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.3s;
 }
 .animation-ico:nth-child(3) {
   transform-origin: 50% 30%;
   animation-name: shake-2;
   animation-duration: 2.5s;
-  animation-iteration-count: infinite;
   animation-delay: 0.5s;
 }
 .animation-ico:nth-child(4) {
   transform-origin: 50% 30%;
   animation-name: shake-3;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.2s;
 }
 .animation-ico:nth-child(5) {
   transform-origin: 50% 30%;
   animation-name: shake-3;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.5s;
 }
 .animation-ico:nth-child(6) {
   transform-origin: 50% 30%;
   animation-name: shake-2;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.4s;
+}
+.animation-ico:nth-child(7) {
+  transform-origin: 20% 80%;
+  animation-name: shake-1;
+  animation-duration: 4s;
+  animation-delay: 0.1s;
 }
 
 @keyframes shake-1 {
