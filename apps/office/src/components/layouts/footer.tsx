@@ -19,7 +19,7 @@ const Footer = () => {
             </Link>
             <h3 className='mt-[28px] text-M/Bold'>(주)고미코퍼레이션</h3>
             <div className='mt-4 space-y-1.5 text-S/Medium text-grey-700'>
-              <p>대표이사 : 장건영, 이상곤 | 개인정보관리책임자 : 이상곤</p>
+              <p>대표이사 : 장건영, 이상곤 | 개인정보관리책임자 : 양원석</p>
               <p>사업자등록번호 : 613-86-01212</p>
               <p>통신판매업신고번호 : 제2019-서울강남-01431호</p>
               <p>주소 : 서울시 강남구 강남대로 624, ICT 타워 5~7층</p>
@@ -29,13 +29,17 @@ const Footer = () => {
           </div>
           <div className='sm:mt-4 sm:grid sm:w-full sm:grid-cols-2 sm:gap-x-[11px]'>
             <div>
-              <a href='https://www.gomicorp.com/' target='_blank' rel='noreferrer'>
+              <a
+                href='https://www.gomicorp.com/?utm_source=gomiinsight&utm_medium=homepage&utm_campaign=introduction&utm_content=content'
+                target='_blank'
+                rel='noreferrer'
+              >
                 <img src={`${IMG_PATH}/Footer/Banner-Gomicorp.png`} alt='' />
               </a>
             </div>
             <div className='mt-4 sm:mt-0 '>
               <a
-                href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'
+                href='https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739'
                 target='_blank'
                 rel='noreferrer'
               >
