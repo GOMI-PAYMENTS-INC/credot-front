@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   min-width: 320px;
 }
 
@@ -35,7 +35,7 @@ html{
   animation-iteration-count: infinite;
 }
 
-.animation-ico:nth-child(1){
+.animation-ico:nth-child(1) {
   transform-origin: 50% 30%;
   animation-name: shake-1;
   animation-duration: 2s;
@@ -118,4 +118,14 @@ html{
     transform: translateX(0px) rotate(0deg);
   }
 }
+
+.container-tab {
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.container-tab::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
 /*메인 홈 끝*/
