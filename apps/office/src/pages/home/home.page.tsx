@@ -2,6 +2,7 @@ import 'swiper/swiper.min.css';
 
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper';
 
 import { SERVICE_INFO } from '@/router/paths';
 import { ReactSVG } from 'react-svg';
@@ -17,6 +18,21 @@ export default function HomePage() {
       changeFaqTab([...activeFaqFilter]);
     } else {
       changeFaqTab([...activeFaqIndex, faqIndex]);
+    }
+  };
+
+  //탭 이동 네비게이션-이전
+  const onClickNextTab = () => {
+    if (activeTabIndex !== tabData.length - 1) {
+      const nextTab = activeTabIndex + 1;
+      changeActiveTab(nextTab);
+    }
+  };
+  //탭 이동 네비게이션-다음
+  const onClickPrevTab = () => {
+    if (activeTabIndex !== 0) {
+      const prevTab = activeTabIndex - 1;
+      changeActiveTab(prevTab);
     }
   };
 
@@ -143,9 +159,15 @@ export default function HomePage() {
       brand: '한셀뷰티',
       subject: '마케터의 시간절약에 꼭 필요해요',
       content:
-        '특정 상품군에 대한 시장규모와 가격에 대한 정보를\n' +
-        '미리 알 수 있어서, 상품 소싱 과정에서 많은 시간을\n' +
-        '절약할 수 있었어요.',
+        '특정 상품군에 대한 시장규모와 가격에 대한 정보를 미리 알 수 있어서, 상품 소싱 과정에서 많은 시간을 절약할 수 있었어요.',
+    },
+    {
+      imgName: 'ProfileImg.png',
+      name: '이준 · 리셀러',
+      brand: '월드리뷰트',
+      subject: '전략적인 판매를 할 수 있도록 도와줍니다.',
+      content:
+        '판매 가능성이 높은 상품을 미리 알고 소싱할 수 있기 때문에 소싱에 대한 기회비용을 줄이고 매출에 대한 가능성은 높일 수 있었습니다.',
     },
     {
       imgName: 'carPlus.png',
@@ -170,6 +192,14 @@ export default function HomePage() {
       subject: '데이터를 기반으로 현지화 전략을 수립했어요.',
       content:
         '상위노출 상품을 판매하고 있는 셀러들의 가격, 이미지, CS운영 등 다양하고 자세한 데이터를 기반으로 현지 시장에 맞는 판매 전략을 수립할 수 있었어요. ',
+    },
+    {
+      imgName: 'ProfileImg-1.png',
+      name: 'william · 리셀러',
+      brand: 'Betelgeuse',
+      subject: '효율적인 재고관리가 가능해요',
+      content:
+        '월별 키워드의 검색 수요에 대한 트랜드 정보를 통해 사입할 상품들의 재고를 언제 얼마나 준비해야 하는지 미리 알 수 있어서 재고부담을 줄일 수 있어요.',
     },
   ];
 
@@ -243,14 +273,6 @@ export default function HomePage() {
               시장 정보와 최고의 판매 전략을 제공해요!
             </p>
           </div>
-          <div className='absolute right-3 bottom-10 flex h-12 w-12 items-center justify-center rounded-full bg-grey-500'>
-            <ReactSVG
-              src='/assets/icons/File.svg'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', 'fill-white w-6 h-6');
-              }}
-            />
-          </div>
           <div className='absolute left-0  top-0 h-full w-full'>
             <div className='relative left-0 top-0 h-full w-full'>
               <ReactSVG
@@ -263,7 +285,7 @@ export default function HomePage() {
               <div className='animation-ico absolute left-[38px] top-[180px]  h-3 w-3 rounded-full bg-orange-400'></div>
               <ReactSVG
                 src='/assets/icons/Bulb.svg'
-                className='animation-ico animation-ico-2 absolute left-[89px] bottom-[209px] flex  h-12 w-12 items-center justify-center rounded-full bg-yellow-400 shadow-[0px_8px_16px_rgba(0,0,0,0.08)]'
+                className='animation-ico absolute left-[89px] bottom-[209px] flex h-12  w-12 items-center justify-center rounded-full bg-yellow-400 shadow-[0px_8px_16px_rgba(0,0,0,0.08)] sm:hidden'
                 beforeInjection={(svg) => {
                   svg.setAttribute('class', 'fill-white w-6 h-6');
                 }}
@@ -277,6 +299,13 @@ export default function HomePage() {
                 }}
               />
               <div className='animation-ico xs:hidden absolute right-[12px] top-[200px] h-6 w-6 rounded-full bg-orange-200 sm:hidden'></div>
+              <ReactSVG
+                src='/assets/icons/File.svg'
+                className='animation-ico absolute right-[3px] bottom-[31px] flex h-16  w-16 rotate-[-30deg] items-center justify-center rounded-full bg-grey-500 shadow-[0px_8px_16px_rgba(0,0,0,0.08)] sm:hidden'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-white w-6 h-6');
+                }}
+              />
             </div>
           </div>
         </div>
@@ -297,21 +326,21 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className='grid grid-cols-12 gap-6'>
-            <div className='xs:col-span-full col-span-4 sm:col-span-10 sm:col-start-2 md:col-span-8  md:col-start-3 lg:col-span-6  lg:col-start-4'>
+          <div className='flex items-center justify-center gap-x-6 lg:flex-wrap lg:gap-x-0 lg:gap-y-6'>
+            <div className='inline-block sm:basis-[448px] lg:block lg:basis-[470px]'>
               <img src={`${IMG_PATH}/Section2/Search.png`} alt='' className='w-full' />
             </div>
-            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+            <div className='inline-block sm:basis-[448px] lg:block lg:basis-[470px]'>
               <img src={`${IMG_PATH}/Section2/Firstpage.png`} alt='' className='w-full' />
             </div>
-            <div className='xs:col-span-full  col-span-4 sm:col-span-10  sm:col-start-2 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4'>
+            <div className='inline-block sm:basis-[448px] lg:block lg:basis-[470px]'>
               <img src={`${IMG_PATH}/Section2/Click.png`} alt='' className='w-full' />
             </div>
           </div>
         </div>
       </section>
       <section className='bg-grey-50'>
-        <div className='container pt-[100px]  pb-[74px] md:mx-auto md:pb-20  lg:py-20 '>
+        <div className='container pt-[100px] pb-[74px] md:mx-auto md:pb-20  lg:py-20 '>
           <div className='xs:mb-[56px] mb-20 lg:mb-[70px]'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
@@ -350,16 +379,16 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className='container-tab mx-auto mb-[100px] max-w-[870px] pb-8 sm:mb-10 sm:block sm:overflow-x-auto sm:pb-0 md:max-w-[720px] lg:mb-[72px] lg:pb-0'>
-            <ul className='mx-auto grid grid-cols-5 grid-rows-1 gap-y-4 gap-x-8 sm:inline-flex sm:gap-x-4'>
+          <div className='container-tab mx-auto mb-[100px] max-w-[870px] overflow-x-auto pb-8 sm:mb-10 sm:block sm:pb-0 md:max-w-[720px]  lg:mb-[72px] lg:pb-0'>
+            <ul className='mx-auto grid grid-cols-[repeat(5,_minmax(119px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 sm:gap-y-2 '>
               {tabData.map((tab, index) => (
                 <li
                   key={index}
                   onClick={() => onClickTab(index)}
-                  className={`shrink-0 rounded-[30px] py-4 text-M/Bold sm:px-4 sm:text-S/Bold md:py-3 md:text-S/Medium
+                  className={`shrink-0 rounded-[30px] py-4 text-M/Bold md:py-3 md:text-S/Medium
                       ${
                         index === activeTabIndex
-                          ? 'bg-grey-900 text-white'
+                          ? 'text-bold bg-grey-900 text-white'
                           : tab.launching
                           ? 'border border-grey-400 bg-white text-grey-800'
                           : 'bg-grey-200 text-grey-500'
@@ -407,11 +436,29 @@ export default function HomePage() {
                       {tabData[activeTabIndex].data.content}
                     </div>
                   </div>
-                  <div className='shrink-0 basis-[424px] sm:basis-[280px] md:basis-[345px]'>
-                    <img
-                      src={`${IMG_PATH}/Section5/${tabData[activeTabIndex].data.img}`}
-                      alt=''
-                    />
+                  <div className='relative flex basis-full justify-center'>
+                    <div className='max-w-[424px] sm:max-w-[280px] md:max-w-[345px]'>
+                      <img
+                        src={`${IMG_PATH}/Section5/${tabData[activeTabIndex].data.img}`}
+                        alt=''
+                      />
+                    </div>
+                    <div className='absolute top-1/2 hidden w-full translate-y-[-50%] justify-between sm:flex '>
+                      <ReactSVG
+                        src={`/assets/icons/Tab.svg`}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'w-[38px] h-[38px]');
+                        }}
+                        onClick={onClickPrevTab}
+                      />
+                      <ReactSVG
+                        src={`/assets/icons/Tab.svg`}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'w-[38px] h-[38px] rotate-180');
+                        }}
+                        onClick={onClickNextTab}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -439,21 +486,24 @@ export default function HomePage() {
             <Swiper
               className='banner !overflow-visible'
               spaceBetween={24}
-              slidesPerView={2}
+              width={286}
               breakpoints={{
                 720: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                960: {
-                  slidesPerView: 2,
-                },
-                1440: {
-                  slidesPerView: 3,
+                  width: 424,
                 },
               }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              speed={30000}
+              loop={true}
+              freeMode={{ enabled: true }}
+              a11y={{ enabled: true }}
+              grabCursor={true}
               navigation
               pagination={{ clickable: true }}
+              modules={[Autoplay, Pagination, Navigation]}
             >
               {partnerData.map((partener, index) => (
                 <SwiperSlide
@@ -601,7 +651,7 @@ export default function HomePage() {
               </div>
               <div className='text-right sm:mt-12  sm:w-full'>
                 <button
-                  className='w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:w-[306px] md:w-[286px] lg:w-[306px]'
+                  className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
                   onClick={() => window.open(`${SERVICE_INFO}`, '_blank')}
                 >
                   고미 인사이트 바로 시작하기
