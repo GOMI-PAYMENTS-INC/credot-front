@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html{
-  min-width: 430px;
+  min-width: 320px;
 }
 
 @layer base {
