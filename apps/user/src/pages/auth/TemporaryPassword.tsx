@@ -15,7 +15,7 @@ interface IResetPassword {
   newPassword: string;
 }
 
-const ResetPassword = () => {
+const TemporaryPassword = () => {
   const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
 
   const navigation = useNavigate();
@@ -49,7 +49,7 @@ const ResetPassword = () => {
   };
 
   const onInvalid = () => {
-    toast.error('입력값을 재확인 해주십시오.', { autoClose: 1000 });
+    toast.error('입력값을 재확인 해주십시오.', { autoClose: 3000 });
   };
 
   return (
@@ -146,4 +146,4 @@ const ResetPassword = () => {
     </Layout>
   );
 };
-export default ResetPassword;
+export default TemporaryPassword;

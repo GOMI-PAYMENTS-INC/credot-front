@@ -695,7 +695,23 @@ export const SendTemporaryPasswordDocument = `
 }
     `;
 export const useSendTemporaryPasswordMutation = <
-  TError extends unknown,
+  TError extends {
+    response: {
+      errors: [
+        {
+          message: string;
+          locations: Array<{ line: number; column: number }>;
+          path: [string];
+          extensions: {
+            code: number;
+            status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+            classification: 'Exception';
+          };
+        },
+      ];
+      data: null;
+    };
+  },
   TContext extends unknown,
 >(
   client: GraphQLClient,

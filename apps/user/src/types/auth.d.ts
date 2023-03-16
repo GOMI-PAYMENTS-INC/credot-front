@@ -11,4 +11,5 @@ type TVerifyButtonState = {
 type TFindAccountErrorType = {
   phone: string;
   verifyCode: string;
+  email: string;
 };
