@@ -17,19 +17,16 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
   const { images, isLoading, keyword, isError } = props;
   const test: [] = [];
   const imageBoxTitle = useMemo(() => {
-    // 최초화면
-
-    if (isFalsy(images) === true) {
+    // 로딩중
+    if (isFalsy(keyword) === false && images === null) {
       return {
-        title: '키워드를 검색해주세요.',
+        title: '불러오는 중...',
         subTitle: 'Shopee에 등록된 상품 이미지를 미리 보여드릴게요.',
       };
     }
-
-    // 로딩중
-    if (isLoading === true) {
+    if (isFalsy(images) === true) {
       return {
-        title: '불러오는 중...',
+        title: '키워드를 검색해주세요.',
         subTitle: 'Shopee에 등록된 상품 이미지를 미리 보여드릴게요.',
       };
     }
@@ -121,7 +118,7 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                   return typeof item === 'number' ? (
                     <li key={`keywordImg_${idx}`} className={style}>
                       <div className='flex h-[192px] w-[192px] items-center justify-center border-[1px] bg-grey-100 '>
-                        <img src='/assets/images/ShopeeIcon.png/' />
+                        <img src='/assets/images/ShopeeIcon.png' />
                       </div>
                     </li>
                   ) : (

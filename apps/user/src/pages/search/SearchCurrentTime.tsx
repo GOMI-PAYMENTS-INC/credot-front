@@ -15,7 +15,7 @@ export const SearchCurrentTime = () => {
     <div className='mt-[19px] flex h-4 items-center justify-between pl-5'>
       <div className='flex items-center'>
         <img src='/assets/images/StatusGomiIcon.png' />
-        <p className='pl-[6px] text-L/Medium'>{time}</p>
+        <p className='pl-[6px] text-L/Medium text-grey-700'>{time}</p>
       </div>
       <ReactSVG src='/assets/icons/filled/StatusStatusIcons.svg' />
     </div>
