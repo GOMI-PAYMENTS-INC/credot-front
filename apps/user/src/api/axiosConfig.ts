@@ -80,12 +80,12 @@ export const HTTP = {
       res.data = camelize(res.data);
       return res;
     } catch (error) {
+      const err = error as CommonErrorType;
       if (error instanceof AxiosError) {
         console.error(error, 'error message');
         throw new Error(error.message, error);
       }
-      console.error(error);
-      throw new Error('unknown error');
+      throw new Error(err.response.message);
     }
   },
   patch: async <ParamType, ResponseType>(
