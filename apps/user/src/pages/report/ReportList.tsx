@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
@@ -7,10 +7,11 @@ import { ModalComponent } from '@/components/modals/modal';
 import Pagination from '@/components/pagination';
 import {
   _getReportList,
-  onChangeOffsetCount,
+  getReportListByLimit,
   onCheckAllReportList,
   onClickDeleteReport,
   onClickReload,
+  onUncheckReportList,
 } from '@/containers/report/report.container';
 import {
   REPORT_LIST_ACTION,
@@ -28,14 +29,17 @@ const ReportList = () => {
   //페이지 목록 불러오기
   useEffect(() => {
     _getReportList({ _state: _state, _dispatch });
-
-    //리스트를 다시 불러올때 체크된 항목 초기화 함
-    //페이징 후 체크된 항목이 유지되는 이슈 해결
-    _dispatch({
-      type: REPORT_LIST_ACTION.CHECKED_ITEM,
-      payload: { checkedItems: reportListInitialState.checkedItems },
-    });
   }, []);
+
+  // TODO: _state.data.reports가 변화하면 체크박스를 모두 해제하려고 했는데, object타입은 매번 새롭게 인식함
+  // //페이지 목록 불러오기
+  // useEffect(() => {
+  //   console.log(_state.data);
+  //   if (_state.checkedItems.length) {
+  //     //선택된 체크박스 목록 비우기
+  //     onUncheckReportList(_dispatch);
+  //   }
+  // }, [_state.data.reports]);
 
   return (
     <Layout>
@@ -146,7 +150,7 @@ const ReportList = () => {
                   className='select-normal-default-false'
                   defaultValue={10}
                   onChange={(event) =>
-                    onChangeOffsetCount(event, _state, _dispatch, _state.data.totalCount)
+                    getReportListByLimit(event, _state, _dispatch, _state.data.totalCount)
                   }
                 >
                   <option value={10}>10개씩</option>
@@ -159,7 +163,6 @@ const ReportList = () => {
                     total={_state.data.totalCount}
                     page={_state.page || reportListInitialState.page}
                     limit={_state.limit || reportListInitialState.limit}
-                    data={_state.data}
                     _dispatch={_dispatch}
                     _dispatchType={REPORT_LIST_ACTION.GET_REPORT_LIST}
                   />

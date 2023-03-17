@@ -43,8 +43,9 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                     disabled={report.status !== 'DONE'}
                     onChange={(event) =>
                       onCheckReportList(
-                        _state,
                         _dispatch,
+                        _state.data,
+                        _state.checkedItems,
                         report.id,
                         event.target.checked,
                       )

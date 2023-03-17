@@ -87,15 +87,9 @@ export const _getRelationReport = async (
   }
 };
 
-export const convertExachangeRate = (vnd: number, krw: number) => {
+export const convertExchangeRate = (vnd: number, krw: number) => {
   return Math.floor((vnd / 100) * krw);
 };
-
-export const updateTitle = (
-  curHeight: number,
-  _dispatch: Dispatch<TReportAction>,
-  name?: string,
-) => {};
 
 export const isToggleOpen = (
   _dispatch: Dispatch<TReportAction>,
@@ -124,7 +118,6 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
     });
     const reportInfo = res?.data;
     if (reportInfo?.code === STATUS_CODE.SUCCESS) {
-      console.log('dkdk');
       //데이터 담기
       _state.data = reportInfo.data;
       _dispatch({ type: REPORT_LIST_ACTION.GET_REPORT_LIST, payload: _state });
@@ -162,6 +155,18 @@ export const reportListConverter = (item: TReportItem) => {
   return result;
 };
 
+//체크된 리스트 모두 해제
+export const onUncheckReportList = (_dispatch: Dispatch<TReportListAction>) => {
+  _dispatch({
+    type: REPORT_LIST_ACTION.CHECKED_ITEM,
+    payload: { checkedItems: reportListInitialState.checkedItems },
+  });
+  _dispatch({
+    type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
+    payload: { isCheckedAll: reportListInitialState.isCheckedAll },
+  });
+};
+
 //모든 약관 동의 체크 핸들러
 export const onCheckAllReportList = (
   _state: TReportListState,
@@ -185,21 +190,15 @@ export const onCheckAllReportList = (
       payload: { isCheckedAll: true },
     });
   } else {
-    _dispatch({
-      type: REPORT_LIST_ACTION.CHECKED_ITEM,
-      payload: { checkedItems: reportListInitialState.checkedItems },
-    });
-    _dispatch({
-      type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
-      payload: { isCheckedAll: reportListInitialState.isCheckedAll },
-    });
+    onUncheckReportList(_dispatch);
   }
 };
 
 //약관 동의 체크 박스 핸들러
 export const onCheckReportList = (
-  _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
+  data: TReportListResponseData,
+  checkedItems: number[],
   code: number,
   isChecked: boolean,
 ) => {
@@ -207,24 +206,24 @@ export const onCheckReportList = (
     //체크 추가할때
     _dispatch({
       type: REPORT_LIST_ACTION.CHECKED_ITEM,
-      payload: { checkedItems: [..._state.checkedItems, code] },
+      payload: { checkedItems: [...checkedItems, code] },
     });
     //모두 체크되었을 때
     if (
-      _state.data.reports.filter(
+      data.reports.filter(
         (report) =>
           report.status === BATCH_STATUS.DONE || report.status === BATCH_STATUS.REPLICATE,
       ).length ===
-      _state.checkedItems.length + 1
+      checkedItems.length + 1
     ) {
       _dispatch({
         type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
         payload: { isCheckedAll: true },
       });
     }
-  } else if (!isChecked && _state.checkedItems.find((one) => one === code)) {
+  } else if (!isChecked && checkedItems.find((one) => one === code)) {
     //체크 해제할때 checkedItems에 있을 경우
-    const filter = _state.checkedItems.filter((one) => one !== code);
+    const filter = checkedItems.filter((one) => one !== code);
     _dispatch({
       type: REPORT_LIST_ACTION.CHECKED_ITEM,
       payload: { checkedItems: [...filter] },
@@ -251,38 +250,34 @@ export const _deleteReportList = async (ids: number[]) => {
 };
 
 //리포트 목록 삭제 container
-export const deleteReports = (
+export const deleteReports = async (
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
 ) => {
   //삭제 실행
-  _deleteReportList(_state.checkedItems).then((result) => {
-    if (result?.code === STATUS_CODE.SUCCESS) {
-      //모달 닫기
-      switchDeleteModal(_dispatch, false);
+  const result = await _deleteReportList(_state.checkedItems);
+  if (result?.code === STATUS_CODE.SUCCESS) {
+    //모달 닫기
+    switchDeleteModal(_dispatch, false);
 
-      // 총 페이지 갯수
-      const numPages = Math.ceil(_state.data.totalCount / _state.limit);
-      //페이지에서 모든 item을 삭제한 경우, 하나 작은 숫자의 페이지로 이동한다.
-      if (1 < numPages && _state.data.reports.length === _state.checkedItems.length) {
-        _state.page = _state.page - 1;
-      }
-
-      //목록 다시 불러오기
-      _getReportList({ _state: _state, _dispatch }).then(() => {
-        //선택된 체크박스 목록 비우기
-        _dispatch({
-          type: REPORT_LIST_ACTION.CHECKED_ITEM,
-          payload: { checkedItems: reportListInitialState.checkedItems },
-        });
-      });
-
-      //토스트 알림
-      toast.success(`리포트를 삭제했어요.`);
-    } else {
-      toast.error(`리포트를 삭제할 수 없습니다.`);
+    // 총 페이지 갯수
+    const numPages = Math.ceil(_state.data.totalCount / _state.limit);
+    //페이지에서 모든 item을 삭제한 경우, 하나 작은 숫자의 페이지로 이동한다.
+    if (1 < numPages && _state.data.reports.length === _state.checkedItems.length) {
+      _state.page = _state.page - 1;
     }
-  });
+
+    //목록 다시 불러오기
+    await _getReportList({ _state: _state, _dispatch });
+
+    //선택된 체크박스 목록 비우기
+    onUncheckReportList(_dispatch);
+
+    //토스트 알림
+    toast.success(`리포트를 삭제했어요.`);
+  } else {
+    toast.error(`리포트를 삭제할 수 없습니다.`);
+  }
 };
 
 //리포트 목록 삭제 확인 confirm 모달 상태 변경
@@ -327,12 +322,27 @@ export const onClickReload = async (
 ) => {
   //목록 가져오기
   await _getReportList({ _state, _dispatch });
-  //전체 체크 해제
-  onCheckAllReportList(_state, _dispatch, false);
+  //선택된 체크박스 목록 비우기
+  onUncheckReportList(_dispatch);
+};
+
+//리스트 > 페이지 변경시
+export const getReportListByPage = async (
+  _dispatch: Dispatch<TReportListAction>,
+
+  limit: number,
+  goPage: number,
+) => {
+  await _getReportList({
+    _state: { limit: limit, page: goPage },
+    _dispatch,
+  } as TGetReportList);
+  //선택된 체크박스 목록 비우기
+  onUncheckReportList(_dispatch);
 };
 
 //리스트 > 출력 개수 변경시
-export const onChangeOffsetCount = async (
+export const getReportListByLimit = async (
   event: ChangeEvent<HTMLSelectElement>,
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
@@ -362,6 +372,8 @@ export const onChangeOffsetCount = async (
       },
       _dispatch,
     });
+    //선택된 체크박스 목록 비우기
+    onUncheckReportList(_dispatch);
   }
 };
 // #### 리포트 목록 끝 ####
@@ -550,9 +562,9 @@ export const setChartLabels = (
 ): string[][] => {
   const init: string[][] = [];
   return salePriceScope.reduce((pre, cur, idx) => {
-    const _cur = formatNumber(convertExachangeRate(cur, basePrice));
+    const _cur = formatNumber(convertExchangeRate(cur, basePrice));
     const _next = formatNumber(
-      convertExachangeRate(salePriceScope[idx + 1], basePrice) - 1,
+      convertExchangeRate(salePriceScope[idx + 1], basePrice) - 1,
     );
     if (idx === salePriceScope.length - 1) {
       return pre.concat([_cur]);

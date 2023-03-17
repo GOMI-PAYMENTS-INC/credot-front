@@ -6,7 +6,7 @@ import { TITLE, GRADE_ITEMS } from '@/types/enum.code';
 import { SalePriceChart } from '@/pages/report/SalePriceChart';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate, roundNumber } from '@/containers/report';
+import { convertExchangeRate, roundNumber } from '@/containers/report';
 import { SalePriceTable } from '@/pages/report/SalePriceTable';
 
 import {
@@ -33,7 +33,7 @@ export const SalePrice = (props: ISalePrice) => {
     basePrice,
   );
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
-    formatNumber(roundNumber(convertExachangeRate(price, basePrice))),
+    formatNumber(roundNumber(convertExchangeRate(price, basePrice))),
   );
 
   const [highLength, mediumLength, lowLength] = gradeItems.map((item) => item.length);

@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect, useMemo, useReducer, Suspense } from 'react';
+import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+
 import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/modal';
 import {
@@ -9,18 +10,17 @@ import {
   queryKeyword,
   queryKeywordByClick,
   switchModal,
-  initializeImages,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
