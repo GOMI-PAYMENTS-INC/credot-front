@@ -118,7 +118,7 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                   return typeof item === 'number' ? (
                     <li key={`keywordImg_${idx}`} className={style}>
                       <div className='flex h-[192px] w-[192px] items-center justify-center border-[1px] bg-grey-100 '>
-                        <img src='/assets/images/ShopeeIcon.png/' />
+                        <img src='/assets/images/ShopeeIcon.png' />
                       </div>
                     </li>
                   ) : (
