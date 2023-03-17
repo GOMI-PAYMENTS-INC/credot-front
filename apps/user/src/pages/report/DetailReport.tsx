@@ -75,11 +75,13 @@ const DetailReport = () => {
 
   if (isFalsy(main))
     return (
-      <div className='flex h-full flex-col items-center justify-center self-center'>
-        <div className='absolute scale-[0.3] pb-[84px]'>
-          <div id='loader' />
+      <Layout>
+        <div className='flex h-full flex-col items-center justify-center self-center'>
+          <div className='absolute scale-[0.3] pb-[84px]'>
+            <div id='loader' />
+          </div>
         </div>
-      </div>
+      </Layout>
     );
 
   return (

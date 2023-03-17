@@ -19,7 +19,7 @@ import {
   TAG_SENTIMENT_STATUS,
   TITLE,
 } from '@/types/enum.code';
-
+import { convertTime } from '@/utils/parsingTimezone';
 import { getReportList } from '@/containers/report/report.api';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
@@ -559,4 +559,31 @@ export const setChartLabels = (
     }
     return pre.concat([[_cur, `~${_next}`]]);
   }, init);
+};
+
+export const convertedData = (trend: TGoogleTrendDataType) => {
+  const minTurnoverMonth: string[] = [],
+    maxTurnoverMonth: string[] = [];
+
+  if (trend.length === 0) {
+    minTurnoverMonth.push('-');
+    maxTurnoverMonth.push('-');
+    return { interest: [], date: [], minTurnoverMonth, maxTurnoverMonth };
+  }
+
+  const interest = trend.map((data) => data.interest);
+  let min = Math.min(...interest);
+  let max = Math.max(...interest);
+
+  const date = trend.map((data) => {
+    if (data.interest === min) {
+      maxTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
+    }
+    if (data.interest === max) {
+      minTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
+    }
+    return convertTime(data.trendDate, 'YY.MM.DD');
+  });
+
+  return { interest, date, minTurnoverMonth, maxTurnoverMonth };
 };

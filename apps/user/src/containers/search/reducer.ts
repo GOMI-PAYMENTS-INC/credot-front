@@ -10,6 +10,8 @@ export enum SearchAction {
   InitializeState = 'INITIALIZE_STATE',
   SwitchModal = 'SWITCH_MODAL',
   UpdateCreatedAt = 'UPDATE_CREATED_AT',
+  GetProductImages = 'GET_PRODUCT_IMAGES',
+  InitialIzeImages = 'INITIALIZE_IMAGES',
 }
 
 const initialState: TState = {
@@ -20,6 +22,7 @@ const initialState: TState = {
   isModalOpen: false,
   modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
   createdAt: '',
+  productImages: null,
 };
 
 const reducer = (_state: TState, action: TAction) => {
@@ -61,6 +64,15 @@ const reducer = (_state: TState, action: TAction) => {
       }
 
       state.isModalOpen = action.payload.isModalOpen;
+      return state;
+
+    case SearchAction.GetProductImages:
+      state.productImages = action.payload;
+      return state;
+
+    case SearchAction.InitialIzeImages:
+      state.productImages = initialState.productImages;
+      return state;
 
     default:
       return state;

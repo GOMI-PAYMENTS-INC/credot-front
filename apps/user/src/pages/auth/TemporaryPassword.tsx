@@ -1,13 +1,12 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 
+import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
-import { Fragment, useEffect } from 'react';
-import { ReactSVG } from 'react-svg';
 
 interface IResetPassword {
   email: string;

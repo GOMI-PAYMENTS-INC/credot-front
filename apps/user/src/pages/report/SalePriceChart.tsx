@@ -86,6 +86,9 @@ export const SalePriceChart = (props: ISalePriceChart) => {
         },
         displayColors: false,
       },
+      legend: {
+        display: false,
+      },
     },
   };
 
