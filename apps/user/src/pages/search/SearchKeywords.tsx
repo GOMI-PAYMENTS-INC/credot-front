@@ -111,21 +111,22 @@ const SearchKeywords = () => {
             </div>
             <div>
               <div className='mt-6 flex items-center'>
-                <ReactSVG src='/assets/icons/country/Vietnam.svg' className='pr-[8px]' />
-                <select
-                  name='country'
-                  id='country'
-                  className='bg-transparent py-3 text-S/Medium'
-                >
-                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                    베트남
-                  </option>
-                </select>
-
+                <div className='select-icon-group'>
+                  <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                  <select
+                    name='country'
+                    id='country'
+                    className='select-normal-clear-true'
+                  >
+                    <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
+                      베트남
+                    </option>
+                  </select>
+                </div>
                 <select
                   name='filterOption'
                   id='filterOption'
-                  className='ml-[20px] bg-transparent py-3 text-S/Medium'
+                  className='select-normal-clear-false ml-4'
                 >
                   <option value='연관도순' defaultValue='연관도순'>
                     연관도순
@@ -234,35 +235,35 @@ const SearchKeywords = () => {
                     <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
-                          if (typeof keyword === 'number') {
+                            if (typeof keyword === 'number') {
+                              return (
+                                <li
+                                  key={`${keyword}_dummy`}
+                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
+                                />
+                              );
+                            }
                             return (
-                              <li
-                                key={`${keyword}_dummy`}
-                                className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
-                              />
+                              <Fragment key={`${keyword.id}`}>
+                                <li
+                                  id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
+                                  onClick={() =>
+                                    queryKeywordByClick(keyword.text, _dispatch)
+                                  }
+                                >
+                                  {keyword.text}
+                                </li>
+                                <Tooltip
+                                  anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                  content={`월간 검색량: ${
+                                    keyword.count && formatNumber(keyword.count)
+                                  }`}
+                                  place='bottom'
+                                />
+                              </Fragment>
                             );
-                          }
-                          return (
-                            <Fragment key={`${keyword.id}`}>
-                              <li
-                                id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                onClick={() =>
-                                  queryKeywordByClick(keyword.text, _dispatch)
-                                }
-                              >
-                                {keyword.text}
-                              </li>
-                              <Tooltip
-                                anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                content={`월간 검색량: ${
-                                  keyword.count && formatNumber(keyword.count)
-                                }`}
-                                place='bottom'
-                              />
-                            </Fragment>
-                          );
-                        })
+                          })
                         : relativeKeyword}
                     </ul>
                   </div>

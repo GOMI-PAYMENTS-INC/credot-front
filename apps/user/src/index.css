@@ -34,28 +34,54 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.84861 3.51562H2.15173C1.92087 3.51562 1.79196 3.75937 1.93493 3.92578L5.78337 8.38828C5.89353 8.51602 6.10564 8.51602 6.21696 8.38828L10.0654 3.92578C10.2084 3.75937 10.0795 3.51562 9.84861 3.51562Z' fill='black'/%3E%3C/svg%3E%0A");
-  background-repeat: no-repeat;
-  background-position-x: calc(100% - 10px);
-  background-position-y: 50%;
-}
-
-@layer base {
-  select {
-    @apply rounded-md border border-grey-400 py-2.5 pl-3 pr-8 text-S/Regular text-grey-900;
-  }
-}
-
 @layer base {
   .container {
     @apply mx-auto my-0 min-w-[1180px] max-w-[1180px];
   }
   .container-common {
     @apply m-auto w-full max-w-[1320px];
+  }
+
+  select.select-normal-default-false {
+    @apply rounded-md border border-grey-400 py-2.5 pl-3 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-black
+    hover:border-orange-300 hover:shadow-[0px_0px_4px_rgba(255,163,120,0.5)]
+    disabled:border-grey-400 disabled:text-grey-700 disabled:bg-svg-filled/CaretDown-grey-700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 10px);
+    background-position-y: 50%;
+    background-size: 12px;
+    background-color: #fff;
+  }
+
+  .select-icon-group{
+    @apply flex gap-x-2 items-center
+  }
+  .select-icon-group select.select-normal-clear-true {
+    @apply py-2.5 pl-0 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-grey-700
+    disabled:text-grey-700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    background-size: 12px;
+
+    background-color: transparent;
+  }
+
+  select.select-normal-clear-false {
+    @apply py-2.5 pl-0 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-grey-700
+    disabled:text-grey-700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    background-size: 12px;
+
+    background-color: transparent;
   }
 }
 

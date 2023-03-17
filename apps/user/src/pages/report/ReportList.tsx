@@ -1,55 +1,29 @@
-import { Fragment, useReducer, useState } from 'react';
-import { isIncluded } from '@/utils/isIncluded';
+import { useReducer } from 'react';
 import { useEffect } from 'react';
-import { formatNumber } from '@/utils/formatNumber';
+import { ReactSVG } from 'react-svg';
+
 import { Defalut as Layout } from '@/components/layouts';
+import { ModalComponent } from '@/components/modals/modal';
+import Pagination from '@/components/pagination';
 import {
   _getReportList,
   onChangeOffsetCount,
+  onCheckAllReportList,
   onClickDeleteReport,
   onClickReload,
 } from '@/containers/report/report.container';
 import {
-  reportListReducer,
-  reportListInitialState,
   REPORT_LIST_ACTION,
+  reportListInitialState,
+  reportListReducer,
 } from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
-
-import Pagination from '@/components/pagination';
-import { BATCH_STATUS, MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
-import { ModalComponent } from '@/components/modals/modal';
-import { ReactSVG } from 'react-svg';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { formatNumber } from '@/utils/formatNumber';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
-
-  //전체 선택 체크 여부
-  const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
-  //체크한 item 배열
-  const [checkedItems, setCheckedItems] = useState<number[]>([]);
-
-  //모든 약관 동의 체크 핸들러
-  const onCheckAll = (checked: boolean) => {
-    //전체 선택
-    if (checked) {
-      const checkedItemsArray: number[] = [];
-      _state.data.reports?.forEach(
-        (report) =>
-          isIncluded(report.status, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE) &&
-          checkedItemsArray.push(report.id),
-      );
-      setCheckedItems(checkedItemsArray);
-
-      setIsCheckedAll(true);
-    } else {
-      //전체 해제
-      setCheckedItems([]);
-      //모든 약관 동의 해제
-      setIsCheckedAll(false);
-    }
-  };
 
   //페이지 목록 불러오기
   useEffect(() => {
@@ -57,7 +31,10 @@ const ReportList = () => {
 
     //리스트를 다시 불러올때 체크된 항목 초기화 함
     //페이징 후 체크된 항목이 유지되는 이슈 해결
-    setCheckedItems([]);
+    _dispatch({
+      type: REPORT_LIST_ACTION.CHECKED_ITEM,
+      payload: { checkedItems: reportListInitialState.checkedItems },
+    });
   }, []);
 
   return (
@@ -104,15 +81,13 @@ const ReportList = () => {
                     </button>
                     <button
                       className='button-filled-normal-medium-grey-false-false-true'
-                      onClick={() => onClickDeleteReport(checkedItems, _dispatch)}
+                      onClick={() => onClickDeleteReport(_state.checkedItems, _dispatch)}
                     >
                       선택 삭제
                     </button>
                   </div>
                   <ModalComponent isOpen={_state.isDeleteConfirmModalOpen}>
                     <ReportListDeleteModal
-                      checkedItems={checkedItems}
-                      setCheckedItems={setCheckedItems}
                       _state={_state}
                       _dispatch={_dispatch}
                       size={MODAL_SIZE_ENUM.SMALL}
@@ -127,8 +102,10 @@ const ReportList = () => {
                           type='checkbox'
                           id='allCheck'
                           className='checkboxCustom peer'
-                          checked={isCheckedAll}
-                          onChange={(evnet) => onCheckAll(evnet.target.checked)}
+                          checked={_state.isCheckedAll}
+                          onChange={(evnet) =>
+                            onCheckAllReportList(_state, _dispatch, evnet.target.checked)
+                          }
                         />
                         <label
                           htmlFor='allCheck'
@@ -158,17 +135,7 @@ const ReportList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <ReportListColumn
-                      response={_state.data || reportListInitialState.data}
-                      page={_state.page || reportListInitialState.page}
-                      limit={_state.limit || reportListInitialState.limit}
-                      checkedItems={checkedItems}
-                      setCheckedItems={setCheckedItems}
-                      setIsCheckedAll={setIsCheckedAll}
-                      spinnerEvent={
-                        _state.spinnerEvent || reportListInitialState.spinnerEvent
-                      }
-                    />
+                    <ReportListColumn _state={_state} _dispatch={_dispatch} />
                   </tbody>
                 </table>
               </div>
@@ -176,6 +143,7 @@ const ReportList = () => {
               <div className='relative my-[22px]'>
                 <select
                   name='limit'
+                  className='select-normal-default-false'
                   defaultValue={10}
                   onChange={(event) =>
                     onChangeOffsetCount(event, _state, _dispatch, _state.data.totalCount)
