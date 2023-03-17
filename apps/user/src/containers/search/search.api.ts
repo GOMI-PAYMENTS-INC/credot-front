@@ -23,7 +23,7 @@ export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) =>
       onSuccess: async (res) => {
         try {
           const images = await _getProductImages({
-            reportInvokeId: res.search.reportInvokeId,
+            keyword: keyword,
           });
 
           if (images && images.data.data !== null) {
@@ -68,9 +68,9 @@ export const getReportExisted = async (queryString: { text: string }) => {
   }
 };
 
-export const _getProductImages = async (queryString: { reportInvokeId: string }) => {
+export const _getProductImages = async (queryString: { keyword: string }) => {
   try {
-    const url = REPORT_URL.getProductImage + queryString.reportInvokeId + '/image';
+    const url = REPORT_URL.getProductImage + queryString.keyword + '/image';
     return await HTTP.get<TGetProductImageResponseType>(url);
   } catch (error) {
     console.error(error);
