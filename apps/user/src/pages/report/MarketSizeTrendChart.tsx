@@ -37,7 +37,7 @@ export const MarketSizeTrendChart = (props: IMarketSizeTrendChart) => {
     scales: {
       x: {
         grid: {
-          display: false,
+          display: true,
         },
       },
       y: {
@@ -60,7 +60,16 @@ export const MarketSizeTrendChart = (props: IMarketSizeTrendChart) => {
         display: false,
       },
       tooltip: {
-        enabled: false,
+        yAlign: 'bottom' as const,
+        xAlign: 'center' as const,
+        callbacks: {
+          title: () => '',
+          label: (value: any) => {
+            value.formattedValue = value.formattedValue + '%';
+          },
+          labelColor: () => {},
+        },
+        displayColors: false,
       },
     },
   };
