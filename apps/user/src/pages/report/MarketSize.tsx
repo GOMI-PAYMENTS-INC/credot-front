@@ -85,13 +85,26 @@ export const MartketSize = (props: IMartketSize) => {
               anchorId='anchor-market-google-trend'
               style={{ background: 'none' }}
               place='right'
+              clickable={true}
+              delayHide={1300}
             >
-              <div className='col-span-2 flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4 pr-[61px] '>
+              <div className='col-span-2 flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4  '>
                 <p className='text-XS/Regular text-grey-900'>
                   현지에서 해당 키워드에 대한 작년도 검색 트랜드를 나타내요.
                   <br />
                   검색 트랜드 정보는 매출을 예측하거나 재고관리를 위해 사용할 수 있어요.
                 </p>
+                <div className='flex w-full justify-end'>
+                  <p className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'>
+                    <a
+                      href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7'
+                      target='_blank'
+                      className='cursor-pointer'
+                    >
+                      자세히 알아보기
+                    </a>
+                  </p>
+                </div>
               </div>
             </Tooltip>
           </div>
