@@ -15,6 +15,7 @@ interface ISearchKeywordsImageBox {
 
 export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
   const { images, isLoading, keyword, isError } = props;
+  console.log(images, 'imagess');
   const test: [] = [];
   const imageBoxTitle = useMemo(() => {
     // 로딩중
@@ -41,7 +42,9 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
   }, [props]);
 
   const { title, subTitle } = imageBoxTitle;
-  const list = isFalsy(images) ? [1, 2, 3, 4, 5, 6, 7, 8] : images!.data;
+  const imageData = images?.data[0].imageUrl;
+
+  const list = imageData === undefined ? [1, 2, 3, 4, 5, 6, 7, 8] : imageData;
   //TODO: return에 조건문이 많음 분기할 것
   return (
     <div className='flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[1px] border-grey-300 shadow-[0_8px_16px_-15px_rgba(0,0,0,0.5)]'>
@@ -75,7 +78,7 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
             </div>
           </div>
         </div>
-      ) : images?.data.length === 0 ? (
+      ) : list.length === 0 ? (
         <div className='flex h-full flex-col  pb-[120px]'>
           <div className='flex h-full flex-col items-center justify-center'>
             <img src='/assets/images/ErrorPage.png' />
@@ -122,9 +125,9 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                       </div>
                     </li>
                   ) : (
-                    <li key={`keywordImg_${item.keywrod}_${idx}`} className={style}>
+                    <li key={`keywordImg_${item}_${idx}`} className={style}>
                       <div className='flex h-[192px] w-[192px] items-center justify-center border-[1px] bg-grey-100 '>
-                        <img className='flex' src={item.imageUrl} />
+                        <img className='flex' src={item} />
                       </div>
                     </li>
                   );

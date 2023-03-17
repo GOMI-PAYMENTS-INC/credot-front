@@ -49,13 +49,13 @@ type TReportExistedResponseType = {
 type TGetProductImageResponseType = {
   code: string;
   message: string;
-  data: TProductImageType;
+  data: TProductImageType[];
 };
 
 type TProductImageType = {
   keywrod: string;
-  imageUrl: string;
-}[];
+  imageUrl: string[];
+};
 
 type TProductImageStatus = {
   isSuccess: boolean;
