@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate, openBrowser } from '@/containers/report/report.container';
+import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
 import {
   convertEvaluateStatus,
   convertScoreToText,
@@ -25,7 +25,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
-      return convertExachangeRate(number, analysisInfo.basePrice);
+      return convertExchangeRate(number, analysisInfo.basePrice);
     })
     .map((number) => formatNumber(number));
 
@@ -92,16 +92,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <p
+                      <a
+                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
+                        target='_blank'
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-                        onClick={() =>
-                          openBrowser(
-                            'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
-                          )
-                        }
                       >
                         자세히 알아보기
-                      </p>
+                      </a>
                     </div>
                   </div>
                 </Tooltip>
@@ -180,16 +177,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <p
+                      <a
+                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
+                        target='_blank'
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-                        onClick={() =>
-                          openBrowser(
-                            'https://gray-erica-c7f.notion.site/830f0128036d49d5806f5596aa8b23e4#2f23075814804148a8cffcf849d4bad1',
-                          )
-                        }
                       >
                         자세히 알아보기
-                      </p>
+                      </a>
                     </div>
                   </div>
                 </Tooltip>

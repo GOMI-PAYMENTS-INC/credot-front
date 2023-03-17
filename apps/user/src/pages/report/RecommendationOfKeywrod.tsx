@@ -21,7 +21,7 @@ import {
   _getRelationReport,
   delayEvent,
   buttonSpinnerEvent,
-  convertExachangeRate,
+  convertExchangeRate,
 } from '@/containers/report/report.container';
 interface IRecommendationOfKeyword {
   relation: TGetRelationReportDataType[];
@@ -225,7 +225,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
                             {formatNumber(
-                              roundNumber(convertExachangeRate(data.cpcPrice, basePrice)),
+                              roundNumber(convertExchangeRate(data.cpcPrice, basePrice)),
                             )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
@@ -234,7 +234,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
                             {formatNumber(
-                              roundNumber(convertExachangeRate(data.avgPrice, basePrice)),
+                              roundNumber(convertExchangeRate(data.avgPrice, basePrice)),
                             )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>

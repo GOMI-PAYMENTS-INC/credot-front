@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  min-width: 320px;
+}
+
 @layer base {
   .container {
     @apply max-w-[1440px] px-[60px] sm:max-w-[540px] sm:px-[24px]
@@ -41,36 +45,37 @@
   transform-origin: 50% 30%;
   animation-name: shake-2;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.3s;
 }
 .animation-ico:nth-child(3) {
   transform-origin: 50% 30%;
   animation-name: shake-2;
   animation-duration: 2.5s;
-  animation-iteration-count: infinite;
   animation-delay: 0.5s;
 }
 .animation-ico:nth-child(4) {
   transform-origin: 50% 30%;
   animation-name: shake-3;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.2s;
 }
 .animation-ico:nth-child(5) {
   transform-origin: 50% 30%;
   animation-name: shake-3;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.5s;
 }
 .animation-ico:nth-child(6) {
   transform-origin: 50% 30%;
   animation-name: shake-2;
   animation-duration: 3s;
-  animation-iteration-count: infinite;
   animation-delay: 0.4s;
+}
+.animation-ico:nth-child(7) {
+  transform-origin: 20% 80%;
+  animation-name: shake-1;
+  animation-duration: 4s;
+  animation-delay: 0.1s;
 }
 
 @keyframes shake-1 {
@@ -113,4 +118,14 @@
     transform: translateX(0px) rotate(0deg);
   }
 }
+
+.container-tab {
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.container-tab::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
 /*메인 홈 끝*/

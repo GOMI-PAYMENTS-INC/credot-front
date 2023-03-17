@@ -3,7 +3,7 @@ import { convertTime } from '@/utils/parsingTimezone';
 import { openBrowser } from '@/containers/report/report.container';
 import { convertCountry } from '@/utils/convertEnum';
 interface IKeywordInfoProps {
-  keywordInfo: KeywordInfo;
+  keywordInfo: TKeywordInfo;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {

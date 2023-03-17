@@ -4,12 +4,15 @@ import {
   CountryType,
   useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
+  useSendTemporaryPasswordMutation,
+  FindPasswordInput,
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
+
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
-  isClickVerifyBtn,
+  clickVerifyBtn,
   activateVerifyCode,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
@@ -17,7 +20,7 @@ import {
 } from '@/containers/auth/auth.container.refac';
 import { UseFormSetError } from 'react-hook-form';
 
-export const useFindId = (
+export const useFindAccount = (
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TFindAccountErrorType>,
@@ -36,7 +39,7 @@ export const useFindId = (
           return;
         }
         setError('phone', { message: error.message });
-        isClickVerifyBtn(isVerification, setIsVerification, { theElseCalled: false });
+        clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
       },
     },
   );
@@ -105,5 +108,37 @@ export const useFindId = (
     return [data];
   };
 
-  return { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount };
+  const { mutate: sendTemporaryPassword } = useSendTemporaryPasswordMutation(
+    graphQLClient,
+    {
+      onSuccess: (res) => {
+        if (res.sendTemporaryPassword.accounts) {
+          isAccountExisted(
+            res.sendTemporaryPassword.accounts.length,
+            isVerification,
+            setIsVerification,
+          );
+        }
+        //성공된 회면으로 전환
+      },
+      onError: (err) => {
+        isAccountExisted(undefined, isVerification, setIsVerification);
+        //없음
+      },
+    },
+  );
+
+  const _sendTemporaryPassword = (user: FindPasswordInput) => {
+    const isValid = Object.values(user).every((userData) => isTruthy(userData));
+
+    if (isValid) {
+      const payload = {
+        user,
+        country: CountryType.Kr,
+      };
+      sendTemporaryPassword(payload);
+    }
+  };
+
+  return { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount, _sendTemporaryPassword };
 };

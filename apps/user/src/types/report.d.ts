@@ -10,7 +10,7 @@ type TReportListResponse = {
 };
 
 type TReportListAction = {
-  type: 'GET_REPORT_LIST' | 'DELETE_REPORT' | 'SPINNER_EVENT';
+  type: REPORT_LIST_ACTION;
   payload?: any;
 };
 
@@ -20,6 +20,10 @@ type TReportListState = {
   data: TReportListResponseData;
   isDeleteConfirmModalOpen: boolean;
   spinnerEvent: boolean;
+  //전체 선택 체크 여부
+  isCheckedAll: boolean;
+  //체크한 item 배열
+  checkedItems: number[];
 };
 
 type TGetReportList = {
@@ -33,7 +37,7 @@ type TDeleteReportListResponse = {
   data: any;
 };
 
-type KeywordInfo = {
+type TKeywordInfo = {
   text: string;
   country: CountryType;
   channel: TChannelType;
@@ -49,7 +53,14 @@ type TMarketSize = {
   totalSalesCount: number;
   avgSalesCount: number;
   basePrice: number;
+  trend: TGoogleTrendDataType;
 };
+
+type TGoogleTrendDataType = {
+  id: string;
+  trendDate: Date;
+  interest: number;
+}[];
 
 type TRecommnandKeyword = {
   searchCount: number;
@@ -108,7 +119,7 @@ type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type GRADE_TYPE = 'high' | 'medium' | 'low';
 
 type TReportState = {
-  main: (TGetMainReportDataType & KeywordInfo & TMarketSize & TRecommnandKeyword) | null;
+  main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommnandKeyword) | null;
   relation: TGetRelationReportDataType[];
   salePrice: {
     data: TSalePriceData | null;

@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+
 import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/modal';
 import {
@@ -13,6 +14,7 @@ import {
 import { initialState, reducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
@@ -22,7 +24,7 @@ import { useSesstionStorage } from '@/utils/useSessionStorage';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const [data, isLoading, isError] = getQueryResult(_state.keyword);
+  const { response, isLoading, isError } = getQueryResult(_state.keyword, _dispatch);
 
   useEffect(() => {
     const item = useSesstionStorage.getItem('keyword');
@@ -42,11 +44,11 @@ const SearchKeywords = () => {
         </div>
       );
     }
-    if (data && data !== true) {
-      const { count } = data.main;
+    if (response) {
+      const { count } = response.main;
       return formatNumber(count);
     }
-  }, [data, isLoading, _state.keyword]);
+  }, [response, isLoading, _state.keyword]);
 
   const relativeKeyword = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
@@ -59,8 +61,8 @@ const SearchKeywords = () => {
         </div>
       );
     }
-    if (data && data !== true) {
-      const { relations } = data;
+    if (response) {
+      const { relations } = response;
       if (isFalsy(relations)) {
         return (
           <div className='flex h-[150px] items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
@@ -70,9 +72,9 @@ const SearchKeywords = () => {
       }
       return relations;
     }
-  }, [data, isLoading, _state.keyword]);
+  }, [response, isLoading, _state.keyword]);
 
-  const isMonthlyCountZero = typeof data !== 'boolean' && data?.main.count === 0;
+  const isMonthlyCountZero = typeof response !== 'boolean' && response?.main.count === 0;
 
   const reportCreatorButtonText = useMemo(() => {
     if (isMonthlyCountZero === true) {
@@ -92,7 +94,7 @@ const SearchKeywords = () => {
         <SearchModal
           _state={_state}
           _dispatch={_dispatch}
-          data={data}
+          data={response}
           size={MODAL_SIZE_ENUM.LARGE}
         />
       </ModalComponent>
@@ -111,21 +113,22 @@ const SearchKeywords = () => {
             </div>
             <div>
               <div className='mt-6 flex items-center'>
-                <ReactSVG src='/assets/icons/country/Vietnam.svg' className='pr-[8px]' />
-                <select
-                  name='country'
-                  id='country'
-                  className='bg-transparent py-3 text-S/Medium'
-                >
-                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                    베트남
-                  </option>
-                </select>
-
+                <div className='select-icon-group'>
+                  <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                  <select
+                    name='country'
+                    id='country'
+                    className='select-normal-clear-true'
+                  >
+                    <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
+                      베트남
+                    </option>
+                  </select>
+                </div>
                 <select
                   name='filterOption'
                   id='filterOption'
-                  className='ml-[20px] bg-transparent py-3 text-S/Medium'
+                  className='select-normal-clear-false ml-4'
                 >
                   <option value='연관도순' defaultValue='연관도순'>
                     연관도순
@@ -140,12 +143,16 @@ const SearchKeywords = () => {
                       placeholder='키워드를 입력해주세요.'
                       value={_state.text}
                       onChange={(event) => getKeyword(event, _dispatch)}
-                      onKeyDown={(event) => queryKeyword(_state.text, _dispatch, event)}
+                      onKeyDown={(event) => {
+                        queryKeyword(_state.text, _dispatch, event);
+                      }}
                       className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                     />
                   </div>
                   <button
-                    onClick={(event) => queryKeyword(_state.text, _dispatch, event)}
+                    onClick={(event) => {
+                      queryKeyword(_state.text, _dispatch, event);
+                    }}
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
                     <svg
@@ -215,7 +222,7 @@ const SearchKeywords = () => {
                   </div>
                 </div>
                 <div className='mt-6 rounded-2xl border border-grey-300 bg-white px-6 pt-5'>
-                  <div className=''>
+                  <div>
                     <h3 className='text-L/Medium'>
                       이런 키워드들은 어때요?
                       <ReactSVG
@@ -231,38 +238,38 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-6 h-[170px] overflow-x-auto'>
-                    <ul className='overflow-y-hidden text-center'>
+                    <ul className='overflow-y-hidden text-center' id='scrollbar'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
-                          if (typeof keyword === 'number') {
+                            if (typeof keyword === 'number') {
+                              return (
+                                <li
+                                  key={`${keyword}_dummy`}
+                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
+                                />
+                              );
+                            }
                             return (
-                              <li
-                                key={`${keyword}_dummy`}
-                                className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
-                              />
+                              <Fragment key={`${keyword.id}`}>
+                                <li
+                                  id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
+                                  onClick={() =>
+                                    queryKeywordByClick(keyword.text, _dispatch)
+                                  }
+                                >
+                                  {keyword.text}
+                                </li>
+                                <Tooltip
+                                  anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                                  content={`월간 검색량: ${
+                                    keyword.count && formatNumber(keyword.count)
+                                  }`}
+                                  place='bottom'
+                                />
+                              </Fragment>
                             );
-                          }
-                          return (
-                            <Fragment key={`${keyword.id}`}>
-                              <li
-                                id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                onClick={() =>
-                                  queryKeywordByClick(keyword.text, _dispatch)
-                                }
-                              >
-                                {keyword.text}
-                              </li>
-                              <Tooltip
-                                anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                content={`월간 검색량: ${
-                                  keyword.count && formatNumber(keyword.count)
-                                }`}
-                                place='bottom'
-                              />
-                            </Fragment>
-                          );
-                        })
+                          })
                         : relativeKeyword}
                     </ul>
                   </div>
@@ -275,7 +282,13 @@ const SearchKeywords = () => {
                     }`}
                     disabled={_state.keyword === '' || isMonthlyCountZero}
                     onClick={() => {
-                      const payload = { _dispatch, status: true, data: data, _state };
+                      const payload = {
+                        _dispatch,
+                        status: true,
+                        data: response,
+                        _state,
+                      };
+
                       switchModal(payload);
                     }}
                   >
@@ -288,18 +301,14 @@ const SearchKeywords = () => {
             )}
           </div>
         </div>
-        <div className='x-[50px] col-span-6 h-[900px] w-[458px] self-center'>
-          {_state.isSearched && _state.keyword ? (
-            <iframe
-              src={`https://shopee.vn/search?keyword=${_state.keyword}`}
-              className=' h-[900px] w-[458px] rounded-2xl pt-[8px]'
-              allow='accelerometer; autoplay; clipboard-write;
-               encrypted-media; gyroscope; picture-in-picture'
-              sandbox='allow-same-origin allow-scripts'
-            />
-          ) : (
-            <img src='/assets/images/Frame.png' />
-          )}
+
+        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
+          <SearchKeywordImages
+            images={_state.productImages ? _state.productImages : null}
+            isError={isError}
+            isLoading={isLoading}
+            keyword={_state.keyword}
+          />
         </div>
       </div>
     </Layout>

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
 html,
 body,
 #root,
@@ -27,14 +33,6 @@ input:-webkit-autofill:disabled {
 input[type='number'] {
   -moz-appearance: textfield;
 }
-@layer base {
-  html {
-    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
-      system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-      'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol', sans-serif;
-  }
-}
 
 @layer base {
   .container {
@@ -42,6 +40,48 @@ input[type='number'] {
   }
   .container-common {
     @apply m-auto w-full max-w-[1320px];
+  }
+
+  select.select-normal-default-false {
+    @apply rounded-md border border-grey-400 py-2.5 pl-3 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-black
+    hover:border-orange-300 hover:shadow-[0px_0px_4px_rgba(255,163,120,0.5)]
+    disabled:border-grey-400 disabled:text-grey-700 disabled:bg-svg-filled/CaretDown-grey-700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 10px);
+    background-position-y: 50%;
+    background-size: 12px;
+    background-color: #fff;
+  }
+
+  .select-icon-group{
+    @apply flex gap-x-2 items-center
+  }
+  .select-icon-group select.select-normal-clear-true {
+    @apply py-2.5 pl-0 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-grey-700
+    disabled:text-grey-700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    background-size: 12px;
+
+    background-color: transparent;
+  }
+
+  select.select-normal-clear-false {
+    @apply py-2.5 pl-0 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-grey-700
+    disabled:text-grey-700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    background-size: 12px;
+
+    background-color: transparent;
   }
 }
 
@@ -126,17 +166,17 @@ input[type='number'] {
 }
 
 /* Works on Firefox */
-tbody#scrollbar {
+#scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #ffa378;
 }
 
 /* Works on Chrome, Edge, and Safari */
-tbody#scrollbar::-webkit-scrollbar {
+#scrollbar::-webkit-scrollbar {
   width: 4px;
 }
 
-tbody#scrollbar::-webkit-scrollbar-thumb {
+#scrollbar::-webkit-scrollbar-thumb {
   background-color: #ffa378;
   border-radius: 10px;
 }

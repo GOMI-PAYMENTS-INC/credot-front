@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 
 import { openBrowser } from '@/containers/report';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate, roundNumber } from '@/containers/report';
+import { convertExchangeRate, roundNumber } from '@/containers/report';
 import { Fragment } from 'react';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 
@@ -71,7 +71,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                     <div className='flex items-center justify-end px-4'>
                       <p className='texgt-grey-800 text-S/Medium'>
                         {formatNumber(
-                          roundNumber(convertExachangeRate(item.itemPriceAvg, basePrice)),
+                          roundNumber(convertExchangeRate(item.itemPriceAvg, basePrice)),
                         )}
                       </p>
                       <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
@@ -86,7 +86,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                           <p className='pl-0.5'>
                             {formatNumber(
                               roundNumber(
-                                convertExachangeRate(item.itemPriceMin, basePrice),
+                                convertExchangeRate(item.itemPriceMin, basePrice),
                               ),
                             )}
                           </p>
@@ -100,7 +100,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                           <p className='pl-0.5'>
                             {formatNumber(
                               roundNumber(
-                                convertExachangeRate(item.itemPriceMax, basePrice),
+                                convertExchangeRate(item.itemPriceMax, basePrice),
                               ),
                             )}
                           </p>
@@ -116,7 +116,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                   <p>
                     {formatNumber(
                       roundNumber(
-                        convertExachangeRate(
+                        convertExchangeRate(
                           item.itemPriceAvg * item.item30daysSold,
                           basePrice,
                         ),

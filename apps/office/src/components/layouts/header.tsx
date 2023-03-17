@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { PATH, SERVICE_INFO } from '@/router/paths';
+import { PATH, SERVICE_URL } from '@/router/paths';
 
 const Header = () => {
   return (
@@ -20,13 +20,13 @@ const Header = () => {
         <div className='space-x-4'>
           <button
             className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 lg:hidden'
-            onClick={() => window.open(`${SERVICE_INFO}`, '_blank')}
+            onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
           >
             로그인
           </button>
           <button
-            className='rounded-md bg-orange-500 p-3 text-M/Bold text-white md:bg-white md:text-orange-500'
-            onClick={() => window.open(`${SERVICE_INFO}`, '_blank')}
+            className='rounded-md bg-orange-500 p-3 text-M/Bold text-white'
+            onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
           >
             무료 시작하기
           </button>

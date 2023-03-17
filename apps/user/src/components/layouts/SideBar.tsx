@@ -79,7 +79,7 @@ const SideBar = () => {
                 className='iconButton-medium-normal-ghost-grey'
                 onClick={() =>
                   openBrowser(
-                    'https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34',
+                    'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
                   )
                 }
               >
@@ -226,7 +226,7 @@ const SideBar = () => {
                     }}
                   />
                   <a
-                    href='https://gray-erica-c7f.notion.site/1957ac6d00064f1c8c006cc48b60ea34'
+                    href='https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739'
                     target='_blank'
                     className='ml-2 cursor-pointer'
                   >

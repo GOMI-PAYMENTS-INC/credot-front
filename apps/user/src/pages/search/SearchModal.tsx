@@ -83,12 +83,12 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
           size === MODAL_SIZE_ENUM.LARGE ? ' h-[244px] w-[400px]' : 'h-[211px] w-[298px]'
         } relative max-w-md md:h-auto`}
       >
-        <div className='relative rounded bg-white  px-5 py-7 '>
-          <header>
+        <div className='relative rounded-[10px] bg-white p-6'>
+          <header className='pb-2'>
             <h3
               className={`${
                 size === MODAL_SIZE_ENUM.LARGE ? ' text-2XL/Bold' : 'text-L/Bold'
-              } text-center`}
+              } text-center text-grey-900`}
             >
               {modal.title}
             </h3>
@@ -97,13 +97,13 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
             <section
               className={`${
                 size === MODAL_SIZE_ENUM.LARGE ? 'text-L/Medium' : 'text-M/Medium'
-              } pt-6  text-grey-800`}
+              } py-2 text-grey-800`}
             >
               {modal.content}
             </section>
           )}
 
-          <footer className='flex justify-between pt-8'>
+          <footer className='flex justify-between pt-4'>
             <button
               type='button'
               className='button-filled-normal-large-grey-false-false-true w-full'
