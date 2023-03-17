@@ -92,16 +92,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <p
+                      <a
+                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
+                        target='_blank'
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-                        onClick={() =>
-                          openBrowser(
-                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
-                          )
-                        }
                       >
                         자세히 알아보기
-                      </p>
+                      </a>
                     </div>
                   </div>
                 </Tooltip>
@@ -180,16 +177,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <p
+                      <a
+                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
+                        target='_blank'
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-                        onClick={() =>
-                          openBrowser(
-                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
-                          )
-                        }
                       >
                         자세히 알아보기
-                      </p>
+                      </a>
                     </div>
                   </div>
                 </Tooltip>
