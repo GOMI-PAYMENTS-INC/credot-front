@@ -284,9 +284,10 @@ const SearchKeywords = () => {
                       const payload = {
                         _dispatch,
                         status: true,
-                        response: response,
+                        data: response,
                         _state,
                       };
+
                       switchModal(payload);
                     }}
                   >
