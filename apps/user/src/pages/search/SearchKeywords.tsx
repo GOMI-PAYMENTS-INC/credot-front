@@ -236,8 +236,8 @@ const SearchKeywords = () => {
                       />
                     </h3>
                   </div>
-                  <div className='mt-6 h-[170px] overflow-x-auto'>
-                    <ul className='overflow-y-hidden text-center' id='scrollbar'>
+                  <div id='scrollbar' className='mt-6 h-[170px] overflow-x-auto'>
+                    <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
                             if (typeof keyword === 'number') {
