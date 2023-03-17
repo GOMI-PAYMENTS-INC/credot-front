@@ -11,6 +11,7 @@ import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { PATH } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { agreeTermList } from '@/containers/auth/signUpData';
+import { ErrorMessage } from '@hookform/error-message';
 
 interface ISignUpForm {
   email: string;
@@ -200,9 +201,13 @@ const SignUp = () => {
                   iconSize={5}
                 />
               </div>
-              {errors?.email?.message && (
-                <p className='inputCustom-helptext'>{errors?.email?.message}</p>
-              )}
+              <ErrorMessage
+                errors={errors}
+                name='email'
+                render={({ message }) => (
+                  <p className='inputCustom-helptext'>{message}</p>
+                )}
+              />
             </div>
 
             {/*비밀번호*/}
@@ -224,13 +229,9 @@ const SignUp = () => {
                       pattern: {
                         // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                         value:
-                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&\s]{8,50}$/,
+                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
                         message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
                       },
-                      validate: (value: string) =>
-                        value &&
-                        /\s/.test(value) &&
-                        '비밀번호에 공백은 사용할 수 없어요.',
                     })}
                   />
                   <InputIcon
@@ -238,9 +239,13 @@ const SignUp = () => {
                     iconSize={5}
                   />
                 </div>
-                {errors?.password?.message && (
-                  <p className='inputCustom-helptext'>{errors?.password?.message}</p>
-                )}
+                <ErrorMessage
+                  errors={errors}
+                  name='password'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
               </div>
 
               <div className='inputCustom-group'>
@@ -262,11 +267,13 @@ const SignUp = () => {
                     iconSize={5}
                   />
                 </div>
-                {errors?.confirmPassword?.message && (
-                  <p className='inputCustom-helptext'>
-                    {errors?.confirmPassword?.message}
-                  </p>
-                )}
+                <ErrorMessage
+                  errors={errors}
+                  name='confirmPassword'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
               </div>
             </div>
 

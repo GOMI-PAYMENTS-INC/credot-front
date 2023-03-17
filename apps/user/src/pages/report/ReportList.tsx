@@ -11,7 +11,6 @@ import {
   onCheckAllReportList,
   onClickDeleteReport,
   onClickReload,
-  onUncheckReportList,
 } from '@/containers/report/report.container';
 import {
   REPORT_LIST_ACTION,
