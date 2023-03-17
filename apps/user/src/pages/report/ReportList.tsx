@@ -119,7 +119,7 @@ const ReportList = () => {
                     />
                   </ModalComponent>
                 </div>
-                <table className='col-span-full'>
+                <table>
                   <thead className='h-[40px] border-t border-b border-grey-300 bg-grey-100 text-left'>
                     <tr>
                       <th className='w-[56px] text-center text-XS/Medium'>
@@ -173,30 +173,29 @@ const ReportList = () => {
                 </table>
               </div>
 
-              <div className='flex items-center justify-between py-[22px]'>
+              <div className='relative my-[22px]'>
                 <select
                   name='limit'
                   defaultValue={10}
                   onChange={(event) =>
                     onChangeOffsetCount(event, _state, _dispatch, _state.data.totalCount)
                   }
-                  className='rounded-md
-             border border-grey-400 px-3 py-2.5 text-S/Regular text-grey-900'
                 >
                   <option value={10}>10개씩</option>
                   <option value={30}>30개씩</option>
                   <option value={50}>50개씩</option>
                   <option value={100}>100개씩</option>
                 </select>
-                <Pagination
-                  total={_state.data.totalCount}
-                  page={_state.page || reportListInitialState.page}
-                  limit={_state.limit || reportListInitialState.limit}
-                  data={_state.data}
-                  _dispatch={_dispatch}
-                  _dispatchType={REPORT_LIST_ACTION.GET_REPORT_LIST}
-                />
-                <div className='opacity-0'>숨겨진 영역</div>
+                <div className='absolute left-1/2 top-0 translate-x-[-50%]'>
+                  <Pagination
+                    total={_state.data.totalCount}
+                    page={_state.page || reportListInitialState.page}
+                    limit={_state.limit || reportListInitialState.limit}
+                    data={_state.data}
+                    _dispatch={_dispatch}
+                    _dispatchType={REPORT_LIST_ACTION.GET_REPORT_LIST}
+                  />
+                </div>
               </div>
             </div>
           </div>

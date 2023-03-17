@@ -64,7 +64,7 @@ export const ReportListColumn = ({
 
             return (
               <tr
-                className={`border border-l-0 border-r-0 border-t-0 border-grey-300 last:border-b-0 hover:bg-grey-200 ${
+                className={`border border-l-0 border-r-0 border-t-0 border-grey-200 last:border-b-0 hover:bg-grey-200 ${
                   report.status !== 'DONE' ? 'bg-grey-100 opacity-50' : 'text-grey-800 '
                 }`}
                 key={`table_row_${idx}`}

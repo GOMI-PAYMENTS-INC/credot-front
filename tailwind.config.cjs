@@ -57,7 +57,7 @@ module.exports = {
             {},
         },
         '.button-filled-normal-medium-grey-true-false-true': {
-          '@apply flex items-center space-x-0.5 rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500':
+          '@apply flex items-center space-x-0.5 rounded bg-grey-200 p-2.5 text-grey-800 text-S/Bold disabled:text-grey-500 gap-x-1':
             {},
         },
         '.button-outlined-normal-xLarge-grey-true-false-true': {
