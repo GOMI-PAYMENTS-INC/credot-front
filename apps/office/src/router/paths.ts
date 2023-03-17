@@ -3,4 +3,4 @@ export const PATH = {
 };
 
 
-export const SERVICE_INFO = "https://gomi-insight.gomicorp.com"
+export const SERVICE_URL = "https://app.gomiinsight.com"
