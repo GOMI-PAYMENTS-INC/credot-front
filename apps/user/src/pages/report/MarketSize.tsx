@@ -106,7 +106,7 @@ export const MartketSize = (props: IMartketSize) => {
 
           <Fragment>
             <div className='col-span-2 flex h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
-              <div className='mt-5 flex h-[140px] flex-col justify-center border-r-[1px] border-dashed'>
+              <div className='mt-5 flex h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
                 <p>가장 많이 팔려요</p>
                 {maxTurnoverMonth.map((month, key) => (
                   <p
