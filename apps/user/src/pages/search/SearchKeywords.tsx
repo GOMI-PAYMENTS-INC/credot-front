@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect, useMemo, useReducer, Suspense } from 'react';
+import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
+
 import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/modal';
 import {
@@ -9,18 +10,17 @@ import {
   queryKeyword,
   queryKeywordByClick,
   switchModal,
-  initializeImages,
 } from '@/containers/search';
 import { initialState, reducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSesstionStorage } from '@/utils/useSessionStorage';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
@@ -113,21 +113,22 @@ const SearchKeywords = () => {
             </div>
             <div>
               <div className='mt-6 flex items-center'>
-                <ReactSVG src='/assets/icons/country/Vietnam.svg' className='pr-[8px]' />
-                <select
-                  name='country'
-                  id='country'
-                  className='bg-transparent py-3 text-S/Medium'
-                >
-                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                    베트남
-                  </option>
-                </select>
-
+                <div className='select-icon-group'>
+                  <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                  <select
+                    name='country'
+                    id='country'
+                    className='select-normal-clear-true'
+                  >
+                    <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
+                      베트남
+                    </option>
+                  </select>
+                </div>
                 <select
                   name='filterOption'
                   id='filterOption'
-                  className='ml-[20px] bg-transparent py-3 text-S/Medium'
+                  className='select-normal-clear-false ml-4'
                 >
                   <option value='연관도순' defaultValue='연관도순'>
                     연관도순

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExachangeRate, openBrowser } from '@/containers/report/report.container';
+import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
 import {
   convertEvaluateStatus,
   convertScoreToText,
@@ -25,7 +25,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
-      return convertExachangeRate(number, analysisInfo.basePrice);
+      return convertExchangeRate(number, analysisInfo.basePrice);
     })
     .map((number) => formatNumber(number));
 

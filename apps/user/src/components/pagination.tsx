@@ -1,25 +1,17 @@
-import { Dispatch, Fragment } from 'react';
+import { Dispatch } from 'react';
 
 import { ReactSVG } from 'react-svg';
-import { _getReportList } from '@/containers/report';
+import { getReportListByPage } from '@/containers/report';
 
 type TPagination = {
   total: number;
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
-  data: TReportListResponseData;
   _dispatch: Dispatch<any>;
   _dispatchType: any;
 };
 
-const Pagination = ({
-  total,
-  limit,
-  page,
-  data,
-  _dispatch,
-  _dispatchType,
-}: TPagination) => {
+const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPagination) => {
   // 총 페이지 갯수
   const numPages = Math.ceil(total / limit);
 
@@ -30,12 +22,7 @@ const Pagination = ({
     return (
       <div className='flex h-8 max-w-[390px] justify-between space-x-8'>
         <button
-          onClick={() =>
-            _getReportList({
-              _state: { limit: limit, page: page - 1 },
-              _dispatch,
-            } as TGetReportList)
-          }
+          onClick={() => getReportListByPage(_dispatch, limit, page - 1)}
           disabled={page === 1}
           className={page === 1 ? '' : 'hover:rounded-lg hover:bg-grey-200'}
         >
@@ -58,12 +45,7 @@ const Pagination = ({
                 className={`h-8 w-8 grow text-S/Medium hover:rounded-lg hover:bg-grey-200 ${
                   i + 1 === page ? 'text-orange-500' : 'text-grey-900'
                 }`}
-                onClick={() =>
-                  _getReportList({
-                    _state: { limit: limit, page: i + 1 },
-                    _dispatch,
-                  } as TGetReportList)
-                }
+                onClick={() => getReportListByPage(_dispatch, limit, i + 1)}
               >
                 {i + 1}
               </button>
@@ -71,12 +53,7 @@ const Pagination = ({
           ))}
         </ul>
         <button
-          onClick={() =>
-            _getReportList({
-              _state: { limit: limit, page: page + 1 },
-              _dispatch,
-            } as TGetReportList)
-          }
+          onClick={() => getReportListByPage(_dispatch, limit, page + 1)}
           disabled={page === numPages}
           className={page === numPages ? '' : 'hover:rounded-lg hover:bg-grey-200'}
         >

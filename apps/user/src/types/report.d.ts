@@ -10,7 +10,7 @@ type TReportListResponse = {
 };
 
 type TReportListAction = {
-  type: 'GET_REPORT_LIST' | 'DELETE_REPORT' | 'SPINNER_EVENT';
+  type: REPORT_LIST_ACTION;
   payload?: any;
 };
 
@@ -20,6 +20,10 @@ type TReportListState = {
   data: TReportListResponseData;
   isDeleteConfirmModalOpen: boolean;
   spinnerEvent: boolean;
+  //전체 선택 체크 여부
+  isCheckedAll: boolean;
+  //체크한 item 배열
+  checkedItems: number[];
 };
 
 type TGetReportList = {

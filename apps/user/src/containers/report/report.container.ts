@@ -9,6 +9,7 @@ import { ChangeEvent, Dispatch, RefObject, SetStateAction } from 'react';
 import {
   REPORT_ACTION,
   REPORT_LIST_ACTION,
+  reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
 import {
@@ -23,6 +24,7 @@ import { getReportList } from '@/containers/report/report.api';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
+import { isIncluded } from '@/utils/isIncluded';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -85,15 +87,9 @@ export const _getRelationReport = async (
   }
 };
 
-export const convertExachangeRate = (vnd: number, krw: number) => {
+export const convertExchangeRate = (vnd: number, krw: number) => {
   return Math.floor((vnd / 100) * krw);
 };
-
-export const updateTitle = (
-  curHeight: number,
-  _dispatch: Dispatch<TReportAction>,
-  name?: string,
-) => {};
 
 export const isToggleOpen = (
   _dispatch: Dispatch<TReportAction>,
@@ -106,6 +102,8 @@ export const isToggleOpen = (
     _dispatch({ type: REPORT_ACTION.RECOMMENDATION_TOGGLE_EVENT, payload: { id: id } });
   }
 };
+
+// #### 리포트 목록 시작 ####
 export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   try {
     //isLoading 준비중
@@ -137,6 +135,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   }
 };
 
+//리포트 목록 내용 컨버터
 export const reportListConverter = (item: TReportItem) => {
   const result = {
     status: {
@@ -156,6 +155,86 @@ export const reportListConverter = (item: TReportItem) => {
   return result;
 };
 
+//체크된 리스트 모두 해제
+export const onUncheckReportList = (_dispatch: Dispatch<TReportListAction>) => {
+  _dispatch({
+    type: REPORT_LIST_ACTION.CHECKED_ITEM,
+    payload: { checkedItems: reportListInitialState.checkedItems },
+  });
+  _dispatch({
+    type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
+    payload: { isCheckedAll: reportListInitialState.isCheckedAll },
+  });
+};
+
+//모든 약관 동의 체크 핸들러
+export const onCheckAllReportList = (
+  _state: TReportListState,
+  _dispatch: Dispatch<TReportListAction>,
+  checked: boolean,
+) => {
+  //전체 선택
+  if (checked) {
+    const checkedItemsArray: number[] = [];
+    _state.data.reports?.forEach(
+      (report) =>
+        isIncluded(report.status, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE) &&
+        checkedItemsArray.push(report.id),
+    );
+    _dispatch({
+      type: REPORT_LIST_ACTION.CHECKED_ITEM,
+      payload: { checkedItems: checkedItemsArray },
+    });
+    _dispatch({
+      type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
+      payload: { isCheckedAll: true },
+    });
+  } else {
+    onUncheckReportList(_dispatch);
+  }
+};
+
+//약관 동의 체크 박스 핸들러
+export const onCheckReportList = (
+  _dispatch: Dispatch<TReportListAction>,
+  data: TReportListResponseData,
+  checkedItems: number[],
+  code: number,
+  isChecked: boolean,
+) => {
+  if (isChecked) {
+    //체크 추가할때
+    _dispatch({
+      type: REPORT_LIST_ACTION.CHECKED_ITEM,
+      payload: { checkedItems: [...checkedItems, code] },
+    });
+    //모두 체크되었을 때
+    if (
+      data.reports.filter(
+        (report) =>
+          report.status === BATCH_STATUS.DONE || report.status === BATCH_STATUS.REPLICATE,
+      ).length ===
+      checkedItems.length + 1
+    ) {
+      _dispatch({
+        type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
+        payload: { isCheckedAll: true },
+      });
+    }
+  } else if (!isChecked && checkedItems.find((one) => one === code)) {
+    //체크 해제할때 checkedItems에 있을 경우
+    const filter = checkedItems.filter((one) => one !== code);
+    _dispatch({
+      type: REPORT_LIST_ACTION.CHECKED_ITEM,
+      payload: { checkedItems: [...filter] },
+    });
+    _dispatch({
+      type: REPORT_LIST_ACTION.CHECKED_ALL_ITEM,
+      payload: { isCheckedAll: false },
+    });
+  }
+};
+
 //리포트 목록 삭제 api
 export const _deleteReportList = async (ids: number[]) => {
   try {
@@ -170,39 +249,35 @@ export const _deleteReportList = async (ids: number[]) => {
   }
 };
 
-//TODO: setCheckedItems reducer로 관리하게 변경 할 것 - casey 23.02.22
 //리포트 목록 삭제 container
-export const deleteReports = (
-  checkedItems: number[],
-  setCheckedItems: Dispatch<number[]>,
+export const deleteReports = async (
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
 ) => {
   //삭제 실행
-  _deleteReportList(checkedItems).then((result) => {
-    if (result?.code === STATUS_CODE.SUCCESS) {
-      //모달 닫기
-      switchDeleteModal(_dispatch, false);
+  const result = await _deleteReportList(_state.checkedItems);
+  if (result?.code === STATUS_CODE.SUCCESS) {
+    //모달 닫기
+    switchDeleteModal(_dispatch, false);
 
-      // 총 페이지 갯수
-      const numPages = Math.ceil(_state.data.totalCount / _state.limit);
-      //페이지에서 모든 item을 삭제한 경우, 하나 작은 숫자의 페이지로 이동한다.
-      if (1 < numPages && _state.data.reports.length === checkedItems.length) {
-        _state.page = _state.page - 1;
-      }
-
-      //목록 다시 불러오기
-      _getReportList({ _state: _state, _dispatch }).then(() => {
-        //선택된 체크박스 목록 비우기
-        setCheckedItems([]);
-      });
-
-      //토스트 알림
-      toast.success(`리포트를 삭제했어요.`);
-    } else {
-      toast.error(`리포트를 삭제할 수 없습니다.`);
+    // 총 페이지 갯수
+    const numPages = Math.ceil(_state.data.totalCount / _state.limit);
+    //페이지에서 모든 item을 삭제한 경우, 하나 작은 숫자의 페이지로 이동한다.
+    if (1 < numPages && _state.data.reports.length === _state.checkedItems.length) {
+      _state.page = _state.page - 1;
     }
-  });
+
+    //목록 다시 불러오기
+    await _getReportList({ _state: _state, _dispatch });
+
+    //선택된 체크박스 목록 비우기
+    onUncheckReportList(_dispatch);
+
+    //토스트 알림
+    toast.success(`리포트를 삭제했어요.`);
+  } else {
+    toast.error(`리포트를 삭제할 수 없습니다.`);
+  }
 };
 
 //리포트 목록 삭제 확인 confirm 모달 상태 변경
@@ -241,12 +316,67 @@ export const onClickDeleteReport = (
 };
 
 //리포트 목록 > 새로고침 버튼 클릭시
-export const onClickReload = (
+export const onClickReload = async (
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
 ) => {
-  _getReportList({ _state, _dispatch });
+  //목록 가져오기
+  await _getReportList({ _state, _dispatch });
+  //선택된 체크박스 목록 비우기
+  onUncheckReportList(_dispatch);
 };
+
+//리스트 > 페이지 변경시
+export const getReportListByPage = async (
+  _dispatch: Dispatch<TReportListAction>,
+
+  limit: number,
+  goPage: number,
+) => {
+  await _getReportList({
+    _state: { limit: limit, page: goPage },
+    _dispatch,
+  } as TGetReportList);
+  //선택된 체크박스 목록 비우기
+  onUncheckReportList(_dispatch);
+};
+
+//리스트 > 출력 개수 변경시
+export const getReportListByLimit = async (
+  event: ChangeEvent<HTMLSelectElement>,
+  _state: TReportListState,
+  _dispatch: Dispatch<TReportListAction>,
+  total: number,
+) => {
+  //변경 할 출력 갯수
+  const limit = Number(event.target.value);
+  if (limit && _state.page && _state.limit) {
+    const oldOffset = _state.page * _state.limit;
+    const newOffset = _state.page * limit;
+    let goPage;
+    if (oldOffset < newOffset) {
+      goPage = Math.ceil(oldOffset / limit);
+    } else {
+      if (Math.ceil(total / limit) < Math.ceil(oldOffset / limit)) {
+        // 총 페이지 갯수
+        goPage = Math.ceil(total / limit);
+      } else {
+        goPage = Math.ceil(oldOffset / limit);
+      }
+    }
+
+    await _getReportList(<TGetReportList>{
+      _state: {
+        page: goPage,
+        limit: limit,
+      },
+      _dispatch,
+    });
+    //선택된 체크박스 목록 비우기
+    onUncheckReportList(_dispatch);
+  }
+};
+// #### 리포트 목록 끝 ####
 
 export const roundNumber = (number: number | string) => {
   if ((number + '').split('.').length === 1) return number;
@@ -294,39 +424,6 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) 
   );
 
   return res.map((data) => data.length);
-};
-//리스트 > 출력 개수 변경시
-export const onChangeOffsetCount = (
-  event: ChangeEvent<HTMLSelectElement>,
-  _state: TReportListState,
-  _dispatch: Dispatch<TReportListAction>,
-  total: number,
-) => {
-  //변경 할 출력 갯수
-  const limit = Number(event.target.value);
-  if (limit && _state.page && _state.limit) {
-    const oldOffset = _state.page * _state.limit;
-    const newOffset = _state.page * limit;
-    let goPage;
-    if (oldOffset < newOffset) {
-      goPage = Math.ceil(oldOffset / limit);
-    } else {
-      if (Math.ceil(total / limit) < Math.ceil(oldOffset / limit)) {
-        // 총 페이지 갯수
-        goPage = Math.ceil(total / limit);
-      } else {
-        goPage = Math.ceil(oldOffset / limit);
-      }
-    }
-
-    _getReportList(<TGetReportList>{
-      _state: {
-        page: goPage,
-        limit: limit,
-      },
-      _dispatch,
-    });
-  }
 };
 
 export const selectSalePriceCompetitionType = (
@@ -465,9 +562,9 @@ export const setChartLabels = (
 ): string[][] => {
   const init: string[][] = [];
   return salePriceScope.reduce((pre, cur, idx) => {
-    const _cur = formatNumber(convertExachangeRate(cur, basePrice));
+    const _cur = formatNumber(convertExchangeRate(cur, basePrice));
     const _next = formatNumber(
-      convertExachangeRate(salePriceScope[idx + 1], basePrice) - 1,
+      convertExchangeRate(salePriceScope[idx + 1], basePrice) - 1,
     );
     if (idx === salePriceScope.length - 1) {
       return pre.concat([_cur]);
