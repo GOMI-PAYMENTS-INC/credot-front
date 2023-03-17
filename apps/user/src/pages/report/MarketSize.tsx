@@ -95,15 +95,13 @@ export const MartketSize = (props: IMartketSize) => {
                   검색 트랜드 정보는 매출을 예측하거나 재고관리를 위해 사용할 수 있어요.
                 </p>
                 <div className='flex w-full justify-end'>
-                  <p className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'>
-                    <a
-                      href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7'
-                      target='_blank'
-                      className='cursor-pointer'
-                    >
-                      자세히 알아보기
-                    </a>
-                  </p>
+                  <a
+                    href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7'
+                    target='_blank'
+                    className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                  >
+                    자세히 알아보기
+                  </a>
                 </div>
               </div>
             </Tooltip>
