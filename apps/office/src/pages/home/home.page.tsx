@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
-import { SERVICE_INFO } from '@/router/paths';
+import { SERVICE_URL } from '@/router/paths';
 import { ReactSVG } from 'react-svg';
 import { Swiper as SwiperClass } from 'swiper/types';
 
@@ -673,12 +673,12 @@ export default function HomePage() {
                 잘 팔릴 상품을 <br />잘 파는 방법
               </div>
               <div className='text-right sm:mt-12  sm:w-full'>
-                <button
-                  className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
-                  onClick={() => window.open(`${SERVICE_INFO}`, '_blank')}
-                >
-                  고미 인사이트 바로 시작하기
-                </button>
+                  <button
+                    className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
+                    onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
+                  >
+                    고미 인사이트 바로 시작하기
+                  </button>
               </div>
             </div>
           </div>
