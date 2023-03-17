@@ -86,7 +86,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
               isModalOpen: false,
             },
           });
-          toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, {
+          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
             autoClose: 4000,
           });
         }
@@ -116,7 +116,9 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
           isModalOpen: false,
         },
       });
-      toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
+      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
+        autoClose: 4000,
+      });
     }
 
     return postReport;
