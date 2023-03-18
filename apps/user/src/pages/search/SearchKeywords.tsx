@@ -19,7 +19,7 @@ import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 
 const SearchKeywords = () => {
@@ -27,7 +27,7 @@ const SearchKeywords = () => {
   const { response, isLoading, isError } = getQueryResult(_state.keyword, _dispatch);
 
   useEffect(() => {
-    const item = useSesstionStorage.getItem('keyword');
+    const item = useSessionStorage.getItem('keyword');
     if (isFalsy(item) === false) {
       initializeState(item, _dispatch);
     }
@@ -88,6 +88,7 @@ const SearchKeywords = () => {
     return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
   }, [_state.keyword, isMonthlyCountZero]);
 
+  console.log(_state.productImages, '_state.productImages');
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>

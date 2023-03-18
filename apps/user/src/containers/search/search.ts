@@ -33,7 +33,7 @@ export const queryKeyword = (
 
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });
-  _dispatch({ type: SearchAction.InitialIzeImages });
+  _dispatch({ type: SearchAction.InitialIizeImages });
 };
 
 export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
@@ -160,4 +160,4 @@ export const getProductImages = (
 };
 
 export const initializeImages = (_dispatch: Dispatch<TAction>) =>
-  _dispatch({ type: SearchAction.InitialIzeImages });
+  _dispatch({ type: SearchAction.InitialIizeImages });

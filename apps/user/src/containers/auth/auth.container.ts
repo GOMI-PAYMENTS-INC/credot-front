@@ -33,7 +33,7 @@ import {
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/api/config';
-import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 export const AuthContainer = () => {
@@ -69,7 +69,7 @@ export const AuthContainer = () => {
     // 세션, 로컬스토리지에 저장된 토큰 삭제
     authTokenStorage.clearToken();
 
-    useSesstionStorage.removeItem('keyword');
+    useSessionStorage.removeItem('keyword');
 
     // 임시 비밀번호로 로그인한 상태 정리
     setTemporaryPasswordLogin(false);
