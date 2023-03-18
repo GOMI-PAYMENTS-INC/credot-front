@@ -24,7 +24,10 @@ import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const { response, isLoading, isError } = getQueryResult(_state.keyword, _dispatch);
+  const { response, isLoading, isFetching, isError } = getQueryResult(
+    _state.keyword,
+    _dispatch,
+  );
 
   useEffect(() => {
     const item = useSessionStorage.getItem('keyword');
@@ -291,9 +294,15 @@ const SearchKeywords = () => {
                       switchModal(payload);
                     }}
                   >
-                    <span className='text-L/Bold text-white'>
-                      {reportCreatorButtonText}
-                    </span>
+                    {isFalsy(_state.keyword) === false && isLoading === true ? (
+                      <div className=' scale-[0.2]'>
+                        <div id='loader-white' />
+                      </div>
+                    ) : (
+                      <span className='text-L/Bold text-white'>
+                        {reportCreatorButtonText}
+                      </span>
+                    )}
                   </button>
                 </div>
               </Fragment>
