@@ -14,7 +14,7 @@ import {
   convertEvaluateStatus,
 } from '@/containers/report/report.constant';
 import { formatNumber } from '@/utils/formatNumber';
-
+import { convertTitle } from '@/utils/convertEnum';
 import { TReportAction } from '@/containers/report/report.reducer';
 import { isToggleOpen } from '@/containers/report';
 import {
@@ -42,7 +42,7 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
   return (
     <section>
       <div id={TITLE.RECOMMEND_KEYWORD} className='detailReport-h1-header'>
-        <h1>추천 키워드</h1>
+        <h1>{convertTitle(TITLE.RECOMMEND_KEYWORD)}</h1>
         <div>
           <ReactSVG
             id='anchor-recommandation-keyword'

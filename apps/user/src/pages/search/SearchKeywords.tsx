@@ -302,14 +302,10 @@ const SearchKeywords = () => {
           </div>
         </div>
 
-        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
-          <SearchKeywordImages
-            images={_state.productImages ? _state.productImages : null}
-            isError={isError}
-            isLoading={isLoading}
-            keyword={_state.keyword}
-          />
-        </div>
+        <SearchKeywordImages
+          images={_state.productImages ? _state.productImages : null}
+          keyword={_state.keyword}
+        />
       </div>
     </Layout>
   );

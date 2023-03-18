@@ -6,11 +6,11 @@ export const convertTitle = (id: string) => {
     case TITLE.REPORT:
       return '리포트';
     case TITLE.MARTKET_SIZE:
-      return '시장규모';
+      return '시장 분석';
     case TITLE.RECOMMEND_KEYWORD:
       return '추천 키워드';
     case TITLE.KEYWORD_INFO:
-      return '키워드 정보';
+      return '키워드 분석';
     default:
       return id;
   }
