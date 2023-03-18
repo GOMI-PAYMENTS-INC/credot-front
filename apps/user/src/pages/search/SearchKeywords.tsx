@@ -88,7 +88,6 @@ const SearchKeywords = () => {
     return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
   }, [_state.keyword, isMonthlyCountZero]);
 
-  console.log(_state.productImages, '_state.productImages');
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>

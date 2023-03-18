@@ -23,6 +23,7 @@ import { getReportList } from '@/containers/report/report.api';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
+import { isFalsy } from '@/utils/isFalsy';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -253,13 +254,14 @@ export const roundNumber = (number: number | string) => {
 
   let originNumber = number;
   if (typeof originNumber === 'string') {
-    originNumber = parseInt(originNumber);
+    originNumber = Number(originNumber);
   }
 
   const fixedNumber = originNumber.toFixed(1);
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
 
-  if (secondPlaceNumber === '0') return 0;
+  if (secondPlaceNumber[0] === '0' && isFalsy(secondPlaceNumber[1]))
+    return firstPlaceNumber + '.0';
   return fixedNumber;
 };
 
