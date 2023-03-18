@@ -2,12 +2,8 @@ import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } fro
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { Defalut as Layout } from '@/components/layouts';
-import {
-  _getReportInfo,
-  convertTitle,
-  openBrowser,
-} from '@/containers/report/report.container';
-
+import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
+import { convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';

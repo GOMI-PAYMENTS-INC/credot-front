@@ -10,7 +10,7 @@ import { isTruthy } from '@/utils/isTruthy';
 import { getProductImages } from '@/containers/search/search.container';
 
 export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) => {
-  const { data, isLoading, isError } = useSearchQuery(
+  const { data, isLoading, isFetching, isError } = useSearchQuery(
     graphQLClient,
     {
       country: CountryType.Vn,
@@ -38,7 +38,7 @@ export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) =>
   );
   const response = data?.search;
 
-  return { response, isLoading, isError };
+  return { response, isLoading, isFetching, isError };
 };
 
 const REPORT_URL = {

@@ -29,23 +29,6 @@ export const openBrowser = (url: string) => {
   window.open(url);
 };
 
-export const convertTitle = (id: string) => {
-  switch (id) {
-    case TITLE.REPORT:
-      return '리포트';
-    case TITLE.MARTKET_SIZE:
-      return '시장 분석';
-    case TITLE.RECOMMEND_KEYWORD:
-      return '추천 키워드';
-    case TITLE.KEYWORD_INFO:
-      return '키워드 분석';
-    case TITLE.SALE_PRICE:
-      return '가격 분석';
-    default:
-      return id;
-  }
-};
-
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
   try {
     const response = await Promise.all([

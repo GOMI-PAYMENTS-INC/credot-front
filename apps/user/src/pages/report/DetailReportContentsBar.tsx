@@ -2,13 +2,13 @@ import { ReactSVG } from 'react-svg';
 import { RefObject, useEffect, Dispatch, SetStateAction } from 'react';
 import {
   _getReportInfo,
-  convertTitle,
   onScrollDetail,
   switchContents,
   isToggleOpen,
   scrollToTop,
 } from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';
+import { convertTitle } from '@/utils/convertEnum';
 
 interface IDetailReportContentsBarProps {
   contentSection?: RefObject<HTMLDivElement>;

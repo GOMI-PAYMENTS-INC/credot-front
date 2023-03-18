@@ -11,6 +11,8 @@ export const convertTitle = (id: string) => {
       return '추천 키워드';
     case TITLE.KEYWORD_INFO:
       return '키워드 분석';
+    case TITLE.SALE_PRICE:
+      return '가격 분석';
     default:
       return id;
   }
