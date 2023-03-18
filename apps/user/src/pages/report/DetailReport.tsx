@@ -86,7 +86,6 @@ const DetailReport = () => {
 
   return (
     <Layout>
-      {/*헤더*/}
       <header className='border-b-[1px] border-b-gray-200 bg-white'>
         <div className='container'>
           <div className='flex h-[84px] items-center justify-between'>
@@ -115,7 +114,6 @@ const DetailReport = () => {
         </div>
       </header>
 
-      {/*컨텐츠  */}
       <section
         className='grow overflow-y-scroll'
         onScroll={(event) => {

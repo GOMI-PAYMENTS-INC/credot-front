@@ -16,6 +16,7 @@ export const getKeyword = (
 };
 
 export const queryKeywordByClick = (text: string, _dispatch: Dispatch<TAction>) => {
+  _dispatch({ type: SearchAction.InitialIizeImages });
   _dispatch({ type: SearchAction.GetKeyword, payload: text });
   _dispatch({ type: SearchAction.SearchKeyword, payload: text });
 };
@@ -31,9 +32,9 @@ export const queryKeyword = (
   }
   const _switch = isFalsy(text) === false;
 
+  _dispatch({ type: SearchAction.InitialIizeImages });
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });
-  _dispatch({ type: SearchAction.InitialIizeImages });
 };
 
 export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {

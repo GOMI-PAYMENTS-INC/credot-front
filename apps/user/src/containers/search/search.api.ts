@@ -7,7 +7,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
 
-import { getProductImages } from '@/containers/search/search';
+import { getProductImages } from '@/containers/search/search.container';
 
 export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) => {
   const { data, isLoading, isError } = useSearchQuery(
