@@ -279,7 +279,7 @@ export default function HomePage() {
             <p className='mt-12 text-L/Medium text-grey-700'>
               동남아시아 No.1 마켓플레이스 Shopee의 상위노출 상품들을 분석하여
               <br />
-              시장 정보와 최고의 판매 전략을 제공해요!
+              시장 정보와 최고의 판매 전략을 수립하세요!
             </p>
           </div>
           <div className='absolute left-0  top-0 h-full w-full'>
@@ -673,12 +673,12 @@ export default function HomePage() {
                 잘 팔릴 상품을 <br />잘 파는 방법
               </div>
               <div className='text-right sm:mt-12  sm:w-full'>
-                  <button
-                    className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
-                    onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
-                  >
-                    고미 인사이트 바로 시작하기
-                  </button>
+                <button
+                  className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
+                  onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
+                >
+                  고미 인사이트 바로 시작하기
+                </button>
               </div>
             </div>
           </div>
@@ -733,10 +733,12 @@ export default function HomePage() {
                     <dl
                       key={indexNum}
                       className='border border-t-0 border-l-0 border-r-0 border-b-grey-300 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-6'
-                      onClick={() => onClickFaq(indexNum)}
                     >
                       <dt className='relative'>
-                        <p className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
+                        <p
+                          className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'
+                          onClick={() => onClickFaq(indexNum)}
+                        >
                           {qna.subject}
                         </p>
                         <ReactSVG
