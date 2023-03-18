@@ -117,6 +117,10 @@ export enum REPORT_LIST_ACTION {
   //리포트 삭제
   DELETE_REPORT = 'DELETE_REPORT',
   SPINNER_EVENT = 'SPINNER_EVENT',
+  //상품 목록 선택
+  CHECKED_ITEM = 'CHECKED_ITEM',
+  //상품 목록 전체 선택
+  CHECKED_ALL_ITEM = 'CHECKED_ALL_ITEM',
 }
 
 const reportListInitialState: TReportListState = {
@@ -128,6 +132,8 @@ const reportListInitialState: TReportListState = {
   },
   isDeleteConfirmModalOpen: false,
   spinnerEvent: false,
+  isCheckedAll: false,
+  checkedItems: [],
 };
 
 const reportListReducer = (_state: TReportListState, action: TReportListAction) => {
@@ -143,6 +149,16 @@ const reportListReducer = (_state: TReportListState, action: TReportListAction) 
     case REPORT_LIST_ACTION.DELETE_REPORT:
       state.isDeleteConfirmModalOpen = action.payload.isDeleteConfirmModalOpen;
       return state;
+
+    case REPORT_LIST_ACTION.CHECKED_ITEM: {
+      state.checkedItems = action.payload.checkedItems;
+      return state;
+    }
+
+    case REPORT_LIST_ACTION.CHECKED_ALL_ITEM: {
+      state.isCheckedAll = action.payload.isCheckedAll;
+      return state;
+    }
 
     case REPORT_LIST_ACTION.SPINNER_EVENT: {
       state.spinnerEvent = action.payload.spinnerEvent;
