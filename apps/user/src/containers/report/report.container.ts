@@ -390,16 +390,14 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const [first, second, third, fourth] = document.getElementsByClassName(
+  const [first, second, third] = document.getElementsByClassName(
     'detailReport-h1-header',
   );
+
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, recommendKeyword, salePrice] = [
-    first,
-    second,
-    third,
-    fourth,
-  ].map((element) => (element as HTMLElement).offsetTop - 100);
+  const [marketSize, keywordInfo, salePrice] = [first, second, third].map(
+    (element) => (element as HTMLElement).offsetTop - 100,
+  );
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
@@ -408,14 +406,9 @@ export const onScrollDetail = (
   if (scrollY >= marketSize && scrollY < keywordInfo) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
   }
-  if (scrollY >= keywordInfo && scrollY < recommendKeyword) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
-  }
 
-  if (scrollY >= recommendKeyword && scrollY < salePrice) {
-    _setState(
-      Object.assign({}, _state, { title: name, current: TITLE.RECOMMEND_KEYWORD }),
-    );
+  if (scrollY >= keywordInfo && scrollY < salePrice) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
   if (scrollY >= salePrice) {

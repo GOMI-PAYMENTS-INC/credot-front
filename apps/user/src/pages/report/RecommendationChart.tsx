@@ -23,7 +23,7 @@ import {
   buttonSpinnerEvent,
   convertExachangeRate,
 } from '@/containers/report/report.container';
-interface IRecommendationOfKeyword {
+interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
@@ -31,7 +31,7 @@ interface IRecommendationOfKeyword {
   basePrice: number;
 }
 
-export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
+export const RecommendationChart = (props: IRecommendationChart) => {
   const { relation, _dispatch, toggleEvent, spinnerEvent, basePrice } = props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
@@ -40,34 +40,12 @@ export const RecommendationOfKeyword = (props: IRecommendationOfKeyword) => {
 
   const routeId = useParams();
   return (
-    <section>
-      <div id={TITLE.RECOMMEND_KEYWORD} className='detailReport-h1-header'>
-        <h1>{convertTitle(TITLE.RECOMMEND_KEYWORD)}</h1>
-        <div>
-          <ReactSVG
-            id='anchor-recommandation-keyword'
-            src='/assets/icons/outlined/QuestionCircle.svg'
-            className='inline-block pl-[7px]'
-          />
-          <Tooltip
-            anchorId='anchor-recommandation-keyword'
-            style={{ backgroundColor: 'white' }}
-            place='right'
-          >
-            <div className='rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
-              <p className='text-XS/Regular text-grey-900'>
-                키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.
-              </p>
-            </div>
-          </Tooltip>
-        </div>
-      </div>
-
-      <table className=' col-span-full mt-6 h-full w-full  table-auto bg-white'>
+    <section className='pt-10'>
+      <table className='col-span-full h-full w-full  table-auto bg-white'>
         <thead className='h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
           <tr>
             <th className='w-[302px] text-left' colSpan={1}>
-              <p className=' pl-3 text-XS/Medium'>키워드</p>
+              <p className=' pl-3 text-XS/Medium'>추천 키워드</p>
             </th>
             <th className='w-[82px]' colSpan={1}>
               <p className='px-4  text-XS/Medium'>검색량</p>

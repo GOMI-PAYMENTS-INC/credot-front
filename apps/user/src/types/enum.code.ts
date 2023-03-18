@@ -40,7 +40,7 @@ export enum TITLE {
   REPORT = 'Report',
   MARTKET_SIZE = 'MartketSize',
   KEYWORD_INFO = 'KeywordInfo',
-  RECOMMEND_KEYWORD = 'RecommendKeyword',
+
   SALE_PRICE = 'SalePrice',
 }
 

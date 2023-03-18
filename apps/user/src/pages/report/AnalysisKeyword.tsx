@@ -47,7 +47,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
         {convertTitle(TITLE.KEYWORD_INFO)}
       </h1>
       <div className='pt-6'>
-        <div className='flex divide-x-[1px]  divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
+        <div className='flex divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='basis-[390px]'>
             <div className='keywordInfo-span-subtitle'>
               <span>종합 평가</span>

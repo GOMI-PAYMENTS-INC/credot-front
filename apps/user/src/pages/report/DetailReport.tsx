@@ -9,7 +9,7 @@ import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
-import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
+import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
@@ -49,14 +49,16 @@ const DetailReport = () => {
       <Fragment>
         <KeywordInfo keywordInfo={main} />
         <MartketSize marketSize={main} />
-        <AnalysisKeyword analysisInfo={main} />
-        <RecommendationOfKeyword
-          spinnerEvent={_state.spinnerEvent}
-          relation={relation}
-          _dispatch={_dispatch}
-          toggleEvent={_state.toggleEvent}
-          basePrice={main.basePrice}
-        />
+        <div>
+          <AnalysisKeyword analysisInfo={main} />
+          <RecommendationChart
+            spinnerEvent={_state.spinnerEvent}
+            relation={relation}
+            _dispatch={_dispatch}
+            toggleEvent={_state.toggleEvent}
+            basePrice={main.basePrice}
+          />
+        </div>
         <SalePrice
           scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}
