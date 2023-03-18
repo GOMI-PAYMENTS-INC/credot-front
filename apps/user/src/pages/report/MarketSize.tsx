@@ -40,7 +40,7 @@ export const MartketSize = (props: IMartketSize) => {
   return (
     <section>
       <h1 id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
-        시장 규모
+        시장 분석
         <ReactSVG
           id='anchor-market-size'
           src='/assets/icons/outlined/QuestionCircle.svg'

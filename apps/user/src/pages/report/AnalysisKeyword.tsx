@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
+
+import { convertTitle } from '@/utils/convertEnum';
 import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
 import {
   convertEvaluateStatus,
@@ -43,10 +45,10 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   return (
     <section>
       <h1 id={TITLE.KEYWORD_INFO} className='detailReport-h1-header'>
-        키워드 정보
+        {convertTitle(TITLE.KEYWORD_INFO)}
       </h1>
       <div className='pt-6'>
-        <div className='flex divide-x-[1px]  divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
+        <div className='flex divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='basis-[390px]'>
             <div className='keywordInfo-span-subtitle'>
               <span>종합 평가</span>

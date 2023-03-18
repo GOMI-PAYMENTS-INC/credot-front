@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { TITLE, GRADE_ITEMS } from '@/types/enum.code';
 import { SalePriceChart } from '@/pages/report/SalePriceChart';
-
+import { convertTitle } from '@/utils/convertEnum';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/containers/report';
 import { SalePriceTable } from '@/pages/report/SalePriceTable';
@@ -41,7 +41,7 @@ export const SalePrice = (props: ISalePrice) => {
   return (
     <section className='col-span-full'>
       <h1 id={TITLE.SALE_PRICE} className='detailReport-h1-header'>
-        가격 분석
+        {convertTitle(TITLE.SALE_PRICE)}
       </h1>
       <div className='pt-4'>
         <div className='flex  border-[1px] border-grey-300 py-3 px-3'>

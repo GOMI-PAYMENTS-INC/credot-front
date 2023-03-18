@@ -24,27 +24,11 @@ import { getReportList } from '@/containers/report/report.api';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
+import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 
 export const openBrowser = (url: string) => {
   window.open(url);
-};
-
-export const convertTitle = (id: string) => {
-  switch (id) {
-    case TITLE.REPORT:
-      return '리포트';
-    case TITLE.MARTKET_SIZE:
-      return '시장규모';
-    case TITLE.RECOMMEND_KEYWORD:
-      return '추천 키워드';
-    case TITLE.KEYWORD_INFO:
-      return '키워드 정보';
-    case TITLE.SALE_PRICE:
-      return '가격 분석';
-    default:
-      return id;
-  }
 };
 
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
@@ -383,13 +367,14 @@ export const roundNumber = (number: number | string) => {
 
   let originNumber = number;
   if (typeof originNumber === 'string') {
-    originNumber = parseInt(originNumber);
+    originNumber = Number(originNumber);
   }
 
   const fixedNumber = originNumber.toFixed(1);
   const [firstPlaceNumber, secondPlaceNumber] = fixedNumber.split('.');
 
-  if (secondPlaceNumber === '0') return 0;
+  if (secondPlaceNumber[0] === '0' && isFalsy(secondPlaceNumber[1]))
+    return firstPlaceNumber + '.0';
   return fixedNumber;
 };
 
@@ -502,16 +487,14 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const [first, second, third, fourth] = document.getElementsByClassName(
+  const [first, second, third] = document.getElementsByClassName(
     'detailReport-h1-header',
   );
+
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, recommendKeyword, salePrice] = [
-    first,
-    second,
-    third,
-    fourth,
-  ].map((element) => (element as HTMLElement).offsetTop - 100);
+  const [marketSize, keywordInfo, salePrice] = [first, second, third].map(
+    (element) => (element as HTMLElement).offsetTop - 100,
+  );
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
@@ -520,14 +503,9 @@ export const onScrollDetail = (
   if (scrollY >= marketSize && scrollY < keywordInfo) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
   }
-  if (scrollY >= keywordInfo && scrollY < recommendKeyword) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
-  }
 
-  if (scrollY >= recommendKeyword && scrollY < salePrice) {
-    _setState(
-      Object.assign({}, _state, { title: name, current: TITLE.RECOMMEND_KEYWORD }),
-    );
+  if (scrollY >= keywordInfo && scrollY < salePrice) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
   if (scrollY >= salePrice) {

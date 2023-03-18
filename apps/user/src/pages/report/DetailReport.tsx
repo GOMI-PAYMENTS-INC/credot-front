@@ -2,18 +2,14 @@ import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } fro
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { Defalut as Layout } from '@/components/layouts';
-import {
-  _getReportInfo,
-  convertTitle,
-  openBrowser,
-} from '@/containers/report/report.container';
-
+import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
+import { convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
-import { RecommendationOfKeyword } from '@/pages/report/RecommendationOfKeywrod';
+import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
@@ -53,14 +49,16 @@ const DetailReport = () => {
       <Fragment>
         <KeywordInfo keywordInfo={main} />
         <MartketSize marketSize={main} />
-        <AnalysisKeyword analysisInfo={main} />
-        <RecommendationOfKeyword
-          spinnerEvent={_state.spinnerEvent}
-          relation={relation}
-          _dispatch={_dispatch}
-          toggleEvent={_state.toggleEvent}
-          basePrice={main.basePrice}
-        />
+        <div>
+          <AnalysisKeyword analysisInfo={main} />
+          <RecommendationChart
+            spinnerEvent={_state.spinnerEvent}
+            relation={relation}
+            _dispatch={_dispatch}
+            toggleEvent={_state.toggleEvent}
+            basePrice={main.basePrice}
+          />
+        </div>
         <SalePrice
           scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}
@@ -86,7 +84,6 @@ const DetailReport = () => {
 
   return (
     <Layout>
-      {/*헤더*/}
       <header className='border-b-[1px] border-b-gray-200 bg-white'>
         <div className='container'>
           <div className='flex h-[84px] items-center justify-between'>
@@ -115,7 +112,6 @@ const DetailReport = () => {
         </div>
       </header>
 
-      {/*컨텐츠  */}
       <section
         className='grow overflow-y-scroll'
         onScroll={(event) => {

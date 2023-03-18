@@ -1,6 +1,6 @@
 import { CountryType } from '@/generated/graphql';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
-import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export enum SearchAction {
   GetKeyword = 'GET_KEYWORD',
@@ -11,7 +11,7 @@ export enum SearchAction {
   SwitchModal = 'SWITCH_MODAL',
   UpdateCreatedAt = 'UPDATE_CREATED_AT',
   GetProductImages = 'GET_PRODUCT_IMAGES',
-  InitialIzeImages = 'INITIALIZE_IMAGES',
+  InitialIizeImages = 'INITIALIZE_IMAGES',
 }
 
 const initialState: TState = {
@@ -42,7 +42,10 @@ const reducer = (_state: TState, action: TAction) => {
       } else {
         state.keyword = state.text.trim();
       }
-      useSesstionStorage.setItem('keyword', Object.assign({}, state));
+      useSessionStorage.setItem(
+        'keyword',
+        Object.assign({}, state, { productImages: null }),
+      );
 
       return state;
 
@@ -70,7 +73,7 @@ const reducer = (_state: TState, action: TAction) => {
       state.productImages = action.payload;
       return state;
 
-    case SearchAction.InitialIzeImages:
+    case SearchAction.InitialIizeImages:
       state.productImages = initialState.productImages;
       return state;
 

@@ -14,20 +14,24 @@ import {
 import { initialState, reducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
+
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { useSessionStorage } from '@/utils/useSessionStorage';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const { response, isLoading, isError } = getQueryResult(_state.keyword, _dispatch);
+  const { response, isLoading, isFetching, isError } = getQueryResult(
+    _state.keyword,
+    _dispatch,
+  );
 
   useEffect(() => {
-    const item = useSesstionStorage.getItem('keyword');
+    const item = useSessionStorage.getItem('keyword');
     if (isFalsy(item) === false) {
       initializeState(item, _dispatch);
     }
@@ -106,7 +110,7 @@ const SearchKeywords = () => {
           <div className='px-[50px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold'>
-                <span className='text-orange-600'>상위 노출</span>을 원하는
+                <span className='text-orange-600'>리포트 생성</span>을 원하는
                 <br />
                 <span className='text-orange-600'>키워드</span>를 검색해주세요.
               </h1>
@@ -237,8 +241,8 @@ const SearchKeywords = () => {
                       />
                     </h3>
                   </div>
-                  <div className='mt-6 h-[170px] overflow-x-auto'>
-                    <ul className='overflow-y-hidden text-center' id='scrollbar'>
+                  <div id='scrollbar' className='mt-6 h-[170px] overflow-x-auto'>
+                    <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
                             if (typeof keyword === 'number') {
@@ -292,9 +296,15 @@ const SearchKeywords = () => {
                       switchModal(payload);
                     }}
                   >
-                    <span className='text-L/Bold text-white'>
-                      {reportCreatorButtonText}
-                    </span>
+                    {isFalsy(_state.keyword) === false && isLoading === true ? (
+                      <div className=' scale-[0.2]'>
+                        <div id='loader-white' />
+                      </div>
+                    ) : (
+                      <span className='text-L/Bold text-white'>
+                        {reportCreatorButtonText}
+                      </span>
+                    )}
                   </button>
                 </div>
               </Fragment>
@@ -302,14 +312,10 @@ const SearchKeywords = () => {
           </div>
         </div>
 
-        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
-          <SearchKeywordImages
-            images={_state.productImages ? _state.productImages : null}
-            isError={isError}
-            isLoading={isLoading}
-            keyword={_state.keyword}
-          />
-        </div>
+        <SearchKeywordImages
+          images={_state.productImages ? _state.productImages : null}
+          keyword={_state.keyword}
+        />
       </div>
     </Layout>
   );

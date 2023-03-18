@@ -16,6 +16,7 @@ export const getKeyword = (
 };
 
 export const queryKeywordByClick = (text: string, _dispatch: Dispatch<TAction>) => {
+  _dispatch({ type: SearchAction.InitialIizeImages });
   _dispatch({ type: SearchAction.GetKeyword, payload: text });
   _dispatch({ type: SearchAction.SearchKeyword, payload: text });
 };
@@ -31,9 +32,9 @@ export const queryKeyword = (
   }
   const _switch = isFalsy(text) === false;
 
+  _dispatch({ type: SearchAction.InitialIizeImages });
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });
-  _dispatch({ type: SearchAction.InitialIzeImages });
 };
 
 export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
@@ -86,7 +87,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
               isModalOpen: false,
             },
           });
-          toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, {
+          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
             autoClose: 4000,
           });
         }
@@ -116,7 +117,9 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
           isModalOpen: false,
         },
       });
-      toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
+      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
+        autoClose: 4000,
+      });
     }
 
     return postReport;
@@ -158,4 +161,4 @@ export const getProductImages = (
 };
 
 export const initializeImages = (_dispatch: Dispatch<TAction>) =>
-  _dispatch({ type: SearchAction.InitialIzeImages });
+  _dispatch({ type: SearchAction.InitialIizeImages });
