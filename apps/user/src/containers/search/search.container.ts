@@ -16,7 +16,7 @@ export const getKeyword = (
 };
 
 export const queryKeywordByClick = (text: string, _dispatch: Dispatch<TAction>) => {
-  _dispatch({ type: SearchAction.InitialIizeImages });
+  if (text) _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
   _dispatch({ type: SearchAction.GetKeyword, payload: text });
   _dispatch({ type: SearchAction.SearchKeyword, payload: text });
 };
@@ -32,7 +32,7 @@ export const queryKeyword = (
   }
   const _switch = isFalsy(text) === false;
 
-  _dispatch({ type: SearchAction.InitialIizeImages });
+  _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });
 };
@@ -160,5 +160,5 @@ export const getProductImages = (
   });
 };
 
-export const initializeImages = (_dispatch: Dispatch<TAction>) =>
-  _dispatch({ type: SearchAction.InitialIizeImages });
+export const initializeImages = (_dispatch: Dispatch<TAction>, keyword: string) =>
+  _dispatch({ type: SearchAction.InitialIizeImages, payload: keyword });

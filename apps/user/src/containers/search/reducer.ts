@@ -74,7 +74,9 @@ const reducer = (_state: TState, action: TAction) => {
       return state;
 
     case SearchAction.InitialIizeImages:
-      state.productImages = initialState.productImages;
+      if (action.payload.trim() !== _state.keyword) {
+        state.productImages = initialState.productImages;
+      }
       return state;
 
     default:
