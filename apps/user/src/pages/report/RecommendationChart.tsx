@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { useParams } from 'react-router-dom';
 
-import { BATCH_STATUS, TITLE } from '@/types/enum.code';
+import { BATCH_STATUS } from '@/types/enum.code';
 import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
@@ -14,7 +14,7 @@ import {
   convertEvaluateStatus,
 } from '@/containers/report/report.constant';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertTitle } from '@/utils/convertEnum';
+
 import { TReportAction } from '@/containers/report/report.reducer';
 import { isToggleOpen } from '@/containers/report';
 import {
