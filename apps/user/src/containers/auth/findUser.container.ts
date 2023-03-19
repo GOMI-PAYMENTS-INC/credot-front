@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {
   CountryType,
   FindAccountQueryVariables,
-  useFindAccountQuery,
+  useVerifyCodeQuery,
 } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
@@ -12,7 +12,7 @@ export const FindUserContainer = () => {
   const [findAccount, setFindAccount] = useState<FindAccountQueryVariables>();
   const [responseStatus, setResponseStatus] = useState<number>(0);
 
-  const { data: findAccountQuery } = useFindAccountQuery(
+  const { data: findAccountQuery } = useVerifyCodeQuery(
     graphQLClient,
     {
       user: !findAccount?.user
@@ -27,7 +27,7 @@ export const FindUserContainer = () => {
       enabled: !!findAccount,
       refetchOnWindowFocus: false,
       onSuccess: (res) => {
-        console.log('useFindAccountQuery success', res);
+        console.log('useVerifyCodeQuery success', res);
       },
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));

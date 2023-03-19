@@ -13,7 +13,7 @@ interface IFindPasswordResult {
   phone: string;
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
-  setValue: UseFormSetValue<TFindAccountErrorType>;
+  setValue: UseFormSetValue<TAuthEssentialProps>;
 }
 
 export const FindPasswordResult = (props: IFindPasswordResult) => {

@@ -1,199 +1,175 @@
-import React, { Fragment, useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
-import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
-import { AuthContainer } from '@/containers/auth/auth.container';
-import { CountryType, SendTemporaryPasswordMutationVariables } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
-import { SEND_TEMPORARY_PASSWORD_RESULT } from '@/types/enum.code';
+import { ErrorMessage } from '@hookform/error-message';
+import { useVerifyCode } from '@/containers/auth/auth.api';
+
+import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { isFalsy } from '@/utils/isFalsy';
 
-interface IFindPasswordForm {
-  email: string;
-}
+import { FindPasswordResult } from '@/pages/auth/FindPasswordResult';
+import { VerifyCodeInput } from './VerifyCodeInput';
+import {
+  findAccountInitialState,
+  eventHandlerByFindAccount,
+  isPhoneVerifyPrepared,
+} from '@/containers/auth/auth.container.refac';
 
-// 전화번호 가운데 마스킹 처리
-const maskingPhone = (phone: string) => {
-  return phone
-    .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-    .split('-')
-    .reduce((pre, cur, idx) => (idx === 1 ? pre + '****' : pre + cur), '');
-};
-
-const FindPassword = () => {
-  const {
-    onSendTemporaryPassword,
-    isSuccessSendTemporaryPassword,
-    sendTemporaryPasswordResponseStatus,
-  } = AuthContainer();
-  const [childIsValid, setChildIsValid] = useState(false);
+export const FindPasswordRef = () => {
+  const [isVerification, setIsVerification] = useState<TVerifyButtonState>(
+    findAccountInitialState,
+  );
 
   const {
     register,
+    setError,
+    getValues,
+    setValue,
     formState: { errors },
-  } = useForm<IFindPasswordForm>({
+  } = useForm<TAuthEssentialProps>({
     mode: 'onChange',
   });
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
 
-  // 유저 임시 비밀번호 발급 쿼리 실행
-  const initSendTemporaryPassword = (verifyCodeSign: string) => {
-    if (errors.email) {
-      return;
+  const { _getVerifyCode, _checkSmsVerifyCode, _sendTemporaryPassword } = useVerifyCode(
+    isVerification,
+    setIsVerification,
+    setError,
+  );
+
+  const requestVerifyCodeButton = useMemo(() => {
+    return eventHandlerByFindAccount(isVerification);
+  }, [isVerification.firstCalled, isVerification.theElseCalled]);
+
+  const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
+
+  const clickVerifyButton = () => {
+    const { email, phone } = getValues();
+
+    const isValid = isPhoneVerifyPrepared(
+      phone,
+      errors,
+      isVerification,
+      setIsVerification,
+      setError,
+      email,
+    );
+
+    return isValid && _getVerifyCode(phone);
+  };
+
+  _checkSmsVerifyCode(getValues('phone'));
+
+  useEffect(() => {
+    if (
+      isVerification.verifyCodeSignatureNumber &&
+      isVerification.isExistedAccount === null
+    ) {
+      _sendTemporaryPassword({
+        email: getValues('email'),
+        phone: getValues('phone'),
+        verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+      });
     }
-    const params: SendTemporaryPasswordMutationVariables = {
-      user: {
-        /** 이메일 */
-        email,
-        /** 전화번호 */
-        phone,
-        /** 인증번호 */
-        verifyCodeSign,
-      },
-      country: CountryType.Kr,
-    };
-    onSendTemporaryPassword(params);
-  };
-
-  // 인증번호 valiation을 통과한 경우, [유저 임시 비밀번호 발급] 작동시킴
-  const sendTemporaryPassword = (value: string) => {
-    if (value && childIsValid) {
-      initSendTemporaryPassword(value);
-    }
-  };
-
-  //하단 고정 레이아웃 문구
-  const accountBottomInfo = {
-    text: '계정이 기억나셨나요?',
-    buttonText: '로그인 하러가기',
-    buttonLink: PATH.SIGN_IN,
-  };
-
+  }, [isVerification.verifyCodeSignatureNumber]);
   return (
     <Layout>
-      {/* 비밀번호 찾기 폼 시작 */}
-      {!isSuccessSendTemporaryPassword &&
-        sendTemporaryPasswordResponseStatus !==
-          SEND_TEMPORARY_PASSWORD_RESULT.STRANGER && (
-          <>
-            <div className='space-y-8'>
-              <FindAccountTittle
-                title='비밀번호를 찾을게요.'
-                subTitle='이메일과 회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
-              />
-
-              <div className='space-y-2'>
-                <input
-                  className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
-                  type='email'
-                  placeholder='이메일'
-                  {...register('email', {
-                    required: '이메일을 입력해주세요.',
-                    pattern: {
-                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                      message: '올바른 이메일 주소를 입력해주세요.',
-                    },
-                    onChange: (event) => {
-                      setEmail?.(event.target.value.trim());
-                    },
-                  })}
-                />
-                {errors?.email?.message && (
-                  <p className='inputCustom-helptext'>{errors?.email?.message}</p>
-                )}
-                <SmsVerifyCodeForm
-                  onChangePhone={(value: string) => {
-                    setPhone(value);
-                  }}
-                  onVerifyCodeSign={(value: string) => {
-                    sendTemporaryPassword(value);
-                  }}
-                  onChangeChildIsValid={(value: boolean) => {
-                    setChildIsValid(value);
-                  }}
-                />
-              </div>
-            </div>
-
-            <FindAccountBottom
-              buttonText={accountBottomInfo.buttonText}
-              text={accountBottomInfo.text}
-              buttonLink={accountBottomInfo.buttonLink}
-            />
-          </>
-        )}
-      {/* 비밀번호 찾기 폼 끝 */}
-
-      {isSuccessSendTemporaryPassword && (
-        <>
-          <div className='space-y-8'>
-            <FindAccountTittle
-              title='임시 비밀번호를 발송했어요.'
-              subTitle='회원님께서 가입하신 연락처로<br>임시 비밀번호를 발송했어요.'
-            />
-
-            <div className='rounded-lg border border-grey-300 px-6 py-5 text-center text-orange-500'>
-              {maskingPhone(phone)}
-            </div>
-
-            <div>
-              <Link to={PATH.SIGN_IN}>
-                <button
-                  type='button'
-                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
-                >
-                  로그인 하기
-                </button>
-              </Link>
-            </div>
-          </div>
-
-          <FindAccountBottom
-            buttonText={accountBottomInfo.buttonText}
-            text={accountBottomInfo.text}
-            buttonLink={accountBottomInfo.buttonLink}
-          />
-        </>
-      )}
-
-      {/*검색 결과 없음 시작*/}
-      {sendTemporaryPasswordResponseStatus ===
-        SEND_TEMPORARY_PASSWORD_RESULT.STRANGER && (
+      {isVerification.isExistedAccount === null ? (
         <div className='space-y-8'>
           <FindAccountTittle
-            title='일치하는 회원정보가 없어요.'
-            subTitle='이메일 주소 또는 휴대폰 번호를 다시 한 번 확인해주세요.'
+            title='비밀번호를 찾을게요.'
+            subTitle='이메일과 회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
           />
-          <div className='space-y-3'>
-            <div>
-              <Link to={PATH.SIGN_UP}>
+
+          <div className='space-y-2'>
+            <input
+              className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
+              type='email'
+              placeholder='이메일'
+              disabled={phoneNumberInput || isVerification.isExceeded}
+              {...register('email', {
+                required: '이메일은 필수입력입니다.',
+                pattern: {
+                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                  message: '올바른 이메일 주소를 입력해주세요.',
+                },
+                onChange: (event) => {
+                  event.target.value = event.target.value.replace(/\s/g, '');
+                },
+              })}
+            />
+            <ErrorMessage
+              errors={errors}
+              name='email'
+              render={({ message }) => <p className='inputCustom-helptext'>{message}</p>}
+            />
+            <div className='flex items-start'>
+              <div className='inputCustom-group grow'>
+                <div className='inputCustom-textbox-wrap'>
+                  <input
+                    className={`inputCustom-textbox w-full  ${
+                      isFalsy(errors.phone) === false && 'error'
+                    }`}
+                    id='verify'
+                    type='text'
+                    placeholder='휴대폰번호를 숫자만 입력해주세요.'
+                    maxLength={11}
+                    disabled={phoneNumberInput || isVerification.isExceeded}
+                    {...register('phone', {
+                      pattern: {
+                        value: /(010)[0-9]{8}$/g,
+                        message: '올바른 휴대폰번호를 입력해주세요.',
+                      },
+                      onChange: (event) => {
+                        event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                      },
+                    })}
+                    onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                      if (event.code !== 'Enter') return;
+                      clickVerifyButton();
+                    }}
+                  />
+                </div>
+                <ErrorMessage
+                  errors={errors}
+                  name='phone'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
+              </div>
+              <div className='basis-[102px]'>
                 <button
-                  type='button'
-                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px]'
+                  className={className}
+                  onClick={() => clickVerifyButton()}
+                  disabled={disabled}
                 >
-                  회원가입 하기
+                  {text}
                 </button>
-              </Link>
+              </div>
             </div>
-            <div>
-              <Link to={PATH.FIND_PASSWORD}>
-                <button
-                  type='button'
-                  className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
-                >
-                  다시 비밀번호 찾기
-                </button>
-              </Link>
-            </div>
+            {isVerification.activeVerifyCode && (
+              <VerifyCodeInput
+                setIsVerification={setIsVerification}
+                isVerification={isVerification}
+                setError={setError}
+                errors={errors}
+              />
+            )}
           </div>
         </div>
+      ) : (
+        <FindPasswordResult
+          phone={getValues('phone')}
+          isExistedAccount={isVerification.isExistedAccount}
+          setIsVerification={setIsVerification}
+          setValue={setValue}
+        />
       )}
-      {/*검색 결과 없음 끝*/}
+      <FindAccountBottom />
     </Layout>
   );
 };
 
-export default FindPassword;
+export default FindPasswordRef;

@@ -828,7 +828,7 @@ export const FindAccountDocument = `
   }
 }
     `;
-export const useFindAccountQuery = <
+export const useVerifyCodeQuery = <
   TData extends FindAccountQuery,
   TError extends unknown,
 >(

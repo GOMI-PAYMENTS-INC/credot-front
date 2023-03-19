@@ -2,13 +2,17 @@ import { Dispatch, SetStateAction } from 'react';
 import {
   useSmsVerifyCodeConfirmQuery,
   CountryType,
-  useFindAccountQuery,
+  useVerifyCodeQuery,
   useSendSmsVerificationCodeMutation,
   useSendTemporaryPasswordMutation,
   FindPasswordInput,
+  useSignupMutation,
+  SignUpInput,
+  MutationSignupArgs,
+  useExistsUserEmailQuery,
 } from '@/generated/graphql';
-import { STATUS_CODE } from '@/types/enum.code';
-
+import { STATUS_CODE, PATH } from '@/types/enum.code';
+import { toast } from 'react-toastify';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
@@ -18,12 +22,15 @@ import {
   isAccountExisted,
   exccedVerifyTry,
 } from '@/containers/auth/auth.container.refac';
-import { UseFormSetError } from 'react-hook-form';
+import { UseFormSetError, FieldError } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { authTokenStorage } from '@/utils/authToken';
+import { isFalsy } from '@/utils/isFalsy';
 
-export const useFindAccount = (
+export const useVerifyCode = (
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
-  setError: UseFormSetError<TFindAccountErrorType>,
+  setError: UseFormSetError<TAuthEssentialProps>,
 ) => {
   const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation(
     graphQLClient,
@@ -58,7 +65,7 @@ export const useFindAccount = (
   const _checkSmsVerifyCode = (phone: string = '') => {
     const { verifyCode } = isVerification;
 
-    useSmsVerifyCodeConfirmQuery(
+    const { isSuccess } = useSmsVerifyCodeConfirmQuery(
       graphQLClient,
       { phone, verifyCode },
       {
@@ -79,11 +86,12 @@ export const useFindAccount = (
         },
       },
     );
+    return [isSuccess];
   };
 
   const _getUserAccount = (user: { phone: string; verifyCodeSign: string }) => {
     // "상태에 따라 아이디가 없습니다."  | "아이디 출력"
-    const { data } = useFindAccountQuery(
+    const { data } = useVerifyCodeQuery(
       graphQLClient,
       {
         user,
@@ -119,11 +127,9 @@ export const useFindAccount = (
             setIsVerification,
           );
         }
-        //성공된 회면으로 전환
       },
       onError: (err) => {
         isAccountExisted(undefined, isVerification, setIsVerification);
-        //없음
       },
     },
   );
@@ -141,4 +147,61 @@ export const useFindAccount = (
   };
 
   return { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount, _sendTemporaryPassword };
+};
+
+export const useSignUp = () => {
+  const navigation = useNavigate();
+  const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
+    onSuccess: (res) => {
+      if (res.signup.token) {
+        authTokenStorage.setToken(true, res.signup.token);
+        navigation(PATH.SEARCH_PRODUCTS);
+      }
+    },
+    onError: () => {
+      toast.error('회원가입 실패하였습니다. 입력값을 재확인 하십시오.');
+    },
+  });
+
+  const _applyAccount = (value: SignUpInput) => {
+    const signupFormValue: MutationSignupArgs = {
+      user: {
+        name: value.name,
+        email: value.email,
+        password: value.password,
+        nickName: value.nickName,
+        phone: value.phone,
+        verifyCodeSign: value.verifyCodeSign,
+      },
+    };
+    signUpMutate(signupFormValue);
+  };
+
+  const _isExistedAccount = (
+    email: string,
+    triggerConfirmEmail: boolean,
+    setError: UseFormSetError<TAuthEssentialProps>,
+  ) => {
+    const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    return useExistsUserEmailQuery(
+      graphQLClient,
+      { email },
+      {
+        enabled: regex.test(email.trim()) === true && triggerConfirmEmail,
+        refetchOnWindowFocus: false,
+        onSuccess: (res) => {
+          if (res.existsUserEmail) {
+            setError('email', {
+              type: 'custom',
+              message: '이미 가입된 이메일 주소입니다.',
+            });
+          }
+        },
+        onError: () => {
+          setError('email', { type: 'custom', message: undefined });
+        },
+      },
+    );
+  };
+  return { _applyAccount, _isExistedAccount };
 };

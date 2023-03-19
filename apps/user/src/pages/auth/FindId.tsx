@@ -17,7 +17,7 @@ import { FindIdResult } from '@/pages/auth/FindIdResult';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useFindAccount } from '@/containers/auth/auth.api';
+import { useVerifyCode } from '@/containers/auth/auth.api';
 
 const FindId = () => {
   const {
@@ -26,7 +26,7 @@ const FindId = () => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm<TFindAccountErrorType>({
+  } = useForm<TAuthEssentialProps>({
     mode: 'onChange',
   });
 
@@ -34,7 +34,7 @@ const FindId = () => {
     findAccountInitialState,
   );
 
-  const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useFindAccount(
+  const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useVerifyCode(
     isVerification,
     setIsVerification,
     setError,
@@ -140,11 +140,7 @@ const FindId = () => {
         />
       )}
 
-      <FindAccountBottom
-        buttonText='로그인 하러가기'
-        text='계정이 기억나셨나요?'
-        buttonLink={PATH.SIGN_IN}
-      />
+      <FindAccountBottom />
     </Layout>
   );
 };

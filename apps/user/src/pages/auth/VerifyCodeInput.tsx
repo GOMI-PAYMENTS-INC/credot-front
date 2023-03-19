@@ -1,6 +1,6 @@
 import { useState, Dispatch, SetStateAction, useEffect } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { InputIcon } from '@/components/InputIcon';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
@@ -9,14 +9,16 @@ import { clickVerifyBtn } from '@/containers/auth/auth.container.refac';
 interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
-  setError: UseFormSetError<TFindAccountErrorType>;
-  errors: Partial<FieldErrorsImpl<TFindAccountErrorType>>;
+  setError: UseFormSetError<TAuthEssentialProps>;
+  errors: Partial<FieldErrorsImpl<TAuthEssentialProps>>;
+  isPassedVerifyCode?: boolean;
 }
 
 export const VerifyCodeInput = (props: IVerifyCode) => {
   const initializeTime = { minutes: 1, seconds: 0 };
   const [time, setTime] = useState(initializeTime);
-  const { setIsVerification, isVerification, setError, errors } = props;
+  const { setIsVerification, isVerification, setError, errors, isPassedVerifyCode } =
+    props;
 
   const { register } = useForm<{ verifyCode: string }>({
     mode: 'onChange',
@@ -103,7 +105,11 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
             },
           })}
         />
-        <InputIcon time={time} />
+        {isPassedVerifyCode ? (
+          <InputIcon status={INPUTSTATUS.COMPLETED} iconSize={5} />
+        ) : (
+          <InputIcon time={time} />
+        )}
       </div>
       {isFalsy(errors.verifyCode) === false && (
         <ErrorMessage

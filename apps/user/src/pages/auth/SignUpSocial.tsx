@@ -122,13 +122,6 @@ const SignUpSocial = () => {
     }
   }, [checkedItems]);
 
-  //하단 고정 레이아웃 문구
-  const accountBottomInfo = {
-    text: '이미 계정이 있으신가요?',
-    buttonText: '로그인 하기',
-    buttonLink: PATH.SIGN_IN,
-  };
-
   return (
     <Layout>
       <div className='flex h-full flex-col justify-between'>
@@ -253,11 +246,7 @@ const SignUpSocial = () => {
             </div>
           </form>
         </div>
-        <FindAccountBottom
-          buttonText={accountBottomInfo.buttonText}
-          text={accountBottomInfo.text}
-          buttonLink={accountBottomInfo.buttonLink}
-        />
+        <FindAccountBottom />
       </div>
     </Layout>
   );
