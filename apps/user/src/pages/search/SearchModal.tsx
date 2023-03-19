@@ -116,6 +116,7 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
               type='button'
               className='button-filled-normal-large-grey-false-false-true w-full'
               onClick={() => modal.onCancel.cancelEvent()}
+              disabled={eventTrigger}
             >
               {modal.onCancel.name}
             </button>
