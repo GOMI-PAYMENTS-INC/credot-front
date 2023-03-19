@@ -1,4 +1,4 @@
-import { Dispatch, Fragment } from 'react';
+import { Dispatch, Fragment, useState, useEffect } from 'react';
 import { switchModal } from '@/containers/search';
 import { convertTime } from '@/utils/parsingTimezone';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
@@ -18,6 +18,13 @@ interface ISearchModalPrpos {
 
 export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos) => {
   const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
+  const [eventTrigger, setEventTrigger] = useState(false);
+
+  useEffect(() => {
+    if (eventTrigger === false) return;
+    switchModal({ _dispatch, _state, data });
+  }, [eventTrigger]);
+
   const modalType = () => {
     switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
@@ -67,7 +74,8 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
           onConfirm: {
             name: '새로 생성하기',
             confirmEvent: () => {
-              switchModal({ _dispatch, _state, data });
+              setEventTrigger(true);
+              // switchModal({ _dispatch, _state, data });
             },
           },
         };
@@ -117,9 +125,15 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
                 <button
                   type='button'
                   className='button-filled-normal-large-primary-false-false-true w-full'
-                  onClick={() => modal.onConfirm!.confirmEvent()}
+                  onClick={() => setEventTrigger(true)}
                 >
-                  {modal.onConfirm.name}
+                  {eventTrigger ? (
+                    <div className=' scale-[0.2]'>
+                      <div id='loader-white' />
+                    </div>
+                  ) : (
+                    <Fragment>{modal.onConfirm.name}</Fragment>
+                  )}
                 </button>
               </Fragment>
             )}
