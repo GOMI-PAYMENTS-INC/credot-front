@@ -49,7 +49,7 @@ const DetailReport = () => {
       <Fragment>
         <KeywordInfo keywordInfo={main} />
         <MartketSize marketSize={main} />
-        <div>
+        <div className='relative'>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
             spinnerEvent={_state.spinnerEvent}
