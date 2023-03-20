@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
+import React, { Fragment, useEffect, useMemo, useReducer, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
@@ -27,6 +27,7 @@ import { isTruthy } from '@/utils/isTruthy';
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
   const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
+  const [requestReport, setRequestReport] = useState(false);
 
   useEffect(() => {
     const item = useSessionStorage.getItem('keyword');
@@ -34,6 +35,11 @@ const SearchKeywords = () => {
       initializeState(item, _dispatch);
     }
   }, []);
+
+  useEffect(() => {
+    if (requestReport === false) return;
+    switchModal({ _dispatch, _state, data: response, _setTrigger: setRequestReport });
+  }, [requestReport]);
 
   const montlySearchVolum = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
@@ -98,6 +104,7 @@ const SearchKeywords = () => {
           _dispatch={_dispatch}
           data={response}
           size={MODAL_SIZE_ENUM.LARGE}
+          _setTrigger={setRequestReport}
         />
       </ModalComponent>
       <div className='container relative  grid h-full grid-cols-12 items-center'>
@@ -283,9 +290,9 @@ const SearchKeywords = () => {
                       (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
                     }`}
                     disabled={_state.keyword === '' || isMonthlyCountZero}
-                    onClick={() => switchModal({ _dispatch, _state, data: response })}
+                    onClick={() => setRequestReport(true)}
                   >
-                    {isTruthy(_state.keyword) && isLoading ? (
+                    {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
                       <div className=' scale-[0.2]'>
                         <div id='loader-white' />
                       </div>
