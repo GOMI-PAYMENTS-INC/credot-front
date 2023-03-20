@@ -439,3 +439,12 @@ export const TERMS_LIST = [
       '회원 탈퇴 시 또는 동의 철회 시',
   },
 ];
+
+export const AUTH_ESSENTIAL = {
+  email: '이메일은',
+  password: '비밀번호는',
+  confirmedPassword: '비밀번호는',
+  phone: '휴대폰 인증은',
+  verifyCode: '',
+  requiredAgreeTerm: '이용약관은',
+};

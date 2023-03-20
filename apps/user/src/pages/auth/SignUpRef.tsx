@@ -22,6 +22,7 @@ import {
   selectAllTerms,
   isReadyToSignUp,
   openDetailTermContent,
+  signUpVerifyCode,
 } from '@/containers/auth/auth.container.refac';
 
 const SignUpRef = () => {
@@ -31,7 +32,6 @@ const SignUpRef = () => {
 
   const {
     register,
-    setValue,
     setError,
     getValues,
     watch,
@@ -53,25 +53,16 @@ const SignUpRef = () => {
   const { _applyAccount, _isExistedAccount } = useSignUp();
 
   const clickVerifyButton = () => {
-    const { email, password, phone, confirmedPassword } = getValues();
-
-    const isValid = isPhoneVerifyPrepared(
+    const phone = getValues('phone');
+    const isValid = signUpVerifyCode(
       phone,
-      errors,
       isVerification,
       setIsVerification,
+      errors,
       setError,
-      email,
     );
-    if (
-      [password, confirmedPassword].some((password) => isFalsy(password)) ||
-      password !== confirmedPassword
-    ) {
-      setError('password', { message: '비밀번호를 다시 확인해주세요.' });
-      return;
-    }
-    if (isValid === false) return;
-    return _getVerifyCode(phone);
+
+    return isValid && _getVerifyCode(phone);
   };
 
   _isExistedAccount(watch('email'), signUpEvent.triggerConfirmEmail, setError);
@@ -212,7 +203,7 @@ const SignUpRef = () => {
                       type='text'
                       placeholder='휴대폰번호를 숫자만 입력해주세요.'
                       maxLength={11}
-                      disabled={phoneNumberInput || isVerification.isExceeded}
+                      disabled={isPassedVerifyCode || isVerification.isExceeded}
                       {...register('phone', {
                         pattern: {
                           value: /(010)[0-9]{8}$/g,
@@ -241,7 +232,7 @@ const SignUpRef = () => {
                   <button
                     className={className}
                     onClick={() => clickVerifyButton()}
-                    disabled={disabled}
+                    disabled={isPassedVerifyCode || isVerification.isExceeded}
                   >
                     {text}
                   </button>
@@ -258,98 +249,80 @@ const SignUpRef = () => {
               )}
             </div>
             {/*이용약관*/}
-            {isPassedVerifyCode && (
-              <div className='space-y-4 text-grey-900'>
-                <div className='rounded-md bg-grey-100 px-2.5 py-2'>
-                  <input
-                    type='checkbox'
-                    id='allAgree'
-                    // disabled={isPassedVerifyCode === false}
-                    checked={signUpEvent.agreedAllTerms}
-                    className='termsCheckbox peer'
-                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                      selectAllTerms(event, signUpEvent, setSignUpEvent)
-                    }
-                  />
-                  <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
-                    이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
-                  </label>
-                </div>
-                <ul className='space-y-2'>
-                  {TERMS_LIST.map((term, index) => {
-                    return (
-                      <li key={index}>
-                        <div className='flex items-center justify-between pl-3'>
-                          <input
-                            type='checkbox'
-                            id={term.id}
-                            className='termsCheckbox peer'
-                            // disabled={isPassedVerifyCode === false}
-                            checked={signUpEvent.checkedTerms.includes(
-                              term.id as TTermsType,
-                            )}
-                            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                              selectTerm(event, signUpEvent, setSignUpEvent)
-                            }
-                          />
-                          <label htmlFor={term.id} className='termsBodyCheckbox-label'>
-                            {`${term.label} (${term.required})`}
-                          </label>
 
-                          <button
-                            className='textButton-secondary-default-small-none'
-                            type='button'
-                            onClick={() =>
-                              openDetailTermContent(index, signUpEvent, setSignUpEvent)
-                            }
-                          >
-                            {signUpEvent?.isDetailOpen.includes(index) ? '접기' : '보기'}
-                          </button>
-                        </div>
-                        {signUpEvent?.isDetailOpen.includes(index) && (
-                          <div className='mt-1.5 ml-[30px]'>
-                            <textarea
-                              readOnly
-                              className='h-[138px] w-full rounded border border-grey-400 px-4 py-3 text-S/Regular text-grey-900'
-                              value={term.detail}
-                            ></textarea>
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
+            <div className='space-y-4 text-grey-900'>
+              <div className='rounded-md bg-grey-100 px-2.5 py-2'>
+                <input
+                  type='checkbox'
+                  id='allAgree'
+                  checked={signUpEvent.agreedAllTerms}
+                  className='termsCheckbox peer'
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    selectAllTerms(event, signUpEvent, setSignUpEvent)
+                  }
+                />
+                <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
+                  이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
+                </label>
               </div>
-            )}
+              <ul className='space-y-2'>
+                {TERMS_LIST.map((term, index) => {
+                  return (
+                    <li key={index}>
+                      <div className='flex items-center justify-between pl-3'>
+                        <input
+                          type='checkbox'
+                          id={term.id}
+                          className='termsCheckbox peer'
+                          checked={signUpEvent.checkedTerms.includes(
+                            term.id as TTermsType,
+                          )}
+                          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                            selectTerm(event, signUpEvent, setSignUpEvent)
+                          }
+                        />
+                        <label htmlFor={term.id} className='termsBodyCheckbox-label'>
+                          {`${term.label} (${term.required})`}
+                        </label>
+
+                        <button
+                          className='textButton-secondary-default-small-none'
+                          type='button'
+                          onClick={() =>
+                            openDetailTermContent(index, signUpEvent, setSignUpEvent)
+                          }
+                        >
+                          {signUpEvent?.isDetailOpen.includes(index) ? '접기' : '보기'}
+                        </button>
+                      </div>
+                      {signUpEvent?.isDetailOpen.includes(index) && (
+                        <div className='mt-1.5 ml-[30px]'>
+                          <textarea
+                            readOnly
+                            className='h-[138px] w-full rounded border border-grey-400 px-4 py-3 text-S/Regular text-grey-900'
+                            value={term.detail}
+                          ></textarea>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
             <div>
-              {signUpEvent.isReadyToSignUp ? (
-                <button
-                  type='submit'
-                  className='button-filled-normal-xLarge-red-false-false-true w-full'
-                  onClick={() => {
-                    const { email, password, phone } = getValues();
-                    const payload = {
-                      email: email,
-                      password: password,
-                      name: '',
-                      phone: phone,
-                      verifyCodeSign: isVerification.verifyCodeSignatureNumber,
-                    };
-                    _applyAccount(payload);
-                  }}
-                >
-                  회원가입
-                </button>
-              ) : (
-                <button
-                  type='submit'
-                  className='button-filled-disabled-xLarge-primary-false-false-true w-full'
-                  disabled={true}
-                >
-                  회원가입
-                </button>
-              )}
+              <button
+                className='button-filled-normal-xLarge-red-false-false-true w-full'
+                onClick={() => {
+                  _applyAccount(
+                    getValues(),
+                    isVerification.verifyCodeSignatureNumber,
+                    setError,
+                  );
+                }}
+              >
+                회원가입
+              </button>
             </div>
           </div>
         </div>

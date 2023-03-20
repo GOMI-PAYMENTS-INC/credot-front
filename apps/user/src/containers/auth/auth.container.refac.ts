@@ -266,3 +266,18 @@ export const isPhoneVerifyPrepared = (
   setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
   return false;
 };
+
+export const signUpVerifyCode = (
+  phoneNumber: string,
+  state: TVerifyButtonState,
+  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
+  errors: Partial<FieldErrorsImpl<TAuthEssentialProps>>,
+  setError: UseFormSetError<TAuthEssentialProps>,
+) => {
+  if (phoneNumber?.length === 11 && isFalsy(errors.phone?.message)) {
+    clickVerifyBtn(state, _setState);
+    return true;
+  }
+  setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
+  return false;
+};
