@@ -76,12 +76,14 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
     },
     disable ? null : 1000,
   );
-
+  console.log(errors.verifyCode, 'veri');
   return (
     <div className='inputCustom-group'>
       <div className='inputCustom-textbox-wrap'>
         <input
-          className={`inputCustom-textbox w-full ${errors.verifyCode && 'error'}`}
+          className={`inputCustom-textbox w-full ${
+            errors.verifyCode?.message && 'error'
+          }`}
           id='verifyCode'
           type='text'
           disabled={isPassedVerifyCode}
