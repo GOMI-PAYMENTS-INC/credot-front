@@ -219,6 +219,10 @@ const SignUpRef = () => {
                         clickVerifyButton();
                       }}
                     />
+                    <InputIcon
+                      status={errors?.phone ? INPUTSTATUS.ERROR : undefined}
+                      iconSize={5}
+                    />
                   </div>
                   <ErrorMessage
                     errors={errors}
