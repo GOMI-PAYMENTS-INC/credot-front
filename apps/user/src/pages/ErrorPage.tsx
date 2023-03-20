@@ -9,7 +9,8 @@ export const ErrorPage = () => {
         <p className='mt-6 text-M/Regular'>
           페이지를 연결하는 과정에서 저희측 문제가 있는 것 같아요. 재시도 부탁드리며,
           <br />이 문제가 계속해서 발생하는 경우
-          <span className='text-orange-500'>{` kai@gomiinsight.com`}</span>로 문의주세요.
+          <span className='text-orange-500'>{` gomiinsight@gomicorp.com`}</span>로
+          문의주세요.
         </p>
       </div>
       <div className='mt-14 space-x-6'>
