@@ -22,13 +22,11 @@ import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
+import { isTruthy } from '@/utils/isTruthy';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const { response, isLoading, isFetching, isError } = getQueryResult(
-    _state.keyword,
-    _dispatch,
-  );
+  const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
 
   useEffect(() => {
     const item = useSessionStorage.getItem('keyword');
@@ -285,18 +283,9 @@ const SearchKeywords = () => {
                       (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
                     }`}
                     disabled={_state.keyword === '' || isMonthlyCountZero}
-                    onClick={() => {
-                      const payload = {
-                        _dispatch,
-                        status: true,
-                        data: response,
-                        _state,
-                      };
-
-                      switchModal(payload);
-                    }}
+                    onClick={() => switchModal({ _dispatch, _state, data: response })}
                   >
-                    {isFalsy(_state.keyword) === false && isLoading === true ? (
+                    {isTruthy(_state.keyword) && isLoading ? (
                       <div className=' scale-[0.2]'>
                         <div id='loader-white' />
                       </div>

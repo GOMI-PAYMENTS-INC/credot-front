@@ -567,10 +567,10 @@ export const convertedData = (trend: TGoogleTrendDataType) => {
 
   const date = trend.map((data) => {
     if (data.interest === min) {
-      maxTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
+      minTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
     }
     if (data.interest === max) {
-      minTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
+      maxTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
     }
     return convertTime(data.trendDate, 'YY.MM.DD');
   });
