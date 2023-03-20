@@ -27,6 +27,11 @@ export const SearchModal = ({
   const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
   const [eventTrigger, setEventTrigger] = useState(false);
 
+  useEffect(() => {
+    if (eventTrigger === false) return;
+    switchModal({ _setTrigger, _dispatch, _state, data });
+  }, [eventTrigger]);
+
   const modalType = () => {
     switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
@@ -76,8 +81,7 @@ export const SearchModal = ({
           onConfirm: {
             name: '새로 생성하기',
             confirmEvent: () => {
-              setEventTrigger(true);
-              // switchModal({ _dispatch, _state, data });
+              switchModal({ _setTrigger, _dispatch, _state, data });
             },
           },
         };
