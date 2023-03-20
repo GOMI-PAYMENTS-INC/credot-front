@@ -44,6 +44,13 @@ const SignUpRef = () => {
     setIsVerification,
     setError,
   );
+
+  useEffect(() => {
+    setError('requiredAgreeTerm', {
+      message: '이용약관과 개인정보 수집에 동의해주세요.',
+    });
+  }, []);
+
   useEffect(() => {
     if (isFalsy(isPassedVerifyCode)) return;
     isReadyToSignUp(isPassedVerifyCode, signUpEvent, setSignUpEvent);
@@ -72,7 +79,7 @@ const SignUpRef = () => {
     return eventHandlerByFindAccount(isVerification);
   }, [isVerification.firstCalled, isVerification.theElseCalled]);
 
-  const { className, disabled, text, phoneNumberInput } = requestVerifyCodeButton.phone;
+  const { className, text, phoneNumberInput } = requestVerifyCodeButton.phone;
 
   return (
     <Layout>
