@@ -6,7 +6,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { PATH } from '@/types/enum.code';
 import { isIncluded } from '../utils/isIncluded';
 
-const Axios = axios.create({ baseURL: GlobalEnv.baseUrl });
+const Axios = axios.create({ baseURL: GlobalEnv.restUrl });
 
 Axios.interceptors.request.use((config) => {
   const token = authTokenStorage.getToken();
