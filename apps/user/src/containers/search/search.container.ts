@@ -47,14 +47,14 @@ export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {
 
 type TSwitchModal = {
   _dispatch: Dispatch<TAction>;
-  _setTrigger?: Dispatch<SetStateAction<boolean>>;
+  _setTrigger: Dispatch<SetStateAction<boolean>>;
   data?: any; // FIXME: any -> 타입으로 변경
   _state?: TState;
 };
 
 type TCreateReport = {
   _dispatch: Dispatch<TAction>;
-  _setTrigger?: Dispatch<SetStateAction<boolean>>;
+  _setTrigger: Dispatch<SetStateAction<boolean>>;
   data: any; // FIXME: any -> 타입으로 변경
   _state: TState;
 };
@@ -75,6 +75,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
       const res = await getReportExisted({ text: keyword });
       // 리포트가 없을 경우
       const reportInfo = res?.data;
+
       //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
       if (reportInfo?.data === null || reportInfo?.data === undefined) {
         const postReport = await postCreateReport({
@@ -83,9 +84,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
         });
 
         if (postReport?.data.code === STATUS_CODE.SUCCESS) {
-          if (_setTrigger) {
-            _setTrigger(false);
-          }
+          _setTrigger(false);
 
           _dispatch({
             type: actionType,
@@ -97,6 +96,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
             autoClose: 4000,
           });
         }
+
         return postReport;
       }
 
@@ -116,6 +116,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
       reportInvokeId: reportInvokeId,
       country: country,
     });
+
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
       _dispatch({
         type: SearchAction.SwitchModal,
@@ -150,9 +151,9 @@ export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchMod
 
     return createReport({ _state, _dispatch, data, _setTrigger });
   }
-  if (_setTrigger) {
-    _setTrigger(false);
-  }
+
+  _setTrigger(false);
+
   _dispatch({
     type: SearchAction.SwitchModal,
     payload: { isModalOpen: false },
