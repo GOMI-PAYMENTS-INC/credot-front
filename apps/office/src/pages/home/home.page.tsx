@@ -508,25 +508,30 @@ export default function HomePage() {
           <div className='sm:hidden'>
             <Swiper
               className='banner !overflow-visible'
+              effect='slide'
+              slidesPerView={2}
+              loop={true}
+              autoplay={{
+                delay: 1,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+                stopOnLastSlide: false,
+                waitForTransition: true,
+              }}
+              modules={[Autoplay]}
               spaceBetween={24}
-              width={286}
               breakpoints={{
-                720: {
-                  width: 424,
+                992: {
+                  slidesPerView: 3,
                 },
               }}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              speed={30000}
-              loop={true}
-              freeMode={{ enabled: true }}
+              speed={3000}
+              freeMode={{ enabled: true, momentum: false }}
               a11y={{ enabled: true }}
               grabCursor={true}
-              navigation
-              pagination={{ clickable: true }}
-              modules={[Autoplay, Pagination, Navigation]}
+              //navigation
+              //pagination={{ clickable: true }}
+              //modules={[Autoplay, Pagination, Navigation]}
             >
               {partnerData.map((partener, index) => (
                 <SwiperSlide
