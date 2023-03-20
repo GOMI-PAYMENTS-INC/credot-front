@@ -444,7 +444,7 @@ export const AUTH_ESSENTIAL = {
   email: '이메일은',
   password: '비밀번호는',
   confirmedPassword: '비밀번호는',
-  phone: '휴대폰 인증은',
+  phone: '휴대폰은',
   verifyCode: '',
   requiredAgreeTerm: '이용약관은',
 };

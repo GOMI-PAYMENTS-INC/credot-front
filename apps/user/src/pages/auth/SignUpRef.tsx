@@ -14,7 +14,6 @@ import { isFalsy } from '@/utils/isFalsy';
 import { useVerifyCode, useSignUp } from '@/containers/auth/auth.api';
 import {
   authInitialState,
-  isPhoneVerifyPrepared,
   eventHandlerByFindAccount,
   termInitialState,
   assignEmail,
@@ -203,7 +202,11 @@ const SignUpRef = () => {
                       type='text'
                       placeholder='휴대폰번호를 숫자만 입력해주세요.'
                       maxLength={11}
-                      disabled={isPassedVerifyCode || isVerification.isExceeded}
+                      disabled={
+                        phoneNumberInput ||
+                        isPassedVerifyCode ||
+                        isVerification.isExceeded
+                      }
                       {...register('phone', {
                         pattern: {
                           value: /(010)[0-9]{8}$/g,
@@ -259,6 +262,7 @@ const SignUpRef = () => {
                 <input
                   type='checkbox'
                   id='allAgree'
+                  {...register('requiredAgreeTerm')}
                   checked={signUpEvent.agreedAllTerms}
                   className='termsCheckbox peer'
                   onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -312,6 +316,13 @@ const SignUpRef = () => {
                   );
                 })}
               </ul>
+              <ErrorMessage
+                errors={errors}
+                name='requiredAgreeTerm'
+                render={({ message }) => (
+                  <p className='inputCustom-helptext'>{message}</p>
+                )}
+              />
             </div>
 
             <div>
@@ -321,6 +332,7 @@ const SignUpRef = () => {
                   _applyAccount(
                     getValues(),
                     isVerification.verifyCodeSignatureNumber,
+                    signUpEvent,
                     setError,
                   );
                 }}
