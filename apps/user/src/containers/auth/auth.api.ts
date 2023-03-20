@@ -25,6 +25,8 @@ import {
 import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { authTokenStorage } from '@/utils/authToken';
+import { isFalsy } from '@/utils/isFalsy';
+import { AUTH_ESSENTIAL } from '@/containers/auth/auth.constants';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -162,16 +164,34 @@ export const useSignUp = () => {
     },
   });
 
-  const _applyAccount = (value: SignUpInput) => {
+  const _applyAccount = (
+    value: TAuthEssentialProps,
+    verifyCodeSignatureNumber: string,
+    setError: UseFormSetError<TAuthEssentialProps>,
+  ) => {
+    const isValid = Object.keys(value).filter((item) => {
+      const key = item as keyof TAuthEssentialProps;
+      if (isFalsy(value[key])) {
+        setError(key, { message: `${AUTH_ESSENTIAL[key]} 필수 값 입니다.` });
+        return false;
+      }
+      return true;
+    });
+
+    if (isValid.length !== 4) return;
+
+    const { email, password, phone } = value;
+
+    const payload = {
+      email: email,
+      password: password,
+      name: '',
+      phone: phone,
+      verifyCodeSign: verifyCodeSignatureNumber,
+    };
+
     const signupFormValue: MutationSignupArgs = {
-      user: {
-        name: value.name,
-        email: value.email,
-        password: value.password,
-        nickName: value.nickName,
-        phone: value.phone,
-        verifyCodeSign: value.verifyCodeSign,
-      },
+      user: { ...payload },
     };
     signUpMutate(signupFormValue);
   };
