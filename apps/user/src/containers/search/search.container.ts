@@ -1,5 +1,5 @@
 import { SearchAction } from '@/containers/search';
-import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
+import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { STATUS_CODE } from '@/types/enum.code';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
@@ -47,12 +47,14 @@ export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {
 
 type TSwitchModal = {
   _dispatch: Dispatch<TAction>;
+  _setTrigger?: Dispatch<SetStateAction<boolean>>;
   data?: any; // FIXME: any -> 타입으로 변경
   _state?: TState;
 };
 
 type TCreateReport = {
   _dispatch: Dispatch<TAction>;
+  _setTrigger?: Dispatch<SetStateAction<boolean>>;
   data: any; // FIXME: any -> 타입으로 변경
   _state: TState;
 };
@@ -63,7 +65,7 @@ const dailyChecker = (isDaily: boolean) => {
     : MODAL_TYPE_ENUM.SameKeywordReportExisted;
 };
 
-const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
+const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
   const { keyword, country } = _state;
@@ -81,6 +83,10 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
         });
 
         if (postReport?.data.code === STATUS_CODE.SUCCESS) {
+          if (_setTrigger) {
+            _setTrigger(false);
+          }
+
           _dispatch({
             type: actionType,
             payload: {
@@ -128,7 +134,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
   }
 };
 
-export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
+export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
   if (_state) {
     const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
@@ -142,7 +148,10 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
       return;
     }
 
-    return createReport({ _state, _dispatch, data });
+    return createReport({ _state, _dispatch, data, _setTrigger });
+  }
+  if (_setTrigger) {
+    _setTrigger(false);
   }
   _dispatch({
     type: SearchAction.SwitchModal,
