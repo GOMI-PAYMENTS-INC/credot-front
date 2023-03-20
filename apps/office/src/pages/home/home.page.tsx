@@ -266,6 +266,51 @@ export default function HomePage() {
         '그 외 추가적인 문의가 있으신 경우 웹페이지 우측 하단의 채널톡으로 문의주시면 최대한 빠른 답변드릴께요.',
     },
   ];
+
+  const repeatPartnerSlide = () => {
+    let arr: JSX.Element[] = [];
+    {
+      //for (let i = 0; i < 2; i++) {
+      partnerData.map((partener, index) =>
+        arr.push(
+          <SwiperSlide
+            key={index}
+            className='shadow-partner-card !md:w-[286px] !h-auto !w-[424px]  rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
+          >
+            <div className='mb-6 md:mb-[18.54px]'>
+              <div className='flex'>
+                <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
+                  <img
+                    src={`${IMG_PATH}/Section6/${partener.imgName}`}
+                    alt='{partener.name}'
+                  />
+                </div>
+                <div>
+                  <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
+                    {partener.name}
+                  </div>
+                  <div className='text-M/Regular text-grey-800  md:text-S/Regular'>
+                    {partener.brand}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className='mb-4 text-XL/Bold text-grey-900  md:mb-[12.36px] md:mb-[12.36px] md:text-S/Bold'>
+                {partener.subject}
+              </div>
+              <div className='text-L/Medium text-grey-800 md:text-XS/Medium'>
+                {partener.content}
+              </div>
+            </div>
+          </SwiperSlide>,
+        ),
+      );
+      //}
+    }
+    return arr;
+  };
+
   return (
     <main>
       <section className='h-[560px] w-full bg-[#FAFAF9]'>
@@ -279,7 +324,7 @@ export default function HomePage() {
             <p className='mt-12 text-L/Medium text-grey-700'>
               동남아시아 No.1 마켓플레이스 Shopee의 상위노출 상품들을 분석하여
               <br />
-              시장 정보와 최고의 판매 전략을 제공해요!
+              시장 정보와 최고의 판매 전략을 수립하세요!
             </p>
           </div>
           <div className='absolute left-0  top-0 h-full w-full'>
@@ -507,60 +552,28 @@ export default function HomePage() {
 
           <div className='sm:hidden'>
             <Swiper
-              className='banner !overflow-visible'
+              modules={[Autoplay]}
               spaceBetween={24}
-              width={286}
-              breakpoints={{
-                720: {
-                  width: 424,
-                },
-              }}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              speed={30000}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              loopedSlides={partnerData.length}
               loop={true}
-              freeMode={{ enabled: true }}
-              a11y={{ enabled: true }}
+              autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              effect='slide'
               grabCursor={true}
-              navigation
-              pagination={{ clickable: true }}
-              modules={[Autoplay, Pagination, Navigation]}
+              speed={5000}
+              //freeMode={{ enabled: true }}
+              a11y={{ enabled: false }}
+              className='banner !overflow-visible'
+              //navigation
+              //pagination={{ clickable: true }}
+              //modules={[Autoplay, Pagination, Navigation]}
             >
-              {partnerData.map((partener, index) => (
-                <SwiperSlide
-                  key={index}
-                  className='shadow-partner-card !h-auto rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
-                >
-                  <div className='mb-6 md:mb-[18.54px]'>
-                    <div className='flex'>
-                      <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
-                        <img
-                          src={`${IMG_PATH}/Section6/${partener.imgName}`}
-                          alt='{partener.name}'
-                        />
-                      </div>
-                      <div>
-                        <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
-                          {partener.name}
-                        </div>
-                        <div className='text-M/Regular text-grey-800  md:text-S/Regular'>
-                          {partener.brand}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className='mb-4 text-XL/Bold text-grey-900  md:mb-[12.36px] md:mb-[12.36px] md:text-S/Bold'>
-                      {partener.subject}
-                    </div>
-                    <div className='text-L/Medium text-grey-800 md:text-XS/Medium'>
-                      {partener.content}
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
+              {repeatPartnerSlide()}
             </Swiper>
           </div>
           <div className='hidden sm:block'>
@@ -673,12 +686,12 @@ export default function HomePage() {
                 잘 팔릴 상품을 <br />잘 파는 방법
               </div>
               <div className='text-right sm:mt-12  sm:w-full'>
-                  <button
-                    className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
-                    onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
-                  >
-                    고미 인사이트 바로 시작하기
-                  </button>
+                <button
+                  className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
+                  onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
+                >
+                  고미 인사이트 바로 시작하기
+                </button>
               </div>
             </div>
           </div>
@@ -733,10 +746,12 @@ export default function HomePage() {
                     <dl
                       key={indexNum}
                       className='border border-t-0 border-l-0 border-r-0 border-b-grey-300 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-6'
-                      onClick={() => onClickFaq(indexNum)}
                     >
                       <dt className='relative'>
-                        <p className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'>
+                        <p
+                          className='pr-12 text-2XL/Bold text-grey-900 lg:text-XL/Bold'
+                          onClick={() => onClickFaq(indexNum)}
+                        >
                           {qna.subject}
                         </p>
                         <ReactSVG

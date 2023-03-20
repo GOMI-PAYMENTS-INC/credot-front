@@ -36,7 +36,7 @@ export const routeList: IRoute[] = [
     //회원가입
     description: 'SignUp',
     path: PATH.SIGN_UP,
-    component: AuthRoutes.SignUp,
+    component: AuthRoutes.SignUpRef,
   },
   {
     //소셜 로그인
@@ -48,7 +48,7 @@ export const routeList: IRoute[] = [
     //비밀번호 찾기
     description: 'FindPassword',
     path: PATH.FIND_PASSWORD,
-    component: AuthRoutes.FindPasswordRef,
+    component: AuthRoutes.FindPassword,
   },
   {
     //아이디 찾기

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useReducer } from 'react';
+import React, { Fragment, useEffect, useMemo, useReducer, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
@@ -14,24 +14,32 @@ import {
 import { initialState, reducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
 import { CountryType } from '@/generated/graphql';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
+
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import { useSesstionStorage } from '@/utils/useSessionStorage';
+import { useSessionStorage } from '@/utils/useSessionStorage';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
+import { isTruthy } from '@/utils/isTruthy';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(reducer, initialState);
-  const { response, isLoading, isError } = getQueryResult(_state.keyword, _dispatch);
+  const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
+  const [requestReport, setRequestReport] = useState(false);
 
   useEffect(() => {
-    const item = useSesstionStorage.getItem('keyword');
+    const item = useSessionStorage.getItem('keyword');
     if (isFalsy(item) === false) {
       initializeState(item, _dispatch);
     }
   }, []);
+
+  useEffect(() => {
+    if (requestReport === false) return;
+    switchModal({ _dispatch, _state, data: response, _setTrigger: setRequestReport });
+  }, [requestReport]);
 
   const montlySearchVolum = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
@@ -96,6 +104,7 @@ const SearchKeywords = () => {
           _dispatch={_dispatch}
           data={response}
           size={MODAL_SIZE_ENUM.LARGE}
+          _setTrigger={setRequestReport}
         />
       </ModalComponent>
       <div className='container relative  grid h-full grid-cols-12 items-center'>
@@ -106,7 +115,7 @@ const SearchKeywords = () => {
           <div className='px-[50px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold'>
-                <span className='text-orange-600'>상위 노출</span>을 원하는
+                <span className='text-orange-600'>리포트 생성</span>을 원하는
                 <br />
                 <span className='text-orange-600'>키워드</span>를 검색해주세요.
               </h1>
@@ -237,8 +246,8 @@ const SearchKeywords = () => {
                       />
                     </h3>
                   </div>
-                  <div className='mt-6 h-[170px] overflow-x-auto'>
-                    <ul className='overflow-y-hidden text-center' id='scrollbar'>
+                  <div id='scrollbar' className='mt-6 h-[170px] overflow-x-auto'>
+                    <ul className='overflow-y-hidden text-center'>
                       {Array.isArray(relativeKeyword)
                         ? relativeKeyword.map((keyword) => {
                             if (typeof keyword === 'number') {
@@ -281,20 +290,17 @@ const SearchKeywords = () => {
                       (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
                     }`}
                     disabled={_state.keyword === '' || isMonthlyCountZero}
-                    onClick={() => {
-                      const payload = {
-                        _dispatch,
-                        status: true,
-                        data: response,
-                        _state,
-                      };
-
-                      switchModal(payload);
-                    }}
+                    onClick={() => setRequestReport(true)}
                   >
-                    <span className='text-L/Bold text-white'>
-                      {reportCreatorButtonText}
-                    </span>
+                    {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
+                      <div className=' scale-[0.2]'>
+                        <div id='loader-white' />
+                      </div>
+                    ) : (
+                      <span className='text-L/Bold text-white'>
+                        {reportCreatorButtonText}
+                      </span>
+                    )}
                   </button>
                 </div>
               </Fragment>
@@ -302,14 +308,10 @@ const SearchKeywords = () => {
           </div>
         </div>
 
-        <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
-          <SearchKeywordImages
-            images={_state.productImages ? _state.productImages : null}
-            isError={isError}
-            isLoading={isLoading}
-            keyword={_state.keyword}
-          />
-        </div>
+        <SearchKeywordImages
+          images={_state.productImages ? _state.productImages : null}
+          keyword={_state.keyword}
+        />
       </div>
     </Layout>
   );

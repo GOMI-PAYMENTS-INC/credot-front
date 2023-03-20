@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
+import { AUTH_RESPONSE_TYPE, TERM_TYPE } from '@/types/enum.code';
 import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
+import { TERMS_LIST } from './auth.constants';
 
-export const findAccountInitialState = {
+export const authInitialState: TVerifyButtonState = {
   firstCalled: false,
   activeVerifyCode: false,
   theElseCalled: true,
@@ -12,6 +13,92 @@ export const findAccountInitialState = {
   verifyCode: '',
   verifyCodeSignatureNumber: '',
   isExistedAccount: null,
+};
+
+export const termInitialState: TTermsCheckState = {
+  checkedTerms: [],
+  isDetailOpen: [],
+  triggerConfirmEmail: false,
+  agreedAllTerms: false,
+  isReadyToSignUp: false,
+};
+
+export const selectTerm = (
+  event: ChangeEvent<HTMLInputElement>,
+  state: TTermsCheckState,
+  _setState: Dispatch<SetStateAction<TTermsCheckState>>,
+) => {
+  const _state = mergeCopiedValue(state);
+  const { checked, id } = event.target;
+
+  if (checked) {
+    const addedTerms = state.checkedTerms.concat(id as TTermsType);
+    _setState(_state({ checkedTerms: addedTerms }));
+    return;
+  }
+  const filteredcheckedTerms = _state().checkedTerms.filter(
+    (term: TTermsType) => term !== id,
+  );
+  _setState(_state({ checkedTerms: filteredcheckedTerms }));
+};
+
+export const selectAllTerms = (
+  event: ChangeEvent<HTMLInputElement>,
+  state: TTermsCheckState,
+  _setState: Dispatch<SetStateAction<TTermsCheckState>>,
+) => {
+  const _state = mergeCopiedValue(state);
+  const { checked } = event.target;
+
+  if (checked) {
+    const termIDs = TERMS_LIST.map((term) => term.id);
+    const addedTerms = state.checkedTerms.concat(termIDs as TTermsType[]);
+    _setState(_state({ checkedTerms: addedTerms, agreedAllTerms: checked }));
+    return;
+  }
+  _setState(_state({ checkedTerms: [], agreedAllTerms: checked }));
+};
+
+export const openDetailTermContent = (
+  index: number,
+  state: TTermsCheckState,
+  _setState: Dispatch<SetStateAction<TTermsCheckState>>,
+) => {
+  const _state = mergeCopiedValue(state);
+  const updatedList =
+    state.isDetailOpen.find((term) => term === index) === undefined
+      ? _state().isDetailOpen.concat(index)
+      : _state().isDetailOpen.filter((item: number) => item !== index);
+
+  _setState(_state({ isDetailOpen: updatedList }));
+};
+
+export const assignEmail = (
+  event: ChangeEvent<HTMLInputElement>,
+  state: TTermsCheckState,
+  _setState: Dispatch<SetStateAction<TTermsCheckState>>,
+) => {
+  const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  if (regex.test(event.target.value.trim()) === false) return;
+  const _state = mergeCopiedValue(state);
+  _setState(_state({ triggerConfirmEmail: true }));
+};
+
+export const isReadyToSignUp = (
+  isPassedVerifyCode: boolean,
+  state: TTermsCheckState,
+  _setState: Dispatch<SetStateAction<TTermsCheckState>>,
+) => {
+  const _state = mergeCopiedValue(state);
+
+  const checkTerms = [TERM_TYPE.USE_AGREE, TERM_TYPE.PERSONAL_AGREE].every((term) =>
+    state.checkedTerms.includes(term as TERM_TYPE),
+  );
+
+  if (isPassedVerifyCode && checkTerms)
+    return _setState(_state({ isReadyToSignUp: true }));
+
+  _setState(_state({ isReadyToSignUp: false }));
 };
 
 export const maskingPhone = (phone: string) => {
@@ -99,9 +186,9 @@ export const isAccountExisted = (
 
 export const initializeAuteState = (
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
-  setValue: UseFormSetValue<TFindAccountErrorType>,
+  setValue: UseFormSetValue<TAuthEssentialProps>,
 ) => {
-  _setState(mergeCopiedValue(findAccountInitialState)());
+  _setState(mergeCopiedValue(authInitialState)());
   const types = ['phone', 'verifyCode', 'email'] as const;
   types.forEach((type) => setValue(type, ''));
 };
@@ -151,10 +238,10 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
 
 export const isPhoneVerifyPrepared = (
   phoneNumber: string,
-  errors: Partial<FieldErrorsImpl<TFindAccountErrorType>>,
+  errors: Partial<FieldErrorsImpl<TAuthEssentialProps>>,
   state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
-  setError: UseFormSetError<TFindAccountErrorType>,
+  setError: UseFormSetError<TAuthEssentialProps>,
   email?: string,
 ) => {
   if (email !== undefined && isFalsy(email)) {
@@ -162,11 +249,35 @@ export const isPhoneVerifyPrepared = (
     return false;
   }
 
-  if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
+  Object.keys(errors).forEach((keys) => {
+    const key = keys as keyof TAuthEssentialProps;
+
+    if (errors[key]?.message) {
+      setError(key, { message: errors[key]?.message });
+      return false;
+    }
+  });
+
+  if (phoneNumber?.length === 11 && isFalsy(errors.phone?.message)) {
     clickVerifyBtn(state, _setState);
     return true;
   }
 
+  setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
+  return false;
+};
+
+export const signUpVerifyCode = (
+  phoneNumber: string,
+  state: TVerifyButtonState,
+  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
+  errors: Partial<FieldErrorsImpl<TAuthEssentialProps>>,
+  setError: UseFormSetError<TAuthEssentialProps>,
+) => {
+  if (phoneNumber?.length === 11 && isFalsy(errors.phone?.message)) {
+    clickVerifyBtn(state, _setState);
+    return true;
+  }
   setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
   return false;
 };

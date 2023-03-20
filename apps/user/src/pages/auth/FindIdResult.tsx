@@ -17,7 +17,7 @@ interface IFindIdResultProps {
     socialProvider?: string | null;
   }>;
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
-  setValue: UseFormSetValue<TFindAccountErrorType>;
+  setValue: UseFormSetValue<TAuthEssentialProps>;
 }
 export const FindIdResult = (props: IFindIdResultProps) => {
   const { isExistedAccount, userAccounts, setIsVerification, setValue } = props;

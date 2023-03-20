@@ -1,4 +1,4 @@
-import { Dispatch, Fragment } from 'react';
+import { Dispatch, Fragment, useState, useEffect, SetStateAction } from 'react';
 import { switchModal } from '@/containers/search';
 import { convertTime } from '@/utils/parsingTimezone';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
@@ -14,10 +14,24 @@ interface ISearchModalPrpos {
   _state: TState;
   _dispatch: Dispatch<TAction>;
   size: string;
+  _setTrigger: Dispatch<SetStateAction<boolean>>;
 }
 
-export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos) => {
+export const SearchModal = ({
+  _state,
+  _dispatch,
+  data,
+  size,
+  _setTrigger,
+}: ISearchModalPrpos) => {
   const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
+  const [eventTrigger, setEventTrigger] = useState(false);
+
+  useEffect(() => {
+    if (eventTrigger === false) return;
+    switchModal({ _setTrigger, _dispatch, _state, data });
+  }, [eventTrigger]);
+
   const modalType = () => {
     switch (_state.modalType) {
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
@@ -26,11 +40,11 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
           content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _dispatch }),
+            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
           },
           onConfirm: {
             name: '그래도 생성하기',
-            confirmEvent: () => switchModal({ _dispatch, _state, data }),
+            confirmEvent: () => switchModal({ _setTrigger, _dispatch, _state, data }),
           },
         };
 
@@ -46,7 +60,7 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _dispatch }),
+            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
           },
         };
 
@@ -62,12 +76,12 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _dispatch }),
+            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
           },
           onConfirm: {
             name: '새로 생성하기',
             confirmEvent: () => {
-              switchModal({ _dispatch, _state, data });
+              switchModal({ _setTrigger, _dispatch, _state, data });
             },
           },
         };
@@ -108,6 +122,7 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
               type='button'
               className='button-filled-normal-large-grey-false-false-true w-full'
               onClick={() => modal.onCancel.cancelEvent()}
+              disabled={eventTrigger}
             >
               {modal.onCancel.name}
             </button>
@@ -117,9 +132,15 @@ export const SearchModal = ({ _state, _dispatch, data, size }: ISearchModalPrpos
                 <button
                   type='button'
                   className='button-filled-normal-large-primary-false-false-true w-full'
-                  onClick={() => modal.onConfirm!.confirmEvent()}
+                  onClick={() => setEventTrigger(true)}
                 >
-                  {modal.onConfirm.name}
+                  {eventTrigger ? (
+                    <div className=' scale-[0.2]'>
+                      <div id='loader-white' />
+                    </div>
+                  ) : (
+                    <Fragment>{modal.onConfirm.name}</Fragment>
+                  )}
                 </button>
               </Fragment>
             )}

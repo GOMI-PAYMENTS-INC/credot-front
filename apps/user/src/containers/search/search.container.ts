@@ -1,5 +1,5 @@
 import { SearchAction } from '@/containers/search';
-import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent } from 'react';
+import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { STATUS_CODE } from '@/types/enum.code';
 import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
@@ -16,6 +16,7 @@ export const getKeyword = (
 };
 
 export const queryKeywordByClick = (text: string, _dispatch: Dispatch<TAction>) => {
+  if (text) _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
   _dispatch({ type: SearchAction.GetKeyword, payload: text });
   _dispatch({ type: SearchAction.SearchKeyword, payload: text });
 };
@@ -31,9 +32,9 @@ export const queryKeyword = (
   }
   const _switch = isFalsy(text) === false;
 
+  _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });
-  _dispatch({ type: SearchAction.InitialIzeImages });
 };
 
 export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
@@ -46,12 +47,14 @@ export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {
 
 type TSwitchModal = {
   _dispatch: Dispatch<TAction>;
+  _setTrigger: Dispatch<SetStateAction<boolean>>;
   data?: any; // FIXME: any -> 타입으로 변경
   _state?: TState;
 };
 
 type TCreateReport = {
   _dispatch: Dispatch<TAction>;
+  _setTrigger: Dispatch<SetStateAction<boolean>>;
   data: any; // FIXME: any -> 타입으로 변경
   _state: TState;
 };
@@ -62,7 +65,7 @@ const dailyChecker = (isDaily: boolean) => {
     : MODAL_TYPE_ENUM.SameKeywordReportExisted;
 };
 
-const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
+const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
   const { keyword, country } = _state;
@@ -72,6 +75,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
       const res = await getReportExisted({ text: keyword });
       // 리포트가 없을 경우
       const reportInfo = res?.data;
+
       //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
       if (reportInfo?.data === null || reportInfo?.data === undefined) {
         const postReport = await postCreateReport({
@@ -80,16 +84,19 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
         });
 
         if (postReport?.data.code === STATUS_CODE.SUCCESS) {
+          _setTrigger(false);
+
           _dispatch({
             type: actionType,
             payload: {
               isModalOpen: false,
             },
           });
-          toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, {
+          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
             autoClose: 4000,
           });
         }
+
         return postReport;
       }
 
@@ -109,6 +116,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
       reportInvokeId: reportInvokeId,
       country: country,
     });
+
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
       _dispatch({
         type: SearchAction.SwitchModal,
@@ -116,7 +124,9 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
           isModalOpen: false,
         },
       });
-      toast.success(`'${keyword}'가 리포트 조회 탭에 추가되었어요.`, { autoClose: 4000 });
+      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
+        autoClose: 4000,
+      });
     }
 
     return postReport;
@@ -125,7 +135,7 @@ const createReport = async ({ _state, data, _dispatch }: TCreateReport) => {
   }
 };
 
-export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
+export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
   if (_state) {
     const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
@@ -139,8 +149,11 @@ export const switchModal = ({ _dispatch, _state, data }: TSwitchModal) => {
       return;
     }
 
-    return createReport({ _state, _dispatch, data });
+    return createReport({ _state, _dispatch, data, _setTrigger });
   }
+
+  _setTrigger(false);
+
   _dispatch({
     type: SearchAction.SwitchModal,
     payload: { isModalOpen: false },
@@ -157,5 +170,5 @@ export const getProductImages = (
   });
 };
 
-export const initializeImages = (_dispatch: Dispatch<TAction>) =>
-  _dispatch({ type: SearchAction.InitialIzeImages });
+export const initializeImages = (_dispatch: Dispatch<TAction>, keyword: string) =>
+  _dispatch({ type: SearchAction.InitialIizeImages, payload: keyword });

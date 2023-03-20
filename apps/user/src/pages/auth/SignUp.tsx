@@ -10,7 +10,8 @@ import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 
 import { PATH } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { agreeTermList } from '@/containers/auth/signUpData';
+import { TERMS_LIST } from '@/containers/auth/auth.constants';
+import { ErrorMessage } from '@hookform/error-message';
 
 interface ISignUpForm {
   email: string;
@@ -45,7 +46,7 @@ const SignUp = () => {
     //전체 선택
     if (checked) {
       const checkedItemsArray: string[] = [];
-      agreeTermList.forEach((agreeTerm) => checkedItemsArray.push(agreeTerm.id));
+      TERMS_LIST.forEach((agreeTerm) => checkedItemsArray.push(agreeTerm.id));
       setCheckedItems(checkedItemsArray);
 
       setIsCheckedAll(true);
@@ -64,7 +65,7 @@ const SignUp = () => {
       setCheckedItems([...checkedItems, code]);
 
       //모두 체크되었을 때
-      if (agreeTermList.length === checkedItems.length + 1) {
+      if (TERMS_LIST.length === checkedItems.length + 1) {
         setIsCheckedAll(true);
       }
     } else if (!isChecked && checkedItems.find((one) => one === code)) {
@@ -117,11 +118,11 @@ const SignUp = () => {
   };
 
   //필수 체크인 항목의 목록
-  const requiredAgreeTermList = agreeTermList.filter((agreeTerm) => agreeTerm.required);
+  const requiredTERMS_LIST = TERMS_LIST.filter((agreeTerm) => agreeTerm.required);
   //체크된 항목이 변경되는 경우, 필수 선택항목이 선탹된 것인지 판단
   useEffect(() => {
-    for (let i = 0; i < requiredAgreeTermList.length; i++) {
-      if (checkedItems.indexOf(requiredAgreeTermList[i].id) < 0) {
+    for (let i = 0; i < requiredTERMS_LIST.length; i++) {
+      if (checkedItems.indexOf(requiredTERMS_LIST[i].id) < 0) {
         setValue('requiredAgreeTerm', false);
         break;
       }
@@ -200,9 +201,13 @@ const SignUp = () => {
                   iconSize={5}
                 />
               </div>
-              {errors?.email?.message && (
-                <p className='inputCustom-helptext'>{errors?.email?.message}</p>
-              )}
+              <ErrorMessage
+                errors={errors}
+                name='email'
+                render={({ message }) => (
+                  <p className='inputCustom-helptext'>{message}</p>
+                )}
+              />
             </div>
 
             {/*비밀번호*/}
@@ -224,13 +229,9 @@ const SignUp = () => {
                       pattern: {
                         // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                         value:
-                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&\s]{8,50}$/,
+                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
                         message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
                       },
-                      validate: (value: string) =>
-                        value &&
-                        /\s/.test(value) &&
-                        '비밀번호에 공백은 사용할 수 없어요.',
                     })}
                   />
                   <InputIcon
@@ -238,9 +239,13 @@ const SignUp = () => {
                     iconSize={5}
                   />
                 </div>
-                {errors?.password?.message && (
-                  <p className='inputCustom-helptext'>{errors?.password?.message}</p>
-                )}
+                <ErrorMessage
+                  errors={errors}
+                  name='password'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
               </div>
 
               <div className='inputCustom-group'>
@@ -262,11 +267,13 @@ const SignUp = () => {
                     iconSize={5}
                   />
                 </div>
-                {errors?.confirmPassword?.message && (
-                  <p className='inputCustom-helptext'>
-                    {errors?.confirmPassword?.message}
-                  </p>
-                )}
+                <ErrorMessage
+                  errors={errors}
+                  name='confirmPassword'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
               </div>
             </div>
 
@@ -299,7 +306,7 @@ const SignUp = () => {
                 </label>
               </div>
               <ul className='space-y-2'>
-                {agreeTermList.map((agreeTerm, index) => {
+                {TERMS_LIST.map((agreeTerm, index) => {
                   //항목별 체크 여부
                   let isChecked = false;
                   isChecked = checkedItems.includes(agreeTerm.id);
@@ -368,11 +375,7 @@ const SignUp = () => {
             </div>
           </form>
         </div>
-        <FindAccountBottom
-          buttonText={accountBottomInfo.buttonText}
-          text={accountBottomInfo.text}
-          buttonLink={accountBottomInfo.buttonLink}
-        />
+        <FindAccountBottom />
       </div>
     </Layout>
   );

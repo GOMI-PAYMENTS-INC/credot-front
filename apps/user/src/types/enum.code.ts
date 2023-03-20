@@ -40,7 +40,7 @@ export enum TITLE {
   REPORT = 'Report',
   MARTKET_SIZE = 'MartketSize',
   KEYWORD_INFO = 'KeywordInfo',
-  RECOMMEND_KEYWORD = 'RecommendKeyword',
+
   SALE_PRICE = 'SalePrice',
 }
 
@@ -98,4 +98,10 @@ export enum PATH {
 export enum AUTH_RESPONSE_TYPE {
   FILLED = 'FILLED',
   EMPTY = 'EMPTY',
+}
+
+export enum TERM_TYPE {
+  USE_AGREE = 'useAgree',
+  PERSONAL_AGREE = 'personalAgree',
+  MARKETING_AGREE = 'marketingAgree',
 }

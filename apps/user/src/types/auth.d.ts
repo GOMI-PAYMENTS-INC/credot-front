@@ -8,8 +8,21 @@ type TVerifyButtonState = {
   isExistedAccount: null | 'EMPTY' | 'FILLED';
 };
 
-type TFindAccountErrorType = {
+type TTermsType = 'useAgree' | 'personalAgree' | 'marketingAgree';
+
+type TTermsCheckState = {
+  checkedTerms: TTermsType[] | string[];
+  isDetailOpen: number[];
+  triggerConfirmEmail: boolean;
+  agreedAllTerms: boolean;
+  isReadyToSignUp: boolean;
+};
+
+type TAuthEssentialProps = {
+  email: string;
+  password: string;
+  confirmedPassword: string;
   phone: string;
   verifyCode: string;
-  email: string;
+  requiredAgreeTerm: boolean;
 };

@@ -40,7 +40,7 @@ export const MartketSize = (props: IMartketSize) => {
   return (
     <section>
       <h1 id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
-        시장 규모
+        시장 분석
         <ReactSVG
           id='anchor-market-size'
           src='/assets/icons/outlined/QuestionCircle.svg'
@@ -63,7 +63,7 @@ export const MartketSize = (props: IMartketSize) => {
 
       <div className='pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
-          <div className='border-grey-30 col-span-10 flex w-full border-t-[1px] border-b-[1px]  bg-grey-100'>
+          <div className='border-grey-30 relative col-span-10 flex w-full border-t-[1px] border-b-[1px]  bg-grey-100'>
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               검색트렌드
               <span className='pl-[4px] text-XS/Medium text-grey-700'>

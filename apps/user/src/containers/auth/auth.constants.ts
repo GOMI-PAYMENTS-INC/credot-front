@@ -1,8 +1,11 @@
-export const agreeTermList = [
+import { TERM_TYPE } from '@/types/enum.code';
+const required = { essential: '필수', option: '선택' };
+
+export const TERMS_LIST = [
   {
-    id: 'useAgree',
+    id: TERM_TYPE.USE_AGREE,
     label: '이용약관 동의',
-    required: true,
+    required: required.essential,
     detail:
       '제1장 총칙\n' +
       '\n' +
@@ -308,9 +311,9 @@ export const agreeTermList = [
       ' \n',
   },
   {
-    id: 'personalAgree',
+    id: TERM_TYPE.PERSONAL_AGREE,
     label: '개인정보 수집 및 이용 동의',
-    required: true,
+    required: required.essential,
     detail:
       '개인정보 수집 및 이용 동의\n' +
       '\n' +
@@ -368,14 +371,14 @@ export const agreeTermList = [
       '제8조 개인정보 보호책임자\n' +
       '① 회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만 처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.\n' +
       '▶ 개인정보 보호책임자\n' +
-      '성명 : 오채윤\n' +
-      '직책 : 매니저\n' +
-      '연락처 : kai@gomicorp.com\n' +
+      '성명 : 양원석\n' +
+      '직책 : 팀장\n' +
+      '연락처 : gomiinsight@gomicorp.com\n' +
       '※ 개인정보 보호 담당부서로 연결됩니다.\n' +
       '▶ 개인정보 보호 담당부서\n' +
-      '부서명 : 코어개발팀\n' +
-      '담당자 : 오채윤\n' +
-      '연락처 : kai@gomicorp.com\n' +
+      '부서명 : 개발팀\n' +
+      '담당자 : 양원석\n' +
+      '연락처 : gomiinsight@gomicorp.com\n' +
       '② 정보주체께서는 회사의 서비스(또는 사업)을 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만 처리, 피해구제 등에 관한 사항을 개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다. 회사는 정보주체의 문의에 대해 지체없이 답변 및 처리해드릴 것입니다.\n' +
       '제9조 권익침해 구제 방법\n' +
       '정보주체는 아래의 기관에 대해 개인정보 침해에 대한 피해구제, 상담 등을 문의하실 수 있습니다.\n' +
@@ -420,9 +423,9 @@ export const agreeTermList = [
       '그 밖의 사항은 (주)고미코퍼레이션 고미인사이트 서비스 개인정보 처리방침에 따릅니다.\n',
   },
   {
-    id: 'marketingAgree',
+    id: TERM_TYPE.MARKETING_AGREE,
     label: '마케팅 정보 활용 및 서비스 관련 수신 동의',
-    required: false,
+    required: required.option,
     detail:
       '마케팅 정보 수신 여부 및 마케팅을 위한 개인정보 수집 이용을 거부하실 수 있으며, 거부 시에도 고미인사이트 서비스를 이용하실 수 있으나, 동의를 거부한 경우 각종 소식 및 이벤트 참여에 제한이 있을 수 있습니다.\n' +
       '\n' +
@@ -436,3 +439,12 @@ export const agreeTermList = [
       '회원 탈퇴 시 또는 동의 철회 시',
   },
 ];
+
+export const AUTH_ESSENTIAL = {
+  email: '이메일은',
+  password: '비밀번호는',
+  confirmedPassword: '비밀번호는',
+  phone: '휴대폰은',
+  verifyCode: '',
+  requiredAgreeTerm: '이용약관은',
+};

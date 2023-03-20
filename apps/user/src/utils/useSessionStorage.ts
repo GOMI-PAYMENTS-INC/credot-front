@@ -1,4 +1,4 @@
-export const useSesstionStorage = {
+export const useSessionStorage = {
   getItem: (key: string): any | null => {
     const item = sessionStorage.getItem(key);
     if (item !== null) {
