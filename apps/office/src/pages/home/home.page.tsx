@@ -266,6 +266,51 @@ export default function HomePage() {
         '그 외 추가적인 문의가 있으신 경우 웹페이지 우측 하단의 채널톡으로 문의주시면 최대한 빠른 답변드릴께요.',
     },
   ];
+
+  const repeatPartnerSlide = () => {
+    let arr: JSX.Element[] = [];
+    {
+      //for (let i = 0; i < 2; i++) {
+      partnerData.map((partener, index) =>
+        arr.push(
+          <SwiperSlide
+            key={index}
+            className='shadow-partner-card !md:w-[286px] !h-auto !w-[424px]  rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
+          >
+            <div className='mb-6 md:mb-[18.54px]'>
+              <div className='flex'>
+                <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
+                  <img
+                    src={`${IMG_PATH}/Section6/${partener.imgName}`}
+                    alt='{partener.name}'
+                  />
+                </div>
+                <div>
+                  <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
+                    {partener.name}
+                  </div>
+                  <div className='text-M/Regular text-grey-800  md:text-S/Regular'>
+                    {partener.brand}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className='mb-4 text-XL/Bold text-grey-900  md:mb-[12.36px] md:mb-[12.36px] md:text-S/Bold'>
+                {partener.subject}
+              </div>
+              <div className='text-L/Medium text-grey-800 md:text-XS/Medium'>
+                {partener.content}
+              </div>
+            </div>
+          </SwiperSlide>,
+        ),
+      );
+      //}
+    }
+    return arr;
+  };
+
   return (
     <main>
       <section className='h-[560px] w-full bg-[#FAFAF9]'>
@@ -507,65 +552,28 @@ export default function HomePage() {
 
           <div className='sm:hidden'>
             <Swiper
-              className='banner !overflow-visible'
-              effect='slide'
-              slidesPerView={2}
-              loop={true}
-              autoplay={{
-                delay: 1,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: false,
-                stopOnLastSlide: false,
-                waitForTransition: true,
-              }}
               modules={[Autoplay]}
               spaceBetween={24}
-              breakpoints={{
-                992: {
-                  slidesPerView: 3,
-                },
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              loopedSlides={partnerData.length}
+              loop={true}
+              autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
               }}
-              speed={3000}
-              freeMode={{ enabled: true, momentum: false }}
-              a11y={{ enabled: true }}
+              effect='slide'
               grabCursor={true}
+              speed={5000}
+              //freeMode={{ enabled: true }}
+              a11y={{ enabled: false }}
+              className='banner !overflow-visible'
               //navigation
               //pagination={{ clickable: true }}
               //modules={[Autoplay, Pagination, Navigation]}
             >
-              {partnerData.map((partener, index) => (
-                <SwiperSlide
-                  key={index}
-                  className='shadow-partner-card !h-auto rounded-[16.5097px] border border-grey-300 bg-white p-6 md:p-[18.54px]'
-                >
-                  <div className='mb-6 md:mb-[18.54px]'>
-                    <div className='flex'>
-                      <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
-                        <img
-                          src={`${IMG_PATH}/Section6/${partener.imgName}`}
-                          alt='{partener.name}'
-                        />
-                      </div>
-                      <div>
-                        <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
-                          {partener.name}
-                        </div>
-                        <div className='text-M/Regular text-grey-800  md:text-S/Regular'>
-                          {partener.brand}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className='mb-4 text-XL/Bold text-grey-900  md:mb-[12.36px] md:mb-[12.36px] md:text-S/Bold'>
-                      {partener.subject}
-                    </div>
-                    <div className='text-L/Medium text-grey-800 md:text-XS/Medium'>
-                      {partener.content}
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
+              {repeatPartnerSlide()}
             </Swiper>
           </div>
           <div className='hidden sm:block'>
