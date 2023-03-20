@@ -9,7 +9,7 @@ import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
 import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import {
-  findAccountInitialState,
+  authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/containers/auth/auth.container.refac';
@@ -30,9 +30,8 @@ const FindId = () => {
     mode: 'onChange',
   });
 
-  const [isVerification, setIsVerification] = useState<TVerifyButtonState>(
-    findAccountInitialState,
-  );
+  const [isVerification, setIsVerification] =
+    useState<TVerifyButtonState>(authInitialState);
 
   const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useVerifyCode(
     isVerification,

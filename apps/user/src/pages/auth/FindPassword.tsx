@@ -12,15 +12,14 @@ import { isFalsy } from '@/utils/isFalsy';
 import { FindPasswordResult } from '@/pages/auth/FindPasswordResult';
 import { VerifyCodeInput } from './VerifyCodeInput';
 import {
-  findAccountInitialState,
+  authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/containers/auth/auth.container.refac';
 
 export const FindPasswordRef = () => {
-  const [isVerification, setIsVerification] = useState<TVerifyButtonState>(
-    findAccountInitialState,
-  );
+  const [isVerification, setIsVerification] =
+    useState<TVerifyButtonState>(authInitialState);
 
   const {
     register,

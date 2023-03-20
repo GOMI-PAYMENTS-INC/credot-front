@@ -22,10 +22,9 @@ import {
   isAccountExisted,
   exccedVerifyTry,
 } from '@/containers/auth/auth.container.refac';
-import { UseFormSetError, FieldError } from 'react-hook-form';
+import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { authTokenStorage } from '@/utils/authToken';
-import { isFalsy } from '@/utils/isFalsy';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -183,11 +182,12 @@ export const useSignUp = () => {
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
     const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
     return useExistsUserEmailQuery(
       graphQLClient,
       { email },
       {
-        enabled: regex.test(email.trim()) === true && triggerConfirmEmail,
+        enabled: regex.test(email) === true && triggerConfirmEmail,
         refetchOnWindowFocus: false,
         onSuccess: (res) => {
           if (res.existsUserEmail) {

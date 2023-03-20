@@ -1,31 +1,33 @@
-import React, { Fragment, useMemo, useState } from 'react';
-import { FieldErrors, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import React, { useMemo, useState, ChangeEvent, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Common1Section as Layout } from '@/components/layouts/Common1Section';
-import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
-import { AuthContainer } from '@/containers/auth/auth.container';
-import { SignUpInput, useExistsUserEmailQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphqlCient';
+
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { agreeTermList } from '@/containers/auth/signUpData';
+import { TERMS_LIST } from '@/containers/auth/auth.constants';
 import { ErrorMessage } from '@hookform/error-message';
 import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
 import { isFalsy } from '@/utils/isFalsy';
-import { isTruthy } from '@/utils/isTruthy';
+
 import { useVerifyCode, useSignUp } from '@/containers/auth/auth.api';
 import {
-  findAccountInitialState,
+  authInitialState,
   isPhoneVerifyPrepared,
   eventHandlerByFindAccount,
+  termInitialState,
+  assignEmail,
+  selectTerm,
+  selectAllTerms,
+  isReadyToSignUp,
+  openDetailTermContent,
 } from '@/containers/auth/auth.container.refac';
 
 const SignUpRef = () => {
-  const [isVerification, setIsVerification] = useState<TVerifyButtonState>(
-    findAccountInitialState,
-  );
-  const [triggerConfirmEmail, setTriggerConfirmEmail] = useState(false);
+  const [isVerification, setIsVerification] =
+    useState<TVerifyButtonState>(authInitialState);
+  const [signUpEvent, setSignUpEvent] = useState(termInitialState);
 
   const {
     register,
@@ -43,11 +45,15 @@ const SignUpRef = () => {
     setIsVerification,
     setError,
   );
+  useEffect(() => {
+    if (isFalsy(isPassedVerifyCode)) return;
+    isReadyToSignUp(isPassedVerifyCode, signUpEvent, setSignUpEvent);
+  }, [signUpEvent.checkedTerms]);
 
   const { _applyAccount, _isExistedAccount } = useSignUp();
 
   const clickVerifyButton = () => {
-    const { email, password, phone, confirmPassword } = getValues();
+    const { email, password, phone, confirmedPassword } = getValues();
 
     const isValid = isPhoneVerifyPrepared(
       phone,
@@ -58,8 +64,8 @@ const SignUpRef = () => {
       email,
     );
     if (
-      [password, confirmPassword].some((password) => isFalsy(password)) ||
-      password !== confirmPassword
+      [password, confirmedPassword].some((password) => isFalsy(password)) ||
+      password !== confirmedPassword
     ) {
       setError('password', { message: '비밀번호를 다시 확인해주세요.' });
       return;
@@ -68,7 +74,7 @@ const SignUpRef = () => {
     return _getVerifyCode(phone);
   };
 
-  _isExistedAccount(watch('email'), triggerConfirmEmail, setError);
+  _isExistedAccount(watch('email'), signUpEvent.triggerConfirmEmail, setError);
 
   const [isPassedVerifyCode] = _checkSmsVerifyCode(getValues('phone'));
 
@@ -104,11 +110,8 @@ const SignUpRef = () => {
                       value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                       message: '올바른 이메일 주소를 입력해주세요.',
                     },
-                    onChange: (event) => {
-                      const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-                      if (regex.test(event.target.value.trim())) {
-                        setTriggerConfirmEmail(true);
-                      }
+                    onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                      assignEmail(event, signUpEvent, setSignUpEvent);
                     },
                   })}
                 />
@@ -167,25 +170,25 @@ const SignUpRef = () => {
               <div className='inputCustom-group'>
                 <div className='inputCustom-textbox-wrap'>
                   <input
-                    id='confirmPassword'
+                    id='confirmedPassword'
                     className={`inputCustom-textbox w-full ${
-                      errors?.confirmPassword ? 'error' : ''
+                      errors?.confirmedPassword ? 'error' : ''
                     }`}
                     type='password'
                     placeholder='비밀번호를 한번 더 입력해주세요.'
-                    {...register('confirmPassword', {
+                    {...register('confirmedPassword', {
                       validate: (value: string) =>
                         value === getValues('password') || '비밀번호가 일치하지 않아요.',
                     })}
                   />
                   <InputIcon
-                    status={errors?.confirmPassword ? INPUTSTATUS.ERROR : undefined}
+                    status={errors?.confirmedPassword ? INPUTSTATUS.ERROR : undefined}
                     iconSize={5}
                   />
                 </div>
                 <ErrorMessage
                   errors={errors}
-                  name='confirmPassword'
+                  name='confirmedPassword'
                   render={({ message }) => (
                     <p className='inputCustom-helptext'>{message}</p>
                   )}
@@ -254,61 +257,86 @@ const SignUpRef = () => {
               )}
             </div>
             {/*이용약관*/}
-            <div className='space-y-4 text-grey-900'>
-              <div className='rounded-md bg-grey-100 px-2.5 py-2'>
-                <input type='checkbox' id='allAgree' className='termsCheckbox peer' />
-                <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
-                  이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
-                </label>
-              </div>
-              <ul className='space-y-2'>
-                {agreeTermList.map((agreeTerm, index) => {
-                  return (
-                    <li key={index}>
-                      <div className='flex items-center justify-between pl-3'>
-                        <input
-                          type='checkbox'
-                          id={agreeTerm.id}
-                          //   checked={isChecked}
-                          className='termsCheckbox peer'
-                          //   onChange={(event) =>
-                          //     checkedItemHandler(agreeTerm.id, event.target.checked)
-                          //   }
-                        />
-                        <label htmlFor={agreeTerm.id} className='termsBodyCheckbox-label'>
-                          {`${agreeTerm.label} ${
-                            agreeTerm.required ? '(필수)' : '(선택)'
-                          }`}
-                        </label>
+            {isPassedVerifyCode && (
+              <div className='space-y-4 text-grey-900'>
+                <div className='rounded-md bg-grey-100 px-2.5 py-2'>
+                  <input
+                    type='checkbox'
+                    id='allAgree'
+                    // disabled={isPassedVerifyCode === false}
+                    checked={signUpEvent.agreedAllTerms}
+                    className='termsCheckbox peer'
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      selectAllTerms(event, signUpEvent, setSignUpEvent)
+                    }
+                  />
+                  <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
+                    이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
+                  </label>
+                </div>
+                <ul className='space-y-2'>
+                  {TERMS_LIST.map((term, index) => {
+                    return (
+                      <li key={index}>
+                        <div className='flex items-center justify-between pl-3'>
+                          <input
+                            type='checkbox'
+                            id={term.id}
+                            className='termsCheckbox peer'
+                            // disabled={isPassedVerifyCode === false}
+                            checked={signUpEvent.checkedTerms.includes(
+                              term.id as TTermsType,
+                            )}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                              selectTerm(event, signUpEvent, setSignUpEvent)
+                            }
+                          />
+                          <label htmlFor={term.id} className='termsBodyCheckbox-label'>
+                            {`${term.label} (${term.required})`}
+                          </label>
 
-                        <button
-                          className='textButton-secondary-default-small-none'
-                          type='button'
-                          //   onClick={() => onClickOpenAgreeDetail(index)}
-                        >
-                          {/* {isOpened ? '접기' : '보기'} */}
-                        </button>
-                      </div>
-                      {true && (
-                        <div className='mt-1.5 ml-[30px]'>
-                          <textarea
-                            readOnly
-                            className='h-[138px] w-full rounded border border-grey-400 px-4 py-3 text-S/Regular text-grey-900'
-                            value={agreeTerm.detail}
-                          ></textarea>
+                          <button
+                            className='textButton-secondary-default-small-none'
+                            type='button'
+                            onClick={() =>
+                              openDetailTermContent(index, signUpEvent, setSignUpEvent)
+                            }
+                          >
+                            {signUpEvent?.isDetailOpen.includes(index) ? '접기' : '보기'}
+                          </button>
                         </div>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                        {signUpEvent?.isDetailOpen.includes(index) && (
+                          <div className='mt-1.5 ml-[30px]'>
+                            <textarea
+                              readOnly
+                              className='h-[138px] w-full rounded border border-grey-400 px-4 py-3 text-S/Regular text-grey-900'
+                              value={term.detail}
+                            ></textarea>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
 
             <div>
-              {true ? (
+              {signUpEvent.isReadyToSignUp ? (
                 <button
                   type='submit'
                   className='button-filled-normal-xLarge-red-false-false-true w-full'
+                  onClick={() => {
+                    const { email, password, phone } = getValues();
+                    const payload = {
+                      email: email,
+                      password: password,
+                      name: '',
+                      phone: phone,
+                      verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+                    };
+                    _applyAccount(payload);
+                  }}
                 >
                   회원가입
                 </button>

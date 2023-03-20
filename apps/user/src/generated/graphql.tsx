@@ -227,7 +227,7 @@ export type SignUpInput = {
   /** 이메일 */
   email: Scalars['String'];
   /** 이름 */
-  name: Scalars['String'];
+  name?: Scalars['String'];
   /** 닉네임 */
   nickName?: InputMaybe<Scalars['String']>;
   /** 패스워드 */

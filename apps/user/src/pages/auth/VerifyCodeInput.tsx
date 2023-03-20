@@ -25,6 +25,11 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
   });
 
   useEffect(() => {
+    if (isPassedVerifyCode === true) {
+      setTime(Object.assign({}, time, { minutes: 0, seconds: 0 }));
+      setError('verifyCode', { message: undefined });
+      return;
+    }
     if (isVerification.theElseCalled) {
       setTime(Object.assign({}, time, initializeTime));
       setError('verifyCode', { message: undefined });
@@ -35,7 +40,7 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
         message: '인증번호 발송 횟수를 초과했어요. 5분간 인증이 불가능해요.',
       });
     }
-  }, [isVerification.theElseCalled, isVerification.isExceeded]);
+  }, [isVerification.theElseCalled, isVerification.isExceeded, isPassedVerifyCode]);
   const disable = time.minutes === 0 && time.seconds === 0;
 
   useInterval(
@@ -76,11 +81,10 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
     <div className='inputCustom-group'>
       <div className='inputCustom-textbox-wrap'>
         <input
-          className={`inputCustom-textbox w-full ${
-            isFalsy(errors.verifyCode) === false && 'error'
-          }`}
+          className={`inputCustom-textbox w-full ${errors.verifyCode && 'error'}`}
           id='verifyCode'
           type='text'
+          disabled={isPassedVerifyCode}
           maxLength={6}
           placeholder='인증번호 6자리를 입력해주세요.'
           readOnly={
