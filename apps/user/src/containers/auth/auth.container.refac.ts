@@ -249,7 +249,16 @@ export const isPhoneVerifyPrepared = (
     return false;
   }
 
-  if (phoneNumber?.length === 11 && isFalsy(errors.phone)) {
+  Object.keys(errors).forEach((keys) => {
+    const key = keys as keyof TAuthEssentialProps;
+
+    if (errors[key]?.message) {
+      setError(key, { message: errors[key]?.message });
+      return false;
+    }
+  });
+
+  if (phoneNumber?.length === 11 && isFalsy(errors.phone?.message)) {
     clickVerifyBtn(state, _setState);
     return true;
   }

@@ -95,7 +95,7 @@ const FindId = () => {
                       },
                     })}
                     onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                      if (event.code !== 'Enter') return;
+                      if (['Enter', 'NumpadEnter'].includes(event.code) === false) return;
                       clickVerifyButton();
                     }}
                   />

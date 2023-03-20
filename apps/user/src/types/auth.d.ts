@@ -19,10 +19,10 @@ type TTermsCheckState = {
 };
 
 type TAuthEssentialProps = {
-  phone: string;
-  verifyCode: string;
   email: string;
   password: string;
-  requiredAgreeTerm: boolean;
   confirmedPassword: string;
+  phone: string;
+  verifyCode: string;
+  requiredAgreeTerm: boolean;
 };
