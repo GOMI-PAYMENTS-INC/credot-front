@@ -4,7 +4,6 @@ import {
   _getReportInfo,
   onScrollDetail,
   switchContents,
-  isToggleOpen,
   scrollToTop,
 } from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';

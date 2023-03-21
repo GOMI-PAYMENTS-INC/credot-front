@@ -49,7 +49,7 @@ const DetailReport = () => {
       <Fragment>
         <KeywordInfo keywordInfo={main} />
         <MartketSize marketSize={main} />
-        <div className='relative'>
+        <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
             spinnerEvent={_state.spinnerEvent}
@@ -58,7 +58,7 @@ const DetailReport = () => {
             toggleEvent={_state.toggleEvent}
             basePrice={main.basePrice}
           />
-        </div>
+        </Fragment>
         <SalePrice
           scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}

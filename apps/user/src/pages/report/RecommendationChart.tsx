@@ -1,6 +1,5 @@
 import { Dispatch, Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
 import { useParams } from 'react-router-dom';
 
 import { BATCH_STATUS } from '@/types/enum.code';
