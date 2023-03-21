@@ -29,11 +29,8 @@ Axios.interceptors.request.use((config) => {
 });
 
 Axios.interceptors.response.use((response) => {
-  //로그인 상태로 24시간이 지나 토큰이 만료된 상태
   if (isIncluded(response.data.code, STATUS_CODE.INVALID_TOKEN)) {
-    //저장된 토큰 삭제
     authTokenStorage.clearToken();
-    //로그인 페이지로 이동
     location.replace(PATH.SIGN_IN);
   }
 
@@ -55,8 +52,6 @@ export const HTTP = {
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
       const res = await Axios.get(url, options);
-      res.data = camelize(res.data);
-
       return res;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -73,11 +68,8 @@ export const HTTP = {
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      if (params) {
-        params = snakeize(params);
-      }
       const res = await Axios.post(url, { ...params }, options);
-      res.data = camelize(res.data);
+
       return res;
     } catch (error) {
       const err = error as CommonErrorType;
@@ -92,18 +84,49 @@ export const HTTP = {
     url: string,
     param: ParamType,
     options?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<ResponseType>> =>
-    Axios.patch(url, Object.assign({}, options, { param: param })),
+  ): Promise<AxiosResponse<ResponseType>> => {
+    try {
+      return await Axios.patch(url, Object.assign({}, options, { param: param }));
+    } catch (error) {
+      const err = error as CommonErrorType;
+      if (error instanceof AxiosError) {
+        console.error(error, 'error message');
+        throw new Error(error.message, error);
+      }
+      throw new Error(err.response.message);
+    }
+  },
   delete: async <ParamType, ResponseType>(
     url: string,
     options: AxiosRequestConfig,
     param?: ParamType,
-  ): Promise<AxiosResponse<ResponseType>> =>
-    Axios.delete(url, Object.assign({}, options)),
+  ): Promise<AxiosResponse<ResponseType>> => {
+    try {
+      return await Axios.delete(url, Object.assign({}, options));
+    } catch (error) {
+      const err = error as CommonErrorType;
+      if (error instanceof AxiosError) {
+        console.error(error, 'error message');
+        throw new Error(error.message, error);
+      }
+      throw new Error(err.response.message);
+    }
+  },
+
   put: async <ParamType, ResponseType>(
     url: string,
     param: ParamType,
     options: AxiosRequestConfig,
-  ): Promise<AxiosResponse<ResponseType>> =>
-    Axios.put(url, Object.assign({}, options, { param: param })),
+  ): Promise<AxiosResponse<ResponseType>> => {
+    try {
+      return await Axios.put(url, Object.assign({}, options, { param: param }));
+    } catch (error) {
+      const err = error as CommonErrorType;
+      if (error instanceof AxiosError) {
+        console.error(error, 'error message');
+        throw new Error(error.message, error);
+      }
+      throw new Error(err.response.message);
+    }
+  },
 };
