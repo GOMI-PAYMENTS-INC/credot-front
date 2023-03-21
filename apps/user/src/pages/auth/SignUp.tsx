@@ -22,12 +22,13 @@ import {
   isReadyToSignUp,
   openDetailTermContent,
   signUpVerifyCode,
+  isCheckedEssentialTerms,
 } from '@/containers/auth/auth.container.refac';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
-  const [signUpEvent, setSignUpEvent] = useState(termInitialState);
+  const [signUpState, setSignUpState] = useState(termInitialState);
 
   const {
     register,
@@ -53,8 +54,8 @@ const SignUpRef = () => {
 
   useEffect(() => {
     if (isFalsy(isPassedVerifyCode)) return;
-    isReadyToSignUp(isPassedVerifyCode, signUpEvent, setSignUpEvent);
-  }, [signUpEvent.checkedTerms]);
+    isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
+  }, [signUpState.checkedTerms]);
 
   const { _applyAccount, _isExistedAccount } = useSignUp();
 
@@ -71,7 +72,7 @@ const SignUpRef = () => {
     return isValid && _getVerifyCode(phone);
   };
 
-  _isExistedAccount(watch('email'), signUpEvent.triggerConfirmEmail, setError);
+  _isExistedAccount(watch('email'), signUpState.triggerConfirmEmail, setError);
 
   const [isPassedVerifyCode] = _checkSmsVerifyCode(getValues('phone'));
 
@@ -108,7 +109,7 @@ const SignUpRef = () => {
                       message: '올바른 이메일 주소를 입력해주세요.',
                     },
                     onChange: (event: ChangeEvent<HTMLInputElement>) => {
-                      assignEmail(event, signUpEvent, setSignUpEvent);
+                      assignEmail(event, signUpState, setSignUpState);
                     },
                   })}
                 />
@@ -270,10 +271,10 @@ const SignUpRef = () => {
                   type='checkbox'
                   id='allAgree'
                   {...register('requiredAgreeTerm')}
-                  checked={signUpEvent.agreedAllTerms}
+                  checked={signUpState.agreedAllTerms}
                   className='termsCheckbox peer'
                   onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                    selectAllTerms(event, signUpEvent, setSignUpEvent)
+                    selectAllTerms(event, signUpState, setSignUpState)
                   }
                 />
                 <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
@@ -289,11 +290,11 @@ const SignUpRef = () => {
                           type='checkbox'
                           id={term.id}
                           className='termsCheckbox peer'
-                          checked={signUpEvent.checkedTerms.includes(
+                          checked={signUpState.checkedTerms.includes(
                             term.id as TTermsType,
                           )}
                           onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                            selectTerm(event, signUpEvent, setSignUpEvent)
+                            selectTerm(event, signUpState, setSignUpState)
                           }
                         />
                         <label htmlFor={term.id} className='termsBodyCheckbox-label'>
@@ -304,13 +305,13 @@ const SignUpRef = () => {
                           className='textButton-secondary-default-small-none'
                           type='button'
                           onClick={() =>
-                            openDetailTermContent(index, signUpEvent, setSignUpEvent)
+                            openDetailTermContent(index, signUpState, setSignUpState)
                           }
                         >
-                          {signUpEvent?.isDetailOpen.includes(index) ? '접기' : '보기'}
+                          {signUpState?.isDetailOpen.includes(index) ? '접기' : '보기'}
                         </button>
                       </div>
-                      {signUpEvent?.isDetailOpen.includes(index) && (
+                      {signUpState?.isDetailOpen.includes(index) && (
                         <div className='mt-1.5 ml-[30px]'>
                           <textarea
                             readOnly
@@ -323,13 +324,15 @@ const SignUpRef = () => {
                   );
                 })}
               </ul>
-              <ErrorMessage
-                errors={errors}
-                name='requiredAgreeTerm'
-                render={({ message }) => (
-                  <p className='inputCustom-helptext'>{message}</p>
-                )}
-              />
+              {isCheckedEssentialTerms(signUpState) === false && (
+                <ErrorMessage
+                  errors={errors}
+                  name='requiredAgreeTerm'
+                  render={({ message }) => (
+                    <p className='inputCustom-helptext'>{message}</p>
+                  )}
+                />
+              )}
             </div>
 
             <div>
@@ -339,7 +342,7 @@ const SignUpRef = () => {
                   _applyAccount(
                     getValues(),
                     isVerification.verifyCodeSignatureNumber,
-                    signUpEvent,
+                    signUpState,
                     setError,
                   );
                 }}

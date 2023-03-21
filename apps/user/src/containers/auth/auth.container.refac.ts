@@ -84,6 +84,11 @@ export const assignEmail = (
   _setState(_state({ triggerConfirmEmail: true }));
 };
 
+export const isCheckedEssentialTerms = (state: TTermsCheckState) =>
+  [TERM_TYPE.USE_AGREE, TERM_TYPE.PERSONAL_AGREE].every((term) =>
+    state.checkedTerms.includes(term as TERM_TYPE),
+  );
+
 export const isReadyToSignUp = (
   isPassedVerifyCode: boolean,
   state: TTermsCheckState,
@@ -91,11 +96,7 @@ export const isReadyToSignUp = (
 ) => {
   const _state = mergeCopiedValue(state);
 
-  const checkTerms = [TERM_TYPE.USE_AGREE, TERM_TYPE.PERSONAL_AGREE].every((term) =>
-    state.checkedTerms.includes(term as TERM_TYPE),
-  );
-
-  if (isPassedVerifyCode && checkTerms)
+  if (isPassedVerifyCode && isCheckedEssentialTerms(state))
     return _setState(_state({ isReadyToSignUp: true }));
 
   _setState(_state({ isReadyToSignUp: false }));
