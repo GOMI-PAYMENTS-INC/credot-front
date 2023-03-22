@@ -10,6 +10,7 @@ import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
+import { AnalysisDeliveryProduct } from '@/pages/report/AnalysisDeliveryProduct';
 import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
@@ -64,6 +65,11 @@ const DetailReport = () => {
           salePriceInfo={_state.salePrice?.data!}
           list={_state.salePrice.list}
           focus={_state.salePrice.focus}
+          _dispatch={_dispatch}
+        />
+        <AnalysisDeliveryProduct
+          scollerRef={scrollController}
+          list={_state.salePrice.list}
           _dispatch={_dispatch}
         />
         <section className='h-[200px]'></section>
