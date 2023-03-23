@@ -1,27 +1,19 @@
 import { GlobalEnv } from '@/api/config';
+import { removeCookie, getCookie, setCookie } from '@/utils/cookie';
+
 // 로그인 토큰 관리
 export const authTokenStorage = {
-  getToken: (): string | null => {
+  getToken: () => {
     if (GlobalEnv.tokenKey === false) return null;
-    const token = localStorage.getItem(GlobalEnv.tokenKey)
-      ? localStorage.getItem(GlobalEnv.tokenKey)
-      : sessionStorage.getItem(GlobalEnv.tokenKey);
+    const token = getCookie(GlobalEnv.tokenKey);
     return token || null;
   },
-  setToken: (isLoginStorage: boolean, token: string): void => {
+  setToken: (token: string): void => {
     if (GlobalEnv.tokenKey === false) return;
-    if (isLoginStorage) {
-      localStorage.setItem(GlobalEnv.tokenKey, token);
-    } else {
-      sessionStorage.setItem(GlobalEnv.tokenKey, token);
-    }
+    setCookie(GlobalEnv.tokenKey, token, 1);
   },
   clearToken: (): void => {
     if (GlobalEnv.tokenKey === false) return;
-    if (localStorage.getItem(GlobalEnv.tokenKey)) {
-      localStorage.removeItem(GlobalEnv.tokenKey);
-    } else {
-      sessionStorage.removeItem(GlobalEnv.tokenKey);
-    }
+    removeCookie(GlobalEnv.tokenKey);
   },
 };

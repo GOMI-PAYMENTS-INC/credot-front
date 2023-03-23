@@ -105,3 +105,9 @@ export enum TERM_TYPE {
   PERSONAL_AGREE = 'personalAgree',
   MARKETING_AGREE = 'marketingAgree',
 }
+
+//Amplitude
+export enum AccountType {
+  LOCAL = 'id/pw',
+  GOOGLE = 'google',
+}

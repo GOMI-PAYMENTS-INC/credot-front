@@ -23,6 +23,8 @@ import {
   openDetailTermContent,
   signUpVerifyCode,
 } from '@/containers/auth/auth.container.refac';
+import { _signupSignupStarted } from '@/utils/amplitude.service';
+import { AccountType } from '@/types/enum.code';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
@@ -46,6 +48,9 @@ const SignUpRef = () => {
   );
 
   useEffect(() => {
+    //회원가입 화면 랜딩 시 앰플리튜드 이벤트
+    _signupSignupStarted(AccountType.LOCAL);
+
     setError('requiredAgreeTerm', {
       message: '이용약관과 개인정보 수집에 동의해주세요.',
     });
