@@ -2,11 +2,13 @@ import 'swiper/swiper.min.css';
 
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper';
+import { Autoplay } from 'swiper';
 
-import { SERVICE_URL } from '@/router/paths';
 import { ReactSVG } from 'react-svg';
 import { Swiper as SwiperClass } from 'swiper/types';
+import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
+import { SERVICE_URL } from '@/types/paths';
+import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
@@ -688,7 +690,16 @@ export default function HomePage() {
               <div className='text-right sm:mt-12  sm:w-full'>
                 <button
                   className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
-                  onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
+                  onClick={(event) => {
+                    const eventTarget = event.target as HTMLElement;
+                    _introPageMovedToSolution(
+                      PAGE_CATEGORY.MAIN,
+                      CTA_TYPE.BUTTON,
+                      CTA_LOCATION.MIDDLE_OF_CONTENT,
+                      eventTarget.innerText,
+                      SERVICE_URL,
+                    );
+                  }}
                 >
                   고미 인사이트 바로 시작하기
                 </button>

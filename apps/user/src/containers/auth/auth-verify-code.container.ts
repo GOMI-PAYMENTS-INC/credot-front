@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useSmsVerifyCodeConfirmQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
+import { _generalMobileVerified } from '@/amplitude/amplitude.service';
 
 export const AuthVerifyCodeContainer = () => {
   const [verifyCode, setVerifyCode] = useState<string>('');
@@ -17,6 +18,9 @@ export const AuthVerifyCodeContainer = () => {
       onSuccess: (data) => {
         if (data.smsVerifyCodeConfirm.signature) {
           setVerifyCodeSign(data.smsVerifyCodeConfirm.signature);
+
+          //앰플리튜드 전화번호 인증 완료 이벤트
+          _generalMobileVerified(phone);
         }
       },
       onError: (err) => {

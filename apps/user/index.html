@@ -68,7 +68,9 @@
     />
 
     <!--  no-referrer-when-downgrade local 테스트시 해당 referrer 적용  -->
-    <!--    <meta name="referrer" content="no-referrer-when-downgrade">-->
+    <!--    <meta name="referrer" content="no-referrer-when-downgrade" />-->
+
+    <!--      채널톡-->
     <script>
       (function () {
         var w = window;
@@ -109,10 +111,184 @@
         pluginKey: 'a44e48a1-a1ab-45b8-bc51-0f89240365cc',
       });
     </script>
+
+    <!--      구글로그인-->
     <script
       src="https://accounts.google.com/gsi/client"
       strategy="beforeInteractive"
     ></script>
+
+    <script type="text/javascript">
+      !(function () {
+        'use strict';
+        !(function (e, t) {
+          var n = e.amplitude || { _q: [], _iq: {} };
+          if (n.invoked)
+            e.console &&
+              console.error &&
+              console.error('Amplitude snippet has been loaded.');
+          else {
+            var r = function (e, t) {
+                e.prototype[t] = function () {
+                  return (
+                    this._q.push({
+                      name: t,
+                      args: Array.prototype.slice.call(arguments, 0),
+                    }),
+                    this
+                  );
+                };
+              },
+              s = function (e, t, n) {
+                return function (r) {
+                  e._q.push({
+                    name: t,
+                    args: Array.prototype.slice.call(n, 0),
+                    resolve: r,
+                  });
+                };
+              },
+              o = function (e, t, n) {
+                e[t] = function () {
+                  if (n)
+                    return {
+                      promise: new Promise(
+                        s(e, t, Array.prototype.slice.call(arguments)),
+                      ),
+                    };
+                };
+              },
+              i = function (e) {
+                for (var t = 0; t < y.length; t++) o(e, y[t], !1);
+                for (var n = 0; n < g.length; n++) o(e, g[n], !0);
+              };
+            n.invoked = !0;
+            var a = t.createElement('script');
+            (a.type = 'text/javascript'),
+              (a.integrity =
+                'sha384-TPZhteUkZj8CAyBx+GZZytBdkuKnhKsSKcCoVCq0QSteWf/Kw5Kb9oVFUROLE1l3'),
+              (a.crossOrigin = 'anonymous'),
+              (a.async = !0),
+              (a.src =
+                'https://cdn.amplitude.com/libs/analytics-browser-1.9.1-min.js.gz'),
+              (a.onload = function () {
+                e.amplitude.runQueuedFunctions ||
+                  console.log('[Amplitude] Error: could not load SDK');
+              });
+            var c = t.getElementsByTagName('script')[0];
+            c.parentNode.insertBefore(a, c);
+            for (
+              var u = function () {
+                  return (this._q = []), this;
+                },
+                l = [
+                  'add',
+                  'append',
+                  'clearAll',
+                  'prepend',
+                  'set',
+                  'setOnce',
+                  'unset',
+                  'preInsert',
+                  'postInsert',
+                  'remove',
+                  'getUserProperties',
+                ],
+                p = 0;
+              p < l.length;
+              p++
+            )
+              r(u, l[p]);
+            n.Identify = u;
+            for (
+              var d = function () {
+                  return (this._q = []), this;
+                },
+                f = [
+                  'getEventProperties',
+                  'setProductId',
+                  'setQuantity',
+                  'setPrice',
+                  'setRevenue',
+                  'setRevenueType',
+                  'setEventProperties',
+                ],
+                v = 0;
+              v < f.length;
+              v++
+            )
+              r(d, f[v]);
+            n.Revenue = d;
+            var y = [
+                'getDeviceId',
+                'setDeviceId',
+                'getSessionId',
+                'setSessionId',
+                'getUserId',
+                'setUserId',
+                'setOptOut',
+                'setTransport',
+                'reset',
+              ],
+              g = [
+                'init',
+                'add',
+                'remove',
+                'track',
+                'logEvent',
+                'identify',
+                'groupIdentify',
+                'setGroup',
+                'revenue',
+                'flush',
+              ];
+            i(n),
+              (n.createInstance = function (e) {
+                return (n._iq[e] = { _q: [] }), i(n._iq[e]), n._iq[e];
+              }),
+              (e.amplitude = n);
+          }
+        })(window, document);
+      })();
+
+      const getCookie = (name) => {
+        var nameEQ = name + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      };
+
+      const setCookie = (name, value, exp) => {
+        var date = new Date();
+        date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+        document.cookie =
+          name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+      };
+
+      amplitude
+        .init('5ab8cfadec6542bc7f1a69606883527a', undefined, {
+          logLevel: 'Debug',
+          minIdLength: 1,
+          defaultTracking: {
+            //sessions: true,
+            pageViews: true,
+            formInteractions: true,
+            fileDownloads: true,
+          },
+        })
+        .promise.then(function () {
+          const amplitudeDeviceId = getCookie('AMPLITUDE_DEVICE_ID');
+          if (amplitudeDeviceId) {
+            amplitude.setDeviceId(amplitudeDeviceId);
+          } else {
+            setCookie('AMPLITUDE_DEVICE_ID', amplitude.getDeviceId());
+          }
+        });
+    </script>
   </head>
   <body>
     <div id="root"></div>

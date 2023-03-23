@@ -7,7 +7,6 @@ import {
   useSendTemporaryPasswordMutation,
   FindPasswordInput,
   useSignupMutation,
-  SignUpInput,
   MutationSignupArgs,
   useExistsUserEmailQuery,
 } from '@/generated/graphql';
@@ -27,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/containers/auth/auth.constants';
+import { _generalMobileVerified } from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -77,6 +77,9 @@ export const useVerifyCode = (
           const { signature } = res.smsVerifyCodeConfirm;
           if (signature) {
             getVerifyCodeSignatureNumber(signature, isVerification, setIsVerification);
+
+            //앰플리튜드 전화번호 인증 완료 이벤트
+            _generalMobileVerified(phone);
           }
         },
         onError: (err) => {
@@ -155,7 +158,7 @@ export const useSignUp = () => {
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
     onSuccess: (res) => {
       if (res.signup.token) {
-        authTokenStorage.setToken(true, res.signup.token);
+        authTokenStorage.setToken(res.signup.token);
         navigation(PATH.SEARCH_PRODUCTS);
       }
     },

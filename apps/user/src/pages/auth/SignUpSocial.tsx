@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Common1Section as Layout } from '@/components/layouts/Common1Section';
@@ -8,11 +8,10 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
 
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { PATH } from '@/types/enum.code';
-
 import { TERMS_LIST } from '@/containers/auth/auth.constants';
 import { useLocation } from 'react-router-dom';
+import { _signupSignupStarted } from '@/amplitude/amplitude.service';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 interface ISignUpSocialForm {
   idToken: string;
@@ -39,6 +38,11 @@ const SignUpSocial = () => {
 
   //이용약관 자세히 보기한 목록
   const [openedAgreeDetailList, setOpenedAgreeDetailList] = useState<number[]>([]);
+
+  useEffect(() => {
+    //회원가입 화면 랜딩 시 앰플리튜드 이벤트
+    _signupSignupStarted(AccountType.GOOGLE);
+  }, []);
 
   //모든 약관 동의 체크 핸들러
   const onCheckAll = (checked: boolean) => {
@@ -101,7 +105,7 @@ const SignUpSocial = () => {
       phone,
       verifyCodeSign,
     };
-    onSubmitSignUpSocial(signUpInput);
+    onSubmitSignUpSocial(signUpInput, location.state?.email);
   };
 
   const onInvalid = () => {

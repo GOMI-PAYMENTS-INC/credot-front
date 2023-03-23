@@ -35,6 +35,16 @@ import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/api/config';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { graphQLClient } from '@/utils/graphqlCient';
+import {
+  _generalLoggedIn,
+  _generalLoggedOut,
+  _signupSignupCompleted,
+  _resetAmplitude,
+  _setUserProperties,
+} from '@/amplitude/amplitude.service';
+import { isFalsy } from '@/utils/isFalsy';
+import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
@@ -73,12 +83,36 @@ export const AuthContainer = () => {
 
     // 임시 비밀번호로 로그인한 상태 정리
     setTemporaryPasswordLogin(false);
-    // 임시 비밀번호로 로그인한 세션 삭제
-    sessionStorage.removeItem('TEMPORARY_PASSWORD_LOGIN');
+
+    // 임시 비밀번호로 로그인한 쿠키 삭제
+    removeCookie('TEMPORARY_PASSWORD_LOGIN');
+
+    //userInfo react query 초기화
+    removeUserInfo();
   };
-  const onLogout = () => {
+
+  const clearAmplitude = () => {
+    //앰플리튜드 회원 셋팅 여부 초기화
+    removeCookie('SET_EVENT_USER_PROPERTIES');
+
+    //앰플리튜드 디바이스 ID초기화
+    removeCookie('AMPLITUDE_DEVICE_ID');
+
+    //앰플리튜드 초기화
+    _resetAmplitude();
+  };
+
+  const onLogout = async () => {
+    // ##### 로그아웃 이벤트 시작 ##### //
     clearLogin();
+
     navigation(PATH.SIGN_IN);
+
+    //앰플리튜드 - 로그아웃 이벤트
+    await _generalLoggedOut(() => {
+      clearAmplitude();
+    });
+    // ##### 로그아웃이벤트 끝 ##### //
   };
 
   // 회원정보 가져오기
@@ -86,11 +120,20 @@ export const AuthContainer = () => {
     data: userInfo,
     isLoading: isLoadingUserInfo,
     refetch: refetchUserInfo,
+    remove: removeUserInfo,
   } = useMeQuery(
     graphQLClient,
     {},
     {
-      onSuccess: (res) => {},
+      onSuccess: async (res) => {
+        if (isFalsy(getCookie('SET_EVENT_USER_PROPERTIES'))) {
+          //앰플리튜드에서 사용할 회원 정보 셋팅
+          const result = await _setUserProperties(res.me);
+          if (result) {
+            setCookie('SET_EVENT_USER_PROPERTIES', 'true', 1);
+          }
+        }
+      },
       onError: (error) => {
         if (error instanceof Error) {
           console.error(error, 'error : )');
@@ -125,7 +168,7 @@ export const AuthContainer = () => {
     onSuccess: (res) => {
       if (res.signup.token) {
         setToken(res.signup.token);
-        authTokenStorage.setToken(isLoginStorage, res.signup.token);
+        authTokenStorage.setToken(res.signup.token);
         navigation(PATH.SEARCH_PRODUCTS);
       }
     },
@@ -145,7 +188,18 @@ export const AuthContainer = () => {
         verifyCodeSign: value.verifyCodeSign,
       },
     };
-    signUpMutate(signupFormValue);
+    signUpMutate(signupFormValue, {
+      onSuccess: () => {
+        //회원가입 완료 시 이벤트 - 로컬
+        _signupSignupCompleted(
+          AccountType.LOCAL,
+          signupFormValue.user.email,
+          signupFormValue.user.phone,
+          false,
+        );
+        navigation(PATH.SEARCH_PRODUCTS);
+      },
+    });
   };
   // 회원가입 끝
 
@@ -155,7 +209,7 @@ export const AuthContainer = () => {
       if (res.googleSignUp.token) {
         setIdToken('');
         setToken(res.googleSignUp.token);
-        authTokenStorage.setToken(isLoginStorage, res.googleSignUp.token);
+        authTokenStorage.setToken(res.googleSignUp.token);
         navigation(PATH.SEARCH_PRODUCTS);
       }
     },
@@ -164,7 +218,7 @@ export const AuthContainer = () => {
     },
   });
 
-  const onSubmitSignUpSocial = (value: GoogleSignUpInput) => {
+  const onSubmitSignUpSocial = (value: GoogleSignUpInput, email: string) => {
     const signupSocialFormValue: MutationGoogleSignUpArgs = {
       socialSignUpDto: {
         idToken: value.idToken,
@@ -172,7 +226,18 @@ export const AuthContainer = () => {
         verifyCodeSign: value.verifyCodeSign,
       },
     };
-    signUpSocialMutate(signupSocialFormValue);
+    signUpSocialMutate(signupSocialFormValue, {
+      //회원가입 완료 시 이벤트 - 구글 로그인
+      onSuccess: () => {
+        _signupSignupCompleted(
+          AccountType.LOCAL,
+          email,
+          signupSocialFormValue.socialSignUpDto.phone,
+          false,
+        );
+        navigation(PATH.SEARCH_PRODUCTS);
+      },
+    });
   };
   // 소셜 회원가입 끝
 
@@ -181,12 +246,12 @@ export const AuthContainer = () => {
     onSuccess: (res) => {
       // 로그인 토큰 설정
       setToken(res.login.token);
-      authTokenStorage.setToken(isLoginStorage, res.login.token);
+      authTokenStorage.setToken(res.login.token);
       // isLogin 상태 변경
       handleChangeLoginState(true);
       // 임시비밀번호로 로그인 한 경우
       if (res.login.popupInfo) {
-        sessionStorage.setItem('TEMPORARY_PASSWORD_LOGIN', res.login.token);
+        setCookie('TEMPORARY_PASSWORD_LOGIN', res.login.token, 1);
         setTemporaryPasswordLogin(true);
         navigation(PATH.REAPPLY_PASSWORD);
       } else {
@@ -202,7 +267,7 @@ export const AuthContainer = () => {
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.googleLogin.token);
-      authTokenStorage.setToken(isLoginStorage, res.googleLogin.token);
+      authTokenStorage.setToken(res.googleLogin.token);
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
@@ -211,7 +276,15 @@ export const AuthContainer = () => {
   });
 
   const onGoogleLoginButton = ({ idToken }: GoogleLoginMutationVariables) => {
-    googleLoginMutate({ idToken });
+    googleLoginMutate(
+      { idToken },
+      {
+        onSuccess: () => {
+          //로그인 완료 시 - 구글 로그인
+          _generalLoggedIn(AccountType.GOOGLE);
+        },
+      },
+    );
   };
 
   const handleCredentialResponse = (response: CredentialResponse) => {
@@ -280,6 +353,7 @@ export const AuthContainer = () => {
 
           if (path) {
             clearLogin();
+            clearAmplitude();
             navigation(path, { state: { email: value.data?.me.email, token: idToken } });
           } else {
             handleChangeLoginState(true);
@@ -307,17 +381,6 @@ export const AuthContainer = () => {
       if (temporaryPasswordLoginSession) {
         setTemporaryPasswordLogin(true);
       }
-    } else {
-      // 비회원인 경우
-      handleChangeLoginState(false);
-      if (
-        !Object.values(PATH).find((d) => d === pathname) &&
-        !pathname.startsWith(PATH.SIGN_IN)
-      ) {
-        navigation(PATH.SIGN_IN);
-      }
-
-      clearLogin();
     }
 
     window.google?.accounts.id.initialize({
@@ -340,7 +403,6 @@ export const AuthContainer = () => {
   }, []);
 
   return {
-    clearLogin,
     onSendSmsVerifyCode,
     onSubmitSignUp,
     loginMutate,

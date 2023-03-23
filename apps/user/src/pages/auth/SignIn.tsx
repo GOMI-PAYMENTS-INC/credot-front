@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
@@ -8,6 +8,8 @@ import { PATH } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { _generalLoggedIn } from '@/amplitude/amplitude.service';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 interface ISignInForm {
   email: string;
@@ -41,6 +43,10 @@ const SignIn = () => {
       },
     };
     loginMutate(loginFormValue, {
+      onSuccess: () => {
+        //앰플리튜드 로그인 완료 이벤트
+        _generalLoggedIn(AccountType.LOCAL);
+      },
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));
 

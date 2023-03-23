@@ -447,6 +447,7 @@ export type MeQuery = {
   __typename?: 'Query';
   me: {
     __typename?: 'User';
+    id: number;
     email: string;
     role: Role;
     name: string;
@@ -770,6 +771,7 @@ export const useGoogleSignupMutation = <TError extends unknown, TContext extends
 export const MeDocument = `
     query Me {
   me {
+    id
     email
     role
     name
