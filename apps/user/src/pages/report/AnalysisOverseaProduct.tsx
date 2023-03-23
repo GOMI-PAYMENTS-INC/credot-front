@@ -9,7 +9,7 @@ import { AnalysisOverseaProductTable } from '@/pages/report/AnalysisOverseaProdu
 import { OVERSEA_PRODUCT_RATIO } from '@/containers/report/report.constant';
 import { isFalsy } from '@/utils/isFalsy';
 import { TReportAction } from '@/containers/report/report.reducer';
-
+import { COUNTRY_CODE } from '@/containers/report/country.code';
 interface IAnalysisOverseaProduct {
   _dispatch: Dispatch<TReportAction>;
   scollerRef: RefObject<HTMLTableSectionElement>;
@@ -66,7 +66,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                   <div className='flex flex-col items-center'>
                     <div className={`${overseaProductRatioCommonStyle}  border-grey-600`}>
                       <p className={`text-grey-600`}>{aFewProduct.text}</p>
-                      <p className='pt-0.5'>{aFewProduct.scope}</p>
+                      <p className='pb-2 pt-0.5'>{aFewProduct.scope}</p>
                     </div>
 
                     {locationOfPointer === aFewProduct.key && (
@@ -85,7 +85,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                       className={`${overseaProductRatioCommonStyle}  mx-[2px] border-green-600`}
                     >
                       <p className={`text-green-600`}>{fewProducts.text}</p>
-                      <p className='pt-0.5'>{fewProducts.scope}</p>
+                      <p className='pb-2 pt-0.5'>{fewProducts.scope}</p>
                     </div>
 
                     {locationOfPointer === fewProducts.key && (
@@ -102,7 +102,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                   <div className='flex flex-col items-center'>
                     <div className={`${overseaProductRatioCommonStyle}  border-blue-600`}>
                       <p className={`text-blue-600`}>{manyProducts.text}</p>
-                      <p className='pt-0.5'>{manyProducts.scope}</p>
+                      <p className='pb-2 pt-0.5'>{manyProducts.scope}</p>
                     </div>
 
                     {locationOfPointer === manyProducts.key && (
@@ -124,7 +124,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                         } ${ratio.key === 'few' ? 'mx-[2px]' : ''}`}
                       >
                         <p className={`text-${ratio.color}`}>{ratio.text}</p>
-                        <p className='pt-0.5'>{ratio.scope}</p>
+                        <p className='pb-2 pt-0.5'>{ratio.scope}</p>
                       </div>
 
                       {locationOfPointer === ratio.key && (
@@ -157,23 +157,29 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                   </div>
                 ) : (
                   <div className='flex flex-wrap text-S/Regular text-grey-900'>
-                    {overseaLocationCount.map((country, idx) => (
-                      <div
-                        className={`float-left mx-1 mb-3 rounded-[4px] bg-grey-100 py-1`}
-                        key={country.itemShopLocation}
-                      >
-                        <div className='flex w-[120px] items-center'>
-                          <ReactSVG
-                            className='pl-[5px]'
-                            src='/assets/icons/country/None.svg'
-                          />
-                          <div className='flex pl-[7px]'>
-                            <p className='pl-1'>{country.itemShopLocation}</p>
-                            <p className='pl-1'>{`${country.count}개`}</p>
+                    {overseaLocationCount.map((country, idx) => {
+                      const countryCode = COUNTRY_CODE[
+                        country.itemShopLocation as keyof typeof COUNTRY_CODE
+                      ] ?? { name: '베트남', flag: 'None' };
+
+                      return (
+                        <div
+                          className={`float-left mx-1 mb-3 rounded-[4px] bg-grey-100 py-1`}
+                          key={country.itemShopLocation}
+                        >
+                          <div className='flex w-[120px] items-center'>
+                            <ReactSVG
+                              className='pl-[5px]'
+                              src={`/assets/icons/country/${countryCode.flag}.svg`}
+                            />
+                            <div className='flex pl-[7px]'>
+                              <p className='pl-1'>{countryCode.name ?? '베트남'}</p>
+                              <p className='pl-1'>{`${country.count}개`}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
