@@ -48,10 +48,19 @@ const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
   }
 };
 
+const getOverseaProduct = async (id: string) => {
+  try {
+    return await HTTP.get<TOverseaProductResponse>(`${REPORT_URL}/${id}/oversea`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   getMainReport,
   getRelationReport,
   getReportList,
   getSalePrice,
   deleteReportList,
+  getOverseaProduct,
 };

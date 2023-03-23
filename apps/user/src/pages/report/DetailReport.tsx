@@ -10,7 +10,7 @@ import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
-import { AnalysisDeliveryProduct } from '@/pages/report/AnalysisDeliveryProduct';
+import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
@@ -67,9 +67,9 @@ const DetailReport = () => {
           focus={_state.salePrice.focus}
           _dispatch={_dispatch}
         />
-        <AnalysisDeliveryProduct
+        <AnalysisOverseaProduct
           scollerRef={scrollController}
-          list={_state.salePrice.list}
+          overseaProduct={_state.oversea}
           _dispatch={_dispatch}
         />
         <section className='h-[200px]'></section>

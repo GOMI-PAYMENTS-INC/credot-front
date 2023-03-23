@@ -41,7 +41,7 @@ export enum TITLE {
   MARTKET_SIZE = 'MartketSize',
   KEYWORD_INFO = 'KeywordInfo',
   SALE_PRICE = 'SalePrice',
-  DELIVERY_PRODUCT = 'DeliveryProduct',
+  OVERSEA_PRODUCT = 'overseaProduct',
 }
 
 export enum TAG_SENTIMENT_STATUS {
@@ -75,6 +75,7 @@ export enum REPORT_DETAIL_TYPE {
   MAIN = 'main',
   RELATION = 'relation',
   PRICE = 'price',
+  OVERSEA = 'oversea',
 }
 
 export enum GRADE_ITEMS {

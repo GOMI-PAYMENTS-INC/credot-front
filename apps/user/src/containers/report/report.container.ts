@@ -1,6 +1,7 @@
 import {
   deleteReportList,
   getMainReport,
+  getOverseaProduct,
   getRelationReport,
   getSalePrice,
 } from './report.api';
@@ -18,6 +19,7 @@ import {
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
   TITLE,
+  REPORT_DETAIL_TYPE,
 } from '@/types/enum.code';
 import { convertTime } from '@/utils/parsingTimezone';
 import { getReportList } from '@/containers/report/report.api';
@@ -37,8 +39,9 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
       getMainReport(id),
       getRelationReport(id),
       getSalePrice(id),
+      getOverseaProduct(id),
     ]);
-    const dataName = ['main', 'relation', 'price'];
+    const dataName = Object.values(REPORT_DETAIL_TYPE);
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
@@ -493,7 +496,7 @@ export const onScrollDetail = (
   );
 
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, salePrice, deliveryProduct] = [
+  const [marketSize, keywordInfo, salePrice, overseaProduct] = [
     first,
     second,
     third,
@@ -513,13 +516,11 @@ export const onScrollDetail = (
     _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
-  if (scrollY >= salePrice && scrollY < deliveryProduct) {
+  if (scrollY >= salePrice && scrollY < overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
   }
-  if (scrollY >= deliveryProduct) {
-    _setState(
-      Object.assign({}, _state, { title: name, current: TITLE.DELIVERY_PRODUCT }),
-    );
+  if (scrollY >= overseaProduct) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.OVERSEA_PRODUCT }));
   }
 };
 
