@@ -44,10 +44,10 @@ export const AnalysisDeliveryProductTable = (props: ISalePriceTable) => {
       </thead>
       <tbody
         id='scrollbar'
-        className='block h-[393px] w-full overflow-y-auto '
+        className={`${[].length === 0 ? '' : 'block'} h-[393px] w-full overflow-y-auto`}
         ref={scollerRef}
       >
-        {salePriceItemList.map((item, idx) => {
+        {/* {salePriceItemList.map((item, idx) => {
           return (
             <tr
               className={
@@ -160,7 +160,17 @@ export const AnalysisDeliveryProductTable = (props: ISalePriceTable) => {
               </td>
             </tr>
           );
-        })}
+        })} */}
+        <tr>
+          <td colSpan={7}>
+            <div className='flex flex-col items-center justify-center text-center'>
+              <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
+              <div className='mt-4 text-L/Medium text-gray-800'>
+                <p>요청하신 키워드의 검색결과 내 상품이 존재하지 않아요.</p>
+              </div>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   );

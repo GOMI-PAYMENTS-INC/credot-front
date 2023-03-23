@@ -42,7 +42,7 @@ export const AnalysisDeliveryProduct = (props: IAnalysisDeliveryProduct) => {
                   <div className='flex w-full items-center justify-between'>
                     <p>해외 배송 상품</p>
                     <div className='flex items-center'>
-                      <p className='text-2XL/Bold text-grey-900'>2</p>
+                      <p className='text-2XL/Bold text-grey-900'>0</p>
                       <p className='pl-1 text-L/Medium'>{`/50 개`}</p>
                     </div>
                   </div>
@@ -74,8 +74,17 @@ export const AnalysisDeliveryProduct = (props: IAnalysisDeliveryProduct) => {
           <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
             <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto'>
               <div className='h-full  w-full max-w-[710px] overflow-y-hidden'>
+                <div className='flex h-full flex-col items-center justify-center'>
+                  <ReactSVG src='/assets/icons/outlined/File.svg' />
+                  <div className='pt-4 text-center text-gray-800'>
+                    <p className='text-L/Medium'>해외배송 상품이 존재하지 않아요.</p>
+                    <p className='pt-0.5 text-M/Medium text-gray-700'>
+                      검색량이 적은 키워드인 경우 확인이 어려울 수 있어요.
+                    </p>
+                  </div>
+                </div>
                 <div className='flex flex-wrap text-S/Regular text-grey-900'>
-                  {[1, 2, 3, 4, 5, 6, 7].map((el, idx) => (
+                  {/* {[1, 2, 3, 4, 5, 6, 7].map((el, idx) => (
                     <div
                       className={`float-left mx-1 mb-3 rounded-[4px] bg-grey-100 py-1`}
                       key={el}
@@ -91,7 +100,7 @@ export const AnalysisDeliveryProduct = (props: IAnalysisDeliveryProduct) => {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </div>
