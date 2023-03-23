@@ -94,6 +94,7 @@ export enum PATH {
   REAPPLY_PASSWORD = '/signin/password',
   GET_REPORT_LIST = '/report/list',
   ANALYSIS_REPORT_LIST = '/report/list/:id',
+  ERROR_PAGE = '/error',
 }
 
 export enum AUTH_RESPONSE_TYPE {

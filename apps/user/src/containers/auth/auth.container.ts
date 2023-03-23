@@ -86,6 +86,11 @@ export const AuthContainer = () => {
     // 임시 비밀번호로 로그인한 쿠키 삭제
     removeCookie('TEMPORARY_PASSWORD_LOGIN');
 
+    //userInfo react query 초기화
+    removeUserInfo();
+  };
+
+  const clearAmplitude = () => {
     //앰플리튜드 회원 셋팅 여부 초기화
     removeCookie('SET_EVENT_USER_PROPERTIES');
 
@@ -94,16 +99,17 @@ export const AuthContainer = () => {
 
     //앰플리튜드 초기화
     _resetAmplitude();
-
-    //userInfo react query 초기화
-    removeUserInfo();
   };
 
   const onLogout = async () => {
     // ##### 로그아웃 이벤트 시작 ##### //
+    clearLogin();
+
+    navigation(PATH.SIGN_IN);
+
+    //앰플리튜드 - 로그아웃 이벤트
     await _generalLoggedOut(() => {
-      clearLogin();
-      navigation(PATH.SIGN_IN);
+      clearAmplitude();
     });
     // ##### 로그아웃이벤트 끝 ##### //
   };
@@ -346,6 +352,7 @@ export const AuthContainer = () => {
 
           if (path) {
             clearLogin();
+            clearAmplitude();
             navigation(path, { state: { email: value.data?.me.email, token: idToken } });
           } else {
             handleChangeLoginState(true);

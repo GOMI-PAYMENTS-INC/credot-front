@@ -6,7 +6,7 @@ export const PATH = {
   HOME: '/',
 };
 
-export const SERVICE_URL = `http://localhost:5173`;
+export const SERVICE_URL = `https://app.gomiinsight.com`;
 
 type TPathKey = keyof typeof PATH;
 

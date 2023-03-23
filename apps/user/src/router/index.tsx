@@ -1,41 +1,29 @@
-import { createElement, useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate, matchRoutes } from 'react-router-dom';
-import { PATH, routeList } from '@/router/routeList';
-import { authTokenStorage } from '@/utils/authToken';
-import { isFalsy } from '@/utils/isFalsy';
-import { isIncluded } from '@/utils/isIncluded';
+import { createElement } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
+import PrivateRoute from '@/router/privateRouter';
+import { routeList } from '@/router/routeList';
 export const Router = () => {
-  const { pathname } = useLocation();
-
-  const [{ route }] = matchRoutes(routeList, pathname) || [];
-
-  const navigation = useNavigate();
-  const isLogin = authTokenStorage.getToken() !== null;
-
-  useEffect((): void => {
-    if (
-      isFalsy(isLogin) &&
-      isIncluded(
-        route.path,
-        PATH.SEARCH_PRODUCTS,
-        PATH.GET_REPORT_LIST,
-        PATH.ANALYSIS_REPORT_LIST,
-      )
-    ) {
-      navigation(PATH.SIGN_IN);
-    }
-  }, [pathname]);
-
   return (
     <Routes>
-      {routeList.map((route) => (
-        <Route
-          key={route.description}
-          path={route.path}
-          element={createElement(route.component)}
-        />
-      ))}
+      {routeList.map((route) => {
+        if (route.isPrivate) {
+          return (
+            <Route element={<PrivateRoute />}>
+              {/* 인증을 반드시 해야지만 접속 가능한 페이지 정의 */}
+              <Route path={route.path} element={createElement(route.component)} />
+            </Route>
+          );
+        } else {
+          return (
+            <Route
+              key={route.description}
+              path={route.path}
+              element={createElement(route.component)}
+            />
+          );
+        }
+      })}
     </Routes>
   );
 };
