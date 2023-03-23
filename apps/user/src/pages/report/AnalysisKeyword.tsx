@@ -265,8 +265,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             <div className='pl-[11px]'>
               <h1 className='text-M/Bold text-grey-900'>요약</h1>
               <div className='pt-1'>
-                <div className='break-all text-S/Regular text-gray-800'>{top}</div>
-                <div className='break-all text-S/Regular text-gray-800'>{bottom}</div>
+                <div className='break-all text-S/Regular text-grey-800'>{top}</div>
+                <div className='break-all text-S/Regular text-grey-800'>{bottom}</div>
               </div>
             </div>
           </div>

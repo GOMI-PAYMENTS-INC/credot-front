@@ -58,7 +58,7 @@ export const DetailReportContentsBar = (props: IDetailReportContentsBarProps) =>
                     <a href={`#${id}`} className='flex-auto'>
                       <h1
                         className={`ml-6 py-1 text-S/Regular  ${
-                          id === current ? 'text-orange-500' : 'text-gray-700'
+                          id === current ? 'text-orange-500' : 'text-grey-700'
                         }`}
                       >
                         {convertTitle(id)}
