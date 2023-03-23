@@ -28,7 +28,7 @@ const SideBar = () => {
   return (
     <aside className='relative'>
       {_state.openedSidebar ? (
-        <div className='flex h-full w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white px-2.5'>
+        <div className='flex h-full w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5'>
           <div>
             <div className='flex h-20 items-center justify-center'>
               <button
@@ -107,7 +107,7 @@ const SideBar = () => {
           </ul>
         </div>
       ) : (
-        <div className='flex h-full w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white'>
+        <div className='flex h-full w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white'>
           <div className='px-2.5'>
             <div className='flex h-20 items-center'>
               <button
