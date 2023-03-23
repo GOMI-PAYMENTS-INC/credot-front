@@ -55,8 +55,8 @@ input[type='number'] {
     background-color: #fff;
   }
 
-  .select-icon-group{
-    @apply flex gap-x-2 items-center
+  .select-icon-group {
+    @apply flex items-center gap-x-2;
   }
   .select-icon-group select.select-normal-clear-true {
     @apply py-2.5 pl-0 pr-8 text-S/Regular text-grey-800 bg-svg-filled/CaretDown-grey-700
@@ -161,7 +161,7 @@ input[type='number'] {
   }
 
   .keywordInfo-span-subtitle {
-    @apply flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
+    @apply relative flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
   }
 }
 

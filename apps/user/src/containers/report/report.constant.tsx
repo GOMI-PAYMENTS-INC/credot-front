@@ -535,3 +535,9 @@ export const convertEvaluateStatus = (score: string) => {
 
   return SCORE[key as keyof typeof SCORE];
 };
+
+export const OVERSEA_PRODUCT_RATIO = [
+  { text: '적음', key: 'afew', scope: '0~3', color: 'grey-600' },
+  { text: '보통', key: 'few', scope: '3~7', color: 'green-600' },
+  { text: '많음', key: 'many', scope: '7개 이상', color: 'blue-600' },
+];

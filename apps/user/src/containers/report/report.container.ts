@@ -1,6 +1,7 @@
 import {
   deleteReportList,
   getMainReport,
+  getOverseaProduct,
   getRelationReport,
   getSalePrice,
 } from './report.api';
@@ -18,6 +19,7 @@ import {
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
   TITLE,
+  REPORT_DETAIL_TYPE,
 } from '@/types/enum.code';
 import { convertTime } from '@/utils/parsingTimezone';
 import { getReportList } from '@/containers/report/report.api';
@@ -37,8 +39,9 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
       getMainReport(id),
       getRelationReport(id),
       getSalePrice(id),
+      getOverseaProduct(id),
     ]);
-    const dataName = ['main', 'relation', 'price'];
+    const dataName = Object.values(REPORT_DETAIL_TYPE);
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
@@ -453,12 +456,13 @@ export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: numbe
 
     return false;
   });
+  console.group('IQR');
   console.log((Q1 / 100) * basePrice, 'Q1');
   console.log((Q3 / 100) * basePrice, 'Q3');
   console.log((IQR / 100) * basePrice, 'IQR');
   console.log(((Q1 - 1.5 * IQR) / 100) * basePrice, 'Min');
   console.log(((Q3 + 1.5 * IQR) / 100) * basePrice, 'Max');
-
+  console.groupEnd();
   return removedOutliner;
 };
 
@@ -487,19 +491,23 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const [first, second, third] = document.getElementsByClassName(
+  const [first, second, third, fourth] = document.getElementsByClassName(
     'detailReport-h1-header',
   );
 
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, salePrice] = [first, second, third].map(
-    (element) => (element as HTMLElement).offsetTop - 100,
-  );
+  const [marketSize, keywordInfo, salePrice, overseaProduct] = [
+    first,
+    second,
+    third,
+    fourth,
+  ].map((element) => (element as HTMLElement).offsetTop - 100);
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
     return;
   }
+
   if (scrollY >= marketSize && scrollY < keywordInfo) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
   }
@@ -508,8 +516,11 @@ export const onScrollDetail = (
     _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
-  if (scrollY >= salePrice) {
+  if (scrollY >= salePrice && scrollY < overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
+  }
+  if (scrollY >= overseaProduct) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.OVERSEA_PRODUCT }));
   }
 };
 

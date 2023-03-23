@@ -126,6 +126,7 @@ type TReportState = {
     focus: GRADE_TYPE;
     list: TSalePriceItems[] | [];
   };
+  oversea: TOverseaProductData | null;
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -221,4 +222,44 @@ type TScrollEvent = {
   title: string;
   isOpen: boolean;
   current: string;
+};
+
+type TOverseaProductResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TOverseaProductData[];
+};
+
+type TOverseaProductData = {
+  id: number;
+  text: string;
+  country: 'VN';
+  channel: 'SHOPEE';
+  itemOverseaCount: number;
+  totalItemCount: number;
+  overseaLocationCount: { itemShopLocation: string; count: number }[];
+  overseaItems: TOverSeaItems[];
+};
+
+type TOverSeaItems = {
+  id: number;
+  insightReportId: number;
+  reportUniqueId: string;
+  rank: number;
+  itemName: string;
+  itemUrl: string;
+  itemImage: string;
+  itemStockLocation: string;
+  storeName: string;
+  itemShopLocation: string;
+  storeItemCount: number;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  itemPriceAvg: number;
+  itemHasLowestPriceGuarantee: true;
+  itemHistoricalSold: number;
+  item30daysSold: number;
+  itemSales: number;
+  item30daySales: number;
+  itemBrand: string;
 };

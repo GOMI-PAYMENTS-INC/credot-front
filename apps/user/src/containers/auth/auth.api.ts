@@ -196,6 +196,7 @@ export const useSignUp = () => {
         message: '필수 이용약관과 개인정보 수집대한 안내 모두 동의해주세요.',
       });
     }
+
     if (isValid.length !== 5 || isValidVerifyCodeSign || isValidTerms) return;
 
     const { email, password, phone } = value;
