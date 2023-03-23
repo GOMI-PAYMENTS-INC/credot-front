@@ -21,8 +21,11 @@ export const AnalysisDeliveryProductTable = (props: ISalePriceTable) => {
     <table className='overflow-y col-span-full mt-[27px] block h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
-          <th className='w-[422px] text-left' colSpan={1}>
+          <th className='w-[368px] text-left' colSpan={1}>
             <p className=' pl-3 text-XS/Medium'>상품</p>
+          </th>
+          <th className='w-[132px] text-left' colSpan={1}>
+            <p className=' pl-3 text-XS/Medium'>국가</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
             <p className='px-4  text-XS/Medium'>판매가</p>
@@ -54,15 +57,21 @@ export const AnalysisDeliveryProductTable = (props: ISalePriceTable) => {
               }
               key={`${item.id}_${idx}`}
             >
-              <td className='w-[422px]'>
+              <td className='w-[368px]'>
                 <div className='flex items-center'>
                   <img className='my-2 ml-4 h-14 w-14' src={item.itemImage} />
 
                   <div className='basis-full py-4'>
-                    <p className=' w-[320px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
-                      {replaceOverLength(item.itemName, 70)}
+                    <p className=' w-[230px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
+                      {replaceOverLength(item.itemName, 65)}
                     </p>
                   </div>
+                </div>
+              </td>
+              <td className='w-[132px]'>
+                <div className='flex items-center text-S/Medium text-grey-900'>
+                  <ReactSVG src='/assets/icons/country/China.svg' />
+                  <p className='pl-2'>중국</p>
                 </div>
               </td>
               <td className='w-[128px]'>

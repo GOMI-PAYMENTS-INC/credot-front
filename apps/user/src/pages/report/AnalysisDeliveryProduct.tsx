@@ -2,19 +2,12 @@ import { Dispatch, Fragment, RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
-import { TITLE, GRADE_ITEMS } from '@/types/enum.code';
-import { SalePriceChart } from '@/pages/report/SalePriceChart';
+import { TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
-import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
+
 import { AnalysisDeliveryProductTable } from '@/pages/report/AnalysisDeliveryProductTable';
 import { DELIVERY_PRODUCT_RATIO } from '@/containers/report/report.constant';
 
-import {
-  selectSalePriceCompetitionType,
-  convertGrade,
-  changeSalePriceData,
-} from '@/containers/report/report.container';
 import { TReportAction } from '@/containers/report/report.reducer';
 
 interface IAnalysisDeliveryProduct {
@@ -54,12 +47,12 @@ export const AnalysisDeliveryProduct = (props: IAnalysisDeliveryProduct) => {
                     </div>
                   </div>
                 </section>
-                {/* mx-10 */}
+
                 <section className='flex items-center justify-center pt-5 pb-[43px] text-S/Medium text-grey-600'>
                   {DELIVERY_PRODUCT_RATIO.map((ratio) => (
                     <div className='flex flex-col items-center' key={ratio.key}>
                       <div
-                        className={`${deliveryProductRatioCommonStyle} border-${
+                        className={`${deliveryProductRatioCommonStyle}  border-${
                           ratio.color
                         } ${ratio.key === 'medium' && 'mx-[2px]'}`}
                       >
@@ -79,17 +72,23 @@ export const AnalysisDeliveryProduct = (props: IAnalysisDeliveryProduct) => {
             </div>
           </div>
           <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
-            <div className='my-5 mx-5 flex h-full items-center justify-center overflow-x-auto'>
-              <div className='h-full w-full max-w-[710px]  bg-red-400'>
-                <div className='flex overflow-y-hidden'>
-                  {[1, 2, 3, 4, 5, 6, 7].map((el) => (
+            <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto'>
+              <div className='h-full  w-full max-w-[710px] overflow-y-hidden'>
+                <div className='flex flex-wrap text-S/Regular text-grey-900'>
+                  {[1, 2, 3, 4, 5, 6, 7].map((el, idx) => (
                     <div
-                      className='float-left flex w-[124px] items-center rounded-[4px] bg-grey-100'
+                      className={`float-left mx-1 mb-3 rounded-[4px] bg-grey-100 py-1`}
                       key={el}
                     >
-                      <div className=''>
-                        <ReactSVG src='/assets/icons/country/Korea.svg' />
-                        <p>{`한국 5개`}</p>
+                      <div className='flex w-[120px] items-center'>
+                        <ReactSVG
+                          className='pl-[5px]'
+                          src='/assets/icons/country/Korea.svg'
+                        />
+                        <div className='flex pl-[7px]'>
+                          <p className='pl-1'>{`한국`}</p>
+                          <p className='pl-1'>{`5개`}</p>
+                        </div>
                       </div>
                     </div>
                   ))}
