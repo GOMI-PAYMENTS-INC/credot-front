@@ -259,10 +259,10 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                             <div className='py-3 px-3'>
                               <h1 className='text-M/Bold text-grey-900'>요약</h1>
                               <div className='pt-1'>
-                                <div className='break-all text-S/Regular text-gray-800'>
+                                <div className='break-all text-S/Regular text-grey-800'>
                                   {top}
                                 </div>
-                                <div className='break-all text-S/Regular text-gray-800'>
+                                <div className='break-all text-S/Regular text-grey-800'>
                                   {bottom}
                                 </div>
                               </div>

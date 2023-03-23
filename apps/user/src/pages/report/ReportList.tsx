@@ -43,7 +43,7 @@ const ReportList = () => {
   return (
     <Layout>
       {/*헤더*/}
-      <header className='border-b-[1px] border-b-gray-200 bg-white'>
+      <header className='border-b-[1px] border-b-grey-200 bg-white'>
         <div className='container'>
           <div className='flex h-[84px] items-center'>
             <div className='shrink-0'>

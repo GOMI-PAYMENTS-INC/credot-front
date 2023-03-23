@@ -53,7 +53,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
             <td colSpan={7}>
               <div className='flex flex-col items-center justify-center text-center'>
                 <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
-                <div className='mt-4 text-L/Medium text-gray-800'>
+                <div className='mt-4 text-L/Medium text-grey-800'>
                   <p>요청하신 키워드의 검색결과 내 상품이 존재하지 않아요.</p>
                 </div>
               </div>

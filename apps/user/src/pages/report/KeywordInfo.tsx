@@ -12,7 +12,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
     <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>
         <div className='basis-full py-8 pl-2'>
-          <h1 className='break-all text-3XL/Bold text-gray-900'>{text}</h1>
+          <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
           <div>
             <div className='pt-4 text-S/Medium odd:space-x-2'>
               <span className=' text-grey-600'>국가</span>
