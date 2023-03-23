@@ -3,7 +3,7 @@ import { matchRoutes, Route, Routes, useLocation } from 'react-router-dom';
 
 import Layout from '@/components/layouts/layout';
 import { routeList } from '@/types/paths';
-import { _introPageIntroPageViewed } from '@/utils/amplitude.service';
+import { _introPageIntroPageViewed } from '@/amplitude/amplitude.service';
 
 export const Router = () => {
   const { pathname } = useLocation();

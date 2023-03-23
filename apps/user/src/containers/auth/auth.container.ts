@@ -30,7 +30,7 @@ import {
   useSignupMutation,
 } from '@/generated/graphql';
 
-import { AccountType, PATH } from '@/types/enum.code';
+import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { GlobalEnv } from '@/api/config';
 import { useSessionStorage } from '@/utils/useSessionStorage';
@@ -41,9 +41,10 @@ import {
   _signupSignupCompleted,
   _resetAmplitude,
   _setUserProperties,
-} from '@/utils/amplitude.service';
+} from '@/amplitude/amplitude.service';
 import { isFalsy } from '@/utils/isFalsy';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);

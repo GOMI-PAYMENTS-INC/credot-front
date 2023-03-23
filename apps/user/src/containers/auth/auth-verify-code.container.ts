@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useSmsVerifyCodeConfirmQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
-import { _generalMobileVerified } from '@/utils/amplitude.service';
+import { _generalMobileVerified } from '@/amplitude/amplitude.service';
 
 export const AuthVerifyCodeContainer = () => {
   const [verifyCode, setVerifyCode] = useState<string>('');

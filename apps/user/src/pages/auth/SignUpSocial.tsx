@@ -8,11 +8,10 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
 
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { AccountType } from '@/types/enum.code';
-
 import { TERMS_LIST } from '@/containers/auth/auth.constants';
 import { useLocation } from 'react-router-dom';
-import { _signupSignupStarted } from '@/utils/amplitude.service';
+import { _signupSignupStarted } from '@/amplitude/amplitude.service';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 interface ISignUpSocialForm {
   idToken: string;

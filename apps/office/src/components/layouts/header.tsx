@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { IRoute, PATH, SERVICE_URL } from '@/types/paths';
-import { _introPageMovedToSolution } from '@/utils/amplitude.service';
-import { CTA_LOCATION, CTA_TYPE } from '@/types/enum.code';
+import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 
 interface HeaderProps {
   route: IRoute;

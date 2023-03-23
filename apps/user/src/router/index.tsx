@@ -14,15 +14,15 @@ export const Router = () => {
               <Route path={route.path} element={createElement(route.component)} />
             </Route>
           );
-        } else {
-          return (
-            <Route
-              key={route.description}
-              path={route.path}
-              element={createElement(route.component)}
-            />
-          );
         }
+
+        return (
+          <Route
+            key={route.description}
+            path={route.path}
+            element={createElement(route.component)}
+          />
+        );
       })}
     </Routes>
   );

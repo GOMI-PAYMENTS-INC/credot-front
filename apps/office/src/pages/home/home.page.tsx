@@ -6,9 +6,9 @@ import { Autoplay } from 'swiper';
 
 import { ReactSVG } from 'react-svg';
 import { Swiper as SwiperClass } from 'swiper/types';
-import { _introPageMovedToSolution } from '@/utils/amplitude.service';
-import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/types/enum.code';
+import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { SERVICE_URL } from '@/types/paths';
+import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);

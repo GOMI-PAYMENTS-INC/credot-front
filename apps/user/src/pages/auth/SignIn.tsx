@@ -4,11 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { MutationLoginArgs } from '@/generated/graphql';
-import { AccountType, PATH } from '@/types/enum.code';
+import { PATH } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { _generalLoggedIn } from '@/utils/amplitude.service';
+import { _generalLoggedIn } from '@/amplitude/amplitude.service';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 interface ISignInForm {
   email: string;

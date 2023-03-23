@@ -15,7 +15,6 @@ export const PATH = {
   REAPPLY_PASSWORD: '/signin/password',
   GET_REPORT_LIST: '/report/list',
   ANALYSIS_REPORT_LIST: '/report/list/:id',
-  ERROR_PAGE: '/error',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -95,11 +94,5 @@ export const routeList: IRoute[] = [
     description: 'DetailReport',
     path: PATH.ANALYSIS_REPORT_LIST,
     component: ReportRoutes.DetailReport,
-  },
-  {
-    isPrivate: false,
-    description: 'ErrorPage',
-    path: PATH.ERROR_PAGE,
-    component: ErrorPage,
   },
 ];

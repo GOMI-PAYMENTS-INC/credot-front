@@ -1,8 +1,8 @@
-import { MeQuery, Role, User } from '@/generated/graphql';
-import { events } from '@/types/events';
-import { AccountType } from '@/types/enum.code';
+import { Role, User } from '@/generated/graphql';
+import { amplitudeConstant } from '@/amplitude/amplitude.constant';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
-declare var amplitude;
+declare var amplitude: any;
 
 // ##### Event ##### //
 export const _setAmplitudeEvents = async (
@@ -59,24 +59,24 @@ export const _resetAmplitude = () => {
 
 // ##### GENERAL - 1 - 로그인 완료 시 이벤트 ##### //
 export const _generalLoggedIn = (provider: AccountType) => {
-  void _setAmplitudeEvents(events.loggedIn, {
+  void _setAmplitudeEvents(amplitudeConstant.loggedIn, {
     provider,
   });
 };
 
 // ##### GENERAL - 2 - 로그아웃 완료 시 이벤트 ##### //
 export const _generalLoggedOut = async (callBackEvent?: () => void) => {
-  await _setAmplitudeEvents(events.loggedOut, {}, callBackEvent);
+  await _setAmplitudeEvents(amplitudeConstant.loggedOut, {}, callBackEvent);
 };
 
 // ##### GENERAL - 3 - 휴대폰 인증 완료 시 이벤트 ##### //
 export const _generalMobileVerified = (phone_number: string) => {
-  void _setAmplitudeEvents(events.mobileVerified, { phone_number });
+  void _setAmplitudeEvents(amplitudeConstant.mobileVerified, { phone_number });
 };
 
 // ##### SIGNUP - 1 - 회원가입 화면 랜딩 시 이벤트 ##### //
 export const _signupSignupStarted = (provider: AccountType) => {
-  void _setAmplitudeEvents(events.signupStarted, {
+  void _setAmplitudeEvents(amplitudeConstant.signupStarted, {
     provider,
   });
 };
@@ -88,7 +88,7 @@ export const _signupSignupCompleted = (
   phone_number: string,
   marketing_notification: boolean,
 ) => {
-  void _setAmplitudeEvents(events.signupCompleted, {
+  void _setAmplitudeEvents(amplitudeConstant.signupCompleted, {
     provider,
     email,
     phone_number,
@@ -98,13 +98,13 @@ export const _signupSignupCompleted = (
 
 // ##### FIND ID - 1 - 아이디 찾기 화면 랜딩 시 ##### //
 export const _findIdFindIdStarted = () => {
-  void _setAmplitudeEvents(events.findIdStarted);
+  void _setAmplitudeEvents(amplitudeConstant.findIdStarted);
 };
 // ##### FIND ID - 2 - 아이디 안내 화면 랜딩 시 ##### //
 export const _findIdFindIdSucceeded = () => {
-  void _setAmplitudeEvents(events.findIdSucceeded);
+  void _setAmplitudeEvents(amplitudeConstant.findIdSucceeded);
 };
 // ##### FIND ID - 3 - 아이디 없음 화면 랜딩 시 ##### //
 export const _findIdFindIdFailed = () => {
-  void _setAmplitudeEvents(events.findIdFailed);
+  void _setAmplitudeEvents(amplitudeConstant.findIdFailed);
 };

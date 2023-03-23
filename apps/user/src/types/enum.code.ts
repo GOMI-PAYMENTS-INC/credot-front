@@ -94,7 +94,6 @@ export enum PATH {
   REAPPLY_PASSWORD = '/signin/password',
   GET_REPORT_LIST = '/report/list',
   ANALYSIS_REPORT_LIST = '/report/list/:id',
-  ERROR_PAGE = '/error',
 }
 
 export enum AUTH_RESPONSE_TYPE {
@@ -106,10 +105,4 @@ export enum TERM_TYPE {
   USE_AGREE = 'useAgree',
   PERSONAL_AGREE = 'personalAgree',
   MARKETING_AGREE = 'marketingAgree',
-}
-
-//Amplitude
-export enum AccountType {
-  LOCAL = 'id/pw',
-  GOOGLE = 'google',
 }

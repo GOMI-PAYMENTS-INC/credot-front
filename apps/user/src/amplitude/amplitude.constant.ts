@@ -1,4 +1,4 @@
-export const events = {
+export const amplitudeConstant = {
   loggedIn: 'logged in',
   loggedOut: 'logged out',
   mobileVerified: 'mobile verified',

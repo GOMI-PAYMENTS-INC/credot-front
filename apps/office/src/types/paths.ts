@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import HomePage from '@/pages/home/home.page';
-import { PAGE_CATEGORY } from '@/types/enum.code';
+import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 
 export const PATH = {
   HOME: '/',

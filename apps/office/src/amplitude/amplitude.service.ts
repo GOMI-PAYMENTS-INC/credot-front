@@ -1,6 +1,6 @@
-import { events } from '@/types/events';
+import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 
-declare var amplitude;
+declare var amplitude: any;
 
 // ##### Event ##### //
 export const _setAmplitudeEvents = async (
@@ -26,7 +26,7 @@ export const _setAmplitudeEvents = async (
 
 // ##### INTRO PAGE - 1 - 소개 페이지 내 페이지 뷰 발생 시 ##### //
 export const _introPageIntroPageViewed = (page_category: string, page_url: string) => {
-  void _setAmplitudeEvents(events.introPageViewed, {
+  void _setAmplitudeEvents(amplitudeConstant.introPageViewed, {
     page_category,
     page_url,
   });
@@ -40,7 +40,7 @@ export const _introPageMovedToSolution = (
   cta_text: string,
   move_link: string,
 ) => {
-  void _setAmplitudeEvents(events.movedToSolution, {
+  void _setAmplitudeEvents(amplitudeConstant.movedToSolution, {
     page_category,
     cta_type,
     cta_location,

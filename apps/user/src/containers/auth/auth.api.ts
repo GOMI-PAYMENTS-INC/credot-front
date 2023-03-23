@@ -7,7 +7,6 @@ import {
   useSendTemporaryPasswordMutation,
   FindPasswordInput,
   useSignupMutation,
-  SignUpInput,
   MutationSignupArgs,
   useExistsUserEmailQuery,
 } from '@/generated/graphql';
@@ -27,7 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/containers/auth/auth.constants';
-import { _generalMobileVerified } from '@/utils/amplitude.service';
+import { _generalMobileVerified } from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
