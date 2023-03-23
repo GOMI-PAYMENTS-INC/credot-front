@@ -36,7 +36,7 @@ export const routeList: IRoute[] = [
     //회원가입
     description: 'SignUp',
     path: PATH.SIGN_UP,
-    component: AuthRoutes.SignUpRef,
+    component: AuthRoutes.SignUp,
   },
   {
     //소셜 로그인

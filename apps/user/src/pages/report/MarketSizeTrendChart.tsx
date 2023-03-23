@@ -41,8 +41,8 @@ export const MarketSizeTrendChart = (props: IMarketSizeTrendChart) => {
         },
       },
       y: {
+        beginAtZero: true,
         ticks: {
-          min: 0,
           max: 100,
           stepSize: 25,
         },

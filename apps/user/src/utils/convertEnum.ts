@@ -7,12 +7,12 @@ export const convertTitle = (id: string) => {
       return '리포트';
     case TITLE.MARTKET_SIZE:
       return '시장 분석';
-    // case TITLE.RECOMMEND_KEYWORD:
-    //   return '추천 키워드';
     case TITLE.KEYWORD_INFO:
       return '키워드 분석';
     case TITLE.SALE_PRICE:
       return '가격 분석';
+    case TITLE.OVERSEA_PRODUCT:
+      return '해외배송 상품 분석';
     default:
       return id;
   }

@@ -166,7 +166,7 @@ export const FindPasswordRef = () => {
           setValue={setValue}
         />
       )}
-      <FindAccountBottom />
+      <FindAccountBottom text={'계정이 기억나셨나요?'} />
     </Layout>
   );
 };
