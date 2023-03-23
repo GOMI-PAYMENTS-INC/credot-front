@@ -1,16 +1,15 @@
-import { RefObject } from 'react';
+import { Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { openBrowser } from '@/containers/report';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/containers/report';
-import { Fragment } from 'react';
+
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { isFalsy } from '@/utils/isFalsy';
-
+import { COUNTRY_CODE } from '@/containers/report/country.code';
 interface ISalePriceTable {
   basePrice: number;
-
   overseaItems: TOverSeaItems[];
 }
 
@@ -63,6 +62,9 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
         ) : (
           <Fragment>
             {overseaItems.map((item, idx) => {
+              const countryCode = COUNTRY_CODE[
+                item.itemShopLocation as keyof typeof COUNTRY_CODE
+              ] ?? { name: '베트남', flag: 'None' };
               return (
                 <tr
                   className={
@@ -85,8 +87,8 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                   </td>
                   <td className='w-[132px]'>
                     <div className='flex items-center text-S/Medium text-grey-900'>
-                      <ReactSVG src='/assets/icons/country/None.svg' />
-                      <p className='pl-2'>{item.itemShopLocation}</p>
+                      <ReactSVG src={`/assets/icons/country/${countryCode.flag}.svg`} />
+                      <p className='pl-2'>{countryCode.name}</p>
                     </div>
                   </td>
                   <td className='w-[128px]'>
