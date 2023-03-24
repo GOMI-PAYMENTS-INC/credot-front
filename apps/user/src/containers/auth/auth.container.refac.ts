@@ -21,6 +21,7 @@ export const termInitialState: TTermsCheckState = {
   triggerConfirmEmail: false,
   agreedAllTerms: false,
   isReadyToSignUp: false,
+  welcomeModalClosingTime: null,
 };
 
 export const selectTerm = (
@@ -100,6 +101,15 @@ export const isReadyToSignUp = (
     return _setState(_state({ isReadyToSignUp: true }));
 
   _setState(_state({ isReadyToSignUp: false }));
+};
+
+export const setWelcomeModalClosingTime = (
+  time: number,
+  state: TTermsCheckState,
+  _setState: Dispatch<SetStateAction<TTermsCheckState>>,
+) => {
+  const _state = mergeCopiedValue(state);
+  _setState(_state({ welcomeModalClosingTime: time }));
 };
 
 export const maskingPhone = (phone: string) => {

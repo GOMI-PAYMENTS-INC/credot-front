@@ -20,6 +20,7 @@ import {
   getVerifyCodeSignatureNumber,
   isAccountExisted,
   exccedVerifyTry,
+  setWelcomeModalClosingTime,
 } from '@/containers/auth/auth.container.refac';
 import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -154,14 +155,7 @@ export const useVerifyCode = (
 };
 
 export const useSignUp = () => {
-  const navigation = useNavigate();
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
-    onSuccess: (res) => {
-      if (res.signup.token) {
-        authTokenStorage.setToken(res.signup.token);
-        navigation(PATH.SEARCH_PRODUCTS);
-      }
-    },
     onError: () => {
       toast.error('회원가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
@@ -171,6 +165,7 @@ export const useSignUp = () => {
     value: TAuthEssentialProps,
     verifyCodeSignatureNumber: string,
     signUpEvent: TTermsCheckState,
+    setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
     const isValid = Object.keys(value).filter((item) => {
@@ -211,7 +206,15 @@ export const useSignUp = () => {
     const signupFormValue: MutationSignupArgs = {
       user: { ...payload },
     };
-    signUpMutate(signupFormValue);
+
+    signUpMutate(signupFormValue, {
+      onSuccess: (res) => {
+        if (res.signup.token) {
+          authTokenStorage.setToken(res.signup.token);
+        }
+        setWelcomeModalClosingTime(2500, signUpEvent, setSignupEvent);
+      },
+    });
   };
 
   const _isExistedAccount = (

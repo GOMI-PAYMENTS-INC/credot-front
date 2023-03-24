@@ -10,7 +10,6 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { _generalLoggedIn } from '@/amplitude/amplitude.service';
 import { AccountType } from '@/amplitude/amplitude.enum';
-
 interface ISignInForm {
   email: string;
   password: string;
