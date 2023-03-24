@@ -58,6 +58,8 @@ export const AuthContainer = () => {
     IsTemporaryPasswordLoginAtom,
   );
   const [isSending, setSending] = useState<boolean>(false);
+  const [fromSocialSignUp, setFromSocialSignUp] = useState<boolean>(false);
+
   const { pathname } = useLocation();
   const navigation = useNavigate();
 
@@ -205,14 +207,6 @@ export const AuthContainer = () => {
 
   // 소셜 회원가입 시작
   const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
-    onSuccess: (res) => {
-      if (res.googleSignUp.token) {
-        setIdToken('');
-        setToken(res.googleSignUp.token);
-        authTokenStorage.setToken(res.googleSignUp.token);
-        navigation(PATH.SEARCH_PRODUCTS);
-      }
-    },
     onError: () => {
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
@@ -232,14 +226,19 @@ export const AuthContainer = () => {
     };
     signUpSocialMutate(signupSocialFormValue, {
       //회원가입 완료 시 이벤트 - 구글 로그인
-      onSuccess: () => {
+      onSuccess: (res) => {
+        setWelcomeModalClosingTime(2500);
+        setFromSocialSignUp(true);
+        if (res.googleSignUp.token) {
+          setToken(res.googleSignUp.token);
+          authTokenStorage.setToken(res.googleSignUp.token);
+        }
         _signupSignupCompleted(
           AccountType.LOCAL,
           email,
           signupSocialFormValue.socialSignUpDto.phone,
           false,
         );
-        setWelcomeModalClosingTime(2500);
       },
     });
   };
@@ -267,7 +266,7 @@ export const AuthContainer = () => {
   });
   // 로컬 로그인 끝
 
-  // 구글 로그인 시작
+  // 구글 로그인 시작 /
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
     onSuccess: (res) => {
       setToken(res.googleLogin.token);
@@ -351,7 +350,7 @@ export const AuthContainer = () => {
 
       refetchUserInfo().then((value) => {
         //토큰은 있지만 로그인 상태가 아닌 경우
-        if (!isLogin) {
+        if (isLogin === false) {
           //소셜 회원가입인 경우 전화번호 인증이 필요함
           const path = value.data?.me.phone === '' && PATH.SIGN_UP_WITH_GOOGLE;
 
@@ -359,9 +358,13 @@ export const AuthContainer = () => {
             clearLogin();
             clearAmplitude();
             navigation(path, { state: { email: value.data?.me.email, token: idToken } });
-          } else {
-            handleChangeLoginState(true);
+          }
+        } else {
+          handleChangeLoginState(true);
+          console.log('hi');
+          if (fromSocialSignUp === false) {
             navigation(PATH.SEARCH_PRODUCTS);
+            console.log('hi');
           }
         }
       });
