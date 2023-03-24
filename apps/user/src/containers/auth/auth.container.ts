@@ -227,7 +227,7 @@ export const AuthContainer = () => {
     signUpSocialMutate(signupSocialFormValue, {
       //회원가입 완료 시 이벤트 - 구글 로그인
       onSuccess: (res) => {
-        setWelcomeModalClosingTime(2000);
+        setWelcomeModalClosingTime(1500);
         setFromSocialSignUp(true);
         if (res.googleSignUp.token) {
           setToken(res.googleSignUp.token);
@@ -358,13 +358,11 @@ export const AuthContainer = () => {
             clearLogin();
             clearAmplitude();
             navigation(path, { state: { email: value.data?.me.email, token: idToken } });
-          }
-        } else {
-          handleChangeLoginState(true);
-          console.log('hi');
-          if (fromSocialSignUp === false) {
-            navigation(PATH.SEARCH_PRODUCTS);
-            console.log('hi');
+          } else {
+            handleChangeLoginState(true);
+            if (fromSocialSignUp === false) {
+              navigation(PATH.SEARCH_PRODUCTS);
+            }
           }
         }
       });

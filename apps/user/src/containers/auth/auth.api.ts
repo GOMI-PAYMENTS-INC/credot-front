@@ -212,7 +212,7 @@ export const useSignUp = () => {
         if (res.signup.token) {
           authTokenStorage.setToken(res.signup.token);
         }
-        setWelcomeModalClosingTime(2000, signUpEvent, setSignupEvent);
+        setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
       },
     });
   };
