@@ -227,7 +227,7 @@ export const AuthContainer = () => {
     signUpSocialMutate(signupSocialFormValue, {
       //회원가입 완료 시 이벤트 - 구글 로그인
       onSuccess: (res) => {
-        setWelcomeModalClosingTime(2500);
+        setWelcomeModalClosingTime(2000);
         setFromSocialSignUp(true);
         if (res.googleSignUp.token) {
           setToken(res.googleSignUp.token);
