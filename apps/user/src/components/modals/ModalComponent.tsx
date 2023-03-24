@@ -1,5 +1,5 @@
-import { useEffect, ReactNode } from 'react';
-import ReactDOM from 'react-dom';
+import { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
 /*
 handleOk : 모달이 완료된 다음 일어날 일
@@ -11,8 +11,9 @@ interface ModalComponentProps {
   content?: string;
   action?: () => void;
 }
+
 export const ModalComponent = ({ isOpen, children }: ModalComponentProps) => {
-  return ReactDOM.createPortal(
+  return createPortal(
     isOpen ? (
       <div className='fixed top-0 z-50 flex  h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-20 p-4 text-center md:inset-0 md:h-full'>
         {children}

@@ -1,8 +1,9 @@
 import React, { useMemo, useState, ChangeEvent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { PATH } from '@/types/enum.code';
 
 import { Common1Section as Layout } from '@/components/layouts/Common1Section';
-
+import { WelcomeModal } from '@/pages/auth/WelcomeModal';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
@@ -24,6 +25,7 @@ import {
   signUpVerifyCode,
   isCheckedEssentialTerms,
 } from '@/containers/auth/auth.container.refac';
+import { isTruthy } from '@/utils/isTruthy';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
@@ -84,6 +86,13 @@ const SignUpRef = () => {
 
   return (
     <Layout>
+      {isTruthy(signUpState.welcomeModalClosingTime) && (
+        <WelcomeModal
+          closingTime={signUpState.welcomeModalClosingTime}
+          path={PATH.SEARCH_PRODUCTS}
+        />
+      )}
+
       <div className='flex flex-col justify-between'>
         <div>
           <div>
@@ -343,6 +352,7 @@ const SignUpRef = () => {
                     getValues(),
                     isVerification.verifyCodeSignatureNumber,
                     signUpState,
+                    setSignUpState,
                     setError,
                   );
                 }}

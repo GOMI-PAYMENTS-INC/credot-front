@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Common1Section as Layout } from '@/components/layouts/Common1Section';
+import { PATH } from '@/types/enum.code';
 
 import SmsVerifyCodeForm from '@/components/form/sms-verify-code.form';
 import { AuthContainer } from '@/containers/auth/auth.container';
@@ -11,8 +12,10 @@ import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { TERMS_LIST } from '@/containers/auth/auth.constants';
 import { useLocation } from 'react-router-dom';
 import { _signupSignupStarted } from '@/amplitude/amplitude.service';
-import { AccountType } from '@/amplitude/amplitude.enum';
 
+import { AccountType } from '@/amplitude/amplitude.enum';
+import { isTruthy } from '@/utils/isTruthy';
+import { WelcomeModal } from '@/pages/auth/WelcomeModal';
 interface ISignUpSocialForm {
   idToken: string;
   phone: string;
@@ -27,17 +30,17 @@ const SignUpSocial = () => {
 
   //휴대폰 인증 후 리턴 받은 결과 코드
   const [verifyCodeSign, setVerifyCodeSign] = useState('');
-
   //휴대폰 인증 여부
   const [childIsValid, setChildIsValid] = useState(false);
-
   //전체 선택 체크 여부
   const [isCheckedAll, setIsCheckedAll] = useState<boolean>(false);
   //체크한 item 배열
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
-
   //이용약관 자세히 보기한 목록
   const [openedAgreeDetailList, setOpenedAgreeDetailList] = useState<number[]>([]);
+  const [welcomeModalClosingTime, setWelcomeModalClosingTime] = useState<number | null>(
+    null,
+  );
 
   useEffect(() => {
     //회원가입 화면 랜딩 시 앰플리튜드 이벤트
@@ -105,7 +108,7 @@ const SignUpSocial = () => {
       phone,
       verifyCodeSign,
     };
-    onSubmitSignUpSocial(signUpInput, location.state?.email);
+    onSubmitSignUpSocial(signUpInput, location.state?.email, setWelcomeModalClosingTime);
   };
 
   const onInvalid = () => {
@@ -128,6 +131,9 @@ const SignUpSocial = () => {
 
   return (
     <Layout>
+      {isTruthy(welcomeModalClosingTime) && (
+        <WelcomeModal closingTime={welcomeModalClosingTime} path={PATH.SEARCH_PRODUCTS} />
+      )}
       <div className='flex h-full flex-col justify-between'>
         <div>
           <div>

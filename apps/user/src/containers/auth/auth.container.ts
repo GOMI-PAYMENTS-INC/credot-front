@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { SetStateAction, useEffect, useMemo, useState, Dispatch } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
@@ -218,7 +218,11 @@ export const AuthContainer = () => {
     },
   });
 
-  const onSubmitSignUpSocial = (value: GoogleSignUpInput, email: string) => {
+  const onSubmitSignUpSocial = (
+    value: GoogleSignUpInput,
+    email: string,
+    setWelcomeModalClosingTime: Dispatch<SetStateAction<number | null>>,
+  ) => {
     const signupSocialFormValue: MutationGoogleSignUpArgs = {
       socialSignUpDto: {
         idToken: value.idToken,
@@ -235,7 +239,7 @@ export const AuthContainer = () => {
           signupSocialFormValue.socialSignUpDto.phone,
           false,
         );
-        navigation(PATH.SEARCH_PRODUCTS);
+        setWelcomeModalClosingTime(2500);
       },
     });
   };
