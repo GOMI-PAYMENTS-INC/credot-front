@@ -4,7 +4,7 @@ import { ReactSVG } from 'react-svg';
 import { IRoute, PATH } from '@/types/paths';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
-import {GlobalEnv} from "../../../api/config";
+import { GlobalEnv } from '@/api/config';
 
 interface HeaderProps {
   route: IRoute;
