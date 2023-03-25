@@ -75,7 +75,7 @@ const TemporaryPassword = () => {
                       // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                       value:
                         /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
-                      message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
+                      message: NOTIFICATION_MESSAGE.invalidPasswordType,
                     },
                   })}
                 />

@@ -6,7 +6,7 @@ import { TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
 
 import { AnalysisOverseaProductTable } from '@/pages/report/AnalysisOverseaProductTable';
-import { OVERSEA_PRODUCT_RATIO } from '@/containers/report/report.constant';
+import { OVERSEA_PRODUCT_RATIO } from '@/constants/report.constant';
 import { isFalsy } from '@/utils/isFalsy';
 import { TReportAction } from '@/containers/report/report.reducer';
 import { COUNTRY_CODE } from '@/containers/report/country.code';

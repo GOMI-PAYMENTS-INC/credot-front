@@ -7,7 +7,7 @@ import { WelcomeModal } from '@/pages/auth/WelcomeModal';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { TERMS_LIST } from '@/containers/auth/auth.constants';
+import { TERMS_LIST } from '@/constants/auth.constants';
 import { ErrorMessage } from '@hookform/error-message';
 import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
 import { isFalsy } from '@/utils/isFalsy';
@@ -26,6 +26,7 @@ import {
   isCheckedEssentialTerms,
 } from '@/containers/auth/auth.container.refac';
 import { isTruthy } from '@/utils/isTruthy';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
@@ -112,10 +113,10 @@ const SignUpRef = () => {
                   type='email'
                   placeholder='이메일'
                   {...register('email', {
-                    required: '이메일을 입력해주세요.',
+                    required: NOTIFICATION_MESSAGE.emptyEmail,
                     pattern: {
                       value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                      message: '올바른 이메일 주소를 입력해주세요.',
+                      message: NOTIFICATION_MESSAGE.invalidEmail,
                     },
                     onChange: (event: ChangeEvent<HTMLInputElement>) => {
                       assignEmail(event, signUpState, setSignUpState);
@@ -151,12 +152,12 @@ const SignUpRef = () => {
                     type='password'
                     placeholder='비밀번호를 입력해주세요. (8자리 이상)'
                     {...register('password', {
-                      required: '비밀번호를 입력해주세요.',
+                      required: NOTIFICATION_MESSAGE.emtpyPassword,
                       pattern: {
                         // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                         value:
                           /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
-                        message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidPasswordType,
                       },
                     })}
                   />
@@ -184,6 +185,7 @@ const SignUpRef = () => {
                     type='password'
                     placeholder='비밀번호를 한번 더 입력해주세요.'
                     {...register('confirmedPassword', {
+                      required: NOTIFICATION_MESSAGE.emtpyConfirmPassword,
                       validate: (value: string) =>
                         value === getValues('password') || '비밀번호가 일치하지 않아요.',
                     })}
@@ -225,6 +227,7 @@ const SignUpRef = () => {
                         isVerification.isExceeded
                       }
                       {...register('phone', {
+                        required: NOTIFICATION_MESSAGE.emptyPhoneNumber,
                         pattern: {
                           value: /(010)[0-9]{8}$/g,
                           message: '올바른 휴대폰번호를 입력해주세요.',
