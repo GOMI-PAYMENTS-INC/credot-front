@@ -21,9 +21,7 @@ export const _setAmplitudeEvents = async (
         }
         return result;
     }
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 
 // ##### Users Properties 셋팅 ##### //

@@ -51,7 +51,7 @@ const SignUpRef = () => {
 
   useEffect(() => {
     setError('requiredAgreeTerm', {
-      message: '이용약관과 개인정보 수집에 동의해주세요.',
+      message: NOTIFICATION_MESSAGE.emptyTerms,
     });
   }, []);
 
@@ -156,7 +156,7 @@ const SignUpRef = () => {
                       pattern: {
                         // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                         value:
-                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
+                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&\s]{8,50}$/,
                         message: NOTIFICATION_MESSAGE.invalidPasswordType,
                       },
                     })}
@@ -230,7 +230,7 @@ const SignUpRef = () => {
                         required: NOTIFICATION_MESSAGE.emptyPhoneNumber,
                         pattern: {
                           value: /(010)[0-9]{8}$/g,
-                          message: '올바른 휴대폰번호를 입력해주세요.',
+                          message: NOTIFICATION_MESSAGE.invalidPhone,
                         },
                         onChange: (event) => {
                           event.target.value = event.target.value.replace(/[^0-9]/g, '');

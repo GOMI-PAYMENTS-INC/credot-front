@@ -118,7 +118,7 @@ export const FindPasswordRef = () => {
                     {...register('phone', {
                       pattern: {
                         value: /(010)[0-9]{8}$/g,
-                        message: '올바른 휴대폰번호를 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidPhone,
                       },
                       onChange: (event) => {
                         event.target.value = event.target.value.replace(/[^0-9]/g, '');

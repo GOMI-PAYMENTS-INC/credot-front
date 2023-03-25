@@ -27,6 +27,7 @@ import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
 import { _generalMobileVerified } from '@/amplitude/amplitude.service';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -167,6 +168,9 @@ export const useSignUp = () => {
     setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
+    if (/^\s+|\s+$/g.test(value.password) === true)
+      return setError('password', { message: NOTIFICATION_MESSAGE.whiteSpace });
+
     const isValid = Object.keys(value).filter((item) => {
       const key = item as keyof TAuthEssentialProps;
       if (isFalsy(value[key])) {
