@@ -7,6 +7,7 @@ import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 interface IResetPassword {
   email: string;
