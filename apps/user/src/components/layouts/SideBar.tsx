@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { AuthContainer } from '@/containers/auth/auth.container';
+import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useReducer } from 'react';

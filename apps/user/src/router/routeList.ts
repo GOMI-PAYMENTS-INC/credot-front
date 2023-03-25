@@ -1,9 +1,7 @@
 import { ComponentType } from 'react';
-
 import * as AuthRoutes from '@/pages/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';
 import * as ReportRoutes from '@/pages/report';
-import { ErrorPage } from '@/pages/ErrorPage';
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',
@@ -28,7 +26,7 @@ export interface IRoute {
 }
 
 export const signInRouter = {
-  description: 'signIn',
+  description: 'SignIn',
   path: PATH.SIGN_IN,
   component: AuthRoutes.FindId,
 };
@@ -46,7 +44,7 @@ export const routeList: IRoute[] = [
     isPrivate: false,
     description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
-    component: AuthRoutes.SignUpSocial,
+    component: AuthRoutes.SignUpByGoogle,
   },
   {
     //비밀번호 찾기
