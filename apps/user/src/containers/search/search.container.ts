@@ -31,7 +31,9 @@ export const queryKeyword = (
     if (key !== 'Enter') return;
   }
   const _switch = isFalsy(text) === false;
-
+  if (_switch === false) {
+    toast.error('리포트를 생성할 키워드를 입력해주세요.');
+  }
   _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
   _dispatch({ type: SearchAction.SearchMode, payload: _switch });
   _dispatch({ type: SearchAction.SearchKeyword });

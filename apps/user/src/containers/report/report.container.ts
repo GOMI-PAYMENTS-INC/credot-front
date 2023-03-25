@@ -289,7 +289,7 @@ export const openDeleteModal = (
   if (checkedItems.length) {
     switchDeleteModal(_dispatch, true);
   } else {
-    toast.warn('리포트를 선택해주세요.');
+    toast.error('삭제할 리포트를 먼저 선택해주세요.');
   }
 };
 
