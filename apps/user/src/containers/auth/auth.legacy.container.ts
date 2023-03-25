@@ -358,9 +358,7 @@ export const AuthContainer = () => {
             navigation(path, { state: { email: value.data?.me.email, token: idToken } });
           } else {
             handleChangeLoginState(true);
-            if (fromSocialSignUp === false) {
-              navigation(PATH.SEARCH_PRODUCTS);
-            }
+            navigation(PATH.SEARCH_PRODUCTS);
           }
         }
       });

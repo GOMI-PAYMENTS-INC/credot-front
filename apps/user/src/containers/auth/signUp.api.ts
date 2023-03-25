@@ -153,8 +153,8 @@ export const useSignUp = () => {
       {
         onSuccess: (res) => {
           if (res.googleSignUp.token) {
-            authTokenStorage.setToken(res.googleSignUp.token);
             setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
+            authTokenStorage.setToken(res.googleSignUp.token);
           }
           _signupSignupCompleted(AccountType.LOCAL, email, phone, false);
         },
