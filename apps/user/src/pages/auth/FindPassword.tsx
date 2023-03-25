@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/auth.api';
+import { useVerifyCode } from '@/containers/auth/findAccount.api';
 
 import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
@@ -14,7 +14,7 @@ import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container.refac';
+} from '@/containers/auth/auth.container';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 export const FindPasswordRef = () => {

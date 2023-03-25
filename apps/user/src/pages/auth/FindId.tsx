@@ -12,12 +12,12 @@ import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container.refac';
+} from '@/containers/auth/auth.container';
 import { FindIdResult } from '@/pages/auth/FindIdResult';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/auth.api';
+import { useVerifyCode } from '@/containers/auth/findAccount.api';
 
 const FindId = () => {
   const {
