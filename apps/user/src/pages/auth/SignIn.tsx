@@ -10,6 +10,8 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { _generalLoggedIn } from '@/amplitude/amplitude.service';
 import { AccountType } from '@/amplitude/amplitude.enum';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+
 interface ISignInForm {
   email: string;
   password: string;
@@ -96,10 +98,10 @@ const SignIn = () => {
                     type='email'
                     placeholder='이메일'
                     {...register('email', {
-                      required: '이메일을 입력해주세요.',
+                      required: NOTIFICATION_MESSAGE.emptyEmail,
                       pattern: {
                         value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                        message: '올바른 이메일 주소를 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidEmail,
                       },
                     })}
                   />

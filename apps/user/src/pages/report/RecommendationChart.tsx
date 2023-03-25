@@ -11,7 +11,7 @@ import { openBrowser, roundNumber } from '@/containers/report';
 import {
   convertRecommendationScoreToText,
   convertEvaluateStatus,
-} from '@/containers/report/report.constant';
+} from '@/constants/report.constant';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/containers/report/report.reducer';

@@ -7,6 +7,7 @@ import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.container';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 interface IResetPassword {
   email: string;
@@ -75,7 +76,7 @@ const TemporaryPassword = () => {
                       // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                       value:
                         /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
-                      message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
+                      message: NOTIFICATION_MESSAGE.invalidPasswordType,
                     },
                   })}
                 />

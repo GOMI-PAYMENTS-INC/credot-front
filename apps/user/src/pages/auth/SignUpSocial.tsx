@@ -9,7 +9,7 @@ import { AuthContainer } from '@/containers/auth/auth.container';
 import { GoogleSignUpInput } from '@/generated/graphql';
 
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { TERMS_LIST } from '@/containers/auth/auth.constants';
+import { TERMS_LIST } from '@/constants/auth.constants';
 import { useLocation } from 'react-router-dom';
 import { _signupSignupStarted } from '@/amplitude/amplitude.service';
 

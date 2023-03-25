@@ -5,10 +5,7 @@ import { formatNumber } from '@/utils/formatNumber';
 
 import { convertTitle } from '@/utils/convertEnum';
 import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
-import {
-  convertEvaluateStatus,
-  convertScoreToText,
-} from '@/containers/report/report.constant';
+import { convertEvaluateStatus, convertScoreToText } from '@/constants/report.constant';
 import { TITLE } from '@/types/enum.code';
 
 interface IAnalysisKeyword {

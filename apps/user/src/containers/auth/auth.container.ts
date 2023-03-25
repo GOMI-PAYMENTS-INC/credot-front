@@ -301,9 +301,7 @@ export const AuthContainer = () => {
   // 비밀번호 변경
   const { mutate: changePassword } = useChangePasswordMutation(graphQLClient, {
     onSuccess: () => {
-      toast.success(
-        '변경 성공하였습니다. 다음번 방문부터는 변경된 비밀번호를 사용해주세요!',
-      );
+      toast.success('비밀번호가 정상적으로 변경되었어요.');
       navigation(PATH.SEARCH_PRODUCTS);
     },
     onError: () => {

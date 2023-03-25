@@ -3,7 +3,8 @@ import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_RESPONSE_TYPE, TERM_TYPE } from '@/types/enum.code';
 import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
-import { TERMS_LIST } from './auth.constants';
+import { TERMS_LIST } from '@/constants/auth.constants';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 export const authInitialState: TVerifyButtonState = {
   firstCalled: false,
@@ -256,7 +257,7 @@ export const isPhoneVerifyPrepared = (
   email?: string,
 ) => {
   if (email !== undefined && isFalsy(email)) {
-    setError('email', { message: '이메일은 필수입력입니다.' });
+    setError('email', { message: NOTIFICATION_MESSAGE.emptyEmail });
     return false;
   }
 
@@ -274,7 +275,7 @@ export const isPhoneVerifyPrepared = (
     return true;
   }
 
-  setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
+  setError('phone', { message: NOTIFICATION_MESSAGE.emptyPhoneNumber });
   return false;
 };
 
@@ -289,6 +290,6 @@ export const signUpVerifyCode = (
     clickVerifyBtn(state, _setState);
     return true;
   }
-  setError('phone', { message: '휴대폰 번호를 확인해주세요.' });
+  setError('phone', { message: NOTIFICATION_MESSAGE.emptyPhoneNumber });
   return false;
 };

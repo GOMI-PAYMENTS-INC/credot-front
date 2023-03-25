@@ -6,6 +6,7 @@ import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
 import { clickVerifyBtn } from '@/containers/auth/auth.container.refac';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
@@ -95,6 +96,7 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
             ) || isVerification.isExceeded
           }
           {...register('verifyCode', {
+            required: NOTIFICATION_MESSAGE.emptyPhoneVerify,
             pattern: {
               value: /[0-9]{6}$/g,
               message: '인증번호 6자리를 입력해주세요.',

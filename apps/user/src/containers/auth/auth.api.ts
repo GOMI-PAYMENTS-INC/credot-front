@@ -10,7 +10,7 @@ import {
   MutationSignupArgs,
   useExistsUserEmailQuery,
 } from '@/generated/graphql';
-import { STATUS_CODE, PATH, TERM_TYPE } from '@/types/enum.code';
+import { STATUS_CODE, TERM_TYPE } from '@/types/enum.code';
 import { toast } from 'react-toastify';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
@@ -23,11 +23,11 @@ import {
   setWelcomeModalClosingTime,
 } from '@/containers/auth/auth.container.refac';
 import { UseFormSetError } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_ESSENTIAL } from '@/containers/auth/auth.constants';
+import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
 import { _generalMobileVerified } from '@/amplitude/amplitude.service';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -168,10 +168,13 @@ export const useSignUp = () => {
     setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
+    if (/^\s+|\s+$/g.test(value.password) === true)
+      return setError('password', { message: NOTIFICATION_MESSAGE.whiteSpace });
+
     const isValid = Object.keys(value).filter((item) => {
       const key = item as keyof TAuthEssentialProps;
-      if (key !== 'requiredAgreeTerm' && isFalsy(value[key])) {
-        setError(key, { message: `${AUTH_ESSENTIAL[key]} 필수 값입니다.` });
+      if (isFalsy(value[key])) {
+        setError(key, { message: AUTH_ESSENTIAL[key] });
         return false;
       }
       return true;
@@ -182,14 +185,6 @@ export const useSignUp = () => {
     );
     const isValidVerifyCodeSign = isFalsy(verifyCodeSignatureNumber);
     const isValidTerms = isFalsy(checkedTerms);
-
-    if (isFalsy(verifyCodeSignatureNumber))
-      setError('verifyCode', { message: '인증번호를 입력해주세요.' });
-    if (checkedTerms === false) {
-      setError('requiredAgreeTerm', {
-        message: '필수 이용약관과 개인정보 수집대한 안내 모두 동의해주세요.',
-      });
-    }
 
     if (isValid.length !== 5 || isValidVerifyCodeSign || isValidTerms) return;
 
