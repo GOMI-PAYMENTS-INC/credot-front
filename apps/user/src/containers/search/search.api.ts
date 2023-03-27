@@ -3,9 +3,7 @@ import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
-import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
-
 import { getProductImages } from '@/containers/search/search.container';
 
 export const getQueryResult = (
@@ -31,7 +29,6 @@ export const getQueryResult = (
           if (images && images.data.data !== null) {
             getProductImages(images.data, _dispatch);
           }
-          toast.success(`${keyword}에 대한 키워드 정보에요`);
           return;
         } catch (error) {
           console.error(error, 'error');
@@ -39,6 +36,7 @@ export const getQueryResult = (
       },
     },
   );
+
   const response = data?.search;
 
   return { response, isLoading, isFetching, isError };

@@ -5,6 +5,7 @@ import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export const getKeyword = (
   event: ChangeEvent<HTMLInputElement>,
@@ -37,6 +38,12 @@ export const queryKeyword = (
   if (_switch === false) {
     toast.error('리포트를 생성할 키워드를 입력해주세요.');
   }
+  const preKeyword = useSessionStorage.getItem('keyword');
+
+  if (isFalsy(preKeyword) === false && text === preKeyword.keyword) {
+    toast.success(`${text}에 대한 키워드 정보에요`);
+  }
+
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: text });
   _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: _switch });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD });
