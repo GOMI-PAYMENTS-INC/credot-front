@@ -8,7 +8,10 @@ import { isFalsy } from '@/utils/isFalsy';
 
 import { getProductImages } from '@/containers/search/search.container';
 
-export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) => {
+export const getQueryResult = (
+  keyword: string,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     graphQLClient,
     {

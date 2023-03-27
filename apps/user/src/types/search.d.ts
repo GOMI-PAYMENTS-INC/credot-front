@@ -1,5 +1,10 @@
-type TAction = {
-  type: SearchAction;
+type TSearchActionType = {
+  type: SEARCH_ACTION;
+  payload?: any;
+};
+
+type TRecommanderActionType = {
+  type: RECOMMANDER_ACTION;
   payload?: any;
 };
 
@@ -16,6 +21,7 @@ type TState = {
   isSearched: boolean;
   keyword: string;
   isModalOpen: boolean;
+
   modalType: TSearchModalType;
   createdAt: string;
   productImages: TGetProductImageResponseType | null;
