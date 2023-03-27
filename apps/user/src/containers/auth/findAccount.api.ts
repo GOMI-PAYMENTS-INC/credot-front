@@ -20,7 +20,11 @@ import {
 } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
 
-import { _generalMobileVerified } from '@/amplitude/amplitude.service';
+import {
+  _findIdFindIdFailed,
+  _findIdFindIdSucceeded,
+  _generalMobileVerified,
+} from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -104,6 +108,14 @@ export const useVerifyCode = (
             isVerification,
             setIsVerification,
           );
+
+          if (res.findAccount.accounts.length > 0) {
+            //앰플리튜드 이벤트 - 아이디 결과 있음 출력 완료 시
+            _findIdFindIdSucceeded();
+          } else {
+            //앰플리튜드 이벤트 - 아이디 없음 화면  출력 완료 시
+            _findIdFindIdFailed();
+          }
         },
         onError: (err) => {
           // 계정 없음

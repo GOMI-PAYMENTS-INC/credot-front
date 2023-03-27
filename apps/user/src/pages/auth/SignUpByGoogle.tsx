@@ -29,6 +29,8 @@ import {
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { authTokenStorage } from '@/utils/authToken';
+import { _signupSignupStarted } from '@/amplitude/amplitude.service';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 const SignUpByGoogle = () => {
   const { token, email } = useLocation().state;
@@ -50,6 +52,11 @@ const SignUpByGoogle = () => {
     setIsVerification,
     setError,
   );
+
+  useEffect(() => {
+    //앰플리튜드 이벤트 - 회원가입 화면 랜딩 시
+    _signupSignupStarted(AccountType.GOOGLE);
+  }, []);
 
   useEffect(() => {
     if (authTokenStorage.getToken()) {

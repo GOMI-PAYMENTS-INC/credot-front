@@ -1,7 +1,6 @@
 import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import { AccountType } from '@/amplitude/amplitude.enum';
-import { AxiosResponse } from 'axios';
 
 declare var amplitude: any;
 
@@ -81,18 +80,23 @@ export const _signupSignupStarted = (provider: AccountType) => {
 };
 
 // ##### SIGNUP - 2 - 회원가입 완료 이벤트 ##### //
-export const _signupSignupCompleted = (
+export const _signupSignupCompleted = async (
   provider: AccountType,
   email: string,
   phone_number: string,
-  marketing_notification: boolean,
+  //marketing_notification: boolean,
+  callBackEvent?: () => void,
 ) => {
-  void _setAmplitudeEvents(amplitudeConstant.signupCompleted, {
-    provider,
-    email,
-    phone_number,
-    marketing_notification,
-  });
+  await _setAmplitudeEvents(
+    amplitudeConstant.signupCompleted,
+    {
+      provider,
+      email,
+      phone_number,
+      marketing_notification: false,
+    },
+    callBackEvent,
+  );
 };
 
 // ##### FIND ID - 1 - 아이디 찾기 화면 랜딩 시 ##### //

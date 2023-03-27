@@ -1,4 +1,4 @@
-import { Fragment, Dispatch, SetStateAction } from 'react';
+import { Fragment, Dispatch, SetStateAction, useEffect } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { AUTH_RESPONSE_TYPE, PATH } from '@/types/enum.code';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { isTruthy } from '@/utils/isTruthy';
 
 import { initializeAuteState } from '@/containers/auth/auth.container';
 import { UseFormSetValue } from 'react-hook-form';
+
 interface IFindIdResultProps {
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
   userAccounts?: Array<{
@@ -21,6 +22,7 @@ interface IFindIdResultProps {
 }
 export const FindIdResult = (props: IFindIdResultProps) => {
   const { isExistedAccount, userAccounts, setIsVerification, setValue } = props;
+
   return (
     <Fragment>
       {isExistedAccount === AUTH_RESPONSE_TYPE.FILLED && isTruthy(userAccounts) ? (
