@@ -28,6 +28,7 @@ import {
 } from '@/containers/auth/auth.container';
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { authTokenStorage } from '@/utils/authToken';
 
 const SignUpByGoogle = () => {
   const { token, email } = useLocation().state;
@@ -39,7 +40,6 @@ const SignUpByGoogle = () => {
     register,
     setError,
     getValues,
-    watch,
     formState: { errors },
   } = useForm<TAuthEssentialProps>({
     mode: 'onChange',
@@ -52,6 +52,10 @@ const SignUpByGoogle = () => {
   );
 
   useEffect(() => {
+    if (authTokenStorage.getToken()) {
+      authTokenStorage.clearToken();
+    }
+
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);
 
