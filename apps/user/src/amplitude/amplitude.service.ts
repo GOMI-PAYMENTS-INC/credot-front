@@ -1,4 +1,4 @@
-import { Role, User } from '@/generated/graphql';
+import { CountryType, Role, User } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import { AccountType } from '@/amplitude/amplitude.enum';
 
@@ -105,4 +105,26 @@ export const _findIdFindIdSucceeded = () => {
 // ##### FIND ID - 3 - 아이디 없음 화면 랜딩 시 ##### //
 export const _findIdFindIdFailed = () => {
   void _setAmplitudeEvents(amplitudeConstant.findIdFailed);
+};
+
+// ##### KEYWORD REPORT - 1 - 사용자가 키워드 검색 요청 시 ##### //
+export const _keywordReportKeywordSearched = (
+  platform: TChannelType,
+  country: CountryType,
+  sort_by: string,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordSearched);
+};
+
+// ##### KEYWORD REPORT - 2 - 키워드 검색 성공 시 ##### //
+export const _keywordReportKeywordSearchedSucceeded = (
+  platform: TChannelType,
+  country: CountryType,
+  sort_by: TSortedType,
+  keyword: string,
+  rec_keywords: string[],
+  num_of_rec_keywords: number,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordSearchedSucceeded);
 };

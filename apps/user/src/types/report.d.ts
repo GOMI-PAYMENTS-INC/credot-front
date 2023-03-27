@@ -134,7 +134,7 @@ type TReportState = {
 
 type TChannelType = 'SHOPEE' | 'NONE';
 
-type TSortedType = 'R' | 'NONE';
+type TSortedType = 'PRICE_MIN' | 'PRICE_MAX' | 'PRICE_AVERAGE';
 
 type TGetRelationReportDataType = {
   [key: string]: string | number | Date | null;

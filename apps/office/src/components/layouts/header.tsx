@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { IRoute, PATH, SERVICE_URL } from '@/types/paths';
+import { IRoute, PATH } from '@/types/paths';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
+import { GlobalEnv } from '@/api/config';
 
 interface HeaderProps {
   route: IRoute;
@@ -32,7 +33,7 @@ const Header = ({ route }: HeaderProps) => {
                 CTA_TYPE.BUTTON,
                 CTA_LOCATION.HEADER,
                 eventTarget.innerText,
-                SERVICE_URL,
+                GlobalEnv.serviceUrl,
               );
             }}
           >
@@ -47,7 +48,7 @@ const Header = ({ route }: HeaderProps) => {
                 CTA_TYPE.BUTTON,
                 CTA_LOCATION.HEADER,
                 eventTarget.innerText,
-                SERVICE_URL,
+                GlobalEnv.serviceUrl,
               );
             }}
           >

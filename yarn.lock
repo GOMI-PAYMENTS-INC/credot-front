@@ -6134,6 +6134,7 @@ __metadata:
     swiper: ^8.4.5
     tailwindcss: ^3.2.1
     vite: 3.1.8
+    vite-plugin-html-env: ^1.2.7
     vite-plugin-svgr: ^2.2.2
   languageName: unknown
   linkType: soft
@@ -6179,6 +6180,7 @@ __metadata:
     recoil: ^0.7.6
     tailwindcss: ^3.2.1
     vite: 3.1.8
+    vite-plugin-html-env: ^1.2.7
     vite-plugin-svgr: ^2.2.2
   languageName: unknown
   linkType: soft
@@ -6229,6 +6231,7 @@ __metadata:
     tslib: ^1
     typescript: ^4.8.4
     vite: 3.1.8
+    vite-plugin-html-env: ^1.2.7
     vite-plugin-svgr: ^2.2.2
   dependenciesMeta:
     eslint@8.26.0:
@@ -8941,6 +8944,15 @@ __metadata:
   version: 1.0.12
   resolution: "value-or-promise@npm:1.0.12"
   checksum: f53a66c75b7447c90bbaf946a757ca09c094629cb80ba742f59c980ec3a69be0a385a0e75505dedb4e757862f1a994ca4beaf083a831f24d3ffb3d4bb18cd1e1
+  languageName: node
+  linkType: hard
+
+"vite-plugin-html-env@npm:^1.2.7":
+  version: 1.2.7
+  resolution: "vite-plugin-html-env@npm:1.2.7"
+  peerDependencies:
+    vite: "*"
+  checksum: 5e40ca5285c9164448aa7f2b4f8dda12365b833649211f086495bad98bda08d69d09855c00991226186a7844e9ed579384e13ca6edd4e9c666556d6941c44e2f
   languageName: node
   linkType: hard
 
