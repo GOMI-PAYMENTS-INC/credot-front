@@ -39,10 +39,11 @@ const searchReducer = (_state: TState, action: TSearchActionType) => {
 
     case SEARCH_ACTION.SEARCH_KEYWORD:
       if (action.payload) {
-        state.keyword = action.payload;
+        state.keyword = action.payload.toLowerCase();
       } else {
-        state.keyword = state.text.trim();
+        state.keyword = state.text.toLowerCase().trim();
       }
+
       useSessionStorage.setItem(
         'keyword',
         Object.assign({}, state, { productImages: null }),
