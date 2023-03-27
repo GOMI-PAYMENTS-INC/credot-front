@@ -12,6 +12,7 @@ import {
 } from '@/containers/sidebar/sidebar.reducer';
 import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
 import { openBrowser } from '@/containers/report';
+import { replaceOverLength } from '@/utils/replaceOverLength';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -23,7 +24,7 @@ const SideBar = () => {
   const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
 
   const { userInfo } = AuthContainer();
-  const userId = userInfo ? userInfo.me.email : '';
+  const userId = userInfo ? replaceOverLength(userInfo.me.email, 17) : '';
 
   return (
     <aside className='relative'>
