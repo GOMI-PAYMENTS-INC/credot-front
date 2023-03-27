@@ -1,6 +1,7 @@
-import { CountryType, Role, User } from '@/generated/graphql';
+import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import { AccountType } from '@/amplitude/amplitude.enum';
+import { AxiosResponse } from 'axios';
 
 declare var amplitude: any;
 
@@ -109,22 +110,112 @@ export const _findIdFindIdFailed = () => {
 
 // ##### KEYWORD REPORT - 1 - 사용자가 키워드 검색 요청 시 ##### //
 export const _keywordReportKeywordSearched = (
-  platform: TChannelType,
-  country: CountryType,
-  sort_by: string,
+  // platform: TChannelType,
+  // country: CountryType,
+  // sort_by: TSortedType,
   keyword: string,
 ) => {
-  void _setAmplitudeEvents(amplitudeConstant.keywordSearched);
+  void _setAmplitudeEvents(amplitudeConstant.keywordSearched, {
+    platform: 'SHOPEE',
+    country: CountryType.Vn,
+    sort_by: 'PRICE_MIN',
+    keyword,
+  });
 };
 
 // ##### KEYWORD REPORT - 2 - 키워드 검색 성공 시 ##### //
 export const _keywordReportKeywordSearchedSucceeded = (
-  platform: TChannelType,
-  country: CountryType,
-  sort_by: TSortedType,
+  // platform: TChannelType,
+  // country: CountryType,
+  // sort_by: TSortedType,
   keyword: string,
-  rec_keywords: string[],
-  num_of_rec_keywords: number,
+  relations: SearchDto[],
 ) => {
-  void _setAmplitudeEvents(amplitudeConstant.keywordSearchedSucceeded);
+  const recKeywords = [...relations].map((value) => {
+    return value.text;
+  });
+  void _setAmplitudeEvents(amplitudeConstant.keywordSearchedSucceeded, {
+    platform: 'SHOPEE',
+    country: CountryType.Vn,
+    sort_by: 'PRICE_MIN',
+    keyword,
+    rec_keywords: recKeywords,
+    num_of_rec_keywords: recKeywords.length,
+  });
+};
+
+// ##### KEYWORD REPORT - 3 - 키워드 검색 실패 시 ##### //
+export const _keywordReportKeywordSearchedFailed = (
+  // platform: TChannelType,
+  // country: CountryType,
+  // sort_by: TSortedType,
+  keyword: string,
+  reason: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordSearchedFailed, {
+    platform: 'SHOPEE',
+    country: CountryType.Vn,
+    sort_by: 'PRICE_MIN',
+    keyword,
+    reason,
+  });
+};
+
+// ##### KEYWORD REPORT - 4 - 검색어로 추천된 키워드를 클릭해서 검색 시도 시 ##### //
+export const _keywordReportRecKeywordSearched = (
+  // platform: TChannelType,
+  // country: CountryType,
+  // sort_by: TSortedType,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.recKeywordSearched, {
+    platform: 'SHOPEE',
+    country: CountryType.Vn,
+    sort_by: 'PRICE_MIN',
+    keyword,
+  });
+};
+
+// ##### KEYWORD REPORT - 5 - 키워드 리포트 생성 요청 시 ##### //
+export const _keywordReportKeywordReportRequested = (
+  report_id: number,
+  // platform: TChannelType,
+  // country: CountryType,
+  // sort_by: TSortedType,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
+    report_id,
+    platform: 'SHOPEE',
+    country: CountryType.Vn,
+    sort_by: 'PRICE_MIN',
+    keyword,
+  });
+};
+
+// ##### KEYWORD REPORT - 6 - 키워드 리포트 상세 조회 시 ##### //
+export const _keywordReportKeywordReportViewed = (
+  routeId: string,
+  data: TGetMainReport,
+) => {
+  const report = data.data;
+  void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
+    report_id: routeId,
+    platform: report?.channel,
+    country: report?.country,
+    sort_by: report?.sorted,
+    keyword: report?.text,
+  });
+};
+// ##### KEYWORD REPORT - 7 - 키워드 리포트 생성 요청 시 ##### //
+export const _keywordReportKeywordReportDeleted = (checkedItems: TReportItem[]) => {
+  checkedItems.map((item) => {
+    void _setAmplitudeEvents(amplitudeConstant.keywordReportDeleted, {
+      report_id: item.id,
+      platform: item.channel,
+      country: item.countryCode,
+      sort_by: item.sortBy,
+      keyword: item.keyword,
+    });
+  });
 };

@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { CountryType, useSearchQuery } from '@/generated/graphql';
+import { CountryType, SearchDto, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
@@ -7,6 +7,11 @@ import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { getProductImages } from '@/containers/search/search.container';
+import {
+  _keywordReportKeywordSearched,
+  _keywordReportKeywordSearchedFailed,
+  _keywordReportKeywordSearchedSucceeded,
+} from '@/amplitude/amplitude.service';
 
 export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
@@ -28,11 +33,19 @@ export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) =>
           if (images && images.data.data !== null) {
             getProductImages(images.data, _dispatch);
           }
+
           toast.success(`${keyword}에 대한 키워드 정보에요`);
+
+          //앰플리튜드 이벤트 - 키워드 검색 성공
+          _keywordReportKeywordSearchedSucceeded(keyword, res.search.relations);
           return;
         } catch (error) {
           console.error(error, 'error');
         }
+      },
+      onError: (error) => {
+        //앰플리튜드 이벤트 - 키워드 검색 실패 시
+        _keywordReportKeywordSearchedFailed(keyword, error.response.errors[0].message);
       },
     },
   );

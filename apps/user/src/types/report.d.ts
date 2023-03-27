@@ -23,7 +23,7 @@ type TReportListState = {
   //전체 선택 체크 여부
   isCheckedAll: boolean;
   //체크한 item 배열
-  checkedItems: number[];
+  checkedItems: TReportItem[];
 };
 
 type TGetReportList = {
