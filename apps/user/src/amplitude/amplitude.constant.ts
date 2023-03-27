@@ -9,4 +9,13 @@ export const amplitudeConstant = {
   findIdStarted: 'find id started',
   findIdSucceeded: 'find id succeeded',
   findIdFailed: 'find id failed',
+
+  keywordSearched: 'keyword searched',
+  keywordSearchedSucceeded: 'keyword search succeeded',
+  keywordSearchedFailed: 'keyword search failed',
+  recKeywordSearched: 'rec keyword searched',
+  keywordReportRequested: 'keyword report requested',
+  keywordReportCreated: 'keyword report created',
+  keywordReportDeleted: 'keyword report deleted',
+  keywordReportViewed: 'keyword report viewed',
 };

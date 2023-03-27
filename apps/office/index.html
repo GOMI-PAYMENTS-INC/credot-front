@@ -4,10 +4,6 @@
     <meta charset="utf-8" />
 
     <meta
-      name="naver-site-verification"
-      content="c076bc50538b587dd6a45f92f1d55b10950cedbc"
-    />
-    <meta
       name="google-site-verification"
       content="sUH0j-p847h1Oc_VGkabniWQr-LqfTykTZ6bvdhvm4w"
     />
@@ -268,7 +264,7 @@
       //사이트에 방문해서 amplitude가 init할때 디바이스 아이디가 있는 경우 = 해당 디바이스 아이디를 사용함
       amplitude
         .init('5ab8cfadec6542bc7f1a69606883527a', undefined, {
-          logLevel: 'Debug',
+          logLevel: '<{ GlobalEnv.amplitudeDebug }>',
           minIdLength: 1,
           defaultTracking: {
             //sessions: true,
