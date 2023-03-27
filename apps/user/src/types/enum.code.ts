@@ -106,3 +106,9 @@ export enum TERM_TYPE {
   PERSONAL_AGREE = 'personalAgree',
   MARKETING_AGREE = 'marketingAgree',
 }
+
+export enum MODAL_TYPE_ENUM {
+  SameKeywordReportExisted = 'SameKeywordReportExisted',
+  LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
+  NotBeOverDayReport = 'NotBeOverDayReport',
+}

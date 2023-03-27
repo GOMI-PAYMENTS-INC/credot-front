@@ -52,12 +52,6 @@ const SignUpByGoogle = () => {
   );
 
   useEffect(() => {
-    setError('requiredAgreeTerm', {
-      message: NOTIFICATION_MESSAGE.emptyTerms,
-    });
-  }, []);
-
-  useEffect(() => {
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);
 

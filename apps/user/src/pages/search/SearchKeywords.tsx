@@ -1,9 +1,15 @@
-import React, { Fragment, useEffect, useMemo, useReducer, useState } from 'react';
+import { Fragment, useEffect, useMemo, useReducer, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/ModalComponent';
+import { CountryType } from '@/generated/graphql';
+
+import { SearchModal } from '@/pages/search/SearchModal';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { SearchKeywordRecommander } from '@/pages/search/SearchKeywordRecommander';
+
 import {
   getKeyword,
   initializeState,
@@ -11,21 +17,18 @@ import {
   queryKeywordByClick,
   switchModal,
 } from '@/containers/search';
-import { initialState, reducer } from '@/containers/search/reducer';
+import { searchInitialState, searchReducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
-import { CountryType } from '@/generated/graphql';
 
-import { SearchModal } from '@/pages/search/SearchModal';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
-import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
+import { formatNumber } from '@/utils/formatNumber';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { isTruthy } from '@/utils/isTruthy';
 
 const SearchKeywords = () => {
-  const [_state, _dispatch] = useReducer(reducer, initialState);
+  const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
   const [requestReport, setRequestReport] = useState(false);
 
@@ -313,6 +316,8 @@ const SearchKeywords = () => {
           keyword={_state.keyword}
         />
       </div>
+
+      <SearchKeywordRecommander _searchDispatch={_dispatch} _searchState={_state} />
     </Layout>
   );
 };

@@ -51,12 +51,6 @@ const SignUpRef = () => {
   );
 
   useEffect(() => {
-    setError('requiredAgreeTerm', {
-      message: NOTIFICATION_MESSAGE.emptyTerms,
-    });
-  }, []);
-
-  useEffect(() => {
     if (isFalsy(isPassedVerifyCode)) return;
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);

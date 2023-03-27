@@ -1,18 +1,12 @@
 import { Dispatch, Fragment, useState, useEffect, SetStateAction } from 'react';
 import { switchModal } from '@/containers/search';
 import { convertTime } from '@/utils/parsingTimezone';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
-
-export enum MODAL_TYPE_ENUM {
-  SameKeywordReportExisted = 'SameKeywordReportExisted',
-  LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
-  NotBeOverDayReport = 'NotBeOverDayReport',
-}
+import { MODAL_TYPE_ENUM, MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 interface ISearchModalPrpos {
   data?: any;
   _state: TState;
-  _dispatch: Dispatch<TAction>;
+  _dispatch: Dispatch<TSearchActionType>;
   size: string;
   _setTrigger: Dispatch<SetStateAction<boolean>>;
 }
