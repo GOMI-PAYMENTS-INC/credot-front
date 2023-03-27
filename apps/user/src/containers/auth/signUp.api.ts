@@ -35,10 +35,11 @@ export const useSignUp = () => {
   ) => {
     if (/^\s+|\s+$/g.test(value.password) === true)
       return setError('password', { message: NOTIFICATION_MESSAGE.whiteSpace });
+    const _value = Object.assign(value, { verifyCode: verifyCodeSignatureNumber });
 
-    const isValid = Object.keys(value).filter((item) => {
+    const isValid = Object.keys(_value).filter((item) => {
       const key = item as keyof TAuthEssentialProps;
-      if (isFalsy(value[key])) {
+      if (isFalsy(_value[key])) {
         setError(key, { message: AUTH_ESSENTIAL[key] });
         return false;
       }
