@@ -80,7 +80,7 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
 
   return (
     <div className='inputCustom-group'>
-      <div className='inputCustom-textbox-wrap'>
+      <div className='inputCustom-textbox-wrap mb-2'>
         <input
           className={`inputCustom-textbox w-full ${
             errors.verifyCode?.message && 'error'
@@ -126,6 +126,11 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
           render={({ message }) => <p className='inputCustom-helptext'>{message}</p>}
         />
       )}
+      <div className='relative border-[1px] border-grey-300'>
+        <p className='px-3 py-3 text-XS/Regular text-grey-900'>
+          인증번호가 오지 않는다면 수신차단 메시지 혹은 스팸함을 확인해주세요.
+        </p>
+      </div>
     </div>
   );
 };

@@ -3,9 +3,7 @@ import { CountryType, SearchDto, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
-import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
-
 import { getProductImages } from '@/containers/search/search.container';
 import {
   _keywordReportKeywordSearched,
@@ -13,7 +11,10 @@ import {
   _keywordReportKeywordSearchedSucceeded,
 } from '@/amplitude/amplitude.service';
 
-export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) => {
+export const getQueryResult = (
+  keyword: string,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     graphQLClient,
     {
@@ -33,9 +34,6 @@ export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) =>
           if (images && images.data.data !== null) {
             getProductImages(images.data, _dispatch);
           }
-
-          toast.success(`${keyword}에 대한 키워드 정보에요`);
-
           //앰플리튜드 이벤트 - 키워드 검색 성공
           _keywordReportKeywordSearchedSucceeded(keyword, res.search.relations);
           return;
@@ -49,6 +47,7 @@ export const getQueryResult = (keyword: string, _dispatch: Dispatch<TAction>) =>
       },
     },
   );
+
   const response = data?.search;
 
   return { response, isLoading, isFetching, isError };

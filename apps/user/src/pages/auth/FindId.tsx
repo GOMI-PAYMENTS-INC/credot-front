@@ -72,7 +72,7 @@ const FindId = () => {
             title='아이디를 찾을게요.'
             subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
           />
-          <div className='space-y-1'>
+          <div className='space-y-2'>
             <div className='flex items-start'>
               <div className='inputCustom-group grow'>
                 <div className='inputCustom-textbox-wrap'>
