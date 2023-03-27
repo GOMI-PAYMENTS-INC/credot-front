@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { Defalut as Layout } from '@/components/layouts';
-import { ModalComponent } from '@/components/modals/modal';
+import { ModalComponent } from '@/components/modals/ModalComponent';
 import Pagination from '@/components/pagination';
 import {
   _getReportList,

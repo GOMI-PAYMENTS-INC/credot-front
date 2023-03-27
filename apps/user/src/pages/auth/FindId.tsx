@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
-import { PATH } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 
@@ -12,12 +12,12 @@ import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container.refac';
+} from '@/containers/auth/auth.container';
 import { FindIdResult } from '@/pages/auth/FindIdResult';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/auth.api';
+import { useVerifyCode } from '@/containers/auth/findAccount.api';
 
 const FindId = () => {
   const {
@@ -88,7 +88,7 @@ const FindId = () => {
                     {...register('phone', {
                       pattern: {
                         value: /(010)[0-9]{8}$/g,
-                        message: '올바른 휴대폰번호를 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidPhone,
                       },
                       onChange: (event) => {
                         event.target.value = event.target.value.replace(/[^0-9]/g, '');

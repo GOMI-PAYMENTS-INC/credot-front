@@ -1,4 +1,6 @@
 import { TERM_TYPE } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from './notification.constant';
+
 const required = { essential: '필수', option: '선택' };
 
 export const TERMS_LIST = [
@@ -441,10 +443,10 @@ export const TERMS_LIST = [
 ];
 
 export const AUTH_ESSENTIAL = {
-  email: '이메일은',
-  password: '비밀번호는',
-  confirmedPassword: '비밀번호는',
-  phone: '휴대폰은',
-  verifyCode: '',
-  requiredAgreeTerm: '이용약관은',
+  email: NOTIFICATION_MESSAGE.emptyEmail,
+  password: NOTIFICATION_MESSAGE.emtpyPassword,
+  confirmedPassword: NOTIFICATION_MESSAGE.emtpyConfirmPassword,
+  phone: NOTIFICATION_MESSAGE.emptyPhoneNumber,
+  verifyCode: NOTIFICATION_MESSAGE.emptyPhoneVerify,
+  requiredAgreeTerm: NOTIFICATION_MESSAGE.emptyTerms,
 };

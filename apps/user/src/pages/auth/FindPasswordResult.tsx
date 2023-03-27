@@ -3,10 +3,7 @@ import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { Link } from 'react-router-dom';
 import { PATH, AUTH_RESPONSE_TYPE } from '@/types/enum.code';
 
-import {
-  maskingPhone,
-  initializeAuteState,
-} from '@/containers/auth/auth.container.refac';
+import { maskingPhone, initializeAuteState } from '@/containers/auth/auth.container';
 import { UseFormSetValue } from 'react-hook-form';
 
 interface IFindPasswordResult {

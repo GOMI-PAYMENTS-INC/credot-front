@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { Defalut as Layout } from '@/components/layouts/Defalut';
-import { ModalComponent } from '@/components/modals/modal';
+import { ModalComponent } from '@/components/modals/ModalComponent';
 import {
   getKeyword,
   initializeState,

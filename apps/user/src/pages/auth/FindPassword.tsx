@@ -1,8 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { PATH } from '@/types/enum.code';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/auth.api';
+import { useVerifyCode } from '@/containers/auth/findAccount.api';
 
 import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
@@ -15,7 +14,8 @@ import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container.refac';
+} from '@/containers/auth/auth.container';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 export const FindPasswordRef = () => {
   const [isVerification, setIsVerification] =
@@ -88,10 +88,10 @@ export const FindPasswordRef = () => {
               placeholder='이메일'
               disabled={phoneNumberInput || isVerification.isExceeded}
               {...register('email', {
-                required: '이메일은 필수입력입니다.',
+                required: NOTIFICATION_MESSAGE.emptyEmail,
                 pattern: {
                   value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                  message: '올바른 이메일 주소를 입력해주세요.',
+                  message: NOTIFICATION_MESSAGE.invalidEmail,
                 },
                 onChange: (event) => {
                   event.target.value = event.target.value.replace(/\s/g, '');
@@ -118,7 +118,7 @@ export const FindPasswordRef = () => {
                     {...register('phone', {
                       pattern: {
                         value: /(010)[0-9]{8}$/g,
-                        message: '올바른 휴대폰번호를 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidPhone,
                       },
                       onChange: (event) => {
                         event.target.value = event.target.value.replace(/[^0-9]/g, '');
