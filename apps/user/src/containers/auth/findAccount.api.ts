@@ -23,6 +23,8 @@ import { UseFormSetError } from 'react-hook-form';
 import {
   _findIdFindIdFailed,
   _findIdFindIdSucceeded,
+  _findPwFindPwFailed,
+  _findPwFindPwSucceeded,
   _generalMobileVerified,
 } from '@/amplitude/amplitude.service';
 
@@ -136,10 +138,15 @@ export const useVerifyCode = (
             isVerification,
             setIsVerification,
           );
+
+          //앰플리튜드 이벤트 - 임시 비밀번호 발송 했을 시
+          _findPwFindPwSucceeded();
         }
       },
       onError: (err) => {
         isAccountExisted(undefined, isVerification, setIsVerification);
+        //앰플리튜드 이벤트 - 비밀번호 찾기 실패 했을 시
+        _findPwFindPwFailed();
       },
     },
   );

@@ -41,6 +41,8 @@ import {
   _signupSignupCompleted,
   _resetAmplitude,
   _setUserProperties,
+  _findPwChangePwStarted,
+  _findPwChangePwCompleted,
 } from '@/amplitude/amplitude.service';
 import { isFalsy } from '@/utils/isFalsy';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
@@ -303,6 +305,9 @@ export const AuthContainer = () => {
     onSuccess: () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
       navigation(PATH.SEARCH_PRODUCTS);
+
+      //앰플리튜드 이벤트 - 비밀번호 재설정 완료 시
+      _findPwChangePwCompleted();
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');

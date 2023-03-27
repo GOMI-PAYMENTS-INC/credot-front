@@ -112,6 +112,27 @@ export const _findIdFindIdFailed = () => {
   void _setAmplitudeEvents(amplitudeConstant.findIdFailed);
 };
 
+// ##### FIND PW - 1 - 비밀번호 찾기 화면 랜딩 시 ##### //
+export const _findPwFindPwStarted = () => {
+  void _setAmplitudeEvents(amplitudeConstant.findPwStarted);
+};
+// ##### FIND PW - 2 - 임시 비밀번호 발송 했을 시 ##### //
+export const _findPwFindPwSucceeded = () => {
+  void _setAmplitudeEvents(amplitudeConstant.findPwSucceeded);
+};
+// ##### FIND PW - 3 - 비밀번호 찾기 실패 했을 시 ##### //
+export const _findPwFindPwFailed = () => {
+  void _setAmplitudeEvents(amplitudeConstant.findPwFailed);
+};
+// ##### FIND PW - 4 - 비밀번호 재설정 화면 랜딩 시 ##### //
+export const _findPwChangePwStarted = () => {
+  void _setAmplitudeEvents(amplitudeConstant.changePwStarted);
+};
+// ##### FIND PW - 5 - 비밀번호 재설정 완료 시 ##### //
+export const _findPwChangePwCompleted = () => {
+  void _setAmplitudeEvents(amplitudeConstant.changePwCompleted);
+};
+
 // ##### KEYWORD REPORT - 1 - 사용자가 키워드 검색 요청 시 ##### //
 export const _keywordReportKeywordSearched = (
   // platform: TChannelType,

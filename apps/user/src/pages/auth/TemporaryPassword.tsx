@@ -8,6 +8,7 @@ import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { _findPwChangePwStarted } from '@/amplitude/amplitude.service';
 
 interface IResetPassword {
   email: string;
@@ -23,6 +24,9 @@ const TemporaryPassword = () => {
   useEffect(() => {
     if (!isTemporaryPasswordLogin) {
       navigation(PATH.SIGN_IN);
+    } else {
+      //앰플리튜드 이벤트 - 비밀번호 재설정 화면 랜딩 시
+      _findPwChangePwStarted();
     }
   }, []);
 
