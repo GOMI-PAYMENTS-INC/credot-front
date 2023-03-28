@@ -12,7 +12,7 @@ import { CACHING_KEY } from '@/types/enum.code';
 
 import { useForm } from 'react-hook-form';
 import { recommanderInitialState, recommanderReducer } from '@/containers/search';
-import { SearchKeywordTranslationView } from '@/pages/search/SearchKeywordTranslationView';
+import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
 
 import {
   switchTranslationTab,
@@ -103,7 +103,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                   </p>
                 </div>
               ) : (
-                <SearchKeywordTranslationView
+                <SearchKeywordTranslationResult
                   translatorState={_state}
                   setTranslatorState={_dispatch}
                 />

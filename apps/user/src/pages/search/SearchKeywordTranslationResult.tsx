@@ -1,15 +1,17 @@
-import { Fragment, useEffect, Dispatch } from 'react';
+import { useEffect, Dispatch } from 'react';
 import { switcIsLoadingState } from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 
-interface ISearchKeywordTranslationView {
+interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
 }
 
-export const SearchKeywordTranslationView = (props: ISearchKeywordTranslationView) => {
+export const SearchKeywordTranslationResult = (
+  props: ISearchKeywordTranslationResult,
+) => {
   const { translatorState, setTranslatorState } = props;
 
   useEffect(() => {
