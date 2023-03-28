@@ -63,8 +63,8 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
           <Fragment>
             {overseaItems.map((item, idx) => {
               const countryCode = COUNTRY_CODE[
-                item.itemShopLocation as keyof typeof COUNTRY_CODE
-              ] ?? { name: '베트남', flag: 'None' };
+                item.itemShopCountry as keyof typeof COUNTRY_CODE
+              ] ?? { name: '미분류국가', flag: 'None' };
               return (
                 <tr
                   className={

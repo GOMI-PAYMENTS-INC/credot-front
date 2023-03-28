@@ -19,7 +19,7 @@ interface IAnalysisOverseaProduct {
 export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
   const { overseaProduct } = props;
   const [aFewProduct, fewProducts, manyProducts] = OVERSEA_PRODUCT_RATIO;
-  const { itemOverseaCount, totalItemCount, overseaLocationCount, overseaItems } =
+  const { itemOverseaCount, totalItemCount, overseaCountryCount, overseaItems } =
     overseaProduct!;
 
   const locationOfPointer = useMemo(() => {
@@ -145,7 +145,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
           <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
             <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto'>
               <div className='h-full  w-full max-w-[710px] overflow-y-hidden'>
-                {isFalsy(overseaLocationCount) ? (
+                {isFalsy(overseaCountryCount) ? (
                   <div className='flex h-full flex-col items-center justify-center'>
                     <ReactSVG src='/assets/icons/outlined/File.svg' />
                     <div className='pt-4 text-center text-grey-800'>
@@ -157,15 +157,15 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                   </div>
                 ) : (
                   <div className='flex flex-wrap text-S/Regular text-grey-900'>
-                    {overseaLocationCount.map((country, idx) => {
+                    {overseaCountryCount.map((country) => {
                       const countryCode = COUNTRY_CODE[
-                        country.itemShopLocation as keyof typeof COUNTRY_CODE
-                      ] ?? { name: '베트남', flag: 'None' };
+                        country.itemShopCountry as keyof typeof COUNTRY_CODE
+                      ] ?? { name: '미분류국가', flag: 'None' };
 
                       return (
                         <div
                           className={`float-left mx-1 mb-3 rounded-[4px] bg-grey-100 py-1`}
-                          key={country.itemShopLocation}
+                          key={country.itemShopCountry}
                         >
                           <div className='flex w-[120px] items-center'>
                             <ReactSVG
@@ -173,7 +173,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                               src={`/assets/icons/country/${countryCode.flag}.svg`}
                             />
                             <div className='flex pl-[7px]'>
-                              <p className='pl-1'>{countryCode.name ?? '베트남'}</p>
+                              <p className='pl-1'>{countryCode.name}</p>
                               <p className='pl-1'>{`${country.count}개`}</p>
                             </div>
                           </div>
