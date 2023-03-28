@@ -24,4 +24,10 @@ export const amplitudeConstant = {
   keywordReportCreated: 'keyword report created',
   keywordReportDeleted: 'keyword report deleted',
   keywordReportViewed: 'keyword report viewed',
+
+  movedToUserGuide: 'moved to user guide',
+  movedToSERP: 'moved to SERP',
+  movedToPDP: 'moved to PDP',
+  keywordTranslated: 'keyword translated',
+  translatedKeywordSearched: 'translated keyword searched',
 };

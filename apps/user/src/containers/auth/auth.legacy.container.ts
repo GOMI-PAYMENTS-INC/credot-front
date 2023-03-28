@@ -195,11 +195,10 @@ export const AuthContainer = () => {
     signUpMutate(signupFormValue, {
       onSuccess: () => {
         //회원가입 완료 시 이벤트 - 로컬
-        _signupSignupCompleted(
+        void _signupSignupCompleted(
           AccountType.LOCAL,
           signupFormValue.user.email,
           signupFormValue.user.phone,
-          false,
         );
         navigation(PATH.SEARCH_PRODUCTS);
       },
@@ -235,11 +234,10 @@ export const AuthContainer = () => {
           setToken(res.googleSignUp.token);
           authTokenStorage.setToken(res.googleSignUp.token);
         }
-        _signupSignupCompleted(
+        void _signupSignupCompleted(
           AccountType.LOCAL,
           email,
           signupSocialFormValue.socialSignUpDto.phone,
-          false,
         );
       },
     });

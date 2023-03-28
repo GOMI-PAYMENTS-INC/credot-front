@@ -19,8 +19,19 @@ interface IAnalysisOverseaProduct {
 export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
   const { overseaProduct } = props;
   const [aFewProduct, fewProducts, manyProducts] = OVERSEA_PRODUCT_RATIO;
-  const { itemOverseaCount, totalItemCount, overseaLocationCount, overseaItems } =
-    overseaProduct!;
+  const {
+    id,
+    text,
+    itemOverseaCount,
+    totalItemCount,
+    overseaLocationCount,
+    overseaItems,
+  } = overseaProduct!;
+
+  const amplitudeData: TAmplitudeDetailData = {
+    report_id: id.toString(),
+    keyword: text,
+  };
 
   const locationOfPointer = useMemo(() => {
     if (itemOverseaCount < 4) {
@@ -188,7 +199,11 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
         </div>
       </div>
 
-      <AnalysisOverseaProductTable overseaItems={overseaItems} basePrice={5.52} />
+      <AnalysisOverseaProductTable
+        overseaItems={overseaItems}
+        basePrice={5.52}
+        amplitudeData={amplitudeData}
+      />
     </section>
   );
 };

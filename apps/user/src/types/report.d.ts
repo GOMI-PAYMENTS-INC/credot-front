@@ -130,6 +130,12 @@ type TReportState = {
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  amplitudeData: TAmplitudeDetailData;
+};
+
+type TAmplitudeDetailData = {
+  report_id: string;
+  keyword: string;
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';

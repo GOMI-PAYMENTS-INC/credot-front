@@ -11,8 +11,8 @@ import {
   sidebarReducer,
 } from '@/containers/sidebar/sidebar.reducer';
 import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
-import { openBrowser } from '@/containers/report';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+import { _reportEngagementMovedToUserGuide } from '@/amplitude/amplitude.service';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -50,7 +50,7 @@ const SideBar = () => {
                     className='cursor-pointer text-S/Medium text-grey-800'
                     key={menuIndex}
                   >
-                    <div
+                    <button
                       className={`${
                         isActive ? `bg-orange-100` : `bg-white`
                       } flex justify-between rounded-lg p-3`}
@@ -68,7 +68,7 @@ const SideBar = () => {
                           }}
                         />
                       </div>
-                    </div>
+                    </button>
                   </li>
                 );
               })}
@@ -79,7 +79,8 @@ const SideBar = () => {
               <button
                 className='iconButton-medium-normal-ghost-grey'
                 onClick={() =>
-                  openBrowser(
+                  _reportEngagementMovedToUserGuide(
+                    'lnb',
                     'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
                   )
                 }
@@ -145,8 +146,8 @@ const SideBar = () => {
 
                 return (
                   <li className='' key={menuIndex}>
-                    <div
-                      className={`flex cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
+                    <button
+                      className={`flex w-full cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
                         isCollapsedActive && 'bg-orange-100 text-orange-600'
                       }`}
                       onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
@@ -173,7 +174,7 @@ const SideBar = () => {
                           svg.setAttribute('class', 'w-3 fill-grey-800');
                         }}
                       />
-                    </div>
+                    </button>
                     {isCollapsed && menu.children.length ? (
                       <ul className='mx-4'>
                         {menu.children.map((child, childIndex) => {
@@ -185,8 +186,8 @@ const SideBar = () => {
                           }
                           return (
                             <li key={childIndex}>
-                              <div
-                                className={`flex cursor-pointer items-center rounded-lg py-2 pl-5 text-S/Medium ${
+                              <button
+                                className={`flex  w-full cursor-pointer items-center rounded-lg py-2 pl-5 text-S/Medium ${
                                   isActive && 'bg-orange-100 text-orange-500'
                                 }`}
                                 onClick={() => navigation(child.path)}
@@ -204,7 +205,7 @@ const SideBar = () => {
                                   }}
                                 />
                                 <span className='ml-2'>{child.title}</span>
-                              </div>
+                              </button>
                             </li>
                           );
                         })}
@@ -218,7 +219,15 @@ const SideBar = () => {
           <div className='divide-y divide-grey-300'>
             <div className='px-2.5 '>
               <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
-                <div className='flex items-center'>
+                <button
+                  className='flex items-center'
+                  onClick={() =>
+                    _reportEngagementMovedToUserGuide(
+                      'lnb',
+                      'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                    )
+                  }
+                >
                   <ReactSVG
                     src='/assets/icons/outlined/QuestionCircle.svg'
                     className='cursor-pointer '
@@ -226,14 +235,8 @@ const SideBar = () => {
                       svg.setAttribute('class', `w-5 fill-grey-800`);
                     }}
                   />
-                  <a
-                    href='https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739'
-                    target='_blank'
-                    className='ml-2 cursor-pointer'
-                  >
-                    사용자 가이드
-                  </a>
-                </div>
+                  <span className='ml-2 cursor-pointer'>사용자 가이드</span>
+                </button>
               </div>
             </div>
             <div className='space-y-3 py-6 px-4'>

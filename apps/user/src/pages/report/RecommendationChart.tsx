@@ -28,6 +28,7 @@ interface IRecommendationChart {
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
   basePrice: number;
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
@@ -222,9 +223,14 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                       <div className='flex justify-center'>
                         <div
                           className='flex h-5 w-5 cursor-pointer items-center'
-                          onClick={() =>
-                            openBrowser(`https://shopee.vn/search?keyword=${data.text}`)
-                          }
+                          // onClick={() =>
+                          //   _reportEngagementMovedToSERP(
+                          //     amplitudeData.report_id,
+                          //     amplitudeData.keyword,
+                          //     data.text,
+                          //     `https://shopee.vn/search?keyword=${data.text}`,
+                          //   )
+                          // }
                         >
                           <ReactSVG
                             className=''

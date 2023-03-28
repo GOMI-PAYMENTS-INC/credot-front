@@ -244,3 +244,70 @@ export const _keywordReportKeywordReportDeleted = (checkedItems: TReportItem[]) 
     });
   });
 };
+
+// ##### REPORT ENGAGEMENT - 1 - 사용자 가이드 페이지로 이동하는 링크 클릭 시 ##### //
+export const _reportEngagementMovedToUserGuide = (
+  link_location: string,
+  move_link: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.movedToUserGuide, {
+    link_location,
+  });
+  window.open(`${move_link}`, '_blank');
+};
+
+// ##### REPORT ENGAGEMENT - 2 - 특정 키워드의 SERP로 이동하는 링크 클릭 시 ##### //
+export const _reportEngagementMovedToSERP = (
+  report_id: string,
+  keyword: string,
+  rec_keyword: string,
+  move_link: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.movedToSERP, {
+    report_id,
+    keyword,
+    rec_keyword,
+  });
+  window.open(`${move_link}`, '_blank');
+};
+
+// ##### REPORT ENGAGEMENT - 3 - 특정 상품의 상세페이지로 넘어가는 링크 클릭 시 ##### //
+export const _reportEngagementMovedToPDP = (
+  report_id: string,
+  keyword: string,
+  link_location: string,
+  move_link: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.movedToPDP, {
+    report_id,
+    keyword,
+    link_location,
+  });
+  window.open(`${move_link}`, '_blank');
+};
+
+// ##### KEYWORD TRANSLATION - 1 - 키워드 번역 요청 시 ##### //
+export const _keywordTranslationKeywordTranslated = (
+  language: string,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
+    language,
+    keyword,
+  });
+};
+
+// ##### KEYWORD TRANSLATION - 2 - 번역된 키워드를 검색 요청 시 ##### //
+export const _keywordTranslationTranslatedSearched = (
+  // platform: TChannelType,
+  // country: CountryType,
+  // sort_by: TSortedType,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
+    platform: 'SHOPEE',
+    country: CountryType.Vn,
+    sort_by: 'PRICE_MIN',
+    keyword,
+  });
+};
