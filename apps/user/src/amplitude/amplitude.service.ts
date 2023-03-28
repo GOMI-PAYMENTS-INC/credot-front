@@ -5,6 +5,8 @@ import { CHANNEL_TYPE, SORTED_TYPE } from '@/types/enum.code';
 
 declare var amplitude: any;
 
+//TODO:axios.config 보면 casing에 snakelize 함수 있으니 참고해서 별도로 카멜/스네이크 신경쓰지 않아도 자동화 되도록 할 것 (casey 3/28)
+
 // ##### Event ##### //
 export const _setAmplitudeEvents = async (
   event_name: string,
@@ -69,8 +71,10 @@ export const _amplitudeLoggedOut = async (callBackEvent?: () => void) => {
 };
 
 // ##### GENERAL - 3 - 휴대폰 인증 완료 시 이벤트 ##### //
-export const _amplitudeMobileVerified = (phone_number: string) => {
-  void _setAmplitudeEvents(amplitudeConstant.mobileVerified, { phone_number });
+export const _amplitudeMobileVerified = (phoneNumber: string) => {
+  void _setAmplitudeEvents(amplitudeConstant.mobileVerified, {
+    phone_number: phoneNumber,
+  });
 };
 
 // ##### SIGNUP - 1 - 회원가입 화면 랜딩 시 이벤트 ##### //
@@ -84,7 +88,7 @@ export const _amplitudeSignupStarted = (provider: AccountType) => {
 export const _amplitudeSignupCompleted = async (
   provider: AccountType,
   email: string,
-  phone_number: string,
+  phoneNumber: string,
   //marketing_notification: boolean,
   callBackEvent?: () => void,
 ) => {
@@ -93,7 +97,7 @@ export const _amplitudeSignupCompleted = async (
     {
       provider,
       email,
-      phone_number,
+      phone_number: phoneNumber,
       marketing_notification: false,
     },
     callBackEvent,
@@ -204,14 +208,14 @@ export const _amplitudeRecKeywordSearched = (
 
 // ##### KEYWORD REPORT - 5 - 키워드 리포트 생성 요청 시 ##### //
 export const _amplitudeKeywordReportRequested = (
-  report_id: number,
+  reportId: number,
   // platform: TChannelType,
   // country: CountryType,
   // sort_by: TSortedType,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
-    report_id,
+    report_id: reportId,
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
     sort_by: SORTED_TYPE.PRICE_MIN,
@@ -252,27 +256,27 @@ export const _amplitudeMovedToUserGuide = (link_location: string) => {
 
 // ##### REPORT ENGAGEMENT - 2 - 특정 키워드의 SERP로 이동하는 링크 클릭 시 ##### //
 export const _amplitudeMovedToSERP = (
-  report_id: string,
+  reportId: string,
   keyword: string,
-  rec_keyword: string,
+  recKeyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.movedToSERP, {
-    report_id,
+    report_id: reportId,
     keyword,
-    rec_keyword,
+    rec_keyword: recKeyword,
   });
 };
 
 // ##### REPORT ENGAGEMENT - 3 - 특정 상품의 상세페이지로 넘어가는 링크 클릭 시 ##### //
 export const _amplitudeMovedToPDP = (
-  report_id: string,
+  reportId: string,
   keyword: string,
-  link_location: string,
+  linkLocation: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.movedToPDP, {
-    report_id,
+    report_id: reportId,
     keyword,
-    link_location,
+    link_location: linkLocation,
   });
 };
 
