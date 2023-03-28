@@ -8,7 +8,7 @@ import { CountryType } from '@/generated/graphql';
 
 import { SearchModal } from '@/pages/search/SearchModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
-import { SearchKeywordRecommander } from '@/pages/search/SearchKeywordRecommander';
+import { SearchKeywordTranslator } from '@/pages/search/SearchKeywordTranslator';
 
 import {
   getKeyword,
@@ -317,7 +317,7 @@ const SearchKeywords = () => {
         />
       </div>
 
-      <SearchKeywordRecommander _searchDispatch={_dispatch} _searchState={_state} />
+      <SearchKeywordTranslator _searchDispatch={_dispatch} _searchState={_state} />
     </Layout>
   );
 };

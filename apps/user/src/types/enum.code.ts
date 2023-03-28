@@ -112,3 +112,8 @@ export enum MODAL_TYPE_ENUM {
   LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
   NotBeOverDayReport = 'NotBeOverDayReport',
 }
+
+export enum CACHING_KEY {
+  STORED_KEYWORD = 'keyword',
+  STORED_TRANSLATION = 'translation_keyword',
+}
