@@ -34,7 +34,6 @@ export const getQueryResult = (
           if (images && images.data.data !== null) {
             getProductImages(images.data, _dispatch);
           }
-          //앰플리튜드 이벤트 - 키워드 검색 성공
           _amplitudeKeywordSearchedSucceeded(keyword, res.search.relations);
           return;
         } catch (error) {
@@ -42,7 +41,6 @@ export const getQueryResult = (
         }
       },
       onError: (error) => {
-        //앰플리튜드 이벤트 - 키워드 검색 실패 시
         _amplitudeKeywordSearchedFailed(keyword, error.response.errors[0].message);
       },
     },

@@ -66,7 +66,6 @@ const FindId = () => {
   };
 
   useEffect(() => {
-    //앰플리튜드 이벤트 - 아이디 찾기 화면 랜딩 시
     _amplitudeFindIdStarted();
   }, []);
 

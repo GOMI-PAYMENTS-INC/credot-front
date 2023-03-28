@@ -112,10 +112,8 @@ export const useVerifyCode = (
           );
 
           if (res.findAccount.accounts.length > 0) {
-            //앰플리튜드 이벤트 - 아이디 결과 있음 출력 완료 시
             _amplitudeFindIdSucceeded();
           } else {
-            //앰플리튜드 이벤트 - 아이디 없음 화면  출력 완료 시
             _amplitudeFindIdFailed();
           }
         },
@@ -139,13 +137,11 @@ export const useVerifyCode = (
             setIsVerification,
           );
 
-          //앰플리튜드 이벤트 - 임시 비밀번호 발송 했을 시
           _amplitudeFindPwSucceeded();
         }
       },
       onError: (err) => {
         isAccountExisted(undefined, isVerification, setIsVerification);
-        //앰플리튜드 이벤트 - 비밀번호 찾기 실패 했을 시
         _amplitudeFindPwFailed();
       },
     },

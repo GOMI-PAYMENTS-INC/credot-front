@@ -53,7 +53,6 @@ const SignUpRef = () => {
   );
 
   useEffect(() => {
-    //앰플리튜드 이벤트 - 회원가입 화면 랜딩 시
     _amplitudeSignupStarted(AccountType.LOCAL);
   }, []);
 

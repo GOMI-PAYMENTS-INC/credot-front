@@ -30,7 +30,6 @@ export const queryKeywordByClick = (
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: text });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: text });
 
-  //앰플리튜드 이벤트 - 검색어로 추천된 키워드를 클릭해서 검색 시도 시
   _amplitudeRecKeywordSearched(text);
 };
 
@@ -59,7 +58,6 @@ export const queryKeyword = (
   _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: _switch });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD });
 
-  //앰플리튜드 이벤트 - 사용자가 키워드 검색 요청 시
   _amplitudeKeywordSearched(text);
 };
 
@@ -122,8 +120,6 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
             },
           });
           toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
-
-          //앰플리튜드 이벤트 - 키워드 리포트 생성 요청 시
           _amplitudeKeywordReportRequested(1, keyword);
         }
 

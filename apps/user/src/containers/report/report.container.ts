@@ -49,7 +49,6 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
 
     const [first] = response;
     if (first) {
-      //앰플리튜드 이벤트 - 키워드 리포트 상세 조회 시
       _amplitudeKeywordReportViewed(id, first.data);
 
       //앰플리튜드 이벤트에 필요한 데이터를 상태로 추가
@@ -263,7 +262,6 @@ export const deleteReports = async (
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
 ) => {
-  //앰플리튜드 이벤트 - 키워드 검색 성공
   const ids = [..._state.checkedItems].map((value) => {
     return value.id;
   });
@@ -288,7 +286,6 @@ export const deleteReports = async (
 
     toast.success(`리포트를 삭제했어요.`);
 
-    //앰플리튜드 이벤트 - 키워드 리포트 삭제 완료 시
     _amplitudeKeywordReportDeleted(_state.checkedItems);
   } else {
     toast.error(`리포트를 삭제할 수 없습니다.`);

@@ -81,7 +81,6 @@ export const useSignUp = () => {
         //모달이 켜지고 화면 이동
         setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
 
-        //앰플리튜드 이벤트 - 회원가입 완료 / 로그인
         await _amplitudeSignupCompleted(AccountType.LOCAL, email, phone, () => {
           _amplitudeLoggedIn(AccountType.LOCAL);
         });
@@ -168,7 +167,6 @@ export const useSignUp = () => {
             setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
             authTokenStorage.setToken(res.googleSignUp.token);
           }
-          //앰플리튜드 이벤트 - 회원가입 완료 / 로그인
           await _amplitudeSignupCompleted(AccountType.GOOGLE, email, phone, () => {
             _amplitudeLoggedIn(AccountType.GOOGLE);
           });

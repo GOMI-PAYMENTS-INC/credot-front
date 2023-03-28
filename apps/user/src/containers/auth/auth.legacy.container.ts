@@ -304,7 +304,6 @@ export const AuthContainer = () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
       navigation(PATH.SEARCH_PRODUCTS);
 
-      //앰플리튜드 이벤트 - 비밀번호 재설정 완료 시
       _amplitudeChangePwCompleted();
     },
     onError: () => {

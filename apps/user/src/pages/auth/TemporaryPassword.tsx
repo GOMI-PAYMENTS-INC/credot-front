@@ -25,7 +25,6 @@ const TemporaryPassword = () => {
     if (!isTemporaryPasswordLogin) {
       navigation(PATH.SIGN_IN);
     } else {
-      //앰플리튜드 이벤트 - 비밀번호 재설정 화면 랜딩 시
       _amplitudeChangePwStarted();
     }
   }, []);
