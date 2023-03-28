@@ -64,7 +64,7 @@ const ReportList = () => {
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div>
               {/* 테이블 */}
-              <div className='mt-[24px] flex min-h-[693px] flex-col rounded rounded border border-grey-300 bg-white'>
+              <div className='mt-[24px] flex min-h-[693px] flex-col rounded border border-grey-300 bg-white'>
                 <div className='flex h-[68px] items-center justify-between p-4'>
                   <h1 className='text-M/Regular text-grey-800'>
                     총 {formatNumber(_state.data.totalCount)}개
