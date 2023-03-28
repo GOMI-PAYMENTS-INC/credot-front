@@ -23,7 +23,7 @@ type TReportListState = {
   //전체 선택 체크 여부
   isCheckedAll: boolean;
   //체크한 item 배열
-  checkedItems: number[];
+  checkedItems: TReportItem[];
 };
 
 type TGetReportList = {
@@ -130,6 +130,12 @@ type TReportState = {
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  amplitudeData: TAmplitudeDetailData;
+};
+
+type TAmplitudeDetailData = {
+  report_id: string;
+  keyword: string;
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';

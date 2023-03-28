@@ -4,6 +4,8 @@ import {
   MutationSignupArgs,
   useExistsUserEmailQuery,
   useGoogleSignupMutation,
+  SignupMutation,
+  GoogleSignupMutation,
 } from '@/generated/graphql';
 import { TERM_TYPE } from '@/types/enum.code';
 import { toast } from 'react-toastify';
@@ -14,9 +16,12 @@ import { UseFormSetError } from 'react-hook-form';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
-import { _generalMobileVerified } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeLoggedIn,
+  _amplitudeMobileVerified,
+} from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { _signupSignupCompleted } from '@/amplitude/amplitude.service';
+import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AccountType } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
@@ -69,11 +74,16 @@ export const useSignUp = () => {
     };
 
     signUpMutate(signupFormValue, {
-      onSuccess: (res) => {
-        if (res.signup.token) {
-          authTokenStorage.setToken(res.signup.token);
-        }
+      onSuccess: async (res: SignupMutation) => {
+        //로그인 처리
+        authTokenStorage.setToken(res.signup.token);
+
+        //모달이 켜지고 화면 이동
         setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
+
+        await _amplitudeSignupCompleted(AccountType.LOCAL, email, phone, () => {
+          _amplitudeLoggedIn(AccountType.LOCAL);
+        });
       },
     });
   };
@@ -152,12 +162,14 @@ export const useSignUp = () => {
     signUpSocialMutate(
       { socialSignUpDto: payload },
       {
-        onSuccess: (res) => {
+        onSuccess: async (res: GoogleSignupMutation) => {
           if (res.googleSignUp.token) {
             setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
             authTokenStorage.setToken(res.googleSignUp.token);
           }
-          _signupSignupCompleted(AccountType.LOCAL, email, phone, false);
+          await _amplitudeSignupCompleted(AccountType.GOOGLE, email, phone, () => {
+            _amplitudeLoggedIn(AccountType.GOOGLE);
+          });
         },
       },
     );

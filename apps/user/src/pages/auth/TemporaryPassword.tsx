@@ -8,6 +8,7 @@ import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
 
 interface IResetPassword {
   email: string;
@@ -23,6 +24,8 @@ const TemporaryPassword = () => {
   useEffect(() => {
     if (!isTemporaryPasswordLogin) {
       navigation(PATH.SIGN_IN);
+    } else {
+      _amplitudeChangePwStarted();
     }
   }, []);
 

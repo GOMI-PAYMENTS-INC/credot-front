@@ -25,26 +25,24 @@ export const _setAmplitudeEvents = async (
 };
 
 // ##### INTRO PAGE - 1 - 소개 페이지 내 페이지 뷰 발생 시 ##### //
-export const _introPageIntroPageViewed = (page_category: string, page_url: string) => {
+export const _introPageIntroPageViewed = (pageCategory: string, pageUrl: string) => {
   void _setAmplitudeEvents(amplitudeConstant.introPageViewed, {
-    page_category,
-    page_url,
+    page_category: pageCategory,
+    page_url: pageUrl,
   });
 };
 
 // ##### INTRO PAGE - 2 - 솔루션 페이지로 넘어가는 CTA 클릭 시 ##### //
 export const _introPageMovedToSolution = (
-  page_category: string,
-  cta_type: string,
-  cta_location: string,
-  cta_text: string,
-  move_link: string,
+  pageCategory: string,
+  ctaType: string,
+  ctaLocation: string,
+  ctaText: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.movedToSolution, {
-    page_category,
-    cta_type,
-    cta_location,
-    cta_text,
+    page_category: pageCategory,
+    cta_type: ctaType,
+    cta_location: ctaLocation,
+    cta_text: ctaText,
   });
-  window.open(`${move_link}`, '_blank');
 };

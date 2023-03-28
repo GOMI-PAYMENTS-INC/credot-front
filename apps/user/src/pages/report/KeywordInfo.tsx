@@ -1,12 +1,17 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
-import { openBrowser } from '@/containers/report/report.container';
 import { convertCountry } from '@/utils/convertEnum';
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
+import { useParams } from 'react-router-dom';
+import { openBrowser } from '@/containers/report';
+import { data } from 'autoprefixer';
 interface IKeywordInfoProps {
   keywordInfo: TKeywordInfo;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
+  const routeId = useParams();
+
   const { text, country, createdAt, basePrice } = props.keywordInfo;
   return (
     <section>
@@ -36,7 +41,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
           <div className='pt-[30px] pl-[7px]'>
             {/* TODO: 현재는 베트남 한정이지만 추후 국가 선택, 검색 기준도 쿼리에 넣어야 함 */}
             <button
-              onClick={() => openBrowser(`https://shopee.vn/search?keyword=${text}`)}
+              onClick={() => {
+                openBrowser(`https://shopee.vn/search?keyword=${text}`);
+                _amplitudeMovedToSERP(routeId.id || '', text, text);
+              }}
               className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
             >
               키워드 검색결과
