@@ -31,7 +31,6 @@ import { isIncluded } from '@/utils/isIncluded';
 import {
   _amplitudeKeywordReportDeleted,
   _amplitudeKeywordReportViewed,
-  페,
 } from '@/amplitude/amplitude.service';
 
 export const openBrowser = (url: string) => {
@@ -230,7 +229,7 @@ export const onCheckReportList = (
         payload: { isCheckedAll: true },
       });
     }
-  } else if (!isChecked && checkedItems.find((one) => one.id === code.id)) {
+  } else if (isChecked === false && checkedItems.find((one) => one.id === code.id)) {
     //체크 해제할때 checkedItems에 있을 경우
     const filter = checkedItems.filter((one) => one.id !== code.id);
     _dispatch({
