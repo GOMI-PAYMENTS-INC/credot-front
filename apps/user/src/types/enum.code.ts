@@ -36,6 +36,16 @@ export enum STATUS_CODE {
   ERROR = '9999',
 }
 
+export enum CHANNEL_TYPE {
+  SHOPEE = 'SHOPEE',
+  NONE = 'NONE',
+}
+export enum SORTED_TYPE {
+  PRICE_MIN = 'PRICE_MIN',
+  PRICE_MAX = 'PRICE_MAX',
+  PRICE_AVERAGE = 'PRICE_AVERAGE',
+}
+
 export enum TITLE {
   REPORT = 'Report',
   MARTKET_SIZE = 'MartketSize',

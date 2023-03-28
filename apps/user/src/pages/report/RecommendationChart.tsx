@@ -22,6 +22,7 @@ import {
   buttonSpinnerEvent,
   convertExchangeRate,
 } from '@/containers/report/report.container';
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
   _dispatch: Dispatch<TReportAction>;
@@ -32,7 +33,8 @@ interface IRecommendationChart {
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
-  const { relation, _dispatch, toggleEvent, spinnerEvent, basePrice } = props;
+  const { amplitudeData, relation, _dispatch, toggleEvent, spinnerEvent, basePrice } =
+    props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
   );
@@ -221,22 +223,22 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <div
+                        <button
                           className='flex h-5 w-5 cursor-pointer items-center'
-                          // onClick={() =>
-                          //   _reportEngagementMovedToSERP(
-                          //     amplitudeData.report_id,
-                          //     amplitudeData.keyword,
-                          //     data.text,
-                          //     `https://shopee.vn/search?keyword=${data.text}`,
-                          //   )
-                          // }
+                          onClick={() => {
+                            openBrowser(`https://shopee.vn/search?keyword=${data.text}`);
+                            _amplitudeMovedToSERP(
+                              amplitudeData.report_id,
+                              amplitudeData.keyword,
+                              data.text,
+                            );
+                          }}
                         >
                           <ReactSVG
                             className=''
                             src='/assets/icons/outlined/Linkout.svg'
                           />
-                        </div>
+                        </button>
                       </div>
                     </td>
                     <td>
@@ -298,7 +300,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                                   <button
                                     className='button-outlined-small-xLarge-primary-false-false-true relative'
                                     onClick={() => {
-                                      _getRelationReport(routeId.id!, _dispatch);
+                                      void _getRelationReport(routeId.id!, _dispatch);
                                       buttonSpinnerEvent(_dispatch);
                                       delayEvent(
                                         () => buttonSpinnerEvent(_dispatch),

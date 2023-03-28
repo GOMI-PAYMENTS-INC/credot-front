@@ -2,10 +2,10 @@ import { RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
+import { convertExchangeRate, openBrowser, roundNumber } from '@/containers/report';
 import { Fragment } from 'react';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import { _reportEngagementMovedToPDP } from '@/amplitude/amplitude.service';
+import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 import { TITLE } from '@/types/enum.code';
 
@@ -145,14 +145,14 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                 <div className='flex justify-center text-S/Medium'>
                   <button
                     className='flex h-5 w-5 cursor-pointer items-center'
-                    onClick={() =>
-                      _reportEngagementMovedToPDP(
+                    onClick={() => {
+                      openBrowser(item.itemUrl);
+                      _amplitudeMovedToPDP(
                         amplitudeData.report_id,
                         amplitudeData.keyword,
                         convertTitle(TITLE.SALE_PRICE),
-                        item.itemUrl,
-                      )
-                    }
+                      );
+                    }}
                   >
                     <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
                   </button>

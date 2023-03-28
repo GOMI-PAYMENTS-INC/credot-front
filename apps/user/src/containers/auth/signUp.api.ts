@@ -16,9 +16,12 @@ import { UseFormSetError } from 'react-hook-form';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
-import { _generalLoggedIn, _generalMobileVerified } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeLoggedIn,
+  _amplitudeMobileVerified,
+} from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { _signupSignupCompleted } from '@/amplitude/amplitude.service';
+import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AccountType } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
@@ -79,8 +82,8 @@ export const useSignUp = () => {
         setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
 
         //앰플리튜드 이벤트 - 회원가입 완료 / 로그인
-        await _signupSignupCompleted(AccountType.LOCAL, email, phone, () => {
-          _generalLoggedIn(AccountType.LOCAL);
+        await _amplitudeSignupCompleted(AccountType.LOCAL, email, phone, () => {
+          _amplitudeLoggedIn(AccountType.LOCAL);
         });
       },
     });
@@ -166,8 +169,8 @@ export const useSignUp = () => {
             authTokenStorage.setToken(res.googleSignUp.token);
           }
           //앰플리튜드 이벤트 - 회원가입 완료 / 로그인
-          await _signupSignupCompleted(AccountType.GOOGLE, email, phone, () => {
-            _generalLoggedIn(AccountType.GOOGLE);
+          await _amplitudeSignupCompleted(AccountType.GOOGLE, email, phone, () => {
+            _amplitudeLoggedIn(AccountType.GOOGLE);
           });
         },
       },

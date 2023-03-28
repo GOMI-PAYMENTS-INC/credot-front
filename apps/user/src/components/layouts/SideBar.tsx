@@ -12,7 +12,8 @@ import {
 } from '@/containers/sidebar/sidebar.reducer';
 import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import { _reportEngagementMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { openBrowser } from '@/containers/report';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();
@@ -78,12 +79,12 @@ const SideBar = () => {
             <li className='text-center'>
               <button
                 className='iconButton-medium-normal-ghost-grey'
-                onClick={() =>
-                  _reportEngagementMovedToUserGuide(
-                    'lnb',
+                onClick={() => {
+                  openBrowser(
                     'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
-                  )
-                }
+                  );
+                  _amplitudeMovedToUserGuide('lnb');
+                }}
               >
                 <ReactSVG
                   src='/assets/icons/outlined/QuestionCircle.svg'
@@ -221,12 +222,12 @@ const SideBar = () => {
               <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
                 <button
                   className='flex items-center'
-                  onClick={() =>
-                    _reportEngagementMovedToUserGuide(
-                      'lnb',
+                  onClick={() => {
+                    openBrowser(
                       'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
-                    )
-                  }
+                    );
+                    _amplitudeMovedToUserGuide('lnb');
+                  }}
                 >
                   <ReactSVG
                     src='/assets/icons/outlined/QuestionCircle.svg'

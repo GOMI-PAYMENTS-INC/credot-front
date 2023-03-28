@@ -6,9 +6,9 @@ import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
 import { getProductImages } from '@/containers/search/search.container';
 import {
-  _keywordReportKeywordSearched,
-  _keywordReportKeywordSearchedFailed,
-  _keywordReportKeywordSearchedSucceeded,
+  _amplitudeKeywordSearched,
+  _amplitudeKeywordSearchedFailed,
+  _amplitudeKeywordSearchedSucceeded,
 } from '@/amplitude/amplitude.service';
 
 export const getQueryResult = (
@@ -35,7 +35,7 @@ export const getQueryResult = (
             getProductImages(images.data, _dispatch);
           }
           //앰플리튜드 이벤트 - 키워드 검색 성공
-          _keywordReportKeywordSearchedSucceeded(keyword, res.search.relations);
+          _amplitudeKeywordSearchedSucceeded(keyword, res.search.relations);
           return;
         } catch (error) {
           console.error(error, 'error');
@@ -43,7 +43,7 @@ export const getQueryResult = (
       },
       onError: (error) => {
         //앰플리튜드 이벤트 - 키워드 검색 실패 시
-        _keywordReportKeywordSearchedFailed(keyword, error.response.errors[0].message);
+        _amplitudeKeywordSearchedFailed(keyword, error.response.errors[0].message);
       },
     },
   );

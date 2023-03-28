@@ -8,7 +8,7 @@ import { convertExchangeRate, roundNumber } from '@/containers/report';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { isFalsy } from '@/utils/isFalsy';
 import { COUNTRY_CODE } from '@/containers/report/country.code';
-import { _reportEngagementMovedToPDP } from '@/amplitude/amplitude.service';
+import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 import { TITLE } from '@/types/enum.code';
 interface ISalePriceTable {
@@ -175,14 +175,14 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                     <div className='flex justify-center text-S/Medium'>
                       <button
                         className='flex h-5 w-5 cursor-pointer items-center'
-                        onClick={() =>
-                          _reportEngagementMovedToPDP(
+                        onClick={() => {
+                          openBrowser(item.itemUrl);
+                          _amplitudeMovedToPDP(
                             amplitudeData.report_id,
                             amplitudeData.keyword,
                             convertTitle(TITLE.OVERSEA_PRODUCT),
-                            item.itemUrl,
-                          )
-                        }
+                          );
+                        }}
                       >
                         <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
                       </button>

@@ -21,11 +21,11 @@ import {
 import { UseFormSetError } from 'react-hook-form';
 
 import {
-  _findIdFindIdFailed,
-  _findIdFindIdSucceeded,
-  _findPwFindPwFailed,
-  _findPwFindPwSucceeded,
-  _generalMobileVerified,
+  _amplitudeFindIdFailed,
+  _amplitudeFindIdSucceeded,
+  _amplitudeFindPwFailed,
+  _amplitudeFindPwSucceeded,
+  _amplitudeMobileVerified,
 } from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
@@ -79,7 +79,7 @@ export const useVerifyCode = (
             getVerifyCodeSignatureNumber(signature, isVerification, setIsVerification);
 
             //앰플리튜드 전화번호 인증 완료 이벤트
-            _generalMobileVerified(phone);
+            _amplitudeMobileVerified(phone);
           }
         },
         onError: (err) => {
@@ -113,10 +113,10 @@ export const useVerifyCode = (
 
           if (res.findAccount.accounts.length > 0) {
             //앰플리튜드 이벤트 - 아이디 결과 있음 출력 완료 시
-            _findIdFindIdSucceeded();
+            _amplitudeFindIdSucceeded();
           } else {
             //앰플리튜드 이벤트 - 아이디 없음 화면  출력 완료 시
-            _findIdFindIdFailed();
+            _amplitudeFindIdFailed();
           }
         },
         onError: (err) => {
@@ -140,13 +140,13 @@ export const useVerifyCode = (
           );
 
           //앰플리튜드 이벤트 - 임시 비밀번호 발송 했을 시
-          _findPwFindPwSucceeded();
+          _amplitudeFindPwSucceeded();
         }
       },
       onError: (err) => {
         isAccountExisted(undefined, isVerification, setIsVerification);
         //앰플리튜드 이벤트 - 비밀번호 찾기 실패 했을 시
-        _findPwFindPwFailed();
+        _amplitudeFindPwFailed();
       },
     },
   );

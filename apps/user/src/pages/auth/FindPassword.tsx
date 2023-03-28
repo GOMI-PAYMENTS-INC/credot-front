@@ -17,8 +17,8 @@ import {
 } from '@/containers/auth/auth.container';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import {
-  _findIdFindIdStarted,
-  _findPwFindPwStarted,
+  _amplitudeFindIdStarted,
+  _amplitudeFindPwStarted,
 } from '@/amplitude/amplitude.service';
 
 export const FindPasswordRef = () => {
@@ -65,11 +65,8 @@ export const FindPasswordRef = () => {
   _checkSmsVerifyCode(getValues('phone'));
 
   useEffect(() => {
-    if (isVerification.isExistedAccount === null) {
-      //앰플리튜드 이벤트 - 비밀번호 찾기 화면 랜딩 시
-      _findPwFindPwStarted();
-    }
-  }, [isVerification.isExistedAccount]);
+    _amplitudeFindPwStarted();
+  }, []);
 
   useEffect(() => {
     if (

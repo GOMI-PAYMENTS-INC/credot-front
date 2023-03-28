@@ -1,4 +1,4 @@
-import { Fragment, Dispatch, SetStateAction, useEffect } from 'react';
+import { Fragment, Dispatch, SetStateAction } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { AUTH_RESPONSE_TYPE, PATH } from '@/types/enum.code';
 import { Link } from 'react-router-dom';

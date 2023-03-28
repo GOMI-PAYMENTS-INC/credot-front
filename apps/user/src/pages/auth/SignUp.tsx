@@ -28,7 +28,7 @@ import {
 } from '@/containers/auth/auth.container';
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { _signupSignupStarted } from '@/amplitude/amplitude.service';
+import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
 import { AccountType } from '@/amplitude/amplitude.enum';
 
 const SignUpRef = () => {
@@ -54,7 +54,7 @@ const SignUpRef = () => {
 
   useEffect(() => {
     //앰플리튜드 이벤트 - 회원가입 화면 랜딩 시
-    _signupSignupStarted(AccountType.LOCAL);
+    _amplitudeSignupStarted(AccountType.LOCAL);
   }, []);
 
   useEffect(() => {

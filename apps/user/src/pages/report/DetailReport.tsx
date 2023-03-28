@@ -16,7 +16,7 @@ import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { SalePrice } from '@/pages/report/SalePrice';
-import { _reportEngagementMovedToSERP } from '@/amplitude/amplitude.service';
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 
 //TODO : 앰플리튜드 로직에서 잘 땟다 붙혔다 하게 수정할 것 (casey 23/3/28)
 const DetailReport = () => {
@@ -107,19 +107,15 @@ const DetailReport = () => {
                 {convertTitle(scrollEvent.title)}
               </h1>
               {scrollEvent.title !== TITLE.REPORT && (
-                <div className='flex h-5 w-5 cursor-pointer items-center pl-3'>
-                  <ReactSVG
-                    src='/assets/icons/outlined/Linkout.svg'
-                    onClick={() =>
-                      _reportEngagementMovedToSERP(
-                        routeId.id || '',
-                        main!.text,
-                        main!.text,
-                        `https://shopee.vn/search?keyword=${main!.text}`,
-                      )
-                    }
-                  />
-                </div>
+                <button
+                  className='flex h-5 w-5 cursor-pointer items-center pl-3'
+                  onClick={() => {
+                    openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
+                    _amplitudeMovedToSERP(routeId.id || '', main!.text, main!.text);
+                  }}
+                >
+                  <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
+                </button>
               )}
             </div>
           </div>

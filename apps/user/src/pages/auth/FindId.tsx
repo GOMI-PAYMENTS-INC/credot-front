@@ -18,7 +18,7 @@ import { FindIdResult } from '@/pages/auth/FindIdResult';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useVerifyCode } from '@/containers/auth/findAccount.api';
-import { _findIdFindIdStarted } from '@/amplitude/amplitude.service';
+import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
 
 const FindId = () => {
   const {
@@ -66,11 +66,9 @@ const FindId = () => {
   };
 
   useEffect(() => {
-    if (isVerification.isExistedAccount === null) {
-      //앰플리튜드 이벤트 - 아이디 찾기 화면 랜딩 시
-      _findIdFindIdStarted();
-    }
-  }, [isVerification.isExistedAccount]);
+    //앰플리튜드 이벤트 - 아이디 찾기 화면 랜딩 시
+    _amplitudeFindIdStarted();
+  }, []);
 
   return (
     <Layout>
