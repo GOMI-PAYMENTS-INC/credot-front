@@ -9,6 +9,7 @@ import { Swiper as SwiperClass } from 'swiper/types';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
+import { openBrowser } from '@/utils/openBrowser';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
@@ -691,13 +692,14 @@ export default function HomePage() {
                 <button
                   className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
                   onClick={(event) => {
+                    openBrowser(GlobalEnv.serviceUrl);
+
                     const eventTarget = event.target as HTMLElement;
                     _introPageMovedToSolution(
                       PAGE_CATEGORY.MAIN,
                       CTA_TYPE.BUTTON,
                       CTA_LOCATION.MIDDLE_OF_CONTENT,
                       eventTarget.innerText,
-                      GlobalEnv.serviceUrl,
                     );
                   }}
                 >

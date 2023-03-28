@@ -1,8 +1,8 @@
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { defineConfig } from 'vite';
-import svgr from 'vite-plugin-svgr';
 import VitePluginHtmlEnv from 'vite-plugin-html-env';
+import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({

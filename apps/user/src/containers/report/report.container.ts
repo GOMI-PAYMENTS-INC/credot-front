@@ -31,6 +31,7 @@ import { isIncluded } from '@/utils/isIncluded';
 import {
   _amplitudeKeywordReportDeleted,
   _amplitudeKeywordReportViewed,
+  페,
 } from '@/amplitude/amplitude.service';
 
 export const openBrowser = (url: string) => {
