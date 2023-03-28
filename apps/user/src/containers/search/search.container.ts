@@ -65,14 +65,14 @@ type TSwitchModal = {
   _dispatch: Dispatch<TSearchActionType>;
   _setTrigger: Dispatch<SetStateAction<boolean>>;
   data?: any; // FIXME: any -> 타입으로 변경
-  _state?: TState;
+  _state?: TSearchState;
 };
 
 type TCreateReport = {
   _dispatch: Dispatch<TSearchActionType>;
   _setTrigger: Dispatch<SetStateAction<boolean>>;
   data: any; // FIXME: any -> 타입으로 변경
-  _state: TState;
+  _state: TSearchState;
 };
 
 const dailyChecker = (isDaily: boolean) => {

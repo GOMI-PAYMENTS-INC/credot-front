@@ -45,7 +45,7 @@ export const getQueryResult = (
 const REPORT_URL = {
   postCreateReport: 'api/v1/report',
   getReportExisted: 'api/v1/report/exist',
-  getProductImage: `/api/v1/keyword/`,
+  getProductImage: `api/v1/keyword/`,
 };
 
 export const postCreateReport = async (params: TCreateReportParamsType) => {
