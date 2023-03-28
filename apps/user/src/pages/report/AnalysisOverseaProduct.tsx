@@ -1,6 +1,5 @@
-import { Dispatch, Fragment, RefObject, useMemo } from 'react';
+import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
 
 import { TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
@@ -8,16 +7,15 @@ import { convertTitle } from '@/utils/convertEnum';
 import { AnalysisOverseaProductTable } from '@/pages/report/AnalysisOverseaProductTable';
 import { OVERSEA_PRODUCT_RATIO } from '@/constants/report.constant';
 import { isFalsy } from '@/utils/isFalsy';
-import { TReportAction } from '@/containers/report/report.reducer';
+
 import { COUNTRY_CODE } from '@/containers/report/country.code';
 interface IAnalysisOverseaProduct {
-  _dispatch: Dispatch<TReportAction>;
-  scollerRef: RefObject<HTMLTableSectionElement>;
   overseaProduct: TOverseaProductData | null;
+  basePrice: number;
 }
 
 export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
-  const { overseaProduct } = props;
+  const { overseaProduct, basePrice } = props;
   const [aFewProduct, fewProducts, manyProducts] = OVERSEA_PRODUCT_RATIO;
 
   const {
@@ -127,29 +125,6 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                       />
                     )}
                   </div>
-
-                  {/* {OVERSEA_PRODUCT_RATIO.map((ratio) => (
-                    <div className='flex flex-col items-center' key={ratio.key}>
-                      <div
-                        className={`${overseaProductRatioCommonStyle}  border-${
-                          ratio.color
-                        } ${ratio.key === 'few' ? 'mx-[2px]' : ''}`}
-                      >
-                        <p className={`text-${ratio.color}`}>{ratio.text}</p>
-                        <p className='pb-2 pt-0.5'>{ratio.scope}</p>
-                      </div>
-
-                      {locationOfPointer === ratio.key && (
-                        <ReactSVG
-                          className='mb-[-8px]'
-                          src='/assets/icons/filled/Pointer.svg'
-                          beforeInjection={(svg) => {
-                            svg.setAttribute('class', `fill-${ratio.color}`);
-                          }}
-                        />
-                      )}
-                    </div>
-                  ))} */}
                 </section>
               </div>
             </div>
@@ -202,7 +177,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
 
       <AnalysisOverseaProductTable
         overseaItems={overseaItems}
-        basePrice={5.52}
+        basePrice={basePrice}
         amplitudeData={amplitudeData}
       />
     </section>
