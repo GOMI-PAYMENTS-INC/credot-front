@@ -5,6 +5,7 @@ import { IRoute, PATH } from '@/types/paths';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
+import { openBrowser } from '@/utils/openBrowser';
 
 interface HeaderProps {
   route: IRoute;
@@ -27,13 +28,14 @@ const Header = ({ route }: HeaderProps) => {
           <button
             className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 lg:hidden'
             onClick={(event) => {
+              openBrowser(GlobalEnv.serviceUrl);
+
               const eventTarget = event.target as HTMLElement;
               _introPageMovedToSolution(
                 route.pageCategory,
                 CTA_TYPE.BUTTON,
                 CTA_LOCATION.HEADER,
                 eventTarget.innerText,
-                GlobalEnv.serviceUrl,
               );
             }}
           >
@@ -42,13 +44,14 @@ const Header = ({ route }: HeaderProps) => {
           <button
             className='rounded-md bg-orange-500 p-3 text-M/Bold text-white'
             onClick={(event) => {
+              openBrowser(GlobalEnv.serviceUrl);
+
               const eventTarget = event.target as HTMLElement;
               _introPageMovedToSolution(
                 route.pageCategory,
                 CTA_TYPE.BUTTON,
                 CTA_LOCATION.HEADER,
                 eventTarget.innerText,
-                GlobalEnv.serviceUrl,
               );
             }}
           >
