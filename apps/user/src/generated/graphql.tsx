@@ -910,7 +910,23 @@ export const SearchDocument = `
   }
 }
     `;
-export const useSearchQuery = <TData extends SearchQuery, TError extends unknown>(
+export const useSearchQuery = <TData extends SearchQuery, TError extends {
+  response: {
+    errors: [
+      {
+        message: string;
+        locations: Array<{ line: number; column: number }>;
+        path: [string];
+        extensions: {
+          code: number;
+          status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+          classification: 'Exception';
+        };
+      },
+    ];
+    data: null;
+  };
+},>(
   client: GraphQLClient,
   variables: SearchQueryVariables,
   options?: UseQueryOptions<SearchQuery, TError, TData>,

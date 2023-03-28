@@ -1,10 +1,15 @@
 import { Dispatch } from 'react';
-import { CountryType, useSearchQuery } from '@/generated/graphql';
+import { CountryType, SearchDto, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
 import { getProductImages } from '@/containers/search/search.container';
+import {
+  _amplitudeKeywordSearched,
+  _amplitudeKeywordSearchedFailed,
+  _amplitudeKeywordSearchedSucceeded,
+} from '@/amplitude/amplitude.service';
 
 export const getQueryResult = (
   keyword: string,
@@ -29,10 +34,14 @@ export const getQueryResult = (
           if (images && images.data.data !== null) {
             getProductImages(images.data, _dispatch);
           }
+          _amplitudeKeywordSearchedSucceeded(keyword, res.search.relations);
           return;
         } catch (error) {
           console.error(error, 'error');
         }
+      },
+      onError: (error) => {
+        _amplitudeKeywordSearchedFailed(keyword, error.response.errors[0].message);
       },
     },
   );

@@ -28,6 +28,10 @@ import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
+import {
+  _amplitudeKeywordReportDeleted,
+  _amplitudeKeywordReportViewed,
+} from '@/amplitude/amplitude.service';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -42,6 +46,23 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
       getOverseaProduct(id),
     ]);
     const dataName = Object.values(REPORT_DETAIL_TYPE);
+
+    const [first] = response;
+    if (first) {
+      _amplitudeKeywordReportViewed(id, first.data);
+
+      //앰플리튜드 이벤트에 필요한 데이터를 상태로 추가
+      _dispatch({
+        type: REPORT_ACTION.SET_AMPLITUDE_DATA,
+        payload: {
+          amplitudeData: {
+            report_id: id,
+            keyword: first.data.data.text,
+          },
+        },
+      });
+    }
+
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
@@ -162,11 +183,11 @@ export const onCheckAllReportList = (
 ) => {
   //전체 선택
   if (checked) {
-    const checkedItemsArray: number[] = [];
+    const checkedItemsArray: TReportItem[] = [];
     _state.data.reports?.forEach(
       (report) =>
         isIncluded(report.status, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE) &&
-        checkedItemsArray.push(report.id),
+        checkedItemsArray.push(report),
     );
     _dispatch({
       type: REPORT_LIST_ACTION.CHECKED_ITEM,
@@ -185,8 +206,8 @@ export const onCheckAllReportList = (
 export const onCheckReportList = (
   _dispatch: Dispatch<TReportListAction>,
   data: TReportListResponseData,
-  checkedItems: number[],
-  code: number,
+  checkedItems: TReportItem[],
+  code: TReportItem,
   isChecked: boolean,
 ) => {
   if (isChecked) {
@@ -208,9 +229,9 @@ export const onCheckReportList = (
         payload: { isCheckedAll: true },
       });
     }
-  } else if (!isChecked && checkedItems.find((one) => one === code)) {
+  } else if (!isChecked && checkedItems.find((one) => one.id === code.id)) {
     //체크 해제할때 checkedItems에 있을 경우
-    const filter = checkedItems.filter((one) => one !== code);
+    const filter = checkedItems.filter((one) => one.id !== code.id);
     _dispatch({
       type: REPORT_LIST_ACTION.CHECKED_ITEM,
       payload: { checkedItems: [...filter] },
@@ -241,8 +262,11 @@ export const deleteReports = async (
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
 ) => {
+  const ids = [..._state.checkedItems].map((value) => {
+    return value.id;
+  });
   //삭제 실행
-  const result = await _deleteReportList(_state.checkedItems);
+  const result = await _deleteReportList(ids);
   if (result?.code === STATUS_CODE.SUCCESS) {
     //모달 닫기
     switchDeleteModal(_dispatch, false);
@@ -260,8 +284,9 @@ export const deleteReports = async (
     //선택된 체크박스 목록 비우기
     onUncheckReportList(_dispatch);
 
-    //토스트 알림
     toast.success(`리포트를 삭제했어요.`);
+
+    _amplitudeKeywordReportDeleted(_state.checkedItems);
   } else {
     toast.error(`리포트를 삭제할 수 없습니다.`);
   }
@@ -282,7 +307,7 @@ export const switchDeleteModal = (
 
 //리포트 목록 삭제 확인 confirm 모달
 export const openDeleteModal = (
-  checkedItems: number[],
+  checkedItems: TReportItem[],
   _dispatch: Dispatch<TReportListAction>,
 ) => {
   //선택된 상품이 있는지 판단
@@ -295,7 +320,7 @@ export const openDeleteModal = (
 
 //선택 삭제 버튼 클릭 시
 export const onClickDeleteReport = (
-  checkedItems: number[],
+  checkedItems: TReportItem[],
   _dispatch: Dispatch<TReportListAction>,
 ) => {
   // 삭제 모달 노출

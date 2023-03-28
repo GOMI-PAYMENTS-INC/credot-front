@@ -6,6 +6,11 @@ import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import {
+  _amplitudeKeywordReportRequested,
+  _amplitudeKeywordSearched,
+  _amplitudeRecKeywordSearched,
+} from '@/amplitude/amplitude.service';
 
 export const getKeyword = (
   event: ChangeEvent<HTMLInputElement>,
@@ -16,6 +21,7 @@ export const getKeyword = (
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: value });
 };
 
+//추천 키워드를 눌러서 키워드 검색한 경우
 export const queryKeywordByClick = (
   text: string,
   _dispatch: Dispatch<TSearchActionType>,
@@ -23,8 +29,11 @@ export const queryKeywordByClick = (
   if (text) _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: text });
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: text });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: text });
+
+  _amplitudeRecKeywordSearched(text);
 };
 
+//input text에 검색어를 적고 검색한 경우
 export const queryKeyword = (
   text: string,
   _dispatch: Dispatch<TSearchActionType>,
@@ -48,6 +57,8 @@ export const queryKeyword = (
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: text });
   _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: _switch });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD });
+
+  _amplitudeKeywordSearched(text);
 };
 
 export const initializeState = (
@@ -109,6 +120,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
             },
           });
           toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
+          _amplitudeKeywordReportRequested(1, keyword);
         }
 
         return postReport;

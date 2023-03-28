@@ -20,7 +20,13 @@ import {
 } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
 
-import { _generalMobileVerified } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeFindIdFailed,
+  _amplitudeFindIdSucceeded,
+  _amplitudeFindPwFailed,
+  _amplitudeFindPwSucceeded,
+  _amplitudeMobileVerified,
+} from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
   isVerification: TVerifyButtonState,
@@ -73,7 +79,7 @@ export const useVerifyCode = (
             getVerifyCodeSignatureNumber(signature, isVerification, setIsVerification);
 
             //앰플리튜드 전화번호 인증 완료 이벤트
-            _generalMobileVerified(phone);
+            _amplitudeMobileVerified(phone);
           }
         },
         onError: (err) => {
@@ -104,6 +110,12 @@ export const useVerifyCode = (
             isVerification,
             setIsVerification,
           );
+
+          if (res.findAccount.accounts.length > 0) {
+            _amplitudeFindIdSucceeded();
+          } else {
+            _amplitudeFindIdFailed();
+          }
         },
         onError: (err) => {
           // 계정 없음
@@ -124,10 +136,13 @@ export const useVerifyCode = (
             isVerification,
             setIsVerification,
           );
+
+          _amplitudeFindPwSucceeded();
         }
       },
       onError: (err) => {
         isAccountExisted(undefined, isVerification, setIsVerification);
+        _amplitudeFindPwFailed();
       },
     },
   );

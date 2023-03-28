@@ -16,6 +16,10 @@ import {
   isPhoneVerifyPrepared,
 } from '@/containers/auth/auth.container';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import {
+  _amplitudeFindIdStarted,
+  _amplitudeFindPwStarted,
+} from '@/amplitude/amplitude.service';
 
 export const FindPasswordRef = () => {
   const [isVerification, setIsVerification] =
@@ -59,6 +63,10 @@ export const FindPasswordRef = () => {
   };
 
   _checkSmsVerifyCode(getValues('phone'));
+
+  useEffect(() => {
+    _amplitudeFindPwStarted();
+  }, []);
 
   useEffect(() => {
     if (

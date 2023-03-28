@@ -36,11 +36,13 @@ import { GlobalEnv } from '@/api/config';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { graphQLClient } from '@/utils/graphqlCient';
 import {
-  _generalLoggedIn,
-  _generalLoggedOut,
-  _signupSignupCompleted,
+  _amplitudeLoggedIn,
+  _amplitudeLoggedOut,
+  _amplitudeSignupCompleted,
   _resetAmplitude,
   _setUserProperties,
+  _amplitudeChangePwStarted,
+  _amplitudeChangePwCompleted,
 } from '@/amplitude/amplitude.service';
 import { isFalsy } from '@/utils/isFalsy';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
@@ -111,7 +113,7 @@ export const AuthContainer = () => {
     navigation(PATH.SIGN_IN);
 
     //앰플리튜드 - 로그아웃 이벤트
-    await _generalLoggedOut(() => {
+    await _amplitudeLoggedOut(() => {
       clearAmplitude();
     });
     // ##### 로그아웃이벤트 끝 ##### //
@@ -193,11 +195,10 @@ export const AuthContainer = () => {
     signUpMutate(signupFormValue, {
       onSuccess: () => {
         //회원가입 완료 시 이벤트 - 로컬
-        _signupSignupCompleted(
+        void _amplitudeSignupCompleted(
           AccountType.LOCAL,
           signupFormValue.user.email,
           signupFormValue.user.phone,
-          false,
         );
         navigation(PATH.SEARCH_PRODUCTS);
       },
@@ -233,11 +234,10 @@ export const AuthContainer = () => {
           setToken(res.googleSignUp.token);
           authTokenStorage.setToken(res.googleSignUp.token);
         }
-        _signupSignupCompleted(
+        void _amplitudeSignupCompleted(
           AccountType.LOCAL,
           email,
           signupSocialFormValue.socialSignUpDto.phone,
-          false,
         );
       },
     });
@@ -284,7 +284,7 @@ export const AuthContainer = () => {
       {
         onSuccess: () => {
           //로그인 완료 시 - 구글 로그인
-          _generalLoggedIn(AccountType.GOOGLE);
+          _amplitudeLoggedIn(AccountType.GOOGLE);
         },
       },
     );
@@ -303,6 +303,8 @@ export const AuthContainer = () => {
     onSuccess: () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
       navigation(PATH.SEARCH_PRODUCTS);
+
+      _amplitudeChangePwCompleted();
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');

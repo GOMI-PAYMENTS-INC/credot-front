@@ -8,13 +8,17 @@ import { convertExchangeRate, roundNumber } from '@/containers/report';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { isFalsy } from '@/utils/isFalsy';
 import { COUNTRY_CODE } from '@/containers/report/country.code';
+import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
+import { convertTitle } from '@/utils/convertEnum';
+import { TITLE } from '@/types/enum.code';
 interface ISalePriceTable {
   basePrice: number;
   overseaItems: TOverSeaItems[];
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
-  const { overseaItems, basePrice } = props;
+  const { amplitudeData, overseaItems, basePrice } = props;
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
@@ -169,12 +173,19 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                   </td>
                   <td className='w-[80px]'>
                     <div className='flex justify-center text-S/Medium'>
-                      <div
+                      <button
                         className='flex h-5 w-5 cursor-pointer items-center'
-                        onClick={() => openBrowser(item.itemUrl)}
+                        onClick={() => {
+                          openBrowser(item.itemUrl);
+                          _amplitudeMovedToPDP(
+                            amplitudeData.report_id,
+                            amplitudeData.keyword,
+                            convertTitle(TITLE.OVERSEA_PRODUCT),
+                          );
+                        }}
                       >
                         <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
-                      </div>
+                      </button>
                     </div>
                   </td>
                 </tr>

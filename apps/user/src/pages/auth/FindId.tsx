@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
@@ -18,6 +18,7 @@ import { FindIdResult } from '@/pages/auth/FindIdResult';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useVerifyCode } from '@/containers/auth/findAccount.api';
+import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
 
 const FindId = () => {
   const {
@@ -63,6 +64,10 @@ const FindId = () => {
     );
     return isValid && _getVerifyCode(phoneNumber);
   };
+
+  useEffect(() => {
+    _amplitudeFindIdStarted();
+  }, []);
 
   return (
     <Layout>

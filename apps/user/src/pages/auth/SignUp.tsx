@@ -28,6 +28,8 @@ import {
 } from '@/containers/auth/auth.container';
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
+import { AccountType } from '@/amplitude/amplitude.enum';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
@@ -49,6 +51,10 @@ const SignUpRef = () => {
     setIsVerification,
     setError,
   );
+
+  useEffect(() => {
+    _amplitudeSignupStarted(AccountType.LOCAL);
+  }, []);
 
   useEffect(() => {
     if (isFalsy(isPassedVerifyCode)) return;
