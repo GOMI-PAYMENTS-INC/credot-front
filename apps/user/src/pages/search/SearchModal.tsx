@@ -5,7 +5,7 @@ import { MODAL_TYPE_ENUM, MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 interface ISearchModalPrpos {
   data?: any;
-  _state: TState;
+  _state: TSearchState;
   _dispatch: Dispatch<TSearchActionType>;
   size: string;
   _setTrigger: Dispatch<SetStateAction<boolean>>;

@@ -1,5 +1,5 @@
 import { CountryType } from '@/generated/graphql';
-import { MODAL_TYPE_ENUM } from '@/types/enum.code';
+import { MODAL_TYPE_ENUM, CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export enum SEARCH_ACTION {
@@ -15,7 +15,7 @@ export enum SEARCH_ACTION {
   USE_TRANSLATION = 'USE_TRANSLATION',
 }
 
-const searchInitialState: TState = {
+const searchInitialState: TSearchState = {
   country: CountryType.Vn,
   text: '',
   keyword: '',
@@ -26,7 +26,7 @@ const searchInitialState: TState = {
   productImages: null,
 };
 
-const searchReducer = (_state: TState, action: TSearchActionType) => {
+const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
   const state = structuredClone(_state);
   switch (action.type) {
     case SEARCH_ACTION.GET_KEYWORD:
@@ -45,7 +45,7 @@ const searchReducer = (_state: TState, action: TSearchActionType) => {
       }
 
       useSessionStorage.setItem(
-        'keyword',
+        CACHING_KEY.STORED_KEYWORD,
         Object.assign({}, state, { productImages: null }),
       );
 
@@ -88,14 +88,22 @@ const searchReducer = (_state: TState, action: TSearchActionType) => {
 
 export enum RECOMMANDER_ACTION {
   USE_TRANSLATION = 'USE_TRANSLATION',
+  SEARCH_KEYWORD = 'SEARCH_KEYWORD',
+  INITIALIZE_SEARCH_KEYWORD = 'INITIALIZE_SEARCH_KEYWORD',
+  STORE_KEYWORD_RESULT = 'STORE_KEYWORD_RESULT',
+  SWITCH_LOADING = 'SWITCH_LOADING',
+  INITIALIZE_LIST = 'INITIALIZE_LIST',
 }
 
 const recommanderInitialState = {
   useTranslation: false,
+  keyword: '',
+  list: null,
+  isLoading: false,
 };
 
 const recommanderReducer = (
-  _state: { useTranslation: boolean },
+  _state: TTranslationKeywordType,
   action: TRecommanderActionType,
 ) => {
   const state = structuredClone(_state);
@@ -103,7 +111,21 @@ const recommanderReducer = (
     case RECOMMANDER_ACTION.USE_TRANSLATION:
       state.useTranslation = action.payload;
       return state;
-
+    case RECOMMANDER_ACTION.SEARCH_KEYWORD:
+      state.keyword = action.payload;
+      return state;
+    case RECOMMANDER_ACTION.INITIALIZE_SEARCH_KEYWORD:
+      state.keyword = action.payload;
+      return state;
+    case RECOMMANDER_ACTION.STORE_KEYWORD_RESULT:
+      state.list = action.payload;
+      return state;
+    case RECOMMANDER_ACTION.SWITCH_LOADING:
+      state.isLoading = action.payload;
+      return state;
+    case RECOMMANDER_ACTION.INITIALIZE_LIST:
+      state.list = null;
+      return state;
     default:
       return state;
   }
