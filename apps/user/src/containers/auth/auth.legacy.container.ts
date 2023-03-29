@@ -46,7 +46,7 @@ import {
 } from '@/amplitude/amplitude.service';
 import { isFalsy } from '@/utils/isFalsy';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
-import { AccountType } from '@/amplitude/amplitude.enum';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
@@ -196,7 +196,7 @@ export const AuthContainer = () => {
       onSuccess: () => {
         //회원가입 완료 시 이벤트 - 로컬
         void _amplitudeSignupCompleted(
-          AccountType.LOCAL,
+          AMPLITUDE_ACCOUNT_TYPE.LOCAL,
           signupFormValue.user.email,
           signupFormValue.user.phone,
         );
@@ -235,7 +235,7 @@ export const AuthContainer = () => {
           authTokenStorage.setToken(res.googleSignUp.token);
         }
         void _amplitudeSignupCompleted(
-          AccountType.LOCAL,
+          AMPLITUDE_ACCOUNT_TYPE.LOCAL,
           email,
           signupSocialFormValue.socialSignUpDto.phone,
         );
@@ -284,7 +284,7 @@ export const AuthContainer = () => {
       {
         onSuccess: () => {
           //로그인 완료 시 - 구글 로그인
-          _amplitudeLoggedIn(AccountType.GOOGLE);
+          _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
         },
       },
     );

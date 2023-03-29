@@ -3,11 +3,13 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, convertedData } from '@/containers/report/report.container';
+import {convertExchangeRate, convertedData, openBrowser} from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';
 
 import { MarketSizeTrendChart } from './MarketSizeTrendChart';
 import { isFalsy } from '@/utils/isFalsy';
+import {_amplitudeMovedToUserGuide} from "@/amplitude/amplitude.service";
+import {convertTitle} from "@/utils/convertEnum";
 
 interface IMartketSize {
   marketSize: TMarketSize;
@@ -40,7 +42,7 @@ export const MartketSize = (props: IMartketSize) => {
   return (
     <section>
       <h1 id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
-        시장 분석
+        {convertTitle(TITLE.MARTKET_SIZE)}
         <ReactSVG
           id='anchor-market-size'
           src='/assets/icons/outlined/QuestionCircle.svg'
@@ -92,13 +94,17 @@ export const MartketSize = (props: IMartketSize) => {
                   검색 트랜드 정보는 매출을 예측하거나 재고관리를 위해 사용할 수 있어요.
                 </p>
                 <div className='flex w-full justify-end'>
-                  <a
-                    href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7'
-                    target='_blank'
+                  <button
                     className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                    onClick={() => {
+                      openBrowser(
+                        'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7'
+                      );
+                      _amplitudeMovedToUserGuide('키워드 리포트_시장 분석');
+                    }}
                   >
                     자세히 알아보기
-                  </a>
+                  </button>
                 </div>
               </div>
             </Tooltip>

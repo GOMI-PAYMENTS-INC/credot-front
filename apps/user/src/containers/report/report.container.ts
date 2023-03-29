@@ -50,17 +50,6 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
     const [first] = response;
     if (first) {
       _amplitudeKeywordReportViewed(id, first.data);
-
-      //앰플리튜드 이벤트에 필요한 데이터를 상태로 추가
-      _dispatch({
-        type: REPORT_ACTION.SET_AMPLITUDE_DATA,
-        payload: {
-          amplitudeData: {
-            report_id: id,
-            keyword: first.data.data.text,
-          },
-        },
-      });
     }
 
     response.forEach((chunk, idx) => {

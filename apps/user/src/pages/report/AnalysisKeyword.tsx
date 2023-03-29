@@ -7,6 +7,7 @@ import { convertTitle } from '@/utils/convertEnum';
 import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
 import { convertEvaluateStatus, convertScoreToText } from '@/constants/report.constant';
 import { TITLE } from '@/types/enum.code';
+import {_amplitudeMovedToUserGuide} from "@/amplitude/amplitude.service";
 
 interface IAnalysisKeyword {
   analysisInfo: TRecommnandKeyword;
@@ -91,13 +92,17 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <a
-                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
-                        target='_blank'
+                      <button
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                        onClick={() => {
+                          openBrowser(
+                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
+                          );
+                          _amplitudeMovedToUserGuide('키워드 리포트_키워드 분석_종합 평가');
+                        }}
                       >
                         자세히 알아보기
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </Tooltip>
@@ -176,13 +181,17 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <a
-                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
-                        target='_blank'
+                      <button
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                        onClick={() => {
+                          openBrowser(
+                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
+                          );
+                          _amplitudeMovedToUserGuide('키워드 리포트_키워드 분석_상세 데이터');
+                        }}
                       >
                         자세히 알아보기
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </Tooltip>

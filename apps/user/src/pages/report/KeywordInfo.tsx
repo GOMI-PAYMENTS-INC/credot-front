@@ -43,7 +43,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <button
               onClick={() => {
                 openBrowser(`https://shopee.vn/search?keyword=${text}`);
-                _amplitudeMovedToSERP(routeId.id || '', text, text);
+                (routeId.id || '', text, text);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
             >
