@@ -29,7 +29,7 @@ export const SalePrice = (props: ISalePrice) => {
   const { basePrice } = priceAnalysisInfo;
 
   const amplitudeData: TAmplitudeDetailData = {
-    report_id: id.toString(),
+    reportId: id.toString(),
     keyword: text,
   };
 

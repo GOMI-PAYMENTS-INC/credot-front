@@ -1,4 +1,3 @@
-
 type TReportListResponseData = {
   reports: TReportItem[];
   totalCount: number;
@@ -134,7 +133,7 @@ type TReportState = {
 };
 
 type TAmplitudeDetailData = {
-  report_id: string;
+  reportId: string;
   keyword: string;
 };
 

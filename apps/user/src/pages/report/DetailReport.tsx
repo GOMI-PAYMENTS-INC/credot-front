@@ -49,7 +49,7 @@ const DetailReport = () => {
     if (main === null) return <Fragment></Fragment>;
 
     const amplitudeData: TAmplitudeDetailData = {
-      report_id: main.id ? main.id.toString() : "",
+      reportId: main.id ? main.id.toString() : '',
       keyword: main.text,
     };
 
@@ -115,7 +115,7 @@ const DetailReport = () => {
                   className='flex h-5 w-5 cursor-pointer items-center pl-3'
                   onClick={() => {
                     openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
-                    _amplitudeMovedToSERP(routeId.id || "", main!.text, null);
+                    _amplitudeMovedToSERP(routeId.id || '', main!.text, null);
                   }}
                 >
                   <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
