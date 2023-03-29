@@ -3,13 +3,17 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { formatNumber } from '@/utils/formatNumber';
-import {convertExchangeRate, convertedData, openBrowser} from '@/containers/report/report.container';
+import {
+  convertExchangeRate,
+  convertedData,
+  openBrowser,
+} from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';
 
 import { MarketSizeTrendChart } from './MarketSizeTrendChart';
 import { isFalsy } from '@/utils/isFalsy';
-import {_amplitudeMovedToUserGuide} from "@/amplitude/amplitude.service";
-import {convertTitle} from "@/utils/convertEnum";
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { convertTitle } from '@/utils/convertEnum';
 
 interface IMartketSize {
   marketSize: TMarketSize;
@@ -41,73 +45,77 @@ export const MartketSize = (props: IMartketSize) => {
 
   return (
     <section>
-      <h1 id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
-        {convertTitle(TITLE.MARTKET_SIZE)}
-        <ReactSVG
-          id='anchor-market-size'
-          src='/assets/icons/outlined/QuestionCircle.svg'
-          className='inline-block pl-[7px]'
-        />
-        <Tooltip
-          anchorId='anchor-market-size'
-          style={{ background: 'none' }}
-          place='right'
-        >
-          <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
-            <p className='text-XS/Regular text-grey-900'>
-              리포트 생성일 기준, 최근 30일간 상위
-              <span className='text-XS/Bold'>{` 50개 `}</span>
-              상품들이 판매된 매출과 판매량 정보에요.
-            </p>
-          </div>
-        </Tooltip>
-      </h1>
+      <div id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
+        <h1>{convertTitle(TITLE.MARTKET_SIZE)}</h1>
+        <div className='tooltip-container'>
+          <ReactSVG
+            id='anchor-market-size'
+            src='/assets/icons/outlined/QuestionCircle.svg'
+            className='inline-block pl-[7px]'
+          />
+          <Tooltip
+            anchorId='anchor-market-size'
+            style={{ background: 'none' }}
+            place='right'
+          >
+            <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
+              <p className='text-XS/Regular text-grey-900'>
+                리포트 생성일 기준, 최근 30일간 상위
+                <span className='text-XS/Bold'>{` 50개 `}</span>
+                상품들이 판매된 매출과 판매량 정보에요.
+              </p>
+            </div>
+          </Tooltip>
+        </div>
+      </div>
 
       <div className='pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
-          <div className='border-grey-30 relative col-span-10 flex w-full border-t-[1px] border-b-[1px]  bg-grey-100'>
+          <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px]  bg-grey-100'>
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               검색트렌드
               <span className='pl-[4px] text-XS/Medium text-grey-700'>
                 2022_google 베트남
               </span>
             </h1>
-            <ReactSVG
-              id='anchor-market-google-trend'
-              src='/assets/icons/outlined/QuestionCircle.svg'
-              className='inline-block self-center pl-[7px]'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-              }}
-            />
-            <Tooltip
-              anchorId='anchor-market-google-trend'
-              style={{ background: 'none' }}
-              place='right'
-              clickable={true}
-              delayHide={1300}
-            >
-              <div className='col-span-2 flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4  '>
-                <p className='text-XS/Regular text-grey-900'>
-                  현지에서 해당 키워드에 대한 작년도 검색 트랜드를 나타내요.
-                  <br />
-                  검색 트랜드 정보는 매출을 예측하거나 재고관리를 위해 사용할 수 있어요.
-                </p>
-                <div className='flex w-full justify-end'>
-                  <button
-                    className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-                    onClick={() => {
-                      openBrowser(
-                        'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7'
-                      );
-                      _amplitudeMovedToUserGuide('키워드 리포트_시장 분석');
-                    }}
-                  >
-                    자세히 알아보기
-                  </button>
+            <div className='tooltip-container'>
+              <ReactSVG
+                id='anchor-market-google-trend'
+                src='/assets/icons/outlined/QuestionCircle.svg'
+                className='inline-block self-center pl-[7px]'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
+                }}
+              />
+              <Tooltip
+                anchorId='anchor-market-google-trend'
+                style={{ background: 'none' }}
+                place='right'
+                clickable={true}
+                delayHide={1300}
+              >
+                <div className='col-span-2 flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4  '>
+                  <p className='text-XS/Regular text-grey-900'>
+                    현지에서 해당 키워드에 대한 작년도 검색 트랜드를 나타내요.
+                    <br />
+                    검색 트랜드 정보는 매출을 예측하거나 재고관리를 위해 사용할 수 있어요.
+                  </p>
+                  <div className='flex w-full justify-end'>
+                    <button
+                      className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                      onClick={() => {
+                        openBrowser(
+                          'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7',
+                        );
+                        _amplitudeMovedToUserGuide('키워드 리포트_시장 분석');
+                      }}
+                    >
+                      자세히 알아보기
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Tooltip>
+              </Tooltip>
+            </div>
           </div>
 
           <Fragment>

@@ -48,9 +48,9 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
       <div className='pt-6'>
         <div className='flex divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='basis-[390px]'>
-            <div className='keywordInfo-span-subtitle'>
+            <div className='keywordInfo-span-subtitle tooltip-container'>
               <span>종합 평가</span>
-              <span className='fill-grey-500'>
+              <div className='tooltip-container'>
                 <ReactSVG
                   id='anchor-market-evaluation'
                   src='/assets/icons/outlined/QuestionCircle.svg'
@@ -106,7 +106,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                   </div>
                 </Tooltip>
-              </span>
+              </div>
             </div>
             <div className='flex h-[163px] items-center  text-center'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
@@ -136,7 +136,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           <div className='flex-1'>
             <div className='keywordInfo-span-subtitle'>
               <span>상세 데이터</span>
-              <span>
+              <div className='tooltip-container'>
                 <ReactSVG
                   id='anchor-market-detail'
                   src='/assets/icons/outlined/QuestionCircle.svg'
@@ -145,6 +145,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                   }}
                 />
+
                 <Tooltip
                   anchorId='anchor-market-detail'
                   place='right'
@@ -195,7 +196,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                   </div>
                 </Tooltip>
-              </span>
+              </div>
             </div>
             <div className='flex divide-x-[1px] divide-dotted'>
               <div className='flex flex-col'>
