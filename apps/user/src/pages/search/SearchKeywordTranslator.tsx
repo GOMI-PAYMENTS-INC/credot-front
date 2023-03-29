@@ -17,7 +17,6 @@ import {
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
 interface ISearchKeywordTranslator {
-  _searchState: TSearchState;
   _searchDispatch: Dispatch<TSearchActionType>;
 }
 
@@ -104,6 +103,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
             <div className='block h-full w-full'>
               <SearchKeywordTranslationResult
                 translatorState={_state}
+                _searchDispatch={props._searchDispatch}
                 setTranslatorState={_dispatch}
               />
             </div>

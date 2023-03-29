@@ -1,20 +1,19 @@
 import { useEffect, Dispatch, useState } from 'react';
-import {
-  switchIsLoadingState,
-  searchKeyword,
-} from '@/containers/search/translator.container';
+import { searchKeyword } from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+import { queryKeywordByClick } from '@/containers/search';
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
+  _searchDispatch: Dispatch<TSearchActionType>;
 }
 
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { translatorState, setTranslatorState } = props;
+  const { translatorState, setTranslatorState, _searchDispatch } = props;
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -66,34 +65,38 @@ export const SearchKeywordTranslationResult = (
             ? { style: 'mb-[96px]', isLastIndex: true }
             : { style: 'mb-4', isLastIndex: false };
         return (
-          <div
+          <button
             key={`${result.text}_${idx}`}
-            className={`mx-6 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastIndex.style}`}
+            onClick={() => queryKeywordByClick(result.text, _searchDispatch)}
           >
-            <ReactSVG
-              className='px-4'
-              src={`assets/icons/outlined/number/number-${idx + 1}.svg`}
-            />
+            <div
+              className={`mx-6 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastIndex.style}`}
+            >
+              <ReactSVG
+                className='px-4'
+                src={`assets/icons/outlined/number/number-${idx + 1}.svg`}
+              />
 
-            <div className='flex max-w-[200px] flex-col'>
-              <p className='py-2 text-M/Regular text-grey-900 '>
-                {replaceOverLength(result.text, 22)}
-              </p>
-              <div className='mb-2 w-fit rounded-[2px] border-[1.5px] border-grey-400 bg-white'>
-                <p className='px-1 py-1 text-XS/Regular'>
-                  {replaceOverLength(result.translate, 22)}
+              <div className='flex max-w-[200px] flex-col'>
+                <p className='py-2 text-M/Regular text-grey-900 '>
+                  {replaceOverLength(result.text, 22)}
                 </p>
+                <div className='mb-2 w-fit rounded-[2px] border-[1.5px] border-grey-400 bg-white'>
+                  <p className='px-1 py-1 text-XS/Regular'>
+                    {replaceOverLength(result.translate, 22)}
+                  </p>
+                </div>
               </div>
+              <ReactSVG
+                src='/assets/icons/filled/LeftArrow.svg'
+                className='mr-4 flex flex-grow rotate-180'
+                wrapper='div'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'fill-grey-600');
+                }}
+              />
             </div>
-            <ReactSVG
-              src='/assets/icons/filled/LeftArrow.svg'
-              className='mr-4 flex flex-grow rotate-180'
-              wrapper='div'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', 'fill-grey-600');
-              }}
-            />
-          </div>
+          </button>
         );
       })}
       {isFetching && (

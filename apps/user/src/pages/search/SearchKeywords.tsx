@@ -317,7 +317,7 @@ const SearchKeywords = () => {
         />
       </div>
 
-      <SearchKeywordTranslator _searchDispatch={_dispatch} _searchState={_state} />
+      <SearchKeywordTranslator _searchDispatch={_dispatch} />
     </Layout>
   );
 };

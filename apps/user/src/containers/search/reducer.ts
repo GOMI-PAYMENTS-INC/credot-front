@@ -30,7 +30,7 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
   const state = structuredClone(_state);
   switch (action.type) {
     case SEARCH_ACTION.GET_KEYWORD:
-      state.text = action.payload;
+      state.text = action.payload.toLowerCase();
       return state;
 
     case SEARCH_ACTION.UPDATE_CREATED_AT:
