@@ -30,16 +30,6 @@ const ReportList = () => {
     _getReportList({ _state: _state, _dispatch });
   }, []);
 
-  // TODO: _state.data.reports가 변화하면 체크박스를 모두 해제하려고 했는데, object타입은 매번 새롭게 인식함
-  // //페이지 목록 불러오기
-  // useEffect(() => {
-  //   console.log(_state.data);
-  //   if (_state.checkedItems.length) {
-  //     //선택된 체크박스 목록 비우기
-  //     onUncheckReportList(_dispatch);
-  //   }
-  // }, [_state.data.reports]);
-
   return (
     <Layout>
       {/*헤더*/}

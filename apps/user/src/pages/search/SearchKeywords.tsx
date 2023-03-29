@@ -126,7 +126,7 @@ const SearchKeywords = () => {
             <div>
               <div className='mt-6 flex items-center'>
                 <div className='select-icon-group'>
-                  <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                  <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
                   <select
                     name='country'
                     id='country'

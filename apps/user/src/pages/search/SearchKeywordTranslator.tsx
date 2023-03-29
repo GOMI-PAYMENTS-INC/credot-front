@@ -1,11 +1,4 @@
-import {
-  Dispatch,
-  useReducer,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  Fragment,
-} from 'react';
+import { Dispatch, useReducer, KeyboardEvent, MouseEvent, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -56,7 +49,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
             </header>
             <div className='mt-6 h-10'>
               <div className='select-icon-group'>
-                <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
                 <select name='country' id='country' className='select-normal-clear-true'>
                   <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
                     베트남
@@ -72,9 +65,12 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                     type='text'
                     className='inputCustom-textbox w-full'
                     placeholder='수분 크림'
-                    {...register('keyword', {})}
+                    {...register('keyword')}
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                      searchKeyword(getValues('keyword'), _dispatch, event);
+                      if (event.key === 'Enter') {
+                        const keyword = getValues('keyword');
+                        searchKeyword(keyword, _dispatch);
+                      }
                     }}
                   />
                 </div>
@@ -82,8 +78,9 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
               <button
                 className='button-filled-normal-large-primary-false-false-true ml-2 h-fit min-w-[76px] text-M/Bold'
-                onClick={(event: MouseEvent<HTMLButtonElement>) => {
-                  searchKeyword(getValues('keyword'), _dispatch, event);
+                onClick={() => {
+                  const keyword = getValues('keyword');
+                  searchKeyword(keyword, _dispatch);
                 }}
               >
                 번역
@@ -112,13 +109,13 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
           </section>
         </article>
       ) : (
-        <img
-          src='/assets/images/ChatGPTTalk.png'
-          className='cursor-pointer'
+        <button
           onClick={() => {
             switchTranslationTab(_dispatch, true);
           }}
-        />
+        >
+          <ReactSVG src='/assets/icons/ChatGPTTalk.svg' />
+        </button>
       )}
     </div>
   );

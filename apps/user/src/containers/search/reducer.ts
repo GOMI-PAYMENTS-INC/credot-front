@@ -98,7 +98,7 @@ export enum RECOMMANDER_ACTION {
 const recommanderInitialState = {
   useTranslation: false,
   keyword: '',
-  list: null,
+  data: null,
   isLoading: false,
 };
 
@@ -118,13 +118,15 @@ const recommanderReducer = (
       state.keyword = action.payload;
       return state;
     case RECOMMANDER_ACTION.STORE_KEYWORD_RESULT:
-      state.list = action.payload;
+      state.data = action.payload;
+      useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, action.payload);
       return state;
     case RECOMMANDER_ACTION.SWITCH_LOADING:
       state.isLoading = action.payload;
       return state;
     case RECOMMANDER_ACTION.INITIALIZE_LIST:
-      state.list = null;
+      useSessionStorage.removeItem(CACHING_KEY.STORED_TRANSLATION);
+      state.data = null;
       return state;
     default:
       return state;

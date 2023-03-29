@@ -68,6 +68,14 @@ module.exports = {
           '@apply rounded bg-white py-4 border-orange-300 text-L/Bold text-orange-500 border':
             {},
         },
+        '.button-outlined-normal-medium-primary-false-false-false': {
+          '@apply rounded bg-white border-orange-300 text-S/Bold text-orange-500 border':
+            {},
+        },
+        '.button-outlined-normal-medium-primary-false-false-false-disabled': {
+          '@apply rounded bg-white border-grey-400 text-S/Bold text-grey-400 border shadow-gray-900':
+            {},
+        },
         '.button-outlined-small-xLarge-primary-false-false-true': {
           '@apply rounded bg-white border-orange-300 text-XS/Bold text-orange-500 border':
             {},

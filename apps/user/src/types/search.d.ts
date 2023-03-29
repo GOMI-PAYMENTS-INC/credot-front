@@ -68,23 +68,20 @@ type TProductImageStatus = {
   productInvokedId: string;
 };
 
-type TTranslationKeywordType = {
-  useTranslation: boolean;
-  keyword: string;
-  list: {
-    keyword: string;
-    dictionaries: TDictionaryType;
-  } | null;
-  isLoading: boolean;
+type TGetTranslationOfKeywordReponse = {
+  code: string;
+  message: string;
+  data: TDictionaryType;
 };
 
 type TDictionaryType = {
-  text: string;
-  translate: string;
-}[];
-
-type TCachingTranlatedData = {
   keyword: string;
-  data: TDictionaryType;
-  count: number;
+  dictionaries: { text: string; translate: string }[];
+};
+
+type TTranslationKeywordType = {
+  useTranslation: boolean;
+  keyword: string;
+  data: TDictionaryType | null;
+  isLoading: boolean;
 };

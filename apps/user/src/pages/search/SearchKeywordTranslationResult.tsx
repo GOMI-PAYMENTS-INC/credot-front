@@ -1,9 +1,11 @@
-import { useEffect, Dispatch } from 'react';
-import { switcIsLoadingState } from '@/containers/search/translator.container';
+import { useEffect, Dispatch, MouseEvent } from 'react';
+import {
+  switcIsLoadingState,
+  searchKeyword,
+} from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
@@ -16,9 +18,9 @@ export const SearchKeywordTranslationResult = (
 
   useEffect(() => {
     switcIsLoadingState(setTranslatorState);
-  }, [translatorState.list?.keyword]);
+  }, [translatorState.data?.keyword]);
 
-  if (translatorState.isLoading && isFalsy(translatorState.list)) {
+  if (translatorState.isLoading && isFalsy(translatorState.data)) {
     return (
       <div className='flex h-full flex-col items-center justify-center'>
         <div className='flex h-[100px] w-[100px] items-center justify-center opacity-[0.3] '>
@@ -28,15 +30,30 @@ export const SearchKeywordTranslationResult = (
       </div>
     );
   }
-  // 검색 결과가 있는 상태에서 조회
+
+  const { dictionaries } = translatorState.data!;
+
+  const buttonStyle =
+    dictionaries.length > 9
+      ? {
+          buttonStyle: 'button-outlined-normal-medium-primary-false-false-false-disabled',
+          buttonText: '더 추천받을 키워드가 없어요',
+          disable: true,
+        }
+      : {
+          buttonStyle: 'button-outlined-normal-medium-primary-false-false-false',
+          buttonText: '키워드 더 추천받기',
+          disable: false,
+        };
 
   return (
-    <div className='relative  flex w-full flex-col justify-center pt-[14px]'>
-      {translatorState.list!.dictionaries.map((result, idx) => {
+    <div className='relative flex w-full flex-col justify-center pt-[14px]'>
+      {dictionaries.map((result, idx) => {
+        const lastItemStyle = dictionaries.length === idx + 1 ? 'mb-[96px]' : 'mb-4 ';
         return (
           <div
             key={`${result.text}_${idx}`}
-            className='mx-6 mb-4 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200'
+            className={`mx-6 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastItemStyle}`}
           >
             <ReactSVG
               className='px-4'
@@ -64,6 +81,16 @@ export const SearchKeywordTranslationResult = (
           </div>
         );
       })}
+
+      <button
+        disabled={buttonStyle.disable}
+        onClick={() => {
+          searchKeyword(translatorState.keyword, setTranslatorState);
+        }}
+        className={`${buttonStyle.buttonStyle} fixed bottom-[114px] flex items-center justify-center self-center`}
+      >
+        <p className='mx-2.5 my-2.5'>{buttonStyle.buttonText}</p>
+      </button>
     </div>
   );
 };
