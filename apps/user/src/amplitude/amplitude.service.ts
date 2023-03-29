@@ -40,8 +40,8 @@ export const _setAmplitudeEvents = async (
   } catch (e) {}
 };
 // ##### Users Id 셋팅 ##### //
-export const _setUserId = async (id: number) => {
-  return await amplitude.setUserId(id).promise;
+export const _setUserId = (id: number) => {
+  return amplitude.setUserId(id);
 };
 
 // ##### Users Properties 셋팅 ##### //
