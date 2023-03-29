@@ -6,6 +6,7 @@ import {
   useGoogleSignupMutation,
   SignupMutation,
   GoogleSignupMutation,
+  Role,
 } from '@/generated/graphql';
 import { TERM_TYPE } from '@/types/enum.code';
 import { toast } from 'react-toastify';
@@ -19,10 +20,11 @@ import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
 import {
   _amplitudeLoggedIn,
   _amplitudeMobileVerified,
+  _setUserProperties,
 } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
-import { AccountType } from '@/amplitude/amplitude.enum';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
   const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
@@ -81,9 +83,16 @@ export const useSignUp = () => {
         //모달이 켜지고 화면 이동
         setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
 
-        await _amplitudeSignupCompleted(AccountType.LOCAL, email, phone, () => {
-          _amplitudeLoggedIn(AccountType.LOCAL);
-        });
+        await _amplitudeSignupCompleted(
+          AMPLITUDE_ACCOUNT_TYPE.LOCAL,
+          email,
+          phone,
+          () => {
+            _setUserProperties(email, false, phone, Role.User);
+
+            _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
+          },
+        );
       },
     });
   };
@@ -167,9 +176,14 @@ export const useSignUp = () => {
             setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
             authTokenStorage.setToken(res.googleSignUp.token);
           }
-          await _amplitudeSignupCompleted(AccountType.GOOGLE, email, phone, () => {
-            _amplitudeLoggedIn(AccountType.GOOGLE);
-          });
+          await _amplitudeSignupCompleted(
+            AMPLITUDE_ACCOUNT_TYPE.GOOGLE,
+            email,
+            phone,
+            () => {
+              _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
+            },
+          );
         },
       },
     );

@@ -36,6 +36,17 @@ export enum STATUS_CODE {
   ERROR = '9999',
 }
 
+export enum COUNTRY_TYPE {
+  /** 한국 */
+  Kr = 'KR',
+  /** 태국 */
+  Th = 'TH',
+  /** 미국 */
+  Us = 'US',
+  /** 베트남 */
+  Vn = 'VN',
+}
+
 export enum CHANNEL_TYPE {
   SHOPEE = 'SHOPEE',
   NONE = 'NONE',
@@ -67,6 +78,11 @@ export enum BATCH_STATUS {
   RUN = 'RUN', //실행중
   DONE = 'DONE', //종료
   REPLICATE = 'REPLICATE', //재실행
+  NONE = 'NONE',
+}
+
+export enum COLLECT_SORT_TYPE {
+  R = 'R',
   NONE = 'NONE',
 }
 

@@ -28,7 +28,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
   } = overseaProduct!;
 
   const amplitudeData: TAmplitudeDetailData = {
-    report_id: id.toString(),
+    reportId: id.toString(),
     keyword: text,
   };
 

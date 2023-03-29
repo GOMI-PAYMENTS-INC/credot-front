@@ -228,7 +228,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                           onClick={() => {
                             openBrowser(`https://shopee.vn/search?keyword=${data.text}`);
                             _amplitudeMovedToSERP(
-                              amplitudeData.report_id,
+                              amplitudeData.reportId,
                               amplitudeData.keyword,
                               data.text,
                             );

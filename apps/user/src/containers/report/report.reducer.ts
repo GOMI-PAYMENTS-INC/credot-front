@@ -9,10 +9,6 @@ const reportInitialState: TReportState = {
   toggleEvent: [],
   oversea: null,
   spinnerEvent: false,
-  amplitudeData: {
-    report_id: '',
-    keyword: '',
-  },
 };
 
 export enum REPORT_ACTION {
@@ -25,7 +21,6 @@ export enum REPORT_ACTION {
   SPINNER_EVENT = 'SPINNER_EVENT',
   FOCUS_ITEMS = 'FOCUS_ITEMS',
   GET_OVERSEA_PRODUCT = 'GET_OVERSEA_PRODUCT',
-  SET_AMPLITUDE_DATA = 'SET_AMPLITUDE_DATA',
 }
 
 export type TReportAction = {
@@ -112,10 +107,6 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
           state.salePrice.list = low;
         }
       }
-      return state;
-    }
-    case REPORT_ACTION.SET_AMPLITUDE_DATA: {
-      state.amplitudeData = action.payload.amplitudeData;
       return state;
     }
     default:

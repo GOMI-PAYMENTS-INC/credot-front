@@ -34,7 +34,11 @@ export const getQueryResult = (
           if (images && images.data.data !== null) {
             getProductImages(images.data, _dispatch);
           }
-          _amplitudeKeywordSearchedSucceeded(keyword, res.search.relations);
+          _amplitudeKeywordSearchedSucceeded(
+            keyword,
+            res.search.relations,
+            res.search.main.count,
+          );
           return;
         } catch (error) {
           console.error(error, 'error');

@@ -29,7 +29,7 @@ import {
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
-import { AccountType } from '@/amplitude/amplitude.enum';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
@@ -53,7 +53,7 @@ const SignUpRef = () => {
   );
 
   useEffect(() => {
-    _amplitudeSignupStarted(AccountType.LOCAL);
+    _amplitudeSignupStarted(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
   }, []);
 
   useEffect(() => {

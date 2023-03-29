@@ -9,7 +9,7 @@ import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
-import { AccountType } from '@/amplitude/amplitude.enum';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 interface ISignInForm {
@@ -46,7 +46,7 @@ const SignIn = () => {
     loginMutate(loginFormValue, {
       onSuccess: () => {
         //앰플리튜드 로그인 완료 이벤트
-        _amplitudeLoggedIn(AccountType.LOCAL);
+        _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
       },
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));

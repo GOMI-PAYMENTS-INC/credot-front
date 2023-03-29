@@ -104,7 +104,7 @@ type TCreateReportParamsType = {
   reportInvokeId: string;
 };
 
-type TCreateReportReponseType = {
+type TCreateReportResponseType = {
   code: string;
   message: string;
   data: any;
@@ -130,15 +130,18 @@ type TReportState = {
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
-  amplitudeData: TAmplitudeDetailData;
 };
 
 type TAmplitudeDetailData = {
-  report_id: string;
+  reportId: string;
   keyword: string;
 };
 
 type TChannelType = 'SHOPEE' | 'NONE';
+
+type TCountryType = 'KR' | 'TH' | 'US' | 'VN';
+
+type TCollectSortType = 'R' | 'NONE';
 
 type TSortedType = 'PRICE_MIN' | 'PRICE_MAX' | 'PRICE_AVERAGE';
 

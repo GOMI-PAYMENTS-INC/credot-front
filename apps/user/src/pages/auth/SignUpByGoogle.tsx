@@ -30,7 +30,7 @@ import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { authTokenStorage } from '@/utils/authToken';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
-import { AccountType } from '@/amplitude/amplitude.enum';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 const SignUpByGoogle = () => {
   const { token, email } = useLocation().state;
@@ -54,7 +54,7 @@ const SignUpByGoogle = () => {
   );
 
   useEffect(() => {
-    _amplitudeSignupStarted(AccountType.GOOGLE);
+    _amplitudeSignupStarted(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
   }, []);
 
   useEffect(() => {

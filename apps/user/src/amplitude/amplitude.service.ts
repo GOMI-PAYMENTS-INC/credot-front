@@ -1,7 +1,11 @@
 import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
-import { AccountType } from '@/amplitude/amplitude.enum';
-import { CHANNEL_TYPE, SORTED_TYPE } from '@/types/enum.code';
+import {
+  AMPLITUDE_ACCOUNT_TYPE,
+  AMPLITUDE_SORTED_TYPE,
+  convertAmplitudeSortedType,
+} from '@/amplitude/amplitude.enum';
+import { CHANNEL_TYPE } from '@/types/enum.code';
 
 declare var amplitude: any;
 
@@ -16,6 +20,15 @@ export const _setAmplitudeEvents = async (
   try {
     switch (event_name) {
       default:
+        if (payload) {
+          if (payload.country) {
+            payload.country = payload.country.toLowerCase();
+          }
+          if (payload.platform) {
+            payload.platform = payload.platform.toLowerCase();
+          }
+        }
+
         const result = await amplitude.track(event_name, payload).promise;
         if (result) {
           if (callBackEvent) {
@@ -26,31 +39,30 @@ export const _setAmplitudeEvents = async (
     }
   } catch (e) {}
 };
+// ##### Users Id 셋팅 ##### //
+export const _setUserId = async (id: number) => {
+  return await amplitude.setUserId(id).promise;
+};
 
 // ##### Users Properties 셋팅 ##### //
-export const _setUserProperties = async (user: {
-  __typename?: 'User';
-  id: number;
-  email: string;
-  role: Role;
-  name: string;
-  nickName?: string | null;
-  phone?: string | null;
-  profileImage?: string | null;
-  joinedAt?: string | null;
-  isSocialLogin: boolean;
-  socialProvider?: string | null;
-}) => {
-  amplitude.setUserId(user.id);
-
+export const _setUserProperties = async (
+  email: string,
+  marketing: boolean,
+  phone: string,
+  role: Role,
+) => {
   const identifyEvent = new amplitude.Identify();
+  //이메일
+  identifyEvent.set('email', email);
+  //마케팅 수신 동의 여부
+  identifyEvent.set('marketing_notifications', false);
+  //핸드폰 번호
+  identifyEvent.set('phone_number', phone);
   //계정 등급
-  identifyEvent.set('account_level', user.role);
+  identifyEvent.set('account_level', role.toLowerCase());
   //회원가입이 완료된 시점을 나타냄
-  identifyEvent.setOnce('account_creation_time', user.joinedAt);
-
-  const result = await amplitude.identify(identifyEvent).promise;
-  return result;
+  identifyEvent.setOnce('account_creation_time', new Date());
+  return await amplitude.identify(identifyEvent).promise;
 };
 
 // ##### 초기화 ##### //
@@ -59,7 +71,7 @@ export const _resetAmplitude = () => {
 };
 
 // ##### GENERAL - 1 - 로그인 완료 시 이벤트 ##### //
-export const _amplitudeLoggedIn = (provider: AccountType) => {
+export const _amplitudeLoggedIn = (provider: AMPLITUDE_ACCOUNT_TYPE) => {
   void _setAmplitudeEvents(amplitudeConstant.loggedIn, {
     provider,
   });
@@ -78,7 +90,7 @@ export const _amplitudeMobileVerified = (phoneNumber: string) => {
 };
 
 // ##### SIGNUP - 1 - 회원가입 화면 랜딩 시 이벤트 ##### //
-export const _amplitudeSignupStarted = (provider: AccountType) => {
+export const _amplitudeSignupStarted = (provider: AMPLITUDE_ACCOUNT_TYPE) => {
   void _setAmplitudeEvents(amplitudeConstant.signupStarted, {
     provider,
   });
@@ -86,7 +98,7 @@ export const _amplitudeSignupStarted = (provider: AccountType) => {
 
 // ##### SIGNUP - 2 - 회원가입 완료 이벤트 ##### //
 export const _amplitudeSignupCompleted = async (
-  provider: AccountType,
+  provider: AMPLITUDE_ACCOUNT_TYPE,
   email: string,
   phoneNumber: string,
   //marketing_notification: boolean,
@@ -138,7 +150,7 @@ export const _amplitudeChangePwCompleted = () => {
   void _setAmplitudeEvents(amplitudeConstant.changePwCompleted);
 };
 
-// ##### KEYWORD REPORT - 1 - 사용자가 키워드 검색 요청 시 ##### //
+// ##### KEYWORD REPORT - 사용자가 키워드 검색 요청 시 ##### //
 export const _amplitudeKeywordSearched = (
   // platform: TChannelType,
   // country: CountryType,
@@ -148,18 +160,19 @@ export const _amplitudeKeywordSearched = (
   void _setAmplitudeEvents(amplitudeConstant.keywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
-    sort_by: SORTED_TYPE.PRICE_MIN,
+    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
     keyword,
   });
 };
 
-// ##### KEYWORD REPORT - 2 - 키워드 검색 성공 시 ##### //
+// ##### KEYWORD REPORT - 키워드 검색 성공 시 ##### //
 export const _amplitudeKeywordSearchedSucceeded = (
   // platform: TChannelType,
   // country: CountryType,
   // sort_by: TSortedType,
   keyword: string,
   relations: SearchDto[],
+  searchVolume?: number | null,
 ) => {
   const recKeywords = [...relations].map((value) => {
     return value.text;
@@ -167,14 +180,15 @@ export const _amplitudeKeywordSearchedSucceeded = (
   void _setAmplitudeEvents(amplitudeConstant.keywordSearchedSucceeded, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
-    sort_by: SORTED_TYPE.PRICE_MIN,
+    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
     keyword,
     rec_keywords: recKeywords,
     num_of_rec_keywords: recKeywords.length,
+    search_volume: searchVolume || 0,
   });
 };
 
-// ##### KEYWORD REPORT - 3 - 키워드 검색 실패 시 ##### //
+// ##### KEYWORD REPORT - 키워드 검색 실패 시 ##### //
 export const _amplitudeKeywordSearchedFailed = (
   // platform: TChannelType,
   // country: CountryType,
@@ -185,13 +199,13 @@ export const _amplitudeKeywordSearchedFailed = (
   void _setAmplitudeEvents(amplitudeConstant.keywordSearchedFailed, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
-    sort_by: SORTED_TYPE.PRICE_MIN,
+    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
     keyword,
     reason,
   });
 };
 
-// ##### KEYWORD REPORT - 4 - 검색어로 추천된 키워드를 클릭해서 검색 시도 시 ##### //
+// ##### KEYWORD REPORT - 검색어로 추천된 키워드를 클릭해서 검색 시도 시 ##### //
 export const _amplitudeRecKeywordSearched = (
   // platform: TChannelType,
   // country: CountryType,
@@ -201,12 +215,12 @@ export const _amplitudeRecKeywordSearched = (
   void _setAmplitudeEvents(amplitudeConstant.recKeywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
-    sort_by: SORTED_TYPE.PRICE_MIN,
+    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
     keyword,
   });
 };
 
-// ##### KEYWORD REPORT - 5 - 키워드 리포트 생성 요청 시 ##### //
+// ##### KEYWORD REPORT - 키워드 리포트 생성 요청 시 ##### //
 export const _amplitudeKeywordReportRequested = (
   reportId: number,
   // platform: TChannelType,
@@ -218,47 +232,47 @@ export const _amplitudeKeywordReportRequested = (
     report_id: reportId,
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
-    sort_by: SORTED_TYPE.PRICE_MIN,
+    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
     keyword,
   });
 };
 
-// ##### KEYWORD REPORT - 6 - 키워드 리포트 상세 조회 시 ##### //
+// ##### KEYWORD REPORT - 키워드 리포트 상세 조회 시 ##### //
 export const _amplitudeKeywordReportViewed = (routeId: string, data: TGetMainReport) => {
   const report = data.data;
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
     report_id: routeId,
     platform: report?.channel,
     country: report?.country,
-    sort_by: report?.sorted,
+    sort_by: convertAmplitudeSortedType(report?.sorted as TCollectSortType),
     keyword: report?.text,
   });
 };
-// ##### KEYWORD REPORT - 7 - 키워드 리포트 생성 요청 시 ##### //
+// ##### KEYWORD REPORT - 키워드 리포트 삭제 완료 시 ##### //
 export const _amplitudeKeywordReportDeleted = (checkedItems: TReportItem[]) => {
   checkedItems.map((item) => {
     void _setAmplitudeEvents(amplitudeConstant.keywordReportDeleted, {
       report_id: item.id,
       platform: item.channel,
       country: item.countryCode,
-      sort_by: item.sortBy,
+      sort_by: convertAmplitudeSortedType(item.sortBy as TCollectSortType),
       keyword: item.keyword,
     });
   });
 };
 
-// ##### REPORT ENGAGEMENT - 1 - 사용자 가이드 페이지로 이동하는 링크 클릭 시 ##### //
+// ##### REPORT ENGAGEMENT - 사용자 가이드 페이지로 이동하는 링크 클릭 시 ##### //
 export const _amplitudeMovedToUserGuide = (link_location: string) => {
   void _setAmplitudeEvents(amplitudeConstant.movedToUserGuide, {
     link_location,
   });
 };
 
-// ##### REPORT ENGAGEMENT - 2 - 특정 키워드의 SERP로 이동하는 링크 클릭 시 ##### //
+// ##### REPORT ENGAGEMENT - 특정 키워드의 SERP로 이동하는 링크 클릭 시 ##### //
 export const _amplitudeMovedToSERP = (
-  reportId: string,
+  reportId: string | undefined,
   keyword: string,
-  recKeyword: string,
+  recKeyword: string | null,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.movedToSERP, {
     report_id: reportId,
@@ -267,7 +281,7 @@ export const _amplitudeMovedToSERP = (
   });
 };
 
-// ##### REPORT ENGAGEMENT - 3 - 특정 상품의 상세페이지로 넘어가는 링크 클릭 시 ##### //
+// ##### REPORT ENGAGEMENT - 특정 상품의 상세페이지로 넘어가는 링크 클릭 시 ##### //
 export const _amplitudeMovedToPDP = (
   reportId: string,
   keyword: string,
@@ -280,7 +294,7 @@ export const _amplitudeMovedToPDP = (
   });
 };
 
-// ##### KEYWORD TRANSLATION - 1 - 키워드 번역 요청 시 ##### //
+// ##### KEYWORD TRANSLATION - 키워드 번역 요청 시 ##### //
 export const _amplitudeKeywordTranslated = (language: string, keyword: string) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
     language,
@@ -288,7 +302,7 @@ export const _amplitudeKeywordTranslated = (language: string, keyword: string) =
   });
 };
 
-// ##### KEYWORD TRANSLATION - 2 - 번역된 키워드를 검색 요청 시 ##### //
+// ##### KEYWORD TRANSLATION - 번역된 키워드를 검색 요청 시 ##### //
 export const _amplitudeTranslatedSearched = (
   // platform: TChannelType,
   // country: CountryType,
@@ -298,7 +312,7 @@ export const _amplitudeTranslatedSearched = (
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
-    sort_by: SORTED_TYPE.PRICE_MIN,
+    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
     keyword,
   });
 };
