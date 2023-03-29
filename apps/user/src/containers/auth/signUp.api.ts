@@ -6,6 +6,7 @@ import {
   useGoogleSignupMutation,
   SignupMutation,
   GoogleSignupMutation,
+  Role,
 } from '@/generated/graphql';
 import { TERM_TYPE } from '@/types/enum.code';
 import { toast } from 'react-toastify';
@@ -19,6 +20,7 @@ import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
 import {
   _amplitudeLoggedIn,
   _amplitudeMobileVerified,
+  _setUserProperties,
 } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
@@ -86,6 +88,8 @@ export const useSignUp = () => {
           email,
           phone,
           () => {
+            _setUserProperties(email, false, phone, Role.User, Date.now().toString());
+
             _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
           },
         );

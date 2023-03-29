@@ -7,12 +7,13 @@ import { openBrowser } from '@/containers/report';
 import { data } from 'autoprefixer';
 interface IKeywordInfoProps {
   keywordInfo: TKeywordInfo;
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const routeId = useParams();
-
   const { text, country, createdAt, basePrice } = props.keywordInfo;
+  const { reportId } = props.amplitudeData;
+
   return (
     <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>
@@ -43,7 +44,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <button
               onClick={() => {
                 openBrowser(`https://shopee.vn/search?keyword=${text}`);
-                (routeId.id || '', text, text);
+                _amplitudeMovedToSERP(reportId, text, null);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
             >
