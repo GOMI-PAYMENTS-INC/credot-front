@@ -133,10 +133,8 @@ export const AuthContainer = () => {
       onSuccess: async (res) => {
         if (isFalsy(getCookie('SET_EVENT_USER_ID'))) {
           //앰플리튜드에서 사용할 회원 정보 셋팅
-          const result = await _setUserId(res.me.id);
-          if (result) {
-            setCookie('SET_EVENT_USER_ID', 'true', 1);
-          }
+          _setUserId(res.me.id);
+          setCookie('SET_EVENT_USER_ID', 'true', 1);
         }
       },
       onError: (error) => {
