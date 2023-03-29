@@ -161,7 +161,7 @@ input[type='number'] {
   }
 
   .keywordInfo-span-subtitle {
-    @apply relative flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
+    @apply flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
   }
 }
 
