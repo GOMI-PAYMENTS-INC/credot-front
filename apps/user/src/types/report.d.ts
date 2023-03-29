@@ -247,7 +247,7 @@ type TOverseaProductData = {
   channel: 'SHOPEE';
   itemOverseaCount: number;
   totalItemCount: number;
-  overseaLocationCount: { itemShopLocation: string; count: number }[];
+  overseaCountryCount: { itemShopCountry: string; count: number }[];
   overseaItems: TOverSeaItems[];
 };
 
@@ -261,7 +261,7 @@ type TOverSeaItems = {
   itemImage: string;
   itemStockLocation: string;
   storeName: string;
-  itemShopLocation: string;
+  itemShopCountry: string;
   storeItemCount: number;
   itemPriceMin: number;
   itemPriceMax: number;

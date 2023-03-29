@@ -76,9 +76,8 @@ const DetailReport = () => {
           _dispatch={_dispatch}
         />
         <AnalysisOverseaProduct
-          scollerRef={scrollController}
+          basePrice={main.basePrice}
           overseaProduct={_state.oversea}
-          _dispatch={_dispatch}
         />
         <section className='h-[200px]'></section>
       </Fragment>
