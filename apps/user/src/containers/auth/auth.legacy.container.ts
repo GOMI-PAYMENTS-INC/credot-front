@@ -43,6 +43,7 @@ import {
   _setUserProperties,
   _amplitudeChangePwStarted,
   _amplitudeChangePwCompleted,
+  _setUserId,
 } from '@/amplitude/amplitude.service';
 import { isFalsy } from '@/utils/isFalsy';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
@@ -97,7 +98,7 @@ export const AuthContainer = () => {
 
   const clearAmplitude = () => {
     //앰플리튜드 회원 셋팅 여부 초기화
-    removeCookie('SET_EVENT_USER_PROPERTIES');
+    removeCookie('SET_EVENT_USER_ID');
 
     //앰플리튜드 디바이스 ID초기화
     removeCookie('AMPLITUDE_DEVICE_ID');
@@ -130,11 +131,11 @@ export const AuthContainer = () => {
     {},
     {
       onSuccess: async (res) => {
-        if (isFalsy(getCookie('SET_EVENT_USER_PROPERTIES'))) {
+        if (isFalsy(getCookie('SET_EVENT_USER_ID'))) {
           //앰플리튜드에서 사용할 회원 정보 셋팅
-          const result = await _setUserProperties(res.me);
+          const result = await _setUserId(res.me.id);
           if (result) {
-            setCookie('SET_EVENT_USER_PROPERTIES', 'true', 1);
+            setCookie('SET_EVENT_USER_ID', 'true', 1);
           }
         }
       },

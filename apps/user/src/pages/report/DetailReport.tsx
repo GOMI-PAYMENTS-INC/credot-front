@@ -55,7 +55,7 @@ const DetailReport = () => {
 
     return (
       <Fragment>
-        <KeywordInfo keywordInfo={main} />
+        <KeywordInfo keywordInfo={main} amplitudeData={amplitudeData} />
         <MartketSize marketSize={main} />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
@@ -115,7 +115,7 @@ const DetailReport = () => {
                   className='flex h-5 w-5 cursor-pointer items-center pl-3'
                   onClick={() => {
                     openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
-                    _amplitudeMovedToSERP(routeId.id || '', main!.text, null);
+                    _amplitudeMovedToSERP(routeId.id, main!.text, null);
                   }}
                 >
                   <ReactSVG src='/assets/icons/outlined/Linkout.svg' />

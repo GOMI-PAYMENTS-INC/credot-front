@@ -5,7 +5,7 @@ import {
   AMPLITUDE_SORTED_TYPE,
   convertAmplitudeSortedType,
 } from '@/amplitude/amplitude.enum';
-import {CHANNEL_TYPE} from "@/types/enum.code";
+import { CHANNEL_TYPE } from '@/types/enum.code';
 
 declare var amplitude: any;
 
@@ -20,12 +20,11 @@ export const _setAmplitudeEvents = async (
   try {
     switch (event_name) {
       default:
-
-        if(payload){
-          if(payload.country){
+        if (payload) {
+          if (payload.country) {
             payload.country = payload.country.toLowerCase();
           }
-          if(payload.platform){
+          if (payload.platform) {
             payload.platform = payload.platform.toLowerCase();
           }
         }
@@ -40,37 +39,31 @@ export const _setAmplitudeEvents = async (
     }
   } catch (e) {}
 };
+// ##### Users Id 셋팅 ##### //
+export const _setUserId = async (id: number) => {
+  return await amplitude.setUserId(id).promise;
+};
 
 // ##### Users Properties 셋팅 ##### //
-export const _setUserProperties = async (user: {
-  __typename?: 'User';
-  id: number;
-  email: string;
-  role: Role;
-  name: string;
-  nickName?: string | null;
-  phone?: string | null;
-  profileImage?: string | null;
-  joinedAt?: string | null;
-  isSocialLogin: boolean;
-  socialProvider?: string | null;
-}) => {
-  amplitude.setUserId(user.id);
-
+export const _setUserProperties = async (
+  email: string,
+  marketing: boolean,
+  phone: string,
+  role: Role,
+  joinedAt: string,
+) => {
   const identifyEvent = new amplitude.Identify();
   //이메일
-  identifyEvent.set('email', user.email);
+  identifyEvent.set('email', email);
   //마케팅 수신 동의 여부
   identifyEvent.set('marketing_notifications', false);
   //핸드폰 번호
-  identifyEvent.set('phone_number', user.phone);
+  identifyEvent.set('phone_number', phone);
   //계정 등급
-  identifyEvent.set('account_level', user.role);
+  identifyEvent.set('account_level', role.toLowerCase());
   //회원가입이 완료된 시점을 나타냄
-  identifyEvent.setOnce('account_creation_time', user.joinedAt);
-
-  const result = await amplitude.identify(identifyEvent).promise;
-  return result;
+  identifyEvent.setOnce('account_creation_time', joinedAt);
+  return await amplitude.identify(identifyEvent).promise;
 };
 
 // ##### 초기화 ##### //
@@ -278,7 +271,7 @@ export const _amplitudeMovedToUserGuide = (link_location: string) => {
 
 // ##### REPORT ENGAGEMENT - 특정 키워드의 SERP로 이동하는 링크 클릭 시 ##### //
 export const _amplitudeMovedToSERP = (
-  reportId: string,
+  reportId: string | undefined,
   keyword: string,
   recKeyword: string | null,
 ) => {
