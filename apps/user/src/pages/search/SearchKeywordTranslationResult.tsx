@@ -1,6 +1,6 @@
-import { useEffect, Dispatch, MouseEvent } from 'react';
+import { useEffect, Dispatch, useState } from 'react';
 import {
-  switcIsLoadingState,
+  switchIsLoadingState,
   searchKeyword,
 } from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
@@ -15,12 +15,24 @@ export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
   const { translatorState, setTranslatorState } = props;
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    switcIsLoadingState(setTranslatorState);
-  }, [translatorState.data?.keyword]);
+    if (isFetching) {
+      searchKeyword(translatorState.keyword, setTranslatorState, setIsFetching);
+    }
+  }, [isFetching]);
 
-  if (translatorState.isLoading && isFalsy(translatorState.data)) {
+  if (isFalsy(translatorState.keyword) && isFalsy(translatorState.isLoading)) {
+    return (
+      <div className='flex h-full flex-col items-center justify-center'>
+        <ReactSVG src='/assets/icons/outlined/Translation.svg' />
+        <p className='pt-4 text-L/Medium text-grey-800'>번역할 키워드를 입력해주세요.</p>
+      </div>
+    );
+  }
+
+  if (translatorState.isLoading || isFalsy(translatorState.data?.dictionaries)) {
     return (
       <div className='flex h-full flex-col items-center justify-center'>
         <div className='flex h-[100px] w-[100px] items-center justify-center opacity-[0.3] '>
@@ -49,11 +61,14 @@ export const SearchKeywordTranslationResult = (
   return (
     <div className='relative flex w-full flex-col justify-center pt-[14px]'>
       {dictionaries.map((result, idx) => {
-        const lastItemStyle = dictionaries.length === idx + 1 ? 'mb-[96px]' : 'mb-4 ';
+        const lastIndex =
+          dictionaries.length === idx + 1
+            ? { style: 'mb-[96px]', isLastIndex: true }
+            : { style: 'mb-4', isLastIndex: false };
         return (
           <div
             key={`${result.text}_${idx}`}
-            className={`mx-6 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastItemStyle}`}
+            className={`mx-6 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastIndex.style}`}
           >
             <ReactSVG
               className='px-4'
@@ -81,12 +96,14 @@ export const SearchKeywordTranslationResult = (
           </div>
         );
       })}
-
+      {isFetching && (
+        <div className='mb-[142px] flex h-10 w-10 scale-[0.3] self-center'>
+          <div id='loader-white' />
+        </div>
+      )}
       <button
         disabled={buttonStyle.disable}
-        onClick={() => {
-          searchKeyword(translatorState.keyword, setTranslatorState);
-        }}
+        onClick={() => setIsFetching(true)}
         className={`${buttonStyle.buttonStyle} fixed bottom-[114px] flex items-center justify-center self-center`}
       >
         <p className='mx-2.5 my-2.5'>{buttonStyle.buttonText}</p>

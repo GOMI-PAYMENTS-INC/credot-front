@@ -88,8 +88,6 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
 
 export enum RECOMMANDER_ACTION {
   USE_TRANSLATION = 'USE_TRANSLATION',
-  SEARCH_KEYWORD = 'SEARCH_KEYWORD',
-  INITIALIZE_SEARCH_KEYWORD = 'INITIALIZE_SEARCH_KEYWORD',
   STORE_KEYWORD_RESULT = 'STORE_KEYWORD_RESULT',
   SWITCH_LOADING = 'SWITCH_LOADING',
   INITIALIZE_LIST = 'INITIALIZE_LIST',
@@ -111,23 +109,18 @@ const recommanderReducer = (
     case RECOMMANDER_ACTION.USE_TRANSLATION:
       state.useTranslation = action.payload;
       return state;
-    case RECOMMANDER_ACTION.SEARCH_KEYWORD:
-      state.keyword = action.payload;
-      return state;
-    case RECOMMANDER_ACTION.INITIALIZE_SEARCH_KEYWORD:
-      state.keyword = action.payload;
-      return state;
     case RECOMMANDER_ACTION.STORE_KEYWORD_RESULT:
       state.data = action.payload;
+      state.keyword = action.payload.keyword;
       useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, action.payload);
       return state;
     case RECOMMANDER_ACTION.SWITCH_LOADING:
       state.isLoading = action.payload;
       return state;
-    case RECOMMANDER_ACTION.INITIALIZE_LIST:
-      useSessionStorage.removeItem(CACHING_KEY.STORED_TRANSLATION);
-      state.data = null;
-      return state;
+    // case RECOMMANDER_ACTION.INITIALIZE_LIST:
+    //   useSessionStorage.removeItem(CACHING_KEY.STORED_TRANSLATION);
+    //   state.data = null;
+    //   return state;
     default:
       return state;
   }

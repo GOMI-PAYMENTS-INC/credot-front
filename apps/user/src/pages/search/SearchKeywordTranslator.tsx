@@ -1,4 +1,4 @@
-import { Dispatch, useReducer, KeyboardEvent, MouseEvent, useEffect } from 'react';
+import { Dispatch, useReducer, KeyboardEvent, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -11,8 +11,9 @@ import {
   switchTranslationTab,
   initializeKeyword,
   searchKeyword,
+  switchIsLoadingState,
 } from '@/containers/search/translator.container';
-import { isFalsy } from '@/utils/isFalsy';
+
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
 interface ISearchKeywordTranslator {
@@ -31,6 +32,15 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
       initializeKeyword(setValue, _dispatch);
     }
   }, []);
+
+  useEffect(() => {
+    if (_state.isLoading) {
+      searchKeyword(getValues('keyword'), _dispatch);
+    }
+  }, [_state.isLoading]);
+
+  const getCachingData = () =>
+    useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION).keyword;
 
   return (
     <div className='fixed bottom-[100px] right-6 block'>
@@ -68,8 +78,8 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                     {...register('keyword')}
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                       if (event.key === 'Enter') {
-                        const keyword = getValues('keyword');
-                        searchKeyword(keyword, _dispatch);
+                        const callData = getCachingData() !== getValues('keyword');
+                        switchIsLoadingState(_dispatch, callData);
                       }
                     }}
                   />
@@ -79,8 +89,8 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
               <button
                 className='button-filled-normal-large-primary-false-false-true ml-2 h-fit min-w-[76px] text-M/Bold'
                 onClick={() => {
-                  const keyword = getValues('keyword');
-                  searchKeyword(keyword, _dispatch);
+                  const callData = getCachingData() !== getValues('keyword');
+                  switchIsLoadingState(_dispatch, callData);
                 }}
               >
                 번역
@@ -92,19 +102,10 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
             className='block h-[378px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
           >
             <div className='block h-full w-full'>
-              {isFalsy(_state.keyword) && isFalsy(_state.isLoading) ? (
-                <div className='flex h-full flex-col items-center justify-center'>
-                  <ReactSVG src='/assets/icons/outlined/Translation.svg' />
-                  <p className='pt-4 text-L/Medium text-grey-800'>
-                    번역할 키워드를 입력해주세요.
-                  </p>
-                </div>
-              ) : (
-                <SearchKeywordTranslationResult
-                  translatorState={_state}
-                  setTranslatorState={_dispatch}
-                />
-              )}
+              <SearchKeywordTranslationResult
+                translatorState={_state}
+                setTranslatorState={_dispatch}
+              />
             </div>
           </section>
         </article>

@@ -1,5 +1,5 @@
 import { RECOMMANDER_ACTION } from '@/containers/search/reducer';
-import { Dispatch, KeyboardEvent, MouseEvent } from 'react';
+import { Dispatch, KeyboardEvent, MouseEvent, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { UseFormSetValue } from 'react-hook-form';
@@ -17,24 +17,25 @@ export const switchTranslationTab = (
 export const searchKeyword = async (
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
+  _setState?: Dispatch<SetStateAction<boolean>>,
 ) => {
   try {
     if (isFalsy(keyword)) {
       toast.error('키워드를 입력해주세요.', { position: 'bottom-right' });
       return;
     }
-
-    _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: true });
-
-    const preKeyword: TDictionaryType = await useSessionStorage.getItem(
+    const cachingData: TDictionaryType = await useSessionStorage.getItem(
       CACHING_KEY.STORED_TRANSLATION,
     );
-
-    if (preKeyword.keyword === keyword) {
-      return await querySameKeyword(preKeyword, _dispatch);
+    if (cachingData?.keyword !== keyword) {
+      await queryKeyword(keyword, _dispatch);
+      _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
+      return;
     }
-    _dispatch({ type: RECOMMANDER_ACTION.INITIALIZE_LIST });
-    await queryKeyword(keyword, _dispatch);
+    if (_setState) {
+      await querySameKeyword(cachingData, _dispatch, _setState!);
+      return;
+    }
   } catch (error) {
     console.error(error);
   }
@@ -44,21 +45,22 @@ const queryKeyword = async (keyword: string, _dispatch: Dispatch<TSearchActionTy
   const response = await _getTranslationOfKeyword(keyword);
   const translatedData = response!.data.data;
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
-  _dispatch({ type: RECOMMANDER_ACTION.SEARCH_KEYWORD, payload: keyword });
+  return;
 };
 
 const querySameKeyword = async (
   payload: TDictionaryType,
   _dispatch: Dispatch<TSearchActionType>,
+  _setState: Dispatch<SetStateAction<boolean>>,
 ) => {
   const isOverSearch = payload.dictionaries.length > 9;
-  if (isOverSearch) return;
+  if (isOverSearch) return false;
 
   const response = await _getTranslationOfKeyword(payload.keyword);
   const translatedData = response!.data.data;
 
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
-
+  _setState(false);
   return true;
 };
 
@@ -74,13 +76,12 @@ export const initializeKeyword = (
       type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT,
       payload: preKeyword,
     });
-    _dispatch({
-      type: RECOMMANDER_ACTION.INITIALIZE_SEARCH_KEYWORD,
-      payload: preKeyword.keyword,
-    });
   }
 };
 
-export const switcIsLoadingState = (_dispatch: Dispatch<TSearchActionType>) => {
-  _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: true });
+export const switchIsLoadingState = (
+  _dispatch: Dispatch<TSearchActionType>,
+  isLoading: boolean,
+) => {
+  _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: isLoading });
 };
