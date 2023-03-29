@@ -88,7 +88,7 @@ export const useSignUp = () => {
           email,
           phone,
           () => {
-            _setUserProperties(email, false, phone, Role.User, Date.now().toString());
+            _setUserProperties(email, false, phone, Role.User);
 
             _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
           },

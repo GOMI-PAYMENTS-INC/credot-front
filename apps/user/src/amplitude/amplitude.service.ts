@@ -50,7 +50,6 @@ export const _setUserProperties = async (
   marketing: boolean,
   phone: string,
   role: Role,
-  joinedAt: string,
 ) => {
   const identifyEvent = new amplitude.Identify();
   //이메일
@@ -62,7 +61,7 @@ export const _setUserProperties = async (
   //계정 등급
   identifyEvent.set('account_level', role.toLowerCase());
   //회원가입이 완료된 시점을 나타냄
-  identifyEvent.setOnce('account_creation_time', joinedAt);
+  identifyEvent.setOnce('account_creation_time', new Date());
   return await amplitude.identify(identifyEvent).promise;
 };
 
