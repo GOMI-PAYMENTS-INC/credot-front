@@ -7,6 +7,7 @@ import { convertTitle } from '@/utils/convertEnum';
 import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
 import { convertEvaluateStatus, convertScoreToText } from '@/constants/report.constant';
 import { TITLE } from '@/types/enum.code';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 
 interface IAnalysisKeyword {
   analysisInfo: TRecommnandKeyword;
@@ -49,7 +50,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           <div className='basis-[390px]'>
             <div className='keywordInfo-span-subtitle'>
               <span>종합 평가</span>
-              <span className='fill-grey-500'>
+              <div className='tooltip-container'>
                 <ReactSVG
                   id='anchor-market-evaluation'
                   src='/assets/icons/outlined/QuestionCircle.svg'
@@ -91,17 +92,23 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <a
-                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
-                        target='_blank'
+                      <button
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                        onClick={() => {
+                          openBrowser(
+                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
+                          );
+                          _amplitudeMovedToUserGuide(
+                            '키워드 리포트_키워드 분석_종합 평가',
+                          );
+                        }}
                       >
                         자세히 알아보기
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </Tooltip>
-              </span>
+              </div>
             </div>
             <div className='flex h-[163px] items-center  text-center'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
@@ -131,7 +138,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           <div className='flex-1'>
             <div className='keywordInfo-span-subtitle'>
               <span>상세 데이터</span>
-              <span>
+              <div className='tooltip-container'>
                 <ReactSVG
                   id='anchor-market-detail'
                   src='/assets/icons/outlined/QuestionCircle.svg'
@@ -140,6 +147,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                   }}
                 />
+
                 <Tooltip
                   anchorId='anchor-market-detail'
                   place='right'
@@ -176,17 +184,23 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                       </div>
                     </div>
                     <div className='flex w-full justify-end'>
-                      <a
-                        href='https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe'
-                        target='_blank'
+                      <button
                         className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
+                        onClick={() => {
+                          openBrowser(
+                            'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
+                          );
+                          _amplitudeMovedToUserGuide(
+                            '키워드 리포트_키워드 분석_상세 데이터',
+                          );
+                        }}
                       >
                         자세히 알아보기
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </Tooltip>
-              </span>
+              </div>
             </div>
             <div className='flex divide-x-[1px] divide-dotted'>
               <div className='flex flex-col'>

@@ -48,6 +48,11 @@ const DetailReport = () => {
   const combinedComponent = useMemo(() => {
     if (main === null) return <Fragment></Fragment>;
 
+    const amplitudeData: TAmplitudeDetailData = {
+      reportId: main.id ? main.id.toString() : '',
+      keyword: main.text,
+    };
+
     return (
       <Fragment>
         <KeywordInfo keywordInfo={main} />
@@ -60,7 +65,7 @@ const DetailReport = () => {
             _dispatch={_dispatch}
             toggleEvent={_state.toggleEvent}
             basePrice={main.basePrice}
-            amplitudeData={_state.amplitudeData}
+            amplitudeData={amplitudeData}
           />
         </Fragment>
         <SalePrice
@@ -110,7 +115,7 @@ const DetailReport = () => {
                   className='flex h-5 w-5 cursor-pointer items-center pl-3'
                   onClick={() => {
                     openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
-                    _amplitudeMovedToSERP(routeId.id || '', main!.text, main!.text);
+                    _amplitudeMovedToSERP(routeId.id || '', main!.text, null);
                   }}
                 >
                   <ReactSVG src='/assets/icons/outlined/Linkout.svg' />

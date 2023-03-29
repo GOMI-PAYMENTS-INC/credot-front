@@ -148,7 +148,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                     onClick={() => {
                       openBrowser(item.itemUrl);
                       _amplitudeMovedToPDP(
-                        amplitudeData.report_id,
+                        amplitudeData.reportId,
                         amplitudeData.keyword,
                         convertTitle(TITLE.SALE_PRICE),
                       );

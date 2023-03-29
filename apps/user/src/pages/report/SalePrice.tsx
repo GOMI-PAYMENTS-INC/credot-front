@@ -29,7 +29,7 @@ export const SalePrice = (props: ISalePrice) => {
   const { basePrice } = priceAnalysisInfo;
 
   const amplitudeData: TAmplitudeDetailData = {
-    report_id: id.toString(),
+    reportId: id.toString(),
     keyword: text,
   };
 
@@ -60,38 +60,40 @@ export const SalePrice = (props: ISalePrice) => {
       <div className='pt-4'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='col-span-2 flex flex-col'>
-            <div className='relative flex bg-grey-100'>
+            <div className='relative flex items-center bg-grey-100'>
               <div className='py-2.5 pl-5 '>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
               </div>
-              <ReactSVG
-                id='anchor-market-salesInfo'
-                src='/assets/icons/outlined/QuestionCircle.svg'
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                }}
-                className='flex self-center pl-[5px]'
-              />
-              <Tooltip
-                anchorId='anchor-market-salesInfo'
-                place='right'
-                style={{ background: 'none', opacity: 1 }}
-              >
-                <div className='flex justify-between rounded-[3px] border-[1px] border-grey-200 bg-white py-4 px-4 text-grey-900'>
-                  <div>
-                    <h1 className='text-XS/Medium'>최저가</h1>
-                    <p className='pt-0.5 text-XS/Regular text-grey-800'>
-                      가장 저렴한 상품의 판매가격이에요.
-                    </p>
+              <div className='tooltip-container'>
+                <ReactSVG
+                  id='anchor-market-salesInfo'
+                  src='/assets/icons/outlined/QuestionCircle.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                  }}
+                  className='flex self-center pl-[5px]'
+                />
+                <Tooltip
+                  anchorId='anchor-market-salesInfo'
+                  place='right'
+                  style={{ background: 'none', opacity: 1 }}
+                >
+                  <div className='flex justify-between rounded-[3px] border-[1px] border-grey-200 bg-white py-4 px-4 text-grey-900'>
+                    <div>
+                      <h1 className='text-XS/Medium'>최저가</h1>
+                      <p className='pt-0.5 text-XS/Regular text-grey-800'>
+                        가장 저렴한 상품의 판매가격이에요.
+                      </p>
+                    </div>
+                    <div className='px-3'>
+                      <h1 className='text-XS/Medium'>평균 판매가</h1>
+                      <p className='pt-0.5 text-XS/Regular text-grey-800'>
+                        상품들이 판매되는 가격의 평균값이에요.
+                      </p>
+                    </div>
                   </div>
-                  <div className='px-3'>
-                    <h1 className='text-XS/Medium'>평균 판매가</h1>
-                    <p className='pt-0.5 text-XS/Regular text-grey-800'>
-                      상품들이 판매되는 가격의 평균값이에요.
-                    </p>
-                  </div>
-                </div>
-              </Tooltip>
+                </Tooltip>
+              </div>
             </div>
             <div className='flex-grow-1 flex h-full flex-col justify-center '>
               <div className='flex h-[186px] flex-col justify-center'>
@@ -178,7 +180,7 @@ export const SalePrice = (props: ISalePrice) => {
               })}
             </div>
           </div>
-          <div className='relative ml-[11px]'>
+          <div className='tooltip-container ml-[11px]'>
             <ReactSVG
               id='anchor-market-salesChart'
               src='/assets/icons/outlined/QuestionCircle.svg'
