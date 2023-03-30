@@ -24,9 +24,37 @@ export const SearchKeywordTranslationResult = (
 
   if (isFalsy(translatorState.keyword) && isFalsy(translatorState.isLoading)) {
     return (
-      <div className='flex h-full flex-col items-center justify-center'>
-        <ReactSVG src='/assets/icons/outlined/Translation.svg' />
-        <p className='pt-4 text-L/Medium text-grey-800'>번역할 키워드를 입력해주세요.</p>
+      <div className='flex h-full flex-col'>
+        <div className='flex h-full flex-col items-center justify-center'>
+          <ReactSVG src='/assets/icons/outlined/Translation.svg' />
+          <p className='pt-4 text-L/Medium text-grey-800'>
+            번역할 키워드를 입력해주세요.
+          </p>
+
+          <div className='mt-6 flex w-[312px] flex-col rounded-[10px] bg-grey-300'>
+            <div className='flex flex-col px-3 py-3 text-XS/Regular text-grey-800'>
+              <h1 className='text-XS/Bold text-grey-900'>서비스 안내</h1>
+              <p className='pt-1'>
+                키워드 번역은 OpenAI에서 제공하는 ChatGPT 서비스를
+                <br />
+                활용해 키워드 추출 및 번역을 도와드리는 서비스에요.
+              </p>
+            </div>
+          </div>
+
+          <div className='mt-2 flex w-[312px] flex-col rounded-[10px] bg-grey-300'>
+            <div className='flex flex-col px-3 py-3 text-XS/Regular text-grey-800'>
+              <h1 className='text-XS/Bold text-grey-900'>주의해주세요.</h1>
+              <p className='pt-1'>
+                본 서비스의 주체는 고미인사이트가 아닌 OpenAI에 의해
+                <br />
+                제공되며, 2021년 이후 생성된 신규 단어이거나 입력된 키워
+                <br />
+                드에 따라 정확하지 않은 정보가 제공될 수 있어요.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -39,7 +39,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   }, [_state.isLoading]);
 
   const getCachingData = () =>
-    useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION).keyword;
+    useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)?.keyword;
 
   return (
     <div className='fixed bottom-[100px] right-6 block'>
@@ -56,7 +56,13 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                 onClick={() => switchTranslationTab(_dispatch, false)}
               />
             </header>
-            <div className='mt-6 h-10'>
+            <div className='mt-6 flex h-10 items-center justify-around'>
+              <div className='flex items-center'>
+                <ReactSVG src='/assets/icons/country/KR.svg' />
+                <p className='pl-2 text-S/Regular text-grey-800'>한국어</p>
+              </div>
+              <ReactSVG src='/assets/icons/outlined/ArrowRight.svg' />
+
               <div className='select-icon-group'>
                 <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
                 <select name='country' id='country' className='select-normal-clear-true'>
@@ -98,7 +104,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
           </section>
           <section
             id='scrollbar'
-            className='block h-[378px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
+            className='block h-[450px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
           >
             <div className='block h-full w-full'>
               <SearchKeywordTranslationResult
