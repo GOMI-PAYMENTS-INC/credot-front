@@ -226,7 +226,7 @@ export const COUNTRY_CODE = {
   TR: { name: '튀르키예', flag: 'TR' },
   TT: { name: '트리니다드 토바고', flag: 'TT' },
   TV: { name: '투발루', flag: 'TV' },
-  TW: { name: '중화민국', flag: 'TW' },
+  TW: { name: '대만', flag: 'TW' },
   TZ: { name: '탄자니아', flag: 'TZ' },
   UA: { name: '우크라이나', flag: 'UA' },
   UG: { name: '우간다', flag: 'UG' },

@@ -23,8 +23,6 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
         {_state.data.reports.length > 0 ? (
           _state.data.reports.map((report: TReportItem, idx) => {
             const reportConverterData = reportListConverter(report);
-            console.log(_state.checkedItems.find((value) => value.id === report.id));
-
             let isChecked = false;
             isChecked = _state.checkedItems.find((value) => value.id === report.id)
               ? true

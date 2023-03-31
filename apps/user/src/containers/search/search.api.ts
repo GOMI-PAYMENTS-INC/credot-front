@@ -84,8 +84,17 @@ export const getReportExisted = async (queryString: { text: string }) => {
 
 export const _getProductImages = async (queryString: { keyword: string }) => {
   try {
-    const url = REPORT_URL.getProductImage + queryString.keyword + '/image';
-    return await HTTP.get<TGetProductImageResponseType>(url);
+    const URL = REPORT_URL.getProductImage + queryString.keyword + '/image';
+    return await HTTP.get<TGetProductImageResponseType>(URL);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const _getTranslationOfKeyword = async (keyword: string) => {
+  try {
+    const URL = `/api/v1/gpt/${keyword}/translate`;
+    return await HTTP.get<TGetTranslationOfKeywordReponse>(URL);
   } catch (error) {
     console.error(error);
   }

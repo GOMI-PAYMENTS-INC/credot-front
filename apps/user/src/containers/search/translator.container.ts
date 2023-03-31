@@ -1,62 +1,68 @@
 import { RECOMMANDER_ACTION } from '@/containers/search/reducer';
-import { Dispatch, KeyboardEvent, MouseEvent } from 'react';
+import { Dispatch, KeyboardEvent, MouseEvent, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { UseFormSetValue } from 'react-hook-form';
-
+import { _getTranslationOfKeyword } from '@/containers/search/search.api';
 import { CACHING_KEY } from '@/types/enum.code';
+
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-
-import { DATA } from '@/containers/search/dummy';
 
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
   tabState: boolean,
 ) => _dispatch({ type: RECOMMANDER_ACTION.USE_TRANSLATION, payload: tabState });
 
-export const searchKeyword = (
+export const searchKeyword = async (
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
-  event: KeyboardEvent | MouseEvent,
+  _setState?: Dispatch<SetStateAction<boolean>>,
 ) => {
-  if (event.type === 'keyup') {
-    const { key } = event as KeyboardEvent;
-    if (key !== 'Enter') return;
+  try {
+    if (isFalsy(keyword)) {
+      toast.error('키워드를 입력해주세요.', { position: 'bottom-right' });
+      return;
+    }
+    const cachingData: TDictionaryType = await useSessionStorage.getItem(
+      CACHING_KEY.STORED_TRANSLATION,
+    );
+    if (cachingData?.keyword !== keyword) {
+      await queryKeyword(keyword, _dispatch);
+      _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
+      return;
+    }
+    if (_setState) {
+      await querySameKeyword(cachingData, _dispatch, _setState!);
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+    _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
+    _dispatch({ type: RECOMMANDER_ACTION.UPDATE_ERROR_MESSAGE });
   }
-
-  if (isFalsy(keyword)) {
-    toast.error('키워드를 입력해주세요.', { position: 'bottom-right' });
-    return;
-  }
-
-  _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: true });
-
-  const preKeyword: TCachingTranlatedData = useSessionStorage.getItem(
-    CACHING_KEY.STORED_TRANSLATION,
-  );
-
-  if (preKeyword?.keyword === keyword) {
-    querySameKeyword(preKeyword);
-    return;
-  }
-  queryKeyword(keyword, _dispatch);
-  _dispatch({ type: RECOMMANDER_ACTION.INITIALIZE_LIST });
 };
 
 const queryKeyword = async (keyword: string, _dispatch: Dispatch<TSearchActionType>) => {
-  await setTimeout(() => {
-    const payload = { keyword: keyword, data: DATA.data, count: 3 };
-    useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, payload);
-    _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: DATA.data });
-    _dispatch({ type: RECOMMANDER_ACTION.SEARCH_KEYWORD, payload: keyword });
-  }, 3000);
+  const response = await _getTranslationOfKeyword(keyword);
+  const translatedData = response!.data.data;
+  _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
+  return;
 };
 
-const querySameKeyword = (payload: TCachingTranlatedData) => {
-  if (payload.count === 3) return false;
-  const _payload = Object.assign({}, payload, { count: payload.count + 1 });
-  useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, _payload);
+const querySameKeyword = async (
+  payload: TDictionaryType,
+  _dispatch: Dispatch<TSearchActionType>,
+  _setState: Dispatch<SetStateAction<boolean>>,
+) => {
+  const isOverSearch = payload.dictionaries.length > 9;
+  if (isOverSearch) return false;
+
+  const response = await _getTranslationOfKeyword(payload.keyword);
+  const translatedData = response!.data.data;
+
+  _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
+  _setState(false);
   return true;
 };
 
@@ -70,15 +76,14 @@ export const initializeKeyword = (
     setValue('keyword', preKeyword.keyword);
     _dispatch({
       type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT,
-      payload: preKeyword.data,
-    });
-    _dispatch({
-      type: RECOMMANDER_ACTION.INITIALIZE_SEARCH_KEYWORD,
-      payload: preKeyword.keyword,
+      payload: preKeyword,
     });
   }
 };
 
-export const switcIsLoadingState = (_dispatch: Dispatch<TSearchActionType>) => {
-  _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: true });
+export const switchIsLoadingState = (
+  _dispatch: Dispatch<TSearchActionType>,
+  isLoading: boolean,
+) => {
+  _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: isLoading });
 };

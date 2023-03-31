@@ -1,29 +1,22 @@
-import {
-  Dispatch,
-  useReducer,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  Fragment,
-} from 'react';
+import { Dispatch, useReducer, KeyboardEvent, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
 
 import { useForm } from 'react-hook-form';
 import { recommanderInitialState, recommanderReducer } from '@/containers/search';
-import { SearchKeywordTranslationView } from '@/pages/search/SearchKeywordTranslationView';
+import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
 
 import {
   switchTranslationTab,
   initializeKeyword,
   searchKeyword,
+  switchIsLoadingState,
 } from '@/containers/search/translator.container';
-import { isFalsy } from '@/utils/isFalsy';
+
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
 interface ISearchKeywordTranslator {
-  _searchState: TSearchState;
   _searchDispatch: Dispatch<TSearchActionType>;
 }
 
@@ -38,6 +31,15 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
       initializeKeyword(setValue, _dispatch);
     }
   }, []);
+
+  useEffect(() => {
+    if (_state.isLoading) {
+      searchKeyword(getValues('keyword'), _dispatch);
+    }
+  }, [_state.isLoading]);
+
+  const getCachingData = () =>
+    useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)?.keyword;
 
   return (
     <div className='fixed bottom-[100px] right-6 block'>
@@ -54,9 +56,15 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                 onClick={() => switchTranslationTab(_dispatch, false)}
               />
             </header>
-            <div className='mt-6 h-10'>
+            <div className='mt-6 flex h-10 items-center justify-around'>
+              <div className='flex items-center'>
+                <ReactSVG src='/assets/icons/country/KR.svg' />
+                <p className='pl-2 text-S/Regular text-grey-800'>한국어</p>
+              </div>
+              <ReactSVG src='/assets/icons/outlined/ArrowRight.svg' />
+
               <div className='select-icon-group'>
-                <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
                 <select name='country' id='country' className='select-normal-clear-true'>
                   <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
                     베트남
@@ -72,9 +80,12 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                     type='text'
                     className='inputCustom-textbox w-full'
                     placeholder='수분 크림'
-                    {...register('keyword', {})}
+                    {...register('keyword')}
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                      searchKeyword(getValues('keyword'), _dispatch, event);
+                      if (event.key === 'Enter') {
+                        const callData = getCachingData() !== getValues('keyword');
+                        switchIsLoadingState(_dispatch, callData);
+                      }
                     }}
                   />
                 </div>
@@ -82,8 +93,9 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
               <button
                 className='button-filled-normal-large-primary-false-false-true ml-2 h-fit min-w-[76px] text-M/Bold'
-                onClick={(event: MouseEvent<HTMLButtonElement>) => {
-                  searchKeyword(getValues('keyword'), _dispatch, event);
+                onClick={() => {
+                  const callData = getCachingData() !== getValues('keyword');
+                  switchIsLoadingState(_dispatch, callData);
                 }}
               >
                 번역
@@ -92,33 +104,25 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
           </section>
           <section
             id='scrollbar'
-            className='block h-[378px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
+            className='block h-[450px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
           >
             <div className='block h-full w-full'>
-              {isFalsy(_state.keyword) && isFalsy(_state.isLoading) ? (
-                <div className='flex h-full flex-col items-center justify-center'>
-                  <ReactSVG src='/assets/icons/outlined/Translation.svg' />
-                  <p className='pt-4 text-L/Medium text-grey-800'>
-                    번역할 키워드를 입력해주세요.
-                  </p>
-                </div>
-              ) : (
-                <SearchKeywordTranslationView
-                  translatorState={_state}
-                  setTranslatorState={_dispatch}
-                />
-              )}
+              <SearchKeywordTranslationResult
+                translatorState={_state}
+                _searchDispatch={props._searchDispatch}
+                setTranslatorState={_dispatch}
+              />
             </div>
           </section>
         </article>
       ) : (
-        <img
-          src='/assets/images/ChatGPTTalk.png'
-          className='cursor-pointer'
+        <button
           onClick={() => {
             switchTranslationTab(_dispatch, true);
           }}
-        />
+        >
+          <ReactSVG src='/assets/icons/ChatGPTTalk.svg' />
+        </button>
       )}
     </div>
   );

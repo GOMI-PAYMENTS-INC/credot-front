@@ -99,6 +99,11 @@ const SearchKeywords = () => {
     return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
   }, [_state.keyword, isMonthlyCountZero]);
 
+  const montlySearchColor =
+    montlySearchVolum === '???'
+      ? 'text-4XL/Bold text-grey-300'
+      : 'text-4XL/Bold text-grey-900';
+
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -126,7 +131,7 @@ const SearchKeywords = () => {
             <div>
               <div className='mt-6 flex items-center'>
                 <div className='select-icon-group'>
-                  <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                  <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
                   <select
                     name='country'
                     id='country'
@@ -223,11 +228,7 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-5'>
-                    <span
-                      className={`text-4XL/Bold text-grey-${
-                        _state.isSearched ? 900 : 300
-                      }`}
-                    >
+                    <span className={montlySearchColor}>
                       <p className={`text-4XL/Bold text-grey-300`}></p>
                       {montlySearchVolum}
                     </span>
@@ -317,7 +318,7 @@ const SearchKeywords = () => {
         />
       </div>
 
-      <SearchKeywordTranslator _searchDispatch={_dispatch} _searchState={_state} />
+      <SearchKeywordTranslator _searchDispatch={_dispatch} />
     </Layout>
   );
 };

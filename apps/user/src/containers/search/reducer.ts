@@ -30,7 +30,7 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
   const state = structuredClone(_state);
   switch (action.type) {
     case SEARCH_ACTION.GET_KEYWORD:
-      state.text = action.payload;
+      state.text = action.payload.toLowerCase();
       return state;
 
     case SEARCH_ACTION.UPDATE_CREATED_AT:
@@ -88,18 +88,18 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
 
 export enum RECOMMANDER_ACTION {
   USE_TRANSLATION = 'USE_TRANSLATION',
-  SEARCH_KEYWORD = 'SEARCH_KEYWORD',
-  INITIALIZE_SEARCH_KEYWORD = 'INITIALIZE_SEARCH_KEYWORD',
   STORE_KEYWORD_RESULT = 'STORE_KEYWORD_RESULT',
   SWITCH_LOADING = 'SWITCH_LOADING',
   INITIALIZE_LIST = 'INITIALIZE_LIST',
+  UPDATE_ERROR_MESSAGE = 'UPDATE_ERROR_MESSAGE',
 }
 
-const recommanderInitialState = {
+const recommanderInitialState: TTranslationKeywordType = {
   useTranslation: false,
   keyword: '',
-  list: null,
+  data: null,
   isLoading: false,
+  isError: false,
 };
 
 const recommanderReducer = (
@@ -111,20 +111,17 @@ const recommanderReducer = (
     case RECOMMANDER_ACTION.USE_TRANSLATION:
       state.useTranslation = action.payload;
       return state;
-    case RECOMMANDER_ACTION.SEARCH_KEYWORD:
-      state.keyword = action.payload;
-      return state;
-    case RECOMMANDER_ACTION.INITIALIZE_SEARCH_KEYWORD:
-      state.keyword = action.payload;
-      return state;
     case RECOMMANDER_ACTION.STORE_KEYWORD_RESULT:
-      state.list = action.payload;
+      state.data = action.payload;
+      state.keyword = action.payload.keyword;
+      state.isError = false;
+      useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, action.payload);
       return state;
     case RECOMMANDER_ACTION.SWITCH_LOADING:
       state.isLoading = action.payload;
       return state;
-    case RECOMMANDER_ACTION.INITIALIZE_LIST:
-      state.list = null;
+    case RECOMMANDER_ACTION.UPDATE_ERROR_MESSAGE:
+      state.isError = true;
       return state;
     default:
       return state;
