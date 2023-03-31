@@ -26,7 +26,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[368px] text-left' colSpan={1}>
-            <p className=' pl-3 text-XS/Medium'>상품</p>
+            <p className=' pl-3 text-XS/Medium'>해외 배송 상품</p>
           </th>
           <th className='w-[132px] text-left' colSpan={1}>
             <p className=' pl-3 text-XS/Medium'>국가</p>

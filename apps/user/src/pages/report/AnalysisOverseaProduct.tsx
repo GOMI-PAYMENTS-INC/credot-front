@@ -9,6 +9,7 @@ import { OVERSEA_PRODUCT_RATIO } from '@/constants/report.constant';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { COUNTRY_CODE } from '@/containers/report/country.code';
+import { replaceOverLength } from '@/utils/replaceOverLength';
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;
   basePrice: number;
@@ -55,7 +56,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='relative col-span-10 flex w-full bg-grey-100'>
             <div className='py-2.5 pl-5 '>
-              <p className='text-S/Medium text-grey-900'>해외 상품 비율</p>
+              <p className='text-S/Medium text-grey-900'>해외 배송 상품 비율</p>
             </div>
           </div>
 
@@ -159,8 +160,8 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                               className='pl-[5px]'
                               src={`/assets/icons/country/${countryCode.flag}.svg`}
                             />
-                            <div className='flex pl-[7px]'>
-                              <p className='pl-1'>{countryCode.name}</p>
+                            <div className='flex pl-[6px]'>
+                              <p>{replaceOverLength(countryCode.name, 5)}</p>
                               <p className='pl-1'>{`${country.count}개`}</p>
                             </div>
                           </div>

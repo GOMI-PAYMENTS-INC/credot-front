@@ -157,7 +157,7 @@ const SearchKeywords = () => {
                   <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
                     <input
                       type='text'
-                      placeholder='키워드를 입력해주세요.'
+                      placeholder='gấu bông'
                       value={_state.text}
                       onChange={(event) => getKeyword(event, _dispatch)}
                       onKeyDown={(event) => {
