@@ -99,6 +99,11 @@ const SearchKeywords = () => {
     return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
   }, [_state.keyword, isMonthlyCountZero]);
 
+  const montlySearchColor =
+    montlySearchVolum === '???'
+      ? 'text-4XL/Bold text-grey-300'
+      : 'text-4XL/Bold text-grey-900';
+
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -223,11 +228,7 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-5'>
-                    <span
-                      className={`text-4XL/Bold text-grey-${
-                        _state.isSearched ? 900 : 300
-                      }`}
-                    >
+                    <span className={montlySearchColor}>
                       <p className={`text-4XL/Bold text-grey-300`}></p>
                       {montlySearchVolum}
                     </span>

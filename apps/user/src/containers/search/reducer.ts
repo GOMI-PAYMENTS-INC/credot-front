@@ -91,13 +91,15 @@ export enum RECOMMANDER_ACTION {
   STORE_KEYWORD_RESULT = 'STORE_KEYWORD_RESULT',
   SWITCH_LOADING = 'SWITCH_LOADING',
   INITIALIZE_LIST = 'INITIALIZE_LIST',
+  UPDATE_ERROR_MESSAGE = 'UPDATE_ERROR_MESSAGE',
 }
 
-const recommanderInitialState = {
+const recommanderInitialState: TTranslationKeywordType = {
   useTranslation: false,
   keyword: '',
   data: null,
   isLoading: false,
+  isError: false,
 };
 
 const recommanderReducer = (
@@ -112,15 +114,15 @@ const recommanderReducer = (
     case RECOMMANDER_ACTION.STORE_KEYWORD_RESULT:
       state.data = action.payload;
       state.keyword = action.payload.keyword;
+      state.isError = false;
       useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, action.payload);
       return state;
     case RECOMMANDER_ACTION.SWITCH_LOADING:
       state.isLoading = action.payload;
       return state;
-    // case RECOMMANDER_ACTION.INITIALIZE_LIST:
-    //   useSessionStorage.removeItem(CACHING_KEY.STORED_TRANSLATION);
-    //   state.data = null;
-    //   return state;
+    case RECOMMANDER_ACTION.UPDATE_ERROR_MESSAGE:
+      state.isError = true;
+      return state;
     default:
       return state;
   }

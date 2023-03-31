@@ -38,6 +38,8 @@ export const searchKeyword = async (
     }
   } catch (error) {
     console.error(error);
+    _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
+    _dispatch({ type: RECOMMANDER_ACTION.UPDATE_ERROR_MESSAGE });
   }
 };
 

@@ -84,4 +84,5 @@ type TTranslationKeywordType = {
   keyword: string;
   data: TDictionaryType | null;
   isLoading: boolean;
+  isError: boolean;
 };

@@ -1,9 +1,10 @@
-import { useEffect, Dispatch, useState } from 'react';
+import { useEffect, Dispatch, useState, Fragment } from 'react';
 import { searchKeyword } from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { queryKeywordByClick } from '@/containers/search';
+
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
@@ -59,6 +60,26 @@ export const SearchKeywordTranslationResult = (
     );
   }
 
+  if (isFalsy(translatorState.data) && translatorState.isError) {
+    return (
+      <div className='flex h-full flex-col items-center justify-center'>
+        <ReactSVG
+          src='/assets/icons/outlined/ExclamationCircle.svg'
+          beforeInjection={(svg) => {
+            svg.setAttribute('class', `w-[35px] h-[35px] fill-grey-400`);
+          }}
+        />
+        <div className='flex flex-col items-center pt-[18.5px] text-center'>
+          <p className='text-L/Medium text-grey-800'>
+            서버로부터 데이터를 불러오지 못했어요.
+            <br />
+            잠시 후 다시 시도 해주세요.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (translatorState.isLoading || isFalsy(translatorState.data?.dictionaries)) {
     return (
       <div className='flex h-full flex-col items-center justify-center'>
@@ -90,41 +111,65 @@ export const SearchKeywordTranslationResult = (
       {dictionaries.map((result, idx) => {
         const lastIndex =
           dictionaries.length === idx + 1
-            ? { style: 'mb-[96px]', isLastIndex: true }
+            ? {
+                style: translatorState.isError ? 'mb-[34px]' : 'mb-[96px]',
+                isLastIndex: true,
+              }
             : { style: 'mb-4', isLastIndex: false };
-        return (
-          <button
-            key={`${result.text}_${idx}`}
-            onClick={() => queryKeywordByClick(result.text, _searchDispatch)}
-          >
-            <div
-              className={`mx-6 flex h-[70px] w-[312px] cursor-pointer items-center overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastIndex.style}`}
-            >
-              <ReactSVG
-                className='px-4'
-                src={`assets/icons/outlined/number/number-${idx + 1}.svg`}
-              />
 
-              <div className='flex max-w-[200px] flex-col'>
-                <p className='py-2 text-M/Regular text-grey-900 '>
-                  {replaceOverLength(result.text, 22)}
-                </p>
-                <div className='mb-2 w-fit rounded-[2px] border-[1.5px] border-grey-400 bg-white'>
-                  <p className='px-1 py-1 text-XS/Regular'>
-                    {replaceOverLength(result.translate, 22)}
+        return (
+          <Fragment key={`${result.text}_${idx}`}>
+            <div
+              className={`mx-6 flex h-[70px] w-[312px] overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200 ${lastIndex.style}`}
+            >
+              <button
+                className='flex h-full w-full items-center'
+                onClick={() => queryKeywordByClick(result.text, _searchDispatch)}
+              >
+                <ReactSVG
+                  className='px-4'
+                  src={`assets/icons/outlined/number/number-${idx + 1}.svg`}
+                />
+
+                <div className='flex max-w-[200px] flex-col'>
+                  <p className='py-2 text-M/Regular text-grey-900 '>
+                    {replaceOverLength(result.text, 22)}
+                  </p>
+                  <div className='mb-2 w-fit rounded-[2px] border-[1.5px] border-grey-400 bg-white'>
+                    <p className='px-1 py-1 text-XS/Regular'>
+                      {replaceOverLength(result.translate, 22)}
+                    </p>
+                  </div>
+                </div>
+                <ReactSVG
+                  src='/assets/icons/filled/LeftArrow.svg'
+                  className='mr-4 flex flex-grow rotate-180'
+                  wrapper='div'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-600');
+                  }}
+                />
+              </button>
+            </div>
+
+            {lastIndex.isLastIndex && translatorState.isError && (
+              <div className='mb-[78px] flex h-full flex-col items-center justify-center'>
+                <ReactSVG
+                  src='/assets/icons/outlined/ExclamationCircle.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', `w-[35px] h-[35px] fill-grey-400`);
+                  }}
+                />
+                <div className='flex flex-col items-center pt-[18.5px] text-center'>
+                  <p className='text-L/Medium text-grey-800'>
+                    서버로부터 데이터를 불러오지 못했어요.
+                    <br />
+                    잠시 후 다시 시도 해주세요.
                   </p>
                 </div>
               </div>
-              <ReactSVG
-                src='/assets/icons/filled/LeftArrow.svg'
-                className='mr-4 flex flex-grow rotate-180'
-                wrapper='div'
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'fill-grey-600');
-                }}
-              />
-            </div>
-          </button>
+            )}
+          </Fragment>
         );
       })}
       {isFetching && (
@@ -132,6 +177,7 @@ export const SearchKeywordTranslationResult = (
           <div id='loader-white' />
         </div>
       )}
+
       <button
         disabled={buttonStyle.disable}
         onClick={() => setIsFetching(true)}
