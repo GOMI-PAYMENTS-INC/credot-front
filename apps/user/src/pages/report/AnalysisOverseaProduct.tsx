@@ -174,12 +174,13 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
           </div>
         </div>
       </div>
-
-      <AnalysisOverseaProductTable
-        overseaItems={overseaItems}
-        basePrice={basePrice}
-        amplitudeData={amplitudeData}
-      />
+      {isFalsy(overseaItems) === false && (
+        <AnalysisOverseaProductTable
+          overseaItems={overseaItems}
+          basePrice={basePrice}
+          amplitudeData={amplitudeData}
+        />
+      )}
     </section>
   );
 };
