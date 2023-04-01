@@ -1,11 +1,12 @@
 import { RECOMMANDER_ACTION } from '@/containers/search/reducer';
-import { Dispatch, KeyboardEvent, MouseEvent, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { UseFormSetValue } from 'react-hook-form';
 
 import { _getTranslationOfKeyword } from '@/containers/search/search.api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
 
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
@@ -84,4 +85,14 @@ export const switchIsLoadingState = (
   isLoading: boolean,
 ) => {
   _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: isLoading });
+};
+
+export const getTranslatorStatus = (translatorState: TTranslationKeywordType) => {
+  if (isFalsy(translatorState.keyword) && isFalsy(translatorState.isLoading))
+    return SEARCH_KEYWORD_STATUS.LANDING;
+  if (isFalsy(translatorState.data) && translatorState.isError)
+    return SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR;
+  if (translatorState.isLoading || isFalsy(translatorState.data?.dictionaries))
+    return SEARCH_KEYWORD_STATUS.NONE_DATA_LOADING;
+  return SEARCH_KEYWORD_STATUS.SUCCESS;
 };

@@ -1,100 +1,49 @@
 import { useEffect, Dispatch, useState, Fragment, RefObject } from 'react';
-import { UseFormSetValue } from 'react-hook-form';
-import { searchKeyword } from '@/containers/search/translator.container';
-import { isFalsy } from '@/utils/isFalsy';
+
+import {
+  getTranslatorStatus,
+  searchKeyword,
+} from '@/containers/search/translator.container';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { queryKeywordByClick } from '@/containers/search';
+import { scrollController } from '@/utils/scrollController';
+import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
+import {
+  NoneDataError,
+  NoneDataLoading,
+  Landing,
+} from '@/pages/search/BeforeGettingDataStatus';
 
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
   _searchDispatch: Dispatch<TSearchActionType>;
-  scrollController: RefObject<HTMLTableSectionElement>;
+  scrollRef: RefObject<HTMLTableSectionElement>;
 }
 
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { translatorState, setTranslatorState, _searchDispatch, scrollController } =
-    props;
+  const { translatorState, setTranslatorState, _searchDispatch, scrollRef } = props;
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     if (isFetching) {
       searchKeyword(translatorState.keyword, setTranslatorState, setIsFetching);
-      scrollController.current?.scroll({ top: 900, left: 0, behavior: 'smooth' });
+      scrollController(scrollRef, 900, 0, 'smooth');
     }
   }, [isFetching]);
 
-  if (isFalsy(translatorState.keyword) && isFalsy(translatorState.isLoading)) {
-    return (
-      <div className='flex h-full flex-col'>
-        <div className='flex h-full flex-col items-center justify-center'>
-          <ReactSVG src='/assets/icons/outlined/Translation.svg' />
-          <p className='pt-4 text-L/Medium text-grey-800'>
-            번역할 키워드를 입력해주세요.
-          </p>
+  const DATA_STATUS = getTranslatorStatus(translatorState);
 
-          <div className='mt-6 flex w-[312px] flex-col rounded-[10px] bg-grey-300'>
-            <div className='flex flex-col px-3 py-3 text-XS/Regular text-grey-800'>
-              <h1 className='text-XS/Bold text-grey-900'>서비스 안내</h1>
-              <p className='pt-1'>
-                키워드 번역은 OpenAI에서 제공하는 ChatGPT 서비스를
-                <br />
-                활용해 키워드 추출 및 번역을 도와드리는 서비스에요.
-              </p>
-            </div>
-          </div>
-
-          <div className='mt-2 flex w-[312px] flex-col rounded-[10px] bg-grey-300'>
-            <div className='flex flex-col px-3 py-3 text-XS/Regular text-grey-800'>
-              <h1 className='text-XS/Bold text-grey-900'>주의해주세요.</h1>
-              <p className='pt-1'>
-                본 서비스의 주체는 고미인사이트가 아닌 OpenAI에 의해
-                <br />
-                제공되며, 2021년 이후 생성된 신규 단어이거나 입력된 키워
-                <br />
-                드에 따라 정확하지 않은 정보가 제공될 수 있어요.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (isFalsy(translatorState.data) && translatorState.isError) {
-    return (
-      <div className='flex h-full flex-col items-center justify-center'>
-        <ReactSVG
-          src='/assets/icons/outlined/ExclamationCircle.svg'
-          beforeInjection={(svg) => {
-            svg.setAttribute('class', `w-[35px] h-[35px] fill-grey-400`);
-          }}
-        />
-        <div className='flex flex-col items-center pt-[18.5px] text-center'>
-          <p className='text-L/Medium text-grey-800'>
-            서버로부터 데이터를 불러오지 못했어요.
-            <br />
-            잠시 후 다시 시도 해주세요.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (translatorState.isLoading || isFalsy(translatorState.data?.dictionaries)) {
-    return (
-      <div className='flex h-full flex-col items-center justify-center'>
-        <div className='flex h-[100px] w-[100px] items-center justify-center opacity-[0.3] '>
-          <img src='/assets/images/GptLoading.gif' />
-        </div>
-        <p className='text-L/Medium text-grey-800'>
-          관련 키워드들을 추출하고 번역중이에요.
-        </p>
-      </div>
-    );
+  switch (DATA_STATUS) {
+    case SEARCH_KEYWORD_STATUS.LANDING:
+      return <Landing />;
+    case SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR:
+      return <NoneDataError />;
+    case SEARCH_KEYWORD_STATUS.NONE_DATA_LOADING:
+      return <NoneDataLoading />;
   }
 
   const { dictionaries } = translatorState.data!;

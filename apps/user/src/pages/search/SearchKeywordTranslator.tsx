@@ -22,7 +22,7 @@ interface ISearchKeywordTranslator {
 
 export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   const [_state, _dispatch] = useReducer(recommanderReducer, recommanderInitialState);
-  const scrollController = useRef<HTMLTableSectionElement>(null);
+  const scrollRef = useRef<HTMLTableSectionElement>(null);
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
   });
@@ -106,14 +106,14 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
           <section
             id='scrollbar'
             className='block h-[450px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
-            ref={scrollController}
+            ref={scrollRef}
           >
             <div className='block h-full w-full'>
               <SearchKeywordTranslationResult
                 translatorState={_state}
                 _searchDispatch={props._searchDispatch}
                 setTranslatorState={_dispatch}
-                scrollController={scrollController}
+                scrollRef={scrollRef}
               />
             </div>
           </section>
