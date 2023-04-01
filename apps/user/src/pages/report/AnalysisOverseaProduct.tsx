@@ -137,7 +137,6 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                   <div className='flex h-full flex-col items-center justify-center'>
                     <ReactSVG src='/assets/icons/outlined/File.svg' />
                     <div className='pt-4 text-center text-grey-800'>
-                      <p className='text-L/Medium'>해외배송 상품이 존재하지 않아요.</p>
                       <p className='pt-0.5 text-M/Medium text-grey-700'>
                         검색량이 적은 키워드인 경우 확인이 어려울 수 있어요.
                       </p>
