@@ -549,7 +549,8 @@ export const scrollToTop = (
   _setState: Dispatch<SetStateAction<TScrollEvent>>,
   scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
-  scrollInfo.current?.scroll(0, 0);
+  scrollInfo.current?.scroll({ top: 0, left: 0, behavior: 'smooth' });
+
   if (scrollInfo.current?.tagName === 'TBODY') return;
   _setState({
     scrollY: 0,

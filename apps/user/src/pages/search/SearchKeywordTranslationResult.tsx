@@ -1,4 +1,5 @@
-import { useEffect, Dispatch, useState, Fragment } from 'react';
+import { useEffect, Dispatch, useState, Fragment, RefObject } from 'react';
+import { UseFormSetValue } from 'react-hook-form';
 import { searchKeyword } from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
@@ -9,17 +10,20 @@ interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
   _searchDispatch: Dispatch<TSearchActionType>;
+  scrollController: RefObject<HTMLTableSectionElement>;
 }
 
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { translatorState, setTranslatorState, _searchDispatch } = props;
+  const { translatorState, setTranslatorState, _searchDispatch, scrollController } =
+    props;
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     if (isFetching) {
       searchKeyword(translatorState.keyword, setTranslatorState, setIsFetching);
+      scrollController.current?.scroll({ top: 900, left: 0, behavior: 'smooth' });
     }
   }, [isFetching]);
 
@@ -86,7 +90,9 @@ export const SearchKeywordTranslationResult = (
         <div className='flex h-[100px] w-[100px] items-center justify-center opacity-[0.3] '>
           <img src='/assets/images/GptLoading.gif' />
         </div>
-        <p className='text-L/Medium text-grey-800'>키워드를 분류하고 있어요</p>
+        <p className='text-L/Medium text-grey-800'>
+          관련 키워드들을 추출하고 번역중이에요.
+        </p>
       </div>
     );
   }
@@ -172,19 +178,21 @@ export const SearchKeywordTranslationResult = (
           </Fragment>
         );
       })}
-      {isFetching && (
-        <div className='mb-[142px] flex h-10 w-10 scale-[0.3] self-center'>
+      {isFetching ? (
+        <div className='mb-[142px] flex h-10  w-10 scale-[0.3] flex-col self-center'>
           <div id='loader-white' />
         </div>
+      ) : (
+        <button
+          disabled={buttonStyle.disable}
+          onClick={() => {
+            setIsFetching(true);
+          }}
+          className={`${buttonStyle.buttonStyle} fixed bottom-[114px] flex items-center justify-center self-center`}
+        >
+          <p className='mx-2.5 my-2.5'>{buttonStyle.buttonText}</p>
+        </button>
       )}
-
-      <button
-        disabled={buttonStyle.disable}
-        onClick={() => setIsFetching(true)}
-        className={`${buttonStyle.buttonStyle} fixed bottom-[114px] flex items-center justify-center self-center`}
-      >
-        <p className='mx-2.5 my-2.5'>{buttonStyle.buttonText}</p>
-      </button>
     </div>
   );
 };

@@ -159,9 +159,6 @@ export const MartketSize = (props: IMartketSize) => {
                         <p className='text-L/Medium text-grey-800'>
                           검색 트랜드 정보가 존재하지 않아요.
                         </p>
-                        <p className='pt-[3px] text-M/Medium text-grey-700'>
-                          검색량이 적은 키워드인 경우 트랜드 확인이 어려울 수 있어요.
-                        </p>
                       </div>
                     </div>
                   </div>

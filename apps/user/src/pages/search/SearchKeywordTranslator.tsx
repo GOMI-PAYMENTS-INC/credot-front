@@ -1,4 +1,4 @@
-import { Dispatch, useReducer, KeyboardEvent, useEffect } from 'react';
+import { Dispatch, useReducer, KeyboardEvent, useEffect, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -22,6 +22,7 @@ interface ISearchKeywordTranslator {
 
 export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   const [_state, _dispatch] = useReducer(recommanderReducer, recommanderInitialState);
+  const scrollController = useRef<HTMLTableSectionElement>(null);
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
   });
@@ -34,7 +35,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
   useEffect(() => {
     if (_state.isLoading) {
-      searchKeyword(getValues('keyword'), _dispatch);
+      searchKeyword(getValues('keyword'), _dispatch, null, setValue);
     }
   }, [_state.isLoading]);
 
@@ -105,12 +106,14 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
           <section
             id='scrollbar'
             className='block h-[450px] w-full justify-center overflow-y-auto overflow-x-hidden rounded-b-[16px] bg-grey-100'
+            ref={scrollController}
           >
             <div className='block h-full w-full'>
               <SearchKeywordTranslationResult
                 translatorState={_state}
                 _searchDispatch={props._searchDispatch}
                 setTranslatorState={_dispatch}
+                scrollController={scrollController}
               />
             </div>
           </section>
