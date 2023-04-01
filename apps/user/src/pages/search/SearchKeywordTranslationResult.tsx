@@ -1,29 +1,30 @@
 import { useEffect, Dispatch, useState, Fragment, RefObject } from 'react';
-import { UseFormSetValue } from 'react-hook-form';
+
 import { searchKeyword } from '@/containers/search/translator.container';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { queryKeywordByClick } from '@/containers/search';
+import { scrollController } from '@/utils/scrollController';
 
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
   _searchDispatch: Dispatch<TSearchActionType>;
-  scrollController: RefObject<HTMLTableSectionElement>;
+  scrollRef: RefObject<HTMLTableSectionElement>;
 }
 
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { translatorState, setTranslatorState, _searchDispatch, scrollController } =
-    props;
+  const { translatorState, setTranslatorState, _searchDispatch, scrollRef } = props;
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     if (isFetching) {
       searchKeyword(translatorState.keyword, setTranslatorState, setIsFetching);
-      scrollController.current?.scroll({ top: 900, left: 0, behavior: 'smooth' });
+
+      scrollController(scrollRef, 900, 0, 'smooth');
     }
   }, [isFetching]);
 

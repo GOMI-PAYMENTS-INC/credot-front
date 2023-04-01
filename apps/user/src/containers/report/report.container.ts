@@ -13,6 +13,8 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
+import { scrollController } from '@/utils/scrollController';
+
 import {
   GRADE_ITEMS,
   BATCH_STATUS,
@@ -549,7 +551,7 @@ export const scrollToTop = (
   _setState: Dispatch<SetStateAction<TScrollEvent>>,
   scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
-  scrollInfo.current?.scroll({ top: 0, left: 0, behavior: 'smooth' });
+  scrollController(scrollInfo, 0, 0, 'smooth');
 
   if (scrollInfo.current?.tagName === 'TBODY') return;
   _setState({
