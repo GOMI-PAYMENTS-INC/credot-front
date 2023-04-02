@@ -4,6 +4,7 @@ import {
   getTranslatorStatus,
   searchKeyword,
 } from '@/containers/search/translator.container';
+import { UseFormSetValue } from 'react-hook-form';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { queryKeywordByClick } from '@/containers/search';
@@ -20,12 +21,21 @@ interface ISearchKeywordTranslationResult {
   setTranslatorState: Dispatch<TRecommanderActionType>;
   _searchDispatch: Dispatch<TSearchActionType>;
   scrollRef: RefObject<HTMLTableSectionElement>;
+  updateSearchKeyword: UseFormSetValue<{
+    keyword: string;
+  }>;
 }
 
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { translatorState, setTranslatorState, _searchDispatch, scrollRef } = props;
+  const {
+    translatorState,
+    setTranslatorState,
+    _searchDispatch,
+    scrollRef,
+    updateSearchKeyword,
+  } = props;
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -79,7 +89,9 @@ export const SearchKeywordTranslationResult = (
             >
               <button
                 className='flex h-full w-full items-center'
-                onClick={() => queryKeywordByClick(result.text, _searchDispatch)}
+                onClick={() =>
+                  queryKeywordByClick(result.text, _searchDispatch, updateSearchKeyword)
+                }
               >
                 <ReactSVG
                   className='px-4'

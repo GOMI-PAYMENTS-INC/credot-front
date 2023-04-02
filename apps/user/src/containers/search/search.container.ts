@@ -1,8 +1,8 @@
 import { SEARCH_ACTION } from '@/containers/search';
-import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
-
+import { UseFormSetValue } from 'react-hook-form';
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
@@ -12,60 +12,50 @@ import {
   _amplitudeRecKeywordSearched,
 } from '@/amplitude/amplitude.service';
 
-export const getKeyword = (
-  event: ChangeEvent<HTMLInputElement>,
-  _dispatch: Dispatch<TSearchActionType>,
-): void => {
-  const { value } = event.target;
-
-  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: value });
-};
-
-//추천 키워드를 눌러서 키워드 검색한 경우
 export const queryKeywordByClick = (
-  text: string,
+  keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
+  setValue: UseFormSetValue<{
+    keyword: string;
+  }>,
 ) => {
-  if (text) _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: text });
-  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: text });
-  _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: text });
+  if (keyword) _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
+  console.log(keyword, 'keyword');
+  setValue('keyword', keyword);
+  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword });
+  _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: keyword });
 
-  _amplitudeRecKeywordSearched(text);
+  _amplitudeRecKeywordSearched(keyword);
 };
 
-//input text에 검색어를 적고 검색한 경우
-export const queryKeyword = (
-  text: string,
-  _dispatch: Dispatch<TSearchActionType>,
-  event: KeyboardEvent | MouseEvent,
-) => {
-  if (event.type === 'keydown') {
-    const { key } = event as KeyboardEvent;
-    if (key !== 'Enter') return;
-  }
-  const _switch = isFalsy(text) === false;
+export const queryKeyword = (keyword: string, _dispatch: Dispatch<TSearchActionType>) => {
+  const _switch = isFalsy(keyword) === false;
 
   if (_switch === false) {
     toast.error('리포트를 생성할 키워드를 입력해주세요.');
   }
   const preKeyword = useSessionStorage.getItem('keyword');
 
-  if (isFalsy(preKeyword) === false && text === preKeyword.keyword) {
-    toast.success(`${text}에 대한 키워드 정보에요`);
+  if (isFalsy(preKeyword) === false && keyword === preKeyword.keyword) {
+    toast.success(`${keyword}에 대한 키워드 정보에요`);
   }
-  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: text.toLowerCase() });
-  _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: text });
+  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword.toLowerCase() });
+  _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
   _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: _switch });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD });
 
-  _amplitudeKeywordSearched(text);
+  _amplitudeKeywordSearched(keyword);
 };
 
 export const initializeState = (
-  sessionStorage: any,
+  cachingData: TSearchState,
   _dispatch: Dispatch<TSearchActionType>,
+  setValue: UseFormSetValue<{
+    keyword: string;
+  }>,
 ) => {
-  _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: sessionStorage });
+  setValue('keyword', cachingData.text);
+  _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: cachingData });
 };
 
 export const isSearched = (_dispatch: Dispatch<TSearchActionType>, status: boolean) => {

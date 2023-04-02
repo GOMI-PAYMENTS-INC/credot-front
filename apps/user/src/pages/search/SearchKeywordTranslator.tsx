@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
 
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormSetValue } from 'react-hook-form';
 import { recommanderInitialState, recommanderReducer } from '@/containers/search';
 import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
 
@@ -18,12 +18,15 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 
 interface ISearchKeywordTranslator {
   _searchDispatch: Dispatch<TSearchActionType>;
+  updateSearchKeyword: UseFormSetValue<{
+    keyword: string;
+  }>;
 }
 
 export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   const [_state, _dispatch] = useReducer(recommanderReducer, recommanderInitialState);
   const scrollRef = useRef<HTMLTableSectionElement>(null);
-  const { register, getValues, setValue } = useForm<{ keyword: string }>({
+  const { register, getValues, setValue } = useForm<{ searchWord: string }>({
     mode: 'onChange',
   });
 
@@ -35,7 +38,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
   useEffect(() => {
     if (_state.isLoading) {
-      searchKeyword(getValues('keyword'), _dispatch, null, setValue);
+      searchKeyword(getValues('searchWord'), _dispatch, null, setValue);
     }
   }, [_state.isLoading]);
 
@@ -77,14 +80,14 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
               <div className='inputCustom-group grow'>
                 <div className='inputCustom-textbox-wrap'>
                   <input
-                    id='keyword'
+                    id='searchWord'
                     type='text'
                     className='inputCustom-textbox w-full'
                     placeholder='수분 크림'
-                    {...register('keyword')}
+                    {...register('searchWord')}
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                       if (event.key === 'Enter') {
-                        const callData = getCachingData() !== getValues('keyword');
+                        const callData = getCachingData() !== getValues('searchWord');
                         switchIsLoadingState(_dispatch, callData);
                       }
                     }}
@@ -95,7 +98,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
               <button
                 className='button-filled-normal-large-primary-false-false-true ml-2 h-fit min-w-[76px] text-M/Bold'
                 onClick={() => {
-                  const callData = getCachingData() !== getValues('keyword');
+                  const callData = getCachingData() !== getValues('searchWord');
                   switchIsLoadingState(_dispatch, callData);
                 }}
               >
@@ -111,6 +114,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
             <div className='block h-full w-full'>
               <SearchKeywordTranslationResult
                 translatorState={_state}
+                updateSearchKeyword={props.updateSearchKeyword}
                 _searchDispatch={props._searchDispatch}
                 setTranslatorState={_dispatch}
                 scrollRef={scrollRef}
