@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useReducer, useState } from 'react';
+import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
@@ -11,7 +11,6 @@ import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { SearchKeywordTranslator } from '@/pages/search/SearchKeywordTranslator';
 
 import {
-  getKeyword,
   initializeState,
   queryKeyword,
   queryKeywordByClick,
@@ -27,16 +26,20 @@ import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isTruthy } from '@/utils/isTruthy';
 
+import { useForm } from 'react-hook-form';
+
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
   const [requestReport, setRequestReport] = useState(false);
 
+  const { register, getValues, setValue } = useForm<{ keyword: string }>({
+    mode: 'onChange',
+  });
+
   useEffect(() => {
-    const item = useSessionStorage.getItem('keyword');
-    if (isFalsy(item) === false) {
-      initializeState(item, _dispatch);
-    }
+    const preKeyword: TSearchState = useSessionStorage.getItem('keyword');
+    if (isFalsy(preKeyword) === false) initializeState(preKeyword, _dispatch, setValue);
   }, []);
 
   useEffect(() => {
@@ -158,18 +161,17 @@ const SearchKeywords = () => {
                     <input
                       type='text'
                       placeholder='gấu bông'
-                      value={_state.text}
-                      onChange={(event) => getKeyword(event, _dispatch)}
-                      onKeyDown={(event) => {
-                        queryKeyword(_state.text, _dispatch, event);
+                      {...register('keyword')}
+                      onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                        if (event.key === 'Enter') {
+                          queryKeyword(getValues('keyword'), _dispatch);
+                        }
                       }}
                       className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                     />
                   </div>
                   <button
-                    onClick={(event) => {
-                      queryKeyword(_state.text, _dispatch, event);
-                    }}
+                    onClick={() => queryKeyword(getValues('keyword'), _dispatch)}
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
                     <svg
@@ -268,7 +270,7 @@ const SearchKeywords = () => {
                                   id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
                                   className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
                                   onClick={() =>
-                                    queryKeywordByClick(keyword.text, _dispatch)
+                                    queryKeywordByClick(keyword.text, _dispatch, setValue)
                                   }
                                 >
                                   {keyword.text}
@@ -318,7 +320,10 @@ const SearchKeywords = () => {
         />
       </div>
 
-      <SearchKeywordTranslator _searchDispatch={_dispatch} />
+      <SearchKeywordTranslator
+        _searchDispatch={_dispatch}
+        updateSearchKeyword={setValue}
+      />
     </Layout>
   );
 };

@@ -17,11 +17,11 @@ export const searchKeyword = async (
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
   _setState?: Dispatch<SetStateAction<boolean>> | null,
-  setValue?: UseFormSetValue<{ keyword: string }>,
+  setValue?: UseFormSetValue<{ searchWord: string }>,
 ) => {
   try {
     let _keyword = keyword || '수분 크림';
-    if (isFalsy(keyword) && setValue) setValue('keyword', _keyword);
+    if (isFalsy(keyword) && setValue) setValue('searchWord', _keyword);
 
     const cachingData: TDictionaryType = await useSessionStorage.getItem(
       CACHING_KEY.STORED_TRANSLATION,
@@ -66,13 +66,13 @@ const querySameKeyword = async (
 };
 
 export const initializeKeyword = (
-  setValue: UseFormSetValue<{ keyword: string }>,
+  setValue: UseFormSetValue<{ searchWord: string }>,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION);
 
   if (preKeyword) {
-    setValue('keyword', preKeyword.keyword);
+    setValue('searchWord', preKeyword.keyword);
     _dispatch({
       type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT,
       payload: preKeyword,
