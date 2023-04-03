@@ -13,10 +13,11 @@ import { replaceOverLength } from '@/utils/replaceOverLength';
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;
   basePrice: number;
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
-  const { overseaProduct, basePrice } = props;
+  const { overseaProduct, basePrice, amplitudeData } = props;
   const [aFewProduct, fewProducts, manyProducts] = OVERSEA_PRODUCT_RATIO;
 
   const {
@@ -27,11 +28,6 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
     overseaCountryCount,
     overseaItems,
   } = overseaProduct!;
-
-  const amplitudeData: TAmplitudeDetailData = {
-    reportId: id.toString(),
-    keyword: text,
-  };
 
   const locationOfPointer = useMemo(() => {
     if (itemOverseaCount < 4) {

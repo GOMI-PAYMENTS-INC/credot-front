@@ -49,7 +49,7 @@ const DetailReport = () => {
     if (main === null) return <Fragment></Fragment>;
 
     const amplitudeData: TAmplitudeDetailData = {
-      reportId: main.id ? main.id.toString() : '',
+      reportId: routeId.id ? routeId.id.toString() : '',
       keyword: main.text,
     };
 
@@ -73,11 +73,13 @@ const DetailReport = () => {
           salePriceInfo={_state.salePrice?.data!}
           list={_state.salePrice.list}
           focus={_state.salePrice.focus}
+          amplitudeData={amplitudeData}
           _dispatch={_dispatch}
         />
         <AnalysisOverseaProduct
           basePrice={main.basePrice}
           overseaProduct={_state.oversea}
+          amplitudeData={amplitudeData}
         />
         <section className='h-[200px]'></section>
       </Fragment>

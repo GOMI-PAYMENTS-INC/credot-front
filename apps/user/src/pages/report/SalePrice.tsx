@@ -21,17 +21,13 @@ interface ISalePrice {
   list: TSalePriceItems[];
   focus: GRADE_TYPE;
   scollerRef: RefObject<HTMLTableSectionElement>;
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const SalePrice = (props: ISalePrice) => {
-  const { _dispatch, salePriceInfo, list, focus, scollerRef } = props;
+  const { _dispatch, salePriceInfo, list, focus, scollerRef, amplitudeData } = props;
   const { id, text, gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
-
-  const amplitudeData: TAmplitudeDetailData = {
-    reportId: id.toString(),
-    keyword: text,
-  };
 
   const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(
     items,
