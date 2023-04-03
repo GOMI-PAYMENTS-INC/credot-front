@@ -1,20 +1,17 @@
-import { useEffect, Dispatch, useState, Fragment, RefObject } from 'react';
+import { Dispatch, Fragment, RefObject } from 'react';
 
-import {
-  getTranslatorStatus,
-  searchKeyword,
-} from '@/containers/search/translator.container';
+import { getTranslatorStatus } from '@/containers/search/translator.container';
 import { UseFormSetValue } from 'react-hook-form';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { queryKeywordByClick } from '@/containers/search';
-import { scrollController } from '@/utils/scrollController';
+
 import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
 import {
   NoneDataError,
   NoneDataLoading,
   Landing,
-} from '@/pages/search/BeforeGettingDataStatus';
+} from '@/pages/search/YetToGetDataStatus';
 
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
