@@ -54,7 +54,7 @@ const querySameKeyword = async (
   _dispatch: Dispatch<TSearchActionType>,
   _setState: Dispatch<SetStateAction<boolean>>,
 ) => {
-  const isOverSearch = payload.dictionaries.length > 9;
+  const isOverSearch = payload.dictionaries.length > 5;
   if (isOverSearch) return false;
 
   const response = await _getTranslationOfKeyword(payload.keyword);
