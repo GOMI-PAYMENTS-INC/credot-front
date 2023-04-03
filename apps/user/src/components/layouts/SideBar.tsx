@@ -10,7 +10,13 @@ import {
   sidebarInitialState,
   sidebarReducer,
 } from '@/containers/sidebar/sidebar.reducer';
-import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
+
+import {
+  onClickUserMenu,
+  toggleDepth2Menu,
+  toggleSidebar,
+  clearSessionStorage,
+} from '@/containers/sidebar';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { openBrowser } from '@/containers/report';
@@ -276,17 +282,15 @@ const SideBar = () => {
       {_state.openedUserMenu ? (
         <div className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
           <ul className=''>
-            {/*<li className='px-4 py-3'>*/}
-            {/*  <a className='text-S/Regular text-grey-900'>계정 정보</a>*/}
-            {/*</li>*/}
-            {/*<li className='px-4 py-3'>*/}
-            {/*  <a className='text-S/Regular text-grey-900'>요금제</a>*/}
-            {/*</li>*/}
-            {/*<li className='px-4 py-3'>*/}
-            {/*  <a className='text-S/Regular text-grey-900'>공지사항</a>*/}
-            {/*</li>*/}
             <li className='px-4 py-3'>
-              <a href='#' onClick={onLogout} className='text-S/Regular text-red-700'>
+              <a
+                href='#'
+                onClick={() => {
+                  clearSessionStorage();
+                  onLogout();
+                }}
+                className='text-S/Regular text-red-700'
+              >
                 로그아웃
               </a>
             </li>
