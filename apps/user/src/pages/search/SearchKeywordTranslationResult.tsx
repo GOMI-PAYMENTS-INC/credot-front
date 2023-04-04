@@ -31,10 +31,10 @@ export const SearchKeywordTranslationResult = (
   const DATA_STATUS = getTranslatorStatus(translatorState);
 
   switch (DATA_STATUS) {
-    case SEARCH_KEYWORD_STATUS.LANDING:
-      return <Landing />;
     case SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR:
       return <NoneDataError />;
+    case SEARCH_KEYWORD_STATUS.LANDING:
+      return <Landing />;
     case SEARCH_KEYWORD_STATUS.NONE_DATA_LOADING:
       return <NoneDataLoading />;
   }

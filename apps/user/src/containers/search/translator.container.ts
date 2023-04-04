@@ -88,9 +88,9 @@ export const switchIsLoadingState = (
 };
 
 export const getTranslatorStatus = (translatorState: TTranslationKeywordType) => {
+  if (translatorState.isError) return SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR;
   if (isFalsy(translatorState.keyword) && isFalsy(translatorState.isLoading))
     return SEARCH_KEYWORD_STATUS.LANDING;
-  if (translatorState.isError) return SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR;
   if (translatorState.isLoading || isFalsy(translatorState.data?.dictionaries))
     return SEARCH_KEYWORD_STATUS.NONE_DATA_LOADING;
   return SEARCH_KEYWORD_STATUS.SUCCESS;
