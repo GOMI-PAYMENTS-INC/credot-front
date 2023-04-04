@@ -447,6 +447,7 @@ export type MeQuery = {
   __typename?: 'Query';
   me: {
     __typename?: 'User';
+    id: number;
     email: string;
     role: Role;
     name: string;
@@ -770,6 +771,7 @@ export const useGoogleSignupMutation = <TError extends unknown, TContext extends
 export const MeDocument = `
     query Me {
   me {
+    id
     email
     role
     name
@@ -908,7 +910,23 @@ export const SearchDocument = `
   }
 }
     `;
-export const useSearchQuery = <TData extends SearchQuery, TError extends unknown>(
+export const useSearchQuery = <TData extends SearchQuery, TError extends {
+  response: {
+    errors: [
+      {
+        message: string;
+        locations: Array<{ line: number; column: number }>;
+        path: [string];
+        extensions: {
+          code: number;
+          status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+          classification: 'Exception';
+        };
+      },
+    ];
+    data: null;
+  };
+},>(
   client: GraphQLClient,
   variables: SearchQueryVariables,
   options?: UseQueryOptions<SearchQuery, TError, TData>,

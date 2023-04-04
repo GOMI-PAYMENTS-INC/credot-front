@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { Defalut as Layout } from '@/components/layouts';
-import { ModalComponent } from '@/components/modals/modal';
+import { ModalComponent } from '@/components/modals/ModalComponent';
 import Pagination from '@/components/pagination';
 import {
   _getReportList,
@@ -30,20 +30,10 @@ const ReportList = () => {
     _getReportList({ _state: _state, _dispatch });
   }, []);
 
-  // TODO: _state.data.reports가 변화하면 체크박스를 모두 해제하려고 했는데, object타입은 매번 새롭게 인식함
-  // //페이지 목록 불러오기
-  // useEffect(() => {
-  //   console.log(_state.data);
-  //   if (_state.checkedItems.length) {
-  //     //선택된 체크박스 목록 비우기
-  //     onUncheckReportList(_dispatch);
-  //   }
-  // }, [_state.data.reports]);
-
   return (
     <Layout>
       {/*헤더*/}
-      <header className='border-b-[1px] border-b-gray-200 bg-white'>
+      <header className='border-b-[1px] border-b-grey-200 bg-white'>
         <div className='container'>
           <div className='flex h-[84px] items-center'>
             <div className='shrink-0'>
@@ -64,7 +54,7 @@ const ReportList = () => {
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div>
               {/* 테이블 */}
-              <div className='mt-[24px] flex min-h-[693px] flex-col rounded rounded border border-grey-300 bg-white'>
+              <div className='mt-[24px] flex min-h-[693px] flex-col rounded border border-grey-300 bg-white'>
                 <div className='flex h-[68px] items-center justify-between p-4'>
                   <h1 className='text-M/Regular text-grey-800'>
                     총 {formatNumber(_state.data.totalCount)}개

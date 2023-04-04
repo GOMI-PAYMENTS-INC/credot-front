@@ -7,8 +7,9 @@ import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
 
-import { initializeAuteState } from '@/containers/auth/auth.container.refac';
+import { initializeAuteState } from '@/containers/auth/auth.container';
 import { UseFormSetValue } from 'react-hook-form';
+
 interface IFindIdResultProps {
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
   userAccounts?: Array<{
@@ -21,6 +22,7 @@ interface IFindIdResultProps {
 }
 export const FindIdResult = (props: IFindIdResultProps) => {
   const { isExistedAccount, userAccounts, setIsVerification, setValue } = props;
+
   return (
     <Fragment>
       {isExistedAccount === AUTH_RESPONSE_TYPE.FILLED && isTruthy(userAccounts) ? (

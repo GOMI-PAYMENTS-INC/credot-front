@@ -23,7 +23,7 @@ type TReportListState = {
   //전체 선택 체크 여부
   isCheckedAll: boolean;
   //체크한 item 배열
-  checkedItems: number[];
+  checkedItems: TReportItem[];
 };
 
 type TGetReportList = {
@@ -104,7 +104,7 @@ type TCreateReportParamsType = {
   reportInvokeId: string;
 };
 
-type TCreateReportReponseType = {
+type TCreateReportResponseType = {
   code: string;
   message: string;
   data: any;
@@ -126,14 +126,24 @@ type TReportState = {
     focus: GRADE_TYPE;
     list: TSalePriceItems[] | [];
   };
+  oversea: TOverseaProductData | null;
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
 };
 
+type TAmplitudeDetailData = {
+  reportId: string;
+  keyword: string;
+};
+
 type TChannelType = 'SHOPEE' | 'NONE';
 
-type TSortedType = 'R' | 'NONE';
+type TCountryType = 'KR' | 'TH' | 'US' | 'VN';
+
+type TCollectSortType = 'R' | 'NONE';
+
+type TSortedType = 'PRICE_MIN' | 'PRICE_MAX' | 'PRICE_AVERAGE';
 
 type TGetRelationReportDataType = {
   [key: string]: string | number | Date | null;
@@ -221,4 +231,44 @@ type TScrollEvent = {
   title: string;
   isOpen: boolean;
   current: string;
+};
+
+type TOverseaProductResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TOverseaProductData[];
+};
+
+type TOverseaProductData = {
+  id: number;
+  text: string;
+  country: 'VN';
+  channel: 'SHOPEE';
+  itemOverseaCount: number;
+  totalItemCount: number;
+  overseaCountryCount: { itemShopCountry: string; count: number }[];
+  overseaItems: TOverSeaItems[];
+};
+
+type TOverSeaItems = {
+  id: number;
+  insightReportId: number;
+  reportUniqueId: string;
+  rank: number;
+  itemName: string;
+  itemUrl: string;
+  itemImage: string;
+  itemStockLocation: string;
+  storeName: string;
+  itemShopCountry: string;
+  storeItemCount: number;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  itemPriceAvg: number;
+  itemHasLowestPriceGuarantee: true;
+  itemHistoricalSold: number;
+  item30daysSold: number;
+  itemSales: number;
+  item30daySales: number;
+  itemBrand: string;
 };

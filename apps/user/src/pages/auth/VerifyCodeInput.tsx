@@ -5,7 +5,8 @@ import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 
 import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
-import { clickVerifyBtn } from '@/containers/auth/auth.container.refac';
+import { clickVerifyBtn } from '@/containers/auth/auth.container';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
@@ -79,7 +80,7 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
 
   return (
     <div className='inputCustom-group'>
-      <div className='inputCustom-textbox-wrap'>
+      <div className='inputCustom-textbox-wrap mb-2'>
         <input
           className={`inputCustom-textbox w-full ${
             errors.verifyCode?.message && 'error'
@@ -95,6 +96,7 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
             ) || isVerification.isExceeded
           }
           {...register('verifyCode', {
+            required: NOTIFICATION_MESSAGE.emptyPhoneVerify,
             pattern: {
               value: /[0-9]{6}$/g,
               message: '인증번호 6자리를 입력해주세요.',
@@ -124,6 +126,11 @@ export const VerifyCodeInput = (props: IVerifyCode) => {
           render={({ message }) => <p className='inputCustom-helptext'>{message}</p>}
         />
       )}
+      <div className='relative border-[1px] border-grey-300'>
+        <p className='px-3 py-3 text-XS/Regular text-grey-900'>
+          인증번호가 오지 않는다면 수신차단 메시지 혹은 스팸함을 확인해주세요.
+        </p>
+      </div>
     </div>
   );
 };

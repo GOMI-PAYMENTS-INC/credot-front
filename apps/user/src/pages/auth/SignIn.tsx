@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
-import { AuthContainer } from '@/containers/auth/auth.container';
+import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 
 interface ISignInForm {
   email: string;
@@ -41,6 +44,10 @@ const SignIn = () => {
       },
     };
     loginMutate(loginFormValue, {
+      onSuccess: () => {
+        //앰플리튜드 로그인 완료 이벤트
+        _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
+      },
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));
 
@@ -91,10 +98,10 @@ const SignIn = () => {
                     type='email'
                     placeholder='이메일'
                     {...register('email', {
-                      required: '이메일을 입력해주세요.',
+                      required: NOTIFICATION_MESSAGE.emptyEmail,
                       pattern: {
                         value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                        message: '올바른 이메일 주소를 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidEmail,
                       },
                     })}
                   />

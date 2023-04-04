@@ -1,39 +1,45 @@
-import React, { Fragment, useEffect, useMemo, useReducer, useState } from 'react';
+import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { Defalut as Layout } from '@/components/layouts/Defalut';
-import { ModalComponent } from '@/components/modals/modal';
+import { ModalComponent } from '@/components/modals/ModalComponent';
+import { CountryType } from '@/generated/graphql';
+
+import { SearchModal } from '@/pages/search/SearchModal';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { SearchKeywordTranslator } from '@/pages/search/SearchKeywordTranslator';
+
 import {
-  getKeyword,
   initializeState,
   queryKeyword,
   queryKeywordByClick,
   switchModal,
 } from '@/containers/search';
-import { initialState, reducer } from '@/containers/search/reducer';
+import { searchInitialState, searchReducer } from '@/containers/search/reducer';
 import { getQueryResult } from '@/containers/search/search.api';
-import { CountryType } from '@/generated/graphql';
 
-import { SearchModal } from '@/pages/search/SearchModal';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
-import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
+import { formatNumber } from '@/utils/formatNumber';
+import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
 import { isTruthy } from '@/utils/isTruthy';
 
+import { useForm } from 'react-hook-form';
+
 const SearchKeywords = () => {
-  const [_state, _dispatch] = useReducer(reducer, initialState);
+  const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
   const [requestReport, setRequestReport] = useState(false);
 
+  const { register, getValues, setValue } = useForm<{ keyword: string }>({
+    mode: 'onChange',
+  });
+
   useEffect(() => {
-    const item = useSessionStorage.getItem('keyword');
-    if (isFalsy(item) === false) {
-      initializeState(item, _dispatch);
-    }
+    const preKeyword: TSearchState = useSessionStorage.getItem('keyword');
+    if (isFalsy(preKeyword) === false) initializeState(preKeyword, _dispatch, setValue);
   }, []);
 
   useEffect(() => {
@@ -96,6 +102,11 @@ const SearchKeywords = () => {
     return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
   }, [_state.keyword, isMonthlyCountZero]);
 
+  const montlySearchColor =
+    montlySearchVolum === '???'
+      ? 'text-4XL/Bold text-grey-300'
+      : 'text-4XL/Bold text-grey-900';
+
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -123,7 +134,7 @@ const SearchKeywords = () => {
             <div>
               <div className='mt-6 flex items-center'>
                 <div className='select-icon-group'>
-                  <ReactSVG src='/assets/icons/country/Vietnam.svg' />
+                  <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
                   <select
                     name='country'
                     id='country'
@@ -149,19 +160,18 @@ const SearchKeywords = () => {
                   <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
                     <input
                       type='text'
-                      placeholder='키워드를 입력해주세요.'
-                      value={_state.text}
-                      onChange={(event) => getKeyword(event, _dispatch)}
-                      onKeyDown={(event) => {
-                        queryKeyword(_state.text, _dispatch, event);
+                      placeholder='gấu bông'
+                      {...register('keyword')}
+                      onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                        if (event.key === 'Enter') {
+                          queryKeyword(getValues('keyword'), _dispatch);
+                        }
                       }}
                       className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                     />
                   </div>
                   <button
-                    onClick={(event) => {
-                      queryKeyword(_state.text, _dispatch, event);
-                    }}
+                    onClick={() => queryKeyword(getValues('keyword'), _dispatch)}
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
                     <svg
@@ -220,11 +230,7 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-5'>
-                    <span
-                      className={`text-4XL/Bold text-grey-${
-                        _state.isSearched ? 900 : 300
-                      }`}
-                    >
+                    <span className={montlySearchColor}>
                       <p className={`text-4XL/Bold text-grey-300`}></p>
                       {montlySearchVolum}
                     </span>
@@ -264,7 +270,7 @@ const SearchKeywords = () => {
                                   id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
                                   className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
                                   onClick={() =>
-                                    queryKeywordByClick(keyword.text, _dispatch)
+                                    queryKeywordByClick(keyword.text, _dispatch, setValue)
                                   }
                                 >
                                   {keyword.text}
@@ -313,6 +319,11 @@ const SearchKeywords = () => {
           keyword={_state.keyword}
         />
       </div>
+
+      <SearchKeywordTranslator
+        _searchDispatch={_dispatch}
+        updateSearchKeyword={setValue}
+      />
     </Layout>
   );
 };

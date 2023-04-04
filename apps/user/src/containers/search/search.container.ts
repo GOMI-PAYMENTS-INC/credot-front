@@ -1,62 +1,79 @@
-import { SearchAction } from '@/containers/search';
-import { ChangeEvent, KeyboardEvent, Dispatch, MouseEvent, SetStateAction } from 'react';
+import { SEARCH_ACTION } from '@/containers/search';
+import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { STATUS_CODE } from '@/types/enum.code';
-import { MODAL_TYPE_ENUM } from '@/pages/search/SearchModal';
+import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import { UseFormSetValue } from 'react-hook-form';
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
+import { useSessionStorage } from '@/utils/useSessionStorage';
+import {
+  _amplitudeKeywordReportRequested,
+  _amplitudeKeywordSearched,
+  _amplitudeRecKeywordSearched,
+} from '@/amplitude/amplitude.service';
 
-export const getKeyword = (
-  event: ChangeEvent<HTMLInputElement>,
-  _dispatch: Dispatch<TAction>,
-): void => {
-  const { value } = event.target;
-
-  _dispatch({ type: SearchAction.GetKeyword, payload: value });
-};
-
-export const queryKeywordByClick = (text: string, _dispatch: Dispatch<TAction>) => {
-  if (text) _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
-  _dispatch({ type: SearchAction.GetKeyword, payload: text });
-  _dispatch({ type: SearchAction.SearchKeyword, payload: text });
-};
-
-export const queryKeyword = (
-  text: string,
-  _dispatch: Dispatch<TAction>,
-  event: KeyboardEvent | MouseEvent,
+export const queryKeywordByClick = (
+  keyword: string,
+  _dispatch: Dispatch<TSearchActionType>,
+  setValue: UseFormSetValue<{
+    keyword: string;
+  }>,
 ) => {
-  if (event.type === 'keydown') {
-    const { key } = event as KeyboardEvent;
-    if (key !== 'Enter') return;
+  if (keyword) _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
+  console.log(keyword, 'keyword');
+  setValue('keyword', keyword);
+  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword });
+  _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: keyword });
+
+  _amplitudeRecKeywordSearched(keyword);
+};
+
+export const queryKeyword = (keyword: string, _dispatch: Dispatch<TSearchActionType>) => {
+  const _switch = isFalsy(keyword) === false;
+
+  if (_switch === false) {
+    toast.error('리포트를 생성할 키워드를 입력해주세요.');
   }
-  const _switch = isFalsy(text) === false;
+  const preKeyword = useSessionStorage.getItem('keyword');
 
-  _dispatch({ type: SearchAction.InitialIizeImages, payload: text });
-  _dispatch({ type: SearchAction.SearchMode, payload: _switch });
-  _dispatch({ type: SearchAction.SearchKeyword });
+  if (isFalsy(preKeyword) === false && keyword === preKeyword.keyword) {
+    toast.success(`${keyword}에 대한 키워드 정보에요`);
+  }
+  _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword.toLowerCase() });
+  _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
+  _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: _switch });
+  _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD });
+
+  _amplitudeKeywordSearched(keyword);
 };
 
-export const initializeState = (sessionStorage: any, _dispatch: Dispatch<TAction>) => {
-  _dispatch({ type: SearchAction.InitializeState, payload: sessionStorage });
+export const initializeState = (
+  cachingData: TSearchState,
+  _dispatch: Dispatch<TSearchActionType>,
+  setValue: UseFormSetValue<{
+    keyword: string;
+  }>,
+) => {
+  setValue('keyword', cachingData.text);
+  _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: cachingData });
 };
 
-export const isSearched = (_dispatch: Dispatch<TAction>, status: boolean) => {
-  _dispatch({ type: SearchAction.SearchMode, payload: status });
+export const isSearched = (_dispatch: Dispatch<TSearchActionType>, status: boolean) => {
+  _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: status });
 };
 
 type TSwitchModal = {
-  _dispatch: Dispatch<TAction>;
+  _dispatch: Dispatch<TSearchActionType>;
   _setTrigger: Dispatch<SetStateAction<boolean>>;
   data?: any; // FIXME: any -> 타입으로 변경
-  _state?: TState;
+  _state?: TSearchState;
 };
 
 type TCreateReport = {
-  _dispatch: Dispatch<TAction>;
+  _dispatch: Dispatch<TSearchActionType>;
   _setTrigger: Dispatch<SetStateAction<boolean>>;
   data: any; // FIXME: any -> 타입으로 변경
-  _state: TState;
+  _state: TSearchState;
 };
 
 const dailyChecker = (isDaily: boolean) => {
@@ -69,7 +86,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
   const { keyword, country } = _state;
-  const actionType = SearchAction.SwitchModal;
+  const actionType = SEARCH_ACTION.SWITCH_MODAL;
   try {
     if (_state.isModalOpen === false) {
       const res = await getReportExisted({ text: keyword });
@@ -92,9 +109,8 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
               isModalOpen: false,
             },
           });
-          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
-            autoClose: 4000,
-          });
+          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
+          _amplitudeKeywordReportRequested(1, keyword);
         }
 
         return postReport;
@@ -107,7 +123,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
         payload: { isModalOpen: true, modalType: dailyChecker(isDaily) },
       });
 
-      _dispatch({ type: SearchAction.UpdateCreatedAt, payload: createdAt });
+      _dispatch({ type: SEARCH_ACTION.UPDATE_CREATED_AT, payload: createdAt });
 
       return res;
     }
@@ -119,14 +135,12 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
 
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
       _dispatch({
-        type: SearchAction.SwitchModal,
+        type: SEARCH_ACTION.SWITCH_MODAL,
         payload: {
           isModalOpen: false,
         },
       });
-      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`, {
-        autoClose: 4000,
-      });
+      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
     }
 
     return postReport;
@@ -140,7 +154,7 @@ export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchMod
     const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
       _dispatch({
-        type: SearchAction.SwitchModal,
+        type: SEARCH_ACTION.SWITCH_MODAL,
         payload: {
           isModalOpen: true,
           modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
@@ -155,20 +169,22 @@ export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchMod
   _setTrigger(false);
 
   _dispatch({
-    type: SearchAction.SwitchModal,
+    type: SEARCH_ACTION.SWITCH_MODAL,
     payload: { isModalOpen: false },
   });
 };
 
 export const getProductImages = (
   data: TGetProductImageResponseType,
-  _dispatch: Dispatch<TAction>,
+  _dispatch: Dispatch<TSearchActionType>,
 ) => {
   _dispatch({
-    type: SearchAction.GetProductImages,
+    type: SEARCH_ACTION.GET_PRODUCT_IMAGES,
     payload: data,
   });
 };
 
-export const initializeImages = (_dispatch: Dispatch<TAction>, keyword: string) =>
-  _dispatch({ type: SearchAction.InitialIizeImages, payload: keyword });
+export const initializeImages = (
+  _dispatch: Dispatch<TSearchActionType>,
+  keyword: string,
+) => _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });

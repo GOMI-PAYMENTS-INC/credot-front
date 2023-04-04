@@ -1,5 +1,10 @@
-type TAction = {
-  type: SearchAction;
+type TSearchActionType = {
+  type: SEARCH_ACTION;
+  payload?: any;
+};
+
+type TRecommanderActionType = {
+  type: RECOMMANDER_ACTION;
   payload?: any;
 };
 
@@ -8,7 +13,7 @@ type TSearchModalType =
   | 'LessMonthlyKeywordVolumn'
   | 'NotBeOverDayReport';
 
-type TState = {
+type TSearchState = {
   //TODO: 국가 선택 가능 시  옵셔널 -> 팔수값으로 변경 (현재는 옵션이 없어 고정값으로 주고 있음)
   [key: string]: string | boolean | null;
   country?: CountryType;
@@ -16,12 +21,13 @@ type TState = {
   isSearched: boolean;
   keyword: string;
   isModalOpen: boolean;
+
   modalType: TSearchModalType;
   createdAt: string;
   productImages: TGetProductImageResponseType | null;
 };
 
-type TSearchRef = { current: Omit<TState, 'translateType' | 'isSearched'> };
+type TSearchRef = { current: Omit<TSearchState, 'translateType' | 'isSearched'> };
 
 type TCreateReportParamsType = {
   country: string; // 국가코드
@@ -60,4 +66,23 @@ type TProductImageType = {
 type TProductImageStatus = {
   isSuccess: boolean;
   productInvokedId: string;
+};
+
+type TGetTranslationOfKeywordReponse = {
+  code: string;
+  message: string;
+  data: TDictionaryType;
+};
+
+type TDictionaryType = {
+  keyword: string;
+  dictionaries: { text: string; translate: string }[];
+};
+
+type TTranslationKeywordType = {
+  useTranslation: boolean;
+  keyword: string;
+  data: TDictionaryType | null;
+  isLoading: boolean;
+  isError: boolean;
 };

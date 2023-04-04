@@ -7,6 +7,7 @@ const reportInitialState: TReportState = {
   salePrice: { data: null, focus: GRADE_ITEMS.HIGH, list: [] },
   scrollEvent: { title: 'Report', isOpen: true, current: 'Report' },
   toggleEvent: [],
+  oversea: null,
   spinnerEvent: false,
 };
 
@@ -19,6 +20,7 @@ export enum REPORT_ACTION {
   INITIALIZE_SCROLL_EVENT = 'INITIALIZE_SCROLL_EVENT',
   SPINNER_EVENT = 'SPINNER_EVENT',
   FOCUS_ITEMS = 'FOCUS_ITEMS',
+  GET_OVERSEA_PRODUCT = 'GET_OVERSEA_PRODUCT',
 }
 
 export type TReportAction = {
@@ -48,6 +50,9 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
           const [high] = data.gradeItems;
           state.salePrice.list = high;
         }
+      }
+      if (type === REPORT_DETAIL_TYPE.OVERSEA) {
+        state.oversea = data;
       }
       return state;
     }

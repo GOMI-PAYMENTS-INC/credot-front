@@ -1,6 +1,5 @@
 import { Dispatch, Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
 import { useParams } from 'react-router-dom';
 
 import { BATCH_STATUS } from '@/types/enum.code';
@@ -12,7 +11,7 @@ import { openBrowser, roundNumber } from '@/containers/report';
 import {
   convertRecommendationScoreToText,
   convertEvaluateStatus,
-} from '@/containers/report/report.constant';
+} from '@/constants/report.constant';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/containers/report/report.reducer';
@@ -23,16 +22,19 @@ import {
   buttonSpinnerEvent,
   convertExchangeRate,
 } from '@/containers/report/report.container';
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
   basePrice: number;
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
-  const { relation, _dispatch, toggleEvent, spinnerEvent, basePrice } = props;
+  const { amplitudeData, relation, _dispatch, toggleEvent, spinnerEvent, basePrice } =
+    props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
   );
@@ -221,17 +223,22 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     </td>
                     <td>
                       <div className='flex justify-center'>
-                        <div
+                        <button
                           className='flex h-5 w-5 cursor-pointer items-center'
-                          onClick={() =>
-                            openBrowser(`https://shopee.vn/search?keyword=${data.text}`)
-                          }
+                          onClick={() => {
+                            openBrowser(`https://shopee.vn/search?keyword=${data.text}`);
+                            _amplitudeMovedToSERP(
+                              amplitudeData.reportId,
+                              amplitudeData.keyword,
+                              data.text,
+                            );
+                          }}
                         >
                           <ReactSVG
                             className=''
                             src='/assets/icons/outlined/Linkout.svg'
                           />
-                        </div>
+                        </button>
                       </div>
                     </td>
                     <td>
@@ -260,10 +267,10 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                             <div className='py-3 px-3'>
                               <h1 className='text-M/Bold text-grey-900'>요약</h1>
                               <div className='pt-1'>
-                                <div className='break-all text-S/Regular text-gray-800'>
+                                <div className='break-all text-S/Regular text-grey-800'>
                                   {top}
                                 </div>
-                                <div className='break-all text-S/Regular text-gray-800'>
+                                <div className='break-all text-S/Regular text-grey-800'>
                                   {bottom}
                                 </div>
                               </div>
@@ -293,7 +300,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                                   <button
                                     className='button-outlined-small-xLarge-primary-false-false-true relative'
                                     onClick={() => {
-                                      _getRelationReport(routeId.id!, _dispatch);
+                                      void _getRelationReport(routeId.id!, _dispatch);
                                       buttonSpinnerEvent(_dispatch);
                                       delayEvent(
                                         () => buttonSpinnerEvent(_dispatch),

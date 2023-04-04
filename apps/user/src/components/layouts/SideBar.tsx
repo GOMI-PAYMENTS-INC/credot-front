@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { AuthContainer } from '@/containers/auth/auth.container';
+import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useReducer } from 'react';
@@ -10,7 +10,15 @@ import {
   sidebarInitialState,
   sidebarReducer,
 } from '@/containers/sidebar/sidebar.reducer';
-import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
+
+import {
+  onClickUserMenu,
+  toggleDepth2Menu,
+  toggleSidebar,
+  clearSessionStorage,
+} from '@/containers/sidebar';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { openBrowser } from '@/containers/report';
 
 const SideBar = () => {
@@ -23,12 +31,12 @@ const SideBar = () => {
   const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
 
   const { userInfo } = AuthContainer();
-  const userId = userInfo ? userInfo.me.email : '';
+  const userId = userInfo ? replaceOverLength(userInfo.me.email, 17) : '';
 
   return (
     <aside className='relative'>
       {_state.openedSidebar ? (
-        <div className='flex h-full w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white px-2.5'>
+        <div className='flex h-full w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5'>
           <div>
             <div className='flex h-20 items-center justify-center'>
               <button
@@ -49,7 +57,7 @@ const SideBar = () => {
                     className='cursor-pointer text-S/Medium text-grey-800'
                     key={menuIndex}
                   >
-                    <div
+                    <button
                       className={`${
                         isActive ? `bg-orange-100` : `bg-white`
                       } flex justify-between rounded-lg p-3`}
@@ -67,7 +75,7 @@ const SideBar = () => {
                           }}
                         />
                       </div>
-                    </div>
+                    </button>
                   </li>
                 );
               })}
@@ -77,11 +85,12 @@ const SideBar = () => {
             <li className='text-center'>
               <button
                 className='iconButton-medium-normal-ghost-grey'
-                onClick={() =>
+                onClick={() => {
                   openBrowser(
                     'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
-                  )
-                }
+                  );
+                  _amplitudeMovedToUserGuide('lnb');
+                }}
               >
                 <ReactSVG
                   src='/assets/icons/outlined/QuestionCircle.svg'
@@ -107,7 +116,7 @@ const SideBar = () => {
           </ul>
         </div>
       ) : (
-        <div className='flex h-full w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-gray-200 bg-white'>
+        <div className='flex h-full w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white'>
           <div className='px-2.5'>
             <div className='flex h-20 items-center'>
               <button
@@ -144,8 +153,8 @@ const SideBar = () => {
 
                 return (
                   <li className='' key={menuIndex}>
-                    <div
-                      className={`flex cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
+                    <button
+                      className={`flex w-full cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
                         isCollapsedActive && 'bg-orange-100 text-orange-600'
                       }`}
                       onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
@@ -172,7 +181,7 @@ const SideBar = () => {
                           svg.setAttribute('class', 'w-3 fill-grey-800');
                         }}
                       />
-                    </div>
+                    </button>
                     {isCollapsed && menu.children.length ? (
                       <ul className='mx-4'>
                         {menu.children.map((child, childIndex) => {
@@ -184,8 +193,8 @@ const SideBar = () => {
                           }
                           return (
                             <li key={childIndex}>
-                              <div
-                                className={`flex cursor-pointer items-center rounded-lg py-2 pl-5 text-S/Medium ${
+                              <button
+                                className={`flex  w-full cursor-pointer items-center rounded-lg py-2 pl-5 text-S/Medium ${
                                   isActive && 'bg-orange-100 text-orange-500'
                                 }`}
                                 onClick={() => navigation(child.path)}
@@ -203,7 +212,7 @@ const SideBar = () => {
                                   }}
                                 />
                                 <span className='ml-2'>{child.title}</span>
-                              </div>
+                              </button>
                             </li>
                           );
                         })}
@@ -217,7 +226,15 @@ const SideBar = () => {
           <div className='divide-y divide-grey-300'>
             <div className='px-2.5 '>
               <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
-                <div className='flex items-center'>
+                <button
+                  className='flex items-center'
+                  onClick={() => {
+                    openBrowser(
+                      'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                    );
+                    _amplitudeMovedToUserGuide('lnb');
+                  }}
+                >
                   <ReactSVG
                     src='/assets/icons/outlined/QuestionCircle.svg'
                     className='cursor-pointer '
@@ -225,14 +242,8 @@ const SideBar = () => {
                       svg.setAttribute('class', `w-5 fill-grey-800`);
                     }}
                   />
-                  <a
-                    href='https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739'
-                    target='_blank'
-                    className='ml-2 cursor-pointer'
-                  >
-                    사용자 가이드
-                  </a>
-                </div>
+                  <span className='ml-2 cursor-pointer'>사용자 가이드</span>
+                </button>
               </div>
             </div>
             <div className='space-y-3 py-6 px-4'>
@@ -271,17 +282,15 @@ const SideBar = () => {
       {_state.openedUserMenu ? (
         <div className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
           <ul className=''>
-            {/*<li className='px-4 py-3'>*/}
-            {/*  <a className='text-S/Regular text-grey-900'>계정 정보</a>*/}
-            {/*</li>*/}
-            {/*<li className='px-4 py-3'>*/}
-            {/*  <a className='text-S/Regular text-grey-900'>요금제</a>*/}
-            {/*</li>*/}
-            {/*<li className='px-4 py-3'>*/}
-            {/*  <a className='text-S/Regular text-grey-900'>공지사항</a>*/}
-            {/*</li>*/}
             <li className='px-4 py-3'>
-              <a href='#' onClick={onLogout} className='text-S/Regular text-red-700'>
+              <a
+                href='#'
+                onClick={() => {
+                  clearSessionStorage();
+                  onLogout();
+                }}
+                className='text-S/Regular text-red-700'
+              >
                 로그아웃
               </a>
             </li>

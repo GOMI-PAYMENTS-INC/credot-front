@@ -1,8 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
-import { PATH } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 
@@ -12,12 +12,13 @@ import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container.refac';
+} from '@/containers/auth/auth.container';
 import { FindIdResult } from '@/pages/auth/FindIdResult';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/auth.api';
+import { useVerifyCode } from '@/containers/auth/findAccount.api';
+import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
 
 const FindId = () => {
   const {
@@ -64,6 +65,10 @@ const FindId = () => {
     return isValid && _getVerifyCode(phoneNumber);
   };
 
+  useEffect(() => {
+    _amplitudeFindIdStarted();
+  }, []);
+
   return (
     <Layout>
       {isVerification.isExistedAccount === null ? (
@@ -72,7 +77,7 @@ const FindId = () => {
             title='아이디를 찾을게요.'
             subTitle='회원가입 시 인증한 휴대폰 번호를 입력해주세요.'
           />
-          <div className='space-y-1'>
+          <div className='space-y-2'>
             <div className='flex items-start'>
               <div className='inputCustom-group grow'>
                 <div className='inputCustom-textbox-wrap'>
@@ -88,7 +93,7 @@ const FindId = () => {
                     {...register('phone', {
                       pattern: {
                         value: /(010)[0-9]{8}$/g,
-                        message: '올바른 휴대폰번호를 입력해주세요.',
+                        message: NOTIFICATION_MESSAGE.invalidPhone,
                       },
                       onChange: (event) => {
                         event.target.value = event.target.value.replace(/[^0-9]/g, '');
@@ -139,7 +144,7 @@ const FindId = () => {
         />
       )}
 
-      <FindAccountBottom />
+      <FindAccountBottom text={'계정이 기억나셨나요?'} />
     </Layout>
   );
 };

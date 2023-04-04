@@ -36,12 +36,33 @@ export enum STATUS_CODE {
   ERROR = '9999',
 }
 
+export enum COUNTRY_TYPE {
+  /** 한국 */
+  Kr = 'KR',
+  /** 태국 */
+  Th = 'TH',
+  /** 미국 */
+  Us = 'US',
+  /** 베트남 */
+  Vn = 'VN',
+}
+
+export enum CHANNEL_TYPE {
+  SHOPEE = 'SHOPEE',
+  NONE = 'NONE',
+}
+export enum SORTED_TYPE {
+  PRICE_MIN = 'PRICE_MIN',
+  PRICE_MAX = 'PRICE_MAX',
+  PRICE_AVERAGE = 'PRICE_AVERAGE',
+}
+
 export enum TITLE {
   REPORT = 'Report',
   MARTKET_SIZE = 'MartketSize',
   KEYWORD_INFO = 'KeywordInfo',
-
   SALE_PRICE = 'SalePrice',
+  OVERSEA_PRODUCT = 'overseaProduct',
 }
 
 export enum TAG_SENTIMENT_STATUS {
@@ -60,6 +81,11 @@ export enum BATCH_STATUS {
   NONE = 'NONE',
 }
 
+export enum COLLECT_SORT_TYPE {
+  R = 'R',
+  NONE = 'NONE',
+}
+
 export enum SORT_BY {
   PRICE_MIN = 'PRICE_MIN',
   PRICE_MAX = 'PRICE_MAX',
@@ -75,6 +101,7 @@ export enum REPORT_DETAIL_TYPE {
   MAIN = 'main',
   RELATION = 'relation',
   PRICE = 'price',
+  OVERSEA = 'oversea',
 }
 
 export enum GRADE_ITEMS {
@@ -104,4 +131,15 @@ export enum TERM_TYPE {
   USE_AGREE = 'useAgree',
   PERSONAL_AGREE = 'personalAgree',
   MARKETING_AGREE = 'marketingAgree',
+}
+
+export enum MODAL_TYPE_ENUM {
+  SameKeywordReportExisted = 'SameKeywordReportExisted',
+  LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
+  NotBeOverDayReport = 'NotBeOverDayReport',
+}
+
+export enum CACHING_KEY {
+  STORED_KEYWORD = 'keyword',
+  STORED_TRANSLATION = 'translation_keyword',
 }

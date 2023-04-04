@@ -16,6 +16,7 @@ type TTermsCheckState = {
   triggerConfirmEmail: boolean;
   agreedAllTerms: boolean;
   isReadyToSignUp: boolean;
+  welcomeModalClosingTime: number | null;
 };
 
 type TAuthEssentialProps = {

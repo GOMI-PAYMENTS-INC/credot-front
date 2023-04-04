@@ -1,6 +1,7 @@
 import {
   deleteReportList,
   getMainReport,
+  getOverseaProduct,
   getRelationReport,
   getSalePrice,
 } from './report.api';
@@ -12,12 +13,15 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
+import { scrollController } from '@/utils/scrollController';
+
 import {
   GRADE_ITEMS,
   BATCH_STATUS,
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
   TITLE,
+  REPORT_DETAIL_TYPE,
 } from '@/types/enum.code';
 import { convertTime } from '@/utils/parsingTimezone';
 import { getReportList } from '@/containers/report/report.api';
@@ -26,6 +30,10 @@ import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
+import {
+  _amplitudeKeywordReportDeleted,
+  _amplitudeKeywordReportViewed,
+} from '@/amplitude/amplitude.service';
 
 export const openBrowser = (url: string) => {
   window.open(url);
@@ -37,8 +45,15 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
       getMainReport(id),
       getRelationReport(id),
       getSalePrice(id),
+      getOverseaProduct(id),
     ]);
-    const dataName = ['main', 'relation', 'price'];
+    const dataName = Object.values(REPORT_DETAIL_TYPE);
+
+    const [first] = response;
+    if (first) {
+      _amplitudeKeywordReportViewed(id, first.data);
+    }
+
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
@@ -159,11 +174,11 @@ export const onCheckAllReportList = (
 ) => {
   //전체 선택
   if (checked) {
-    const checkedItemsArray: number[] = [];
+    const checkedItemsArray: TReportItem[] = [];
     _state.data.reports?.forEach(
       (report) =>
         isIncluded(report.status, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE) &&
-        checkedItemsArray.push(report.id),
+        checkedItemsArray.push(report),
     );
     _dispatch({
       type: REPORT_LIST_ACTION.CHECKED_ITEM,
@@ -182,8 +197,8 @@ export const onCheckAllReportList = (
 export const onCheckReportList = (
   _dispatch: Dispatch<TReportListAction>,
   data: TReportListResponseData,
-  checkedItems: number[],
-  code: number,
+  checkedItems: TReportItem[],
+  code: TReportItem,
   isChecked: boolean,
 ) => {
   if (isChecked) {
@@ -205,9 +220,9 @@ export const onCheckReportList = (
         payload: { isCheckedAll: true },
       });
     }
-  } else if (!isChecked && checkedItems.find((one) => one === code)) {
+  } else if (isChecked === false && checkedItems.find((one) => one.id === code.id)) {
     //체크 해제할때 checkedItems에 있을 경우
-    const filter = checkedItems.filter((one) => one !== code);
+    const filter = checkedItems.filter((one) => one.id !== code.id);
     _dispatch({
       type: REPORT_LIST_ACTION.CHECKED_ITEM,
       payload: { checkedItems: [...filter] },
@@ -238,8 +253,11 @@ export const deleteReports = async (
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
 ) => {
+  const ids = [..._state.checkedItems].map((value) => {
+    return value.id;
+  });
   //삭제 실행
-  const result = await _deleteReportList(_state.checkedItems);
+  const result = await _deleteReportList(ids);
   if (result?.code === STATUS_CODE.SUCCESS) {
     //모달 닫기
     switchDeleteModal(_dispatch, false);
@@ -257,8 +275,9 @@ export const deleteReports = async (
     //선택된 체크박스 목록 비우기
     onUncheckReportList(_dispatch);
 
-    //토스트 알림
     toast.success(`리포트를 삭제했어요.`);
+
+    _amplitudeKeywordReportDeleted(_state.checkedItems);
   } else {
     toast.error(`리포트를 삭제할 수 없습니다.`);
   }
@@ -279,20 +298,20 @@ export const switchDeleteModal = (
 
 //리포트 목록 삭제 확인 confirm 모달
 export const openDeleteModal = (
-  checkedItems: number[],
+  checkedItems: TReportItem[],
   _dispatch: Dispatch<TReportListAction>,
 ) => {
   //선택된 상품이 있는지 판단
   if (checkedItems.length) {
     switchDeleteModal(_dispatch, true);
   } else {
-    toast.warn('리포트를 선택해주세요.');
+    toast.error('삭제할 리포트를 먼저 선택해주세요.');
   }
 };
 
 //선택 삭제 버튼 클릭 시
 export const onClickDeleteReport = (
-  checkedItems: number[],
+  checkedItems: TReportItem[],
   _dispatch: Dispatch<TReportListAction>,
 ) => {
   // 삭제 모달 노출
@@ -453,12 +472,13 @@ export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: numbe
 
     return false;
   });
+  console.group('IQR');
   console.log((Q1 / 100) * basePrice, 'Q1');
   console.log((Q3 / 100) * basePrice, 'Q3');
   console.log((IQR / 100) * basePrice, 'IQR');
   console.log(((Q1 - 1.5 * IQR) / 100) * basePrice, 'Min');
   console.log(((Q3 + 1.5 * IQR) / 100) * basePrice, 'Max');
-
+  console.groupEnd();
   return removedOutliner;
 };
 
@@ -487,19 +507,23 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const [first, second, third] = document.getElementsByClassName(
+  const [first, second, third, fourth] = document.getElementsByClassName(
     'detailReport-h1-header',
   );
 
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, salePrice] = [first, second, third].map(
-    (element) => (element as HTMLElement).offsetTop - 100,
-  );
+  const [marketSize, keywordInfo, salePrice, overseaProduct] = [
+    first,
+    second,
+    third,
+    fourth,
+  ].map((element) => (element as HTMLElement).offsetTop - 100);
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
     return;
   }
+
   if (scrollY >= marketSize && scrollY < keywordInfo) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
   }
@@ -508,8 +532,11 @@ export const onScrollDetail = (
     _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
-  if (scrollY >= salePrice) {
+  if (scrollY >= salePrice && scrollY < overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
+  }
+  if (scrollY >= overseaProduct) {
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.OVERSEA_PRODUCT }));
   }
 };
 
@@ -524,7 +551,8 @@ export const scrollToTop = (
   _setState: Dispatch<SetStateAction<TScrollEvent>>,
   scrollInfo: RefObject<HTMLDivElement> | RefObject<HTMLTableRowElement>,
 ) => {
-  scrollInfo.current?.scroll(0, 0);
+  scrollController(scrollInfo, 0, 0, 'smooth');
+
   if (scrollInfo.current?.tagName === 'TBODY') return;
   _setState({
     scrollY: 0,

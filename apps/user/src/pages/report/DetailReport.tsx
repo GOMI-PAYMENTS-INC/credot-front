@@ -10,12 +10,15 @@ import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MartketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
+import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { SalePrice } from '@/pages/report/SalePrice';
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 
+//TODO : 앰플리튜드 로직에서 잘 땟다 붙혔다 하게 수정할 것 (casey 23/3/28)
 const DetailReport = () => {
   const routeId = useParams();
 
@@ -38,18 +41,23 @@ const DetailReport = () => {
   useEffect(() => {
     if (isFalsy(routeId.id)) return;
     if (routeId.id && _state.main === null) {
-      _getReportInfo(routeId.id, _dispatch);
+      void _getReportInfo(routeId.id, _dispatch);
     }
   }, []);
 
   const combinedComponent = useMemo(() => {
     if (main === null) return <Fragment></Fragment>;
 
+    const amplitudeData: TAmplitudeDetailData = {
+      reportId: routeId.id ? routeId.id.toString() : '',
+      keyword: main.text,
+    };
+
     return (
       <Fragment>
-        <KeywordInfo keywordInfo={main} />
+        <KeywordInfo keywordInfo={main} amplitudeData={amplitudeData} />
         <MartketSize marketSize={main} />
-        <div className='relative'>
+        <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
             spinnerEvent={_state.spinnerEvent}
@@ -57,14 +65,21 @@ const DetailReport = () => {
             _dispatch={_dispatch}
             toggleEvent={_state.toggleEvent}
             basePrice={main.basePrice}
+            amplitudeData={amplitudeData}
           />
-        </div>
+        </Fragment>
         <SalePrice
           scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}
           list={_state.salePrice.list}
           focus={_state.salePrice.focus}
+          amplitudeData={amplitudeData}
           _dispatch={_dispatch}
+        />
+        <AnalysisOverseaProduct
+          basePrice={main.basePrice}
+          overseaProduct={_state.oversea}
+          amplitudeData={amplitudeData}
         />
         <section className='h-[200px]'></section>
       </Fragment>
@@ -84,7 +99,7 @@ const DetailReport = () => {
 
   return (
     <Layout>
-      <header className='border-b-[1px] border-b-gray-200 bg-white'>
+      <header className='border-b-[1px] border-b-grey-200 bg-white'>
         <div className='container'>
           <div className='flex h-[84px] items-center justify-between'>
             <div className='flex items-center'>
@@ -98,14 +113,15 @@ const DetailReport = () => {
                 {convertTitle(scrollEvent.title)}
               </h1>
               {scrollEvent.title !== TITLE.REPORT && (
-                <div className='flex h-5 w-5 cursor-pointer items-center pl-3'>
-                  <ReactSVG
-                    src='/assets/icons/outlined/Linkout.svg'
-                    onClick={() =>
-                      openBrowser(`https://shopee.vn/search?keyword=${main!.text}`)
-                    }
-                  />
-                </div>
+                <button
+                  className='flex h-5 w-5 cursor-pointer items-center pl-3'
+                  onClick={() => {
+                    openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
+                    _amplitudeMovedToSERP(routeId.id, main!.text, null);
+                  }}
+                >
+                  <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
+                </button>
               )}
             </div>
           </div>

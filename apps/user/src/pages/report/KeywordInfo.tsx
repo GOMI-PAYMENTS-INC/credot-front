@@ -1,18 +1,24 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
-import { openBrowser } from '@/containers/report/report.container';
 import { convertCountry } from '@/utils/convertEnum';
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
+import { useParams } from 'react-router-dom';
+import { openBrowser } from '@/containers/report';
+import { data } from 'autoprefixer';
 interface IKeywordInfoProps {
   keywordInfo: TKeywordInfo;
+  amplitudeData: TAmplitudeDetailData;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
   const { text, country, createdAt, basePrice } = props.keywordInfo;
+  const { reportId } = props.amplitudeData;
+
   return (
     <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>
         <div className='basis-full py-8 pl-2'>
-          <h1 className='break-all text-3XL/Bold text-gray-900'>{text}</h1>
+          <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
           <div>
             <div className='pt-4 text-S/Medium odd:space-x-2'>
               <span className=' text-grey-600'>국가</span>
@@ -36,7 +42,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
           <div className='pt-[30px] pl-[7px]'>
             {/* TODO: 현재는 베트남 한정이지만 추후 국가 선택, 검색 기준도 쿼리에 넣어야 함 */}
             <button
-              onClick={() => openBrowser(`https://shopee.vn/search?keyword=${text}`)}
+              onClick={() => {
+                openBrowser(`https://shopee.vn/search?keyword=${text}`);
+                _amplitudeMovedToSERP(reportId, text, null);
+              }}
               className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
             >
               키워드 검색결과

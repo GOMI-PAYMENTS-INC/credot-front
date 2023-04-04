@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
-import { AuthContainer } from '@/containers/auth/auth.container';
+import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
 
 interface IResetPassword {
   email: string;
@@ -22,6 +24,8 @@ const TemporaryPassword = () => {
   useEffect(() => {
     if (!isTemporaryPasswordLogin) {
       navigation(PATH.SIGN_IN);
+    } else {
+      _amplitudeChangePwStarted();
     }
   }, []);
 
@@ -48,7 +52,7 @@ const TemporaryPassword = () => {
   };
 
   const onInvalid = () => {
-    toast.error('입력값을 재확인 해주십시오.', { autoClose: 3000 });
+    toast.error('입력값을 재확인 해주십시오.');
   };
 
   return (
@@ -75,7 +79,7 @@ const TemporaryPassword = () => {
                       // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
                       value:
                         /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,50}$/,
-                      message: '숫자, 특수문자, 영문 포함 8자리 이상으로 입력해주세요.',
+                      message: NOTIFICATION_MESSAGE.invalidPasswordType,
                     },
                   })}
                 />

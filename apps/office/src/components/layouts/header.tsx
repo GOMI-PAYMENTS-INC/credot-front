@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { PATH, SERVICE_URL } from '@/router/paths';
+import { IRoute, PATH } from '@/types/paths';
+import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
+import { GlobalEnv } from '@/api/config';
+import { openBrowser } from '@/utils/openBrowser';
 
-const Header = () => {
+interface HeaderProps {
+  route: IRoute;
+}
+const Header = ({ route }: HeaderProps) => {
   return (
     <header className='fixed top-0 left-0 z-50 h-20 w-full bg-white'>
       <div className='container flex h-full items-center  justify-between px-6'>
@@ -20,13 +27,33 @@ const Header = () => {
         <div className='space-x-4'>
           <button
             className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 lg:hidden'
-            onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
+            onClick={(event) => {
+              openBrowser(GlobalEnv.serviceUrl);
+
+              const eventTarget = event.target as HTMLElement;
+              _introPageMovedToSolution(
+                route.pageCategory,
+                CTA_TYPE.BUTTON,
+                CTA_LOCATION.HEADER,
+                eventTarget.innerText,
+              );
+            }}
           >
             로그인
           </button>
           <button
             className='rounded-md bg-orange-500 p-3 text-M/Bold text-white'
-            onClick={() => window.open(`${SERVICE_URL}`, '_blank')}
+            onClick={(event) => {
+              openBrowser(GlobalEnv.serviceUrl);
+
+              const eventTarget = event.target as HTMLElement;
+              _introPageMovedToSolution(
+                route.pageCategory,
+                CTA_TYPE.BUTTON,
+                CTA_LOCATION.HEADER,
+                eventTarget.innerText,
+              );
+            }}
           >
             무료 시작하기
           </button>
