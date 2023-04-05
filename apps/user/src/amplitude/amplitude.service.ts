@@ -295,9 +295,14 @@ export const _amplitudeMovedToPDP = (
 };
 
 // ##### KEYWORD TRANSLATION - 키워드 번역 요청 시 ##### //
-export const _amplitudeKeywordTranslated = (language: string, keyword: string) => {
+export const _amplitudeKeywordTranslated = (
+  // language_before: string,
+  // language_after: string,
+  keyword: string,
+) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
-    language,
+    language_before: CountryType.Kr.toLowerCase(),
+    language_after: CountryType.Vn.toLowerCase(),
     keyword,
   });
 };

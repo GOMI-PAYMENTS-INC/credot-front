@@ -7,6 +7,7 @@ import { _getTranslationOfKeyword } from '@/containers/search/search.api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
+import { _amplitudeKeywordTranslated } from '@/amplitude/amplitude.service';
 
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
@@ -46,6 +47,8 @@ const queryKeyword = async (keyword: string, _dispatch: Dispatch<TSearchActionTy
   const response = await _getTranslationOfKeyword(keyword);
   const translatedData = response!.data.data;
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
+
+  _amplitudeKeywordTranslated(keyword);
   return;
 };
 

@@ -12,6 +12,7 @@ import {
   NoneDataLoading,
   Landing,
 } from '@/pages/search/YetToGetDataStatus';
+import { _amplitudeTranslatedSearched } from '@/amplitude/amplitude.service';
 
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
@@ -51,9 +52,10 @@ export const SearchKeywordTranslationResult = (
             >
               <button
                 className='flex h-full w-full items-center'
-                onClick={() =>
-                  queryKeywordByClick(result.text, _searchDispatch, updateSearchKeyword)
-                }
+                onClick={() => {
+                  queryKeywordByClick(result.text, _searchDispatch, updateSearchKeyword);
+                  _amplitudeTranslatedSearched(result.text);
+                }}
               >
                 <ReactSVG
                   className='px-4'
