@@ -9,7 +9,6 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import {
   _amplitudeKeywordReportRequested,
   _amplitudeKeywordSearched,
-  _amplitudeRecKeywordSearched,
 } from '@/amplitude/amplitude.service';
 
 export const queryKeywordByClick = (
@@ -24,8 +23,6 @@ export const queryKeywordByClick = (
   setValue('keyword', keyword);
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword });
   _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: keyword });
-
-  _amplitudeRecKeywordSearched(keyword);
 };
 
 export const queryKeyword = (keyword: string, _dispatch: Dispatch<TSearchActionType>) => {

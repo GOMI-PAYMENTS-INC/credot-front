@@ -27,6 +27,7 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isTruthy } from '@/utils/isTruthy';
 
 import { useForm } from 'react-hook-form';
+import { _amplitudeRecKeywordSearched } from '@/amplitude/amplitude.service';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
@@ -269,9 +270,15 @@ const SearchKeywords = () => {
                                 <li
                                   id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
                                   className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                  onClick={() =>
-                                    queryKeywordByClick(keyword.text, _dispatch, setValue)
-                                  }
+                                  onClick={() => {
+                                    queryKeywordByClick(
+                                      keyword.text,
+                                      _dispatch,
+                                      setValue,
+                                    );
+
+                                    _amplitudeRecKeywordSearched(keyword.text);
+                                  }}
                                 >
                                   {keyword.text}
                                 </li>
