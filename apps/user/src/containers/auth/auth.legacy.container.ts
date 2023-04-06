@@ -361,6 +361,8 @@ export const AuthContainer = () => {
             handleChangeLoginState(true);
             navigation(PATH.SEARCH_PRODUCTS);
           }
+        } else {
+          navigation(PATH.SEARCH_PRODUCTS);
         }
       });
     }

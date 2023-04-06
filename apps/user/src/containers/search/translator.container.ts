@@ -7,6 +7,7 @@ import { _getTranslationOfKeyword } from '@/containers/search/search.api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
+import { _amplitudeKeywordTranslated } from '@/amplitude/amplitude.service';
 
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
@@ -46,6 +47,8 @@ const queryKeyword = async (keyword: string, _dispatch: Dispatch<TSearchActionTy
   const response = await _getTranslationOfKeyword(keyword);
   const translatedData = response!.data.data;
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
+
+  _amplitudeKeywordTranslated(keyword);
   return;
 };
 
@@ -88,10 +91,9 @@ export const switchIsLoadingState = (
 };
 
 export const getTranslatorStatus = (translatorState: TTranslationKeywordType) => {
+  if (translatorState.isError) return SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR;
   if (isFalsy(translatorState.keyword) && isFalsy(translatorState.isLoading))
     return SEARCH_KEYWORD_STATUS.LANDING;
-  if (isFalsy(translatorState.data) && translatorState.isError)
-    return SEARCH_KEYWORD_STATUS.NONE_DATA_ERROR;
   if (translatorState.isLoading || isFalsy(translatorState.data?.dictionaries))
     return SEARCH_KEYWORD_STATUS.NONE_DATA_LOADING;
   return SEARCH_KEYWORD_STATUS.SUCCESS;
