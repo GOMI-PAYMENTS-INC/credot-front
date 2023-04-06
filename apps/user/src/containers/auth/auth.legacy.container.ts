@@ -361,7 +361,10 @@ export const AuthContainer = () => {
             handleChangeLoginState(true);
             navigation(PATH.SEARCH_PRODUCTS);
           }
-        } else {
+          return;
+        }
+
+        if (pathname === PATH.SIGN_IN) {
           navigation(PATH.SEARCH_PRODUCTS);
         }
       });
