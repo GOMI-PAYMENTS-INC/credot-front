@@ -314,7 +314,7 @@ export const _amplitudeTranslatedSearched = (
   // sort_by: TSortedType,
   keyword: string,
 ) => {
-  void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
+  void _setAmplitudeEvents(amplitudeConstant.translatedKeywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: CountryType.Vn,
     sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
