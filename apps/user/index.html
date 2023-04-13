@@ -264,8 +264,8 @@
       };
 
       amplitude
-        .init('26f1e0fe35b8e6478c554433f8232cbd', undefined, {
-          logLevel: 'NONE',
+        .init('<{ VITE_APP_AMPLITUDE_API_KEY }>', undefined, {
+          logLevel: '<{ VITE_APP_AMPLITUDE_DEBUG }>',
           minIdLength: 1,
           defaultTracking: {
             //sessions: true,
