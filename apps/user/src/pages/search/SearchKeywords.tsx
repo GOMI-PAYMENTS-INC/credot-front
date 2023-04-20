@@ -127,9 +127,9 @@ const SearchKeywords = () => {
           <div className='px-[50px]'>
             <div>
               <h1 className='break-keep text-3XL/Bold'>
-                <span className='text-orange-600'>리포트 생성</span>을 원하는
+                <span className='text-orange-600'>키워드 검색 </span>후
                 <br />
-                <span className='text-orange-600'>키워드</span>를 검색해주세요.
+                <span className='text-orange-600'>리포트를 생성</span>해주세요.
               </h1>
             </div>
             <div>
