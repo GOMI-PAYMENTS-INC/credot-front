@@ -78,7 +78,7 @@ type TReportItem = {
   userId: number;
   reportUniqueId: string;
   status: string;
-  countryCode: string;
+  countryCode: CountryType;
   channel: string;
   keyword: string;
   isMain: boolean;
@@ -100,10 +100,13 @@ type TDeleteReportListParamsType = {
 };
 
 type TCreateReportParamsType = {
-  country: string; // 국가코드
+  country: CountryType;
   reportInvokeId: string;
 };
-
+type TGetReportExistedParamsType = {
+  country: CountryType;
+  text: string;
+};
 type TCreateReportResponseType = {
   code: string;
   message: string;
@@ -242,7 +245,7 @@ type TOverseaProductResponse = {
 type TOverseaProductData = {
   id: number;
   text: string;
-  country: 'VN';
+  country: CountryType.Vn;
   channel: 'SHOPEE';
   itemOverseaCount: number;
   totalItemCount: number;

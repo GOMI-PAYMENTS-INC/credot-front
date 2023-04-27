@@ -13,6 +13,8 @@ import {
   Landing,
 } from '@/pages/search/YetToGetDataStatus';
 import { _amplitudeTranslatedSearched } from '@/amplitude/amplitude.service';
+import { COUNTRY_TYPE } from '@/types/enum.code';
+import { CountryType } from '@/generated/graphql';
 
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
@@ -20,6 +22,7 @@ interface ISearchKeywordTranslationResult {
   _searchDispatch: Dispatch<TSearchActionType>;
   scrollRef: RefObject<HTMLTableSectionElement>;
   updateSearchKeyword: UseFormSetValue<{
+    country: CountryType;
     keyword: string;
   }>;
 }
@@ -41,7 +44,6 @@ export const SearchKeywordTranslationResult = (
   }
 
   const { dictionaries } = translatorState.data!;
-
   return (
     <div className='relative flex w-full flex-col justify-center pt-[14px]'>
       {dictionaries.map((result, idx) => {
@@ -53,7 +55,12 @@ export const SearchKeywordTranslationResult = (
               <button
                 className='flex h-full w-full items-center'
                 onClick={() => {
-                  queryKeywordByClick(result.text, _searchDispatch, updateSearchKeyword);
+                  queryKeywordByClick(
+                    result.country,
+                    result.text,
+                    _searchDispatch,
+                    updateSearchKeyword,
+                  );
                   _amplitudeTranslatedSearched(result.text);
                 }}
               >

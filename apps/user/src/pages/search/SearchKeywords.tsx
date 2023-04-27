@@ -4,10 +4,8 @@ import { Tooltip } from 'react-tooltip';
 
 import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/ModalComponent';
-import { CountryType } from '@/generated/graphql';
-
 import { SearchModal } from '@/pages/search/SearchModal';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { COUNTRY_TYPE, MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { SearchKeywordTranslator } from '@/pages/search/SearchKeywordTranslator';
 
 import {
@@ -16,7 +14,7 @@ import {
   queryKeywordByClick,
   switchModal,
 } from '@/containers/search';
-import { searchInitialState, searchReducer } from '@/containers/search/reducer';
+import { searchInitialState, searchReducer } from '@/containers/search/search.reducer';
 import { getQueryResult } from '@/containers/search/search.api';
 
 import { isFalsy } from '@/utils/isFalsy';
@@ -28,15 +26,36 @@ import { isTruthy } from '@/utils/isTruthy';
 
 import { useForm } from 'react-hook-form';
 import { _amplitudeRecKeywordSearched } from '@/amplitude/amplitude.service';
+import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
+import DropDown, {
+  DROPDOWN_STATUS,
+  DROPDOWN_VARIANTS,
+  TDropDownOption,
+} from '@/components/dropDown';
+import { CountryType } from '@/generated/graphql';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
-  const { response, isLoading } = getQueryResult(_state.keyword, _dispatch);
+
   const [requestReport, setRequestReport] = useState(false);
 
-  const { register, getValues, setValue } = useForm<{ keyword: string }>({
+  const { register, getValues, setValue, watch } = useForm<{
+    country: CountryType;
+    keyword: string;
+  }>({
     mode: 'onChange',
+    defaultValues: {
+      country: CountryType.Vn,
+    },
   });
+
+  const countryWatcher = watch('country');
+
+  const { response, isLoading } = getQueryResult(
+    _state.country,
+    _state.keyword,
+    _dispatch,
+  );
 
   useEffect(() => {
     const preKeyword: TSearchState = useSessionStorage.getItem('keyword');
@@ -108,6 +127,36 @@ const SearchKeywords = () => {
       ? 'text-4XL/Bold text-grey-300'
       : 'text-4XL/Bold text-grey-900';
 
+  const countryOptions = () => {
+    let result: TDropDownOption[] = [];
+    const keys = Object.keys(COUNTRY_TYPE);
+    keys.map((countryCode) => {
+      const countryEnum = CountryType[countryCode as keyof typeof CountryType];
+
+      result.push({
+        value: countryEnum,
+        iconPath: convertCountryIconPath(countryEnum),
+        text: convertCountry(countryEnum),
+      });
+    });
+    return result;
+  };
+
+  const sortOptions = () => {
+    let result: TDropDownOption[] = [
+      {
+        value: '연관도순',
+        text: '연관도순',
+      },
+    ];
+    return result;
+  };
+
+  const onClickOption = (countryCode: any) => {
+    const CountryTypeEnum: CountryType = countryCode;
+    setValue('country', CountryTypeEnum);
+  };
+
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -134,27 +183,26 @@ const SearchKeywords = () => {
             </div>
             <div>
               <div className='mt-6 flex items-center'>
-                <div className='select-icon-group'>
-                  <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
-                  <select
-                    name='country'
-                    id='country'
-                    className='select-normal-clear-true'
-                  >
-                    <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                      베트남
-                    </option>
-                  </select>
-                </div>
-                <select
+                <DropDown
+                  name='country'
+                  minWidth={120}
+                  value={convertCountry(countryWatcher)}
+                  iconPath={convertCountryIconPath(countryWatcher)}
+                  isUseIcon={true}
+                  options={countryOptions()}
+                  status={DROPDOWN_STATUS.FILLED}
+                  variants={DROPDOWN_VARIANTS.CLEAR}
+                  onClickOption={onClickOption}
+                ></DropDown>
+                <DropDown
                   name='filterOption'
-                  id='filterOption'
-                  className='select-normal-clear-false ml-4'
-                >
-                  <option value='연관도순' defaultValue='연관도순'>
-                    연관도순
-                  </option>
-                </select>
+                  minWidth={120}
+                  value='연관도순'
+                  isUseIcon={false}
+                  options={sortOptions()}
+                  status={DROPDOWN_STATUS.FILLED}
+                  variants={DROPDOWN_VARIANTS.CLEAR}
+                ></DropDown>
               </div>
               <div className='form-control mt-2'>
                 <div className='input-group'>
@@ -165,14 +213,16 @@ const SearchKeywords = () => {
                       {...register('keyword')}
                       onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                         if (event.key === 'Enter') {
-                          queryKeyword(getValues('keyword'), _dispatch);
+                          queryKeyword(countryWatcher, getValues('keyword'), _dispatch);
                         }
                       }}
                       className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                     />
                   </div>
                   <button
-                    onClick={() => queryKeyword(getValues('keyword'), _dispatch)}
+                    onClick={() =>
+                      queryKeyword(countryWatcher, getValues('keyword'), _dispatch)
+                    }
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
                     <svg
@@ -272,6 +322,7 @@ const SearchKeywords = () => {
                                   className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
                                   onClick={() => {
                                     queryKeywordByClick(
+                                      countryWatcher,
                                       keyword.text,
                                       _dispatch,
                                       setValue,

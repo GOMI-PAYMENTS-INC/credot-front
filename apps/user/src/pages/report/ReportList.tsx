@@ -19,17 +19,38 @@ import {
 } from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { COUNTRY_TYPE, MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
+import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
+import DropDown, {
+  DROPDOWN_STATUS,
+  DROPDOWN_VARIANTS,
+  TDropDownOption,
+} from '@/components/dropDown';
+import { CountryType } from '@/generated/graphql';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
 
   //페이지 목록 불러오기
   useEffect(() => {
-    _getReportList({ _state: _state, _dispatch });
+    void _getReportList({ _state: _state, _dispatch });
   }, []);
 
+  const limitOptions = () => {
+    let result: TDropDownOption[] = [];
+    const keys = [10, 30, 50, 100];
+    keys.map((key) => {
+      result.push({
+        value: key,
+        text: `${key}개씩`,
+      });
+    });
+    return result;
+  };
+  const onClickOption = (limit: any) => {
+    void getReportListByLimit(limit, _state, _dispatch, _state.data.totalCount);
+  };
   return (
     <Layout>
       {/*헤더*/}
@@ -134,19 +155,17 @@ const ReportList = () => {
               </div>
 
               <div className='relative my-[22px]'>
-                <select
+                <DropDown
                   name='limit'
-                  className='select-normal-default-false'
-                  defaultValue={10}
-                  onChange={(event) =>
-                    getReportListByLimit(event, _state, _dispatch, _state.data.totalCount)
-                  }
-                >
-                  <option value={10}>10개씩</option>
-                  <option value={30}>30개씩</option>
-                  <option value={50}>50개씩</option>
-                  <option value={100}>100개씩</option>
-                </select>
+                  minWidth={120}
+                  value={`${_state.limit}개씩`}
+                  isUseIcon={false}
+                  options={limitOptions()}
+                  status={DROPDOWN_STATUS.FILLED}
+                  variants={DROPDOWN_VARIANTS.DEFAULT}
+                  onClickOption={onClickOption}
+                ></DropDown>
+
                 <div className='absolute left-1/2 top-0 translate-x-[-50%]'>
                   <Pagination
                     total={_state.data.totalCount}

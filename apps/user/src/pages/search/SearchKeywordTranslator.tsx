@@ -1,24 +1,35 @@
-import { Dispatch, useReducer, KeyboardEvent, useEffect, useRef } from 'react';
+import { Dispatch, KeyboardEvent, useEffect, useReducer, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
-import { CACHING_KEY } from '@/types/enum.code';
+import { CACHING_KEY, COUNTRY_TYPE } from '@/types/enum.code';
 
 import { useForm, UseFormSetValue } from 'react-hook-form';
-import { recommanderInitialState, recommanderReducer } from '@/containers/search';
+import {
+  recommanderInitialState,
+  recommanderReducer,
+  SEARCH_ACTION,
+} from '@/containers/search';
 import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
 
 import {
-  switchTranslationTab,
   initializeKeyword,
   searchKeyword,
   switchIsLoadingState,
+  switchTranslationTab,
 } from '@/containers/search/translator.container';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import DropDown, {
+  DROPDOWN_STATUS,
+  DROPDOWN_VARIANTS,
+  TDropDownOption,
+} from '@/components/dropDown';
+import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
 
 interface ISearchKeywordTranslator {
   _searchDispatch: Dispatch<TSearchActionType>;
   updateSearchKeyword: UseFormSetValue<{
+    country: CountryType;
     keyword: string;
   }>;
 }
@@ -26,9 +37,17 @@ interface ISearchKeywordTranslator {
 export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   const [_state, _dispatch] = useReducer(recommanderReducer, recommanderInitialState);
   const scrollRef = useRef<HTMLTableSectionElement>(null);
-  const { register, getValues, setValue } = useForm<{ searchWord: string }>({
+  const { register, getValues, setValue, watch } = useForm<{
+    country: CountryType;
+    searchWord: string;
+  }>({
     mode: 'onChange',
+    defaultValues: {
+      country: CountryType.Vn,
+    },
   });
+
+  const countryWatcher = watch('country');
 
   useEffect(() => {
     if (useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)) {
@@ -38,12 +57,38 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
   useEffect(() => {
     if (_state.isLoading) {
-      searchKeyword(getValues('searchWord'), _dispatch, null, setValue);
+      void searchKeyword(
+        countryWatcher,
+        getValues('searchWord'),
+        _dispatch,
+        null,
+        setValue,
+      );
     }
   }, [_state.isLoading]);
 
   const getCachingData = () =>
     useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)?.keyword;
+
+  const countryOptions = () => {
+    let result: TDropDownOption[] = [];
+    const keys = Object.keys(COUNTRY_TYPE);
+    keys.map((countryCode) => {
+      const countryEnum = CountryType[countryCode as keyof typeof CountryType];
+
+      result.push({
+        value: countryEnum,
+        iconPath: convertCountryIconPath(countryEnum),
+        text: convertCountry(countryEnum),
+      });
+    });
+    return result;
+  };
+
+  const onClickOption = (countryCode: any) => {
+    const CountryTypeEnum: CountryType = countryCode;
+    setValue('country', CountryTypeEnum);
+  };
 
   return (
     <div className='fixed bottom-[100px] right-6 block'>
@@ -67,14 +112,17 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
               </div>
               <ReactSVG src='/assets/icons/outlined/ArrowRight.svg' />
 
-              <div className='select-icon-group'>
-                <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
-                <select name='country' id='country' className='select-normal-clear-true'>
-                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                    베트남
-                  </option>
-                </select>
-              </div>
+              <DropDown
+                name='country'
+                minWidth={120}
+                value={convertCountry(countryWatcher)}
+                iconPath={convertCountryIconPath(countryWatcher)}
+                isUseIcon={true}
+                options={countryOptions()}
+                status={DROPDOWN_STATUS.FILLED}
+                variants={DROPDOWN_VARIANTS.CLEAR}
+                onClickOption={onClickOption}
+              ></DropDown>
             </div>
             <div className='mt-3 flex items-center'>
               <div className='inputCustom-group grow'>

@@ -4,21 +4,21 @@ import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
-import { getProductImages } from '@/containers/search/search.container';
+import { _getProductImages } from '@/containers/search/search.container';
 import {
-  _amplitudeKeywordSearched,
   _amplitudeKeywordSearchedFailed,
   _amplitudeKeywordSearchedSucceeded,
 } from '@/amplitude/amplitude.service';
 
 export const getQueryResult = (
+  country: CountryType,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     graphQLClient,
     {
-      country: CountryType.Vn,
+      country: country,
       text: keyword,
     },
     {
@@ -27,12 +27,12 @@ export const getQueryResult = (
       refetchOnWindowFocus: false,
       onSuccess: async (res) => {
         try {
-          const images = await _getProductImages({
+          const images = await getProductImages({
             keyword: keyword,
           });
 
           if (images && images.data.data !== null) {
-            getProductImages(images.data, _dispatch);
+            _getProductImages(images.data, _dispatch);
           }
           _amplitudeKeywordSearchedSucceeded(
             keyword,
@@ -72,17 +72,17 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
   }
 };
 
-export const getReportExisted = async (queryString: { text: string }) => {
+export const getReportExisted = async (params: TGetReportExistedParamsType) => {
   try {
     return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
-      params: queryString,
+      params,
     });
   } catch (error) {
     console.error(error);
   }
 };
 
-export const _getProductImages = async (queryString: { keyword: string }) => {
+export const getProductImages = async (queryString: { keyword: string }) => {
   try {
     const URL = REPORT_URL.getProductImage + queryString.keyword + '/image';
     return await HTTP.get<TGetProductImageResponseType>(URL);
@@ -91,10 +91,17 @@ export const _getProductImages = async (queryString: { keyword: string }) => {
   }
 };
 
-export const _getTranslationOfKeyword = async (keyword: string) => {
+export const getTranslationOfKeyword = async (
+  queryString: TGetTranslationOfKeywordParamsType,
+) => {
   try {
-    const URL = `/api/v1/gpt/${keyword}/translate`;
-    return await HTTP.get<TGetTranslationOfKeywordReponse>(URL);
+    const res = await HTTP.get<TGetTranslationOfKeywordResponse>(
+      `/api/v1/gpt/translate`,
+      {
+        params: queryString,
+      },
+    );
+    return res;
   } catch (error) {
     console.error(error);
   }

@@ -1,6 +1,6 @@
-import { CountryType } from '@/generated/graphql';
 import { MODAL_TYPE_ENUM, CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { CountryType } from '@/generated/graphql';
 
 export enum SEARCH_ACTION {
   GET_KEYWORD = 'GET_KEYWORD',
@@ -38,8 +38,10 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
       return state;
 
     case SEARCH_ACTION.SEARCH_KEYWORD:
-      if (action.payload) {
-        state.keyword = action.payload.toLowerCase();
+      state.country = action.payload.country;
+
+      if (action.payload.keyword) {
+        state.keyword = action.payload.keyword.toLowerCase();
       } else {
         state.keyword = state.text.toLowerCase().trim();
       }
