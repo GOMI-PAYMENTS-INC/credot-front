@@ -18,8 +18,8 @@ export const convertTitle = (id: string) => {
   }
 };
 
-export const convertBatchStatus = (id: string) => {
-  switch (id) {
+export const convertBatchStatus = (status: string) => {
+  switch (status) {
     case BATCH_STATUS.DONE:
     case BATCH_STATUS.REPLICATE:
       return '완료';
