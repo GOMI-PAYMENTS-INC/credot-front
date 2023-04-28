@@ -86,7 +86,7 @@ const DropDown = ({
     setOpen(!isOpen);
   };
 
-  const modalEl = useRef<HTMLUListElement>(null);
+  const modalEl = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const clickOutside = (event: any) => {
       if (isOpen && modalEl.current && !modalEl.current?.contains(event.target)) {
@@ -100,7 +100,11 @@ const DropDown = ({
   }, [isOpen]);
 
   return (
-    <div id={`select-group-${name}`} className={`relative text-S/Regular text-gray-900`}>
+    <div
+      id={`select-group-${name}`}
+      className={`relative text-S/Regular text-gray-900`}
+      ref={modalEl}
+    >
       <button
         id={`select-box-${name}`}
         style={{ minWidth: minWidth }}
@@ -117,7 +121,6 @@ const DropDown = ({
         <ul
           id={`select-option-${name}`}
           className='absolute top-[calc(100%)] z-10 min-w-full rounded-md bg-white shadow-[0px_4px_12px_rgba(0,0,0,0.08)]'
-          ref={modalEl}
           style={{ minWidth: minWidth }}
         >
           {options.map((option) => {
