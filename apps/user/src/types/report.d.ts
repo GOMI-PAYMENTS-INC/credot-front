@@ -245,7 +245,7 @@ type TOverseaProductResponse = {
 type TOverseaProductData = {
   id: number;
   text: string;
-  country: CountryType.Vn;
+  country: CountryType;
   channel: 'SHOPEE';
   itemOverseaCount: number;
   totalItemCount: number;

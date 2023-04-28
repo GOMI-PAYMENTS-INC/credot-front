@@ -61,7 +61,7 @@ export const SearchKeywordTranslationResult = (
                     _searchDispatch,
                     updateSearchKeyword,
                   );
-                  _amplitudeTranslatedSearched(result.text);
+                  _amplitudeTranslatedSearched(result.country, result.text);
                 }}
               >
                 <ReactSVG

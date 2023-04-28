@@ -35,6 +35,7 @@ export const getQueryResult = (
             _getProductImages(images.data, _dispatch);
           }
           _amplitudeKeywordSearchedSucceeded(
+            country,
             keyword,
             res.search.relations,
             res.search.main.count,
@@ -45,7 +46,11 @@ export const getQueryResult = (
         }
       },
       onError: (error) => {
-        _amplitudeKeywordSearchedFailed(keyword, error.response.errors[0].message);
+        _amplitudeKeywordSearchedFailed(
+          country,
+          keyword,
+          error.response.errors[0].message,
+        );
       },
     },
   );

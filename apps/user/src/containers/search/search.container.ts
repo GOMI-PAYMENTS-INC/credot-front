@@ -58,7 +58,7 @@ export const queryKeyword = (
     payload: { country: country },
   });
 
-  _amplitudeKeywordSearched(keyword);
+  _amplitudeKeywordSearched(country, keyword);
 };
 
 export const initializeState = (
@@ -125,7 +125,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
             },
           });
           toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
-          _amplitudeKeywordReportRequested(1, keyword);
+          _amplitudeKeywordReportRequested(1, country, keyword);
         }
 
         return postReport;

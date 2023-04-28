@@ -25,7 +25,10 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isTruthy } from '@/utils/isTruthy';
 
 import { useForm } from 'react-hook-form';
-import { _amplitudeRecKeywordSearched } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeCountryChanged,
+  _amplitudeRecKeywordSearched,
+} from '@/amplitude/amplitude.service';
 import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
 import DropDown, {
   DROPDOWN_STATUS,
@@ -154,6 +157,9 @@ const SearchKeywords = () => {
 
   const onClickOption = (countryCode: any) => {
     const CountryTypeEnum: CountryType = countryCode;
+
+    _amplitudeCountryChanged(countryWatcher, countryCode);
+
     setValue('country', CountryTypeEnum);
   };
 
@@ -322,13 +328,16 @@ const SearchKeywords = () => {
                                   className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
                                   onClick={() => {
                                     queryKeywordByClick(
-                                      countryWatcher,
+                                      _state.country,
                                       keyword.text,
                                       _dispatch,
                                       setValue,
                                     );
 
-                                    _amplitudeRecKeywordSearched(keyword.text);
+                                    _amplitudeRecKeywordSearched(
+                                      _state.country,
+                                      keyword.text,
+                                    );
                                   }}
                                 >
                                   {keyword.text}

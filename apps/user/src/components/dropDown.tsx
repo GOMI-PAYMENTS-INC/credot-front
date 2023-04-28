@@ -120,7 +120,7 @@ const DropDown = ({
       {isOpen && (
         <ul
           id={`select-option-${name}`}
-          className='absolute top-[calc(100%)] z-10 min-w-full rounded-md bg-white shadow-[0px_4px_12px_rgba(0,0,0,0.08)]'
+          className='absolute top-[calc(100%_+_4px)] z-10 min-w-full rounded-md bg-white shadow-[0px_4px_12px_rgba(0,0,0,0.08)]'
           style={{ minWidth: minWidth }}
         >
           {options.map((option) => {

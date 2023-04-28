@@ -24,7 +24,6 @@ export const searchKeyword = async (
 ) => {
   try {
     let _keyword = keyword || '수분 크림';
-    let _country = country || CountryType.Vn;
     if (isFalsy(keyword) && setValue) {
       setValue('country', country);
       setValue('searchWord', _keyword);
@@ -34,7 +33,7 @@ export const searchKeyword = async (
       CACHING_KEY.STORED_TRANSLATION,
     );
     if (cachingData?.keyword !== _keyword) {
-      await queryKeyword(_country, _keyword, _dispatch);
+      await queryKeyword(country, _keyword, _dispatch);
       _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
       return;
     }
@@ -63,7 +62,7 @@ const queryKeyword = async (
   const translatedData = response!.data.data;
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
 
-  _amplitudeKeywordTranslated(keyword);
+  _amplitudeKeywordTranslated(country, keyword);
   return;
 };
 
