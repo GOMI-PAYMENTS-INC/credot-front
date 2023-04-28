@@ -96,7 +96,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
         <article className='z-50 w-[360px] shadow-[0_8px_16px_-15px_rgba(0,0,0,0.5)]'>
           <section className='flex w-full flex-col rounded-t-[16px] border-[1px] border-grey-300 bg-white px-6 pb-5 pt-5'>
             <header className='flex w-full items-center'>
-              <img src='/assets/images/Gomibot.png' />
+              <ReactSVG src='/assets/icons/GPTgomi.svg' className='h-10 w-10' />
               <h1 className='w-[224px] pl-3 text-XL/Bold text-grey-900'>키워드 번역</h1>
               <ReactSVG
                 src='/assets/icons/filled/CloseCircle.svg'
