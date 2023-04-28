@@ -55,7 +55,7 @@ export const _setUserProperties = async (
   //이메일
   identifyEvent.set('email', email);
   //마케팅 수신 동의 여부
-  identifyEvent.set('marketing_notifications', false);
+  identifyEvent.set('marketing_notifications', marketing);
   //핸드폰 번호
   identifyEvent.set('phone_number', phone);
   //계정 등급
@@ -101,7 +101,7 @@ export const _amplitudeSignupCompleted = async (
   provider: AMPLITUDE_ACCOUNT_TYPE,
   email: string,
   phoneNumber: string,
-  //marketing_notification: boolean,
+  marketingNotification: boolean,
   callBackEvent?: () => void,
 ) => {
   await _setAmplitudeEvents(
@@ -110,7 +110,7 @@ export const _amplitudeSignupCompleted = async (
       provider,
       email,
       phone_number: phoneNumber,
-      marketing_notification: false,
+      marketing_notification: marketingNotification,
     },
     callBackEvent,
   );
@@ -152,12 +152,12 @@ export const _amplitudeChangePwCompleted = () => {
 
 // ##### KEYWORD REPORT - 키워드 검색창에서 국가 변경 완료 시 ##### //
 export const _amplitudeCountryChanged = (
-  country_before: CountryType,
-  country_after: CountryType,
+  countryBefore: CountryType,
+  countryAfter: CountryType,
 ) => {
   _setAmplitudeEvents(amplitudeConstant.countryChanged, {
-    country_before,
-    country_after,
+    country_before: countryBefore,
+    country_after: countryAfter,
   });
 };
 
@@ -165,7 +165,7 @@ export const _amplitudeCountryChanged = (
 export const _amplitudeKeywordSearched = (
   // platform: TChannelType,
   country: CountryType,
-  // sort_by: TSortedType,
+  // sortBy: TSortedType,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordSearched, {
@@ -180,7 +180,7 @@ export const _amplitudeKeywordSearched = (
 export const _amplitudeKeywordSearchedSucceeded = (
   // platform: TChannelType,
   country: CountryType,
-  // sort_by: TSortedType,
+  // sortBy: TSortedType,
   keyword: string,
   relations: SearchDto[],
   searchVolume?: number | null,
@@ -203,7 +203,7 @@ export const _amplitudeKeywordSearchedSucceeded = (
 export const _amplitudeKeywordSearchedFailed = (
   // platform: TChannelType,
   country: CountryType,
-  // sort_by: TSortedType,
+  // sortBy: TSortedType,
   keyword: string,
   reason: string,
 ) => {
@@ -220,7 +220,7 @@ export const _amplitudeKeywordSearchedFailed = (
 export const _amplitudeRecKeywordSearched = (
   // platform: TChannelType,
   country: CountryType,
-  // sort_by: TSortedType,
+  // sortBy: TSortedType,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.recKeywordSearched, {
@@ -236,7 +236,7 @@ export const _amplitudeKeywordReportRequested = (
   reportId: number,
   // platform: TChannelType,
   country: CountryType,
-  // sort_by: TSortedType,
+  // sortBy: TSortedType,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
@@ -307,13 +307,13 @@ export const _amplitudeMovedToPDP = (
 
 // ##### KEYWORD TRANSLATION - 키워드 번역 요청 시 ##### //
 export const _amplitudeKeywordTranslated = (
-  // language_before: string,
-  language_after: string,
+  // languageBefore: string,
+  languageAfter: string,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
     language_before: CountryType.Kr.toLowerCase(),
-    language_after,
+    language_after: languageAfter,
     keyword,
   });
 };
@@ -322,7 +322,7 @@ export const _amplitudeKeywordTranslated = (
 export const _amplitudeTranslatedSearched = (
   // platform: TChannelType,
   country: CountryType,
-  // sort_by: TSortedType,
+  // sortBy: TSortedType,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.translatedKeywordSearched, {

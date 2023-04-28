@@ -193,12 +193,6 @@ export const AuthContainer = () => {
     };
     signUpMutate(signupFormValue, {
       onSuccess: () => {
-        //회원가입 완료 시 이벤트 - 로컬
-        void _amplitudeSignupCompleted(
-          AMPLITUDE_ACCOUNT_TYPE.LOCAL,
-          signupFormValue.user.email,
-          signupFormValue.user.phone,
-        );
         navigation(PATH.SEARCH_PRODUCTS);
       },
     });
@@ -233,11 +227,6 @@ export const AuthContainer = () => {
           setToken(res.googleSignUp.token);
           authTokenStorage.setToken(res.googleSignUp.token);
         }
-        void _amplitudeSignupCompleted(
-          AMPLITUDE_ACCOUNT_TYPE.LOCAL,
-          email,
-          signupSocialFormValue.socialSignUpDto.phone,
-        );
       },
     });
   };
