@@ -67,8 +67,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
     }
   }, [_state.isLoading]);
 
-  const getCachingData = () =>
-    useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)?.keyword;
+  const getCachingData = () => useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION);
 
   const countryOptions = () => {
     let result: TDropDownOption[] = [];
@@ -135,7 +134,9 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                     {...register('searchWord')}
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                       if (event.key === 'Enter') {
-                        const callData = getCachingData() !== getValues('searchWord');
+                        const callData =
+                          getCachingData()?.keyword !== getValues('searchWord') ||
+                          getCachingData()?.country !== getValues('country');
                         switchIsLoadingState(_dispatch, callData);
                       }
                     }}
@@ -146,7 +147,9 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
               <button
                 className='button-filled-normal-large-primary-false-false-true ml-2 h-fit min-w-[76px] text-M/Bold'
                 onClick={() => {
-                  const callData = getCachingData() !== getValues('searchWord');
+                  const callData =
+                    getCachingData()?.keyword !== getValues('searchWord') ||
+                    getCachingData()?.country !== getValues('country');
                   switchIsLoadingState(_dispatch, callData);
                 }}
               >

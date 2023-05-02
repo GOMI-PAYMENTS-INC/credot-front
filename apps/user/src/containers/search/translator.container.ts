@@ -32,7 +32,7 @@ export const searchKeyword = async (
     const cachingData: TDictionaryType = await useSessionStorage.getItem(
       CACHING_KEY.STORED_TRANSLATION,
     );
-    if (cachingData?.keyword !== _keyword) {
+    if (cachingData?.keyword !== _keyword || cachingData?.country !== country) {
       await queryKeyword(country, _keyword, _dispatch);
       _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
       return;
