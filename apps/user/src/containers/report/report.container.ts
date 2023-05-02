@@ -26,7 +26,11 @@ import {
 import { convertTime } from '@/utils/parsingTimezone';
 import { getReportList } from '@/containers/report/report.api';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertBatchStatus, convertCountry } from '@/utils/convertEnum';
+import {
+  convertBatchStatus,
+  convertCountry,
+  convertCountryIconPath,
+} from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
@@ -143,7 +147,7 @@ export const reportListConverter = (item: TReportItem) => {
     },
     countryCode: {
       text: convertCountry(item.countryCode),
-      iconPath: '/assets/icons/flag/Vietnam.svg',
+      iconPath: convertCountryIconPath(item.countryCode),
     },
     channel: { iconPath: '/assets/icons/shop/Shopee.svg' },
   };
@@ -346,13 +350,12 @@ export const getReportListByPage = async (
 
 //리스트 > 출력 개수 변경시
 export const getReportListByLimit = async (
-  event: ChangeEvent<HTMLSelectElement>,
+  limit: number,
   _state: TReportListState,
   _dispatch: Dispatch<TReportListAction>,
   total: number,
 ) => {
   //변경 할 출력 갯수
-  const limit = Number(event.target.value);
   if (limit && _state.page && _state.limit) {
     const oldOffset = _state.page * _state.limit;
     const newOffset = _state.page * limit;

@@ -66,8 +66,14 @@ export type ChangePasswordInput = {
 export enum CountryType {
   /** 한국 */
   Kr = 'KR',
+  /** 말레이시아 */
+  My = 'MY',
+  /** 싱가포르 */
+  Sg = 'SG',
   /** 태국 */
   Th = 'TH',
+  /** 대만 */
+  Tw = 'TW',
   /** 미국 */
   Us = 'US',
   /** 베트남 */
@@ -99,6 +105,8 @@ export type FindPasswordInput = {
 export type GoogleSignUpInput = {
   /** 소셜토큰 */
   idToken: Scalars['String'];
+  /** 마케팅 동의여부 */
+  makettingAgree?: InputMaybe<Scalars['Boolean']>;
   /** 전화번호 */
   phone: Scalars['String'];
   /** 인증번호 서명 */
@@ -226,8 +234,10 @@ export enum Role {
 export type SignUpInput = {
   /** 이메일 */
   email: Scalars['String'];
+  /** 마케팅 동의여부 */
+  makettingAgree?: InputMaybe<Scalars['Boolean']>;
   /** 이름 */
-  name?: Scalars['String'];
+  name: Scalars['String'];
   /** 닉네임 */
   nickName?: InputMaybe<Scalars['String']>;
   /** 패스워드 */
@@ -830,7 +840,7 @@ export const FindAccountDocument = `
   }
 }
     `;
-export const useVerifyCodeQuery = <
+export const useFindAccountQuery = <
   TData extends FindAccountQuery,
   TError extends unknown,
 >(
@@ -910,23 +920,26 @@ export const SearchDocument = `
   }
 }
     `;
-export const useSearchQuery = <TData extends SearchQuery, TError extends {
-  response: {
-    errors: [
-      {
-        message: string;
-        locations: Array<{ line: number; column: number }>;
-        path: [string];
-        extensions: {
-          code: number;
-          status: 'UNAUTHORIZED' | 'BAD_REQUEST';
-          classification: 'Exception';
-        };
-      },
-    ];
-    data: null;
-  };
-},>(
+export const useSearchQuery = <
+  TData extends SearchQuery,
+  TError extends {
+    response: {
+      errors: [
+        {
+          message: string;
+          locations: Array<{ line: number; column: number }>;
+          path: [string];
+          extensions: {
+            code: number;
+            status: 'UNAUTHORIZED' | 'BAD_REQUEST';
+            classification: 'Exception';
+          };
+        },
+      ];
+      data: null;
+    };
+  },
+>(
   client: GraphQLClient,
   variables: SearchQueryVariables,
   options?: UseQueryOptions<SearchQuery, TError, TData>,

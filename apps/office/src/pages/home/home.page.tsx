@@ -244,9 +244,9 @@ export default function HomePage() {
 
   const qnaData = [
     {
-      subject: '고미 인사이트는 어떤 서비스인가요?',
+      subject: '고미인사이트는 어떤 서비스인가요?',
       content:
-        "고미 인사이트는 동남아 대표 이커머스 플랫폼의 ‘쇼피'의 종합 분석 솔루션이에요. 키워드에 대한 시장분석 및 상위 노출 인사이트를 제공하며, 추후 내 상품의 품질 측정과 경쟁사 모니터링 등 다양한 솔루션들이 추가될 예정이에요.",
+        "고미인사이트는 동남아 대표 이커머스 플랫폼의 ‘쇼피'의 종합 분석 솔루션이에요. 키워드에 대한 시장분석 및 상위 노출 인사이트를 제공하며, 추후 내 상품의 품질 측정과 경쟁사 모니터링 등 다양한 솔루션들이 추가될 예정이에요.",
     },
     {
       subject: '어떤 장점이 있고 언제 도움을 받을 수 있나요?',
@@ -256,15 +256,15 @@ export default function HomePage() {
     {
       subject: '서비스 이용료가 궁금해요!',
       content:
-        '현재 고미 인사이트는 무제한 사용이 가능한 이벤트를 진행중이에요! 별도의 이벤트 종료 안내까지는 무료로 무제한 사용하실 수 있어요.',
+        '현재 고미인사이트는 무제한 사용이 가능한 이벤트를 진행중이에요! 별도의 이벤트 종료 안내까지는 무료로 무제한 사용하실 수 있어요.',
     },
     {
-      subject: '지원하는 국가와 플랫폼이 어떤게 있을까요?',
+      subject: '분석이 가능한 쇼피 국가는 어디인가요?',
       content:
-        '현재는 Shopee 베트남에 대한 인사이트를 제공해요. 이후 Shopee의 모든 국가를 지원할 예정이며, 라자다, 아마존과 같은 마켓 플레이스의 인사이트도 점진적으로 추가될 예정이에요. 회원가입 시 업데이트 소식을 빠르게 받아보실 수 있어요!',
+        '현재는 쇼피 싱가포르, 대만, 말레이시아, 베트남, 태국에 대한 분석을 제공하고 있어요. 이후 Shopee의 모든 국가를 지원할 예정이며, 라자다, 아마존과 같은 마켓 플레이스의 인사이트도 점진적으로 추가될 예정이에요. 회원가입 시 업데이트 소식을 빠르게 받아보실 수 있어요!',
     },
     {
-      subject: '그 외 추가적인 문의가 있어요!',
+      subject: '고미인사이트는 어떤 서비스인가요?',
       content:
         '그 외 추가적인 문의가 있으신 경우 웹페이지 우측 하단의 채널톡으로 문의주시면 최대한 빠른 답변드릴께요.',
     },
@@ -542,7 +542,7 @@ export default function HomePage() {
           <div className='mb-20 md:mb-[61.3px] '>
             <div className='text-center'>
               <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
-                고미 인사이트가 함께합니다
+                고미인사이트가 함께합니다
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>서비스 오픈 1개월만에</p>
@@ -623,7 +623,7 @@ export default function HomePage() {
           <div className='mb-20 md:mb-[61.3px] '>
             <div className='text-center'>
               <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
-                고미 인사이트와 함께
+                고미인사이트와 함께
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>잘 팔릴 상품인지 미리 확인하고</p>
@@ -703,7 +703,7 @@ export default function HomePage() {
                     );
                   }}
                 >
-                  고미 인사이트 바로 시작하기
+                  고미인사이트 바로 시작하기
                 </button>
               </div>
             </div>
@@ -720,7 +720,7 @@ export default function HomePage() {
                 </div>
                 <div className='mb-[20px] text-3XL/Bold'>무제한 사용 이벤트</div>
                 <div className='text-grey-700'>
-                  고미 인사이트는 현재 무료 서비스 이벤트를 진행중이에요.
+                  고미인사이트는 현재 무료 서비스 이벤트를 진행중이에요.
                   <br />
                   별도의 이벤트 종료 안내까지는 무제한 리포트 조회가 가능해요!
                 </div>

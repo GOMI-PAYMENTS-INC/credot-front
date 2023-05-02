@@ -1,13 +1,14 @@
-import { RECOMMANDER_ACTION } from '@/containers/search/reducer';
+import { RECOMMANDER_ACTION } from '@/containers/search/search.reducer';
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { UseFormSetValue } from 'react-hook-form';
 
-import { _getTranslationOfKeyword } from '@/containers/search/search.api';
+import { getTranslationOfKeyword } from '@/containers/search/search.api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
 import { _amplitudeKeywordTranslated } from '@/amplitude/amplitude.service';
+import { CountryType } from '@/generated/graphql';
 
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
@@ -15,20 +16,24 @@ export const switchTranslationTab = (
 ) => _dispatch({ type: RECOMMANDER_ACTION.USE_TRANSLATION, payload: tabState });
 
 export const searchKeyword = async (
+  country: CountryType,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
   _setState?: Dispatch<SetStateAction<boolean>> | null,
-  setValue?: UseFormSetValue<{ searchWord: string }>,
+  setValue?: UseFormSetValue<{ country: CountryType; searchWord: string }>,
 ) => {
   try {
     let _keyword = keyword || '수분 크림';
-    if (isFalsy(keyword) && setValue) setValue('searchWord', _keyword);
+    if (isFalsy(keyword) && setValue) {
+      setValue('country', country);
+      setValue('searchWord', _keyword);
+    }
 
     const cachingData: TDictionaryType = await useSessionStorage.getItem(
       CACHING_KEY.STORED_TRANSLATION,
     );
-    if (cachingData?.keyword !== _keyword) {
-      await queryKeyword(_keyword, _dispatch);
+    if (cachingData?.keyword !== _keyword || cachingData?.country !== country) {
+      await queryKeyword(country, _keyword, _dispatch);
       _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
       return;
     }
@@ -43,12 +48,21 @@ export const searchKeyword = async (
   }
 };
 
-const queryKeyword = async (keyword: string, _dispatch: Dispatch<TSearchActionType>) => {
-  const response = await _getTranslationOfKeyword(keyword);
+const queryKeyword = async (
+  country: CountryType,
+  keyword: string,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
+  const parms: TGetTranslationOfKeywordParamsType = {
+    term: keyword,
+    country: country,
+  };
+
+  const response = await getTranslationOfKeyword(parms);
   const translatedData = response!.data.data;
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
 
-  _amplitudeKeywordTranslated(keyword);
+  _amplitudeKeywordTranslated(country, keyword);
   return;
 };
 
@@ -60,7 +74,12 @@ const querySameKeyword = async (
   const isOverSearch = payload.dictionaries.length > 5;
   if (isOverSearch) return false;
 
-  const response = await _getTranslationOfKeyword(payload.keyword);
+  const parms: TGetTranslationOfKeywordParamsType = {
+    term: payload.keyword,
+    country: payload.country,
+  };
+
+  const response = await getTranslationOfKeyword(parms);
   const translatedData = response!.data.data;
 
   _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
@@ -69,12 +88,13 @@ const querySameKeyword = async (
 };
 
 export const initializeKeyword = (
-  setValue: UseFormSetValue<{ searchWord: string }>,
+  setValue: UseFormSetValue<{ country: CountryType; searchWord: string }>,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION);
 
   if (preKeyword) {
+    setValue('country', preKeyword.country);
     setValue('searchWord', preKeyword.keyword);
     _dispatch({
       type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT,

@@ -4,7 +4,7 @@ import { ReactSVG } from 'react-svg';
 import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
-import { useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { menuData } from '@/containers/sidebar/sideBarData';
 import {
   sidebarInitialState,
@@ -32,6 +32,23 @@ const SideBar = () => {
 
   const { userInfo } = AuthContainer();
   const userId = userInfo ? replaceOverLength(userInfo.me.email, 17) : '';
+
+  const modalEl = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const clickOutside = (event: any) => {
+      if (
+        _state.openedUserMenu &&
+        modalEl.current &&
+        !modalEl.current?.contains(event.target)
+      ) {
+        onClickUserMenu(_dispatch);
+      }
+    };
+    document.addEventListener('mousedown', clickOutside);
+    return () => {
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  }, [_state.openedUserMenu]);
 
   return (
     <aside className='relative'>
@@ -280,7 +297,10 @@ const SideBar = () => {
         </div>
       )}
       {_state.openedUserMenu ? (
-        <div className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
+        <div
+          className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'
+          ref={modalEl}
+        >
           <ul className=''>
             <li className='px-4 py-3'>
               <a
