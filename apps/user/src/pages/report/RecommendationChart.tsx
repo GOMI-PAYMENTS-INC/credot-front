@@ -23,8 +23,11 @@ import {
   convertExchangeRate,
 } from '@/containers/report/report.container';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
+import { convertShopeeSiteUrl } from '@/utils/convertEnum';
+import { CountryType } from '@/generated/graphql';
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
+  country: CountryType;
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -33,8 +36,15 @@ interface IRecommendationChart {
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
-  const { amplitudeData, relation, _dispatch, toggleEvent, spinnerEvent, basePrice } =
-    props;
+  const {
+    amplitudeData,
+    relation,
+    country,
+    _dispatch,
+    toggleEvent,
+    spinnerEvent,
+    basePrice,
+  } = props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
   );
@@ -226,7 +236,11 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <button
                           className='flex h-5 w-5 cursor-pointer items-center'
                           onClick={() => {
-                            openBrowser(`https://shopee.vn/search?keyword=${data.text}`);
+                            openBrowser(
+                              `${convertShopeeSiteUrl(country)}/search?keyword=${
+                                data.text
+                              }`,
+                            );
                             _amplitudeMovedToSERP(
                               amplitudeData.reportId,
                               amplitudeData.keyword,

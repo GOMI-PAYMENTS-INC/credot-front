@@ -65,6 +65,24 @@ export const convertLanguage = (languageCode: LANGUAGE_TYPE) => {
   }
 };
 
+export const convertShopeeSiteUrl = (country: CountryType) => {
+  switch (country) {
+    case CountryType.Sg:
+      return 'https://shopee.sg';
+    case CountryType.My:
+      return 'https://shopee.co.th';
+    case CountryType.Tw:
+      return 'https://shopee.tw';
+    case CountryType.Vn:
+      return 'https://shopee.vn';
+    case CountryType.Th:
+      return 'https://shopee.co.th';
+    default:
+      console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+
 export const convertCountryIconPath = (countryCode: CountryType) => {
   const url = '/assets/icons/flag';
   switch (countryCode) {
