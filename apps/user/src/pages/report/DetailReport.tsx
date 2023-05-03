@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { Defalut as Layout } from '@/components/layouts';
 import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
-import { convertTitle } from '@/utils/convertEnum';
+import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
@@ -45,6 +45,8 @@ const DetailReport = () => {
     }
   }, []);
 
+  console.log(_state);
+
   const combinedComponent = useMemo(() => {
     if (main === null) return <Fragment></Fragment>;
 
@@ -62,6 +64,7 @@ const DetailReport = () => {
           <RecommendationChart
             spinnerEvent={_state.spinnerEvent}
             relation={relation}
+            country={main.country}
             _dispatch={_dispatch}
             toggleEvent={_state.toggleEvent}
             basePrice={main.basePrice}
@@ -116,7 +119,11 @@ const DetailReport = () => {
                 <button
                   className='flex h-5 w-5 cursor-pointer items-center pl-3'
                   onClick={() => {
-                    openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
+                    openBrowser(
+                      `${convertShopeeSiteUrl(main!.country)}/search?keyword=${
+                        main!.text
+                      }`,
+                    );
                     _amplitudeMovedToSERP(routeId.id, main!.text, null);
                   }}
                 >

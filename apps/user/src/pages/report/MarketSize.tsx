@@ -119,8 +119,8 @@ export const MartketSize = (props: IMartketSize) => {
           </div>
 
           <Fragment>
-            <div className='col-span-2 flex h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
-              <div className='mt-5 flex h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
+            <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
+              <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
                 <p>가장 많이 팔려요</p>
                 {maxTurnoverMonth.map((month, key) => (
                   <p
@@ -132,7 +132,7 @@ export const MartketSize = (props: IMartketSize) => {
                 ))}
               </div>
 
-              <div className='mb-5 flex h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
+              <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
                 <p>가장 적게 팔려요</p>
                 {minTurnoverMonth.map((month, key) => (
                   <p

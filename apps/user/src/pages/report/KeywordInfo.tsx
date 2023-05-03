@@ -1,6 +1,6 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
-import { convertCountry } from '@/utils/convertEnum';
+import { convertCountry, convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { useParams } from 'react-router-dom';
 import { openBrowser } from '@/containers/report';
@@ -40,10 +40,9 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
         </div>
         <div className='flex h-[168px] w-[179px]'>
           <div className='pt-[30px] pl-[7px]'>
-            {/* TODO: 현재는 베트남 한정이지만 추후 국가 선택, 검색 기준도 쿼리에 넣어야 함 */}
             <button
               onClick={() => {
-                openBrowser(`https://shopee.vn/search?keyword=${text}`);
+                openBrowser(`${convertShopeeSiteUrl(country)}/search?keyword=${text}`);
                 _amplitudeMovedToSERP(reportId, text, null);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
