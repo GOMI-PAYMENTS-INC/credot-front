@@ -7,7 +7,6 @@ export enum SEARCH_ACTION {
   SEARCH_KEYWORD = 'SEARCH_KEYWORD',
   SEARCH_MODE = 'SEARCH_MODE',
   GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS',
-  CHANGE_COUNTRY = 'CHANGE_COUNTRY',
   INITIALIZE_STATE = 'INITIALIZE_STATE',
   SWITCH_MODAL = 'SWITCH_MODAL',
   UPDATE_CREATED_AT = 'UPDATE_CREATED_AT',
@@ -36,10 +35,6 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
 
     case SEARCH_ACTION.UPDATE_CREATED_AT:
       state.createdAt = action.payload;
-      return state;
-
-    case SEARCH_ACTION.CHANGE_COUNTRY:
-      state.country = action.payload.country;
       return state;
 
     case SEARCH_ACTION.SEARCH_KEYWORD:
