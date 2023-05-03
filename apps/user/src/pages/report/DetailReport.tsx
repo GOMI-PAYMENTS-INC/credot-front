@@ -7,7 +7,7 @@ import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { MartketSize } from '@/pages/report/MarketSize';
+import { MarketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
@@ -61,7 +61,7 @@ const DetailReport = () => {
           itemCount={_state.salePrice?.data!.itemCount}
           amplitudeData={amplitudeData}
         />
-        <MartketSize marketSize={main} />
+        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
