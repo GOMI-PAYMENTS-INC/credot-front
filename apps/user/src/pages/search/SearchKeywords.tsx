@@ -12,6 +12,8 @@ import {
   initializeState,
   queryKeyword,
   queryKeywordByClick,
+  RECOMMENDER_ACTION,
+  SEARCH_ACTION,
   switchModal,
 } from '@/containers/search';
 import { searchInitialState, searchReducer } from '@/containers/search/search.reducer';
@@ -48,11 +50,12 @@ const SearchKeywords = () => {
   }>({
     mode: 'onChange',
     defaultValues: {
-      country: CountryType.Vn,
+      country: CountryType.Sg,
     },
   });
 
   const countryWatcher = watch('country');
+  const keywordWatcher = watch('keyword');
 
   const { response, isLoading } = getQueryResult(
     _state.country,
@@ -158,9 +161,13 @@ const SearchKeywords = () => {
   const onClickOption = (countryCode: any) => {
     const CountryTypeEnum: CountryType = countryCode;
 
-    _amplitudeCountryChanged(countryWatcher, countryCode);
-
     setValue('country', CountryTypeEnum);
+
+    if (isFalsy(keywordWatcher) === false) {
+      queryKeyword(CountryTypeEnum, getValues('keyword'), _dispatch);
+    }
+
+    _amplitudeCountryChanged(countryWatcher, CountryTypeEnum);
   };
 
   return (
@@ -194,6 +201,8 @@ const SearchKeywords = () => {
                   minWidth={120}
                   value={convertCountry(countryWatcher)}
                   iconPath={convertCountryIconPath(countryWatcher)}
+                  // value={convertCountry(_state.country)}
+                  // iconPath={convertCountryIconPath(_state.country)}
                   isUseIcon={true}
                   options={countryOptions()}
                   status={DROPDOWN_STATUS.FILLED}
@@ -389,6 +398,7 @@ const SearchKeywords = () => {
 
       <SearchKeywordTranslator
         _searchDispatch={_dispatch}
+        searchCountry={countryWatcher}
         updateSearchKeyword={setValue}
       />
     </Layout>

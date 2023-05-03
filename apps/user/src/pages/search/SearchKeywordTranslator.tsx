@@ -1,14 +1,10 @@
 import { Dispatch, KeyboardEvent, useEffect, useReducer, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
-import { CACHING_KEY, COUNTRY_TYPE } from '@/types/enum.code';
+import { CACHING_KEY, LANGUAGE_TYPE } from '@/types/enum.code';
 
 import { useForm, UseFormSetValue } from 'react-hook-form';
-import {
-  recommanderInitialState,
-  recommanderReducer,
-  SEARCH_ACTION,
-} from '@/containers/search';
+import { recommenderInitialState, recommenderReducer } from '@/containers/search';
 import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
 
 import {
@@ -24,10 +20,11 @@ import DropDown, {
   DROPDOWN_VARIANTS,
   TDropDownOption,
 } from '@/components/dropDown';
-import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
+import { convertLanguage } from '@/utils/convertEnum';
 
 interface ISearchKeywordTranslator {
   _searchDispatch: Dispatch<TSearchActionType>;
+  searchCountry: CountryType;
   updateSearchKeyword: UseFormSetValue<{
     country: CountryType;
     keyword: string;
@@ -35,15 +32,15 @@ interface ISearchKeywordTranslator {
 }
 
 export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
-  const [_state, _dispatch] = useReducer(recommanderReducer, recommanderInitialState);
+  const [_state, _dispatch] = useReducer(recommenderReducer, recommenderInitialState);
   const scrollRef = useRef<HTMLTableSectionElement>(null);
   const { register, getValues, setValue, watch } = useForm<{
-    country: CountryType;
+    country: LANGUAGE_TYPE;
     searchWord: string;
   }>({
     mode: 'onChange',
     defaultValues: {
-      country: CountryType.Vn,
+      country: LANGUAGE_TYPE.Us,
     },
   });
 
@@ -69,24 +66,23 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
   const getCachingData = () => useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION);
 
-  const countryOptions = () => {
+  const languageOptions = () => {
     let result: TDropDownOption[] = [];
-    const keys = Object.keys(COUNTRY_TYPE);
-    keys.map((countryCode) => {
-      const countryEnum = CountryType[countryCode as keyof typeof CountryType];
+    const keys = Object.keys(LANGUAGE_TYPE);
+    keys.map((languageCode) => {
+      const languageEnum = LANGUAGE_TYPE[languageCode as keyof typeof LANGUAGE_TYPE];
 
       result.push({
-        value: countryEnum,
-        iconPath: convertCountryIconPath(countryEnum),
-        text: convertCountry(countryEnum),
+        value: languageEnum,
+        text: convertLanguage(languageEnum),
       });
     });
     return result;
   };
 
-  const onClickOption = (countryCode: any) => {
-    const CountryTypeEnum: CountryType = countryCode;
-    setValue('country', CountryTypeEnum);
+  const onClickOption = (languageCode: any) => {
+    const languageTypeEnum: LANGUAGE_TYPE = languageCode;
+    setValue('country', languageTypeEnum);
   };
 
   return (
@@ -106,18 +102,16 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
             </header>
             <div className='mt-6 flex h-10 items-center justify-around'>
               <div className='flex items-center'>
-                <ReactSVG src='/assets/icons/country/KR.svg' />
-                <p className='pl-2 text-S/Regular text-grey-800'>한국어</p>
+                <p className='text-S/Regular text-grey-800'>한국어</p>
               </div>
               <ReactSVG src='/assets/icons/outlined/ArrowRight.svg' />
 
               <DropDown
                 name='country'
                 minWidth={120}
-                value={convertCountry(countryWatcher)}
-                iconPath={convertCountryIconPath(countryWatcher)}
-                isUseIcon={true}
-                options={countryOptions()}
+                value={convertLanguage(countryWatcher)}
+                isUseIcon={false}
+                options={languageOptions()}
                 status={DROPDOWN_STATUS.FILLED}
                 variants={DROPDOWN_VARIANTS.CLEAR}
                 onClickOption={onClickOption}
@@ -167,6 +161,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                 translatorState={_state}
                 updateSearchKeyword={props.updateSearchKeyword}
                 _searchDispatch={props._searchDispatch}
+                searchCountry={props.searchCountry}
                 setTranslatorState={_dispatch}
                 scrollRef={scrollRef}
               />

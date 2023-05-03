@@ -1,4 +1,4 @@
-import { TITLE, BATCH_STATUS, COUNTRY_TYPE } from '@/types/enum.code';
+import { TITLE, BATCH_STATUS, LANGUAGE_TYPE } from '@/types/enum.code';
 import { CountryType } from '@/generated/graphql';
 
 export const convertTitle = (id: string) => {
@@ -46,6 +46,21 @@ export const convertCountry = (countryCode: CountryType) => {
       return '베트남';
     default:
       console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+export const convertLanguage = (languageCode: LANGUAGE_TYPE) => {
+  switch (languageCode) {
+    case LANGUAGE_TYPE.Th:
+      return '태국어';
+    case LANGUAGE_TYPE.Cn:
+      return '중국어';
+    case LANGUAGE_TYPE.Us:
+      return '영어';
+    case LANGUAGE_TYPE.Vn:
+      return '베트남어';
+    default:
+      console.error(languageCode, 'enum 코드를 확인해주세요.');
       return '';
   }
 };

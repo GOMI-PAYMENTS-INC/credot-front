@@ -69,6 +69,7 @@ export const initializeState = (
     keyword: string;
   }>,
 ) => {
+  setValue('country', cachingData.country);
   setValue('keyword', cachingData.text);
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: cachingData });
 };

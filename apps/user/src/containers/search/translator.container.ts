@@ -1,10 +1,10 @@
-import { RECOMMANDER_ACTION } from '@/containers/search/search.reducer';
+import { RECOMMENDER_ACTION } from '@/containers/search/search.reducer';
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { UseFormSetValue } from 'react-hook-form';
 
 import { getTranslationOfKeyword } from '@/containers/search/search.api';
-import { CACHING_KEY } from '@/types/enum.code';
+import { CACHING_KEY, LANGUAGE_TYPE } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
 import { _amplitudeKeywordTranslated } from '@/amplitude/amplitude.service';
@@ -13,14 +13,14 @@ import { CountryType } from '@/generated/graphql';
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
   tabState: boolean,
-) => _dispatch({ type: RECOMMANDER_ACTION.USE_TRANSLATION, payload: tabState });
+) => _dispatch({ type: RECOMMENDER_ACTION.USE_TRANSLATION, payload: tabState });
 
 export const searchKeyword = async (
-  country: CountryType,
+  country: LANGUAGE_TYPE,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
   _setState?: Dispatch<SetStateAction<boolean>> | null,
-  setValue?: UseFormSetValue<{ country: CountryType; searchWord: string }>,
+  setValue?: UseFormSetValue<{ country: LANGUAGE_TYPE; searchWord: string }>,
 ) => {
   try {
     let _keyword = keyword || '수분 크림';
@@ -34,7 +34,7 @@ export const searchKeyword = async (
     );
     if (cachingData?.keyword !== _keyword || cachingData?.country !== country) {
       await queryKeyword(country, _keyword, _dispatch);
-      _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
+      _dispatch({ type: RECOMMENDER_ACTION.SWITCH_LOADING, payload: false });
       return;
     }
     if (_setState) {
@@ -43,13 +43,13 @@ export const searchKeyword = async (
     }
   } catch (error) {
     console.error(error);
-    _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: false });
-    _dispatch({ type: RECOMMANDER_ACTION.UPDATE_ERROR_MESSAGE });
+    _dispatch({ type: RECOMMENDER_ACTION.SWITCH_LOADING, payload: false });
+    _dispatch({ type: RECOMMENDER_ACTION.UPDATE_ERROR_MESSAGE });
   }
 };
 
 const queryKeyword = async (
-  country: CountryType,
+  country: LANGUAGE_TYPE,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
@@ -60,7 +60,7 @@ const queryKeyword = async (
 
   const response = await getTranslationOfKeyword(parms);
   const translatedData = response!.data.data;
-  _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
+  _dispatch({ type: RECOMMENDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
 
   _amplitudeKeywordTranslated(country, keyword);
   return;
@@ -82,13 +82,13 @@ const querySameKeyword = async (
   const response = await getTranslationOfKeyword(parms);
   const translatedData = response!.data.data;
 
-  _dispatch({ type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
+  _dispatch({ type: RECOMMENDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
   _setState(false);
   return true;
 };
 
 export const initializeKeyword = (
-  setValue: UseFormSetValue<{ country: CountryType; searchWord: string }>,
+  setValue: UseFormSetValue<{ country: LANGUAGE_TYPE; searchWord: string }>,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION);
@@ -97,7 +97,7 @@ export const initializeKeyword = (
     setValue('country', preKeyword.country);
     setValue('searchWord', preKeyword.keyword);
     _dispatch({
-      type: RECOMMANDER_ACTION.STORE_KEYWORD_RESULT,
+      type: RECOMMENDER_ACTION.STORE_KEYWORD_RESULT,
       payload: preKeyword,
     });
   }
@@ -107,7 +107,7 @@ export const switchIsLoadingState = (
   _dispatch: Dispatch<TSearchActionType>,
   isLoading: boolean,
 ) => {
-  _dispatch({ type: RECOMMANDER_ACTION.SWITCH_LOADING, payload: isLoading });
+  _dispatch({ type: RECOMMENDER_ACTION.SWITCH_LOADING, payload: isLoading });
 };
 
 export const getTranslatorStatus = (translatorState: TTranslationKeywordType) => {
