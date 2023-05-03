@@ -18,7 +18,6 @@ import { isFalsy } from '@/utils/isFalsy';
 import { SalePrice } from '@/pages/report/SalePrice';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 
-//TODO : 앰플리튜드 로직에서 잘 땟다 붙혔다 하게 수정할 것 (casey 23/3/28)
 const DetailReport = () => {
   const routeId = useParams();
 
@@ -57,7 +56,11 @@ const DetailReport = () => {
 
     return (
       <Fragment>
-        <KeywordInfo keywordInfo={main} amplitudeData={amplitudeData} />
+        <KeywordInfo
+          keywordInfo={main}
+          itemCount={_state.salePrice?.data!.itemCount}
+          amplitudeData={amplitudeData}
+        />
         <MartketSize marketSize={main} />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
