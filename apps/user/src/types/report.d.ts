@@ -186,6 +186,7 @@ type TSalePriceData = {
   text: string;
   country: CountryType;
   channel: TChannelType;
+  itemCount: number;
   gradeItems: TSalePriceItems[][];
   priceAnalysisInfo: TPriceAnalysisInfo;
   itemGradeIndices: number[];

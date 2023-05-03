@@ -15,11 +15,12 @@ import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 
-interface IMartketSize {
+interface IMarketSize {
   marketSize: TMarketSize;
+  itemCount: number;
 }
 
-export const MartketSize = (props: IMartketSize) => {
+export const MarketSize = (props: IMarketSize) => {
   const {
     totalSalesAmount,
     avgSalesAmount,
@@ -61,7 +62,7 @@ export const MartketSize = (props: IMartketSize) => {
             <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
               <p className='text-XS/Regular text-grey-900'>
                 리포트 생성일 기준, 최근 30일간 상위
-                <span className='text-XS/Bold'>{` 50개 `}</span>
+                <span className='text-XS/Bold'>{` ${props.itemCount}개 `}</span>
                 상품들이 판매된 매출과 판매량 정보에요.
               </p>
             </div>

@@ -7,7 +7,7 @@ import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { MartketSize } from '@/pages/report/MarketSize';
+import { MarketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
@@ -18,7 +18,6 @@ import { isFalsy } from '@/utils/isFalsy';
 import { SalePrice } from '@/pages/report/SalePrice';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 
-//TODO : 앰플리튜드 로직에서 잘 땟다 붙혔다 하게 수정할 것 (casey 23/3/28)
 const DetailReport = () => {
   const routeId = useParams();
 
@@ -57,8 +56,12 @@ const DetailReport = () => {
 
     return (
       <Fragment>
-        <KeywordInfo keywordInfo={main} amplitudeData={amplitudeData} />
-        <MartketSize marketSize={main} />
+        <KeywordInfo
+          keywordInfo={main}
+          itemCount={_state.salePrice?.data!.itemCount}
+          amplitudeData={amplitudeData}
+        />
+        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
