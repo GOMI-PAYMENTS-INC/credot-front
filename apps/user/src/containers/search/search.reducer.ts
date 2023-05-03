@@ -16,7 +16,7 @@ export enum SEARCH_ACTION {
 }
 
 const searchInitialState: TSearchState = {
-  country: CountryType.Vn,
+  country: CountryType.Sg,
   text: '',
   keyword: '',
   isSearched: false,
@@ -88,7 +88,7 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
   }
 };
 
-export enum RECOMMANDER_ACTION {
+export enum RECOMMENDER_ACTION {
   USE_TRANSLATION = 'USE_TRANSLATION',
   STORE_KEYWORD_RESULT = 'STORE_KEYWORD_RESULT',
   SWITCH_LOADING = 'SWITCH_LOADING',
@@ -96,7 +96,7 @@ export enum RECOMMANDER_ACTION {
   UPDATE_ERROR_MESSAGE = 'UPDATE_ERROR_MESSAGE',
 }
 
-const recommanderInitialState: TTranslationKeywordType = {
+const recommenderInitialState: TTranslationKeywordType = {
   useTranslation: false,
   keyword: '',
   data: null,
@@ -104,25 +104,25 @@ const recommanderInitialState: TTranslationKeywordType = {
   isError: false,
 };
 
-const recommanderReducer = (
+const recommenderReducer = (
   _state: TTranslationKeywordType,
   action: TRecommanderActionType,
 ) => {
   const state = structuredClone(_state);
   switch (action.type) {
-    case RECOMMANDER_ACTION.USE_TRANSLATION:
+    case RECOMMENDER_ACTION.USE_TRANSLATION:
       state.useTranslation = action.payload;
       return state;
-    case RECOMMANDER_ACTION.STORE_KEYWORD_RESULT:
+    case RECOMMENDER_ACTION.STORE_KEYWORD_RESULT:
       state.data = action.payload;
       state.keyword = action.payload.keyword;
       state.isError = false;
       useSessionStorage.setItem(CACHING_KEY.STORED_TRANSLATION, action.payload);
       return state;
-    case RECOMMANDER_ACTION.SWITCH_LOADING:
+    case RECOMMENDER_ACTION.SWITCH_LOADING:
       state.isLoading = action.payload;
       return state;
-    case RECOMMANDER_ACTION.UPDATE_ERROR_MESSAGE:
+    case RECOMMENDER_ACTION.UPDATE_ERROR_MESSAGE:
       state.isError = true;
       return state;
     default:
@@ -130,4 +130,4 @@ const recommanderReducer = (
   }
 };
 
-export { searchInitialState, searchReducer, recommanderInitialState, recommanderReducer };
+export { searchInitialState, searchReducer, recommenderInitialState, recommenderReducer };
