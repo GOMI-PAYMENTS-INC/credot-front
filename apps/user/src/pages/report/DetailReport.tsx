@@ -44,8 +44,6 @@ const DetailReport = () => {
     }
   }, []);
 
-  console.log(_state);
-
   const combinedComponent = useMemo(() => {
     if (main === null) return <Fragment></Fragment>;
 
@@ -61,7 +59,12 @@ const DetailReport = () => {
           itemCount={_state.salePrice?.data!.itemCount}
           amplitudeData={amplitudeData}
         />
-        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
+        <MarketSize
+          marketSize={main}
+          itemCount={_state.salePrice?.data!.itemCount}
+          country={main.country}
+          createdAt={main.createdAt}
+        />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart

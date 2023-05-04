@@ -65,6 +65,24 @@ export const convertLanguage = (languageCode: LANGUAGE_TYPE) => {
   }
 };
 
+export const convertExchangeRate = (country: CountryType) => {
+  switch (country) {
+    case CountryType.Sg:
+      return 'SGD';
+    case CountryType.My:
+      return 'MYR';
+    case CountryType.Tw:
+      return 'TWD';
+    case CountryType.Vn:
+      return 'VND';
+    case CountryType.Th:
+      return 'THB';
+    default:
+      console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+
 export const convertShopeeSiteUrl = (country: CountryType) => {
   switch (country) {
     case CountryType.Sg:
