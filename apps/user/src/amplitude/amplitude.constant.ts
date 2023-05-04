@@ -16,6 +16,7 @@ export const amplitudeConstant = {
   changePwStarted: 'change pw started',
   changePwCompleted: 'change pw completed',
 
+  countryChanged: 'country changed',
   keywordSearched: 'keyword searched',
   keywordSearchedSucceeded: 'keyword search succeeded',
   keywordSearchedFailed: 'keyword search failed',

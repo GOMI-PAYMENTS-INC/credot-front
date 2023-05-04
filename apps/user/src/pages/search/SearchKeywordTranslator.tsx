@@ -1,34 +1,50 @@
-import { Dispatch, useReducer, KeyboardEvent, useEffect, useRef } from 'react';
+import { Dispatch, KeyboardEvent, useEffect, useReducer, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CountryType } from '@/generated/graphql';
-import { CACHING_KEY } from '@/types/enum.code';
+import { CACHING_KEY, LANGUAGE_TYPE } from '@/types/enum.code';
 
 import { useForm, UseFormSetValue } from 'react-hook-form';
-import { recommanderInitialState, recommanderReducer } from '@/containers/search';
+import { recommenderInitialState, recommenderReducer } from '@/containers/search';
 import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
 
 import {
-  switchTranslationTab,
   initializeKeyword,
   searchKeyword,
   switchIsLoadingState,
+  switchTranslationTab,
 } from '@/containers/search/translator.container';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import DropDown, {
+  DROPDOWN_STATUS,
+  DROPDOWN_VARIANTS,
+  TDropDownOption,
+} from '@/components/dropDown';
+import { convertLanguage } from '@/utils/convertEnum';
 
 interface ISearchKeywordTranslator {
   _searchDispatch: Dispatch<TSearchActionType>;
+  searchCountry: CountryType;
   updateSearchKeyword: UseFormSetValue<{
+    country: CountryType;
     keyword: string;
   }>;
 }
 
 export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
-  const [_state, _dispatch] = useReducer(recommanderReducer, recommanderInitialState);
+  const [_state, _dispatch] = useReducer(recommenderReducer, recommenderInitialState);
   const scrollRef = useRef<HTMLTableSectionElement>(null);
-  const { register, getValues, setValue } = useForm<{ searchWord: string }>({
+  const { register, getValues, setValue, watch } = useForm<{
+    country: LANGUAGE_TYPE;
+    searchWord: string;
+  }>({
     mode: 'onChange',
+    defaultValues: {
+      country: LANGUAGE_TYPE.Us,
+    },
   });
+
+  const countryWatcher = watch('country');
 
   useEffect(() => {
     if (useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)) {
@@ -38,12 +54,36 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
 
   useEffect(() => {
     if (_state.isLoading) {
-      searchKeyword(getValues('searchWord'), _dispatch, null, setValue);
+      void searchKeyword(
+        countryWatcher,
+        getValues('searchWord'),
+        _dispatch,
+        null,
+        setValue,
+      );
     }
   }, [_state.isLoading]);
 
-  const getCachingData = () =>
-    useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION)?.keyword;
+  const getCachingData = () => useSessionStorage.getItem(CACHING_KEY.STORED_TRANSLATION);
+
+  const languageOptions = () => {
+    let result: TDropDownOption[] = [];
+    const keys = Object.keys(LANGUAGE_TYPE);
+    keys.map((languageCode) => {
+      const languageEnum = LANGUAGE_TYPE[languageCode as keyof typeof LANGUAGE_TYPE];
+
+      result.push({
+        value: languageEnum,
+        text: convertLanguage(languageEnum),
+      });
+    });
+    return result;
+  };
+
+  const onClickOption = (languageCode: any) => {
+    const languageTypeEnum: LANGUAGE_TYPE = languageCode;
+    setValue('country', languageTypeEnum);
+  };
 
   return (
     <div className='fixed bottom-[100px] right-6 block'>
@@ -51,7 +91,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
         <article className='z-50 w-[360px] shadow-[0_8px_16px_-15px_rgba(0,0,0,0.5)]'>
           <section className='flex w-full flex-col rounded-t-[16px] border-[1px] border-grey-300 bg-white px-6 pb-5 pt-5'>
             <header className='flex w-full items-center'>
-              <img src='/assets/images/Gomibot.png' />
+              <ReactSVG src='/assets/icons/GPTgomi.svg' className='h-10 w-10' />
               <h1 className='w-[224px] pl-3 text-XL/Bold text-grey-900'>키워드 번역</h1>
               <ReactSVG
                 src='/assets/icons/filled/CloseCircle.svg'
@@ -62,19 +102,20 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
             </header>
             <div className='mt-6 flex h-10 items-center justify-around'>
               <div className='flex items-center'>
-                <ReactSVG src='/assets/icons/country/KR.svg' />
-                <p className='pl-2 text-S/Regular text-grey-800'>한국어</p>
+                <p className='text-S/Regular text-grey-800'>한국어</p>
               </div>
               <ReactSVG src='/assets/icons/outlined/ArrowRight.svg' />
 
-              <div className='select-icon-group'>
-                <ReactSVG src='/assets/icons/flag/Vietnam.svg' />
-                <select name='country' id='country' className='select-normal-clear-true'>
-                  <option value={CountryType.Vn} defaultValue={CountryType.Vn}>
-                    베트남
-                  </option>
-                </select>
-              </div>
+              <DropDown
+                name='country'
+                minWidth={120}
+                value={convertLanguage(countryWatcher)}
+                isUseIcon={false}
+                options={languageOptions()}
+                status={DROPDOWN_STATUS.FILLED}
+                variants={DROPDOWN_VARIANTS.CLEAR}
+                onClickOption={onClickOption}
+              ></DropDown>
             </div>
             <div className='mt-3 flex items-center'>
               <div className='inputCustom-group grow'>
@@ -87,7 +128,9 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                     {...register('searchWord')}
                     onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                       if (event.key === 'Enter') {
-                        const callData = getCachingData() !== getValues('searchWord');
+                        const callData =
+                          getCachingData()?.keyword !== getValues('searchWord') ||
+                          getCachingData()?.country !== getValues('country');
                         switchIsLoadingState(_dispatch, callData);
                       }
                     }}
@@ -98,7 +141,9 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
               <button
                 className='button-filled-normal-large-primary-false-false-true ml-2 h-fit min-w-[76px] text-M/Bold'
                 onClick={() => {
-                  const callData = getCachingData() !== getValues('searchWord');
+                  const callData =
+                    getCachingData()?.keyword !== getValues('searchWord') ||
+                    getCachingData()?.country !== getValues('country');
                   switchIsLoadingState(_dispatch, callData);
                 }}
               >
@@ -116,6 +161,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                 translatorState={_state}
                 updateSearchKeyword={props.updateSearchKeyword}
                 _searchDispatch={props._searchDispatch}
+                searchCountry={props.searchCountry}
                 setTranslatorState={_dispatch}
                 scrollRef={scrollRef}
               />

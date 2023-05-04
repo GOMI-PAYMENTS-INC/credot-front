@@ -35,16 +35,30 @@ export enum STATUS_CODE {
   IS_SHOPEE_SYSTEM_FAILED = '9500',
   ERROR = '9999',
 }
-
+//해당 순서대로 프론트에서 출력됨
 export enum COUNTRY_TYPE {
-  /** 한국 */
-  Kr = 'KR',
-  /** 태국 */
-  Th = 'TH',
-  /** 미국 */
-  Us = 'US',
+  /** 싱가포르 */
+  Sg = 'SG',
+  /** 말레이시아 */
+  My = 'MY',
+  /** 대만 */
+  Tw = 'TW',
   /** 베트남 */
   Vn = 'VN',
+  /** 태국 */
+  Th = 'TH',
+}
+
+//해당 순서대로 프론트에서 출력됨
+export enum LANGUAGE_TYPE {
+  /** 영어 */
+  Us = 'US',
+  /** 중국어 */
+  Cn = 'CN',
+  /** 베트남어 */
+  Vn = 'VN',
+  /** 태국어 */
+  Th = 'TH',
 }
 
 export enum CHANNEL_TYPE {

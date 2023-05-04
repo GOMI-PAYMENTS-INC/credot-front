@@ -53,6 +53,9 @@ type TMarketSize = {
   totalSalesCount: number;
   avgSalesCount: number;
   basePrice: number;
+  currencyUnit: number;
+  country: CountryType;
+  createdAt: Date | null;
   trend: TGoogleTrendDataType;
 };
 
@@ -62,13 +65,14 @@ type TGoogleTrendDataType = {
   interest: number;
 }[];
 
-type TRecommnandKeyword = {
+type TRecommendKeyword = {
   searchCount: number;
   competitionProductCount: number;
   competitionRate: number;
   cpcPrice: number;
   cpcRate: number;
   avgPrice: number;
+  currencyUnit: number;
   basePrice: number;
   evaluateStatus: string;
 };
@@ -78,7 +82,7 @@ type TReportItem = {
   userId: number;
   reportUniqueId: string;
   status: string;
-  countryCode: string;
+  countryCode: CountryType;
   channel: string;
   keyword: string;
   isMain: boolean;
@@ -100,10 +104,13 @@ type TDeleteReportListParamsType = {
 };
 
 type TCreateReportParamsType = {
-  country: string; // 국가코드
+  country: CountryType;
   reportInvokeId: string;
 };
-
+type TGetReportExistedParamsType = {
+  country: CountryType;
+  text: string;
+};
 type TCreateReportResponseType = {
   code: string;
   message: string;
@@ -119,7 +126,7 @@ type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type GRADE_TYPE = 'high' | 'medium' | 'low';
 
 type TReportState = {
-  main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommnandKeyword) | null;
+  main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
   relation: TGetRelationReportDataType[];
   salePrice: {
     data: TSalePriceData | null;
@@ -183,6 +190,7 @@ type TSalePriceData = {
   text: string;
   country: CountryType;
   channel: TChannelType;
+  itemCount: number;
   gradeItems: TSalePriceItems[][];
   priceAnalysisInfo: TPriceAnalysisInfo;
   itemGradeIndices: number[];
@@ -242,7 +250,7 @@ type TOverseaProductResponse = {
 type TOverseaProductData = {
   id: number;
   text: string;
-  country: 'VN';
+  country: CountryType;
   channel: 'SHOPEE';
   itemOverseaCount: number;
   totalItemCount: number;

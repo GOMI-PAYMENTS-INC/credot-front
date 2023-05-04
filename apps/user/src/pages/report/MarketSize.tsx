@@ -13,19 +13,24 @@ import { TITLE } from '@/types/enum.code';
 import { MarketSizeTrendChart } from './MarketSizeTrendChart';
 import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { convertTitle } from '@/utils/convertEnum';
+import { convertCountry, convertTitle } from '@/utils/convertEnum';
+import { convertTime } from '@/utils/parsingTimezone';
 
-interface IMartketSize {
+interface IMarketSize {
   marketSize: TMarketSize;
+  itemCount: number;
 }
 
-export const MartketSize = (props: IMartketSize) => {
+export const MarketSize = (props: IMarketSize) => {
   const {
     totalSalesAmount,
     avgSalesAmount,
     totalSalesCount,
     avgSalesCount,
     basePrice,
+    currencyUnit,
+    country,
+    createdAt,
     trend,
   } = props.marketSize;
 
@@ -37,12 +42,14 @@ export const MartketSize = (props: IMartketSize) => {
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
-      return convertExchangeRate(number, basePrice);
+      return convertExchangeRate(currencyUnit, number, basePrice);
     })
     .map((number) => formatNumber(number));
 
   const { interest, date, minTurnoverMonth, maxTurnoverMonth } = convertedData(trend);
 
+  const created = convertTime(createdAt, 'YYYY');
+  const lastYearToCreated = Number(created) - 1;
   return (
     <section>
       <div id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
@@ -61,7 +68,7 @@ export const MartketSize = (props: IMartketSize) => {
             <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
               <p className='text-XS/Regular text-grey-900'>
                 리포트 생성일 기준, 최근 30일간 상위
-                <span className='text-XS/Bold'>{` 50개 `}</span>
+                <span className='text-XS/Bold'>{` ${props.itemCount}개 `}</span>
                 상품들이 판매된 매출과 판매량 정보에요.
               </p>
             </div>
@@ -75,7 +82,7 @@ export const MartketSize = (props: IMartketSize) => {
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               검색트렌드
               <span className='pl-[4px] text-XS/Medium text-grey-700'>
-                2022_google 베트남
+                {lastYearToCreated}_google {convertCountry(country)}
               </span>
             </h1>
             <div className='tooltip-container'>
@@ -119,8 +126,8 @@ export const MartketSize = (props: IMartketSize) => {
           </div>
 
           <Fragment>
-            <div className='col-span-2 flex h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
-              <div className='mt-5 flex h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
+            <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
+              <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
                 <p>가장 많이 팔려요</p>
                 {maxTurnoverMonth.map((month, key) => (
                   <p
@@ -132,7 +139,7 @@ export const MartketSize = (props: IMartketSize) => {
                 ))}
               </div>
 
-              <div className='mb-5 flex h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
+              <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
                 <p>가장 적게 팔려요</p>
                 {minTurnoverMonth.map((month, key) => (
                   <p

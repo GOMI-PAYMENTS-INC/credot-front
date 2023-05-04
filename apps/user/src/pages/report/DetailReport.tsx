@@ -3,11 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { Defalut as Layout } from '@/components/layouts';
 import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
-import { convertTitle } from '@/utils/convertEnum';
+import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { MartketSize } from '@/pages/report/MarketSize';
+import { MarketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
@@ -18,7 +18,6 @@ import { isFalsy } from '@/utils/isFalsy';
 import { SalePrice } from '@/pages/report/SalePrice';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 
-//TODO : 앰플리튜드 로직에서 잘 땟다 붙혔다 하게 수정할 것 (casey 23/3/28)
 const DetailReport = () => {
   const routeId = useParams();
 
@@ -55,28 +54,36 @@ const DetailReport = () => {
 
     return (
       <Fragment>
-        <KeywordInfo keywordInfo={main} amplitudeData={amplitudeData} />
-        <MartketSize marketSize={main} />
+        <KeywordInfo
+          keywordInfo={main}
+          itemCount={_state.salePrice?.data!.itemCount}
+          amplitudeData={amplitudeData}
+        />
+        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
-            spinnerEvent={_state.spinnerEvent}
             relation={relation}
             _dispatch={_dispatch}
+            spinnerEvent={_state.spinnerEvent}
             toggleEvent={_state.toggleEvent}
+            country={main.country}
             basePrice={main.basePrice}
+            currencyUnit={main.currencyUnit}
             amplitudeData={amplitudeData}
           />
         </Fragment>
         <SalePrice
+          currencyUnit={main.currencyUnit}
           scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}
           list={_state.salePrice.list}
           focus={_state.salePrice.focus}
-          amplitudeData={amplitudeData}
           _dispatch={_dispatch}
+          amplitudeData={amplitudeData}
         />
         <AnalysisOverseaProduct
+          currencyUnit={main.currencyUnit}
           basePrice={main.basePrice}
           overseaProduct={_state.oversea}
           amplitudeData={amplitudeData}
@@ -116,7 +123,11 @@ const DetailReport = () => {
                 <button
                   className='flex h-5 w-5 cursor-pointer items-center pl-3'
                   onClick={() => {
-                    openBrowser(`https://shopee.vn/search?keyword=${main!.text}`);
+                    openBrowser(
+                      `${convertShopeeSiteUrl(main!.country)}/search?keyword=${
+                        main!.text
+                      }`,
+                    );
                     _amplitudeMovedToSERP(routeId.id, main!.text, null);
                   }}
                 >
