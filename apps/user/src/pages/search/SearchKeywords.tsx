@@ -170,6 +170,24 @@ const SearchKeywords = () => {
     _amplitudeCountryChanged(countryWatcher, CountryTypeEnum);
   };
 
+  const convertSearchPlaceholder = (country: CountryType) => {
+    switch (country) {
+      case CountryType.Sg:
+        return 'shampoo';
+      case CountryType.My:
+        return 'phone charger';
+      case CountryType.Tw:
+        return '馬克杯收納';
+      case CountryType.Vn:
+        return 'gấu bông';
+      case CountryType.Th:
+        return 'มะม่วงอบแห้ง';
+      default:
+        console.error('enum 코드를 확인해주세요.');
+        return '';
+    }
+  };
+
   return (
     <Layout>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -224,7 +242,7 @@ const SearchKeywords = () => {
                   <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
                     <input
                       type='text'
-                      placeholder='gấu bông'
+                      placeholder={convertSearchPlaceholder(countryWatcher)}
                       {...register('keyword')}
                       onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                         if (event.key === 'Enter') {
