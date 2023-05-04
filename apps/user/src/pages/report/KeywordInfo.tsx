@@ -1,6 +1,10 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
-import { convertCountry, convertShopeeSiteUrl } from '@/utils/convertEnum';
+import {
+  convertCountry,
+  convertExchangeRate,
+  convertShopeeSiteUrl,
+} from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { useParams } from 'react-router-dom';
 import { openBrowser } from '@/containers/report';
@@ -12,7 +16,7 @@ interface IKeywordInfoProps {
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, createdAt, basePrice } = props.keywordInfo;
+  const { text, country, createdAt, basePrice, currencyUnit } = props.keywordInfo;
   const { reportId } = props.amplitudeData;
 
   return (
@@ -35,7 +39,9 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               <span className='text-grey-600'>수집 기준</span>
               <span className='text-grey-800'>연관도순 상위 {props.itemCount}개</span>
               <span className='text-grey-600'>생성일 기준 환율</span>
-              <span className='text-grey-800'>{`100VND = ${basePrice} KRW`}</span>
+              <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
+                country,
+              )} = ${basePrice} KRW`}</span>
             </div>
           </div>
         </div>
