@@ -53,7 +53,7 @@ export enum COUNTRY_TYPE {
 export enum LANGUAGE_TYPE {
   /** 영어 */
   Us = 'US',
-  /** 중국어 */
+  /** 중국어 (번체) */
   Cn = 'CN',
   /** 베트남어 */
   Vn = 'VN',

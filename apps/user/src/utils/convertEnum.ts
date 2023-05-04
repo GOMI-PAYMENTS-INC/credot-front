@@ -54,7 +54,7 @@ export const convertLanguage = (languageCode: LANGUAGE_TYPE) => {
     case LANGUAGE_TYPE.Th:
       return '태국어';
     case LANGUAGE_TYPE.Cn:
-      return '중국어';
+      return '중국어 (번체)';
     case LANGUAGE_TYPE.Us:
       return '영어';
     case LANGUAGE_TYPE.Vn:
