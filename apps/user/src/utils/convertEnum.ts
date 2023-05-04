@@ -70,7 +70,7 @@ export const convertShopeeSiteUrl = (country: CountryType) => {
     case CountryType.Sg:
       return 'https://shopee.sg';
     case CountryType.My:
-      return 'https://shopee.co.th';
+      return 'https://shopee.com.my';
     case CountryType.Tw:
       return 'https://shopee.tw';
     case CountryType.Vn:
