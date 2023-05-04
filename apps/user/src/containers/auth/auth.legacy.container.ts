@@ -352,6 +352,10 @@ export const AuthContainer = () => {
           }
           return;
         }
+
+        if (pathname === PATH.SIGN_IN) {
+          navigation(PATH.SEARCH_PRODUCTS);
+        }
       });
     }
   }, [token]);
