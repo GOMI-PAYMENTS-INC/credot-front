@@ -59,33 +59,31 @@ const DetailReport = () => {
           itemCount={_state.salePrice?.data!.itemCount}
           amplitudeData={amplitudeData}
         />
-        <MarketSize
-          marketSize={main}
-          itemCount={_state.salePrice?.data!.itemCount}
-          country={main.country}
-          createdAt={main.createdAt}
-        />
+        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
         <Fragment>
           <AnalysisKeyword analysisInfo={main} />
           <RecommendationChart
-            spinnerEvent={_state.spinnerEvent}
             relation={relation}
-            country={main.country}
             _dispatch={_dispatch}
+            spinnerEvent={_state.spinnerEvent}
             toggleEvent={_state.toggleEvent}
+            country={main.country}
             basePrice={main.basePrice}
+            currencyUnit={main.currencyUnit}
             amplitudeData={amplitudeData}
           />
         </Fragment>
         <SalePrice
+          currencyUnit={main.currencyUnit}
           scollerRef={scrollController}
           salePriceInfo={_state.salePrice?.data!}
           list={_state.salePrice.list}
           focus={_state.salePrice.focus}
-          amplitudeData={amplitudeData}
           _dispatch={_dispatch}
+          amplitudeData={amplitudeData}
         />
         <AnalysisOverseaProduct
+          currencyUnit={main.currencyUnit}
           basePrice={main.basePrice}
           overseaProduct={_state.oversea}
           amplitudeData={amplitudeData}

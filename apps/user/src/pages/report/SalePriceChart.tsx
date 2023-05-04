@@ -14,6 +14,7 @@ import { Bar } from 'react-chartjs-2';
 
 interface ISalePriceChart {
   priceChartProps: TSalePriceData;
+  currencyUnit: number;
   changedPrice: {
     min: number;
     max: number;
@@ -92,7 +93,7 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     },
   };
 
-  const labels = setChartLabels(salePriceScope, basePrice);
+  const labels = setChartLabels(props.currencyUnit, salePriceScope, basePrice);
 
   const data = {
     labels,

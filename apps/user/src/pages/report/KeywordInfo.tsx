@@ -6,9 +6,7 @@ import {
   convertShopeeSiteUrl,
 } from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { useParams } from 'react-router-dom';
 import { openBrowser } from '@/containers/report';
-import { data } from 'autoprefixer';
 interface IKeywordInfoProps {
   keywordInfo: TKeywordInfo;
   itemCount: number;

@@ -20,12 +20,21 @@ interface ISalePrice {
   _dispatch: Dispatch<TReportAction>;
   list: TSalePriceItems[];
   focus: GRADE_TYPE;
+  currencyUnit: number;
   scollerRef: RefObject<HTMLTableSectionElement>;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const SalePrice = (props: ISalePrice) => {
-  const { _dispatch, salePriceInfo, list, focus, scollerRef, amplitudeData } = props;
+  const {
+    _dispatch,
+    salePriceInfo,
+    list,
+    focus,
+    currencyUnit,
+    scollerRef,
+    amplitudeData,
+  } = props;
   const { id, text, gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
@@ -34,7 +43,7 @@ export const SalePrice = (props: ISalePrice) => {
     basePrice,
   );
   const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
-    formatNumber(roundNumber(convertExchangeRate(price, basePrice))),
+    formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice))),
   );
 
   const [highLength, mediumLength, lowLength] = gradeItems.map((item) => item.length);
@@ -124,6 +133,7 @@ export const SalePrice = (props: ISalePrice) => {
               <div className='w-full max-w-[710px] py-5'>
                 <SalePriceChart
                   priceChartProps={props.salePriceInfo!}
+                  currencyUnit={props.currencyUnit}
                   changedPrice={{
                     min: min,
                     max: max,
@@ -221,6 +231,7 @@ export const SalePrice = (props: ISalePrice) => {
         <SalePriceTable
           scollerRef={scollerRef}
           salePriceItemList={list}
+          currencyUnit={currencyUnit}
           basePrice={basePrice}
           amplitudeData={amplitudeData}
         />
