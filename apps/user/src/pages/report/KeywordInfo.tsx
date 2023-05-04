@@ -38,7 +38,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className='text-grey-600'>수집 기준</span>
               <span className='text-grey-800'>연관도순 상위 {props.itemCount}개</span>
-              <span className='text-grey-600'>생성일 기준 환율</span>
+              <span className='text-grey-600'>적용 환율</span>
               <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
                 country,
               )} = ${basePrice} KRW`}</span>
