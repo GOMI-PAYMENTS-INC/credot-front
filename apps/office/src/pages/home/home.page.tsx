@@ -97,11 +97,22 @@ export default function HomePage() {
       },
     },
     {
+      name: '해외배송 상품 분석',
+      icoName: 'Airplane',
+      launching: true,
+      data: {
+        insightNum: '5',
+        content:
+          '키워드 검색결과 내 해외에서 배송되는 상품들의 상세한 정보를 국가별로 알려줌으로서 국가별 상품들의 경쟁력을 알 수 있어요.',
+        img: '11.png',
+      },
+    },
+    {
       name: '브랜드 분석',
       icoName: 'Brand',
       launching: false,
       data: {
-        insightNum: '5',
+        insightNum: '6',
         content:
           '검색 결과 내 브랜드들을 매출 순위별로 파악하여 트랜드 및 시장 수요를 예측할 수 있으며, \n' +
           '각 브랜드별 주력 상품에 대한 정보도 제공해요.',
@@ -113,7 +124,7 @@ export default function HomePage() {
       icoName: 'Appstore',
       launching: false,
       data: {
-        insightNum: '6',
+        insightNum: '7',
         content: '상위 노출에 유리한 카테고리 등록이 무엇인지 \n' + '알 수 있어요.',
         img: '6-New.png',
       },
@@ -123,7 +134,7 @@ export default function HomePage() {
       icoName: 'Edit',
       launching: false,
       data: {
-        insightNum: '7',
+        insightNum: '8',
         content:
           '상위 노출 상품들의 상품명 내 공통 키워드를 추출할 수 있고, 적절한 상품명 길이도 알 수 있어요.',
         img: '7-New.png',
@@ -134,7 +145,7 @@ export default function HomePage() {
       icoName: 'FileImage',
       launching: false,
       data: {
-        insightNum: '8',
+        insightNum: '9',
         content:
           '상위 노출 상품들의 이미지 썸네일 수, 영상 썸네일 등록률, 영상 썸네일의 평균 길이를 파악해 적절한 썸네일 콘텐츠 전략을 수립할 수 있어요.',
         img: '8-New.png',
@@ -145,23 +156,23 @@ export default function HomePage() {
       icoName: 'Star',
       launching: false,
       data: {
-        insightNum: '9',
+        insightNum: '10',
         content:
           '상위 노출 상품들의 평균 평점과 평점이 높은 상품들을 한 눈에 모아 볼 수 있어, 평점 관리를 위한 레퍼런스로 삼을 수 있어요.',
         img: '9-New.png',
       },
     },
-    {
-      name: 'CS/셀러 분석',
-      icoName: 'Smile',
-      launching: false,
-      data: {
-        insightNum: '10',
-        content:
-          '상위 노출 상품들을 판매하는 셀러들의 판매 경력, 문의 응답 시간 등 디테일한 정보를 제공해요. 베스트 셀러가 되기 위한 운영 조건을 알 수 있어요.',
-        img: '10-New.png',
-      },
-    },
+    // {
+    //   name: 'CS/셀러 분석',
+    //   icoName: 'Smile',
+    //   launching: false,
+    //   data: {
+    //     insightNum: '10',
+    //     content:
+    //       '상위 노출 상품들을 판매하는 셀러들의 판매 경력, 문의 응답 시간 등 디테일한 정보를 제공해요. 베스트 셀러가 되기 위한 운영 조건을 알 수 있어요.',
+    //     img: '10-New.png',
+    //   },
+    // },
   ];
 
   const partnerData = [
@@ -246,25 +257,25 @@ export default function HomePage() {
     {
       subject: '고미인사이트는 어떤 서비스인가요?',
       content:
-        "고미인사이트는 동남아 대표 이커머스 플랫폼의 ‘쇼피'의 종합 분석 솔루션이에요. 키워드에 대한 시장분석 및 상위 노출 인사이트를 제공하며, 추후 내 상품의 품질 측정과 경쟁사 모니터링 등 다양한 솔루션들이 추가될 예정이에요.",
+        "고미 인사이트는 동남아 대표 이커머스 플랫폼의 ‘쇼피'의 종합 분석 솔루션이에요. 키워드에 대한 시장분석 및 상위 노출 인사이트를 제공하며, 추후 내 상품의 품질 측정과 경쟁사 모니터링 등 다양한 솔루션들이 추가될 예정이에요.",
     },
     {
       subject: '어떤 장점이 있고 언제 도움을 받을 수 있나요?',
       content:
-        '데이터를 기반으로 쇼피 진입을 위한 유리한 키워드, 적절한 판매가, 경쟁사 분석에 대한 결과를 알려드려요. 신규 상품을 업로드하거나 이미 판매중인 상품의 품질 개선을 위해 사용할 수 있어요.',
+        '데이터를 기반으로 쇼피 진입을 위한 유리한 키워드, 시장 규모 분석, 적절한 판매가, 경쟁사 분석에 대한 리포트를 제공해요. 신규 상품을 소싱하여 업로드하거나 이미 판매중인 상품의 품질 개선을 위해 사용할 수 있어요.',
     },
     {
       subject: '서비스 이용료가 궁금해요!',
       content:
-        '현재 고미인사이트는 무제한 사용이 가능한 이벤트를 진행중이에요! 별도의 이벤트 종료 안내까지는 무료로 무제한 사용하실 수 있어요.',
+        '현재 고미 인사이트는 무제한 사용이 가능한 이벤트를 진행중이에요! 별도의 이벤트 종료 안내까지는 무료로 무제한 사용하실 수 있어요.',
     },
     {
       subject: '분석이 가능한 쇼피 국가는 어디인가요?',
       content:
-        '현재는 쇼피 싱가포르, 대만, 말레이시아, 베트남, 태국에 대한 분석을 제공하고 있어요. 이후 Shopee의 모든 국가를 지원할 예정이며, 라자다, 아마존과 같은 마켓 플레이스의 인사이트도 점진적으로 추가될 예정이에요. 회원가입 시 업데이트 소식을 빠르게 받아보실 수 있어요!',
+        '현재는 싱가포르, 대만, 말레이시아, 베트남, 태국에 대한 분석을 제공하고 있어요. 점진적으로 쇼피의 모든 국가를 지원할 예정이며, 라자다, 아마존과 같은 마켓 플레이스의 인사이트도 추가될 예정이에요. 회원가입 시 업데이트 소식을 빠르게 받아보실 수 있어요!',
     },
     {
-      subject: '고미인사이트는 어떤 서비스인가요?',
+      subject: '그 외 추가적인 문의가 있어요!',
       content:
         '그 외 추가적인 문의가 있으신 경우 웹페이지 우측 하단의 채널톡으로 문의주시면 최대한 빠른 답변드릴께요.',
     },
