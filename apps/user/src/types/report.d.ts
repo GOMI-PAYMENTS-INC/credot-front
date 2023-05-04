@@ -53,6 +53,9 @@ type TMarketSize = {
   totalSalesCount: number;
   avgSalesCount: number;
   basePrice: number;
+  currencyUnit: number;
+  country: CountryType;
+  createdAt: Date | null;
   trend: TGoogleTrendDataType;
 };
 
@@ -62,13 +65,14 @@ type TGoogleTrendDataType = {
   interest: number;
 }[];
 
-type TRecommnandKeyword = {
+type TRecommendKeyword = {
   searchCount: number;
   competitionProductCount: number;
   competitionRate: number;
   cpcPrice: number;
   cpcRate: number;
   avgPrice: number;
+  currencyUnit: number;
   basePrice: number;
   evaluateStatus: string;
 };
@@ -122,7 +126,7 @@ type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
 type GRADE_TYPE = 'high' | 'medium' | 'low';
 
 type TReportState = {
-  main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommnandKeyword) | null;
+  main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
   relation: TGetRelationReportDataType[];
   salePrice: {
     data: TSalePriceData | null;

@@ -31,6 +31,7 @@ interface IRecommendationChart {
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  currencyUnit: number;
   basePrice: number;
   amplitudeData: TAmplitudeDetailData;
 }
@@ -43,6 +44,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
     _dispatch,
     toggleEvent,
     spinnerEvent,
+    currencyUnit,
     basePrice,
   } = props;
   const batchStatusDoneItems = relation.filter((data) =>
@@ -160,7 +162,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     onClick={() => isToggleOpen(_dispatch, false, data.id)}
                   >
                     <td>
-                      <div className='ml-[6px] flex w-[114px]'>
+                      <div className='ml-3 flex w-[114px]'>
                         <p>{data.text}</p>
                       </div>
                     </td>
@@ -215,7 +217,13 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
                             {formatNumber(
-                              roundNumber(convertExchangeRate(data.cpcPrice, basePrice)),
+                              roundNumber(
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  data.cpcPrice,
+                                  basePrice,
+                                ),
+                              ),
                             )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
@@ -224,7 +232,13 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
                             {formatNumber(
-                              roundNumber(convertExchangeRate(data.avgPrice, basePrice)),
+                              roundNumber(
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  data.avgPrice,
+                                  basePrice,
+                                ),
+                              ),
                             )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>

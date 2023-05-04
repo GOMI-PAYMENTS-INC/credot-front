@@ -90,8 +90,12 @@ export const _getRelationReport = async (
   }
 };
 
-export const convertExchangeRate = (vnd: number, krw: number) => {
-  return Math.floor((vnd / 100) * krw);
+export const convertExchangeRate = (
+  currencyUnit: number,
+  itemPriceMin: number,
+  basePrice: number,
+) => {
+  return Math.floor((itemPriceMin / currencyUnit) * basePrice);
 };
 
 export const isToggleOpen = (
@@ -566,14 +570,15 @@ export const scrollToTop = (
 };
 
 export const setChartLabels = (
+  currencyUnit: number,
   salePriceScope: number[],
   basePrice: number,
 ): string[][] => {
   const init: string[][] = [];
   return salePriceScope.reduce((pre, cur, idx) => {
-    const _cur = formatNumber(convertExchangeRate(cur, basePrice));
+    const _cur = formatNumber(convertExchangeRate(currencyUnit, cur, basePrice));
     const _next = formatNumber(
-      convertExchangeRate(salePriceScope[idx + 1], basePrice) - 1,
+      convertExchangeRate(currencyUnit, salePriceScope[idx + 1], basePrice) - 1,
     );
     if (idx === salePriceScope.length - 1) {
       return pre.concat([_cur]);

@@ -11,13 +11,14 @@ import { TITLE } from '@/types/enum.code';
 
 interface ISalePriceTable {
   salePriceItemList: TSalePriceItems[];
+  currencyUnit: number;
   basePrice: number;
   scollerRef: RefObject<HTMLTableSectionElement>;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {
-  const { amplitudeData, salePriceItemList, basePrice, scollerRef } = props;
+  const { amplitudeData, salePriceItemList, currencyUnit, basePrice, scollerRef } = props;
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
     <table className='overflow-y col-span-full mt-[27px] block h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
@@ -73,7 +74,13 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                     <div className='flex items-center justify-end px-4'>
                       <p className='texgt-grey-800 text-S/Medium'>
                         {formatNumber(
-                          roundNumber(convertExchangeRate(item.itemPriceAvg, basePrice)),
+                          roundNumber(
+                            convertExchangeRate(
+                              currencyUnit,
+                              item.itemPriceAvg,
+                              basePrice,
+                            ),
+                          ),
                         )}
                       </p>
                       <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
@@ -88,7 +95,11 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                           <p className='pl-0.5'>
                             {formatNumber(
                               roundNumber(
-                                convertExchangeRate(item.itemPriceMin, basePrice),
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  item.itemPriceMin,
+                                  basePrice,
+                                ),
                               ),
                             )}
                           </p>
@@ -102,7 +113,11 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                           <p className='pl-0.5'>
                             {formatNumber(
                               roundNumber(
-                                convertExchangeRate(item.itemPriceMax, basePrice),
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  item.itemPriceMax,
+                                  basePrice,
+                                ),
                               ),
                             )}
                           </p>
@@ -119,6 +134,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                     {formatNumber(
                       roundNumber(
                         convertExchangeRate(
+                          currencyUnit,
                           item.itemPriceAvg * item.item30daysSold,
                           basePrice,
                         ),

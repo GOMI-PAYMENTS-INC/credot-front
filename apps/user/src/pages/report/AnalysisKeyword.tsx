@@ -10,7 +10,7 @@ import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 
 interface IAnalysisKeyword {
-  analysisInfo: TRecommnandKeyword;
+  analysisInfo: TRecommendKeyword;
 }
 
 export const AnalysisKeyword = (props: IAnalysisKeyword) => {
@@ -25,7 +25,11 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
-      return convertExchangeRate(number, analysisInfo.basePrice);
+      return convertExchangeRate(
+        analysisInfo.currencyUnit,
+        number,
+        analysisInfo.basePrice,
+      );
     })
     .map((number) => formatNumber(number));
 

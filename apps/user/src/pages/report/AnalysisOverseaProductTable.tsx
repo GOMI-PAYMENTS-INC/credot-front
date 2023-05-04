@@ -12,13 +12,14 @@ import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 import { TITLE } from '@/types/enum.code';
 interface ISalePriceTable {
+  currencyUnit: number;
   basePrice: number;
   overseaItems: TOverSeaItems[];
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
-  const { amplitudeData, overseaItems, basePrice } = props;
+  const { amplitudeData, overseaItems, currencyUnit, basePrice } = props;
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
@@ -102,7 +103,11 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                           <p className='texgt-grey-800 text-S/Medium'>
                             {formatNumber(
                               roundNumber(
-                                convertExchangeRate(item.itemPriceAvg, basePrice),
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  item.itemPriceAvg,
+                                  basePrice,
+                                ),
                               ),
                             )}
                           </p>
@@ -118,7 +123,11 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                               <p className='pl-0.5'>
                                 {formatNumber(
                                   roundNumber(
-                                    convertExchangeRate(item.itemPriceMin, basePrice),
+                                    convertExchangeRate(
+                                      currencyUnit,
+                                      item.itemPriceMin,
+                                      basePrice,
+                                    ),
                                   ),
                                 )}
                               </p>
@@ -132,7 +141,11 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                               <p className='pl-0.5'>
                                 {formatNumber(
                                   roundNumber(
-                                    convertExchangeRate(item.itemPriceMax, basePrice),
+                                    convertExchangeRate(
+                                      currencyUnit,
+                                      item.itemPriceMax,
+                                      basePrice,
+                                    ),
                                   ),
                                 )}
                               </p>
@@ -149,6 +162,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                         {formatNumber(
                           roundNumber(
                             convertExchangeRate(
+                              currencyUnit,
                               item.itemPriceAvg * item.item30daysSold,
                               basePrice,
                             ),

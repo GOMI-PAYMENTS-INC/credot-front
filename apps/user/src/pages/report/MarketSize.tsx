@@ -14,14 +14,11 @@ import { MarketSizeTrendChart } from './MarketSizeTrendChart';
 import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry, convertTitle } from '@/utils/convertEnum';
-import { CountryType } from '@/generated/graphql';
 import { convertTime } from '@/utils/parsingTimezone';
 
 interface IMarketSize {
   marketSize: TMarketSize;
   itemCount: number;
-  country: CountryType;
-  createdAt: Date | null;
 }
 
 export const MarketSize = (props: IMarketSize) => {
@@ -31,6 +28,9 @@ export const MarketSize = (props: IMarketSize) => {
     totalSalesCount,
     avgSalesCount,
     basePrice,
+    currencyUnit,
+    country,
+    createdAt,
     trend,
   } = props.marketSize;
 
@@ -42,14 +42,14 @@ export const MarketSize = (props: IMarketSize) => {
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
-      return convertExchangeRate(number, basePrice);
+      return convertExchangeRate(currencyUnit, number, basePrice);
     })
     .map((number) => formatNumber(number));
 
   const { interest, date, minTurnoverMonth, maxTurnoverMonth } = convertedData(trend);
 
-  const createdAt = convertTime(props.createdAt, 'YYYY');
-  const lastYearToCreated = Number(createdAt) - 1;
+  const created = convertTime(createdAt, 'YYYY');
+  const lastYearToCreated = Number(created) - 1;
   return (
     <section>
       <div id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
@@ -82,7 +82,7 @@ export const MarketSize = (props: IMarketSize) => {
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               검색트렌드
               <span className='pl-[4px] text-XS/Medium text-grey-700'>
-                {lastYearToCreated}_google {convertCountry(props.country)}
+                {lastYearToCreated}_google {convertCountry(country)}
               </span>
             </h1>
             <div className='tooltip-container'>
