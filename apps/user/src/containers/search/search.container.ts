@@ -117,6 +117,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
 
         if (postReport?.data.code === STATUS_CODE.SUCCESS) {
           _setTrigger(false);
+ console.log("위")
 
           _dispatch({
             type: SEARCH_ACTION.SWITCH_MODAL,
@@ -149,6 +150,8 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
     });
 
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
+      _setTrigger(false);
+
       _dispatch({
         type: SEARCH_ACTION.SWITCH_MODAL,
         payload: {
@@ -164,7 +167,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
   }
 };
 
-export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
+export const switchModal = async ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
   if (_state) {
     const { main } = data;
     if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
@@ -178,7 +181,7 @@ export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchMod
       return;
     }
 
-    return createReport({ _state, _dispatch, data, _setTrigger });
+    return await createReport({ _state, _dispatch, data, _setTrigger });
   }
 
   _setTrigger(false);
