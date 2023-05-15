@@ -27,6 +27,12 @@ export const _setAmplitudeEvents = async (
           if (payload.platform) {
             payload.platform = payload.platform.toLowerCase();
           }
+          if (payload.language_before) {
+            payload.language_before = payload.language_before.toLowerCase();
+          }
+          if (payload.language_after) {
+            payload.language_after = payload.language_after.toLowerCase();
+          }
         }
 
         const result = await amplitude.track(event_name, payload).promise;
@@ -312,7 +318,7 @@ export const _amplitudeKeywordTranslated = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
-    language_before: CountryType.Kr.toLowerCase(),
+    language_before: CountryType.Kr,
     language_after: languageAfter,
     keyword,
   });
