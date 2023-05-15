@@ -148,6 +148,7 @@ export enum TERM_TYPE {
 }
 
 export enum MODAL_TYPE_ENUM {
+  MakeReportSuccesses = 'MakeReportSuccesses',
   SameKeywordReportExisted = 'SameKeywordReportExisted',
   LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
   NotBeOverDayReport = 'NotBeOverDayReport',
