@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import {
   useSmsVerifyCodeConfirmQuery,
   CountryType,
-  useVerifyCodeQuery,
+  useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
   useSendTemporaryPasswordMutation,
   FindPasswordInput,
@@ -95,7 +95,7 @@ export const useVerifyCode = (
 
   const _getUserAccount = (user: { phone: string; verifyCodeSign: string }) => {
     // "상태에 따라 아이디가 없습니다."  | "아이디 출력"
-    const { data } = useVerifyCodeQuery(
+    const { data } = useFindAccountQuery(
       graphQLClient,
       {
         user,

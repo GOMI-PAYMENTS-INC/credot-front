@@ -14,8 +14,7 @@ type TSearchModalType =
   | 'NotBeOverDayReport';
 
 type TSearchState = {
-  //TODO: 국가 선택 가능 시  옵셔널 -> 팔수값으로 변경 (현재는 옵션이 없어 고정값으로 주고 있음)
-  [key: string]: string | boolean | null;
+  [key: string]: string | boolean | null | CountryType;
   country?: CountryType;
   text: string;
   isSearched: boolean;
@@ -30,7 +29,7 @@ type TSearchState = {
 type TSearchRef = { current: Omit<TSearchState, 'translateType' | 'isSearched'> };
 
 type TCreateReportParamsType = {
-  country: string; // 국가코드
+  country: CountryType; // 국가코드
   reportInvokeId: string; // 키워드 아이디
 };
 
@@ -68,15 +67,16 @@ type TProductImageStatus = {
   productInvokedId: string;
 };
 
-type TGetTranslationOfKeywordReponse = {
+type TGetTranslationOfKeywordResponse = {
   code: string;
   message: string;
   data: TDictionaryType;
 };
 
 type TDictionaryType = {
+  country: CountryType;
   keyword: string;
-  dictionaries: { text: string; translate: string }[];
+  dictionaries: { country: CountryType; text: string; translate: string }[];
 };
 
 type TTranslationKeywordType = {
@@ -85,4 +85,9 @@ type TTranslationKeywordType = {
   data: TDictionaryType | null;
   isLoading: boolean;
   isError: boolean;
+};
+
+type TGetTranslationOfKeywordParamsType = {
+  term: string;
+  country: CountryType;
 };

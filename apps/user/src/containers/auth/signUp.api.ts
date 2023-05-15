@@ -17,11 +17,7 @@ import { UseFormSetError } from 'react-hook-form';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
-import {
-  _amplitudeLoggedIn,
-  _amplitudeMobileVerified,
-  _setUserProperties,
-} from '@/amplitude/amplitude.service';
+import { _amplitudeLoggedIn, _setUserProperties } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
@@ -56,6 +52,7 @@ export const useSignUp = () => {
     const checkedTerms = [TERM_TYPE.PERSONAL_AGREE, TERM_TYPE.USE_AGREE].every((term) =>
       signUpEvent.checkedTerms.includes(term),
     );
+    const isAgreeMarketing = signUpEvent.checkedTerms.includes(TERM_TYPE.MARKETING_AGREE);
     const isValidVerifyCodeSign = isFalsy(verifyCodeSignatureNumber);
     const isValidTerms = isFalsy(checkedTerms);
 
@@ -69,6 +66,7 @@ export const useSignUp = () => {
       name: '',
       phone: phone,
       verifyCodeSign: verifyCodeSignatureNumber,
+      makettingAgree: isAgreeMarketing,
     };
 
     const signupFormValue: MutationSignupArgs = {
@@ -87,8 +85,9 @@ export const useSignUp = () => {
           AMPLITUDE_ACCOUNT_TYPE.LOCAL,
           email,
           phone,
+          isAgreeMarketing,
           () => {
-            _setUserProperties(email, false, phone, Role.User);
+            _setUserProperties(email, isAgreeMarketing, phone, Role.User);
 
             _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
           },
@@ -148,6 +147,7 @@ export const useSignUp = () => {
     const isCheckedTerms = [TERM_TYPE.PERSONAL_AGREE, TERM_TYPE.USE_AGREE].every((term) =>
       requiredAgreeTerm.includes(term),
     );
+    const isAgreeMarketing = signUpEvent.checkedTerms.includes(TERM_TYPE.MARKETING_AGREE);
     const isValidVerifyCodeSign = isFalsy(verifyCode);
     const isValidTerms = isFalsy(isCheckedTerms);
 
@@ -166,6 +166,7 @@ export const useSignUp = () => {
       idToken: token,
       phone: phone,
       verifyCodeSign: verifyCode,
+      makettingAgree: isAgreeMarketing,
     };
 
     signUpSocialMutate(
@@ -180,6 +181,7 @@ export const useSignUp = () => {
             AMPLITUDE_ACCOUNT_TYPE.GOOGLE,
             email,
             phone,
+            isAgreeMarketing,
             () => {
               _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
             },

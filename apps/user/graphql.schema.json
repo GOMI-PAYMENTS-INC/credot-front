@@ -201,8 +201,26 @@
             "deprecationReason": null
           },
           {
+            "name": "MY",
+            "description": "말레이시아",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SG",
+            "description": "싱가포르",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "TH",
             "description": "태국",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TW",
+            "description": "대만",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -395,6 +413,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "makettingAgree",
+            "description": "마케팅 동의여부",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -1158,6 +1188,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "makettingAgree",
+            "description": "마케팅 동의여부",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,

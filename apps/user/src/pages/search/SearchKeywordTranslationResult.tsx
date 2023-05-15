@@ -13,13 +13,16 @@ import {
   Landing,
 } from '@/pages/search/YetToGetDataStatus';
 import { _amplitudeTranslatedSearched } from '@/amplitude/amplitude.service';
+import { CountryType } from '@/generated/graphql';
 
 interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
   _searchDispatch: Dispatch<TSearchActionType>;
+  searchCountry: CountryType;
   scrollRef: RefObject<HTMLTableSectionElement>;
   updateSearchKeyword: UseFormSetValue<{
+    country: CountryType;
     keyword: string;
   }>;
 }
@@ -27,7 +30,7 @@ interface ISearchKeywordTranslationResult {
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { translatorState, _searchDispatch, updateSearchKeyword } = props;
+  const { searchCountry, translatorState, _searchDispatch, updateSearchKeyword } = props;
 
   const DATA_STATUS = getTranslatorStatus(translatorState);
 
@@ -41,32 +44,31 @@ export const SearchKeywordTranslationResult = (
   }
 
   const { dictionaries } = translatorState.data!;
-
   return (
     <div className='relative flex w-full flex-col justify-center pt-[14px]'>
       {dictionaries.map((result, idx) => {
         return (
           <Fragment key={`${result.text}_${idx}`}>
             <div
-              className={`mx-6 mb-4 flex h-[70px] w-[312px] overflow-hidden rounded-[7px] bg-white hover:border-[1px] hover:bg-grey-200`}
+              className={`mx-6 mb-4 flex h-[70px] w-[312px] overflow-hidden rounded-[7px] border-[1px] border-white bg-white px-4 py-2 hover:border-gray-300 hover:bg-grey-200`}
             >
               <button
                 className='flex h-full w-full items-center'
                 onClick={() => {
-                  queryKeywordByClick(result.text, _searchDispatch, updateSearchKeyword);
-                  _amplitudeTranslatedSearched(result.text);
+                  queryKeywordByClick(
+                    searchCountry,
+                    result.text,
+                    _searchDispatch,
+                    updateSearchKeyword,
+                  );
+                  _amplitudeTranslatedSearched(result.country, result.text);
                 }}
               >
-                <ReactSVG
-                  className='px-4'
-                  src={`assets/icons/outlined/number/number-${idx + 1}.svg`}
-                />
-
-                <div className='flex max-w-[200px] flex-col'>
-                  <p className='py-2 text-M/Regular text-grey-900 '>
+                <div className='flex max-w-[200px] flex-col gap-y-[7px] text-left'>
+                  <p className='text-M/Regular text-grey-900 '>
                     {replaceOverLength(result.text, 22)}
                   </p>
-                  <div className='mb-2 w-fit rounded-[2px] border-[1.5px] border-grey-400 bg-white'>
+                  <div className='w-fit rounded-[2px] border-[1.5px] border-grey-400 bg-white'>
                     <p className='px-1 py-1 text-XS/Regular'>
                       {replaceOverLength(result.translate, 22)}
                     </p>

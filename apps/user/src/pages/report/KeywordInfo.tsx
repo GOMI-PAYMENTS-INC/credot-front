@@ -1,17 +1,20 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
-import { convertCountry } from '@/utils/convertEnum';
+import {
+  convertCountry,
+  convertExchangeRate,
+  convertShopeeSiteUrl,
+} from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { useParams } from 'react-router-dom';
 import { openBrowser } from '@/containers/report';
-import { data } from 'autoprefixer';
 interface IKeywordInfoProps {
   keywordInfo: TKeywordInfo;
+  itemCount: number;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, createdAt, basePrice } = props.keywordInfo;
+  const { text, country, createdAt, basePrice, currencyUnit } = props.keywordInfo;
   const { reportId } = props.amplitudeData;
 
   return (
@@ -31,19 +34,20 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               </span>
             </div>
             <div className='pt-2 text-S/Medium even:space-x-2'>
-              <span className=' text-grey-600'>수집 기준</span>
-              <span className=' text-grey-800'>연관도순 상위 50개</span>
-              <span className=' text-grey-600'>생성일 기준 환율</span>
-              <span className=' text-grey-800'>{`100VND = ${basePrice} KRW`}</span>
+              <span className='text-grey-600'>수집 기준</span>
+              <span className='text-grey-800'>연관도순 상위 {props.itemCount}개</span>
+              <span className='text-grey-600'>적용 환율</span>
+              <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
+                country,
+              )} = ${basePrice} KRW`}</span>
             </div>
           </div>
         </div>
         <div className='flex h-[168px] w-[179px]'>
           <div className='pt-[30px] pl-[7px]'>
-            {/* TODO: 현재는 베트남 한정이지만 추후 국가 선택, 검색 기준도 쿼리에 넣어야 함 */}
             <button
               onClick={() => {
-                openBrowser(`https://shopee.vn/search?keyword=${text}`);
+                openBrowser(`${convertShopeeSiteUrl(country)}/search?keyword=${text}`);
                 _amplitudeMovedToSERP(reportId, text, null);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'

@@ -12,12 +12,13 @@ import { COUNTRY_CODE } from '@/containers/report/country.code';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;
+  currencyUnit: number;
   basePrice: number;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
-  const { overseaProduct, basePrice, amplitudeData } = props;
+  const { overseaProduct, basePrice, amplitudeData, currencyUnit } = props;
   const [aFewProduct, fewProducts, manyProducts] = OVERSEA_PRODUCT_RATIO;
 
   const {
@@ -173,6 +174,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
       </div>
       {isFalsy(overseaItems) === false && (
         <AnalysisOverseaProductTable
+          currencyUnit={currencyUnit}
           overseaItems={overseaItems}
           basePrice={basePrice}
           amplitudeData={amplitudeData}

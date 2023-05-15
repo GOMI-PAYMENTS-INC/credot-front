@@ -1,7 +1,7 @@
 import { SEARCH_ACTION } from '@/containers/search';
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import { COUNTRY_TYPE, MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
@@ -10,22 +10,32 @@ import {
   _amplitudeKeywordReportRequested,
   _amplitudeKeywordSearched,
 } from '@/amplitude/amplitude.service';
+import { CountryType } from '@/generated/graphql';
 
 export const queryKeywordByClick = (
+  country: CountryType,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
   setValue: UseFormSetValue<{
+    country: CountryType;
     keyword: string;
   }>,
 ) => {
   if (keyword) _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
-  console.log(keyword, 'keyword');
+  setValue('country', country);
   setValue('keyword', keyword);
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword });
-  _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD, payload: keyword });
+  _dispatch({
+    type: SEARCH_ACTION.SEARCH_KEYWORD,
+    payload: { keyword: keyword, country: country },
+  });
 };
 
-export const queryKeyword = (keyword: string, _dispatch: Dispatch<TSearchActionType>) => {
+export const queryKeyword = (
+  country: CountryType,
+  keyword: string,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
   const _switch = isFalsy(keyword) === false;
 
   if (_switch === false) {
@@ -33,24 +43,33 @@ export const queryKeyword = (keyword: string, _dispatch: Dispatch<TSearchActionT
   }
   const preKeyword = useSessionStorage.getItem('keyword');
 
-  if (isFalsy(preKeyword) === false && keyword === preKeyword.keyword) {
+  if (
+    isFalsy(preKeyword) === false &&
+    keyword === preKeyword.keyword &&
+    country === preKeyword.country
+  ) {
     toast.success(`${keyword}에 대한 키워드 정보에요`);
   }
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword.toLowerCase() });
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
   _dispatch({ type: SEARCH_ACTION.SEARCH_MODE, payload: _switch });
-  _dispatch({ type: SEARCH_ACTION.SEARCH_KEYWORD });
+  _dispatch({
+    type: SEARCH_ACTION.SEARCH_KEYWORD,
+    payload: { country: country },
+  });
 
-  _amplitudeKeywordSearched(keyword);
+  _amplitudeKeywordSearched(country, keyword);
 };
 
 export const initializeState = (
   cachingData: TSearchState,
   _dispatch: Dispatch<TSearchActionType>,
   setValue: UseFormSetValue<{
+    country: CountryType;
     keyword: string;
   }>,
 ) => {
+  setValue('country', cachingData.country);
   setValue('keyword', cachingData.text);
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: cachingData });
 };
@@ -86,7 +105,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
   const actionType = SEARCH_ACTION.SWITCH_MODAL;
   try {
     if (_state.isModalOpen === false) {
-      const res = await getReportExisted({ text: keyword });
+      const res = await getReportExisted({ country: country, text: keyword });
       // 리포트가 없을 경우
       const reportInfo = res?.data;
 
@@ -107,7 +126,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
             },
           });
           toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
-          _amplitudeKeywordReportRequested(1, keyword);
+          _amplitudeKeywordReportRequested(1, country, keyword);
         }
 
         return postReport;
@@ -171,7 +190,7 @@ export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchMod
   });
 };
 
-export const getProductImages = (
+export const _getProductImages = (
   data: TGetProductImageResponseType,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {

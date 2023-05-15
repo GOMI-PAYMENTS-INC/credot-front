@@ -23,18 +23,30 @@ import {
   convertExchangeRate,
 } from '@/containers/report/report.container';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
+import { convertShopeeSiteUrl } from '@/utils/convertEnum';
+import { CountryType } from '@/generated/graphql';
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
+  country: CountryType;
   _dispatch: Dispatch<TReportAction>;
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  currencyUnit: number;
   basePrice: number;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
-  const { amplitudeData, relation, _dispatch, toggleEvent, spinnerEvent, basePrice } =
-    props;
+  const {
+    amplitudeData,
+    relation,
+    country,
+    _dispatch,
+    toggleEvent,
+    spinnerEvent,
+    currencyUnit,
+    basePrice,
+  } = props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
   );
@@ -150,7 +162,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     onClick={() => isToggleOpen(_dispatch, false, data.id)}
                   >
                     <td>
-                      <div className='ml-[6px] flex w-[114px]'>
+                      <div className='ml-3 flex w-[114px]'>
                         <p>{data.text}</p>
                       </div>
                     </td>
@@ -205,7 +217,13 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
                             {formatNumber(
-                              roundNumber(convertExchangeRate(data.cpcPrice, basePrice)),
+                              roundNumber(
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  data.cpcPrice,
+                                  basePrice,
+                                ),
+                              ),
                             )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
@@ -214,7 +232,13 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <div className='bordered flex h-5 w-[58px] justify-end '>
                           <p className='pl-0.5 text-XS/Medium'>
                             {formatNumber(
-                              roundNumber(convertExchangeRate(data.avgPrice, basePrice)),
+                              roundNumber(
+                                convertExchangeRate(
+                                  currencyUnit,
+                                  data.avgPrice,
+                                  basePrice,
+                                ),
+                              ),
                             )}
                           </p>
                           <p className='pl-0.5 text-XS/Medium text-grey-700'>원</p>
@@ -226,7 +250,11 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <button
                           className='flex h-5 w-5 cursor-pointer items-center'
                           onClick={() => {
-                            openBrowser(`https://shopee.vn/search?keyword=${data.text}`);
+                            openBrowser(
+                              `${convertShopeeSiteUrl(country)}/search?keyword=${
+                                data.text
+                              }`,
+                            );
                             _amplitudeMovedToSERP(
                               amplitudeData.reportId,
                               amplitudeData.keyword,
