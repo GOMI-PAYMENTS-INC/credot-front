@@ -52,18 +52,21 @@ export const MarketSize = (props: IMarketSize) => {
   const created = convertTime(createdAt, 'YYYY');
   const lastYearToCreated = Number(created) - 1;
 
+
   //평균 판매량 실수인 경우, 소수점 첫자리에서 반올림/1이하 실수인 경우 '1개 미만'으로 출력
   const covertAvgCount = (avgCount: string) => {
     let avgCountNumber = Number(avgCount);
 
     if (isInteger(avgCountNumber) === false) {
       if (avgCountNumber > 1) {
+        console.log('avgCountNumber 1보다 커', avgCountNumber);
         avgCountNumber = Math.round(avgCountNumber);
       } else {
+        console.log('avgCountNumber 1보다 작아', avgCountNumber);
         avgCountNumber = 1;
       }
     }
-
+    console.log('리턴 avgCountNumber', avgCountNumber);
     return avgCountNumber;
   };
 

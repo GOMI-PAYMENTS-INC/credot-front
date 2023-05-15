@@ -9,6 +9,7 @@ type TRecommanderActionType = {
 };
 
 type TSearchModalType =
+  | 'MakeReportSuccesses'
   | 'SameKeywordReportExisted'
   | 'LessMonthlyKeywordVolumn'
   | 'NotBeOverDayReport';

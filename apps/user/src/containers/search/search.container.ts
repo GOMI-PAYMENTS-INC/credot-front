@@ -102,7 +102,6 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId } = data;
   const { keyword, country } = _state;
-  const actionType = SEARCH_ACTION.SWITCH_MODAL;
   try {
     if (_state.isModalOpen === false) {
       const res = await getReportExisted({ country: country, text: keyword });
@@ -120,12 +119,12 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
           _setTrigger(false);
 
           _dispatch({
-            type: actionType,
+            type: SEARCH_ACTION.SWITCH_MODAL,
             payload: {
-              isModalOpen: false,
+              isModalOpen: true,
+              modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
             },
           });
-          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
           _amplitudeKeywordReportRequested(1, country, keyword);
         }
 
@@ -135,7 +134,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
       const { isDaily, createdAt } = reportInfo.data;
 
       _dispatch({
-        type: actionType,
+        type: SEARCH_ACTION.SWITCH_MODAL,
         payload: { isModalOpen: true, modalType: dailyChecker(isDaily) },
       });
 
@@ -153,10 +152,10 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
       _dispatch({
         type: SEARCH_ACTION.SWITCH_MODAL,
         payload: {
-          isModalOpen: false,
+          isModalOpen: true,
+          modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
         },
       });
-      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
     }
 
     return postReport;

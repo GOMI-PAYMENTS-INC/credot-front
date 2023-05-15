@@ -28,6 +28,16 @@ export const SearchModal = ({
 
   const modalType = () => {
     switch (_state.modalType) {
+      case MODAL_TYPE_ENUM.MakeReportSuccesses:
+        return {
+          title: '리포트 요청 완료!',
+          content: <Fragment>리포트 생성이 완료되면, 문자로 알려드릴께요!</Fragment>,
+          onCancel: {
+            name: '다음 키워드 검색하기',
+            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+          },
+        };
+
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
         return {
           title: '키워드 수요가 많지 않아요!',
