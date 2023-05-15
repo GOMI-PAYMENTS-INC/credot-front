@@ -4,7 +4,7 @@ import { ReactSVG } from 'react-svg';
 import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
-import { useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { menuData } from '@/containers/sidebar/sideBarData';
 import {
   sidebarInitialState,
@@ -32,6 +32,23 @@ const SideBar = () => {
 
   const { userInfo } = AuthContainer();
   const userId = userInfo ? replaceOverLength(userInfo.me.email, 17) : '';
+
+  const modalEl = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const clickOutside = (event: any) => {
+      if (
+        _state.openedUserMenu &&
+        modalEl.current &&
+        !modalEl.current?.contains(event.target)
+      ) {
+        onClickUserMenu(_dispatch);
+      }
+    };
+    document.addEventListener('mousedown', clickOutside);
+    return () => {
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  }, [_state.openedUserMenu]);
 
   return (
     <aside className='relative'>
@@ -224,6 +241,47 @@ const SideBar = () => {
             </ul>
           </div>
           <div className='divide-y divide-grey-300'>
+            <ul className='flex flex-col items-center gap-y-4 py-6 px-2.5'>
+              <li>
+                <a href='http://starterclub.kr/'>
+                  <ReactSVG
+                    src='/assets/icons/sideBanner-1.svg'
+                    className='cursor-pointer '
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', `w-[180px]`);
+                      svg.setAttribute(
+                        'alt',
+                        `소상공인 역량강화 바우처 400만원 지원 신청하기`,
+                      );
+                    }}
+                  />
+                </a>
+              </li>
+              <li>
+                <a href='https://open.kakao.com/o/g0ONQdRb'>
+                  <ReactSVG
+                    src='/assets/icons/sideBanner-2.svg'
+                    className='cursor-pointer '
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', `w-[180px]`);
+                      svg.setAttribute('alt', `해외수출 셀러 카페 스타터 클럽`);
+                    }}
+                  />
+                </a>
+              </li>
+              <li>
+                <a href='https://open.kakao.com/o/g2fW8ajf'>
+                  <ReactSVG
+                    src='/assets/icons/sideBanner-3.svg'
+                    className='cursor-pointer '
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', `w-[180px]`);
+                      svg.setAttribute('alt', `쇼피 셀러모임 오픈카톡 입장`);
+                    }}
+                  />
+                </a>
+              </li>
+            </ul>
             <div className='px-2.5 '>
               <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
                 <button
@@ -280,7 +338,10 @@ const SideBar = () => {
         </div>
       )}
       {_state.openedUserMenu ? (
-        <div className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
+        <div
+          className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'
+          ref={modalEl}
+        >
           <ul className=''>
             <li className='px-4 py-3'>
               <a
