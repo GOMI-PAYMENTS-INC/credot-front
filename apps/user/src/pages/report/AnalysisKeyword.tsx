@@ -241,7 +241,9 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 <div className='flex h-[96px] w-[295px] items-center justify-center'>
                   <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
-                      <p className='text-XL/Bold text-grey-900'>{cpcRate}%</p>
+                      <p className='text-XL/Bold text-grey-900'>
+                        {Math.round(Number(cpcRate))}%
+                      </p>
                       <div className='pt-1'>
                         <p className='text-XS/Medium text-grey-800 '>CPC 비율</p>
                       </div>

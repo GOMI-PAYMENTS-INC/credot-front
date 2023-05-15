@@ -15,6 +15,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry, convertTitle } from '@/utils/convertEnum';
 import { convertTime } from '@/utils/parsingTimezone';
+import { isInteger } from '@/utils/isInteger';
 
 interface IMarketSize {
   marketSize: TMarketSize;
@@ -50,6 +51,33 @@ export const MarketSize = (props: IMarketSize) => {
 
   const created = convertTime(createdAt, 'YYYY');
   const lastYearToCreated = Number(created) - 1;
+
+  //평균 판매량 실수인 경우, 소수점 첫자리에서 반올림/1이하 실수인 경우 '1개 미만'으로 출력
+  const covertAvgCount = (avgCount: string) => {
+    let avgCountNumber = Number(avgCount);
+
+    if (isInteger(avgCountNumber) === false) {
+      if (avgCountNumber > 1) {
+        avgCountNumber = Math.round(avgCountNumber);
+      } else {
+        avgCountNumber = 1;
+      }
+    }
+
+    return avgCountNumber;
+  };
+
+  const covertAvgCountUnit = (avgCount: string) => {
+    let avgCountNumber = Number(avgCount);
+    let avgCountUnitPrint = '개';
+
+    if (isInteger(avgCountNumber) === false && avgCountNumber < 1) {
+      avgCountUnitPrint = '개 미만';
+    }
+
+    return avgCountUnitPrint;
+  };
+
   return (
     <section>
       <div id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
@@ -215,8 +243,12 @@ export const MarketSize = (props: IMarketSize) => {
               <div className='w-1/2 border-l-[1px] border-dashed pl-5'>
                 <p className='text-S/Medium text-grey-800'>평균 판매량</p>
                 <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>{avgCount}</span>
-                  <span className='text-L/Medium text-grey-800'>개</span>
+                  <span className='mr-1 text-2XL/Regular text-grey-900'>
+                    {covertAvgCount(avgCount)}
+                  </span>
+                  <span className='text-L/Medium text-grey-800'>
+                    {covertAvgCountUnit(avgCount)}
+                  </span>
                 </div>
               </div>
             </div>

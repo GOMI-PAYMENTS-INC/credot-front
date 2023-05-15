@@ -208,7 +208,9 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     <td className='bg-grey-50'>
                       <div className='flex justify-center text-center'>
                         <div className='h-5 w-[43px]'>
-                          <p className='text-S/Bold'>{`${data.cpcRate}%`}</p>
+                          <p className='text-S/Bold'>
+                            {Math.round(Number(data.cpcRate))}%
+                          </p>
                         </div>
                       </div>
                     </td>
