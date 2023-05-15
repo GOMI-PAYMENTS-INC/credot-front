@@ -243,7 +243,7 @@ const SideBar = () => {
           <div className='divide-y divide-grey-300'>
             <ul className='flex flex-col items-center gap-y-4 py-6 px-2.5'>
               <li>
-                <a href='http://starterclub.kr/'>
+                <a href='https://open.kakao.com/o/g2fW8ajf' target='_blank'>
                   <ReactSVG
                     src='/assets/icons/sideBanner-1.svg'
                     className='cursor-pointer '
@@ -258,7 +258,7 @@ const SideBar = () => {
                 </a>
               </li>
               <li>
-                <a href='https://open.kakao.com/o/g0ONQdRb'>
+                <a href='http://starterclub.kr' target='_blank'>
                   <ReactSVG
                     src='/assets/icons/sideBanner-2.svg'
                     className='cursor-pointer '
@@ -270,7 +270,7 @@ const SideBar = () => {
                 </a>
               </li>
               <li>
-                <a href='https://open.kakao.com/o/g2fW8ajf'>
+                <a href='https://open.kakao.com/o/g0ONQdRb' target='_blank'>
                   <ReactSVG
                     src='/assets/icons/sideBanner-3.svg'
                     className='cursor-pointer '
