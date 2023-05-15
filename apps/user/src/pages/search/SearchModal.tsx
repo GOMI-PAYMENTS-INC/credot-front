@@ -23,7 +23,11 @@ export const SearchModal = ({
 
   useEffect(() => {
     if (eventTrigger === false) return;
-    switchModal({ _setTrigger, _dispatch, _state, data });
+    const switchModalAsync = async () =>{
+      await  switchModal({ _setTrigger, _dispatch, _state, data })
+      setEventTrigger(false)
+    }
+    switchModalAsync()
   }, [eventTrigger]);
 
   const modalType = () => {
@@ -34,7 +38,8 @@ export const SearchModal = ({
           content: <Fragment>리포트 생성이 완료되면, 문자로 알려드릴께요!</Fragment>,
           onCancel: {
             name: '다음 키워드 검색하기',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
         };
 
@@ -44,11 +49,14 @@ export const SearchModal = ({
           content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
           onConfirm: {
             name: '그래도 생성하기',
-            confirmEvent: () => switchModal({ _setTrigger, _dispatch, _state, data }),
+            confirmEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch, _state, data });
+            },
           },
         };
 
@@ -64,7 +72,8 @@ export const SearchModal = ({
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
         };
 
@@ -80,12 +89,13 @@ export const SearchModal = ({
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
           onConfirm: {
             name: '새로 생성하기',
-            confirmEvent: () => {
-              switchModal({ _setTrigger, _dispatch, _state, data });
+            confirmEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch, _state, data });
             },
           },
         };
