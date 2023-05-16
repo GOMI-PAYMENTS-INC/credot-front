@@ -1,11 +1,18 @@
+
+const rateRoundConvert = (rate:number,toFixedNum:number) =>{
+  const round =  rate.toFixed(toFixedNum)
+  return Number(round)%1 ? round  : parseInt(round)
+}
+
 export const formatNumber = (number: any): string => {
   if (typeof number === 'number') {
-    return number.toLocaleString();
+    let result = rateRoundConvert(number,1)
+    return result.toLocaleString();
   }
 
   const changedValue = parseInt(number);
   if (isNaN(changedValue) === false) {
-    return changedValue.toLocaleString();
+    return rateRoundConvert(changedValue,1).toLocaleString();
   }
   if (!number) return '';
   return '';

@@ -123,7 +123,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                           <button
                             className='button-outlined-small-xLarge-primary-false-false-true relative'
                             onClick={() => {
-                              _getRelationReport(routeId.id!, _dispatch);
+                              void _getRelationReport(routeId.id!, _dispatch);
                               buttonSpinnerEvent(_dispatch);
                               delayEvent(() => buttonSpinnerEvent(_dispatch), 1000);
                             }}
@@ -209,7 +209,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                       <div className='flex justify-center text-center'>
                         <div className='h-5 w-[43px]'>
                           <p className='text-S/Bold'>
-                            {Math.round(Number(data.cpcRate))}%
+                            {formatNumber(data.cpcRate)}%
                           </p>
                         </div>
                       </div>
