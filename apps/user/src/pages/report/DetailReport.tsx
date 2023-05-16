@@ -88,7 +88,6 @@ const DetailReport = () => {
           overseaProduct={_state.oversea}
           amplitudeData={amplitudeData}
         />
-        <section className='h-[200px]'></section>
       </Fragment>
     );
   }, [main]);
@@ -151,7 +150,7 @@ const DetailReport = () => {
         ref={contentSection}
       >
         <div className='min-h-full bg-white'>
-          <div className='container pt-8'>
+          <div className='container pt-8 pb-[100px]'>
             <div className='grid grid-cols-12 gap-x-6'>
               <div className='col-span-10 space-y-[72px]'>{combinedComponent}</div>
               <DetailReportContentsBar
