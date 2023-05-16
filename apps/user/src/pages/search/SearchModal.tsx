@@ -132,14 +132,16 @@ export const SearchModal = ({
           )}
 
           <footer className='flex justify-between pt-4'>
-            <button
-              type='button'
-              className='button-filled-normal-large-grey-false-false-true w-full'
-              onClick={() => modal.onCancel.cancelEvent()}
-              disabled={eventTrigger}
-            >
-              {modal.onCancel.name}
-            </button>
+            {modal.onCancel && (
+              <button
+                type='button'
+                className='button-filled-normal-large-grey-false-false-true w-full'
+                onClick={() => modal.onCancel?.cancelEvent()}
+                disabled={eventTrigger}
+              >
+                {modal.onCancel.name}
+              </button>
+            )}
             {modal.onConfirm && (
               <Fragment>
                 <div className='w-4' />
