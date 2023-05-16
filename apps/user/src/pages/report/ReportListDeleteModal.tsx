@@ -65,13 +65,15 @@ export const ReportListDeleteModal = ({
           )}
 
           <footer className='flex justify-between pt-4'>
+            {modal.onCancel && (
             <button
               type='button'
               className='button-outlined-normal-large-grey-false-false w-full '
-              onClick={() => modal.onCancel.cancelEvent()}
+              onClick={() => modal.onCancel?.cancelEvent()}
             >
               {modal.onCancel.name}
             </button>
+            )}
             {modal.onConfirm && (
               <Fragment>
                 <div className='w-4' />

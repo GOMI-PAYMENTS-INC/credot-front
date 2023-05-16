@@ -9,6 +9,6 @@ interface IConfirmClickEvent {
 interface IModalType {
   title: string | JSX.Element;
   content: JSX.Element;
-  onCancel: ICancelClickEvent;
+  onCancel?: ICancelClickEvent;
   onConfirm?: IConfirmClickEvent;
 }
