@@ -162,7 +162,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     onClick={() => isToggleOpen(_dispatch, false, data.id)}
                   >
                     <td>
-                      <div className='ml-3 flex w-[114px]'>
+                      <div className='ml-3 flex'>
                         <p>{data.text}</p>
                       </div>
                     </td>
