@@ -1,10 +1,9 @@
 import { Fragment, useMemo } from 'react';
-import { isTruthy } from '@/utils/isTruthy';
 import { ReactSVG } from 'react-svg';
 
-import { SearchCurrentTime } from '@/pages/search/SearchCurrentTime';
 import { isFalsy } from '@/utils/isFalsy';
 import { STATUS_CODE } from '@/types/enum.code';
+import { Tooltip } from 'react-tooltip';
 
 interface ISearchKeywordsImageBox {
   images: TGetProductImageResponseType | null;
@@ -41,11 +40,11 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
   const { title, subTitle } = imageBoxTitle;
   const imageData = images?.data[0].imageUrl;
 
-  const list = imageData === undefined ? [1, 2, 3, 4, 5, 6, 7, 8] : imageData;
+  const list = imageData === undefined ? [1, 2, 3] : imageData;
   //TODO: return에 조건문이 많음 분기할 것
   return (
-    <div className='col-span-6 mx-[50px] flex h-[900px] w-[458px] flex-col self-center'>
-      <div className='flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[1px] border-grey-300 shadow-[0_8px_16px_-15px_rgba(0,0,0,0.5)]'>
+    <div className='flex h-[236px] grow basis-full flex-col self-center bg-white'>
+      <div className='flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[1px] border-grey-300'>
         {images?.code === STATUS_CODE.ERROR ? (
           <div className='flex h-full flex-col'>
             <div className='flex h-full flex-col items-center justify-center'>
@@ -77,10 +76,10 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
             </div>
           </div>
         ) : list.length === 0 ? (
-          <div className='flex h-full flex-col  pb-[120px]'>
+          <div className='flex h-full flex-col'>
             <div className='flex h-full flex-col items-center justify-center'>
-              <img src='/assets/images/ErrorPage.png' />
-              <div className='pt-9 text-center'>
+              <img src='/assets/images/ErrorPage.png' className='w-[100px]' />
+              <div className='pt-4 text-center'>
                 <p className='text-L/Medium text-grey-800'>
                   키워드에 대한 이미지가 존재하지 않아요.
                 </p>
@@ -93,10 +92,20 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
         ) : (
           <Fragment>
             <header className='pb-4'>
-              <SearchCurrentTime />
               <div className='pt-[25px] pl-6'>
-                <h1 className='text-2XL/Bold'>{title}</h1>
-                <p className='pt-2 text-S/Medium text-grey-700'>{subTitle}</p>
+                <h3 className='text-L/Medium'>
+                  관련 이미지
+                  <ReactSVG
+                    id='anchor-keyword-tip'
+                    src='assets/icons/filled/Help.svg'
+                    className='ml-[7px] inline-block'
+                  />
+                  <Tooltip
+                    anchorId='anchor-keyword-tip'
+                    html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
+                    place='right'
+                  />
+                </h3>
               </div>
             </header>
 
@@ -114,17 +123,20 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                 <ul>
                   {list.map((item, idx) => {
                     const style = `float-left flex items-center ${
-                      idx > 1 && 'pt-4'
+                      idx > 2 && 'pt-4'
                     } pl-6 ${idx % 1 === 1 && 'pr-6'}`;
                     return typeof item === 'number' ? (
                       <li key={`keywordImg_${idx}`} className={style}>
-                        <div className='flex h-[192px] w-[192px] items-center justify-center border-[1px] bg-grey-100 '>
-                          <img src='/assets/images/ShopeeIcon.png' />
+                        <div className='flex h-[126px] w-[126px] items-center justify-center rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'>
+                          <img
+                            src='/assets/images/ShopeeIcon.png'
+                            className='w-[46.33px]'
+                          />
                         </div>
                       </li>
                     ) : (
                       <li key={`keywordImg_${item}_${idx}`} className={style}>
-                        <div className='flex h-[192px] w-[192px] items-center justify-center border-[1px] bg-grey-100 '>
+                        <div className='flex h-[126px] w-[126px] items-center justify-center rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'>
                           <img className='flex' src={item} />
                         </div>
                       </li>

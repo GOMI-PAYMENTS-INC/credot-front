@@ -102,7 +102,7 @@ const DropDown = ({
   return (
     <div
       id={`select-group-${name}`}
-      className={`relative text-S/Regular text-gray-900`}
+      className={`relative text-S/Regular text-grey-900`}
       ref={modalEl}
     >
       <button
@@ -127,7 +127,7 @@ const DropDown = ({
             return (
               <li key={option.value}>
                 <button
-                  className={`flex w-full gap-x-2 break-keep py-3 px-4 hover:bg-gray-100 ${
+                  className={`flex w-full gap-x-2 break-keep py-3 px-4 hover:bg-grey-100 ${
                     option.text === value && 'text-orange-500'
                   }`}
                   onClick={() => handleOnClickOption(option.value)}
