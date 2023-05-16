@@ -479,13 +479,6 @@ export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: numbe
 
     return false;
   });
-  console.group('IQR');
-  console.log((Q1 / 100) * basePrice, 'Q1');
-  console.log((Q3 / 100) * basePrice, 'Q3');
-  console.log((IQR / 100) * basePrice, 'IQR');
-  console.log(((Q1 - 1.5 * IQR) / 100) * basePrice, 'Min');
-  console.log(((Q3 + 1.5 * IQR) / 100) * basePrice, 'Max');
-  console.groupEnd();
   return removedOutliner;
 };
 

@@ -23,7 +23,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
-    <table className='overflow-y col-span-full mt-[27px] block h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
+    <table className='overflow-y col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[368px] text-left' colSpan={1}>
@@ -51,7 +51,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
         id='scrollbar'
         className={`${
           isFalsy(overseaItems) ? '' : 'block'
-        } h-[393px] w-full overflow-y-auto`}
+        } max-h-[393px] w-full overflow-y-auto`}
       >
         {isFalsy(overseaItems) ? (
           <tr>

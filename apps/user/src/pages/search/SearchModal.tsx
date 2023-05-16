@@ -23,22 +23,40 @@ export const SearchModal = ({
 
   useEffect(() => {
     if (eventTrigger === false) return;
-    switchModal({ _setTrigger, _dispatch, _state, data });
+    const switchModalAsync = async () =>{
+      await  switchModal({ _setTrigger, _dispatch, _state, data })
+      setEventTrigger(false)
+    }
+    switchModalAsync()
   }, [eventTrigger]);
 
   const modalType = () => {
     switch (_state.modalType) {
+      case MODAL_TYPE_ENUM.MakeReportSuccesses:
+        return {
+          title: '리포트 요청 완료!',
+          content: <Fragment>리포트 생성이 완료되면, 문자로 알려드릴께요!</Fragment>,
+          onCancel: {
+            name: '다음 키워드 검색하기',
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
+          },
+        };
+
       case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
         return {
           title: '키워드 수요가 많지 않아요!',
           content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
           onConfirm: {
             name: '그래도 생성하기',
-            confirmEvent: () => switchModal({ _setTrigger, _dispatch, _state, data }),
+            confirmEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch, _state, data });
+            },
           },
         };
 
@@ -54,7 +72,8 @@ export const SearchModal = ({
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
         };
 
@@ -70,12 +89,13 @@ export const SearchModal = ({
           ),
           onCancel: {
             name: '다른 키워드 검색',
-            cancelEvent: () => switchModal({ _setTrigger, _dispatch }),
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch })},
           },
           onConfirm: {
             name: '새로 생성하기',
-            confirmEvent: () => {
-              switchModal({ _setTrigger, _dispatch, _state, data });
+            confirmEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch, _state, data });
             },
           },
         };
@@ -112,14 +132,16 @@ export const SearchModal = ({
           )}
 
           <footer className='flex justify-between pt-4'>
-            <button
-              type='button'
-              className='button-filled-normal-large-grey-false-false-true w-full'
-              onClick={() => modal.onCancel.cancelEvent()}
-              disabled={eventTrigger}
-            >
-              {modal.onCancel.name}
-            </button>
+            {modal.onCancel && (
+              <button
+                type='button'
+                className='button-filled-normal-large-grey-false-false-true w-full'
+                onClick={() => modal.onCancel?.cancelEvent()}
+                disabled={eventTrigger}
+              >
+                {modal.onCancel.name}
+              </button>
+            )}
             {modal.onConfirm && (
               <Fragment>
                 <div className='w-4' />

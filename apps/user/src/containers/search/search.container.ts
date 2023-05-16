@@ -100,48 +100,48 @@ const dailyChecker = (isDaily: boolean) => {
 
 const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
-  const { reportInvokeId } = data;
+  const { reportInvokeId, main } = data;
   const { keyword, country } = _state;
-  const actionType = SEARCH_ACTION.SWITCH_MODAL;
+
   try {
     if (_state.isModalOpen === false) {
       const res = await getReportExisted({ country: country, text: keyword });
-      // 리포트가 없을 경우
+      // 만든 기록이 있는 경우
       const reportInfo = res?.data;
 
-      //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
-      if (reportInfo?.data === null || reportInfo?.data === undefined) {
-        const postReport = await postCreateReport({
-          reportInvokeId: reportInvokeId,
-          country: country,
-        });
-
-        if (postReport?.data.code === STATUS_CODE.SUCCESS) {
-          _setTrigger(false);
-
+    //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
+      //이전에 만들어 진적 있는 경우
+      if (reportInfo?.data !== null && reportInfo?.data !== undefined) {
+        // 최근 24시간 이내 동일한 리포트 or 이전 발행된 기록이 있는 리포트
+        const { isDaily, createdAt } = reportInfo.data;
+        if(isDaily){
           _dispatch({
-            type: actionType,
-            payload: {
-              isModalOpen: false,
-            },
+            type: SEARCH_ACTION.SWITCH_MODAL,
+            payload: { isModalOpen: true, modalType: MODAL_TYPE_ENUM.NotBeOverDayReport },
           });
-          toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
-          _amplitudeKeywordReportRequested(1, country, keyword);
-        }
+          return ;
+        }else{
+          _dispatch({
+            type: SEARCH_ACTION.SWITCH_MODAL,
+            payload: { isModalOpen: true, modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted },
+          });
+          _dispatch({ type: SEARCH_ACTION.UPDATE_CREATED_AT, payload: createdAt });
 
-        return postReport;
+          return ;
+        }
       }
 
-      const { isDaily, createdAt } = reportInfo.data;
-
-      _dispatch({
-        type: actionType,
-        payload: { isModalOpen: true, modalType: dailyChecker(isDaily) },
-      });
-
-      _dispatch({ type: SEARCH_ACTION.UPDATE_CREATED_AT, payload: createdAt });
-
-      return res;
+      if (isFalsy(main.count) || main.count! < 300) {
+        console.log("main.count",main.count)
+        _dispatch({
+          type: SEARCH_ACTION.SWITCH_MODAL,
+          payload: {
+            isModalOpen: true,
+            modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
+          },
+        });
+        return ;
+      }
     }
 
     const postReport = await postCreateReport({
@@ -150,13 +150,16 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
     });
 
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
+      _setTrigger(false);
+
       _dispatch({
         type: SEARCH_ACTION.SWITCH_MODAL,
         payload: {
-          isModalOpen: false,
+          isModalOpen: true,
+          modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
         },
       });
-      toast.success(`'${keyword}'리포트 생성을 시작할께요.(최대 24시간 소요)`);
+      _amplitudeKeywordReportRequested(1, country, keyword);
     }
 
     return postReport;
@@ -165,21 +168,9 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
   }
 };
 
-export const switchModal = ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
+export const switchModal = async ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
   if (_state) {
-    const { main } = data;
-    if (_state.isModalOpen === false && (isFalsy(main.count) || main.count! < 300)) {
-      _dispatch({
-        type: SEARCH_ACTION.SWITCH_MODAL,
-        payload: {
-          isModalOpen: true,
-          modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
-        },
-      });
-      return;
-    }
-
-    return createReport({ _state, _dispatch, data, _setTrigger });
+    return await createReport({ _state, _dispatch, data, _setTrigger });
   }
 
   _setTrigger(false);

@@ -15,7 +15,6 @@ import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry, convertTitle } from '@/utils/convertEnum';
 import { convertTime } from '@/utils/parsingTimezone';
-import { isInteger } from '@/utils/isInteger';
 
 interface IMarketSize {
   marketSize: TMarketSize;
@@ -51,32 +50,6 @@ export const MarketSize = (props: IMarketSize) => {
 
   const created = convertTime(createdAt, 'YYYY');
   const lastYearToCreated = Number(created) - 1;
-
-  //평균 판매량 실수인 경우, 소수점 첫자리에서 반올림/1이하 실수인 경우 '1개 미만'으로 출력
-  const covertAvgCount = (avgCount: string) => {
-    let avgCountNumber = Number(avgCount);
-
-    if (isInteger(avgCountNumber) === false) {
-      if (avgCountNumber > 1) {
-        avgCountNumber = Math.round(avgCountNumber);
-      } else {
-        avgCountNumber = 1;
-      }
-    }
-
-    return avgCountNumber;
-  };
-
-  const covertAvgCountUnit = (avgCount: string) => {
-    let avgCountNumber = Number(avgCount);
-    let avgCountUnitPrint = '개';
-
-    if (isInteger(avgCountNumber) === false && avgCountNumber < 1) {
-      avgCountUnitPrint = '개 미만';
-    }
-
-    return avgCountUnitPrint;
-  };
 
   return (
     <section>
@@ -169,14 +142,16 @@ export const MarketSize = (props: IMarketSize) => {
 
               <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
                 <p>가장 적게 팔려요</p>
+                <ul className='flex flex-wrap'>
                 {minTurnoverMonth.map((month, key) => (
-                  <p
+                  <li
                     key={`min_turn_over_${key}`}
-                    className='pt-2 text-2XL/Bold text-grey-900'
+                    className='pt-2 text-2XL/Bold text-grey-900 basis-1/2'
                   >
                     {`${month}월`}
-                  </p>
+                  </li>
                 ))}
+                </ul>
               </div>
             </div>
             <div className='col-span-8 flex h-[320px] w-full flex-col items-center text-S/Medium text-grey-800'>
@@ -243,11 +218,9 @@ export const MarketSize = (props: IMarketSize) => {
               <div className='w-1/2 border-l-[1px] border-dashed pl-5'>
                 <p className='text-S/Medium text-grey-800'>평균 판매량</p>
                 <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>
-                    {covertAvgCount(avgCount)}
-                  </span>
+                  <span className='mr-1 text-2XL/Regular text-grey-900'>{avgCount}</span>
                   <span className='text-L/Medium text-grey-800'>
-                    {covertAvgCountUnit(avgCount)}
+                    개
                   </span>
                 </div>
               </div>

@@ -1,14 +1,14 @@
 interface ICancelClickEvent {
   name: string;
-  cancelEvent: () => void;
+  cancelEvent: () => void | Promise<void>;
 }
 interface IConfirmClickEvent {
   name: string;
-  confirmEvent: () => void;
+  confirmEvent: () => void | Promise<void>;
 }
 interface IModalType {
   title: string | JSX.Element;
   content: JSX.Element;
-  onCancel: ICancelClickEvent;
+  onCancel?: ICancelClickEvent;
   onConfirm?: IConfirmClickEvent;
 }

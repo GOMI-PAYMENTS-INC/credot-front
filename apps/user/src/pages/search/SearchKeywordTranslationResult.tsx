@@ -50,7 +50,7 @@ export const SearchKeywordTranslationResult = (
         return (
           <Fragment key={`${result.text}_${idx}`}>
             <div
-              className={`mx-6 mb-4 flex h-[70px] w-[312px] overflow-hidden rounded-[7px] border-[1px] border-white bg-white px-4 py-2 hover:border-gray-300 hover:bg-grey-200`}
+              className={`mx-6 mb-4 flex h-[70px] w-[312px] overflow-hidden rounded-[7px] border-[1px] border-white bg-white px-4 py-2 hover:border-grey-300 hover:bg-grey-200`}
             >
               <button
                 className='flex h-full w-full items-center'

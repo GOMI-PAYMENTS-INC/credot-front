@@ -12,8 +12,6 @@ import {
   initializeState,
   queryKeyword,
   queryKeywordByClick,
-  RECOMMENDER_ACTION,
-  SEARCH_ACTION,
   switchModal,
 } from '@/containers/search';
 import { searchInitialState, searchReducer } from '@/containers/search/search.reducer';
@@ -96,8 +94,10 @@ const SearchKeywords = () => {
     }
     if (isFalsy(_state.keyword) === false && isLoading === true) {
       return (
-        <div className='scale-[0.3] pb-20'>
-          <div id='loader' />
+        <div className='flex h-full items-center justify-center'>
+          <div className='scale-[0.3]'>
+            <div id='loader' />
+          </div>
         </div>
       );
     }
@@ -105,7 +105,7 @@ const SearchKeywords = () => {
       const { relations } = response;
       if (isFalsy(relations)) {
         return (
-          <div className='flex h-[150px] items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
+          <div className='flex h-full items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
             연관 키워드가 없어요
           </div>
         );
@@ -130,8 +130,8 @@ const SearchKeywords = () => {
 
   const montlySearchColor =
     montlySearchVolum === '???'
-      ? 'text-4XL/Bold text-grey-300'
-      : 'text-4XL/Bold text-grey-900';
+      ? 'text-3XL/Bold text-grey-300'
+      : 'text-3XL/Bold text-grey-900';
 
   const countryOptions = () => {
     let result: TDropDownOption[] = [];
@@ -199,44 +199,46 @@ const SearchKeywords = () => {
           _setTrigger={setRequestReport}
         />
       </ModalComponent>
-      <div className='container relative  grid h-full grid-cols-12 items-center'>
-        <div className='absolute left-[-20%] top-0  z-[-1] block'>
+      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px]'>
+        <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%]'>
           <img src='/assets/images/Background.png' />
         </div>
-        <div className='col-span-6'>
-          <div className='px-[50px]'>
-            <div>
-              <h1 className='break-keep text-3XL/Bold'>
-                <span className='text-orange-600'>키워드 검색 </span>후
-                <br />
-                <span className='text-orange-600'>리포트를 생성</span>해주세요.
-              </h1>
+
+        <div className=''>
+          <div>
+            <h1 className='break-keep text-center text-3XL/Bold'>
+              <span className='text-orange-600'>키워드 검색 </span>후
+              <br />
+              <span className='text-orange-600'>리포트를 생성</span>해주세요.
+            </h1>
+          </div>
+          <div className='m-auto w-full max-w-[580px] px-[50px]'>
+            <div className='mt-6 flex items-center justify-center'>
+              <DropDown
+                name='country'
+                minWidth={120}
+                value={convertCountry(countryWatcher)}
+                iconPath={convertCountryIconPath(countryWatcher)}
+                // value={convertCountry(_state.country)}
+                // iconPath={convertCountryIconPath(_state.country)}
+                isUseIcon={true}
+                options={countryOptions()}
+                status={DROPDOWN_STATUS.FILLED}
+                variants={DROPDOWN_VARIANTS.CLEAR}
+                onClickOption={onClickOption}
+              ></DropDown>
+              <DropDown
+                name='filterOption'
+                minWidth={120}
+                value='연관도순'
+                isUseIcon={false}
+                options={sortOptions()}
+                status={DROPDOWN_STATUS.FILLED}
+                variants={DROPDOWN_VARIANTS.CLEAR}
+              ></DropDown>
             </div>
+
             <div>
-              <div className='mt-6 flex items-center'>
-                <DropDown
-                  name='country'
-                  minWidth={120}
-                  value={convertCountry(countryWatcher)}
-                  iconPath={convertCountryIconPath(countryWatcher)}
-                  // value={convertCountry(_state.country)}
-                  // iconPath={convertCountryIconPath(_state.country)}
-                  isUseIcon={true}
-                  options={countryOptions()}
-                  status={DROPDOWN_STATUS.FILLED}
-                  variants={DROPDOWN_VARIANTS.CLEAR}
-                  onClickOption={onClickOption}
-                ></DropDown>
-                <DropDown
-                  name='filterOption'
-                  minWidth={120}
-                  value='연관도순'
-                  isUseIcon={false}
-                  options={sortOptions()}
-                  status={DROPDOWN_STATUS.FILLED}
-                  variants={DROPDOWN_VARIANTS.CLEAR}
-                ></DropDown>
-              </div>
               <div className='form-control mt-2'>
                 <div className='input-group'>
                   <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
@@ -276,28 +278,32 @@ const SearchKeywords = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {isFalsy(montlySearchVolum) ? (
-              <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
-                <div className='flex flex-col items-center text-center'>
-                  <div className='h-[157px] w-[193px]'>
-                    <img src='/assets/images/ErrorPage.png' />
-                  </div>
-                  <div className='pt-7'>
-                    <h3 className='text-XL/Bold'>키워드 정보를 불러오지 못했어요</h3>
-                    <p className='pt-3 text-S/Regular'>
-                      키워드 검색량 정보를 불러오는 과정에서 저희측 오류가 발생했어요.
-                      <br />
-                      오류가 해결되는데로 별도 알림 문자를 발송드릴예정이며,
-                      <br />
-                      서비스 이용에 불편을 드려 대단히 죄송합니다.
-                    </p>
-                  </div>
+        <div className='mt-12'>
+          {isFalsy(montlySearchVolum) ? (
+            <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
+              <div className='flex flex-col items-center text-center'>
+                <div className='h-[157px] w-[193px]'>
+                  <img src='/assets/images/ErrorPage.png' />
+                </div>
+                <div className='pt-7'>
+                  <h3 className='text-XL/Bold'>키워드 정보를 불러오지 못했어요</h3>
+                  <p className='pt-3 text-S/Regular'>
+                    키워드 검색량 정보를 불러오는 과정에서 저희측 오류가 발생했어요.
+                    <br />
+                    오류가 해결되는데로 별도 알림 문자를 발송드릴예정이며,
+                    <br />
+                    서비스 이용에 불편을 드려 대단히 죄송합니다.
+                  </p>
                 </div>
               </div>
-            ) : (
-              <Fragment>
-                <div className='mt-12 rounded-2xl border border-grey-300 bg-white px-6 py-5 '>
+            </div>
+          ) : (
+            <div className='flex gap-x-[18px] '>
+              <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
+                <div className='grow grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                   <div className=''>
                     <h3 className='text-L/Medium'>
                       월간 검색량
@@ -314,104 +320,115 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-5'>
-                    <span className={montlySearchColor}>
-                      <p className={`text-4XL/Bold text-grey-300`}></p>
-                      {montlySearchVolum}
-                    </span>
+                    <span className={montlySearchColor}>{montlySearchVolum}</span>
                   </div>
                 </div>
-                <div className='mt-6 rounded-2xl border border-grey-300 bg-white px-6 pt-5'>
+                <SearchKeywordImages
+                  images={_state.productImages ? _state.productImages : null}
+                  keyword={_state.keyword}
+                />
+              </div>
+              <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+                <div className='flex justify-between'>
                   <div>
                     <h3 className='text-L/Medium'>
-                      이런 키워드들은 어때요?
+                      연간 키워드
                       <ReactSVG
-                        id='anchor-keyword-tip'
+                        id='relation-keyword-tip'
                         src='assets/icons/filled/Help.svg'
                         className='ml-[7px] inline-block'
                       />
                       <Tooltip
-                        anchorId='anchor-keyword-tip'
+                        anchorId='relation-keyword-tip'
                         html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
                         place='right'
                       />
                     </h3>
                   </div>
-                  <div id='scrollbar' className='mt-6 h-[170px] overflow-x-auto'>
+                  <div className='text-L/Medium'>검색량</div>
+                </div>
+
+                <div id='scrollbar' className='mt-5 h-full max-h-[324px] overflow-x-auto'>
+                  {Array.isArray(relativeKeyword) ? (
                     <ul className='overflow-y-hidden text-center'>
-                      {Array.isArray(relativeKeyword)
-                        ? relativeKeyword.map((keyword) => {
-                            if (typeof keyword === 'number') {
-                              return (
-                                <li
-                                  key={`${keyword}_dummy`}
-                                  className='float-left mb-3 h-[38px] w-[48%] rounded-[50px] border border-grey-300 bg-grey-100 pb-0 odd:mr-[4%]'
-                                />
-                              );
-                            }
-                            return (
-                              <Fragment key={`${keyword.id}`}>
-                                <li
-                                  id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  className='float-left mb-3  cursor-pointer  rounded-[50px]  border border-grey-300 px-[5%] leading-9 odd:mr-[4%] hover:bg-grey-200 hover:text-orange-500'
-                                  onClick={() => {
-                                    queryKeywordByClick(
-                                      _state.country,
-                                      keyword.text,
-                                      _dispatch,
-                                      setValue,
-                                    );
+                      {relativeKeyword.map((keyword) => {
+                        if (typeof keyword === 'number') {
+                          return (
+                            <li
+                              key={`${keyword}_dummy`}
+                              className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 '
+                            >
+                              <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
+                                <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
+                                <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
+                              </div>
 
-                                    _amplitudeRecKeywordSearched(
-                                      _state.country,
-                                      keyword.text,
-                                    );
-                                  }}
-                                >
+                              <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
+                            </li>
+                          );
+                        }
+                        return (
+                          <Fragment key={`${keyword.id}`}>
+                            <li
+                              id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
+                              className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:text-orange-500'
+                              onClick={() => {
+                                queryKeywordByClick(
+                                  _state.country,
+                                  keyword.text,
+                                  _dispatch,
+                                  setValue,
+                                );
+
+                                _amplitudeRecKeywordSearched(
+                                  _state.country,
+                                  keyword.text,
+                                );
+                              }}
+                            >
+                              <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
+                                <div className='flex h-full items-center justify-center rounded-[50px] border border-grey-300 bg-white px-[19px] py-[6px] text-L/Medium'>
                                   {keyword.text}
-                                </li>
-                                <Tooltip
-                                  anchorId={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
-                                  content={`월간 검색량: ${
-                                    keyword.count && formatNumber(keyword.count)
-                                  }`}
-                                  place='bottom'
-                                />
-                              </Fragment>
-                            );
-                          })
-                        : relativeKeyword}
-                    </ul>
-                  </div>
-                </div>
+                                </div>
+                                <div className='text-M/Medium text-orange-400'>
+                                  {/*케이스*/}
+                                </div>
+                              </div>
 
-                <div className='mt-10'>
-                  <button
-                    className={`w-full rounded-md bg-orange-500 py-4 ${
-                      (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
-                    }`}
-                    disabled={_state.keyword === '' || isMonthlyCountZero}
-                    onClick={() => setRequestReport(true)}
-                  >
-                    {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
-                      <div className=' scale-[0.2]'>
-                        <div id='loader-white' />
-                      </div>
-                    ) : (
-                      <span className='text-L/Bold text-white'>
-                        {reportCreatorButtonText}
-                      </span>
-                    )}
-                  </button>
+                              <div className='text-L/Medium text-grey-700'>
+                                {keyword.count && formatNumber(keyword.count)}
+                              </div>
+                            </li>
+                          </Fragment>
+                        );
+                      })}{' '}
+                    </ul>
+                  ) : (
+                    relativeKeyword
+                  )}
                 </div>
-              </Fragment>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
 
-        <SearchKeywordImages
-          images={_state.productImages ? _state.productImages : null}
-          keyword={_state.keyword}
-        />
+        <div className='mt-10 flex justify-center'>
+          <button
+            className={`w-full max-w-[480px] rounded-md bg-orange-500 py-4 ${
+              (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
+            }`}
+            disabled={_state.keyword === '' || isMonthlyCountZero}
+            onClick={() => setRequestReport(true)}
+          >
+            {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
+              <div className=' scale-[0.2]'>
+                <div id='loader-white' />
+              </div>
+            ) : (
+              <span className='text-L/Bold text-white'>{reportCreatorButtonText}</span>
+            )}
+          </button>
+        </div>
       </div>
 
       <SearchKeywordTranslator
