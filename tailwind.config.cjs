@@ -73,7 +73,7 @@ module.exports = {
             {},
         },
         '.button-outlined-normal-medium-primary-false-false-false-disabled': {
-          '@apply rounded bg-white border-grey-400 text-S/Bold text-grey-400 border shadow-gray-900':
+          '@apply rounded bg-white border-grey-400 text-S/Bold text-grey-400 border shadow-grey-900':
             {},
         },
         '.button-outlined-small-xLarge-primary-false-false-true': {
