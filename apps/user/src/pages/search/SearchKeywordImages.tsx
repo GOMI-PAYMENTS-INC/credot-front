@@ -91,28 +91,26 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
           </div>
         ) : (
           <Fragment>
-            <header className='pb-4'>
-              <div className='pt-[25px] pl-6'>
-                <h3 className='text-L/Medium'>
-                  관련 이미지
-                  <ReactSVG
-                    id='anchor-keyword-tip'
-                    src='assets/icons/filled/Help.svg'
-                    className='ml-[7px] inline-block'
-                  />
-                  <Tooltip
-                    anchorId='anchor-keyword-tip'
-                    html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
-                    place='right'
-                  />
-                </h3>
-              </div>
+            <header className='pb-5 pt-[25px] pl-6'>
+              <h3 className='text-L/Medium'>
+                관련 이미지
+                <ReactSVG
+                  id='anchor-keyword-tip'
+                  src='assets/icons/filled/Help.svg'
+                  className='ml-[7px] inline-block'
+                />
+                <Tooltip
+                  anchorId='anchor-keyword-tip'
+                  html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
+                  place='right'
+                />
+              </h3>
             </header>
 
             <section
-              className={`flex h-full w-full ${
-                images !== null && images!.data && 'overflow-y-auto'
-              } pt-2`}
+              className={`h-full w-full ${
+                images !== null && images!.data ? 'overflow-y-auto' : null
+              } px-6 py-3`}
               id='scrollbar'
             >
               {isFalsy(keyword) === false && images === null ? (
@@ -120,25 +118,24 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                   <div id='loader' />
                 </div>
               ) : (
-                <ul>
+                <ul className='grid grid-cols-3 grid-rows-[repeat(auto-fill,_126px)] gap-4 gap-x-6'>
                   {list.map((item, idx) => {
-                    const style = `float-left flex items-center ${
-                      idx > 2 && 'pt-4'
-                    } pl-6 ${idx % 1 === 1 && 'pr-6'}`;
                     return typeof item === 'number' ? (
-                      <li key={`keywordImg_${idx}`} className={style}>
-                        <div className='flex h-[126px] w-[126px] items-center justify-center rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'>
-                          <img
-                            src='/assets/images/ShopeeIcon.png'
-                            className='w-[46.33px]'
-                          />
-                        </div>
+                      <li
+                        key={`keywordImg_${idx}`}
+                        className='flex h-full items-center justify-center overflow-hidden rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'
+                      >
+                        <img
+                          src='/assets/images/ShopeeIcon.png'
+                          className='w-[46.33px]'
+                        />
                       </li>
                     ) : (
-                      <li key={`keywordImg_${item}_${idx}`} className={style}>
-                        <div className='flex h-[126px] w-[126px] items-center justify-center rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'>
-                          <img className='flex' src={item} />
-                        </div>
+                      <li
+                        key={`keywordImg_${item}_${idx}`}
+                        className='flex items-center justify-center overflow-hidden rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'
+                      >
+                        <img className='flex' src={item} />
                       </li>
                     );
                   })}

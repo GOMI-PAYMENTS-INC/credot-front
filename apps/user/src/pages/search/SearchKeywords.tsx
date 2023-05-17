@@ -303,7 +303,7 @@ const SearchKeywords = () => {
           ) : (
             <div className='flex gap-x-[18px] '>
               <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
-                <div className='grow grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+                <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                   <div className=''>
                     <h3 className='text-L/Medium'>
                       월간 검색량
@@ -370,7 +370,6 @@ const SearchKeywords = () => {
                         return (
                           <Fragment key={`${keyword.id}`}>
                             <li
-                              id={`anchor-sub-montly-keyword-volumn-${keyword.id}`}
                               className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:text-orange-500'
                               onClick={() => {
                                 queryKeywordByClick(
@@ -386,7 +385,7 @@ const SearchKeywords = () => {
                                 );
                               }}
                             >
-                              <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
+                              <div className='flex h-full w-full items-center gap-x-1'>
                                 <div className='flex h-full items-center justify-center rounded-[50px] border border-grey-300 bg-white px-[19px] py-[6px] text-L/Medium'>
                                   {keyword.text}
                                 </div>
