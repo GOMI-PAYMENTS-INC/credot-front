@@ -5,28 +5,37 @@ import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
-import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import GoogleLogin from '@/pages/auth/GoogleLogin';
 
 interface ISignInForm {
   email: string;
   password: string;
 }
 
-function onClickGooglelogin() {
-  const googleBtn: HTMLElement = document.querySelector(
-    '[aria-labelledby="button-label"]',
-  ) as HTMLElement;
-  googleBtn?.click();
-}
-
 const SignIn = () => {
   const navigation = useNavigate();
-  const { loginMutate, setIsLoginStorage, isLoginStorage } = AuthContainer();
+  const {
+    loginMutate,
+    setIsLoginStorage,
+    isLoginStorage,
+    setIdToken,
+    onGoogleLoginButton,
+  } = AuthContainer();
+
+  // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
+  const onGoogleSignIn = (res: CredentialResponse) => {
+    const { credential } = res;
+    if (credential) {
+      setIdToken(credential);
+      onGoogleLoginButton({ idToken: credential });
+    }
+  };
+
   const {
     register,
     handleSubmit,
@@ -189,21 +198,7 @@ const SignIn = () => {
                   로그인
                 </button>
               </div>
-              <div>
-                {/* TODO 구글로그인 버튼 커스텀 컴포넌트 필요 casey 23.01.20 13:10 + 있지 않을까..? 23.02.3 */}
-                <div id='google-login-button' className='hidden'></div>
-                <button
-                  type='button'
-                  className='button-outlined-normal-xLarge-grey-true-false-true w-full'
-                  onClick={onClickGooglelogin}
-                >
-                  <ReactSVG
-                    src='/assets/icons/Google.svg'
-                    className='inline-block w-full'
-                  />
-                  구글 로그인
-                </button>
-              </div>
+              <GoogleLogin onGoogleSignIn={onGoogleSignIn} />
             </div>
           </div>
         </form>
