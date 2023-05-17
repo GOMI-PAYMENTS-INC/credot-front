@@ -5,7 +5,6 @@ import { Common2Section as Layout } from '@/components/layouts/Common2Section';
 import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
-import { ReactSVG } from 'react-svg';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
@@ -199,21 +198,7 @@ const SignIn = () => {
                   로그인
                 </button>
               </div>
-              <div className='relative overflow-hidden'>
-                <div className='absolute h-full w-full opacity-0'>
-                  <GoogleLogin onGoogleSignIn={onGoogleSignIn} />
-                </div>
-                <button
-                  type='button'
-                  className='button-outlined-normal-xLarge-grey-true-false-true w-full'
-                >
-                  <ReactSVG
-                    src='/assets/icons/Google.svg'
-                    className='inline-block w-full'
-                  />
-                  구글 로그인
-                </button>
-              </div>
+              <GoogleLogin onGoogleSignIn={onGoogleSignIn} />
             </div>
           </div>
         </form>
