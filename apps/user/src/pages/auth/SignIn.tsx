@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
@@ -11,22 +11,59 @@ import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { GlobalEnv } from '@/api/config';
 
 interface ISignInForm {
   email: string;
   password: string;
 }
 
-function onClickGooglelogin() {
-  const googleBtn: HTMLElement = document.querySelector(
-    '[aria-labelledby="button-label"]',
-  ) as HTMLElement;
-  googleBtn?.click();
-}
-
 const SignIn = () => {
   const navigation = useNavigate();
-  const { loginMutate, setIsLoginStorage, isLoginStorage } = AuthContainer();
+  const {
+    loginMutate,
+    setIsLoginStorage,
+    isLoginStorage,
+    setIdToken,
+    onGoogleLoginButton,
+  } = AuthContainer();
+
+  useEffect(() => {
+    const handleCredentialResponse = (response: CredentialResponse) => {
+      if (response.credential) {
+        setIdToken(response.credential);
+        onGoogleLoginButton({ idToken: response.credential });
+      }
+    };
+
+    window.google?.accounts.id.initialize({
+      client_id: GlobalEnv.viteGoogleClientId,
+      callback: handleCredentialResponse,
+    });
+
+    window.google?.accounts.id.renderButton(
+      document.getElementById('google-login-button') as HTMLElement,
+      {
+        type: 'standard',
+        theme: 'outline',
+        text: 'signin_with',
+        width: '416px',
+        shape: 'square',
+      },
+    );
+  }, []);
+
+  function onClickGoogleLogin() {
+    const googleBtn: HTMLElement = document.querySelector(
+      '[aria-labelledby="button-label"]',
+    ) as HTMLElement;
+    if (googleBtn) {
+      googleBtn.click();
+    } else {
+      console.error('구글 로그인 버튼 오류');
+    }
+  }
+
   const {
     register,
     handleSubmit,
@@ -195,7 +232,7 @@ const SignIn = () => {
                 <button
                   type='button'
                   className='button-outlined-normal-xLarge-grey-true-false-true w-full'
-                  onClick={onClickGooglelogin}
+                  onClick={onClickGoogleLogin}
                 >
                   <ReactSVG
                     src='/assets/icons/Google.svg'

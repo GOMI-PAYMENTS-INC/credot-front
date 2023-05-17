@@ -277,13 +277,6 @@ export const AuthContainer = () => {
       },
     );
   };
-
-  const handleCredentialResponse = (response: CredentialResponse) => {
-    if (response.credential) {
-      setIdToken(response.credential);
-      onGoogleLoginButton({ idToken: response.credential });
-    }
-  };
   // 구글 로그인 끝
 
   // 비밀번호 변경
@@ -377,24 +370,6 @@ export const AuthContainer = () => {
       if (temporaryPasswordLoginSession) {
         setTemporaryPasswordLogin(true);
       }
-    }
-
-    window.google?.accounts.id.initialize({
-      client_id: GlobalEnv.viteGoogleClientId,
-      callback: handleCredentialResponse,
-    });
-
-    if (pathname === PATH.SIGN_IN) {
-      window.google?.accounts.id.renderButton(
-        document.getElementById('google-login-button') as HTMLElement,
-        {
-          type: 'standard',
-          theme: 'outline',
-          text: 'signin_with',
-          width: '416px',
-          shape: 'square',
-        },
-      );
     }
   }, []);
 
