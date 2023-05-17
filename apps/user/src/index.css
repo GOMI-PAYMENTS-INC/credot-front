@@ -34,6 +34,12 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+#google-login-btn iframe{
+  height: 100px !important;
+  transform: scale(1.5);
+  transform-origin: top;
+}
+
 @layer base {
   .container {
     @apply mx-auto my-0 min-w-[1180px] max-w-[1180px];
