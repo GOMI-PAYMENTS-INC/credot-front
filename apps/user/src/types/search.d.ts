@@ -15,8 +15,9 @@ type TSearchModalType =
   | 'NotBeOverDayReport';
 
 type TSearchState = {
-  [key: string]: string | boolean | null | CountryType;
-  country?: CountryType;
+  [key: string]: string | boolean | null | CountryType | TSortBy;
+  country: CountryType;
+  sortBy: TSortBy;
   text: string;
   isSearched: boolean;
   keyword: string;

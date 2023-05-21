@@ -40,8 +40,8 @@ type TDeleteReportListResponse = {
 type TKeywordInfo = {
   text: string;
   country: CountryType;
-  channel: TChannelType;
-  sorted: TSortedType;
+  channel: TChannel;
+  sorted: TSortBy;
   createdAt: Date | null;
   currencyUnit: number;
   basePrice: number;
@@ -86,7 +86,7 @@ type TReportItem = {
   channel: string;
   keyword: string;
   isMain: boolean;
-  sortBy: string;
+  sortBy: TSortBy;
   itemCount: number;
   totalItemCount: number;
   averagePrice: number;
@@ -106,10 +106,12 @@ type TDeleteReportListParamsType = {
 type TCreateReportParamsType = {
   country: CountryType;
   reportInvokeId: string;
+  sortBy: TSortBy;
 };
 type TGetReportExistedParamsType = {
   country: CountryType;
   text: string;
+  sortBy: TSortBy;
 };
 type TCreateReportResponseType = {
   code: string;
@@ -118,7 +120,7 @@ type TCreateReportResponseType = {
 };
 
 type TGetMainReportDataType = {
-  [key: string]: string | number | Date | TChannelType | TSortedType | null;
+  [key: string]: string | number | Date | TChannel | TSortBy | null;
 };
 
 type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
@@ -144,13 +146,9 @@ type TAmplitudeDetailData = {
   keyword: string;
 };
 
-type TChannelType = 'SHOPEE' | 'NONE';
+type TChannel = 'SHOPEE' | 'NONE';
 
-type TCountryType = 'KR' | 'TH' | 'US' | 'VN';
-
-type TCollectSortType = 'R' | 'NONE';
-
-type TSortedType = 'PRICE_MIN' | 'PRICE_MAX' | 'PRICE_AVERAGE';
+type TSortBy = 'R' | 'S' | 'NONE';
 
 type TGetRelationReportDataType = {
   [key: string]: string | number | Date | null;
@@ -189,7 +187,7 @@ type TSalePriceData = {
   id: number;
   text: string;
   country: CountryType;
-  channel: TChannelType;
+  channel: TChannel;
   itemCount: number;
   gradeItems: TSalePriceItems[][];
   priceAnalysisInfo: TPriceAnalysisInfo;

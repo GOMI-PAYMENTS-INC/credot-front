@@ -25,8 +25,10 @@ import { convertLanguage } from '@/utils/convertEnum';
 interface ISearchKeywordTranslator {
   _searchDispatch: Dispatch<TSearchActionType>;
   searchCountry: CountryType;
+  searchSortBy: TSortBy;
   updateSearchKeyword: UseFormSetValue<{
     country: CountryType;
+    sortBy: TSortBy;
     keyword: string;
   }>;
 }
@@ -161,7 +163,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                 translatorState={_state}
                 updateSearchKeyword={props.updateSearchKeyword}
                 _searchDispatch={props._searchDispatch}
-                searchCountry={props.searchCountry}
+                searchSortBy={props.searchSortBy}
                 setTranslatorState={_dispatch}
                 scrollRef={scrollRef}
               />

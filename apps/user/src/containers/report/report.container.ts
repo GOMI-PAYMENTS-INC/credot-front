@@ -30,6 +30,8 @@ import {
   convertBatchStatus,
   convertCountry,
   convertCountryIconPath,
+  convertSortByIconPath,
+  convertSortedType,
 } from '@/utils/convertEnum';
 import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
@@ -154,6 +156,10 @@ export const reportListConverter = (item: TReportItem) => {
       iconPath: convertCountryIconPath(item.countryCode),
     },
     channel: { iconPath: '/assets/icons/shop/Shopee.svg' },
+    sortBy: {
+      text: convertSortedType(item.sortBy),
+      iconPath: convertSortByIconPath(item.sortBy),
+    },
   };
 
   if (item.status === BATCH_STATUS.DONE || item.status === BATCH_STATUS.REPLICATE) {
