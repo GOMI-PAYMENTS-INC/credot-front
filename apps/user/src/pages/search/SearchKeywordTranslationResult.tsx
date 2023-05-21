@@ -19,10 +19,11 @@ interface ISearchKeywordTranslationResult {
   translatorState: TTranslationKeywordType;
   setTranslatorState: Dispatch<TRecommanderActionType>;
   _searchDispatch: Dispatch<TSearchActionType>;
-  searchCountry: CountryType;
+  searchSortBy: TSortBy;
   scrollRef: RefObject<HTMLTableSectionElement>;
   updateSearchKeyword: UseFormSetValue<{
     country: CountryType;
+    sortBy: TSortBy;
     keyword: string;
   }>;
 }
@@ -30,7 +31,7 @@ interface ISearchKeywordTranslationResult {
 export const SearchKeywordTranslationResult = (
   props: ISearchKeywordTranslationResult,
 ) => {
-  const { searchCountry, translatorState, _searchDispatch, updateSearchKeyword } = props;
+  const { searchSortBy, translatorState, _searchDispatch, updateSearchKeyword } = props;
 
   const DATA_STATUS = getTranslatorStatus(translatorState);
 
@@ -56,12 +57,12 @@ export const SearchKeywordTranslationResult = (
                 className='flex h-full w-full items-center'
                 onClick={() => {
                   queryKeywordByClick(
-                    searchCountry,
+                    result.country,
                     result.text,
                     _searchDispatch,
                     updateSearchKeyword,
                   );
-                  _amplitudeTranslatedSearched(result.country, result.text);
+                  _amplitudeTranslatedSearched(result.country, searchSortBy, result.text);
                 }}
               >
                 <div className='flex max-w-[200px] flex-col gap-y-[7px] text-left'>

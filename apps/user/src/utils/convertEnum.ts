@@ -1,4 +1,4 @@
-import { TITLE, BATCH_STATUS, LANGUAGE_TYPE } from '@/types/enum.code';
+import { TITLE, BATCH_STATUS, LANGUAGE_TYPE, SORT_BY_TYPE } from '@/types/enum.code';
 import { CountryType } from '@/generated/graphql';
 
 export const convertTitle = (id: string) => {
@@ -118,6 +118,19 @@ export const convertCountryIconPath = (countryCode: CountryType) => {
       return `${url}/Vietnam.svg`;
     default:
       console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+
+export const convertSortedType = (sortedType: TSortBy) => {
+  const url = '/assets/icons/flag';
+  switch (sortedType) {
+    case SORT_BY_TYPE.S:
+      return `판매량순`;
+    case SORT_BY_TYPE.R:
+      return `연관도순`;
+    default:
+      console.error('enum 코드를 확인해주세요.', sortedType);
       return '';
   }
 };

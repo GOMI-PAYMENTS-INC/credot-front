@@ -1,7 +1,7 @@
-import { SEARCH_ACTION } from '@/containers/search';
+import { SEARCH_ACTION, searchInitialState } from '@/containers/search';
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { COUNTRY_TYPE, MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import { CACHING_KEY, MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
 import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
@@ -18,11 +18,11 @@ export const queryKeywordByClick = (
   _dispatch: Dispatch<TSearchActionType>,
   setValue: UseFormSetValue<{
     country: CountryType;
+    sortBy: TSortBy;
     keyword: string;
   }>,
 ) => {
   if (keyword) _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
-  setValue('country', country);
   setValue('keyword', keyword);
   _dispatch({ type: SEARCH_ACTION.GET_KEYWORD, payload: keyword });
   _dispatch({
@@ -33,6 +33,7 @@ export const queryKeywordByClick = (
 
 export const queryKeyword = (
   country: CountryType,
+  sortBy: TSortBy,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
@@ -41,7 +42,7 @@ export const queryKeyword = (
   if (_switch === false) {
     toast.error('리포트를 생성할 키워드를 입력해주세요.');
   }
-  const preKeyword = useSessionStorage.getItem('keyword');
+  const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
 
   if (
     isFalsy(preKeyword) === false &&
@@ -58,7 +59,7 @@ export const queryKeyword = (
     payload: { country: country },
   });
 
-  _amplitudeKeywordSearched(country, keyword);
+  _amplitudeKeywordSearched(country, sortBy, keyword);
 };
 
 export const initializeState = (
@@ -66,11 +67,14 @@ export const initializeState = (
   _dispatch: Dispatch<TSearchActionType>,
   setValue: UseFormSetValue<{
     country: CountryType;
+    sortBy: TSortBy;
     keyword: string;
   }>,
 ) => {
   setValue('country', cachingData.country);
   setValue('keyword', cachingData.text);
+  setValue('sortBy', cachingData.sortBy);
+
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: cachingData });
 };
 
@@ -101,38 +105,44 @@ const dailyChecker = (isDaily: boolean) => {
 const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateReport) => {
   //FIXME: 조건문이 너무 많음 리펙터링 필요
   const { reportInvokeId, main } = data;
-  const { keyword, country } = _state;
+  const { keyword, country, sortBy } = _state;
 
   try {
     if (_state.isModalOpen === false) {
-      const res = await getReportExisted({ country: country, text: keyword });
+      const res = await getReportExisted({
+        country: country,
+        sortBy: sortBy,
+        text: keyword,
+      });
       // 만든 기록이 있는 경우
       const reportInfo = res?.data;
 
-    //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
+      //FIXME: 요청과 재요청 로직 줄일 수 있는 방법 생각하기
       //이전에 만들어 진적 있는 경우
       if (reportInfo?.data !== null && reportInfo?.data !== undefined) {
         // 최근 24시간 이내 동일한 리포트 or 이전 발행된 기록이 있는 리포트
         const { isDaily, createdAt } = reportInfo.data;
-        if(isDaily){
+        if (isDaily) {
           _dispatch({
             type: SEARCH_ACTION.SWITCH_MODAL,
             payload: { isModalOpen: true, modalType: MODAL_TYPE_ENUM.NotBeOverDayReport },
           });
-          return ;
-        }else{
+          return;
+        } else {
           _dispatch({
             type: SEARCH_ACTION.SWITCH_MODAL,
-            payload: { isModalOpen: true, modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted },
+            payload: {
+              isModalOpen: true,
+              modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
+            },
           });
           _dispatch({ type: SEARCH_ACTION.UPDATE_CREATED_AT, payload: createdAt });
 
-          return ;
+          return;
         }
       }
 
       if (isFalsy(main.count) || main.count! < 300) {
-        console.log("main.count",main.count)
         _dispatch({
           type: SEARCH_ACTION.SWITCH_MODAL,
           payload: {
@@ -140,13 +150,14 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
             modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
           },
         });
-        return ;
+        return;
       }
     }
 
     const postReport = await postCreateReport({
       reportInvokeId: reportInvokeId,
       country: country,
+      sortBy: sortBy,
     });
 
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
@@ -159,7 +170,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
           modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
         },
       });
-      _amplitudeKeywordReportRequested(1, country, keyword);
+      _amplitudeKeywordReportRequested(1, country, sortBy, keyword);
     }
 
     return postReport;
@@ -168,7 +179,12 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
   }
 };
 
-export const switchModal = async ({ _dispatch, _state, data, _setTrigger }: TSwitchModal) => {
+export const switchModal = async ({
+  _dispatch,
+  _state,
+  data,
+  _setTrigger,
+}: TSwitchModal) => {
   if (_state) {
     return await createReport({ _state, _dispatch, data, _setTrigger });
   }

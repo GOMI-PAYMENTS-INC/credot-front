@@ -35,7 +35,7 @@ export enum STATUS_CODE {
   IS_SHOPEE_SYSTEM_FAILED = '9500',
   ERROR = '9999',
 }
-//해당 순서대로 프론트에서 출력됨
+
 export enum COUNTRY_TYPE {
   /** 싱가포르 */
   Sg = 'SG',
@@ -49,7 +49,6 @@ export enum COUNTRY_TYPE {
   Th = 'TH',
 }
 
-//해당 순서대로 프론트에서 출력됨
 export enum LANGUAGE_TYPE {
   /** 영어 */
   Us = 'US',
@@ -65,10 +64,9 @@ export enum CHANNEL_TYPE {
   SHOPEE = 'SHOPEE',
   NONE = 'NONE',
 }
-export enum SORTED_TYPE {
-  PRICE_MIN = 'PRICE_MIN',
-  PRICE_MAX = 'PRICE_MAX',
-  PRICE_AVERAGE = 'PRICE_AVERAGE',
+export enum SORT_BY_TYPE {
+  R = 'R',
+  S = 'S',
 }
 
 export enum TITLE {
@@ -93,17 +91,6 @@ export enum BATCH_STATUS {
   DONE = 'DONE', //종료
   REPLICATE = 'REPLICATE', //재실행
   NONE = 'NONE',
-}
-
-export enum COLLECT_SORT_TYPE {
-  R = 'R',
-  NONE = 'NONE',
-}
-
-export enum SORT_BY {
-  PRICE_MIN = 'PRICE_MIN',
-  PRICE_MAX = 'PRICE_MAX',
-  PRICE_AVERAGE = 'PRICE_AVERAGE',
 }
 
 export enum MODAL_SIZE_ENUM {
@@ -156,5 +143,6 @@ export enum MODAL_TYPE_ENUM {
 
 export enum CACHING_KEY {
   STORED_KEYWORD = 'keyword',
+  STORED_KEYWORD_SORT_BY = 'keyword_sort_by',
   STORED_TRANSLATION = 'translation_keyword',
 }
