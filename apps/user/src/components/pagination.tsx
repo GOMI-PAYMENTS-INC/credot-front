@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, Fragment } from 'react';
 
 import { ReactSVG } from 'react-svg';
 import { getReportListByPage } from '@/containers/report';
@@ -15,14 +15,135 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
   // 총 페이지 갯수
   const numPages = Math.ceil(total / limit);
 
-  //최대 페이지 갯수
-  const pagenationNum = 7;
+  //출력시 최대 페이지 갯수
+  const pageMaxNum = 8;
+
+  const pageMaxCeil = Math.ceil(pageMaxNum / 2); //4
+
+  const liStyle = 'flex items-center justify-center';
+  const buttonStyle = (nowPage: number) =>
+    `h-8 w-8 grow text-S/Medium hover:rounded-lg hover:bg-grey-200 ${
+      nowPage === page ? 'text-orange-500' : 'text-grey-900'
+    }`;
+  const threeDotSvg = (
+    <ReactSVG
+      src='/assets/icons/outlined/MoreHorizontal.svg'
+      className={'mx-5 flex h-[18px] w-[18px] items-center justify-center'}
+      beforeInjection={(svg) => {
+        svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-600}`);
+      }}
+    />
+  );
+
+  const firstSection = () => {
+    if (page - 1 >= pageMaxCeil) {
+      return (
+        <Fragment>
+          <li className={liStyle}>
+            <button
+              key={1}
+              className={buttonStyle(1)}
+              onClick={() => getReportListByPage(_dispatch, limit, page, 1)}
+            >
+              {1}
+            </button>
+          </li>
+          <li className={liStyle}>{threeDotSvg}</li>
+        </Fragment>
+      );
+    } else {
+      return Array.from(Array(pageMaxCeil + 1), (_, i) => (
+        <li className={liStyle} key={i}>
+          <button
+            key={i + 1}
+            className={buttonStyle(i + 1)}
+            onClick={() => getReportListByPage(_dispatch, limit, page, i + 1)}
+          >
+            {i + 1}
+          </button>
+        </li>
+      ));
+    }
+  };
+
+  const midSection = () => {
+    if (page - 1 >= pageMaxCeil && numPages - page >= pageMaxCeil) {
+      return Array.from({ length: 3 }, (_, i) => (
+        <li className={liStyle} key={page + (i - 1)}>
+          <button
+            key={page + (i - 1)}
+            className={buttonStyle(page + (i - 1))}
+            onClick={() => getReportListByPage(_dispatch, limit, page, page + (i - 1))}
+          >
+            {page + (i - 1)}
+          </button>
+        </li>
+      ));
+    }
+  };
+
+  const lastSection = () => {
+    if (numPages - page >= pageMaxCeil) {
+      return (
+        <Fragment>
+          <li className={liStyle}>{threeDotSvg}</li>
+          <li className={liStyle}>
+            <button
+              key={numPages}
+              className={buttonStyle(numPages)}
+              onClick={() => getReportListByPage(_dispatch, limit, page, numPages)}
+            >
+              {numPages}
+            </button>
+          </li>
+        </Fragment>
+      );
+    } else {
+      return Array.from(Array(pageMaxCeil + 1), (_, i) => (
+        <li className={liStyle} key={numPages - (pageMaxCeil - i)}>
+          <button
+            key={numPages - (pageMaxCeil - i)}
+            className={buttonStyle(numPages - (pageMaxCeil - i))}
+            onClick={() =>
+              getReportListByPage(_dispatch, limit, page, numPages - (pageMaxCeil - i))
+            }
+          >
+            {numPages - (pageMaxCeil - i)}
+          </button>
+        </li>
+      ));
+    }
+  };
+
+  const paginationPrint = () => {
+    if (pageMaxNum < numPages) {
+      return (
+        <Fragment>
+          {firstSection()}
+          {midSection()}
+          {lastSection()}
+        </Fragment>
+      );
+    } else {
+      return Array.from({ length: numPages }, (_, i) => (
+        <li className={liStyle} key={i}>
+          <button
+            key={i + 1}
+            className={buttonStyle(i + 1)}
+            onClick={() => getReportListByPage(_dispatch, limit, page, i + 1)}
+          >
+            {i + 1}
+          </button>
+        </li>
+      ));
+    }
+  };
 
   if (numPages) {
     return (
       <div className='flex h-8 max-w-[390px] justify-between space-x-8'>
         <button
-          onClick={() => getReportListByPage(_dispatch, limit, page - 1)}
+          onClick={() => getReportListByPage(_dispatch, limit, page, page - 1)}
           disabled={page === 1}
           className={page === 1 ? '' : 'hover:rounded-lg hover:bg-grey-200'}
         >
@@ -37,23 +158,9 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
             }}
           />
         </button>
-        <ul className='flex space-x-1'>
-          {Array.from({ length: numPages }, (_, i) => (
-            <li className='flex items-center justify-center' key={i}>
-              <button
-                key={i + 1}
-                className={`h-8 w-8 grow text-S/Medium hover:rounded-lg hover:bg-grey-200 ${
-                  i + 1 === page ? 'text-orange-500' : 'text-grey-900'
-                }`}
-                onClick={() => getReportListByPage(_dispatch, limit, i + 1)}
-              >
-                {i + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <ul className='flex gap-x-1'>{paginationPrint()}</ul>
         <button
-          onClick={() => getReportListByPage(_dispatch, limit, page + 1)}
+          onClick={() => getReportListByPage(_dispatch, limit, page, page + 1)}
           disabled={page === numPages}
           className={page === numPages ? '' : 'hover:rounded-lg hover:bg-grey-200'}
         >
