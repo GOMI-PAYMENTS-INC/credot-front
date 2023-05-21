@@ -80,13 +80,6 @@ const SearchKeywords = () => {
     const preKeyword: TSearchState = useSessionStorage.getItem(
       CACHING_KEY.STORED_KEYWORD,
     );
-    const preKeywordSortBy: string = useSessionStorage.getItem(
-      CACHING_KEY.STORED_KEYWORD_SORT_BY,
-    );
-
-    if (isFalsy(preKeywordSortBy) === false) {
-      preKeyword.sortBy = preKeywordSortBy as TSortBy;
-    }
 
     if (isFalsy(preKeyword) === false) initializeState(preKeyword, _dispatch, setValue);
   }, []);
@@ -211,7 +204,11 @@ const SearchKeywords = () => {
       payload: sortBy,
     });
 
-    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD_SORT_BY, sortBy);
+    const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
+    if (isFalsy(preKeyword) === false) {
+      preKeyword.sortBy = sortBy;
+      useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, preKeyword);
+    }
 
     const SortTypeEnum: TSortBy = sortBy;
     _amplitudeSortByChanged(sortByWatcher, SortTypeEnum);

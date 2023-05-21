@@ -123,7 +123,7 @@ type TGetMainReportDataType = {
   [key: string]: string | number | Date | TChannel | TSortBy | null;
 };
 
-type TTitle = 'Report' | 'MartketSize' | 'KeywordInfo' | 'RecommendKeyword';
+type TTitle = 'Report' | 'MarketSize' | 'KeywordInfo' | 'RecommendKeyword';
 
 type GRADE_TYPE = 'high' | 'medium' | 'low';
 

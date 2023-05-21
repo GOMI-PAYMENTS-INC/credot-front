@@ -5,7 +5,7 @@ export const convertTitle = (id: string) => {
   switch (id) {
     case TITLE.REPORT:
       return '리포트';
-    case TITLE.MARTKET_SIZE:
+    case TITLE.MARKET_SIZE:
       return '시장 분석';
     case TITLE.KEYWORD_INFO:
       return '키워드 분석';
