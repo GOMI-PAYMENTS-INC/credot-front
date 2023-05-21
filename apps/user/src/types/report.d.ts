@@ -86,7 +86,7 @@ type TReportItem = {
   channel: string;
   keyword: string;
   isMain: boolean;
-  sortBy: string;
+  sortBy: TSortBy;
   itemCount: number;
   totalItemCount: number;
   averagePrice: number;

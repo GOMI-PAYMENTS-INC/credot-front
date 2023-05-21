@@ -122,8 +122,20 @@ export const convertCountryIconPath = (countryCode: CountryType) => {
   }
 };
 
+export const convertSortByIconPath = (sortBy: TSortBy) => {
+  const url = '/assets/icons/outlined';
+  switch (sortBy) {
+    case SORT_BY_TYPE.R:
+      return `${url}/Star.svg`;
+    case SORT_BY_TYPE.S:
+      return `${url}/Link.svg`;
+    default:
+      console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+
 export const convertSortedType = (sortedType: TSortBy) => {
-  const url = '/assets/icons/flag';
   switch (sortedType) {
     case SORT_BY_TYPE.S:
       return `판매량순`;
