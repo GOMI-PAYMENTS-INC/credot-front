@@ -23,11 +23,11 @@ export const SearchModal = ({
 
   useEffect(() => {
     if (eventTrigger === false) return;
-    const switchModalAsync = async () =>{
-      await  switchModal({ _setTrigger, _dispatch, _state, data })
-      setEventTrigger(false)
-    }
-    switchModalAsync()
+    const switchModalAsync = async () => {
+      await switchModal({ _setTrigger, _dispatch, _state, data });
+      setEventTrigger(false);
+    };
+    switchModalAsync();
   }, [eventTrigger]);
 
   const modalType = () => {
@@ -39,18 +39,20 @@ export const SearchModal = ({
           onCancel: {
             name: '다음 키워드 검색하기',
             cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch })},
+              await switchModal({ _setTrigger, _dispatch });
+            },
           },
         };
 
-      case MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn:
+      case MODAL_TYPE_ENUM.LessMonthlyKeywordVolume:
         return {
           title: '키워드 수요가 많지 않아요!',
           content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch })},
+              await switchModal({ _setTrigger, _dispatch });
+            },
           },
           onConfirm: {
             name: '그래도 생성하기',
@@ -73,7 +75,8 @@ export const SearchModal = ({
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch })},
+              await switchModal({ _setTrigger, _dispatch });
+            },
           },
         };
 
@@ -90,7 +93,8 @@ export const SearchModal = ({
           onCancel: {
             name: '다른 키워드 검색',
             cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch })},
+              await switchModal({ _setTrigger, _dispatch });
+            },
           },
           onConfirm: {
             name: '새로 생성하기',

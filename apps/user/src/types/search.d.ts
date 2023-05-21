@@ -11,7 +11,7 @@ type TRecommanderActionType = {
 type TSearchModalType =
   | 'MakeReportSuccesses'
   | 'SameKeywordReportExisted'
-  | 'LessMonthlyKeywordVolumn'
+  | 'LessMonthlyKeywordVolume'
   | 'NotBeOverDayReport';
 
 type TSearchState = {

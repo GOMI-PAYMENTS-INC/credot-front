@@ -535,7 +535,7 @@ export const onScrollDetail = (
   }
 
   if (scrollY >= marketSize && scrollY < keywordInfo) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
   }
 
   if (scrollY >= keywordInfo && scrollY < salePrice) {

@@ -147,7 +147,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
           type: SEARCH_ACTION.SWITCH_MODAL,
           payload: {
             isModalOpen: true,
-            modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolumn,
+            modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolume,
           },
         });
         return;

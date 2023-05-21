@@ -170,8 +170,8 @@ export const _amplitudeCountryChanged = (
 // ##### KEYWORD REPORT - 데이터 수집기준 변경 완료 시 ##### //
 export const _amplitudeSortByChanged = (sortByBefore: TSortBy, sortByAfter: TSortBy) => {
   _setAmplitudeEvents(amplitudeConstant.sortByChanged, {
-    sort_by_before: sortByBefore,
-    sort_by_after: sortByAfter,
+    sort_by_before: convertAmplitudeSortedType(sortByBefore),
+    sort_by_after: convertAmplitudeSortedType(sortByAfter),
   });
 };
 
