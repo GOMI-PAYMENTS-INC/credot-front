@@ -346,10 +346,14 @@ export const onClickReload = async (
 //리스트 > 페이지 변경시
 export const getReportListByPage = async (
   _dispatch: Dispatch<TReportListAction>,
-
   limit: number,
+  beforePage: number,
   goPage: number,
 ) => {
+  if (beforePage === goPage) {
+    return;
+  }
+
   await _getReportList({
     _state: { limit: limit, page: goPage },
     _dispatch,
@@ -531,7 +535,7 @@ export const onScrollDetail = (
   }
 
   if (scrollY >= marketSize && scrollY < keywordInfo) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.MARTKET_SIZE }));
+    _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
   }
 
   if (scrollY >= keywordInfo && scrollY < salePrice) {

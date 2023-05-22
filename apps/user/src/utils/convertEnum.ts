@@ -5,7 +5,7 @@ export const convertTitle = (id: string) => {
   switch (id) {
     case TITLE.REPORT:
       return '리포트';
-    case TITLE.MARTKET_SIZE:
+    case TITLE.MARKET_SIZE:
       return '시장 분석';
     case TITLE.KEYWORD_INFO:
       return '키워드 분석';
@@ -126,9 +126,9 @@ export const convertSortByIconPath = (sortBy: TSortBy) => {
   const url = '/assets/icons/outlined';
   switch (sortBy) {
     case SORT_BY_TYPE.R:
-      return `${url}/Star.svg`;
-    case SORT_BY_TYPE.S:
       return `${url}/Link.svg`;
+    case SORT_BY_TYPE.S:
+      return `${url}/Star.svg`;
     default:
       console.error('enum 코드를 확인해주세요.');
       return '';

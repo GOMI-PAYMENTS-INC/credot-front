@@ -71,7 +71,7 @@ export enum SORT_BY_TYPE {
 
 export enum TITLE {
   REPORT = 'Report',
-  MARTKET_SIZE = 'MartketSize',
+  MARKET_SIZE = 'MarketSize',
   KEYWORD_INFO = 'KeywordInfo',
   SALE_PRICE = 'SalePrice',
   OVERSEA_PRODUCT = 'overseaProduct',
@@ -137,12 +137,11 @@ export enum TERM_TYPE {
 export enum MODAL_TYPE_ENUM {
   MakeReportSuccesses = 'MakeReportSuccesses',
   SameKeywordReportExisted = 'SameKeywordReportExisted',
-  LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
+  LessMonthlyKeywordVolume = 'LessMonthlyKeywordVolume',
   NotBeOverDayReport = 'NotBeOverDayReport',
 }
 
 export enum CACHING_KEY {
   STORED_KEYWORD = 'keyword',
-  STORED_KEYWORD_SORT_BY = 'keyword_sort_by',
   STORED_TRANSLATION = 'translation_keyword',
 }
