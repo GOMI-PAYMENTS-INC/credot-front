@@ -39,6 +39,7 @@ import {
 import {
   convertCountry,
   convertCountryIconPath,
+  convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
 import DropDown, {
@@ -180,6 +181,7 @@ const SearchKeywords = () => {
       result.push({
         value: sortByEnum,
         text: convertSortedType(sortByEnum),
+        iconPath: convertSortByIconPath(sortByEnum),
       });
     });
     return result;
@@ -273,7 +275,8 @@ const SearchKeywords = () => {
                 name='filterOption'
                 minWidth={120}
                 value={convertSortedType(sortByWatcher)}
-                isUseIcon={false}
+                isUseIcon={true}
+                iconPath={convertSortByIconPath(sortByWatcher)}
                 options={sortByOptions()}
                 status={DROPDOWN_STATUS.FILLED}
                 variants={DROPDOWN_VARIANTS.CLEAR}
@@ -423,7 +426,7 @@ const SearchKeywords = () => {
                         return (
                           <Fragment key={`${keyword.id}`}>
                             <li
-                              className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:text-orange-500'
+                              className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
                               onClick={() => {
                                 queryKeywordByClick(
                                   _state.country,
