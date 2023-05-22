@@ -26,8 +26,8 @@ export const _setAmplitudeEvents = async (
           if (payload.platform) {
             payload.platform = payload.platform.toLowerCase();
           }
-          if (payload.sortBy) {
-            payload.language_after = convertAmplitudeSortedType(payload.sortBy);
+          if (payload.sort_by) {
+            payload.sort_by = convertAmplitudeSortedType(payload.sort_by);
           }
         }
 
@@ -265,7 +265,7 @@ export const _amplitudeKeywordReportViewed = (routeId: string, data: TGetMainRep
     report_id: routeId,
     platform: report?.channel,
     country: report?.country,
-    sort_by: convertAmplitudeSortedType(report?.sorted as TSortBy),
+    sort_by: report?.sorted,
     keyword: report?.text,
   });
 };
