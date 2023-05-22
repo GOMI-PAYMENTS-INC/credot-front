@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useMemo, useState, Dispatch } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
@@ -13,35 +13,25 @@ import {
 import {
   ChangePasswordInput,
   GoogleLoginMutationVariables,
-  GoogleSignUpInput,
   MutationChangePasswordArgs,
-  MutationGoogleSignUpArgs,
-  MutationSignupArgs,
   SendSmsVerificationCodeMutationVariables,
   SendTemporaryPasswordMutationVariables,
-  SignUpInput,
   useChangePasswordMutation,
   useGoogleLoginMutation,
-  useGoogleSignupMutation,
   useLoginMutation,
   useMeQuery,
   useSendSmsVerificationCodeMutation,
   useSendTemporaryPasswordMutation,
-  useSignupMutation,
 } from '@/generated/graphql';
 
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { GlobalEnv } from '@/api/config';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { graphQLClient } from '@/utils/graphqlCient';
 import {
   _amplitudeLoggedIn,
   _amplitudeLoggedOut,
-  _amplitudeSignupCompleted,
   _resetAmplitude,
-  _setUserProperties,
-  _amplitudeChangePwStarted,
   _amplitudeChangePwCompleted,
   _setUserId,
 } from '@/amplitude/amplitude.service';
@@ -60,15 +50,9 @@ export const AuthContainer = () => {
   const [isTemporaryPasswordLogin, setTemporaryPasswordLogin] = useRecoilState(
     IsTemporaryPasswordLoginAtom,
   );
-  const [isSending, setSending] = useState<boolean>(false);
-  const [fromSocialSignUp, setFromSocialSignUp] = useState<boolean>(false);
 
   const { pathname } = useLocation();
   const navigation = useNavigate();
-
-  // TODO 임시비밀번호 발급 오류 관리 필요함
-  const [sendTemporaryPasswordResponseStatus, setSendTemporaryPasswordResponseStatus] =
-    useState<number>(0);
 
   const handleChangeLoginState = (state: boolean) => {
     setIsLogin(state);
@@ -149,89 +133,6 @@ export const AuthContainer = () => {
     },
   );
 
-  // 인증번호 발송 시작
-  const { mutate: sendSmsVerificationCodeMutate } = useSendSmsVerificationCodeMutation(
-    graphQLClient,
-    {
-      onSuccess: () => {
-        setSending(true);
-      },
-      onError: () => {
-        setSending(false);
-      },
-    },
-  );
-
-  const onSendSmsVerifyCode = (
-    sendSmsVerifyCode: SendSmsVerificationCodeMutationVariables,
-  ) => sendSmsVerificationCodeMutate(sendSmsVerifyCode);
-
-  // 회원가입 시작
-  const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
-    onSuccess: (res) => {
-      if (res.signup.token) {
-        setToken(res.signup.token);
-        authTokenStorage.setToken(res.signup.token);
-        navigation(PATH.SEARCH_PRODUCTS);
-      }
-    },
-    onError: () => {
-      toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
-    },
-  });
-
-  const onSubmitSignUp = (value: SignUpInput) => {
-    const signupFormValue: MutationSignupArgs = {
-      user: {
-        name: value.name,
-        email: value.email,
-        password: value.password,
-        nickName: value.nickName,
-        phone: value.phone,
-        verifyCodeSign: value.verifyCodeSign,
-      },
-    };
-    signUpMutate(signupFormValue, {
-      onSuccess: () => {
-        navigation(PATH.SEARCH_PRODUCTS);
-      },
-    });
-  };
-  // 회원가입 끝
-
-  // 소셜 회원가입 시작
-  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
-    onError: () => {
-      toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
-    },
-  });
-
-  const onSubmitSignUpSocial = (
-    value: GoogleSignUpInput,
-    email: string,
-    setWelcomeModalClosingTime: Dispatch<SetStateAction<number | null>>,
-  ) => {
-    const signupSocialFormValue: MutationGoogleSignUpArgs = {
-      socialSignUpDto: {
-        idToken: value.idToken,
-        phone: value.phone,
-        verifyCodeSign: value.verifyCodeSign,
-      },
-    };
-    signUpSocialMutate(signupSocialFormValue, {
-      //회원가입 완료 시 이벤트 - 구글 로그인
-      onSuccess: (res) => {
-        setWelcomeModalClosingTime(1500);
-        setFromSocialSignUp(true);
-        if (res.googleSignUp.token) {
-          setToken(res.googleSignUp.token);
-          authTokenStorage.setToken(res.googleSignUp.token);
-        }
-      },
-    });
-  };
-  // 소셜 회원가입 끝
-
   // 로컬 로그인 시작
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
     onSuccess: (res) => {
@@ -307,24 +208,6 @@ export const AuthContainer = () => {
   };
   // 비밀번호 변경
 
-  // 유저 임시 비밀번호 발급 시작
-  const { mutate: sendTemporaryPassword, isSuccess: isSuccessSendTemporaryPassword } =
-    useSendTemporaryPasswordMutation(graphQLClient, {
-      onSuccess: () => {
-        toast.success('신규 비밀번호 발송 성공하였습니다.');
-      },
-      onError: (err) => {
-        const error = JSON.parse(JSON.stringify(err));
-        setSendTemporaryPasswordResponseStatus(
-          error.response.errors[0].extensions.exception.status,
-        );
-      },
-    });
-
-  const onSendTemporaryPassword = (variables: SendTemporaryPasswordMutationVariables) =>
-    sendTemporaryPassword(variables);
-  // 유저 임시 비밀번호 발급 끝
-
   useMemo(() => {
     if (token) {
       graphQLClient.setHeader('authorization', `bearer ${token}`);
@@ -374,29 +257,18 @@ export const AuthContainer = () => {
   }, []);
 
   return {
-    onSendSmsVerifyCode,
-    onSubmitSignUp,
     loginMutate,
-    onSubmitSignUpSocial,
     onLogout,
     onGoogleLoginButton,
     isLoginStorage,
     setIsLoginStorage,
     isLogin,
     userInfo,
-    isLoadingUserInfo,
     token,
     // 비밀번호 변경
     onChangePassword,
-    // 유저 임시 비밀번호 발급
-    onSendTemporaryPassword,
-    isSuccessSendTemporaryPassword,
-    sendTemporaryPasswordResponseStatus,
     // 임시 비밀번호를 사용한 로그인 여부
     isTemporaryPasswordLogin,
     setIdToken,
-    idToken,
-    isSending,
-    setSending,
   };
 };
