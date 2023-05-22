@@ -3,12 +3,11 @@ import { StatusTag } from '@/components/statusTag';
 import { convertTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { capitalize } from '@/utils/capitalize';
 import {
   onCheckReportList,
   reportListConverter,
 } from '@/containers/report/report.container';
-import { Dispatch, Fragment } from 'react';
+import { Dispatch, Fragment, JSXElementConstructor } from 'react';
 
 type TReportListColumn = {
   _state: TReportListState;
@@ -16,6 +15,22 @@ type TReportListColumn = {
 };
 export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
   const navigate = useNavigate();
+
+  const addLink = (
+    report: TReportItem,
+    content: JSX.Element | string | number,
+    useNoPrint?: boolean,
+  ) => {
+    if (report.status !== 'DONE') {
+      return useNoPrint ? '-' : <div className='block w-full py-4'>{content}</div>;
+    } else {
+      return (
+        <Link to={`${PATH.GET_REPORT_LIST}/${report.id}`} className='block w-full py-4'>
+          {content}
+        </Link>
+      );
+    }
+  };
 
   const ListColumn = () => {
     return (
@@ -60,71 +75,67 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                     선택
                   </label>
                 </td>
-                <td className='text-M/Regular'>
-                  {report.status === 'DONE' ? (
-                    <Link
-                      to={`${PATH.GET_REPORT_LIST}/${report.id}`}
-                      className='block w-full py-4'
-                    >
-                      {report.keyword}
-                    </Link>
-                  ) : (
-                    report.keyword
+                <td className='text-M/Regular'>{addLink(report, report.keyword)}</td>
+                <td>
+                  {addLink(
+                    report,
+                    <StatusTag
+                      text={reportConverterData.status.text}
+                      sentiment={reportConverterData.status.sentiment}
+                    ></StatusTag>,
                   )}
                 </td>
-                <td className='p-4'>
-                  <StatusTag
-                    text={reportConverterData.status.text}
-                    sentiment={reportConverterData.status.sentiment}
-                  ></StatusTag>
+                <td>
+                  {addLink(
+                    report,
+                    <div className='flex items-center'>
+                      <ReactSVG
+                        src={reportConverterData.countryCode.iconPath}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'w-4 h-4');
+                        }}
+                      ></ReactSVG>
+                      <p className='ml-2 text-S/Regular'>
+                        {reportConverterData.countryCode.text}
+                      </p>
+                    </div>,
+                  )}
                 </td>
-                <td className='p-4'>
-                  <div className='flex items-center'>
-                    <ReactSVG
-                      src={reportConverterData.countryCode.iconPath}
-                      beforeInjection={(svg) => {
-                        svg.setAttribute('class', 'w-4 h-4');
-                      }}
-                    ></ReactSVG>
-                    <p className='ml-2 text-S/Regular'>
-                      {reportConverterData.countryCode.text}
-                    </p>
-                  </div>
+                <td>
+                  {addLink(
+                    report,
+                    <div className='flex items-center'>
+                      <ReactSVG
+                        src={reportConverterData.sortBy.iconPath}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'w-4 h-4');
+                        }}
+                      ></ReactSVG>
+                      <p className='ml-2 text-S/Regular'>
+                        {reportConverterData.sortBy.text}
+                      </p>
+                    </div>,
+                  )}
                 </td>
-                <td className='p-4'>
-                  <div className='flex items-center'>
-                    <ReactSVG
-                      src={reportConverterData.sortBy.iconPath}
-                      beforeInjection={(svg) => {
-                        svg.setAttribute('class', 'w-4 h-4');
-                      }}
-                    ></ReactSVG>
-                    <p className='ml-2 text-S/Regular'>
-                      {reportConverterData.sortBy.text}
-                    </p>
-                  </div>
-                </td>
-                <td className='p-4'>
+                <td>
                   <p className='text-S/Regular'>
-                    {report.status !== 'DONE' ? (
-                      <span>-</span>
-                    ) : (
-                      convertTime(report.updatedAt.toString(), 'YYYY.MM.DD')
+                    {addLink(
+                      report,
+                      convertTime(report.updatedAt.toString(), 'YYYY.MM.DD'),
+                      true,
                     )}
                   </p>
                 </td>
-                <td className='p-4'>
-                  <ReactSVG
-                    src='/assets/icons/outlined/ChevronRight2.svg'
-                    onClick={
-                      report.status === 'DONE'
-                        ? () => navigate(`${PATH.GET_REPORT_LIST}/${report.id}`)
-                        : (event) => event.preventDefault()
-                    }
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', `w-6 fill-grey-600`);
-                    }}
-                  />
+                <td>
+                  {addLink(
+                    report,
+                    <ReactSVG
+                      src='/assets/icons/outlined/ChevronRight2.svg'
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', `w-6 fill-grey-600`);
+                      }}
+                    />,
+                  )}
                 </td>
               </tr>
             );

@@ -39,6 +39,7 @@ import {
 import {
   convertCountry,
   convertCountryIconPath,
+  convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
 import DropDown, {
@@ -180,6 +181,7 @@ const SearchKeywords = () => {
       result.push({
         value: sortByEnum,
         text: convertSortedType(sortByEnum),
+        iconPath: convertSortByIconPath(sortByEnum),
       });
     });
     return result;
@@ -273,7 +275,8 @@ const SearchKeywords = () => {
                 name='filterOption'
                 minWidth={120}
                 value={convertSortedType(sortByWatcher)}
-                isUseIcon={false}
+                isUseIcon={true}
+                iconPath={convertSortByIconPath(sortByWatcher)}
                 options={sortByOptions()}
                 status={DROPDOWN_STATUS.FILLED}
                 variants={DROPDOWN_VARIANTS.CLEAR}
