@@ -73,6 +73,11 @@ export const initializeState = (
 ) => {
   setValue('country', cachingData.country);
   setValue('keyword', cachingData.text);
+
+  //sortBy가 세션에 없던 이전 버전 대응
+  if (isFalsy(cachingData.sortBy)) {
+    cachingData.sortBy = searchInitialState.sortBy;
+  }
   setValue('sortBy', cachingData.sortBy);
 
   _dispatch({ type: SEARCH_ACTION.INITIALIZE_STATE, payload: cachingData });
