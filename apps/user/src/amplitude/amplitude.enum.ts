@@ -1,23 +1,24 @@
 //Amplitude
 
-import {CHANNEL_TYPE, COLLECT_SORT_TYPE, COUNTRY_TYPE} from "@/types/enum.code";
+import { SORT_BY_TYPE } from '@/types/enum.code';
 
 export enum AMPLITUDE_ACCOUNT_TYPE {
   LOCAL = 'id/pw',
   GOOGLE = 'google',
 }
 
-export enum AMPLITUDE_SORTED_TYPE {
+export enum AMPLITUDE_SORT_BY_TYPE {
   RELEVANCE = 'relevance',
   TOP_SALES = 'topsales',
-  NONE = 'undefined',
 }
 
-export const convertAmplitudeSortedType = (sort: TCollectSortType) => {
+export const convertAmplitudeSortedType = (sort: TSortBy) => {
   switch (sort) {
-    case COLLECT_SORT_TYPE.R:
-      return AMPLITUDE_SORTED_TYPE.RELEVANCE;
+    case SORT_BY_TYPE.R:
+      return AMPLITUDE_SORT_BY_TYPE.RELEVANCE;
+    case SORT_BY_TYPE.S:
+      return AMPLITUDE_SORT_BY_TYPE.TOP_SALES;
     default:
-      return AMPLITUDE_SORTED_TYPE.NONE;
+      return null;
   }
 };

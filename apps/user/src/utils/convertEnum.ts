@@ -1,11 +1,11 @@
-import { TITLE, BATCH_STATUS, LANGUAGE_TYPE } from '@/types/enum.code';
+import { TITLE, BATCH_STATUS, LANGUAGE_TYPE, SORT_BY_TYPE } from '@/types/enum.code';
 import { CountryType } from '@/generated/graphql';
 
 export const convertTitle = (id: string) => {
   switch (id) {
     case TITLE.REPORT:
       return '리포트';
-    case TITLE.MARTKET_SIZE:
+    case TITLE.MARKET_SIZE:
       return '시장 분석';
     case TITLE.KEYWORD_INFO:
       return '키워드 분석';
@@ -118,6 +118,31 @@ export const convertCountryIconPath = (countryCode: CountryType) => {
       return `${url}/Vietnam.svg`;
     default:
       console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+
+export const convertSortByIconPath = (sortBy: TSortBy) => {
+  const url = '/assets/icons/outlined';
+  switch (sortBy) {
+    case SORT_BY_TYPE.R:
+      return `${url}/Link.svg`;
+    case SORT_BY_TYPE.S:
+      return `${url}/Star.svg`;
+    default:
+      console.error('enum 코드를 확인해주세요.');
+      return '';
+  }
+};
+
+export const convertSortedType = (sortedType: TSortBy) => {
+  switch (sortedType) {
+    case SORT_BY_TYPE.S:
+      return `판매량순`;
+    case SORT_BY_TYPE.R:
+      return `연관도순`;
+    default:
+      console.error('enum 코드를 확인해주세요.', sortedType);
       return '';
   }
 };

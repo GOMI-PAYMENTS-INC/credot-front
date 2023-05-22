@@ -53,8 +53,8 @@ export const MarketSize = (props: IMarketSize) => {
 
   return (
     <section>
-      <div id={TITLE.MARTKET_SIZE} className='detailReport-h1-header'>
-        <h1>{convertTitle(TITLE.MARTKET_SIZE)}</h1>
+      <div id={TITLE.MARKET_SIZE} className='detailReport-h1-header'>
+        <h1>{convertTitle(TITLE.MARKET_SIZE)}</h1>
         <div className='tooltip-container'>
           <ReactSVG
             id='anchor-market-size'
@@ -143,14 +143,14 @@ export const MarketSize = (props: IMarketSize) => {
               <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
                 <p>가장 적게 팔려요</p>
                 <ul className='flex flex-wrap'>
-                {minTurnoverMonth.map((month, key) => (
-                  <li
-                    key={`min_turn_over_${key}`}
-                    className='pt-2 text-2XL/Bold text-grey-900 basis-1/2'
-                  >
-                    {`${month}월`}
-                  </li>
-                ))}
+                  {minTurnoverMonth.map((month, key) => (
+                    <li
+                      key={`min_turn_over_${key}`}
+                      className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'
+                    >
+                      {`${month}월`}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -219,9 +219,7 @@ export const MarketSize = (props: IMarketSize) => {
                 <p className='text-S/Medium text-grey-800'>평균 판매량</p>
                 <div className='mt-2 flex items-center '>
                   <span className='mr-1 text-2XL/Regular text-grey-900'>{avgCount}</span>
-                  <span className='text-L/Medium text-grey-800'>
-                    개
-                  </span>
+                  <span className='text-L/Medium text-grey-800'>개</span>
                 </div>
               </div>
             </div>

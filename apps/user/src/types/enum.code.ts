@@ -35,7 +35,7 @@ export enum STATUS_CODE {
   IS_SHOPEE_SYSTEM_FAILED = '9500',
   ERROR = '9999',
 }
-//해당 순서대로 프론트에서 출력됨
+
 export enum COUNTRY_TYPE {
   /** 싱가포르 */
   Sg = 'SG',
@@ -49,7 +49,6 @@ export enum COUNTRY_TYPE {
   Th = 'TH',
 }
 
-//해당 순서대로 프론트에서 출력됨
 export enum LANGUAGE_TYPE {
   /** 영어 */
   Us = 'US',
@@ -65,15 +64,14 @@ export enum CHANNEL_TYPE {
   SHOPEE = 'SHOPEE',
   NONE = 'NONE',
 }
-export enum SORTED_TYPE {
-  PRICE_MIN = 'PRICE_MIN',
-  PRICE_MAX = 'PRICE_MAX',
-  PRICE_AVERAGE = 'PRICE_AVERAGE',
+export enum SORT_BY_TYPE {
+  R = 'R',
+  S = 'S',
 }
 
 export enum TITLE {
   REPORT = 'Report',
-  MARTKET_SIZE = 'MartketSize',
+  MARKET_SIZE = 'MarketSize',
   KEYWORD_INFO = 'KeywordInfo',
   SALE_PRICE = 'SalePrice',
   OVERSEA_PRODUCT = 'overseaProduct',
@@ -93,17 +91,6 @@ export enum BATCH_STATUS {
   DONE = 'DONE', //종료
   REPLICATE = 'REPLICATE', //재실행
   NONE = 'NONE',
-}
-
-export enum COLLECT_SORT_TYPE {
-  R = 'R',
-  NONE = 'NONE',
-}
-
-export enum SORT_BY {
-  PRICE_MIN = 'PRICE_MIN',
-  PRICE_MAX = 'PRICE_MAX',
-  PRICE_AVERAGE = 'PRICE_AVERAGE',
 }
 
 export enum MODAL_SIZE_ENUM {
@@ -150,7 +137,7 @@ export enum TERM_TYPE {
 export enum MODAL_TYPE_ENUM {
   MakeReportSuccesses = 'MakeReportSuccesses',
   SameKeywordReportExisted = 'SameKeywordReportExisted',
-  LessMonthlyKeywordVolumn = 'LessMonthlyKeywordVolumn',
+  LessMonthlyKeywordVolume = 'LessMonthlyKeywordVolume',
   NotBeOverDayReport = 'NotBeOverDayReport',
 }
 

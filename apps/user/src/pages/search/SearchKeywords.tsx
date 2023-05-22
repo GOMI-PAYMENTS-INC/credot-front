@@ -5,13 +5,19 @@ import { Tooltip } from 'react-tooltip';
 import { Defalut as Layout } from '@/components/layouts/Defalut';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { SearchModal } from '@/pages/search/SearchModal';
-import { COUNTRY_TYPE, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import {
+  CACHING_KEY,
+  COUNTRY_TYPE,
+  MODAL_SIZE_ENUM,
+  SORT_BY_TYPE,
+} from '@/types/enum.code';
 import { SearchKeywordTranslator } from '@/pages/search/SearchKeywordTranslator';
 
 import {
   initializeState,
   queryKeyword,
   queryKeywordByClick,
+  SEARCH_ACTION,
   switchModal,
 } from '@/containers/search';
 import { searchInitialState, searchReducer } from '@/containers/search/search.reducer';
@@ -28,8 +34,13 @@ import { useForm } from 'react-hook-form';
 import {
   _amplitudeCountryChanged,
   _amplitudeRecKeywordSearched,
+  _amplitudeSortByChanged,
 } from '@/amplitude/amplitude.service';
-import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
+import {
+  convertCountry,
+  convertCountryIconPath,
+  convertSortedType,
+} from '@/utils/convertEnum';
 import DropDown, {
   DROPDOWN_STATUS,
   DROPDOWN_VARIANTS,
@@ -44,34 +55,46 @@ const SearchKeywords = () => {
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
+    sortBy: TSortBy;
     keyword: string;
   }>({
     mode: 'onChange',
     defaultValues: {
-      country: CountryType.Sg,
+      country: searchInitialState.country,
+      sortBy: searchInitialState.sortBy,
     },
   });
 
   const countryWatcher = watch('country');
+  const sortByWatcher = watch('sortBy');
   const keywordWatcher = watch('keyword');
 
   const { response, isLoading } = getQueryResult(
     _state.country,
+    _state.sortBy,
     _state.keyword,
     _dispatch,
   );
 
   useEffect(() => {
-    const preKeyword: TSearchState = useSessionStorage.getItem('keyword');
+    const preKeyword: TSearchState = useSessionStorage.getItem(
+      CACHING_KEY.STORED_KEYWORD,
+    );
+
     if (isFalsy(preKeyword) === false) initializeState(preKeyword, _dispatch, setValue);
   }, []);
 
   useEffect(() => {
     if (requestReport === false) return;
-    switchModal({ _dispatch, _state, data: response, _setTrigger: setRequestReport });
+    void switchModal({
+      _dispatch,
+      _state,
+      data: response,
+      _setTrigger: setRequestReport,
+    });
   }, [requestReport]);
 
-  const montlySearchVolum = useMemo(() => {
+  const monthlySearchVolume = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
       return '???';
     }
@@ -128,8 +151,8 @@ const SearchKeywords = () => {
     return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
   }, [_state.keyword, isMonthlyCountZero]);
 
-  const montlySearchColor =
-    montlySearchVolum === '???'
+  const monthlySearchColor =
+    monthlySearchVolume === '???'
       ? 'text-3XL/Bold text-grey-300'
       : 'text-3XL/Bold text-grey-900';
 
@@ -148,26 +171,47 @@ const SearchKeywords = () => {
     return result;
   };
 
-  const sortOptions = () => {
-    let result: TDropDownOption[] = [
-      {
-        value: '연관도순',
-        text: '연관도순',
-      },
-    ];
+  const sortByOptions = () => {
+    let result: TDropDownOption[] = [];
+    const keys = Object.keys(SORT_BY_TYPE);
+    keys.map((sortBy) => {
+      const sortByEnum = SORT_BY_TYPE[sortBy as keyof typeof SORT_BY_TYPE];
+
+      result.push({
+        value: sortByEnum,
+        text: convertSortedType(sortByEnum),
+      });
+    });
     return result;
   };
 
-  const onClickOption = (countryCode: any) => {
+  const onClickCountryOption = (countryCode: any) => {
     const CountryTypeEnum: CountryType = countryCode;
 
     setValue('country', CountryTypeEnum);
 
     if (isFalsy(keywordWatcher) === false) {
-      queryKeyword(CountryTypeEnum, getValues('keyword'), _dispatch);
+      queryKeyword(CountryTypeEnum, sortByWatcher, getValues('keyword'), _dispatch);
     }
 
     _amplitudeCountryChanged(countryWatcher, CountryTypeEnum);
+  };
+  const onClickSortOption = (sortBy: any) => {
+    setValue('sortBy', sortBy);
+
+    _dispatch({
+      type: SEARCH_ACTION.CHANGE_SORT_BY,
+      payload: sortBy,
+    });
+
+    const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
+    if (isFalsy(preKeyword) === false) {
+      preKeyword.sortBy = sortBy;
+      useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, preKeyword);
+    }
+
+    const SortTypeEnum: TSortBy = sortBy;
+    _amplitudeSortByChanged(sortByWatcher, SortTypeEnum);
   };
 
   const convertSearchPlaceholder = (country: CountryType) => {
@@ -219,22 +263,21 @@ const SearchKeywords = () => {
                 minWidth={120}
                 value={convertCountry(countryWatcher)}
                 iconPath={convertCountryIconPath(countryWatcher)}
-                // value={convertCountry(_state.country)}
-                // iconPath={convertCountryIconPath(_state.country)}
                 isUseIcon={true}
                 options={countryOptions()}
                 status={DROPDOWN_STATUS.FILLED}
                 variants={DROPDOWN_VARIANTS.CLEAR}
-                onClickOption={onClickOption}
+                onClickOption={onClickCountryOption}
               ></DropDown>
               <DropDown
                 name='filterOption'
                 minWidth={120}
-                value='연관도순'
+                value={convertSortedType(sortByWatcher)}
                 isUseIcon={false}
-                options={sortOptions()}
+                options={sortByOptions()}
                 status={DROPDOWN_STATUS.FILLED}
                 variants={DROPDOWN_VARIANTS.CLEAR}
+                onClickOption={onClickSortOption}
               ></DropDown>
             </div>
 
@@ -248,7 +291,12 @@ const SearchKeywords = () => {
                       {...register('keyword')}
                       onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
                         if (event.key === 'Enter') {
-                          queryKeyword(countryWatcher, getValues('keyword'), _dispatch);
+                          queryKeyword(
+                            countryWatcher,
+                            sortByWatcher,
+                            getValues('keyword'),
+                            _dispatch,
+                          );
                         }
                       }}
                       className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
@@ -256,7 +304,12 @@ const SearchKeywords = () => {
                   </div>
                   <button
                     onClick={() =>
-                      queryKeyword(countryWatcher, getValues('keyword'), _dispatch)
+                      queryKeyword(
+                        countryWatcher,
+                        sortByWatcher,
+                        getValues('keyword'),
+                        _dispatch,
+                      )
                     }
                     className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
                   >
@@ -282,7 +335,7 @@ const SearchKeywords = () => {
         </div>
 
         <div className='mt-12'>
-          {isFalsy(montlySearchVolum) ? (
+          {isFalsy(monthlySearchVolume) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
               <div className='flex flex-col items-center text-center'>
                 <div className='h-[157px] w-[193px]'>
@@ -320,7 +373,7 @@ const SearchKeywords = () => {
                     </h3>
                   </div>
                   <div className='mt-5'>
-                    <span className={montlySearchColor}>{montlySearchVolum}</span>
+                    <span className={monthlySearchColor}>{monthlySearchVolume}</span>
                   </div>
                 </div>
                 <SearchKeywordImages
@@ -381,6 +434,7 @@ const SearchKeywords = () => {
 
                                 _amplitudeRecKeywordSearched(
                                   _state.country,
+                                  sortByWatcher,
                                   keyword.text,
                                 );
                               }}
@@ -432,7 +486,8 @@ const SearchKeywords = () => {
 
       <SearchKeywordTranslator
         _searchDispatch={_dispatch}
-        searchCountry={countryWatcher}
+        searchCountry={getValues('country')}
+        searchSortBy={getValues('sortBy')}
         updateSearchKeyword={setValue}
       />
     </Layout>

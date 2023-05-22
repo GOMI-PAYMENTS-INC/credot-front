@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { CountryType, SearchDto, useSearchQuery } from '@/generated/graphql';
+import { CountryType, useSearchQuery } from '@/generated/graphql';
 import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
@@ -12,6 +12,7 @@ import {
 
 export const getQueryResult = (
   country: CountryType,
+  sortBy: TSortBy,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
@@ -36,6 +37,7 @@ export const getQueryResult = (
           }
           _amplitudeKeywordSearchedSucceeded(
             country,
+            sortBy,
             keyword,
             res.search.relations,
             res.search.main.count,
@@ -48,6 +50,7 @@ export const getQueryResult = (
       onError: (error) => {
         _amplitudeKeywordSearchedFailed(
           country,
+          sortBy,
           keyword,
           error.response.errors[0].message,
         );

@@ -4,6 +4,7 @@ import {
   convertCountry,
   convertExchangeRate,
   convertShopeeSiteUrl,
+  convertSortedType,
 } from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { openBrowser } from '@/containers/report';
@@ -14,7 +15,7 @@ interface IKeywordInfoProps {
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, createdAt, basePrice, currencyUnit } = props.keywordInfo;
+  const { text, country, createdAt, basePrice, currencyUnit, sorted } = props.keywordInfo;
   const { reportId } = props.amplitudeData;
 
   return (
@@ -35,7 +36,9 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className='text-grey-600'>수집 기준</span>
-              <span className='text-grey-800'>연관도순 상위 {props.itemCount}개</span>
+              <span className='text-grey-800'>
+                {convertSortedType(sorted)} 상위 {props.itemCount}개
+              </span>
               <span className='text-grey-600'>적용 환율</span>
               <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
                 country,

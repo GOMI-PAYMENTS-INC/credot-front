@@ -1,4 +1,4 @@
-import { MODAL_TYPE_ENUM, CACHING_KEY } from '@/types/enum.code';
+import { MODAL_TYPE_ENUM, CACHING_KEY, SORT_BY_TYPE } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CountryType } from '@/generated/graphql';
 
@@ -13,10 +13,12 @@ export enum SEARCH_ACTION {
   GET_PRODUCT_IMAGES = 'GET_PRODUCT_IMAGES',
   INITIALIZE_IMAGES = 'INITIALIZE_IMAGES',
   USE_TRANSLATION = 'USE_TRANSLATION',
+  CHANGE_SORT_BY = 'CHANGE_SORT_BY',
 }
 
 const searchInitialState: TSearchState = {
   country: CountryType.Sg,
+  sortBy: SORT_BY_TYPE.R,
   text: '',
   keyword: '',
   isSearched: false,
@@ -35,6 +37,10 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
 
     case SEARCH_ACTION.UPDATE_CREATED_AT:
       state.createdAt = action.payload;
+      return state;
+
+    case SEARCH_ACTION.CHANGE_SORT_BY:
+      state.sortBy = action.payload;
       return state;
 
     case SEARCH_ACTION.SEARCH_KEYWORD:

@@ -2,7 +2,6 @@ import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import {
   AMPLITUDE_ACCOUNT_TYPE,
-  AMPLITUDE_SORTED_TYPE,
   convertAmplitudeSortedType,
 } from '@/amplitude/amplitude.enum';
 import { CHANNEL_TYPE } from '@/types/enum.code';
@@ -27,11 +26,8 @@ export const _setAmplitudeEvents = async (
           if (payload.platform) {
             payload.platform = payload.platform.toLowerCase();
           }
-          if (payload.language_before) {
-            payload.language_before = payload.language_before.toLowerCase();
-          }
-          if (payload.language_after) {
-            payload.language_after = payload.language_after.toLowerCase();
+          if (payload.sortBy) {
+            payload.language_after = convertAmplitudeSortedType(payload.sortBy);
           }
         }
 
@@ -167,26 +163,34 @@ export const _amplitudeCountryChanged = (
   });
 };
 
+// ##### KEYWORD REPORT - 데이터 수집기준 변경 완료 시 ##### //
+export const _amplitudeSortByChanged = (sortByBefore: TSortBy, sortByAfter: TSortBy) => {
+  _setAmplitudeEvents(amplitudeConstant.sortByChanged, {
+    sort_by_before: convertAmplitudeSortedType(sortByBefore),
+    sort_by_after: convertAmplitudeSortedType(sortByAfter),
+  });
+};
+
 // ##### KEYWORD REPORT - 사용자가 키워드 검색 요청 시 ##### //
 export const _amplitudeKeywordSearched = (
-  // platform: TChannelType,
+  // platform: TChannel,
   country: CountryType,
-  // sortBy: TSortedType,
+  sortBy: TSortBy,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: country,
-    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
+    sort_by: sortBy,
     keyword,
   });
 };
 
 // ##### KEYWORD REPORT - 키워드 검색 성공 시 ##### //
 export const _amplitudeKeywordSearchedSucceeded = (
-  // platform: TChannelType,
+  // platform: TChannel,
   country: CountryType,
-  // sortBy: TSortedType,
+  sortBy: TSortBy,
   keyword: string,
   relations: SearchDto[],
   searchVolume?: number | null,
@@ -197,7 +201,7 @@ export const _amplitudeKeywordSearchedSucceeded = (
   void _setAmplitudeEvents(amplitudeConstant.keywordSearchedSucceeded, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: country,
-    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
+    sort_by: sortBy,
     keyword,
     rec_keywords: recKeywords,
     num_of_rec_keywords: recKeywords.length,
@@ -207,16 +211,16 @@ export const _amplitudeKeywordSearchedSucceeded = (
 
 // ##### KEYWORD REPORT - 키워드 검색 실패 시 ##### //
 export const _amplitudeKeywordSearchedFailed = (
-  // platform: TChannelType,
+  // platform: TChannel,
   country: CountryType,
-  // sortBy: TSortedType,
+  sortBy: TSortBy,
   keyword: string,
   reason: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordSearchedFailed, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: country,
-    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
+    sort_by: sortBy,
     keyword,
     reason,
   });
@@ -224,15 +228,15 @@ export const _amplitudeKeywordSearchedFailed = (
 
 // ##### KEYWORD REPORT - 검색어로 추천된 키워드를 클릭해서 검색 시도 시 ##### //
 export const _amplitudeRecKeywordSearched = (
-  // platform: TChannelType,
+  // platform: TChannel,
   country: CountryType,
-  // sortBy: TSortedType,
+  sortBy: TSortBy,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.recKeywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: country,
-    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
+    sort_by: sortBy,
     keyword,
   });
 };
@@ -240,16 +244,16 @@ export const _amplitudeRecKeywordSearched = (
 // ##### KEYWORD REPORT - 키워드 리포트 생성 요청 시 ##### //
 export const _amplitudeKeywordReportRequested = (
   reportId: number,
-  // platform: TChannelType,
+  // platform: TChannel,
   country: CountryType,
-  // sortBy: TSortedType,
+  sortBy: TSortBy,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
     report_id: reportId,
     platform: CHANNEL_TYPE.SHOPEE,
     country: country,
-    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
+    sort_by: sortBy,
     keyword,
   });
 };
@@ -261,7 +265,7 @@ export const _amplitudeKeywordReportViewed = (routeId: string, data: TGetMainRep
     report_id: routeId,
     platform: report?.channel,
     country: report?.country,
-    sort_by: convertAmplitudeSortedType(report?.sorted as TCollectSortType),
+    sort_by: convertAmplitudeSortedType(report?.sorted as TSortBy),
     keyword: report?.text,
   });
 };
@@ -272,7 +276,7 @@ export const _amplitudeKeywordReportDeleted = (checkedItems: TReportItem[]) => {
       report_id: item.id,
       platform: item.channel,
       country: item.countryCode,
-      sort_by: convertAmplitudeSortedType(item.sortBy as TCollectSortType),
+      sort_by: item.sortBy,
       keyword: item.keyword,
     });
   });
@@ -318,23 +322,23 @@ export const _amplitudeKeywordTranslated = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
-    language_before: CountryType.Kr,
-    language_after: languageAfter,
+    language_before: CountryType.Kr.toLowerCase(),
+    language_after: languageAfter.toLowerCase(),
     keyword,
   });
 };
 
 // ##### KEYWORD TRANSLATION - 번역된 키워드를 검색 요청 시 ##### //
 export const _amplitudeTranslatedSearched = (
-  // platform: TChannelType,
+  // platform: TChannel,
   country: CountryType,
-  // sortBy: TSortedType,
+  sortBy: TSortBy,
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.translatedKeywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
     country: country,
-    sort_by: AMPLITUDE_SORTED_TYPE.RELEVANCE,
+    sort_by: sortBy,
     keyword,
   });
 };

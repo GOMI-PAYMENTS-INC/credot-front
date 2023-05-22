@@ -94,12 +94,14 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                 <td className='p-4'>
                   <div className='flex items-center'>
                     <ReactSVG
-                      src={reportConverterData.channel.iconPath}
+                      src={reportConverterData.sortBy.iconPath}
                       beforeInjection={(svg) => {
                         svg.setAttribute('class', 'w-4 h-4');
                       }}
                     ></ReactSVG>
-                    <p className='ml-2 text-S/Regular'>{capitalize(report.channel)}</p>
+                    <p className='ml-2 text-S/Regular'>
+                      {reportConverterData.sortBy.text}
+                    </p>
                   </div>
                 </td>
                 <td className='p-4'>

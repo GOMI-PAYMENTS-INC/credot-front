@@ -138,7 +138,7 @@ const ReportList = () => {
                         <div className='px-4 py-3 text-XS/Medium'>국가</div>
                       </th>
                       <th className='w-[128px]'>
-                        <div className='px-4 py-3 text-XS/Medium'>쇼핑몰</div>
+                        <div className='px-4 py-3 text-XS/Medium'>수집 기준</div>
                       </th>
                       <th className='w-[128px]'>
                         <div className='px-4 py-3 text-XS/Medium'>리포트 생성일</div>
