@@ -426,7 +426,7 @@ const SearchKeywords = () => {
                         return (
                           <Fragment key={`${keyword.id}`}>
                             <li
-                              className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:text-orange-500'
+                              className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
                               onClick={() => {
                                 queryKeywordByClick(
                                   _state.country,
