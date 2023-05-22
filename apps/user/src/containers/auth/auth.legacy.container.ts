@@ -77,7 +77,7 @@ export const AuthContainer = () => {
     removeCookie('TEMPORARY_PASSWORD_LOGIN');
 
     //userInfo react query 초기화
-    removeUserInfo();
+    // removeUserInfo();
   };
 
   const clearAmplitude = () => {
@@ -103,35 +103,6 @@ export const AuthContainer = () => {
     });
     // ##### 로그아웃이벤트 끝 ##### //
   };
-
-  // 회원정보 가져오기
-  const {
-    data: userInfo,
-    isLoading: isLoadingUserInfo,
-    refetch: refetchUserInfo,
-    remove: removeUserInfo,
-  } = useMeQuery(
-    graphQLClient,
-    {},
-    {
-      onSuccess: async (res) => {
-        if (isFalsy(getCookie('SET_EVENT_USER_ID'))) {
-          //앰플리튜드에서 사용할 회원 정보 셋팅
-          _setUserId(res.me.id);
-          setCookie('SET_EVENT_USER_ID', 'true', 1);
-        }
-      },
-      onError: (error) => {
-        if (error instanceof Error) {
-          console.error(error, 'error : )');
-          throw new Error(error.message, error);
-        }
-        // onLogout();
-      },
-      // refetchOnWindowFocus: false,
-      enabled: false,
-    },
-  );
 
   // 로컬 로그인 시작
   const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
@@ -194,45 +165,44 @@ export const AuthContainer = () => {
   });
 
   const onChangePassword = (value: ChangePasswordInput) => {
-    if (!userInfo?.me) {
-      return false;
-    }
-
-    const onChangePasswordValue: MutationChangePasswordArgs = {
-      pwd: {
-        email: userInfo?.me.email,
-        newPassword: value.newPassword,
-      },
-    };
-    return changePassword(onChangePasswordValue);
+    // if (!userInfo?.me) {
+    //   return false;
+    // }
+    //
+    // const onChangePasswordValue: MutationChangePasswordArgs = {
+    //   pwd: {
+    //     email: userInfo?.me.email,
+    //     newPassword: value.newPassword,
+    //   },
+    // };
+    // return changePassword(onChangePasswordValue);
   };
   // 비밀번호 변경
 
   useMemo(() => {
     if (token) {
-      graphQLClient.setHeader('authorization', `bearer ${token}`);
-
-      refetchUserInfo().then((value) => {
-        //토큰은 있지만 로그인 상태가 아닌 경우
-        if (isLogin === false) {
-          //소셜 회원가입인 경우 전화번호 인증이 필요함
-          const path = value.data?.me.phone === '' && PATH.SIGN_UP_WITH_GOOGLE;
-
-          if (path) {
-            clearLogin();
-            clearAmplitude();
-            navigation(path, { state: { email: value.data?.me.email, token: idToken } });
-          } else {
-            handleChangeLoginState(true);
-            navigation(PATH.SEARCH_PRODUCTS);
-          }
-          return;
-        }
-
-        if (pathname === PATH.SIGN_IN) {
-          navigation(PATH.SEARCH_PRODUCTS);
-        }
-      });
+      //graphQLClient.setHeader('authorization', `bearer ${token}`);
+      // refetchUserInfo().then((value) => {
+      //   //토큰은 있지만 로그인 상태가 아닌 경우
+      //   if (isLogin === false) {
+      //     //소셜 회원가입인 경우 전화번호 인증이 필요함
+      //     const path = value.data?.me.phone === '' && PATH.SIGN_UP_WITH_GOOGLE;
+      //
+      //     if (path) {
+      //       clearLogin();
+      //       clearAmplitude();
+      //       navigation(path, { state: { email: value.data?.me.email, token: idToken } });
+      //     } else {
+      //       handleChangeLoginState(true);
+      //       navigation(PATH.SEARCH_PRODUCTS);
+      //     }
+      //     return;
+      //   }
+      //
+      //   if (pathname === PATH.SIGN_IN) {
+      //     navigation(PATH.SEARCH_PRODUCTS);
+      //   }
+      // });
     }
   }, [token]);
 
@@ -263,7 +233,6 @@ export const AuthContainer = () => {
     isLoginStorage,
     setIsLoginStorage,
     isLogin,
-    userInfo,
     token,
     // 비밀번호 변경
     onChangePassword,

@@ -7,7 +7,7 @@ import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
 
-import { initializeAuteState } from '@/containers/auth/auth.container';
+import { initializeAuthState } from '@/containers/auth/auth.container';
 import { UseFormSetValue } from 'react-hook-form';
 
 interface IFindIdResultProps {
@@ -70,7 +70,7 @@ export const FindIdResult = (props: IFindIdResultProps) => {
             </div>
             <div>
               <button
-                onClick={() => initializeAuteState(setIsVerification, setValue)}
+                onClick={() => initializeAuthState(setIsVerification, setValue)}
                 type='button'
                 className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
               >

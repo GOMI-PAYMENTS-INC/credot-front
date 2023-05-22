@@ -16,7 +16,7 @@ import {
   activateVerifyCode,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
-  exccedVerifyTry,
+  exceptedVerifyTry,
 } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -42,7 +42,7 @@ export const useVerifyCode = (
       onError: (err) => {
         const [error] = err.response.errors;
         if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
-          exccedVerifyTry(isVerification, setIsVerification);
+          exceptedVerifyTry(isVerification, setIsVerification);
 
           return;
         }
