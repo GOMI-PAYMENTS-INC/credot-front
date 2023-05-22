@@ -2,10 +2,9 @@ import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import {
   AMPLITUDE_ACCOUNT_TYPE,
-  AMPLITUDE_SORT_BY_TYPE,
   convertAmplitudeSortedType,
 } from '@/amplitude/amplitude.enum';
-import { CHANNEL_TYPE, SORT_BY_TYPE } from '@/types/enum.code';
+import { CHANNEL_TYPE } from '@/types/enum.code';
 
 declare var amplitude: any;
 
@@ -27,11 +26,8 @@ export const _setAmplitudeEvents = async (
           if (payload.platform) {
             payload.platform = payload.platform.toLowerCase();
           }
-          if (payload.language_before) {
-            payload.language_before = payload.language_before.toLowerCase();
-          }
-          if (payload.language_after) {
-            payload.language_after = payload.language_after.toLowerCase();
+          if (payload.sortBy) {
+            payload.language_after = convertAmplitudeSortedType(payload.sortBy);
           }
         }
 
@@ -170,8 +166,8 @@ export const _amplitudeCountryChanged = (
 // ##### KEYWORD REPORT - 데이터 수집기준 변경 완료 시 ##### //
 export const _amplitudeSortByChanged = (sortByBefore: TSortBy, sortByAfter: TSortBy) => {
   _setAmplitudeEvents(amplitudeConstant.sortByChanged, {
-    sort_by_before: sortByBefore,
-    sort_by_after: sortByAfter,
+    sort_by_before: convertAmplitudeSortedType(sortByBefore),
+    sort_by_after: convertAmplitudeSortedType(sortByAfter),
   });
 };
 
@@ -280,7 +276,7 @@ export const _amplitudeKeywordReportDeleted = (checkedItems: TReportItem[]) => {
       report_id: item.id,
       platform: item.channel,
       country: item.countryCode,
-      sort_by: convertAmplitudeSortedType(item.sortBy as TSortBy),
+      sort_by: item.sortBy,
       keyword: item.keyword,
     });
   });
@@ -326,8 +322,8 @@ export const _amplitudeKeywordTranslated = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
-    language_before: CountryType.Kr,
-    language_after: languageAfter,
+    language_before: CountryType.Kr.toLowerCase(),
+    language_after: languageAfter.toLowerCase(),
     keyword,
   });
 };
