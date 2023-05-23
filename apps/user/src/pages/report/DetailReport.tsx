@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
-import { Defalut as Layout } from '@/components/layouts';
+import { Default as Layout } from '@/components/layouts';
 import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';

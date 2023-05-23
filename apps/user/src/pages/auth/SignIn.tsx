@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
-import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { STATUS_CODE } from '@/types/enum.code';
@@ -11,6 +10,7 @@ import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import GoogleLogin from '@/pages/auth/GoogleLogin';
+import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
 
 interface ISignInForm {
   email: string;
@@ -19,20 +19,13 @@ interface ISignInForm {
 
 const SignIn = () => {
   const navigation = useNavigate();
-  const {
-    loginMutate,
-    setIsLoginStorage,
-    isLoginStorage,
-    setIdToken,
-    onGoogleLoginButton,
-  } = AuthContainer();
+  const { loginMutate, onClickGoogleLoginButton } = AuthCommonContainer();
 
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = (res: CredentialResponse) => {
     const { credential } = res;
     if (credential) {
-      setIdToken(credential);
-      onGoogleLoginButton({ idToken: credential });
+      onClickGoogleLoginButton({ idToken: credential });
     }
   };
 
@@ -84,9 +77,9 @@ const SignIn = () => {
     });
   };
 
-  const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsLoginStorage(e.target.checked);
-  };
+  // const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setIsLoginStorage(e.target.checked);
+  // };
 
   return (
     <Layout>
@@ -161,8 +154,8 @@ const SignIn = () => {
                   name='remember_me'
                   type='checkbox'
                   className='checkboxCustom peer'
-                  checked={isLoginStorage}
-                  onChange={(event) => onLoginStorageCheck(event)}
+                  // checked={isLoginStorage}
+                  // onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
                   htmlFor='remember_me'

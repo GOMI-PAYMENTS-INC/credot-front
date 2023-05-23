@@ -1,10 +1,14 @@
 import { Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_RESPONSE_TYPE, TERM_TYPE } from '@/types/enum.code';
+import { AUTH_RESPONSE_TYPE, PATH, TERM_TYPE } from '@/types/enum.code';
 import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { TERMS_LIST } from '@/constants/auth.constants';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { useLoginMutation } from '@/generated/graphql';
+import { graphQLClient } from '@/utils/graphqlCient';
+import { authTokenStorage } from '@/utils/authToken';
+import { setCookie } from '@/utils/cookie';
 
 export const authInitialState: TVerifyButtonState = {
   firstCalled: false,
@@ -293,6 +297,3 @@ export const signUpVerifyCode = (
   setError('phone', { message: NOTIFICATION_MESSAGE.emptyPhoneNumber });
   return false;
 };
-
-///////
-

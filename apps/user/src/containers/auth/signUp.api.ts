@@ -23,7 +23,7 @@ import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
-  const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
+  const { mutate: signUpMutate } = useSignupMutation(graphQLClient().config, {
     onError: () => {
       toast.error('회원가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
@@ -104,7 +104,7 @@ export const useSignUp = () => {
     const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     return useExistsUserEmailQuery(
-      graphQLClient,
+      graphQLClient().config,
       { email },
       {
         enabled: regex.test(email) === true && triggerConfirmEmail,
@@ -124,7 +124,7 @@ export const useSignUp = () => {
     );
   };
 
-  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
+  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient().config, {
     onError: () => {
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },

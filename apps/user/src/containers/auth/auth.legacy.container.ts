@@ -105,7 +105,7 @@ export const AuthContainer = () => {
   };
 
   // 로컬 로그인 시작
-  const { mutate: loginMutate } = useLoginMutation(graphQLClient, {
+  const { mutate: loginMutate } = useLoginMutation(graphQLClient().config, {
     onSuccess: (res) => {
       // 로그인 토큰 설정
       setToken(res.login.token);
@@ -127,7 +127,7 @@ export const AuthContainer = () => {
   // 로컬 로그인 끝
 
   // 구글 로그인 시작 /
-  const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient, {
+  const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient().config, {
     onSuccess: (res) => {
       setToken(res.googleLogin.token);
       authTokenStorage.setToken(res.googleLogin.token);
@@ -152,7 +152,7 @@ export const AuthContainer = () => {
   // 구글 로그인 끝
 
   // 비밀번호 변경
-  const { mutate: changePassword } = useChangePasswordMutation(graphQLClient, {
+  const { mutate: changePassword } = useChangePasswordMutation(graphQLClient().config, {
     onSuccess: () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
       navigation(PATH.SEARCH_PRODUCTS);

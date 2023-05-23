@@ -1,14 +1,13 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
-import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { ChangePasswordInput } from '@/generated/graphql';
-import { PATH } from '@/types/enum.code';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
 
 interface IResetPassword {
   email: string;
@@ -17,17 +16,17 @@ interface IResetPassword {
 }
 
 const TemporaryPassword = () => {
-  const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
+  const { onChangePassword } = AuthCommonContainer();
 
   const navigation = useNavigate();
 
-  useEffect(() => {
-    if (!isTemporaryPasswordLogin) {
-      navigation(PATH.SIGN_IN);
-    } else {
-      _amplitudeChangePwStarted();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isTemporaryPasswordLogin) {
+  //     navigation(PATH.SIGN_IN);
+  //   } else {
+  //     _amplitudeChangePwStarted();
+  //   }
+  // }, []);
 
   const {
     register,
@@ -39,6 +38,7 @@ const TemporaryPassword = () => {
   });
   const passwordWatcher = watch('password');
   const onValid = (data: IResetPassword) => {
+    const userInfo = useRecoilValue(UserAtom);
     if (!userInfo) {
       return false;
     }

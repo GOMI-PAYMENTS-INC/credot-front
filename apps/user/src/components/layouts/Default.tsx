@@ -6,7 +6,7 @@ export interface IDefalutProps {
   children?: ReactNode;
 }
 
-export const Defalut = ({ children }: IDefalutProps) => {
+export const Default = ({ children }: IDefalutProps) => {
   return (
     <Fragment>
       <div className='h-screen'>

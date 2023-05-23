@@ -1,13 +1,15 @@
 import { GraphQLClient } from 'graphql-request';
 
 import { GlobalEnv } from '@/api/config';
-import { authTokenStorage } from '@/utils/authToken';
+import { useRecoilValue } from 'recoil';
+import { LoginTokenAtom } from '@/atom/auth/auth-atom';
 
-const setHeader = () => {
-  const token = authTokenStorage.getToken();
-  const authorization = token ? `Bearer ${token}` : '';
+export const graphQLClient = () => {
+  const token = useRecoilValue(LoginTokenAtom);
 
-  return { headers: { authorization: authorization } };
+  const config = new GraphQLClient(`${GlobalEnv.graphqlUrl}`, {
+    headers: { authorization: token ? `Bearer ${token}` : '' },
+  });
+
+  return { config };
 };
-
-export const graphQLClient = new GraphQLClient(`${GlobalEnv.graphqlUrl}`, setHeader());
