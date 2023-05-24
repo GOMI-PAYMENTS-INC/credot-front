@@ -118,7 +118,7 @@ export enum PATH {
   SIGN_UP_WITH_GOOGLE = '/signup/social',
   FIND_PASSWORD = '/find/password',
   FIND_ID = '/find/id',
-  REAPPLY_PASSWORD = '/signin/password',
+  REAPPLY_PASSWORD = '/signin/resetpassword',
   GET_REPORT_LIST = '/report/list',
   ANALYSIS_REPORT_LIST = '/report/list/:id',
 }
@@ -142,6 +142,7 @@ export enum MODAL_TYPE_ENUM {
 }
 
 export enum CACHING_KEY {
+  TEMPORARY_PASSWORD_LOGIN = 'temporary_password_login',
   STORED_KEYWORD = 'keyword',
   STORED_TRANSLATION = 'translation_keyword',
 }

@@ -7,7 +7,7 @@ import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
 import { useMeQuery } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { getCookie, setCookie } from '@/utils/cookie';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 import { isFalsy } from '@/utils/isFalsy';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
@@ -17,7 +17,7 @@ export default function PrivateRoute() {
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [token, setToken] = useRecoilState(LoginTokenAtom);
 
-  const { clearLogin } = AuthCommonContainer();
+  const { clearUserInfo, clearAmplitude } = AuthCommonContainer();
   const navigation = useNavigate();
 
   const { data: userQueryData } = useMeQuery(
@@ -27,14 +27,15 @@ export default function PrivateRoute() {
       enabled: isFalsy(token) === false,
       refetchOnWindowFocus: false,
       onSuccess: async (res) => {
-        if (isFalsy(getCookie('SET_EVENT_USER_ID'))) {
+        if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
           //앰플리튜드에서 사용할 회원 정보 셋팅
           _setUserId(res.me.id);
-          setCookie('SET_EVENT_USER_ID', 'true', 1);
+          useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
         }
       },
       onError: (error) => {
-        clearLogin();
+        clearUserInfo();
+        clearAmplitude();
         navigation(PATH.SIGN_IN);
       },
     },

@@ -1,10 +1,11 @@
 import { Fragment, Dispatch, SetStateAction } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { Link } from 'react-router-dom';
-import { PATH, AUTH_RESPONSE_TYPE } from '@/types/enum.code';
+import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
 
 import { maskingPhone, initializeAuthState } from '@/containers/auth/auth.container';
 import { UseFormSetValue } from 'react-hook-form';
+import { PATH } from '@/types/enum.code';
 
 interface IFindPasswordResult {
   phone: string;

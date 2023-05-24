@@ -8,11 +8,11 @@ import {
   useGoogleLoginMutation,
   useLoginMutation,
 } from '@/generated/graphql';
-import { PATH } from '@/types/enum.code';
+import { CACHING_KEY } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { graphQLClient } from '@/utils/graphqlCient';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { removeCookie } from '@/utils/cookie';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 import {
   _amplitudeChangePwCompleted,
   _amplitudeLoggedIn,
@@ -24,6 +24,7 @@ import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import { PATH } from '@/types/enum.code';
 
 export const AuthCommonContainer = () => {
   const navigation = useNavigate();
@@ -38,8 +39,15 @@ export const AuthCommonContainer = () => {
       authTokenStorage.setToken(res.login.token);
       // 임시비밀번호로 로그인 한 경우
       if (res.login.popupInfo) {
+        useCookieStorage.setCookie(
+          CACHING_KEY.TEMPORARY_PASSWORD_LOGIN,
+          res.login.token,
+          1,
+        );
         navigation(PATH.REAPPLY_PASSWORD);
       } else {
+        useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
+          useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
         navigation(PATH.SEARCH_PRODUCTS);
       }
     },
@@ -58,18 +66,23 @@ export const AuthCommonContainer = () => {
       toast.error(error.response.errors[0].message);
     },
   });
-  const onCLickGoogleLoginButton = ({ idToken }: GoogleLoginMutationVariables) => {
+  const onClickGoogleLoginButton = ({ idToken }: GoogleLoginMutationVariables) => {
     googleLoginMutate({ idToken });
   };
   // 구글 로그인 끝
 
-  const clearLogin = () => {
+  const clearUserInfo = () => {
     //auth에서 사용중인 recoil 초기화
     clearUserAtom();
     clearLoginTokenAtom();
 
-    // 세션, 로컬스토리지에 저장된 토큰 삭제
+    // 토큰 쿠키
     authTokenStorage.clearToken();
+    //임시 비밀번호로 로그인 쿠키
+    useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
+      useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
+
+    //세션 전체 삭제
     useSessionStorage.initializeItems();
 
     //react query 초기화
@@ -78,17 +91,17 @@ export const AuthCommonContainer = () => {
 
   const clearAmplitude = () => {
     //앰플리튜드 회원 셋팅 여부 초기화
-    removeCookie('SET_EVENT_USER_ID');
+    useCookieStorage.removeCookie('AMPLITUDE_USER_ID');
 
     //앰플리튜드 디바이스 ID초기화
-    removeCookie('AMPLITUDE_DEVICE_ID');
+    useCookieStorage.removeCookie('AMPLITUDE_DEVICE_ID');
 
     //앰플리튜드 초기화
     _resetAmplitude();
   };
 
   const onLogout = async () => {
-    clearLogin();
+    clearUserInfo();
     navigation(PATH.SIGN_IN);
 
     // ##### 로그아웃 이벤트 시작 ##### //
@@ -125,8 +138,9 @@ export const AuthCommonContainer = () => {
 
   return {
     loginMutate,
-    onClickGoogleLoginButton: onCLickGoogleLoginButton,
-    clearLogin,
+    clearAmplitude,
+    onClickGoogleLoginButton,
+    clearUserInfo,
     onLogout,
     onChangePassword,
   };

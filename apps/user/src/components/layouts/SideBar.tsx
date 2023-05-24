@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { PATH, routeList } from '@/router/routeList';
+import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { menuData } from '@/containers/sidebar/sideBarData';
@@ -14,14 +14,11 @@ import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/s
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide, _setUserId } from '@/amplitude/amplitude.service';
 import { openBrowser } from '@/containers/report';
-import { authTokenStorage } from '@/utils/authToken';
 import { MeQuery, useMeQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphqlCient';
-import { isFalsy } from '@/utils/isFalsy';
-import { getCookie, setCookie } from '@/utils/cookie';
 import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { PATH } from '@/types/enum.code';
 const SideBar = () => {
   const { onLogout } = AuthCommonContainer();
   // const { userInfo } = useAuth();

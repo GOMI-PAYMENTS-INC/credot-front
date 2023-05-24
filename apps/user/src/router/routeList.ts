@@ -2,18 +2,7 @@ import { ComponentType } from 'react';
 import * as AuthRoutes from '@/pages/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';
 import * as ReportRoutes from '@/pages/report';
-
-export const PATH = {
-  SEARCH_PRODUCTS: '/',
-  SIGN_IN: '/signin',
-  SIGN_UP: '/signup',
-  SIGN_UP_WITH_GOOGLE: '/signup/social',
-  FIND_PASSWORD: '/find/password',
-  FIND_ID: '/find/id',
-  REAPPLY_PASSWORD: '/signin/password',
-  GET_REPORT_LIST: '/report/list',
-  ANALYSIS_REPORT_LIST: '/report/list/:id',
-} as const;
+import { PATH } from '@/types/enum.code';
 
 type TPathKey = keyof typeof PATH;
 

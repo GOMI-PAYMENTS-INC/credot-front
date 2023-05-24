@@ -28,15 +28,9 @@ import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { graphQLClient } from '@/utils/graphqlCient';
-import {
-  _amplitudeLoggedIn,
-  _amplitudeLoggedOut,
-  _resetAmplitude,
-  _amplitudeChangePwCompleted,
-  _setUserId,
-} from '@/amplitude/amplitude.service';
+
 import { isFalsy } from '@/utils/isFalsy';
-import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const AuthContainer = () => {
@@ -74,7 +68,7 @@ export const AuthContainer = () => {
     setTemporaryPasswordLogin(false);
 
     // 임시 비밀번호로 로그인한 쿠키 삭제
-    removeCookie('TEMPORARY_PASSWORD_LOGIN');
+    useCookieStorage.removeCookie('TEMPORARY_PASSWORD_LOGIN');
 
     //userInfo react query 초기화
     // removeUserInfo();
@@ -82,13 +76,13 @@ export const AuthContainer = () => {
 
   const clearAmplitude = () => {
     //앰플리튜드 회원 셋팅 여부 초기화
-    removeCookie('SET_EVENT_USER_ID');
+    useCookieStorage.removeCookie('SET_EVENT_USER_ID');
 
     //앰플리튜드 디바이스 ID초기화
-    removeCookie('AMPLITUDE_DEVICE_ID');
+    useCookieStorage.removeCookie('AMPLITUDE_DEVICE_ID');
 
     //앰플리튜드 초기화
-    _resetAmplitude();
+    //-- _resetAmplitude();
   };
 
   const onLogout = async () => {
@@ -98,9 +92,9 @@ export const AuthContainer = () => {
     navigation(PATH.SIGN_IN);
 
     //앰플리튜드 - 로그아웃 이벤트
-    await _amplitudeLoggedOut(() => {
-      clearAmplitude();
-    });
+    //-- await _amplitudeLoggedOut(() => {
+    //   clearAmplitude();
+    // });
     // ##### 로그아웃이벤트 끝 ##### //
   };
 
@@ -114,8 +108,9 @@ export const AuthContainer = () => {
       handleChangeLoginState(true);
       // 임시비밀번호로 로그인 한 경우
       if (res.login.popupInfo) {
-        setCookie('TEMPORARY_PASSWORD_LOGIN', res.login.token, 1);
-        setTemporaryPasswordLogin(true);
+        useCookieStorage.setCookie('TEMPORARY_PASSWORD_LOGIN', res.login.token, 1);
+        true;
+        setTemporaryPasswordLogin;
         navigation(PATH.REAPPLY_PASSWORD);
       } else {
         setTemporaryPasswordLogin(false);
@@ -144,7 +139,7 @@ export const AuthContainer = () => {
       {
         onSuccess: () => {
           //로그인 완료 시 - 구글 로그인
-          _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
+          //-- _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
         },
       },
     );
@@ -157,7 +152,7 @@ export const AuthContainer = () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
       navigation(PATH.SEARCH_PRODUCTS);
 
-      _amplitudeChangePwCompleted();
+      //-- _amplitudeChangePwCompleted();
     },
     onError: () => {
       toast.error('변경 실패하였습니다.');

@@ -8,6 +8,11 @@ import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '@/atom/auth/auth-atom';
 import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { useEffect } from 'react';
+import { useCookieStorage } from '@/utils/useCookieStorage';
+import { CACHING_KEY } from '@/types/enum.code';
+import { PATH } from '@/types/enum.code';
+import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
 
 interface IResetPassword {
   email: string;
@@ -20,13 +25,17 @@ const TemporaryPassword = () => {
 
   const navigation = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isTemporaryPasswordLogin) {
-  //     navigation(PATH.SIGN_IN);
-  //   } else {
-  //     _amplitudeChangePwStarted();
-  //   }
-  // }, []);
+  useEffect(() => {
+    const isTemporaryPasswordLogin = useCookieStorage.getCookie(
+      CACHING_KEY.TEMPORARY_PASSWORD_LOGIN,
+    );
+    console.log('isTemporaryPasswordLogin', isTemporaryPasswordLogin);
+    if (!isTemporaryPasswordLogin) {
+      navigation(PATH.SIGN_IN);
+    } else {
+      _amplitudeChangePwStarted();
+    }
+  }, []);
 
   const {
     register,

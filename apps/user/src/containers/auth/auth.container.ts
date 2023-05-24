@@ -5,10 +5,6 @@ import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-fo
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { TERMS_LIST } from '@/constants/auth.constants';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { useLoginMutation } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphqlCient';
-import { authTokenStorage } from '@/utils/authToken';
-import { setCookie } from '@/utils/cookie';
 
 export const authInitialState: TVerifyButtonState = {
   firstCalled: false,
