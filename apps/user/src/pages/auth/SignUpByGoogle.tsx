@@ -28,15 +28,16 @@ import {
 } from '@/containers/auth/auth.container';
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { authTokenStorage } from '@/utils/authToken';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
 
 const SignUpByGoogle = () => {
   const { token, email } = useLocation().state;
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
   const [signUpState, setSignUpState] = useState(termInitialState);
+  const { clearUserInfo } = AuthCommonContainer();
 
   const {
     register,
@@ -58,9 +59,8 @@ const SignUpByGoogle = () => {
   }, []);
 
   useEffect(() => {
-    if (authTokenStorage.getToken()) {
-      authTokenStorage.clearToken();
-    }
+    console.log('SignUpByGoogle');
+    clearUserInfo();
 
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);
@@ -270,7 +270,7 @@ const SignUpByGoogle = () => {
                   const payload = {
                     phone: getValues('phone'),
                     verifyCode: isVerification.verifyCodeSignatureNumber,
-                    email,
+                    email: email,
                     requiredAgreeTerm: signUpState.checkedTerms,
                   };
                   _applySocialAccount(

@@ -22,14 +22,13 @@ interface IResetPassword {
 
 const TemporaryPassword = () => {
   const { onChangePassword } = AuthCommonContainer();
-
+  const userInfo = useRecoilValue(UserAtom);
   const navigation = useNavigate();
 
   useEffect(() => {
     const isTemporaryPasswordLogin = useCookieStorage.getCookie(
       CACHING_KEY.TEMPORARY_PASSWORD_LOGIN,
     );
-    console.log('isTemporaryPasswordLogin', isTemporaryPasswordLogin);
     if (!isTemporaryPasswordLogin) {
       navigation(PATH.SIGN_IN);
     } else {
@@ -47,7 +46,6 @@ const TemporaryPassword = () => {
   });
   const passwordWatcher = watch('password');
   const onValid = (data: IResetPassword) => {
-    const userInfo = useRecoilValue(UserAtom);
     if (!userInfo) {
       return false;
     }
@@ -106,7 +104,6 @@ const TemporaryPassword = () => {
                     errors?.newPassword ? 'error' : ''
                   }`}
                   placeholder='비밀번호를 한 번 더 입력해주세요.'
-                  // @ts-ignore
                   {...register('newPassword', {
                     validate: (value: string) =>
                       value === passwordWatcher || '비밀번호가 일치하지 않아요.',

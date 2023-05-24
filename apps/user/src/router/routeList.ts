@@ -29,7 +29,7 @@ export const routeList: IRoute[] = [
     component: AuthRoutes.SignUp,
   },
   {
-    //소셜 로그인
+    //소셜 회원가입시 전화번호 추가 입력
     isPrivate: false,
     description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
@@ -58,7 +58,7 @@ export const routeList: IRoute[] = [
   },
   {
     //비밀번호 재설정
-    isPrivate: false,
+    isPrivate: true,
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.TemporaryPassword,

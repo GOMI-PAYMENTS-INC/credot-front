@@ -7,6 +7,7 @@ import {
   useChangePasswordMutation,
   useGoogleLoginMutation,
   useLoginMutation,
+  useMeQuery,
 } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
@@ -54,10 +55,12 @@ export const AuthCommonContainer = () => {
     onError: (err) => {},
   });
 
-  // 구글 로그인 시작 /
+  // 구글 로그인/회원가입 시도
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient().config, {
     onSuccess: (res) => {
       authTokenStorage.setToken(res.googleLogin.token);
+
+      // navigation(PATH.SEARCH_PRODUCTS);
       //로그인 완료 시 - 구글 로그인
       _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
     },

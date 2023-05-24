@@ -26,7 +26,15 @@ export default function PrivateRoute() {
     {
       enabled: isFalsy(token) === false,
       refetchOnWindowFocus: false,
-      onSuccess: async (res) => {
+      onSuccess: (res) => {
+        if (res.me.phone === '') {
+          clearUserInfo();
+          // clearAmplitude();
+          navigation(PATH.SIGN_UP_WITH_GOOGLE, {
+            state: { email: res.me.email, token: token },
+          });
+        }
+
         if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
           //앰플리튜드에서 사용할 회원 정보 셋팅
           _setUserId(res.me.id);
@@ -40,6 +48,7 @@ export default function PrivateRoute() {
       },
     },
   );
+  console.log('ddd');
 
   const storageToken = authTokenStorage.getToken();
 
