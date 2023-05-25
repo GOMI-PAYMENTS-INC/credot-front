@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { Defalut as Layout } from '@/components/layouts';
+import { Default as Layout } from '@/components/layouts';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import Pagination from '@/components/pagination';
 import {
@@ -19,15 +19,13 @@ import {
 } from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
-import { COUNTRY_TYPE, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
 import DropDown, {
   DROPDOWN_STATUS,
   DROPDOWN_VARIANTS,
   TDropDownOption,
 } from '@/components/dropDown';
-import { CountryType } from '@/generated/graphql';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);

@@ -25,12 +25,12 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
           <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
           <div>
             <div className='pt-4 text-S/Medium odd:space-x-2'>
-              <span className=' text-grey-600'>국가</span>
-              <span className=' text-grey-800'>{convertCountry(country)}</span>
-              <span className=' text-grey-600'>플랫폼</span>
-              <span className=' text-grey-800'>Shopee</span>
-              <span className=' text-grey-600'>생성일</span>
-              <span className=' text-grey-800'>
+              <span className='text-grey-600'>국가</span>
+              <span className='text-grey-800'>{convertCountry(country)}</span>
+              <span className='text-grey-600'>플랫폼</span>
+              <span className='text-grey-800'>Shopee</span>
+              <span className='text-grey-600'>생성일</span>
+              <span className='text-grey-800'>
                 {convertTime(createdAt!, 'YYYY.MM.DD')}
               </span>
             </div>
@@ -46,17 +46,21 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
           </div>
         </div>
-        <div className='flex h-[168px] w-[179px]'>
-          <div className='pt-[30px] pl-[7px]'>
+        <div className='py-[30px]'>
+          <div className='flex grow-0 flex-col items-end gap-y-4'>
             <button
               onClick={() => {
                 openBrowser(`${convertShopeeSiteUrl(country)}/search?keyword=${text}`);
                 _amplitudeMovedToSERP(reportId, text, null);
               }}
-              className='button-filled-normal-medium-grey-false-true-true flex h-10 w-[165px] items-center justify-center'
+              className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
             >
-              키워드 검색결과
-              <ReactSVG className='ml-1' src='/assets/icons/outlined/Linkout.svg' />
+              <span>키워드 검색결과</span>
+              <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
+            </button>
+            <button className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'>
+              <span>공유하기</span>
+              <ReactSVG src='/assets/icons/outlined/ShareAlt.svg' />
             </button>
           </div>
         </div>

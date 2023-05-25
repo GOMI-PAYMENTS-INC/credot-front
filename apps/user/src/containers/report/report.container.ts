@@ -5,7 +5,7 @@ import {
   getRelationReport,
   getSalePrice,
 } from './report.api';
-import { ChangeEvent, Dispatch, RefObject, SetStateAction } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 
 import {
   REPORT_ACTION,
@@ -517,35 +517,30 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const [first, second, third, fourth] = document.getElementsByClassName(
-    'detailReport-h1-header',
-  );
+  const sections = document.getElementsByClassName('detailReport-h1-header');
 
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, salePrice, overseaProduct] = [
-    first,
-    second,
-    third,
-    fourth,
-  ].map((element) => (element as HTMLElement).offsetTop - 100);
+  const [marketSize, keywordInfo, salePrice, overseaProduct] = [...sections].map(
+    (element) => (element as HTMLElement).offsetTop - 100,
+  );
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
     return;
   }
 
-  if (scrollY >= marketSize && scrollY < keywordInfo) {
+  if (marketSize && keywordInfo && scrollY >= marketSize && scrollY < keywordInfo) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
   }
 
-  if (scrollY >= keywordInfo && scrollY < salePrice) {
+  if (keywordInfo && salePrice && scrollY >= keywordInfo && scrollY < salePrice) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
   }
 
-  if (scrollY >= salePrice && scrollY < overseaProduct) {
+  if (salePrice && overseaProduct && scrollY >= salePrice && scrollY < overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
   }
-  if (scrollY >= overseaProduct) {
+  if (overseaProduct && scrollY >= overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.OVERSEA_PRODUCT }));
   }
 };

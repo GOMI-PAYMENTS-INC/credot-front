@@ -34,6 +34,7 @@ interface IRecommendationChart {
   currencyUnit: number;
   basePrice: number;
   amplitudeData: TAmplitudeDetailData;
+  isLimit: boolean;
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
@@ -46,6 +47,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
     spinnerEvent,
     currencyUnit,
     basePrice,
+    isLimit,
   } = props;
   const batchStatusDoneItems = relation.filter((data) =>
     isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
@@ -154,7 +156,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
               const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
               const backgroundColor = status ? 'border-grey-300' : 'border-orange-200';
               const { top, bottom } = convertEvaluateStatus(data.evaluateStatus);
-              return (
+              return isLimit && idx > 0 ? null : (
                 <Fragment key={`product_key_${data.id}`}>
                   <tr className='mt-3 flex' />
                   <tr
@@ -163,7 +165,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                   >
                     <td>
                       <div className='ml-3 flex'>
-                        <p>{data.text}</p>
+                        <p>{data.text}d</p>
                       </div>
                     </td>
                     <td>
@@ -208,9 +210,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     <td className='bg-grey-50'>
                       <div className='flex justify-center text-center'>
                         <div className='h-5 w-[43px]'>
-                          <p className='text-S/Bold'>
-                            {formatNumber(data.cpcRate)}%
-                          </p>
+                          <p className='text-S/Bold'>{formatNumber(data.cpcRate)}%</p>
                         </div>
                       </div>
                     </td>
