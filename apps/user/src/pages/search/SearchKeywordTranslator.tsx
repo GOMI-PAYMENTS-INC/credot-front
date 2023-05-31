@@ -166,6 +166,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
                 searchSortBy={props.searchSortBy}
                 setTranslatorState={_dispatch}
                 scrollRef={scrollRef}
+                searchCountry={props.searchCountry}
               />
             </div>
           </section>
