@@ -25,7 +25,10 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
       return useNoPrint ? '-' : <div className='block w-full py-4'>{content}</div>;
     } else {
       return (
-        <Link to={`${PATH.GET_REPORT_LIST}/${report.id}`} className='block w-full py-4'>
+        <Link
+          to={`${PATH.GET_REPORT_LIST}/${report.id}?limit=${_state.limit}&page=${_state.page}`}
+          className='block w-full py-4'
+        >
           {content}
         </Link>
       );
