@@ -8,6 +8,7 @@ import Pagination from '@/components/pagination';
 import {
   _getReportList,
   getReportListByLimit,
+  getReportListByPage,
   onCheckAllReportList,
   onClickDeleteReport,
   onClickReload,
@@ -19,22 +20,35 @@ import {
 } from '@/containers/report/report.reducer';
 import { ReportListColumn } from '@/pages/report/ReportListColumn';
 import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
-import { COUNTRY_TYPE, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertCountry, convertCountryIconPath } from '@/utils/convertEnum';
 import DropDown, {
   DROPDOWN_STATUS,
   DROPDOWN_VARIANTS,
   TDropDownOption,
 } from '@/components/dropDown';
-import { CountryType } from '@/generated/graphql';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const setParams = (limit: string, page: string) => {
+    if (limit && page) {
+      setSearchParams({ limit: limit, page: page });
+    }
+  };
 
   //페이지 목록 불러오기
   useEffect(() => {
-    void _getReportList({ _state: _state, _dispatch });
+    // Get a specific query parameter
+    const limit = searchParams.get('limit');
+    const page = searchParams.get('page');
+    if (limit && page) {
+      void getReportListByPage(_dispatch, Number(limit), undefined, Number(page));
+    } else {
+      void _getReportList({ _state: _state, _dispatch });
+    }
   }, []);
 
   const limitOptions = () => {
@@ -50,6 +64,7 @@ const ReportList = () => {
   };
   const onClickOption = (limit: any) => {
     void getReportListByLimit(limit, _state, _dispatch, _state.data.totalCount);
+    setParams(limit, String(_state.page));
   };
   return (
     <Layout>
@@ -172,7 +187,7 @@ const ReportList = () => {
                     page={_state.page || reportListInitialState.page}
                     limit={_state.limit || reportListInitialState.limit}
                     _dispatch={_dispatch}
-                    _dispatchType={REPORT_LIST_ACTION.GET_REPORT_LIST}
+                    setParams={setParams}
                   />
                 </div>
               </div>

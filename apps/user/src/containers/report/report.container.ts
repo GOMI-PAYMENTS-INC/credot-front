@@ -347,17 +347,20 @@ export const onClickReload = async (
 export const getReportListByPage = async (
   _dispatch: Dispatch<TReportListAction>,
   limit: number,
-  beforePage: number,
+  beforePage: number | undefined,
   goPage: number,
 ) => {
-  if (beforePage === goPage) {
-    return;
+  if (beforePage !== undefined) {
+    if (beforePage === goPage) {
+      return;
+    }
   }
 
   await _getReportList({
     _state: { limit: limit, page: goPage },
     _dispatch,
   } as TGetReportList);
+
   //선택된 체크박스 목록 비우기
   onUncheckReportList(_dispatch);
 };

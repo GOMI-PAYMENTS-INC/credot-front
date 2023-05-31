@@ -2,16 +2,22 @@ import { Dispatch, Fragment } from 'react';
 
 import { ReactSVG } from 'react-svg';
 import { getReportListByPage } from '@/containers/report';
+import { NavigateOptions, URLSearchParamsInit } from 'react-router-dom';
 
 type TPagination = {
   total: number;
   page: number; // 페이징용 리포트id
   limit: number; // 페이징용 리스트 사이즈
   _dispatch: Dispatch<any>;
-  _dispatchType: any;
+  setParams: (limit: string, page: string) => void;
 };
 
-const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPagination) => {
+const Pagination = ({ total, limit, page, _dispatch, setParams }: TPagination) => {
+  const onClickPage = async (goPage: number) => {
+    await getReportListByPage(_dispatch, limit, page, goPage);
+    setParams(String(limit), String(goPage));
+  };
+
   // 총 페이지 갯수
   const numPages = Math.ceil(total / limit);
 
@@ -40,11 +46,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
       return (
         <Fragment>
           <li className={liStyle}>
-            <button
-              key={1}
-              className={buttonStyle(1)}
-              onClick={() => getReportListByPage(_dispatch, limit, page, 1)}
-            >
+            <button key={1} className={buttonStyle(1)} onClick={() => onClickPage(1)}>
               {1}
             </button>
           </li>
@@ -57,7 +59,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
           <button
             key={i + 1}
             className={buttonStyle(i + 1)}
-            onClick={() => getReportListByPage(_dispatch, limit, page, i + 1)}
+            onClick={() => onClickPage(i + 1)}
           >
             {i + 1}
           </button>
@@ -73,7 +75,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
           <button
             key={page + (i - 1)}
             className={buttonStyle(page + (i - 1))}
-            onClick={() => getReportListByPage(_dispatch, limit, page, page + (i - 1))}
+            onClick={() => onClickPage(page + (i - 1))}
           >
             {page + (i - 1)}
           </button>
@@ -91,7 +93,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
             <button
               key={numPages}
               className={buttonStyle(numPages)}
-              onClick={() => getReportListByPage(_dispatch, limit, page, numPages)}
+              onClick={() => onClickPage(numPages)}
             >
               {numPages}
             </button>
@@ -104,9 +106,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
           <button
             key={numPages - (pageMaxCeil - i)}
             className={buttonStyle(numPages - (pageMaxCeil - i))}
-            onClick={() =>
-              getReportListByPage(_dispatch, limit, page, numPages - (pageMaxCeil - i))
-            }
+            onClick={() => onClickPage(numPages - (pageMaxCeil - i))}
           >
             {numPages - (pageMaxCeil - i)}
           </button>
@@ -130,7 +130,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
           <button
             key={i + 1}
             className={buttonStyle(i + 1)}
-            onClick={() => getReportListByPage(_dispatch, limit, page, i + 1)}
+            onClick={() => onClickPage(i + 1)}
           >
             {i + 1}
           </button>
@@ -143,7 +143,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
     return (
       <div className='flex h-8 max-w-[390px] justify-between space-x-8'>
         <button
-          onClick={() => getReportListByPage(_dispatch, limit, page, page - 1)}
+          onClick={() => onClickPage(page - 1)}
           disabled={page === 1}
           className={page === 1 ? '' : 'hover:rounded-lg hover:bg-grey-200'}
         >
@@ -160,7 +160,7 @@ const Pagination = ({ total, limit, page, _dispatch, _dispatchType }: TPaginatio
         </button>
         <ul className='flex gap-x-1'>{paginationPrint()}</ul>
         <button
-          onClick={() => getReportListByPage(_dispatch, limit, page, page + 1)}
+          onClick={() => onClickPage(page + 1)}
           disabled={page === numPages}
           className={page === numPages ? '' : 'hover:rounded-lg hover:bg-grey-200'}
         >
