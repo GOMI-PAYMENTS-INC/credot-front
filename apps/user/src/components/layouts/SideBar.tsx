@@ -243,21 +243,6 @@ const SideBar = () => {
           <div className='divide-y divide-grey-300'>
             <ul className='flex flex-col items-center gap-y-4 py-6 px-2.5'>
               <li>
-                <a href='https://open.kakao.com/o/g2fW8ajf' target='_blank'>
-                  <ReactSVG
-                    src='/assets/icons/sideBanner-1.svg'
-                    className='cursor-pointer '
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', `w-[180px]`);
-                      svg.setAttribute(
-                        'alt',
-                        `소상공인 역량강화 바우처 400만원 지원 신청하기`,
-                      );
-                    }}
-                  />
-                </a>
-              </li>
-              <li>
                 <a href='http://starterclub.kr' target='_blank'>
                   <ReactSVG
                     src='/assets/icons/sideBanner-2.svg'
