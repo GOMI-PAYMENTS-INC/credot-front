@@ -17,6 +17,7 @@ export const CustomToastContainer = () => {
   const typeConvert = () => {};
 
   const iconCustom = (type: TypeOptions) => {
+    console.log('dd', type);
     switch (type) {
       case 'success':
         return (
@@ -28,7 +29,8 @@ export const CustomToastContainer = () => {
             }}
           />
         );
-      case 'warning' || 'error':
+      case 'warning':
+      case 'error':
         return (
           <ReactSVG
             src='/assets/icons/outlined/Warning.svg'
@@ -68,7 +70,7 @@ export const CustomToastContainer = () => {
       toastClassName={(context) =>
         context
           ? contextClass[context.type || 'default'] +
-            ' text-M/Medium relative flex p-3 gap-x-3 rounded-[10px] justify-between overflow-hidden cursor-pointer'
+            ' text-M/Medium relative flex p-3 gap-x-3 rounded-[10px] justify-between overflow-hidden cursor-pointer box-border'
           : ''
       }
       closeButton={false}
