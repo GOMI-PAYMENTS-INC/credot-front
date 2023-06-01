@@ -26,7 +26,7 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
     } else {
       return (
         <Link
-          to={`${PATH.GET_REPORT_LIST}/${report.id}?limit=${_state.limit}&page=${_state.page}`}
+          to={`${PATH.REPORT_LIST}/${report.id}?limit=${_state.limit}&page=${_state.page}`}
           className='block w-full py-4'
         >
           {content}

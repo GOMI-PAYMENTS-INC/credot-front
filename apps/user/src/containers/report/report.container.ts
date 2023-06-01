@@ -129,7 +129,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
     if (reportInfo?.code === STATUS_CODE.SUCCESS) {
       //데이터 담기
       _state.data = reportInfo.data;
-      _dispatch({ type: REPORT_LIST_ACTION.GET_REPORT_LIST, payload: _state });
+      _dispatch({ type: REPORT_LIST_ACTION.REPORT_LIST, payload: _state });
 
       //isLoading 완료
       _dispatch({
