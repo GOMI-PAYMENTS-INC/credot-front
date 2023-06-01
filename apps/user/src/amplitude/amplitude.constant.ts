@@ -2,6 +2,7 @@ export const amplitudeConstant = {
   loggedIn: 'logged in',
   loggedOut: 'logged out',
   mobileVerified: 'mobile verified',
+  loginPageViewed: 'login page viewed',
 
   signupStarted: 'signup started',
   signupCompleted: 'signup completed',
