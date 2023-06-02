@@ -12,6 +12,7 @@ import { isFalsy } from '@/utils/isFalsy';
 
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
+import { getParameter } from '@/utils/getParameter';
 
 const DetailReport = () => {
   const routeId = useParams();
@@ -38,6 +39,16 @@ const DetailReport = () => {
       void _getReportInfo(routeId.id, _dispatch);
     }
   }, []);
+
+  const listUrl = () => {
+    const limit = getParameter(window.location, 'limit');
+    const page = getParameter(window.location, 'page');
+    if (limit && page) {
+      return `${PATH.REPORT_LIST}?limit=${limit}&page=${page}`;
+    } else {
+      return `${PATH.REPORT_LIST}`;
+    }
+  };
 
   const combinedComponent = useMemo(() => {
     if (main === null) return <Fragment></Fragment>;
@@ -79,7 +90,7 @@ const DetailReport = () => {
             <div className='flex items-center'>
               <div
                 className='h-5 w-5 cursor-pointer pl-[7px]'
-                onClick={() => navigation(PATH.GET_REPORT_LIST)}
+                onClick={() => navigation(listUrl())}
               >
                 <ReactSVG src='/assets/icons/outlined/LeftArrow.svg' />
               </div>

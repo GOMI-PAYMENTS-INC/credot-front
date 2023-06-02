@@ -119,8 +119,8 @@ export enum PATH {
   FIND_PASSWORD = '/find/password',
   FIND_ID = '/find/id',
   REAPPLY_PASSWORD = '/signin/password',
-  GET_REPORT_LIST = '/report/list',
-  ANALYSIS_REPORT_LIST = '/report/list/:id',
+  REPORT_LIST = '/report',
+  REPORT_DETAIL = '/report/:id',
 }
 
 export enum AUTH_RESPONSE_TYPE {

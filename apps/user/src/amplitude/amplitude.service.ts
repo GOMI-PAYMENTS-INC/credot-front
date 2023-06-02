@@ -90,6 +90,10 @@ export const _amplitudeMobileVerified = (phoneNumber: string) => {
     phone_number: phoneNumber,
   });
 };
+// ##### GENERAL - 로그인 페이지 뷰 발생 시 이벤트 ##### //
+export const _amplitudeLoginPageViewed = () => {
+  void _setAmplitudeEvents(amplitudeConstant.loginPageViewed, {});
+};
 
 // ##### SIGNUP - 회원가입 화면 랜딩 시 이벤트 ##### //
 export const _amplitudeSignupStarted = (provider: AMPLITUDE_ACCOUNT_TYPE) => {

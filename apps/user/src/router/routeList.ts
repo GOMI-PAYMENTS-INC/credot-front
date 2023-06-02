@@ -11,8 +11,8 @@ export const PATH = {
   FIND_PASSWORD: '/find/password',
   FIND_ID: '/find/id',
   REAPPLY_PASSWORD: '/signin/password',
-  GET_REPORT_LIST: '/report/list',
-  ANALYSIS_REPORT_LIST: '/report/list/:id',
+  REPORT_LIST: '/report',
+  REPORT_DETAIL: '/report/:id',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -84,13 +84,13 @@ export const routeList: IRoute[] = [
   {
     isPrivate: true,
     description: 'ReportList',
-    path: PATH.GET_REPORT_LIST,
+    path: PATH.REPORT_LIST,
     component: ReportRoutes.ReportList,
   },
   {
     isPrivate: true,
     description: 'DetailReport',
-    path: PATH.ANALYSIS_REPORT_LIST,
+    path: PATH.REPORT_DETAIL,
     component: ReportRoutes.DetailReport,
   },
 ];
