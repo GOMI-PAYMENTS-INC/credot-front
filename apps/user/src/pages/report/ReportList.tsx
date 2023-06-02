@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { Defalut as Layout } from '@/components/layouts';
+import { Default as Layout } from '@/components/layouts';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import Pagination from '@/components/pagination';
 import {
@@ -14,7 +14,6 @@ import {
   onClickReload,
 } from '@/containers/report/report.container';
 import {
-  REPORT_LIST_ACTION,
   reportListInitialState,
   reportListReducer,
 } from '@/containers/report/report.reducer';
@@ -27,7 +26,7 @@ import DropDown, {
   DROPDOWN_VARIANTS,
   TDropDownOption,
 } from '@/components/dropDown';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);

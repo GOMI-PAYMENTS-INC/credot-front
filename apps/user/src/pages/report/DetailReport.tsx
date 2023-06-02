@@ -1,22 +1,17 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
-import { Defalut as Layout } from '@/components/layouts';
+import { Default as Layout } from '@/components/layouts';
 import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
-import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { MarketSize } from '@/pages/report/MarketSize';
 import { DetailReportContentsBar } from '@/pages/report/DetailReportContentsBar';
-import { RecommendationChart } from '@/pages/report/RecommendationChart';
-import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { PATH } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { SalePrice } from '@/pages/report/SalePrice';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
+import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import { getParameter } from '@/utils/getParameter';
 
 const DetailReport = () => {
@@ -65,40 +60,13 @@ const DetailReport = () => {
 
     return (
       <Fragment>
-        <KeywordInfo
-          keywordInfo={main}
-          itemCount={_state.salePrice?.data!.itemCount}
-          amplitudeData={amplitudeData}
-        />
-        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
-        <Fragment>
-          <AnalysisKeyword analysisInfo={main} />
-          <RecommendationChart
-            relation={relation}
-            _dispatch={_dispatch}
-            spinnerEvent={_state.spinnerEvent}
-            toggleEvent={_state.toggleEvent}
-            country={main.country}
-            basePrice={main.basePrice}
-            currencyUnit={main.currencyUnit}
-            amplitudeData={amplitudeData}
-          />
-        </Fragment>
-        <SalePrice
-          currencyUnit={main.currencyUnit}
-          scollerRef={scrollController}
-          salePriceInfo={_state.salePrice?.data!}
-          list={_state.salePrice.list}
-          focus={_state.salePrice.focus}
+        <DetailReportSwitch
+          isUser={true}
+          _state={_state}
           _dispatch={_dispatch}
           amplitudeData={amplitudeData}
-        />
-        <AnalysisOverseaProduct
-          currencyUnit={main.currencyUnit}
-          basePrice={main.basePrice}
-          overseaProduct={_state.oversea}
-          amplitudeData={amplitudeData}
-        />
+          scrollController={scrollController}
+        ></DetailReportSwitch>
       </Fragment>
     );
   }, [main]);
@@ -163,7 +131,7 @@ const DetailReport = () => {
         <div className='min-h-full bg-white'>
           <div className='container pt-8 pb-[100px]'>
             <div className='grid grid-cols-12 gap-x-6'>
-              <div className='col-span-10 space-y-[72px]'>{combinedComponent}</div>
+              <div className='col-span-10'>{combinedComponent}</div>
               <DetailReportContentsBar
                 title={main!.text}
                 scrollEvent={scrollEvent}

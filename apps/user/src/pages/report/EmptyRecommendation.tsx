@@ -2,7 +2,7 @@ export const EmptyRecommendation = () => {
   return (
     <tr className='border-[1px] border-grey-300'>
       <td>
-        <div className='ml-3 flex justify-center self-center bg-grey-200'>
+        <div className='ml-3 flex justify-start self-center bg-grey-200 px-2'>
           <p className='flex h-5 items-center text-XS/Medium text-grey-900'>
             추천 키워드가 없어요.
           </p>
