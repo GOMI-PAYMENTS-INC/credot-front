@@ -258,7 +258,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                               }`,
                             );
                             _amplitudeMovedToSERP(
-                              amplitudeData.reportId,
+                              amplitudeData.param,
                               amplitudeData.keyword,
                               data.text,
                             );

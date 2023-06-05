@@ -9,15 +9,15 @@ import {
 import { TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
 
-interface IDetailReportContentsBarProps {
+interface IDetailReportRightQuickBarProps {
   contentSection?: RefObject<HTMLDivElement>;
   scrollController?: RefObject<HTMLTableSectionElement>;
   scrollEvent: TScrollEvent;
   setScrollEvent: Dispatch<SetStateAction<TScrollEvent>>;
-  title: string;
+  title: string | undefined;
 }
 
-export const DetailReportContentsBar = (props: IDetailReportContentsBarProps) => {
+export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps) => {
   const { contentSection, scrollController, scrollEvent, setScrollEvent, title } = props;
   const { scrollY, isOpen, current } = scrollEvent;
 

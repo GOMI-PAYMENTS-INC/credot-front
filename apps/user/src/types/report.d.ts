@@ -142,7 +142,7 @@ type TReportState = {
 };
 
 type TAmplitudeDetailData = {
-  reportId: string;
+  param: string;
   keyword: string;
 };
 
@@ -277,4 +277,11 @@ type TOverSeaItems = {
   itemSales: number;
   item30daySales: number;
   itemBrand: string;
+};
+
+type scrollEventState = {
+  scrollY: number;
+  title: string;
+  isOpen: boolean;
+  current: string;
 };

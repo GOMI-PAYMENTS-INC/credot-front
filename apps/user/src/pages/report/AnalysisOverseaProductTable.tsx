@@ -192,7 +192,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                         onClick={() => {
                           openBrowser(item.itemUrl);
                           _amplitudeMovedToPDP(
-                            amplitudeData.reportId,
+                            amplitudeData.param,
                             amplitudeData.keyword,
                             convertTitle(TITLE.OVERSEA_PRODUCT),
                           );

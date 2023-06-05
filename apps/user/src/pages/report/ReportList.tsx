@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { Default as Layout } from '@/components/layouts';
+import { Default } from '@/components/layouts';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import Pagination from '@/components/pagination';
 import {
@@ -66,7 +66,7 @@ const ReportList = () => {
     setParams(limit, String(_state.page));
   };
   return (
-    <Layout>
+    <Default>
       {/*헤더*/}
       <header className='border-b-[1px] border-b-grey-200 bg-white'>
         <div className='container'>
@@ -194,7 +194,7 @@ const ReportList = () => {
           </div>
         </div>
       </section>
-    </Layout>
+    </Default>
   );
 };
 
