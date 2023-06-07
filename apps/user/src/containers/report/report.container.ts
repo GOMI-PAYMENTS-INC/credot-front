@@ -41,10 +41,6 @@ import {
   _amplitudeKeywordReportViewed,
 } from '@/amplitude/amplitude.service';
 
-export const openBrowser = (url: string) => {
-  window.open(url);
-};
-
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
   try {
     const response = await Promise.all([

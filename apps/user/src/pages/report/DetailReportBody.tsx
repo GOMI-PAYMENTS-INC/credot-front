@@ -1,27 +1,6 @@
 import React, {
-  Fragment,
   ReactNode,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
 } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
-import { Default } from '@/components/layouts';
-import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
-import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
-import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
-import { PATH } from '@/types/enum.code';
-import { TITLE } from '@/types/enum.code';
-import { isFalsy } from '@/utils/isFalsy';
-
-import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
-import { getParameter } from '@/utils/getParameter';
-import DetailReportHeader from '@/pages/report/DetailReportHeader';
 
 interface TDetailReportContent {
   scrollEvent: scrollEventState;

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { openBrowser } from '@/containers/report';
+import { openBrowser } from '@/utils/openBrowser';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/containers/report';
 

@@ -1,25 +1,17 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import {
-  matchPath,
-  useInRouterContext,
   useLocation,
-  useMatch,
   useParams,
-  useRoutes,
 } from 'react-router-dom';
-import { _getReportInfo, openBrowser } from '@/containers/report/report.container';
+import { _getReportInfo } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import { getParameter } from '@/utils/getParameter';
-import DetailReportHeader from '@/pages/report/DetailReportHeader';
 import DetailReportBody from '@/pages/report/DetailReportBody';
-import { DetailReportLayoutSwitch } from '@/pages/report/DetailReportLayoutSwitch';
-import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { Default } from '@/components/layouts';
 
 const DetailReportPageByShare = () => {
   const params = useParams();

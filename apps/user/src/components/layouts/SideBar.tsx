@@ -4,6 +4,7 @@ import { ReactSVG } from 'react-svg';
 import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { PATH, routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
+import { openBrowser } from '@/utils/openBrowser';
 import { useEffect, useReducer, useRef } from 'react';
 import { menuData } from '@/containers/sidebar/sideBarData';
 import {
@@ -19,7 +20,6 @@ import {
 } from '@/containers/sidebar';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { openBrowser } from '@/containers/report';
 
 const SideBar = () => {
   const { onLogout } = AuthContainer();

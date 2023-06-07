@@ -7,7 +7,8 @@ import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 
-import { openBrowser, roundNumber } from '@/containers/report';
+import { roundNumber } from '@/containers/report';
+
 import {
   convertRecommendationScoreToText,
   convertEvaluateStatus,
@@ -25,6 +26,7 @@ import {
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
+import { openBrowser } from '@/utils/openBrowser';
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
   country: CountryType;
