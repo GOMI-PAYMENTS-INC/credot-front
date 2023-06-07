@@ -164,13 +164,17 @@ type TGetRelationReportDataType = {
   batchStatus: TBatchStatusType;
   createdAt: Date | null;
 };
-
-type TGetMainReport = {
+type TPostReportShareResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: string | null;
+};
+type TGetMainReportResponse = {
   code: STATUS_CODE;
   message: string;
   data: TGetMainReportDataType;
 };
-type TGetRelationReport = {
+type TGetRelationReportResponse = {
   code: STATUS_CODE;
   message: string;
   data: TGetRelationReportDataType[];
@@ -182,7 +186,7 @@ type TSalePriceResponse = {
   data: TSalePriceData;
 };
 
-type TSalePriceData = {
+type TSalePriceDataResponse = {
   [key: string]: string | number | Date | null | Array;
   id: number;
   text: string;
