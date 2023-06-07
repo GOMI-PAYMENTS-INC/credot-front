@@ -7,10 +7,10 @@ import {
   convertSortedType,
 } from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { openBrowser } from '@/containers/report';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { useMatch } from 'react-router-dom';
 import { PATH } from '@/types/enum.code';
+import {openBrowser} from "@/utils/openBrowser";
 interface IKeywordInfoProps {
   keywordInfo: TKeywordInfo;
   itemCount: number;
