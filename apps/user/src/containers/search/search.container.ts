@@ -41,6 +41,7 @@ export const queryKeyword = (
 
   if (_switch === false) {
     toast.error('리포트를 생성할 키워드를 입력해주세요.');
+    return;
   }
   const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
 

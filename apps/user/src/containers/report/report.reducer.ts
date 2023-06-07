@@ -118,7 +118,7 @@ export { reportInitialState, reportReducer };
 
 export enum REPORT_LIST_ACTION {
   //최초 리스트 가져오기
-  GET_REPORT_LIST = 'GET_REPORT_LIST',
+  REPORT_LIST = 'REPORT_LIST',
   //리포트 삭제
   DELETE_REPORT = 'DELETE_REPORT',
   SPINNER_EVENT = 'SPINNER_EVENT',
@@ -145,7 +145,7 @@ const reportListReducer = (_state: TReportListState, action: TReportListAction) 
   const state = structuredClone(_state);
   switch (action.type) {
     //리포트 목록 초기 출력
-    case REPORT_LIST_ACTION.GET_REPORT_LIST:
+    case REPORT_LIST_ACTION.REPORT_LIST:
       state.page = action.payload.page;
       state.limit = action.payload.limit;
       state.data = action.payload.data;
