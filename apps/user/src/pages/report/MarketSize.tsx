@@ -6,7 +6,6 @@ import { formatNumber } from '@/utils/formatNumber';
 import {
   convertExchangeRate,
   convertedData,
-  openBrowser,
 } from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';
 
@@ -15,6 +14,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry, convertTitle } from '@/utils/convertEnum';
 import { convertTime } from '@/utils/parsingTimezone';
+import {openBrowser} from "@/utils/openBrowser";
 
 interface IMarketSize {
   marketSize: TMarketSize;
