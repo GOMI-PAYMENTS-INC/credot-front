@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import {
-  useLocation,
-  useParams,
-} from 'react-router-dom';
-import { _getReportInfo } from '@/containers/report/report.container';
+  _getReportInfo,
+  _getReportInfoByShare,
+} from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
 import { isFalsy } from '@/utils/isFalsy';
@@ -16,7 +16,6 @@ import { authTokenStorage } from '@/utils/authToken';
 const DetailReportPageByShare = () => {
   const params = useParams();
   const location = useLocation();
-  console.log(location);
   const shareToken = getParameter('share');
 
   const scrollEventState: scrollEventState = {
@@ -36,6 +35,8 @@ const DetailReportPageByShare = () => {
   const [isUser, setIsUser] = useState<boolean>(false);
 
   useEffect(() => {
+    if (isFalsy(params.id)) return;
+
     const isAuthenticated = authTokenStorage.getToken();
     if (isAuthenticated) {
       setIsUser(true);
@@ -43,9 +44,8 @@ const DetailReportPageByShare = () => {
       setIsUser(false);
     }
 
-    if (isFalsy(params.id)) return;
     if (params.id && _state.main === null) {
-      void _getReportInfo(params.id, _dispatch);
+      void _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
     }
   }, []);
 

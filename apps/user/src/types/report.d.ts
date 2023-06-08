@@ -45,6 +45,7 @@ type TKeywordInfo = {
   createdAt: Date | null;
   currencyUnit: number;
   basePrice: number;
+  itemCount: number;
 };
 
 type TMarketSize = {
@@ -57,6 +58,7 @@ type TMarketSize = {
   country: CountryType;
   createdAt: Date | null;
   trend: TGoogleTrendDataType;
+  itemCount: number;
 };
 
 type TGoogleTrendDataType = {
@@ -139,6 +141,7 @@ type TReportState = {
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  shareToken: string | null;
 };
 
 type TAmplitudeDetailData = {
@@ -151,7 +154,7 @@ type TChannel = 'SHOPEE' | 'NONE';
 type TSortBy = 'R' | 'S' | 'NONE';
 
 type TGetRelationReportDataType = {
-  [key: string]: string | number | Date | null;
+  [key: string]: any;
   id: number;
   text: string;
   searchCount: number;
@@ -164,7 +167,10 @@ type TGetRelationReportDataType = {
   batchStatus: TBatchStatusType;
   createdAt: Date | null;
 };
-type TPostReportShareResponse = {
+type TPostReportShareTokenParamsType = {
+  id: string;
+};
+type TPostReportShareTokenResponse = {
   code: STATUS_CODE;
   message: string;
   data: string | null;
@@ -186,7 +192,7 @@ type TSalePriceResponse = {
   data: TSalePriceData;
 };
 
-type TSalePriceDataResponse = {
+type TSalePriceData = {
   [key: string]: string | number | Date | null | Array;
   id: number;
   text: string;

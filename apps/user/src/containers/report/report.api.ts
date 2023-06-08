@@ -2,9 +2,12 @@ import { HTTP } from '@/api/axiosConfig';
 
 const REPORT_URL = 'api/v1/report';
 
-const postReportShareToken = async (id: string) => {
+const postReportShareToken = async ({ id }: TPostReportShareTokenParamsType) => {
   try {
-    return await HTTP.get<TPostReportShareResponse>(`${REPORT_URL}/${id}/share`);
+    return await HTTP.post<
+      TPostReportShareTokenParamsType,
+      TPostReportShareTokenResponse
+    >(`${REPORT_URL}/${id}/share`, { id });
   } catch (error) {
     console.error(error);
   }
@@ -17,7 +20,7 @@ const getMainReport = async (id: string) => {
     console.error(error);
   }
 };
-const postMainReportByShare = async (token: string) => {
+const getMainReportByShare = async (token: string) => {
   try {
     return await HTTP.get<TGetMainReportResponse>(`${REPORT_URL}/share/${token}/main`);
   } catch (error) {
@@ -34,12 +37,13 @@ const getRelationReport = async (id: string) => {
 };
 const getRelationReportByShare = async (token: string) => {
   try {
-    return await HTTP.get<TGetRelationReportResponse>(`${REPORT_URL}/share/${token}/relation`);
+    return await HTTP.get<TGetRelationReportResponse>(
+      `${REPORT_URL}/share/${token}/relation`,
+    );
   } catch (error) {
     console.error(error);
   }
 };
-
 
 const getOverseaProduct = async (id: string) => {
   try {
@@ -50,7 +54,9 @@ const getOverseaProduct = async (id: string) => {
 };
 const getOverseaProductByShare = async (token: string) => {
   try {
-    return await HTTP.get<TOverseaProductResponse>(`${REPORT_URL}/share/${token}/oversea`);
+    return await HTTP.get<TOverseaProductResponse>(
+      `${REPORT_URL}/share/${token}/oversea`,
+    );
   } catch (error) {
     console.error(error);
   }
@@ -79,7 +85,6 @@ const getReportList = async (queryString: TReportListParamsType) => {
   }
 };
 
-
 const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
   try {
     return await HTTP.delete<TDeleteReportListParamsType, TDeleteReportListResponse>(
@@ -94,12 +99,16 @@ const deleteReportList = async (queryString: TDeleteReportListParamsType) => {
   }
 };
 
-
 export {
+  postReportShareToken,
   getMainReport,
+  getMainReportByShare,
   getRelationReport,
-  getReportList,
+  getRelationReportByShare,
   getSalePrice,
-  deleteReportList,
+  getSalePriceByShare,
   getOverseaProduct,
+  getOverseaProductByShare,
+  getReportList,
+  deleteReportList,
 };

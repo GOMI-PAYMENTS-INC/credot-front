@@ -6,7 +6,6 @@ import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { SalePrice } from '@/pages/report/SalePrice';
 import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { Fragment } from 'react';
-import { isFalsy } from '@/utils/isFalsy';
 import { Params } from 'react-router-dom';
 import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
 
@@ -38,28 +37,25 @@ export const DetailReportSwitch = ({
         <BlindReportDetail isUser={isUser}>
           <Fragment>
             <KeywordInfo
-              keywordInfo={main!}
-              itemCount={_state.salePrice?.data!.itemCount}
-              amplitudeData={amplitudeData}
-            />
-            <MarketSize
-              marketSize={main!}
-              itemCount={_state.salePrice?.data!.itemCount}
-            />
-            <AnalysisKeyword analysisInfo={main!} />
-            <RecommendationChart
-              relation={relation}
               _dispatch={_dispatch}
-              spinnerEvent={_state.spinnerEvent}
-              toggleEvent={_state.toggleEvent}
-              country={main!.country}
-              basePrice={main!.basePrice}
-              currencyUnit={main!.currencyUnit}
+              keywordInfo={main!}
               amplitudeData={amplitudeData}
-              isLimit={!isUser}
             />
-            {isFalsy(isUser) === false && (
+            <MarketSize marketSize={main!} />
+            <AnalysisKeyword analysisInfo={main!} />
+
+            {isUser && (
               <Fragment>
+                <RecommendationChart
+                  relation={relation}
+                  _dispatch={_dispatch}
+                  spinnerEvent={_state.spinnerEvent}
+                  toggleEvent={_state.toggleEvent}
+                  country={main!.country}
+                  basePrice={main!.basePrice}
+                  currencyUnit={main!.currencyUnit}
+                  amplitudeData={amplitudeData}
+                />
                 <SalePrice
                   currencyUnit={main!.currencyUnit}
                   scollerRef={scrollController}

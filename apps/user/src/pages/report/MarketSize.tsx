@@ -3,10 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { formatNumber } from '@/utils/formatNumber';
-import {
-  convertExchangeRate,
-  convertedData,
-} from '@/containers/report/report.container';
+import { convertExchangeRate, convertedData } from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';
 
 import { MarketSizeTrendChart } from './MarketSizeTrendChart';
@@ -14,11 +11,10 @@ import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry, convertTitle } from '@/utils/convertEnum';
 import { convertTime } from '@/utils/parsingTimezone';
-import {openBrowser} from "@/utils/openBrowser";
+import { openBrowser } from '@/utils/openBrowser';
 
 interface IMarketSize {
   marketSize: TMarketSize;
-  itemCount: number;
 }
 
 export const MarketSize = (props: IMarketSize) => {
@@ -32,6 +28,7 @@ export const MarketSize = (props: IMarketSize) => {
     country,
     createdAt,
     trend,
+    itemCount,
   } = props.marketSize;
 
   const [totalAmount, avgAmount, totalCount, avgCount] = [
@@ -69,7 +66,7 @@ export const MarketSize = (props: IMarketSize) => {
             <div className='flex flex-col rounded-[3px] border-[1px] border-grey-200 bg-white px-4 py-4'>
               <p className='text-XS/Regular text-grey-900'>
                 리포트 생성일 기준, 최근 30일간 상위
-                <span className='text-XS/Bold'>{` ${props.itemCount}개 `}</span>
+                <span className='text-XS/Bold'>{` ${itemCount}개 `}</span>
                 상품들이 판매된 매출과 판매량 정보에요.
               </p>
             </div>

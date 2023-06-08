@@ -10,32 +10,41 @@ import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { useMatch } from 'react-router-dom';
 import { PATH } from '@/types/enum.code';
-import {openBrowser} from "@/utils/openBrowser";
+import { openBrowser } from '@/utils/openBrowser';
+import { _postReportShareToken } from '@/containers/report';
+import { TReportAction } from '@/containers/report/report.reducer';
+import { Dispatch } from 'react';
 interface IKeywordInfoProps {
+  _dispatch: Dispatch<TReportAction>;
   keywordInfo: TKeywordInfo;
-  itemCount: number;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, createdAt, basePrice, currencyUnit, sorted } = props.keywordInfo;
+  const { text, country, createdAt, basePrice, currencyUnit, sorted, itemCount } =
+    props.keywordInfo;
   const { param } = props.amplitudeData;
   const isMatchSharePath = useMatch('/share/:id');
 
-  const makeShareLink = () => {
-    const domain = window.location.origin;
-    const pathname = window.location.pathname;
-    //초대코드 생성 API 추가 ~ api실행 ~ 리턴으로 받은 token
-    let shareToken = '';
+  const domain = window.location.origin;
+  const href = window.location.href;
+
+  const makeShareLink = async () => {
+    console.log(window.location);
+
+    let url = '';
     if (isMatchSharePath) {
-      shareToken = param;
+      url = `${href}`;
     } else {
-      shareToken = '***'; //api를 통해 생성된 것
+      const shareToken = await _postReportShareToken(param, props._dispatch);
+
+      const utmLink =
+        'utm_source=gomiinsight&utm_medium=share&utm_campaign=keywordreport&utm_content=' +
+        param;
+      url = `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
     }
-    const utmLink =
-      'utm_source=gomiinsight&utm_medium=share&utm_campaign=keywordreport&utm_content=' +
-      param;
-    return `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
+
+    copyToClipboard('주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.', url);
   };
 
   return (
@@ -57,7 +66,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className='text-grey-600'>수집 기준</span>
               <span className='text-grey-800'>
-                {convertSortedType(sorted)} 상위 {props.itemCount}개
+                {convertSortedType(sorted)} 상위 {itemCount}개
               </span>
               <span className='text-grey-600'>적용 환율</span>
               <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
@@ -80,12 +89,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </button>
             <button
               className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'
-              onClick={() =>
-                copyToClipboard(
-                  '주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.',
-                  makeShareLink(),
-                )
-              }
+              onClick={() => makeShareLink()}
             >
               <span>공유하기</span>
               <ReactSVG src='/assets/icons/outlined/ShareAlt.svg' />

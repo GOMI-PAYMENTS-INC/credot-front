@@ -1,9 +1,14 @@
 import {
   deleteReportList,
   getMainReport,
+  getMainReportByShare,
   getOverseaProduct,
+  getOverseaProductByShare,
   getRelationReport,
+  getRelationReportByShare,
   getSalePrice,
+  getSalePriceByShare,
+  postReportShareToken,
 } from './report.api';
 import { Dispatch, RefObject, SetStateAction } from 'react';
 
@@ -41,6 +46,26 @@ import {
   _amplitudeKeywordReportViewed,
 } from '@/amplitude/amplitude.service';
 
+export const _postReportShareToken = async (
+  id: string,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  try {
+    const response = await postReportShareToken({ id });
+    if (response?.data.code === STATUS_CODE.SUCCESS) {
+      const { data } = response.data;
+      _dispatch({
+        type: REPORT_ACTION.CREAT_SHARE_TOKEN,
+        payload: data,
+      });
+      return response.data.data;
+    }
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
   try {
     const response = await Promise.all([
@@ -59,6 +84,47 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
+
+        _dispatch({
+          type: REPORT_ACTION.INITIALIZE_DATA,
+          payload: { type: dataName[idx], data: data },
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const _getReportInfoByShare = async (
+  token: string,
+  isUser: boolean,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  try {
+    let response;
+
+    if (isUser) {
+      response = await Promise.all([
+        getMainReportByShare(token),
+        getRelationReportByShare(token),
+        getSalePriceByShare(token),
+        getOverseaProductByShare(token),
+      ]);
+    } else {
+      response = await Promise.all([getMainReportByShare(token)]);
+    }
+
+    const dataName = Object.values(REPORT_DETAIL_TYPE);
+
+    const [first] = response;
+    if (first) {
+      _amplitudeKeywordReportViewed(token, first.data);
+    }
+
+    response.forEach((chunk, idx) => {
+      if (chunk) {
+        const { data } = chunk.data;
+
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
           payload: { type: dataName[idx], data: data },
@@ -76,7 +142,7 @@ export const _getRelationReport = async (
 ) => {
   try {
     const response = await getRelationReport(id);
-    if (response?.data) {
+    if (response?.data.code === STATUS_CODE.SUCCESS) {
       const { data } = response.data;
       _dispatch({
         type: REPORT_ACTION.INITIALIZE_DATA,
@@ -250,7 +316,7 @@ export const _deleteReportList = async (ids: number[]) => {
     const response = await deleteReportList({
       ids: ids,
     });
-    if (response?.data) {
+    if (response?.data.code === STATUS_CODE.SUCCESS) {
       return response.data;
     }
   } catch (error) {
