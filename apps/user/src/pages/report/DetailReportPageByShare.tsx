@@ -9,14 +9,12 @@ import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuick
 import { isFalsy } from '@/utils/isFalsy';
 
 import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
-import { getParameter } from '@/utils/getParameter';
 import DetailReportBody from '@/pages/report/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
+import { Default } from '@/components/layouts';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
-  const location = useLocation();
-  const shareToken = getParameter('share');
 
   const scrollEventState: scrollEventState = {
     scrollY: 0,
@@ -62,35 +60,67 @@ const DetailReportPageByShare = () => {
   }, [main]);
 
   if (isFalsy(main) || main === null) {
+    if (isUser) {
+      return (
+        <Default>
+          <div className='flex h-full flex-col items-center justify-center self-center'>
+            <div className='absolute scale-[0.3] pb-[84px]'>
+              <div id='loader' />
+            </div>
+          </div>
+        </Default>
+      );
+    } else {
+      return (
+        <Fragment>
+          <div className='flex h-full flex-col items-center justify-center self-center'>
+            <div className='absolute scale-[0.3] pb-[84px]'>
+              <div id='loader' />
+            </div>
+          </div>
+        </Fragment>
+      );
+    }
+  }
+  if (isUser) {
+    return (
+      <Default>
+        <DetailReportBody
+          contentSection={contentSection}
+          setScrollEvent={setScrollEvent}
+          scrollEvent={scrollEvent}
+        >
+          {combinedComponent}
+          <DetailReportRightQuickBar
+            title={main?.text}
+            scrollEvent={scrollEvent}
+            contentSection={contentSection}
+            scrollController={scrollController}
+            setScrollEvent={setScrollEvent}
+          />
+        </DetailReportBody>
+      </Default>
+    );
+  } else {
     return (
       <Fragment>
-        <div className='flex h-full flex-col items-center justify-center self-center'>
-          <div className='absolute scale-[0.3] pb-[84px]'>
-            <div id='loader' />
-          </div>
-        </div>
+        <DetailReportBody
+          contentSection={contentSection}
+          setScrollEvent={setScrollEvent}
+          scrollEvent={scrollEvent}
+        >
+          {combinedComponent}
+          <DetailReportRightQuickBar
+            title={main?.text}
+            scrollEvent={scrollEvent}
+            contentSection={contentSection}
+            scrollController={scrollController}
+            setScrollEvent={setScrollEvent}
+          />
+        </DetailReportBody>
       </Fragment>
     );
   }
-
-  return (
-    <Fragment>
-      <DetailReportBody
-        contentSection={contentSection}
-        setScrollEvent={setScrollEvent}
-        scrollEvent={scrollEvent}
-      >
-        {combinedComponent}
-        <DetailReportRightQuickBar
-          title={main?.text}
-          scrollEvent={scrollEvent}
-          contentSection={contentSection}
-          scrollController={scrollController}
-          setScrollEvent={setScrollEvent}
-        />
-      </DetailReportBody>
-    </Fragment>
-  );
 };
 
 export default DetailReportPageByShare;

@@ -54,7 +54,7 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
           <div className='mt-[44px]'>
             <Link
               to={`${PATH.SIGN_IN}?return_url=${encodeURIComponent(
-                window.location.origin + window.location.pathname,
+                window.location.href,
               )}`}
             >
               <button className='button-filled-normal-xLarge-red-false-false-true min-w-[600px]'>
