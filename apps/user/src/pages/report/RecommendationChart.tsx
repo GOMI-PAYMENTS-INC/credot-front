@@ -7,7 +7,8 @@ import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 
-import { openBrowser, roundNumber } from '@/containers/report';
+import { roundNumber } from '@/containers/report';
+
 import {
   convertRecommendationScoreToText,
   convertEvaluateStatus,
@@ -25,15 +26,16 @@ import {
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
+import { openBrowser } from '@/utils/openBrowser';
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
-  country: CountryType;
-  _dispatch: Dispatch<TReportAction>;
+  country: CountryType | null;
+  _dispatch: Dispatch<TReportAction> | null;
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
   currencyUnit: number;
   basePrice: number;
-  amplitudeData: TAmplitudeDetailData;
+  amplitudeData?: TAmplitudeDetailData;
 }
 
 export const RecommendationChart = (props: IRecommendationChart) => {
@@ -123,9 +125,11 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                           <button
                             className='button-outlined-small-xLarge-primary-false-false-true relative'
                             onClick={() => {
-                              void _getRelationReport(routeId.id!, _dispatch);
-                              buttonSpinnerEvent(_dispatch);
-                              delayEvent(() => buttonSpinnerEvent(_dispatch), 1000);
+                              if (_dispatch) {
+                                void _getRelationReport(routeId.id!, _dispatch);
+                                buttonSpinnerEvent(_dispatch);
+                                delayEvent(() => buttonSpinnerEvent(_dispatch), 1000);
+                              }
                             }}
                           >
                             {spinnerEvent ? (
@@ -159,11 +163,11 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                   <tr className='mt-3 flex' />
                   <tr
                     className={`border-[1px] ${backgroundColor} cursor-pointer hover:bg-grey-200`}
-                    onClick={() => isToggleOpen(_dispatch, false, data.id)}
+                    onClick={() => _dispatch && isToggleOpen(_dispatch, false, data.id)}
                   >
                     <td>
                       <div className='ml-3 flex'>
-                        <p>{data.text}</p>
+                        <p>{data.text}d</p>
                       </div>
                     </td>
                     <td>
@@ -208,9 +212,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                     <td className='bg-grey-50'>
                       <div className='flex justify-center text-center'>
                         <div className='h-5 w-[43px]'>
-                          <p className='text-S/Bold'>
-                            {formatNumber(data.cpcRate)}%
-                          </p>
+                          <p className='text-S/Bold'>{formatNumber(data.cpcRate)}%</p>
                         </div>
                       </div>
                     </td>
@@ -252,16 +254,18 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <button
                           className='flex h-5 w-5 cursor-pointer items-center'
                           onClick={() => {
-                            openBrowser(
-                              `${convertShopeeSiteUrl(country)}/search?keyword=${
-                                data.text
-                              }`,
-                            );
-                            _amplitudeMovedToSERP(
-                              amplitudeData.reportId,
-                              amplitudeData.keyword,
-                              data.text,
-                            );
+                            country &&
+                              openBrowser(
+                                `${convertShopeeSiteUrl(country)}/search?keyword=${
+                                  data.text
+                                }`,
+                              );
+                            amplitudeData &&
+                              _amplitudeMovedToSERP(
+                                amplitudeData.param,
+                                amplitudeData.keyword,
+                                data.text,
+                              );
                           }}
                         >
                           <ReactSVG
@@ -330,12 +334,14 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                                   <button
                                     className='button-outlined-small-xLarge-primary-false-false-true relative'
                                     onClick={() => {
-                                      void _getRelationReport(routeId.id!, _dispatch);
-                                      buttonSpinnerEvent(_dispatch);
-                                      delayEvent(
-                                        () => buttonSpinnerEvent(_dispatch),
-                                        1000,
-                                      );
+                                      if (_dispatch) {
+                                        void _getRelationReport(routeId.id!, _dispatch);
+                                        buttonSpinnerEvent(_dispatch);
+                                        delayEvent(
+                                          () => buttonSpinnerEvent(_dispatch),
+                                          1000,
+                                        );
+                                      }
                                     }}
                                   >
                                     {spinnerEvent ? (

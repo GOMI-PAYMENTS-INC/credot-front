@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import PrivateRoute from '@/router/PrivateRouter';
-import { routeList } from '@/router/routeList';
+import { PATH, routeList } from '@/router/routeList';
 export const Router = () => {
   return (
     <Routes>

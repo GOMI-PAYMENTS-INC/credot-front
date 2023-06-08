@@ -4,7 +4,8 @@ import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { convertTitle } from '@/utils/convertEnum';
-import { convertExchangeRate, openBrowser } from '@/containers/report/report.container';
+import { convertExchangeRate } from '@/containers/report/report.container';
+import { openBrowser } from '@/utils/openBrowser';
 import { convertEvaluateStatus, convertScoreToText } from '@/constants/report.constant';
 import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';

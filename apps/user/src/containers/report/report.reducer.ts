@@ -9,6 +9,7 @@ const reportInitialState: TReportState = {
   toggleEvent: [],
   oversea: null,
   spinnerEvent: false,
+  shareToken: null,
 };
 
 export enum REPORT_ACTION {
@@ -21,6 +22,7 @@ export enum REPORT_ACTION {
   SPINNER_EVENT = 'SPINNER_EVENT',
   FOCUS_ITEMS = 'FOCUS_ITEMS',
   GET_OVERSEA_PRODUCT = 'GET_OVERSEA_PRODUCT',
+  CREAT_SHARE_TOKEN = 'CREAT_SHARE_TOKEN',
 }
 
 export type TReportAction = {
@@ -107,6 +109,10 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
           state.salePrice.list = low;
         }
       }
+      return state;
+    }
+    case REPORT_ACTION.CREAT_SHARE_TOKEN: {
+      state.shareToken = action.payload;
       return state;
     }
     default:
