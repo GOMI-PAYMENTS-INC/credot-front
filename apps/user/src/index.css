@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --toastify-toast-width: 340px !important;
+  --toastify-toast-width: auto !important;
 }
 
 html {
@@ -129,7 +129,7 @@ input[type='number'] {
   .iconButton-medium-normal-ghost-grey svg {
     @apply h-4 w-4 fill-grey-800;
   }
-  /* @/pages/report/DetailReport.tsx에서 title에 사용되는 태그 */
+  /* @/pages/report/DetailReportPage.tsx에서 title에 사용되는 태그 */
   .detailReport-h1-header {
     @apply relative -mt-[40px] flex items-center pt-[40px] text-XL/Bold text-black;
   }
@@ -460,4 +460,9 @@ input[type='number'] {
       -1.8em 1.8em 0 0em rgba(217, 217, 217, 0.5),
       -2.6em 0em 0 0em rgba(217, 217, 217, 0.7), -1.8em -1.8em 0 0em #d9d9d9;
   }
+}
+
+/*토스트 알림*/
+.Toastify__toast-body{
+  padding:0 !important;
 }

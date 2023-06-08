@@ -121,6 +121,8 @@ export enum PATH {
   REAPPLY_PASSWORD = '/signin/password',
   REPORT_LIST = '/report',
   REPORT_DETAIL = '/report/:id',
+  REPORT_DETAIL_BY_SHARE = '/share/:id',
+  _REPORT_DETAIL_BY_SHARE = '/share',
 }
 
 export enum AUTH_RESPONSE_TYPE {

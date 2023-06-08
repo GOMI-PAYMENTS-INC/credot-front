@@ -30,8 +30,8 @@ Axios.interceptors.request.use((config) => {
 
 Axios.interceptors.response.use((response) => {
   if (isIncluded(response.data.code, STATUS_CODE.INVALID_TOKEN)) {
-    authTokenStorage.clearToken();
-    location.replace(PATH.SIGN_IN);
+    // authTokenStorage.clearToken();
+    // location.replace(PATH.SIGN_IN);
   }
 
   if (response.data.code === STATUS_CODE.ERROR) {

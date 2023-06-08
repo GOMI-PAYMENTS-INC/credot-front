@@ -2,7 +2,8 @@ import { RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, openBrowser, roundNumber } from '@/containers/report';
+import { convertExchangeRate, roundNumber } from '@/containers/report';
+import { openBrowser } from '@/utils/openBrowser';
 import { Fragment } from 'react';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
@@ -164,7 +165,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                     onClick={() => {
                       openBrowser(item.itemUrl);
                       _amplitudeMovedToPDP(
-                        amplitudeData.reportId,
+                        amplitudeData.param,
                         amplitudeData.keyword,
                         convertTitle(TITLE.SALE_PRICE),
                       );

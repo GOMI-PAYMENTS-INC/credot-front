@@ -1,4 +1,3 @@
-import { BlindReport } from '@/pages/report/BlindReport';
 import { TReportAction } from '@/containers/report/report.reducer';
 import { KeywordInfo } from '@/pages/report/KeywordInfo';
 import { MarketSize } from '@/pages/report/MarketSize';
@@ -7,13 +6,15 @@ import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { SalePrice } from '@/pages/report/SalePrice';
 import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { Fragment } from 'react';
+import { Params } from 'react-router-dom';
+import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
   scrollController: React.RefObject<HTMLTableSectionElement>;
-  amplitudeData: TAmplitudeDetailData;
+  params: Params<string>;
 }
 
 export const DetailReportSwitch = ({
@@ -21,78 +22,60 @@ export const DetailReportSwitch = ({
   _state,
   _dispatch,
   scrollController,
-  amplitudeData,
+  params,
 }: IDetailReportSwitchProps) => {
   const { main, relation } = _state;
 
-  if (main === null) return <Fragment></Fragment>;
+  const amplitudeData: TAmplitudeDetailData = {
+    param: params.id ? params.id : '',
+    keyword: main!.text,
+  };
 
-  if (isUser) {
-    return (
-      <Fragment>
-        <div className='space-y-[72px]'>
-          <KeywordInfo
-            keywordInfo={main}
-            itemCount={_state.salePrice?.data!.itemCount}
-            amplitudeData={amplitudeData}
-          />
-          <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
+  return (
+    <div className='col-span-10'>
+      <div className='space-y-[72px]'>
+        <BlindReportDetail isUser={isUser}>
           <Fragment>
-            <AnalysisKeyword analysisInfo={main} />
-            <RecommendationChart
-              relation={relation}
+            <KeywordInfo
               _dispatch={_dispatch}
-              spinnerEvent={_state.spinnerEvent}
-              toggleEvent={_state.toggleEvent}
-              country={main.country}
-              basePrice={main.basePrice}
-              currencyUnit={main.currencyUnit}
+              keywordInfo={main!}
               amplitudeData={amplitudeData}
-              isLimit={!isUser}
             />
+            <MarketSize marketSize={main!} />
+            <AnalysisKeyword analysisInfo={main!} />
+
+            {isUser && (
+              <Fragment>
+                <RecommendationChart
+                  relation={relation}
+                  _dispatch={_dispatch}
+                  spinnerEvent={_state.spinnerEvent}
+                  toggleEvent={_state.toggleEvent}
+                  country={main!.country}
+                  basePrice={main!.basePrice}
+                  currencyUnit={main!.currencyUnit}
+                  amplitudeData={amplitudeData}
+                />
+                <SalePrice
+                  currencyUnit={main!.currencyUnit}
+                  scollerRef={scrollController}
+                  salePriceInfo={_state.salePrice?.data!}
+                  list={_state.salePrice.list}
+                  focus={_state.salePrice.focus}
+                  _dispatch={_dispatch}
+                  amplitudeData={amplitudeData}
+                />
+                <AnalysisOverseaProduct
+                  currencyUnit={main!.currencyUnit}
+                  basePrice={main!.basePrice}
+                  overseaProduct={_state.oversea}
+                  amplitudeData={amplitudeData}
+                />
+              </Fragment>
+            )}
           </Fragment>
-          <SalePrice
-            currencyUnit={main.currencyUnit}
-            scollerRef={scrollController}
-            salePriceInfo={_state.salePrice?.data!}
-            list={_state.salePrice.list}
-            focus={_state.salePrice.focus}
-            _dispatch={_dispatch}
-            amplitudeData={amplitudeData}
-          />
-          <AnalysisOverseaProduct
-            currencyUnit={main.currencyUnit}
-            basePrice={main.basePrice}
-            overseaProduct={_state.oversea}
-            amplitudeData={amplitudeData}
-          />
-        </div>
-      </Fragment>
-    );
-  } else {
-    return (
-      <BlindReport>
-        <KeywordInfo
-          keywordInfo={main}
-          itemCount={_state.salePrice?.data!.itemCount}
-          amplitudeData={amplitudeData}
-        />
-        <MarketSize marketSize={main} itemCount={_state.salePrice?.data!.itemCount} />
-        <Fragment>
-          <AnalysisKeyword analysisInfo={main} />
-          <RecommendationChart
-            relation={relation}
-            _dispatch={_dispatch}
-            spinnerEvent={_state.spinnerEvent}
-            toggleEvent={_state.toggleEvent}
-            country={main.country}
-            basePrice={main.basePrice}
-            currencyUnit={main.currencyUnit}
-            amplitudeData={amplitudeData}
-            isLimit={!isUser}
-          />
-        </Fragment>
-      </BlindReport>
-    );
-  }
+        </BlindReportDetail>
+      </div>
+    </div>
+  );
 };

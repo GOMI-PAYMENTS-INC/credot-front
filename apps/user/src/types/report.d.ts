@@ -45,6 +45,7 @@ type TKeywordInfo = {
   createdAt: Date | null;
   currencyUnit: number;
   basePrice: number;
+  itemCount: number;
 };
 
 type TMarketSize = {
@@ -57,6 +58,7 @@ type TMarketSize = {
   country: CountryType;
   createdAt: Date | null;
   trend: TGoogleTrendDataType;
+  itemCount: number;
 };
 
 type TGoogleTrendDataType = {
@@ -139,10 +141,11 @@ type TReportState = {
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
+  shareToken: string | null;
 };
 
 type TAmplitudeDetailData = {
-  reportId: string;
+  param: string;
   keyword: string;
 };
 
@@ -151,7 +154,7 @@ type TChannel = 'SHOPEE' | 'NONE';
 type TSortBy = 'R' | 'S' | 'NONE';
 
 type TGetRelationReportDataType = {
-  [key: string]: string | number | Date | null;
+  [key: string]: any;
   id: number;
   text: string;
   searchCount: number;
@@ -164,13 +167,20 @@ type TGetRelationReportDataType = {
   batchStatus: TBatchStatusType;
   createdAt: Date | null;
 };
-
-type TGetMainReport = {
+type TPostReportShareTokenParamsType = {
+  id: string;
+};
+type TPostReportShareTokenResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: string | null;
+};
+type TGetMainReportResponse = {
   code: STATUS_CODE;
   message: string;
   data: TGetMainReportDataType;
 };
-type TGetRelationReport = {
+type TGetRelationReportResponse = {
   code: STATUS_CODE;
   message: string;
   data: TGetRelationReportDataType[];
@@ -277,4 +287,11 @@ type TOverSeaItems = {
   itemSales: number;
   item30daySales: number;
   itemBrand: string;
+};
+
+type scrollEventState = {
+  scrollY: number;
+  title: string;
+  isOpen: boolean;
+  current: string;
 };

@@ -7,16 +7,43 @@ import {
   convertSortedType,
 } from '@/utils/convertEnum';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { openBrowser } from '@/containers/report';
+import { copyToClipboard } from '@/utils/copyToClipboard';
+import { useMatch } from 'react-router-dom';
+import { PATH } from '@/types/enum.code';
+import { openBrowser } from '@/utils/openBrowser';
+import { _postReportShareToken } from '@/containers/report';
+import { TReportAction } from '@/containers/report/report.reducer';
+import { Dispatch } from 'react';
 interface IKeywordInfoProps {
+  _dispatch: Dispatch<TReportAction>;
   keywordInfo: TKeywordInfo;
-  itemCount: number;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { text, country, createdAt, basePrice, currencyUnit, sorted } = props.keywordInfo;
-  const { reportId } = props.amplitudeData;
+  const { text, country, createdAt, basePrice, currencyUnit, sorted, itemCount } =
+    props.keywordInfo;
+  const { param } = props.amplitudeData;
+  const isMatchSharePath = useMatch('/share/:id');
+
+  const domain = window.location.origin;
+  const href = window.location.href;
+
+  const makeShareLink = async () => {
+    let url = '';
+    if (isMatchSharePath) {
+      url = `${href}`;
+    } else {
+      const shareToken = await _postReportShareToken(param, props._dispatch);
+
+      const utmLink =
+        'utm_source=gomiinsight&utm_medium=share&utm_campaign=keywordreport&utm_content=' +
+        param;
+      url = `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
+    }
+
+    copyToClipboard('주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.', url);
+  };
 
   return (
     <section>
@@ -37,7 +64,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <div className='pt-2 text-S/Medium even:space-x-2'>
               <span className='text-grey-600'>수집 기준</span>
               <span className='text-grey-800'>
-                {convertSortedType(sorted)} 상위 {props.itemCount}개
+                {convertSortedType(sorted)} 상위 {itemCount}개
               </span>
               <span className='text-grey-600'>적용 환율</span>
               <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
@@ -51,14 +78,17 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <button
               onClick={() => {
                 openBrowser(`${convertShopeeSiteUrl(country)}/search?keyword=${text}`);
-                _amplitudeMovedToSERP(reportId, text, null);
+                _amplitudeMovedToSERP(param, text, null);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
             >
               <span>키워드 검색결과</span>
               <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
             </button>
-            <button className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'>
+            <button
+              className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'
+              onClick={() => makeShareLink()}
+            >
               <span>공유하기</span>
               <ReactSVG src='/assets/icons/outlined/ShareAlt.svg' />
             </button>
