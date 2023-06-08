@@ -2,11 +2,11 @@ import { Fragment, ReactNode } from 'react';
 
 import SideBar from '@/components/layouts/SideBar';
 
-export interface IDefalutProps {
+interface IDefaultProps {
   children?: ReactNode;
 }
 
-export const Default = ({ children }: IDefalutProps) => {
+export const Default = ({ children }: IDefaultProps) => {
   return (
     <Fragment>
       <div className='h-screen'>

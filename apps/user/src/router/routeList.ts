@@ -2,7 +2,19 @@ import { ComponentType } from 'react';
 import * as AuthRoutes from '@/pages/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';
 import * as ReportRoutes from '@/pages/report';
-import { PATH } from '@/types/enum.code';
+
+export const PATH = {
+  SEARCH_PRODUCTS: '/',
+  SIGN_IN: '/signin',
+  SIGN_UP: '/signup',
+  SIGN_UP_WITH_GOOGLE: '/signup/social',
+  FIND_PASSWORD: '/find/password',
+  FIND_ID: '/find/id',
+  REAPPLY_PASSWORD: '/signin/password',
+  REPORT_LIST: '/report',
+  REPORT_DETAIL: '/report/:id',
+  REPORT_DETAIL_BY_SHARE: '/share/:id',
+} as const;
 
 type TPathKey = keyof typeof PATH;
 
@@ -71,15 +83,24 @@ export const routeList: IRoute[] = [
     component: SearchKeywords,
   },
   {
+    //리포트 목록
     isPrivate: true,
     description: 'ReportList',
-    path: PATH.GET_REPORT_LIST,
+    path: PATH.REPORT_LIST,
     component: ReportRoutes.ReportList,
   },
   {
+    //리포트 상세
     isPrivate: true,
     description: 'DetailReport',
-    path: PATH.ANALYSIS_REPORT_LIST,
-    component: ReportRoutes.DetailReport,
+    path: PATH.REPORT_DETAIL,
+    component: ReportRoutes.DetailReportPage,
+  },
+  {
+    //리포트 상세 - 공유하기
+    isPrivate: false,
+    description: 'DetailReportByShare',
+    path: PATH.REPORT_DETAIL_BY_SHARE,
+    component: ReportRoutes.DetailReportPageByShare,
   },
 ];

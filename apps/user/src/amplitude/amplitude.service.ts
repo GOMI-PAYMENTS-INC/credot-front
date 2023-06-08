@@ -90,6 +90,10 @@ export const _amplitudeMobileVerified = (phoneNumber: string) => {
     phone_number: phoneNumber,
   });
 };
+// ##### GENERAL - 로그인 페이지 뷰 발생 시 이벤트 ##### //
+export const _amplitudeLoginPageViewed = () => {
+  void _setAmplitudeEvents(amplitudeConstant.loginPageViewed, {});
+};
 
 // ##### SIGNUP - 회원가입 화면 랜딩 시 이벤트 ##### //
 export const _amplitudeSignupStarted = (provider: AMPLITUDE_ACCOUNT_TYPE) => {
@@ -259,7 +263,10 @@ export const _amplitudeKeywordReportRequested = (
 };
 
 // ##### KEYWORD REPORT - 키워드 리포트 상세 조회 시 ##### //
-export const _amplitudeKeywordReportViewed = (routeId: string, data: TGetMainReport) => {
+export const _amplitudeKeywordReportViewed = (
+  routeId: string,
+  data: TGetMainReportResponse,
+) => {
   const report = data.data;
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
     report_id: routeId,

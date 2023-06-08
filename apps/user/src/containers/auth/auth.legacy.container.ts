@@ -32,6 +32,7 @@ import { graphQLClient } from '@/utils/graphqlCient';
 import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import { getParameter } from '@/utils/getParameter';
 
 export const AuthContainer = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginStateAtom);
@@ -114,7 +115,13 @@ export const AuthContainer = () => {
         navigation(PATH.REAPPLY_PASSWORD);
       } else {
         setTemporaryPasswordLogin(false);
-        navigation(PATH.SEARCH_PRODUCTS);
+
+        const return_url = getParameter('return_url');
+        if (return_url) {
+          window.location.href = decodeURIComponent(return_url);
+        } else {
+          navigation(PATH.SEARCH_PRODUCTS);
+        }
       }
     },
     onError: (err) => {},

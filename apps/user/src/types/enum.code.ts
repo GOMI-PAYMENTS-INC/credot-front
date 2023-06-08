@@ -118,9 +118,11 @@ export enum PATH {
   SIGN_UP_WITH_GOOGLE = '/signup/social',
   FIND_PASSWORD = '/find/password',
   FIND_ID = '/find/id',
-  REAPPLY_PASSWORD = '/signin/resetpassword',
-  GET_REPORT_LIST = '/report/list',
-  ANALYSIS_REPORT_LIST = '/report/list/:id',
+  REAPPLY_PASSWORD = '/signin/password',
+  REPORT_LIST = '/report',
+  REPORT_DETAIL = '/report/:id',
+  REPORT_DETAIL_BY_SHARE = '/share/:id',
+  _REPORT_DETAIL_BY_SHARE = '/share',
 }
 
 export enum AUTH_RESPONSE_TYPE {

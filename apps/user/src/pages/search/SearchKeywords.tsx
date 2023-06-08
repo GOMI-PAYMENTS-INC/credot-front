@@ -359,133 +359,139 @@ const SearchKeywords = () => {
               </div>
             </div>
           ) : (
-            <div className='flex gap-x-[18px] '>
-              <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
-                <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
-                  <div className=''>
-                    <h3 className='text-L/Medium'>
-                      월간 검색량
-                      <ReactSVG
-                        id='anchor-montly-search-volum'
-                        src='assets/icons/filled/Help.svg'
-                        className='ml-[7px] inline-block'
-                      />
-                      <Tooltip
-                        anchorId='anchor-montly-search-volum'
-                        html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
-                        place='right'
-                      />
-                    </h3>
+            <Fragment>
+              <div className='flex gap-x-[18px] '>
+                <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
+                  <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+                    <div className=''>
+                      <h3 className='text-L/Medium'>
+                        월간 검색량
+                        <ReactSVG
+                          id='anchor-montly-search-volum'
+                          src='assets/icons/filled/Help.svg'
+                          className='ml-[7px] inline-block'
+                        />
+                        <Tooltip
+                          anchorId='anchor-montly-search-volum'
+                          html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
+                          place='right'
+                        />
+                      </h3>
+                    </div>
+                    <div className='mt-5'>
+                      <span className={monthlySearchColor}>{monthlySearchVolume}</span>
+                    </div>
                   </div>
-                  <div className='mt-5'>
-                    <span className={monthlySearchColor}>{monthlySearchVolume}</span>
-                  </div>
+                  <SearchKeywordImages
+                    images={_state.productImages ? _state.productImages : null}
+                    keyword={_state.keyword}
+                  />
                 </div>
-                <SearchKeywordImages
-                  images={_state.productImages ? _state.productImages : null}
-                  keyword={_state.keyword}
-                />
-              </div>
-              <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5'>
-                <div className='flex justify-between'>
-                  <div>
-                    <h3 className='text-L/Medium'>
-                      연간 키워드
-                      <ReactSVG
-                        id='relation-keyword-tip'
-                        src='assets/icons/filled/Help.svg'
-                        className='ml-[7px] inline-block'
-                      />
-                      <Tooltip
-                        anchorId='relation-keyword-tip'
-                        html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
-                        place='right'
-                      />
-                    </h3>
+                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+                  <div className='flex justify-between'>
+                    <div>
+                      <h3 className='text-L/Medium'>
+                        연간 키워드
+                        <ReactSVG
+                          id='relation-keyword-tip'
+                          src='assets/icons/filled/Help.svg'
+                          className='ml-[7px] inline-block'
+                        />
+                        <Tooltip
+                          anchorId='relation-keyword-tip'
+                          html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
+                          place='right'
+                        />
+                      </h3>
+                    </div>
+                    <div className='text-L/Medium'>검색량</div>
                   </div>
-                  <div className='text-L/Medium'>검색량</div>
-                </div>
 
-                <div id='scrollbar' className='mt-5 h-full max-h-[324px] overflow-x-auto'>
-                  {Array.isArray(relativeKeyword) ? (
-                    <ul className='overflow-y-hidden text-center'>
-                      {relativeKeyword.map((keyword) => {
-                        if (typeof keyword === 'number') {
-                          return (
-                            <li
-                              key={`${keyword}_dummy`}
-                              className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 '
-                            >
-                              <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
-                                <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
+                  <div
+                    id='scrollbar'
+                    className='mt-5 h-full max-h-[324px] overflow-x-auto'
+                  >
+                    {Array.isArray(relativeKeyword) ? (
+                      <ul className='overflow-y-hidden text-center'>
+                        {relativeKeyword.map((keyword) => {
+                          if (typeof keyword === 'number') {
+                            return (
+                              <li
+                                key={`${keyword}_dummy`}
+                                className='flex h-[54px] items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 '
+                              >
+                                <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
+                                  <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
+                                  <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
+                                </div>
+
                                 <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
-                              </div>
+                              </li>
+                            );
+                          }
+                          return (
+                            <Fragment key={`${keyword.id}`}>
+                              <li
+                                className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
+                                onClick={() => {
+                                  queryKeywordByClick(
+                                    _state.country,
+                                    keyword.text,
+                                    _dispatch,
+                                    setValue,
+                                  );
 
-                              <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
-                            </li>
+                                  _amplitudeRecKeywordSearched(
+                                    _state.country,
+                                    sortByWatcher,
+                                    keyword.text,
+                                  );
+                                }}
+                              >
+                                <div className='flex h-full w-full items-center gap-x-1'>
+                                  <div className='flex h-full items-center justify-center rounded-[50px] border border-grey-300 bg-white px-[19px] py-[6px] text-L/Medium'>
+                                    {keyword.text}
+                                  </div>
+                                  <div className='text-M/Medium text-orange-400'>
+                                    {/*케이스*/}
+                                  </div>
+                                </div>
+
+                                <div className='text-L/Medium text-grey-700'>
+                                  {keyword.count && formatNumber(keyword.count)}
+                                </div>
+                              </li>
+                            </Fragment>
                           );
-                        }
-                        return (
-                          <Fragment key={`${keyword.id}`}>
-                            <li
-                              className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
-                              onClick={() => {
-                                queryKeywordByClick(
-                                  _state.country,
-                                  keyword.text,
-                                  _dispatch,
-                                  setValue,
-                                );
-
-                                _amplitudeRecKeywordSearched(
-                                  _state.country,
-                                  sortByWatcher,
-                                  keyword.text,
-                                );
-                              }}
-                            >
-                              <div className='flex h-full w-full items-center gap-x-1'>
-                                <div className='flex h-full items-center justify-center rounded-[50px] border border-grey-300 bg-white px-[19px] py-[6px] text-L/Medium'>
-                                  {keyword.text}
-                                </div>
-                                <div className='text-M/Medium text-orange-400'>
-                                  {/*케이스*/}
-                                </div>
-                              </div>
-
-                              <div className='text-L/Medium text-grey-700'>
-                                {keyword.count && formatNumber(keyword.count)}
-                              </div>
-                            </li>
-                          </Fragment>
-                        );
-                      })}{' '}
-                    </ul>
-                  ) : (
-                    relativeKeyword
-                  )}
+                        })}{' '}
+                      </ul>
+                    ) : (
+                      relativeKeyword
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-
-        <div className='mt-10 flex justify-center'>
-          <button
-            className={`w-full max-w-[480px] rounded-md bg-orange-500 py-4 ${
-              (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
-            }`}
-            disabled={_state.keyword === '' || isMonthlyCountZero}
-            onClick={() => setRequestReport(true)}
-          >
-            {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
-              <div className=' scale-[0.2]'>
-                <div id='loader-white' />
+              <div className='mt-10 flex justify-center'>
+                <button
+                  className={`w-full max-w-[480px] rounded-md bg-orange-500 py-4 ${
+                    (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
+                  }`}
+                  disabled={_state.keyword === '' || isMonthlyCountZero}
+                  onClick={() => setRequestReport(true)}
+                >
+                  {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
+                    <div className=' scale-[0.2]'>
+                      <div id='loader-white' />
+                    </div>
+                  ) : (
+                    <span className='text-L/Bold text-white'>
+                      {reportCreatorButtonText}
+                    </span>
+                  )}
+                </button>
               </div>
-            ) : (
-              <span className='text-L/Bold text-white'>{reportCreatorButtonText}</span>
-            )}
-          </button>
+            </Fragment>
+          )}
         </div>
       </div>
 

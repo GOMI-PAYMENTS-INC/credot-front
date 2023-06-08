@@ -4,6 +4,8 @@ import { ReactSVG } from 'react-svg';
 import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useEffect, useReducer, useRef, useState } from 'react';
+import { openBrowser } from '@/utils/openBrowser';
+import { useEffect, useReducer, useRef } from 'react';
 import { menuData } from '@/containers/sidebar/sideBarData';
 import {
   sidebarInitialState,
@@ -12,13 +14,15 @@ import {
 
 import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+
 import { _amplitudeMovedToUserGuide, _setUserId } from '@/amplitude/amplitude.service';
 import { openBrowser } from '@/containers/report';
 import { MeQuery, useMeQuery } from '@/generated/graphql';
 import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
-import { PATH } from '@/types/enum.code';
+
 const SideBar = () => {
   const { onLogout } = AuthCommonContainer();
   // const { userInfo } = useAuth();
@@ -247,21 +251,6 @@ const SideBar = () => {
           </div>
           <div className='divide-y divide-grey-300'>
             <ul className='flex flex-col items-center gap-y-4 py-6 px-2.5'>
-              <li>
-                <a href='https://open.kakao.com/o/g2fW8ajf' target='_blank'>
-                  <ReactSVG
-                    src='/assets/icons/sideBanner-1.svg'
-                    className='cursor-pointer '
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', `w-[180px]`);
-                      svg.setAttribute(
-                        'alt',
-                        `소상공인 역량강화 바우처 400만원 지원 신청하기`,
-                      );
-                    }}
-                  />
-                </a>
-              </li>
               <li>
                 <a href='http://starterclub.kr' target='_blank'>
                   <ReactSVG

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { openBrowser } from '@/containers/report';
+import { openBrowser } from '@/utils/openBrowser';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/containers/report';
 
@@ -192,7 +192,7 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                         onClick={() => {
                           openBrowser(item.itemUrl);
                           _amplitudeMovedToPDP(
-                            amplitudeData.reportId,
+                            amplitudeData.param,
                             amplitudeData.keyword,
                             convertTitle(TITLE.OVERSEA_PRODUCT),
                           );

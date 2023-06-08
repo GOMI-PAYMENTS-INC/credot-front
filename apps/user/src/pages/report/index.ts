@@ -1,3 +1,4 @@
+import DetailReportPage from './DetailReportPage';
+import DetailReportPageByShare from './DetailReportPageByShare';
 import ReportList from './ReportList';
-import DetailReport from './DetailReport';
-export { ReportList, DetailReport };
+export { ReportList, DetailReportPage, DetailReportPageByShare };

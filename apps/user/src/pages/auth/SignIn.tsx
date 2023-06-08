@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
@@ -6,7 +6,10 @@ import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { _amplitudeLoggedIn } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeLoggedIn,
+  _amplitudeLoginPageViewed,
+} from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import GoogleLogin from '@/pages/auth/GoogleLogin';
@@ -20,6 +23,10 @@ interface ISignInForm {
 const SignIn = () => {
   const navigation = useNavigate();
   const { loginMutate, onClickGoogleLoginButton } = AuthCommonContainer();
+
+  useEffect(() => {
+    _amplitudeLoginPageViewed();
+  }, []);
 
   // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
   const onGoogleSignIn = (res: CredentialResponse) => {

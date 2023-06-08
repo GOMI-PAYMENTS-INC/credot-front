@@ -4,13 +4,13 @@ import { useRecoilState } from 'recoil';
 
 import { _setUserId } from '@/amplitude/amplitude.service';
 import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
+import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
 import { useMeQuery } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { useCookieStorage } from '@/utils/useCookieStorage';
-import { isFalsy } from '@/utils/isFalsy';
 import { graphQLClient } from '@/utils/graphqlCient';
-import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { isFalsy } from '@/utils/isFalsy';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 
 export default function PrivateRoute() {
   // 인증이 반드시 필요한 페이지
