@@ -9,7 +9,7 @@ export const menuData = [
     children: [
       {
         key: 'keywordAnalyze-1',
-        title: '키워드 검색',
+        title: '리포트 생성',
         iconPath: '/assets/icons/outlined/Search.svg',
         path: PATH.SEARCH_PRODUCTS,
         activePath: [],
