@@ -30,8 +30,6 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
   const href = window.location.href;
 
   const makeShareLink = async () => {
-    console.log(window.location);
-
     let url = '';
     if (isMatchSharePath) {
       url = `${href}`;
