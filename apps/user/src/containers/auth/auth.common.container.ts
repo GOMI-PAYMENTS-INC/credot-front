@@ -26,6 +26,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/types/enum.code';
+import {getParameter} from "@/utils/getParameter";
 
 export const AuthCommonContainer = () => {
   const navigation = useNavigate();
@@ -49,7 +50,13 @@ export const AuthCommonContainer = () => {
       } else {
         useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
           useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
-        navigation(PATH.SEARCH_PRODUCTS);
+
+        const return_url = getParameter('return_url');
+        if (return_url) {
+          window.location.href = decodeURIComponent(return_url);
+        } else {
+          navigation(PATH.SEARCH_PRODUCTS);
+        }
       }
     },
     onError: (err) => {},
