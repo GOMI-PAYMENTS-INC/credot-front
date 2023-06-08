@@ -4,8 +4,7 @@ import { ReactSVG } from 'react-svg';
 import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { useEffect, useReducer, useRef, useState } from 'react';
-import { openBrowser } from '@/utils/openBrowser';
-import { useEffect, useReducer, useRef } from 'react';
+import { PATH } from '@/types/enum.code';
 import { menuData } from '@/containers/sidebar/sideBarData';
 import {
   sidebarInitialState,
@@ -15,13 +14,11 @@ import {
 import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-
-import { _amplitudeMovedToUserGuide, _setUserId } from '@/amplitude/amplitude.service';
-import { openBrowser } from '@/containers/report';
-import { MeQuery, useMeQuery } from '@/generated/graphql';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { MeQuery } from '@/generated/graphql';
+import {  UserAtom } from '@/atom/auth/auth-atom';
+import { useRecoilValue } from 'recoil';
 import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { openBrowser } from '@/utils/openBrowser';
 
 const SideBar = () => {
   const { onLogout } = AuthCommonContainer();
