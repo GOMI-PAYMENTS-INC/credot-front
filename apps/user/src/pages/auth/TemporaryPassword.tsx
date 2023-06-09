@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
-import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { ChangePasswordInput } from '@/generated/graphql';
-import { PATH } from '@/types/enum.code';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { signInApi } from '@/containers/auth/signIn.api';
+import { useEffect } from 'react';
+import { useCookieStorage } from '@/utils/useCookieStorage';
+import { CACHING_KEY } from '@/types/enum.code';
+import { PATH } from '@/types/enum.code';
 import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
 
 interface IResetPassword {
@@ -17,11 +21,14 @@ interface IResetPassword {
 }
 
 const TemporaryPassword = () => {
-  const { onChangePassword, isTemporaryPasswordLogin, userInfo } = AuthContainer();
-
+  const { _changePassword } = signInApi();
+  const userInfo = useRecoilValue(UserAtom);
   const navigation = useNavigate();
 
   useEffect(() => {
+    const isTemporaryPasswordLogin = useCookieStorage.getCookie(
+      CACHING_KEY.TEMPORARY_PASSWORD_LOGIN,
+    );
     if (!isTemporaryPasswordLogin) {
       navigation(PATH.SIGN_IN);
     } else {
@@ -48,7 +55,7 @@ const TemporaryPassword = () => {
       newPassword: data?.newPassword,
     };
 
-    return onChangePassword(changePasswordInput);
+    return _changePassword(changePasswordInput);
   };
 
   const onInvalid = () => {
@@ -97,7 +104,6 @@ const TemporaryPassword = () => {
                     errors?.newPassword ? 'error' : ''
                   }`}
                   placeholder='비밀번호를 한 번 더 입력해주세요.'
-                  // @ts-ignore
                   {...register('newPassword', {
                     validate: (value: string) =>
                       value === passwordWatcher || '비밀번호가 일치하지 않아요.',

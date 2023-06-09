@@ -38,10 +38,10 @@ export const selectTerm = (
     _setState(_state({ checkedTerms: addedTerms }));
     return;
   }
-  const filteredcheckedTerms = _state().checkedTerms.filter(
+  const filteredCheckedTerms = _state().checkedTerms.filter(
     (term: TTermsType) => term !== id,
   );
-  _setState(_state({ checkedTerms: filteredcheckedTerms }));
+  _setState(_state({ checkedTerms: filteredCheckedTerms }));
 };
 
 export const selectAllTerms = (
@@ -158,7 +158,7 @@ export const activateVerifyCode = (
   _setState(Object.assign({}, state, { activeVerifyCode: true, theElseCalled: true }));
 };
 
-export const exccedVerifyTry = (
+export const exceptedVerifyTry = (
   state: TVerifyButtonState,
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
@@ -196,7 +196,7 @@ export const isAccountExisted = (
   _setState(_state({ isExistedAccount: AUTH_RESPONSE_TYPE.FILLED }));
 };
 
-export const initializeAuteState = (
+export const initializeAuthState = (
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
   setValue: UseFormSetValue<TAuthEssentialProps>,
 ) => {

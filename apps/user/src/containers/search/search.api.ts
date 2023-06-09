@@ -17,7 +17,7 @@ export const getQueryResult = (
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
-    graphQLClient,
+    graphQLClient().config,
     {
       country: country,
       text: keyword,

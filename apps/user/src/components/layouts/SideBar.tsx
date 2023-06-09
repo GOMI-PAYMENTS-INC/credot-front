@@ -1,28 +1,28 @@
 import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { AuthContainer } from '@/containers/auth/auth.legacy.container';
-import { PATH, routeList } from '@/router/routeList';
+import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
-import { openBrowser } from '@/utils/openBrowser';
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
+import { PATH } from '@/types/enum.code';
 import { menuData } from '@/containers/sidebar/sideBarData';
 import {
   sidebarInitialState,
   sidebarReducer,
 } from '@/containers/sidebar/sidebar.reducer';
 
-import {
-  onClickUserMenu,
-  toggleDepth2Menu,
-  toggleSidebar,
-  clearSessionStorage,
-} from '@/containers/sidebar';
+import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { MeQuery } from '@/generated/graphql';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { useRecoilValue } from 'recoil';
+import { signInApi } from '@/containers/auth/signIn.api';
+import { openBrowser } from '@/utils/openBrowser';
 
 const SideBar = () => {
-  const { onLogout } = AuthContainer();
+  const { onLogout } = signInApi();
+  // const { userInfo } = useAuth();
   const navigation = useNavigate();
   const { pathname } = useLocation();
   const [{ route }] = matchRoutes(routeList, pathname) || [];
@@ -30,10 +30,9 @@ const SideBar = () => {
 
   const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
 
-  const { userInfo } = AuthContainer();
-  const userId = userInfo ? replaceOverLength(userInfo.me.email, 17) : '';
-
   const modalEl = useRef<HTMLDivElement>(null);
+  const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
+
   useEffect(() => {
     const clickOutside = (event: any) => {
       if (
@@ -49,6 +48,13 @@ const SideBar = () => {
       document.removeEventListener('mousedown', clickOutside);
     };
   }, [_state.openedUserMenu]);
+
+  const userAtom = useRecoilValue(UserAtom);
+  useEffect(() => {
+    if (userAtom) {
+      setUserInfo(userAtom);
+    }
+  }, [userAtom]);
 
   return (
     <aside className='relative'>
@@ -308,10 +314,12 @@ const SideBar = () => {
             <div>
               <a href='#' onClick={() => onClickUserMenu(_dispatch)}>
                 <div className='flex cursor-pointer items-center justify-between px-4 py-[18px]'>
-                  <p className='text-S/Medium text-grey-800'>{userId}</p>
+                  <p className='text-S/Medium text-grey-800'>
+                    {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
+                  </p>
                   <ReactSVG
                     src='/assets/icons/outlined/ArrowRight-Small.svg'
-                    className='cursor-pointer '
+                    className='cursor-pointer'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', `w-6 fill-grey-800`);
                     }}
@@ -331,10 +339,7 @@ const SideBar = () => {
             <li className='px-4 py-3'>
               <a
                 href='#'
-                onClick={() => {
-                  clearSessionStorage();
-                  onLogout();
-                }}
+                onClick={() => void onLogout()}
                 className='text-S/Regular text-red-700'
               >
                 로그아웃

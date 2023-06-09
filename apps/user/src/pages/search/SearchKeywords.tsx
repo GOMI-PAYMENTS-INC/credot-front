@@ -48,6 +48,8 @@ import DropDown, {
   TDropDownOption,
 } from '@/components/dropDown';
 import { CountryType } from '@/generated/graphql';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { useRecoilValue } from 'recoil';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);

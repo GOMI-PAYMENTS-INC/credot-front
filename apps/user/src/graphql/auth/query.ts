@@ -4,6 +4,7 @@ const authQuery = {
   userMe: gql`
     query Me {
       me {
+        id
         email
         role
         name

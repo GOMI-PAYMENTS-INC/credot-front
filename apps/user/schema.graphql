@@ -1,8 +1,25 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
+# This file was generated. Do not edit manually.
 
 schema {
     query: Query
     mutation: Mutation
+}
+
+interface AbstractBaseEntity {
+    "생성시각"
+    createdAt: DateTime!
+    "생성자"
+    createdUserId: Int!
+    "삭제여부"
+    deleted: Boolean!
+    "삭제시각"
+    deletedAt: DateTime
+    "아이디"
+    id: ID!
+    "수정시각"
+    updatedAt: DateTime!
+    "수정자"
+    updatedUserId: Int!
 }
 
 type FindAccountResponse {
@@ -18,13 +35,27 @@ type LoginPassword {
 }
 
 type LoginToken {
+    "휴대폰 번호 여부"
+    isPhoneNumber: Boolean!
     "로그인 토큰"
     token: String!
+    "회원 식별자"
+    userId: Int!
 }
 
 type Mutation {
     "비밀번호 변경"
     changePassword(pwd: ChangePasswordInput!): FindAccountResponse!
+    "google 로그인"
+    googleLogin(
+        "구글 oauth2 제공된 id token"
+        idToken: String!
+    ): LoginToken!
+    "google 로그인 가입"
+    googleSignUp(
+        "구글 로그인 가입처리"
+        socialSignUpDto: GoogleSignUpInput!
+    ): LoginToken!
     "로그인"
     login(login: LoginInput!): LoginPassword!
     "휴대폰 인증번호 발송"
@@ -53,6 +84,8 @@ type PopupDto {
 
 type Query {
     errorTest: String
+    "유저 이메일 중복 조회"
+    existsUserEmail(email: String!): Boolean!
     "유저 계정(ID) 찾기"
     findAccount(
         "국가 코드"
@@ -61,6 +94,8 @@ type Query {
     ): FindAccountResponse!
     "test query"
     helloWorld: String!
+    "로그인된 내 정보"
+    me: User!
     "키워드 검색"
     search(
         "국가 코드"
@@ -70,6 +105,78 @@ type Query {
     ): responseSearch!
     "인증번호 확인"
     smsVerifyCodeConfirm(phone: String!, verifyCode: String!): VerifyCodeSign!
+}
+
+type User {
+    "생성시각"
+    createdAt: String!
+    "삭제여부"
+    deleted: Boolean!
+    "삭제시각"
+    deletedAt: String
+    "이메일"
+    email: String!
+    "아이디"
+    id: ID!
+    "소셜로그인 회원가입 여부"
+    isSocialLogin: Boolean!
+    "가입일"
+    joinedAt: String
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "전화번호"
+    phone: String
+    "프로필 이미지"
+    profileImage: String
+    "권한"
+    role: Role!
+    "소셜 provider 고유키"
+    socialId: String
+    "소셜로그인 제공업체"
+    socialProvider: String
+    "수정시각"
+    updatedAt: String!
+}
+
+type UserEntity implements AbstractBaseEntity {
+    "관리자메모"
+    adminMemo: String
+    "생성시각"
+    createdAt: DateTime!
+    "생성자"
+    createdUserId: Int!
+    "삭제여부"
+    deleted: Boolean!
+    "삭제시각"
+    deletedAt: DateTime
+    "이메일"
+    email: String!
+    "아이디"
+    id: ID!
+    "소셜로그인 회원가입 여부"
+    isSocialLogin: Boolean!
+    "가입일"
+    joinedAt: DateTime
+    "이름"
+    name: String!
+    "닉네임"
+    nickName: String
+    "전화번호"
+    phone: String
+    "프로필 이미지"
+    profileImage: String
+    "권한"
+    role: Role!
+    "소셜 provider 고유키"
+    socialId: String
+    "소셜로그인 제공업체"
+    socialProvider: SocialProvider
+    "수정시각"
+    updatedAt: DateTime!
+    "수정자"
+    updatedUserId: Int!
 }
 
 type VerifyCodeSign {
@@ -83,7 +190,7 @@ type accountInfoDto {
     "소셜 로그인 여부"
     isSocialLogin: Boolean!
     "소셜 로그인 프로바이더"
-    socialProvider: SocialProvider
+    socialProvider: String
 }
 
 type responseSearch {
@@ -91,6 +198,8 @@ type responseSearch {
     main: searchDto!
     "연관 검색 결과"
     relations: [searchDto!]!
+    "리포트 생성 호출 식별자"
+    reportInvokeId: String!
 }
 
 type searchDto {
@@ -107,8 +216,14 @@ type searchDto {
 enum CountryType {
     "한국"
     KR
+    "말레이시아"
+    MY
+    "싱가포르"
+    SG
     "태국"
     TH
+    "대만"
+    TW
     "미국"
     US
     "베트남"
@@ -121,9 +236,13 @@ enum Role {
 }
 
 enum SocialProvider {
-    Google
-    Naver
+    GOOGLE
+    NAVER
+    NONE
 }
+
+"A slightly refined version of RFC-3339 compliant DateTime Scalar"
+scalar DateTime
 
 input ChangePasswordInput {
     "이메일"
@@ -148,6 +267,17 @@ input FindPasswordInput {
     verifyCodeSign: String!
 }
 
+input GoogleSignUpInput {
+    "소셜토큰"
+    idToken: String!
+    "마케팅 동의여부"
+    makettingAgree: Boolean
+    "전화번호"
+    phone: String!
+    "인증번호 서명"
+    verifyCodeSign: String!
+}
+
 input LoginInput {
     "이메일"
     email: String!
@@ -158,6 +288,8 @@ input LoginInput {
 input SignUpInput {
     "이메일"
     email: String!
+    "마케팅 동의여부"
+    makettingAgree: Boolean
     "이름"
     name: String!
     "닉네임"

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/components/layouts/Common2Section';
-import { AuthContainer } from '@/containers/auth/auth.legacy.container';
 import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { STATUS_CODE } from '@/types/enum.code';
@@ -14,6 +13,7 @@ import {
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import GoogleLogin from '@/pages/auth/GoogleLogin';
+import { signInApi } from '@/containers/auth/signIn.api';
 
 interface ISignInForm {
   email: string;
@@ -22,13 +22,7 @@ interface ISignInForm {
 
 const SignIn = () => {
   const navigation = useNavigate();
-  const {
-    loginMutate,
-    setIsLoginStorage,
-    isLoginStorage,
-    setIdToken,
-    onGoogleLoginButton,
-  } = AuthContainer();
+  const { loginMutate, _googleLoginMutate } = signInApi();
 
   useEffect(() => {
     _amplitudeLoginPageViewed();
@@ -38,8 +32,7 @@ const SignIn = () => {
   const onGoogleSignIn = (res: CredentialResponse) => {
     const { credential } = res;
     if (credential) {
-      setIdToken(credential);
-      onGoogleLoginButton({ idToken: credential });
+      _googleLoginMutate({ idToken: credential });
     }
   };
 
@@ -60,10 +53,6 @@ const SignIn = () => {
       },
     };
     loginMutate(loginFormValue, {
-      onSuccess: () => {
-        //앰플리튜드 로그인 완료 이벤트
-        _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
-      },
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));
 
@@ -91,9 +80,9 @@ const SignIn = () => {
     });
   };
 
-  const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsLoginStorage(e.target.checked);
-  };
+  // const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setIsLoginStorage(e.target.checked);
+  // };
 
   return (
     <Layout>
@@ -168,8 +157,8 @@ const SignIn = () => {
                   name='remember_me'
                   type='checkbox'
                   className='checkboxCustom peer'
-                  checked={isLoginStorage}
-                  onChange={(event) => onLoginStorageCheck(event)}
+                  // checked={isLoginStorage}
+                  // onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
                   htmlFor='remember_me'

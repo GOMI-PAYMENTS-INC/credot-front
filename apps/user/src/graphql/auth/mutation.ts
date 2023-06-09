@@ -12,7 +12,9 @@ const authMutation = {
   signUpQuery: gql`
     mutation Signup($user: SignUpInput!) {
       signup(user: $user) {
+        isPhoneNumber
         token
+        userId
       }
     }
   `,
@@ -34,7 +36,9 @@ const authMutation = {
   googleLogin: gql`
     mutation GoogleLogin($idToken: String!) {
       googleLogin(idToken: $idToken) {
+        isPhoneNumber
         token
+        userId
       }
     }
   `,
@@ -68,7 +72,9 @@ const authMutation = {
   googleSignup: gql`
     mutation GoogleSignup($socialSignUpDto: GoogleSignUpInput!) {
       googleSignUp(socialSignUpDto: $socialSignUpDto) {
+        isPhoneNumber
         token
+        userId
       }
     }
   `,

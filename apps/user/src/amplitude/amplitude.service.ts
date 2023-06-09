@@ -1,4 +1,4 @@
-import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
+import { CountryType, Role, SearchDto } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import {
   AMPLITUDE_ACCOUNT_TYPE,

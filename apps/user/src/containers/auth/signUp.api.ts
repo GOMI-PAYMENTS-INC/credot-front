@@ -23,7 +23,7 @@ import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
-  const { mutate: signUpMutate } = useSignupMutation(graphQLClient, {
+  const { mutate: signUpMutate } = useSignupMutation(graphQLClient().config, {
     onError: () => {
       toast.error('회원가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
@@ -104,7 +104,7 @@ export const useSignUp = () => {
     const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     return useExistsUserEmailQuery(
-      graphQLClient,
+      graphQLClient().config,
       { email },
       {
         enabled: regex.test(email) === true && triggerConfirmEmail,
@@ -124,7 +124,7 @@ export const useSignUp = () => {
     );
   };
 
-  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient, {
+  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient().config, {
     onError: () => {
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
@@ -133,7 +133,6 @@ export const useSignUp = () => {
   const _applySocialAccount = (
     value: {
       phone: string;
-      email: string;
       verifyCode: string;
       requiredAgreeTerm: TTermsType[] | string[];
     },
@@ -142,7 +141,7 @@ export const useSignUp = () => {
     setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
-    const { email, phone, verifyCode, requiredAgreeTerm } = value;
+    const { phone, verifyCode, requiredAgreeTerm } = value;
 
     const isCheckedTerms = [TERM_TYPE.PERSONAL_AGREE, TERM_TYPE.USE_AGREE].every((term) =>
       requiredAgreeTerm.includes(term),
@@ -152,7 +151,7 @@ export const useSignUp = () => {
     const isValidTerms = isFalsy(isCheckedTerms);
 
     const isValid = Object.keys(value).filter((item) => {
-      const key = item as 'email' | 'phone' | 'requiredAgreeTerm' | 'verifyCode';
+      const key = item as 'phone' | 'requiredAgreeTerm' | 'verifyCode';
       if (isFalsy(value[key])) {
         setError(key, { message: AUTH_ESSENTIAL[key] });
         return false;
@@ -160,7 +159,7 @@ export const useSignUp = () => {
       return true;
     });
 
-    if (isValid.length !== 4 || isValidVerifyCodeSign || isValidTerms) return;
+    if (isValid.length !== 3 || isValidVerifyCodeSign || isValidTerms) return;
 
     const payload = {
       idToken: token,
@@ -179,7 +178,7 @@ export const useSignUp = () => {
           }
           await _amplitudeSignupCompleted(
             AMPLITUDE_ACCOUNT_TYPE.GOOGLE,
-            email,
+            token,
             phone,
             isAgreeMarketing,
             () => {

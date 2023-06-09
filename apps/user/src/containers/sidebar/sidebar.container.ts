@@ -31,5 +31,3 @@ export const toggleDepth2Menu = (
 export const onClickUserMenu = (_dispatch: Dispatch<TSidebarAction>) => {
   _dispatch({ type: SIDE_BAR_ACTION.TOGGLE_USER_MENU });
 };
-
-export const clearSessionStorage = () => useSessionStorage.initializeItems();

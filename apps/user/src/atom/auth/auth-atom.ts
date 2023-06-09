@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 
-import { User } from '@/generated/graphql';
+import { MeQuery, User } from '@/generated/graphql';
 
-export const UserAtom = atom<User | undefined>({
+export const UserAtom = atom<MeQuery | undefined>({
   key: 'user',
   default: undefined,
 });
