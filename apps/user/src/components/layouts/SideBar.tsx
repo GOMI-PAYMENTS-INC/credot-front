@@ -15,13 +15,13 @@ import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/s
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { MeQuery } from '@/generated/graphql';
-import {  UserAtom } from '@/atom/auth/auth-atom';
+import { UserAtom } from '@/atom/auth/auth-atom';
 import { useRecoilValue } from 'recoil';
-import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { signInApi } from '@/containers/auth/signIn.api';
 import { openBrowser } from '@/utils/openBrowser';
 
 const SideBar = () => {
-  const { onLogout } = AuthCommonContainer();
+  const { onLogout } = signInApi();
   // const { userInfo } = useAuth();
   const navigation = useNavigate();
   const { pathname } = useLocation();
@@ -319,7 +319,7 @@ const SideBar = () => {
                   </p>
                   <ReactSVG
                     src='/assets/icons/outlined/ArrowRight-Small.svg'
-                    className='cursor-pointer '
+                    className='cursor-pointer'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', `w-6 fill-grey-800`);
                     }}

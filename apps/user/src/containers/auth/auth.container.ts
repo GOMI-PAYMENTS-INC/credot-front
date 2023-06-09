@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_RESPONSE_TYPE, PATH, TERM_TYPE } from '@/types/enum.code';
+import { AUTH_RESPONSE_TYPE, TERM_TYPE } from '@/types/enum.code';
 import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { TERMS_LIST } from '@/constants/auth.constants';

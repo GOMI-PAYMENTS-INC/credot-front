@@ -133,7 +133,6 @@ export const useSignUp = () => {
   const _applySocialAccount = (
     value: {
       phone: string;
-      email: string;
       verifyCode: string;
       requiredAgreeTerm: TTermsType[] | string[];
     },
@@ -142,7 +141,7 @@ export const useSignUp = () => {
     setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
-    const { email, phone, verifyCode, requiredAgreeTerm } = value;
+    const { phone, verifyCode, requiredAgreeTerm } = value;
 
     const isCheckedTerms = [TERM_TYPE.PERSONAL_AGREE, TERM_TYPE.USE_AGREE].every((term) =>
       requiredAgreeTerm.includes(term),
@@ -152,7 +151,7 @@ export const useSignUp = () => {
     const isValidTerms = isFalsy(isCheckedTerms);
 
     const isValid = Object.keys(value).filter((item) => {
-      const key = item as 'email' | 'phone' | 'requiredAgreeTerm' | 'verifyCode';
+      const key = item as 'phone' | 'requiredAgreeTerm' | 'verifyCode';
       if (isFalsy(value[key])) {
         setError(key, { message: AUTH_ESSENTIAL[key] });
         return false;
@@ -160,7 +159,7 @@ export const useSignUp = () => {
       return true;
     });
 
-    if (isValid.length !== 4 || isValidVerifyCodeSign || isValidTerms) return;
+    if (isValid.length !== 3 || isValidVerifyCodeSign || isValidTerms) return;
 
     const payload = {
       idToken: token,
@@ -179,7 +178,7 @@ export const useSignUp = () => {
           }
           await _amplitudeSignupCompleted(
             AMPLITUDE_ACCOUNT_TYPE.GOOGLE,
-            email,
+            token,
             phone,
             isAgreeMarketing,
             () => {

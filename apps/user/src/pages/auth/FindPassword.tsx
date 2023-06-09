@@ -9,17 +9,15 @@ import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { FindPasswordResult } from '@/pages/auth/FindPasswordResult';
-import { VerifyCodeInput } from './VerifyCodeInput';
+
 import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/containers/auth/auth.container';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import {
-  _amplitudeFindIdStarted,
-  _amplitudeFindPwStarted,
-} from '@/amplitude/amplitude.service';
+import { _amplitudeFindPwStarted } from '@/amplitude/amplitude.service';
+import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
 
 export const FindPasswordRef = () => {
   const [isVerification, setIsVerification] =

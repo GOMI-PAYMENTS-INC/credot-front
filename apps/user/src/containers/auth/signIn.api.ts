@@ -7,12 +7,10 @@ import {
   useChangePasswordMutation,
   useGoogleLoginMutation,
   useLoginMutation,
-  useMeQuery,
 } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { graphQLClient } from '@/utils/graphqlCient';
-import { useSessionStorage } from '@/utils/useSessionStorage';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import {
   _amplitudeChangePwCompleted,
@@ -26,16 +24,18 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/types/enum.code';
-import {getParameter} from "@/utils/getParameter";
+import { getParameter } from '@/utils/getParameter';
+import { isFalsy } from '@/utils/isFalsy';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
-export const AuthCommonContainer = () => {
+export const signInApi = () => {
   const navigation = useNavigate();
   const queryClient = useQueryClient();
   const clearUserAtom = useResetRecoilState(UserAtom);
   const clearLoginTokenAtom = useResetRecoilState(LoginTokenAtom);
   const userInfo = useRecoilValue(UserAtom);
 
-  // 로컬 로그인 시작
+  // 로컬 로그인
   const { mutate: loginMutate } = useLoginMutation(graphQLClient().config, {
     onSuccess: (res) => {
       authTokenStorage.setToken(res.login.token);
@@ -47,6 +47,8 @@ export const AuthCommonContainer = () => {
           1,
         );
         navigation(PATH.REAPPLY_PASSWORD);
+
+        _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
       } else {
         useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
           useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
@@ -64,11 +66,18 @@ export const AuthCommonContainer = () => {
 
   // 구글 로그인/회원가입 시도
   const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient().config, {
-    onSuccess: (res) => {
-      authTokenStorage.setToken(res.googleLogin.token);
+    onSuccess: (res, variables) => {
+      //구글 회원가입
+      if (isFalsy(res.googleLogin.isPhoneNumber)) {
+        navigation(PATH.SIGN_UP_WITH_GOOGLE, {
+          state: { token: variables.idToken },
+        });
+        return;
+      }
 
-      // navigation(PATH.SEARCH_PRODUCTS);
-      //로그인 완료 시 - 구글 로그인
+      //구글 로그인
+      authTokenStorage.setToken(res.googleLogin.token);
+      navigation(PATH.SEARCH_PRODUCTS);
       _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
     },
     onError: (err) => {
@@ -76,26 +85,27 @@ export const AuthCommonContainer = () => {
       toast.error(error.response.errors[0].message);
     },
   });
-  const onClickGoogleLoginButton = ({ idToken }: GoogleLoginMutationVariables) => {
+
+  const _googleLoginMutate = ({ idToken }: GoogleLoginMutationVariables) => {
     googleLoginMutate({ idToken });
   };
   // 구글 로그인 끝
 
   const clearUserInfo = () => {
-    //auth에서 사용중인 recoil 초기화
+    // auth에서 사용중인 recoil 초기화
     clearUserAtom();
     clearLoginTokenAtom();
 
-    // 토큰 쿠키
+    // 쿠키 삭제
     authTokenStorage.clearToken();
-    //임시 비밀번호로 로그인 쿠키
     useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
       useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
+    useCookieStorage.removeCookie('AMPLITUDE_USER_ID');
 
-    //세션 전체 삭제
+    // 세션 전체 삭제
     useSessionStorage.initializeItems();
 
-    //react query 초기화
+    // react query 초기화
     queryClient.clear();
   };
 
@@ -134,7 +144,7 @@ export const AuthCommonContainer = () => {
       toast.error('변경 실패하였습니다.');
     },
   });
-  const onChangePassword = (value: ChangePasswordInput) => {
+  const _changePassword = (value: ChangePasswordInput) => {
     if (userInfo) {
       const onChangePasswordValue: MutationChangePasswordArgs = {
         pwd: {
@@ -149,11 +159,9 @@ export const AuthCommonContainer = () => {
   return {
     loginMutate,
     clearAmplitude,
-    onClickGoogleLoginButton,
+    _googleLoginMutate,
     clearUserInfo,
     onLogout,
-    onChangePassword,
+    _changePassword,
   };
 };
-
-// 비밀번호 변경

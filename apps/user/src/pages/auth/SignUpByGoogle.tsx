@@ -30,14 +30,14 @@ import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
-import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { signInApi } from '@/containers/auth/signIn.api';
 
 const SignUpByGoogle = () => {
-  const { token, email } = useLocation().state;
+  const { token } = useLocation().state;
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
   const [signUpState, setSignUpState] = useState(termInitialState);
-  const { clearUserInfo } = AuthCommonContainer();
+  const { clearUserInfo } = signInApi();
 
   const {
     register,
@@ -59,9 +59,6 @@ const SignUpByGoogle = () => {
   }, []);
 
   useEffect(() => {
-    console.log('SignUpByGoogle');
-    clearUserInfo();
-
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);
 
@@ -104,22 +101,6 @@ const SignUpByGoogle = () => {
           </div>
 
           <div className='mt-10 space-y-8'>
-            <div className='inputCustom-group'>
-              <label className='inputCustom-label' htmlFor='email'>
-                이메일
-              </label>
-              <div className='inputCustom-textbox-wrap'>
-                <input
-                  className=' inputCustom-textbox w-full'
-                  type='email'
-                  id='email'
-                  value={email}
-                  placeholder='이메일'
-                  readOnly
-                />
-              </div>
-            </div>
-
             <div className='space-y-2'>
               <div>
                 <label className='inputCustom-label' htmlFor='email'>
@@ -270,7 +251,6 @@ const SignUpByGoogle = () => {
                   const payload = {
                     phone: getValues('phone'),
                     verifyCode: isVerification.verifyCodeSignatureNumber,
-                    email: email,
                     requiredAgreeTerm: signUpState.checkedTerms,
                   };
                   _applySocialAccount(

@@ -7,7 +7,7 @@ import { ChangePasswordInput } from '@/generated/graphql';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '@/atom/auth/auth-atom';
-import { AuthCommonContainer } from '@/containers/auth/auth.common.container';
+import { signInApi } from '@/containers/auth/signIn.api';
 import { useEffect } from 'react';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -21,7 +21,7 @@ interface IResetPassword {
 }
 
 const TemporaryPassword = () => {
-  const { onChangePassword } = AuthCommonContainer();
+  const { _changePassword } = signInApi();
   const userInfo = useRecoilValue(UserAtom);
   const navigation = useNavigate();
 
@@ -55,7 +55,7 @@ const TemporaryPassword = () => {
       newPassword: data?.newPassword,
     };
 
-    return onChangePassword(changePasswordInput);
+    return _changePassword(changePasswordInput);
   };
 
   const onInvalid = () => {
