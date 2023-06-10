@@ -1,8 +1,7 @@
-import React, {
-  ReactNode,
-} from 'react';
+import React, { ReactNode } from 'react';
 
 interface TDetailReportContent {
+  isUser: boolean;
   scrollEvent: scrollEventState;
   setScrollEvent: React.Dispatch<React.SetStateAction<scrollEventState>>;
   contentSection: React.RefObject<HTMLDivElement>;
@@ -10,10 +9,10 @@ interface TDetailReportContent {
 }
 
 const DetailReportBody = (props: TDetailReportContent) => {
-  const { children, contentSection, setScrollEvent, scrollEvent } = props;
+  const { isUser, children, contentSection, setScrollEvent, scrollEvent } = props;
   return (
     <section
-      className='grow overflow-y-scroll'
+      className={`${isUser && 'overflow-y-scroll'}`}
       onScroll={(event) => {
         setScrollEvent(
           Object.assign({}, scrollEvent, {

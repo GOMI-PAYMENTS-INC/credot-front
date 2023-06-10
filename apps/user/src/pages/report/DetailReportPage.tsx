@@ -62,6 +62,7 @@ const DetailReportPage = () => {
     <Default>
       <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
       <DetailReportBody
+        isUser={true}
         contentSection={contentSection}
         setScrollEvent={setScrollEvent}
         scrollEvent={scrollEvent}
