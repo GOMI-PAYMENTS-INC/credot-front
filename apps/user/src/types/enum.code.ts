@@ -144,6 +144,7 @@ export enum MODAL_TYPE_ENUM {
 }
 
 export enum CACHING_KEY {
+  RETURN_URL = 'return_url',
   TEMPORARY_PASSWORD_LOGIN = 'temporary_password_login',
   STORED_KEYWORD = 'keyword',
   STORED_TRANSLATION = 'translation_keyword',

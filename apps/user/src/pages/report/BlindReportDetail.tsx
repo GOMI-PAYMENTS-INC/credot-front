@@ -1,8 +1,7 @@
 import { Fragment, ReactNode } from 'react';
 import { PATH } from '@/types/enum.code';
-import { Link } from 'react-router-dom';
 import { RecommendationChart } from '@/pages/report/RecommendationChart';
-import { getParameter } from '@/utils/getParameter';
+import { authReturnUrl } from '@/containers/auth/auth.container';
 
 interface IBlindReportProps {
   isUser: boolean;
@@ -25,6 +24,9 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
       evaluateStatus: 'AEE',
       searchCount: 41456,
     };
+
+    const { saveReturnUrl } = authReturnUrl();
+
     return (
       <Fragment>
         <div>
@@ -52,15 +54,12 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
             </p>
           </div>
           <div className='mt-[44px]'>
-            <Link
-              to={`${PATH.SIGN_IN}?return_url=${encodeURIComponent(
-                window.location.href,
-              )}`}
+            <button
+              className='button-filled-normal-xLarge-red-false-false-true min-w-[600px]'
+              onClick={() => saveReturnUrl(window.location.href, PATH.SIGN_IN)}
             >
-              <button className='button-filled-normal-xLarge-red-false-false-true min-w-[600px]'>
-                회원가입 하고 리포트 전체 내용 열람하기
-              </button>
-            </Link>
+              회원가입 하고 리포트 전체 내용 열람하기
+            </button>
           </div>
         </div>
       </Fragment>

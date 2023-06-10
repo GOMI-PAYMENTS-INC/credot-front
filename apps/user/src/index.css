@@ -145,6 +145,12 @@ input[type='number'] {
   .keywordInfo-span-subtitle {
     @apply flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
   }
+  .keywordInfo-divide-by-single-dot:nth-child(even) {
+    @apply relative ml-[18px];
+  }
+  .keywordInfo-divide-by-single-dot:nth-child(even) {
+    @apply before:content-[''] before:left-[-8px] before:absolute before:top-1/2 before:translate-y-[-50%] before:w-0.5 before:h-0.5 before:bg-grey-700;
+  }
 }
 
 /* Works on Firefox */

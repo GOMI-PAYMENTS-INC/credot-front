@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import {
-  _getReportInfo,
-  _getReportInfoByShare,
-} from '@/containers/report/report.container';
+import { _getReportInfoByShare } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
 import { isFalsy } from '@/utils/isFalsy';
@@ -12,6 +9,7 @@ import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import DetailReportBody from '@/pages/report/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/components/layouts';
+import DetailReportHeader from '@/pages/report/DetailReportHeader';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
@@ -85,7 +83,9 @@ const DetailReportPageByShare = () => {
   if (isUser) {
     return (
       <Default>
+        <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
         <DetailReportBody
+          isUser={isUser}
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
           scrollEvent={scrollEvent}
@@ -105,6 +105,7 @@ const DetailReportPageByShare = () => {
     return (
       <Fragment>
         <DetailReportBody
+          isUser={isUser}
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
           scrollEvent={scrollEvent}

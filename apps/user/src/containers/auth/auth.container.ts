@@ -1,10 +1,12 @@
 import { Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_RESPONSE_TYPE, TERM_TYPE } from '@/types/enum.code';
+import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.code';
 import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { TERMS_LIST } from '@/constants/auth.constants';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { useCookieStorage } from '@/utils/useCookieStorage';
+import { useNavigate } from 'react-router-dom';
 
 export const authInitialState: TVerifyButtonState = {
   firstCalled: false,
@@ -292,4 +294,29 @@ export const signUpVerifyCode = (
   }
   setError('phone', { message: NOTIFICATION_MESSAGE.emptyPhoneNumber });
   return false;
+};
+
+export const authReturnUrl = () => {
+  const navigation = useNavigate();
+  const saveReturnUrl = (returnUrl: string, goToUrl?: PATH) => {
+    const encodeUrl = encodeURIComponent(returnUrl);
+    useCookieStorage.setCookie(CACHING_KEY.RETURN_URL, encodeUrl, 1);
+    if (goToUrl) {
+      navigation(goToUrl);
+    }
+  };
+
+  const moveToMain = (goToUrl?: PATH) => {
+    const returnUrl = useCookieStorage.getCookie(CACHING_KEY.RETURN_URL);
+    if (returnUrl) {
+      useCookieStorage.removeCookie(CACHING_KEY.RETURN_URL);
+      window.location.href = decodeURIComponent(returnUrl);
+    } else {
+      navigation(goToUrl ? goToUrl : PATH.SEARCH_PRODUCTS);
+    }
+  };
+  return {
+    saveReturnUrl,
+    moveToMain,
+  };
 };
