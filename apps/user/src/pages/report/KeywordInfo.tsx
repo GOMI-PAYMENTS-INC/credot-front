@@ -51,14 +51,6 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
         <div className='basis-full py-8 pl-2'>
           <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
           <div>
-            <div className='pt-4 text-S/Medium odd:space-x-2'>
-              <span className='text-grey-600'>국가</span>
-              <span className='text-grey-800'>{convertCountry(country)}</span>
-              <span className='text-grey-600'>플랫폼</span>
-              <span className='text-grey-800'>Shopee</span>
-              <span className='text-grey-600'>생성일</span>
-              <span className='text-grey-800'>
-                {convertTime(createdAt!, 'YYYY.MM.DD')}
             <div className='pt-4 text-S/Medium'>
               <span className='keywordInfo-divide-by-single-dot'>
                 <span className='text-grey-600'>국가</span>
@@ -75,7 +67,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               <span className='keywordInfo-divide-by-single-dot'>
                 <span className='text-grey-600'>데이터 수집 기준</span>
                 <span className='ml-1 text-grey-800'>
-                  {convertSortedType(sorted)} 상위 {props.itemCount}개
+                  {convertSortedType(sorted)} 상위 {itemCount}개
                 </span>
               </span>
               <span className='keywordInfo-divide-by-single-dot'>
@@ -91,7 +83,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
           </div>
         </div>
-        <div className='py-[30px]'>
+        <div className='mt-[30px]'>
           <div className='flex grow-0 flex-col items-end gap-y-4'>
             <button
               onClick={() => {
