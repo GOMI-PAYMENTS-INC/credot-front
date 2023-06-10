@@ -30,14 +30,11 @@ import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
-import { signInApi } from '@/containers/auth/signIn.api';
-
 const SignUpByGoogle = () => {
   const { token } = useLocation().state;
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
   const [signUpState, setSignUpState] = useState(termInitialState);
-  const { clearUserInfo } = signInApi();
 
   const {
     register,
