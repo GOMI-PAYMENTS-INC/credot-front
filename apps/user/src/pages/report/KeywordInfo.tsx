@@ -24,25 +24,35 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
         <div className='basis-full py-8 pl-2'>
           <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
           <div>
-            <div className='pt-4 text-S/Medium odd:space-x-2'>
-              <span className=' text-grey-600'>국가</span>
-              <span className=' text-grey-800'>{convertCountry(country)}</span>
-              <span className=' text-grey-600'>플랫폼</span>
-              <span className=' text-grey-800'>Shopee</span>
-              <span className=' text-grey-600'>생성일</span>
-              <span className=' text-grey-800'>
-                {convertTime(createdAt!, 'YYYY.MM.DD')}
+            <div className='pt-4 text-S/Medium'>
+              <span className='keywordInfo-divide-by-single-dot'>
+                <span className='text-grey-600'>국가</span>
+                <span className='ml-1 text-grey-800'>{convertCountry(country)}</span>
+              </span>
+              <span className='keywordInfo-divide-by-single-dot'>
+                <span className='text-grey-600'>리포트 생성일</span>
+                <span className='ml-1 text-grey-800'>
+                  {convertTime(createdAt!, 'YYYY.MM.DD')}
+                </span>
               </span>
             </div>
-            <div className='pt-2 text-S/Medium even:space-x-2'>
-              <span className='text-grey-600'>수집 기준</span>
-              <span className='text-grey-800'>
-                {convertSortedType(sorted)} 상위 {props.itemCount}개
+            <div className='pt-2 text-S/Medium'>
+              <span className='keywordInfo-divide-by-single-dot'>
+                <span className='text-grey-600'>데이터 수집 기준</span>
+                <span className='ml-1 text-grey-800'>
+                  {convertSortedType(sorted)} 상위 {props.itemCount}개
+                </span>
               </span>
-              <span className='text-grey-600'>적용 환율</span>
-              <span className='text-grey-800'>{`${currencyUnit} ${convertExchangeRate(
-                country,
-              )} = ${basePrice} KRW`}</span>
+              <span className='keywordInfo-divide-by-single-dot'>
+                <span className='text-grey-600'>적용 환율</span>
+                <span className='ml-1 space-x-1 text-grey-800'>
+                  <span>{currencyUnit}</span>
+                  <span className='text-grey-700'>{convertExchangeRate(country)}</span>
+                  <span>=</span>
+                  <span>{basePrice}</span>
+                  <span className='text-grey-700'>KRW</span>
+                </span>
+              </span>
             </div>
           </div>
         </div>
