@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { _getReportInfoByShare } from '@/containers/report/report.container';
-import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
-import { isFalsy } from '@/utils/isFalsy';
+import React, {Fragment, useEffect, useMemo, useReducer, useRef, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {_getReportInfoByShare} from '@/containers/report/report.container';
+import {reportInitialState, reportReducer} from '@/containers/report/report.reducer';
+import {DetailReportRightQuickBar} from '@/pages/report/DetailReportRightQuickBar';
+import {isFalsy} from '@/utils/isFalsy';
 
-import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
+import {DetailReportSwitch} from '@/pages/report/DetailReportSwitch';
 import DetailReportBody from '@/pages/report/DetailReportBody';
-import { authTokenStorage } from '@/utils/authToken';
-import { Default } from '@/components/layouts';
+import {authTokenStorage} from '@/utils/authToken';
+import {Default} from '@/components/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
 
 const DetailReportPageByShare = () => {
@@ -23,7 +23,7 @@ const DetailReportPageByShare = () => {
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
-  const { main, relation } = _state;
+  const { main } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
   const scrollController = useRef<HTMLTableSectionElement>(null);
@@ -61,8 +61,8 @@ const DetailReportPageByShare = () => {
     if (isUser) {
       return (
         <Default>
-          <div className='flex h-full flex-col items-center justify-center self-center'>
-            <div className='absolute scale-[0.3] pb-[84px]'>
+          <div className='flex h-screen flex-col items-center justify-center self-center'>
+            <div className='scale-[0.3]'>
               <div id='loader' />
             </div>
           </div>
@@ -85,13 +85,13 @@ const DetailReportPageByShare = () => {
       <Default>
         <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
         <DetailReportBody
-          isUser={isUser}
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
           scrollEvent={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
+            isUser={isUser}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}
@@ -105,13 +105,13 @@ const DetailReportPageByShare = () => {
     return (
       <Fragment>
         <DetailReportBody
-          isUser={isUser}
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
           scrollEvent={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
+            isUser={isUser}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}

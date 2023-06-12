@@ -49,8 +49,8 @@ const DetailReportPage = () => {
   if (isFalsy(main) || main === null) {
     return (
       <Default>
-        <div className='flex h-full flex-col items-center justify-center self-center'>
-          <div className='absolute scale-[0.3] pb-[84px]'>
+        <div className='flex h-screen flex-col items-center justify-center self-center'>
+          <div className='scale-[0.3]'>
             <div id='loader' />
           </div>
         </div>
@@ -62,13 +62,13 @@ const DetailReportPage = () => {
     <Default>
       <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
       <DetailReportBody
-        isUser={true}
         contentSection={contentSection}
         setScrollEvent={setScrollEvent}
         scrollEvent={scrollEvent}
       >
         {combinedComponent}
         <DetailReportRightQuickBar
+          isUser={true}
           title={main?.text}
           scrollEvent={scrollEvent}
           contentSection={contentSection}

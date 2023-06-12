@@ -1,15 +1,16 @@
-import { useMemo } from 'react';
-import { ReactSVG } from 'react-svg';
+import {useMemo} from 'react';
+import {ReactSVG} from 'react-svg';
 
-import { TITLE } from '@/types/enum.code';
-import { convertTitle } from '@/utils/convertEnum';
+import {TITLE} from '@/types/enum.code';
+import {convertTitle} from '@/utils/convertEnum';
 
-import { AnalysisOverseaProductTable } from '@/pages/report/AnalysisOverseaProductTable';
-import { OVERSEA_PRODUCT_RATIO } from '@/constants/report.constant';
-import { isFalsy } from '@/utils/isFalsy';
+import {AnalysisOverseaProductTable} from '@/pages/report/AnalysisOverseaProductTable';
+import {OVERSEA_PRODUCT_RATIO} from '@/constants/report.constant';
+import {isFalsy} from '@/utils/isFalsy';
 
-import { COUNTRY_CODE } from '@/containers/report/country.code';
-import { replaceOverLength } from '@/utils/replaceOverLength';
+import {COUNTRY_CODE} from '@/containers/report/country.code';
+import {replaceOverLength} from '@/utils/replaceOverLength';
+
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;
   currencyUnit: number;
@@ -141,7 +142,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                     </div>
                   </div>
                 ) : (
-                  <div className='flex flex-wrap text-S/Regular text-grey-900'>
+                  <div className='flex flex-wrap text-S/Regular text-grey-900 gap-x-1 gap-y-3'>
                     {overseaCountryCount.map((country) => {
                       const countryCode = COUNTRY_CODE[
                         country.itemShopCountry as keyof typeof COUNTRY_CODE
@@ -149,10 +150,10 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
 
                       return (
                         <div
-                          className={`float-left mx-1 mb-3 rounded-[4px] bg-grey-100 py-1`}
+                          className={`px-1 rounded-[4px] bg-grey-100 py-1`}
                           key={country.itemShopCountry}
                         >
-                          <div className='flex w-[120px] items-center'>
+                          <div className='flex items-center'>
                             <ReactSVG
                               className='pl-[5px]'
                               src={`/assets/icons/country/${countryCode.flag}.svg`}

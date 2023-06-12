@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Params, useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
-import { PATH } from '@/types/enum.code';
+import { PATH, STYLE_ENUM } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
@@ -29,10 +29,14 @@ const DetailReportHeader = (props: TDetailReport) => {
     }
   };
 
+  const headerHeightStyle = useMemo(() => {
+    return { height: STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT };
+  }, []);
+
   return (
-    <header className='border-b-[1px] border-b-grey-200 bg-white'>
+    <header className='sticky top-0 z-10 border-b-[1px] border-b-grey-200 bg-white'>
       <div className='container'>
-        <div className='flex h-[84px] items-center justify-between'>
+        <div style={headerHeightStyle} className='flex items-center justify-between'>
           <div className='flex items-center'>
             <div
               className='h-5 w-5 cursor-pointer pl-[7px]'

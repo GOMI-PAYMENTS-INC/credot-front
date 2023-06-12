@@ -1,15 +1,11 @@
-import { ReactSVG } from 'react-svg';
-import { RefObject, useEffect, Dispatch, SetStateAction } from 'react';
-import {
-  _getReportInfo,
-  onScrollDetail,
-  switchContents,
-  scrollToTop,
-} from '@/containers/report/report.container';
-import { TITLE } from '@/types/enum.code';
-import { convertTitle } from '@/utils/convertEnum';
+import {ReactSVG} from 'react-svg';
+import {Dispatch, RefObject, SetStateAction, useEffect, useMemo} from 'react';
+import {onScrollDetail, scrollToTop, switchContents,} from '@/containers/report/report.container';
+import {STYLE_ENUM, TITLE} from '@/types/enum.code';
+import {convertTitle} from '@/utils/convertEnum';
 
 interface IDetailReportRightQuickBarProps {
+  isUser: boolean;
   contentSection?: RefObject<HTMLDivElement>;
   scrollController?: RefObject<HTMLTableSectionElement>;
   scrollEvent: TScrollEvent;
@@ -18,7 +14,8 @@ interface IDetailReportRightQuickBarProps {
 }
 
 export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps) => {
-  const { contentSection, scrollController, scrollEvent, setScrollEvent, title } = props;
+  const { isUser, contentSection, scrollController, scrollEvent, setScrollEvent, title } =
+    props;
   const { scrollY, isOpen, current } = scrollEvent;
 
   useEffect(() => {
@@ -27,8 +24,14 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
     onScrollDetail(scrollEvent, setScrollEvent, name);
   }, [scrollY]);
 
+  const quickBarTopStyle = useMemo(() => {
+    const paddingTop = 32;
+    const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
+    return isUser ? { top: paddingTop + headerHeight } : { top: paddingTop };
+  }, [isUser]);
+
   return (
-    <aside className='sticky top-8 col-span-2 h-fit w-[180px] '>
+    <aside style={quickBarTopStyle} className={`sticky col-span-2 h-fit w-[180px]`}>
       <ul>
         <li>
           <p
@@ -43,31 +46,33 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
             목차
           </p>
         </li>
-        <ul>
-          {isOpen &&
-            Object.values(TITLE)
-              .filter((title) => title !== TITLE.REPORT)
-              .map((id, idx) => {
-                return (
-                  <li
-                    key={`menu-items-${id}`}
-                    className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
-                      idx === 0 && 'mt-1'
-                    }`}
-                  >
-                    <a href={`#${id}`} className='flex-auto'>
-                      <h1
-                        className={`ml-6 py-1 text-S/Regular  ${
-                          id === current ? 'text-orange-500' : 'text-grey-700'
-                        }`}
-                      >
-                        {convertTitle(id)}
-                      </h1>
-                    </a>
-                  </li>
-                );
-              })}
-        </ul>
+        <li>
+          <ul>
+            {isOpen &&
+              Object.values(TITLE)
+                .filter((title) => title !== TITLE.REPORT)
+                .map((id, idx) => {
+                  return (
+                    <li
+                      key={`menu-items-${id}`}
+                      className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
+                        idx === 0 && 'mt-1'
+                      }`}
+                    >
+                      <a href={`#${id}`} className='flex-auto'>
+                        <h1
+                          className={`ml-6 py-1 text-S/Regular ${
+                            id === current ? 'text-orange-500' : 'text-grey-700'
+                          }`}
+                        >
+                          {convertTitle(id)}
+                        </h1>
+                      </a>
+                    </li>
+                  );
+                })}
+          </ul>
+        </li>
       </ul>
 
       <button

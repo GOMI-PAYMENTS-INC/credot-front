@@ -10,7 +10,7 @@ import {
   getSalePriceByShare,
   postReportShareToken,
 } from './report.api';
-import { Dispatch, RefObject, SetStateAction } from 'react';
+import {Dispatch, RefObject, SetStateAction} from 'react';
 
 import {
   REPORT_ACTION,
@@ -18,19 +18,19 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import { scrollController } from '@/utils/scrollController';
+import {scrollController} from '@/utils/scrollController';
 
 import {
-  GRADE_ITEMS,
   BATCH_STATUS,
+  GRADE_ITEMS,
+  REPORT_DETAIL_TYPE,
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
   TITLE,
-  REPORT_DETAIL_TYPE,
 } from '@/types/enum.code';
-import { convertTime } from '@/utils/parsingTimezone';
-import { getReportList } from '@/containers/report/report.api';
-import { formatNumber } from '@/utils/formatNumber';
+import {convertTime} from '@/utils/parsingTimezone';
+import {getReportList} from '@/containers/report/report.api';
+import {formatNumber} from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -38,13 +38,10 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import { toast } from 'react-toastify';
-import { isFalsy } from '@/utils/isFalsy';
-import { isIncluded } from '@/utils/isIncluded';
-import {
-  _amplitudeKeywordReportDeleted,
-  _amplitudeKeywordReportViewed,
-} from '@/amplitude/amplitude.service';
+import {toast} from 'react-toastify';
+import {isFalsy} from '@/utils/isFalsy';
+import {isIncluded} from '@/utils/isIncluded';
+import {_amplitudeKeywordReportDeleted, _amplitudeKeywordReportViewed,} from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -530,7 +527,7 @@ export const convertGrade = (item: GRADE_ITEMS) => {
   }
 };
 
-export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: number) => {
+export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
   const median = Math.floor(items.length / 2);
   const scope = Math.floor(items.length / 4);
   let Q3: number, Q1: number;
@@ -547,18 +544,17 @@ export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: numbe
 
   const IQR = Q3 - Q1;
 
-  const removedOutliner = items.filter((item) => {
+  return items.filter((item) => {
     if (Q1 - 1.5 * IQR < item.itemPriceMin && Q3 + 1.5 * IQR > item.itemPriceMin) {
       return item;
     }
 
     return false;
   });
-  return removedOutliner;
 };
 
 export const changeSalePriceData = (items: TSalePriceItems[], basePrice: number) => {
-  const removedOutlinerItmes = removeOutlinerinItems(items, basePrice);
+  const removedOutlinerItmes = removeOutlinerinItems(items);
   const min = removedOutlinerItmes[0].itemPriceMin;
   const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
 
