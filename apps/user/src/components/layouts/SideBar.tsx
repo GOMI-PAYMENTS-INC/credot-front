@@ -1,25 +1,21 @@
-import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
+import {Link, matchRoutes, useLocation, useNavigate} from 'react-router-dom';
+import {ReactSVG} from 'react-svg';
 
-import { routeList } from '@/router/routeList';
-import { isIncluded } from '@/utils/isIncluded';
-import { Dispatch, useEffect, useReducer, useRef, useState } from 'react';
-import { PATH } from '@/types/enum.code';
-import { menuData } from '@/containers/sidebar/sideBarData';
-import {
-  sidebarInitialState,
-  sidebarReducer,
-  TSidebarAction,
-} from '@/containers/sidebar/sidebar.reducer';
+import {routeList} from '@/router/routeList';
+import {isIncluded} from '@/utils/isIncluded';
+import {Dispatch, useEffect, useRef, useState} from 'react';
+import {PATH} from '@/types/enum.code';
+import {menuData} from '@/containers/sidebar/sideBarData';
+import {TSidebarAction,} from '@/containers/sidebar/sidebar.reducer';
 
-import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
-import { replaceOverLength } from '@/utils/replaceOverLength';
-import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { MeQuery } from '@/generated/graphql';
-import { UserAtom } from '@/atom/auth/auth-atom';
-import { useRecoilValue } from 'recoil';
-import { signInApi } from '@/containers/auth/signIn.api';
-import { openBrowser } from '@/utils/openBrowser';
+import {onClickUserMenu, toggleDepth2Menu, toggleSidebar} from '@/containers/sidebar';
+import {replaceOverLength} from '@/utils/replaceOverLength';
+import {_amplitudeMovedToUserGuide} from '@/amplitude/amplitude.service';
+import {MeQuery} from '@/generated/graphql';
+import {UserAtom} from '@/atom/auth/auth-atom';
+import {useRecoilValue} from 'recoil';
+import {signInApi} from '@/containers/auth/signIn.api';
+import {openBrowser} from '@/utils/openBrowser';
 
 interface TSideBarProps {
   openWidth: number;
