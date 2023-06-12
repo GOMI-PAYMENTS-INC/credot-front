@@ -49,8 +49,8 @@ const DetailReportPage = () => {
   if (isFalsy(main) || main === null) {
     return (
       <Default>
-        <div className='flex h-screen flex-col items-center justify-center self-center'>
-          <div className='scale-[0.3]'>
+        <div className='flex h-full flex-col items-center justify-center self-center'>
+          <div className='absolute scale-[0.3] pb-[84px]'>
             <div id='loader' />
           </div>
         </div>
