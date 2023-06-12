@@ -6,12 +6,11 @@ import {
   switchContents,
   scrollToTop,
 } from '@/containers/report/report.container';
-import { TITLE } from '@/types/enum.code';
+import { STYLE_ENUM, TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
 
 interface IDetailReportRightQuickBarProps {
   isUser: boolean;
-  headerHeight: number;
   contentSection?: RefObject<HTMLDivElement>;
   scrollController?: RefObject<HTMLTableSectionElement>;
   scrollEvent: TScrollEvent;
@@ -20,15 +19,8 @@ interface IDetailReportRightQuickBarProps {
 }
 
 export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps) => {
-  const {
-    headerHeight,
-    isUser,
-    contentSection,
-    scrollController,
-    scrollEvent,
-    setScrollEvent,
-    title,
-  } = props;
+  const { isUser, contentSection, scrollController, scrollEvent, setScrollEvent, title } =
+    props;
   const { scrollY, isOpen, current } = scrollEvent;
 
   useEffect(() => {
@@ -39,6 +31,7 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
 
   const quickBarTopStyle = useMemo(() => {
     const paddingTop = 32;
+    const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
     return isUser ? { top: paddingTop + headerHeight } : { top: paddingTop };
   }, [isUser]);
 

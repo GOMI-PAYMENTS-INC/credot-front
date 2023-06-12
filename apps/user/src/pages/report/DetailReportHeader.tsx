@@ -3,21 +3,20 @@ import { Params, useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
-import { PATH } from '@/types/enum.code';
+import { PATH, STYLE_ENUM } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
 
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { getParameter } from '@/utils/getParameter';
 
 interface TDetailReport {
-  height: number;
   params: Params<string>;
   main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
   scrollEvent: scrollEventState;
 }
 
 const DetailReportHeader = (props: TDetailReport) => {
-  const { height, params, main, scrollEvent } = props;
+  const { params, main, scrollEvent } = props;
   const navigation = useNavigate();
 
   const listUrlMake = () => {
@@ -31,7 +30,7 @@ const DetailReportHeader = (props: TDetailReport) => {
   };
 
   const headerHeightStyle = useMemo(() => {
-    return { height: height };
+    return { height: STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT };
   }, []);
 
   return (

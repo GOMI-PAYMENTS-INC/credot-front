@@ -584,6 +584,8 @@ export const onScrollDetail = (
   const { scrollY } = _state;
   const sections = document.getElementsByClassName('detailReport-h1-header');
 
+  console.log('sections', scrollY);
+
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
   const [marketSize, keywordInfo, salePrice, overseaProduct] = [...sections].map(
     (element) => (element as HTMLElement).offsetTop - 100,

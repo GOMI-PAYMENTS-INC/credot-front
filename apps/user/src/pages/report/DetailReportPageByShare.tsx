@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { _getReportInfoByShare } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
 import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
@@ -10,7 +10,6 @@ import DetailReportBody from '@/pages/report/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/components/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
-import { STYLE_ENUM } from '@/types/enum.code';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
@@ -84,12 +83,7 @@ const DetailReportPageByShare = () => {
   if (isUser) {
     return (
       <Default>
-        <DetailReportHeader
-          height={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
-          main={main}
-          params={params}
-          scrollEvent={scrollEvent}
-        />
+        <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
         <DetailReportBody
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
@@ -98,7 +92,6 @@ const DetailReportPageByShare = () => {
           {combinedComponent}
           <DetailReportRightQuickBar
             isUser={true}
-            headerHeight={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}
@@ -119,7 +112,6 @@ const DetailReportPageByShare = () => {
           {combinedComponent}
           <DetailReportRightQuickBar
             isUser={true}
-            headerHeight={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}
