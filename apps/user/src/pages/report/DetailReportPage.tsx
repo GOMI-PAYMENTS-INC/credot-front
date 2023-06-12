@@ -9,6 +9,7 @@ import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
 import DetailReportBody from '@/pages/report/DetailReportBody';
 import { Default } from '@/components/layouts';
+import { STYLE_ENUM } from '@/types/enum.code';
 
 const DetailReportPage = () => {
   const params = useParams();
@@ -61,7 +62,7 @@ const DetailReportPage = () => {
   return (
     <Default>
       <DetailReportHeader
-        height={85}
+        height={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
         main={main}
         params={params}
         scrollEvent={scrollEvent}
@@ -74,7 +75,7 @@ const DetailReportPage = () => {
         {combinedComponent}
         <DetailReportRightQuickBar
           isUser={true}
-          headerHeight={85}
+          headerHeight={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
           title={main?.text}
           scrollEvent={scrollEvent}
           contentSection={contentSection}

@@ -149,3 +149,7 @@ export enum CACHING_KEY {
   STORED_KEYWORD = 'keyword',
   STORED_TRANSLATION = 'translation_keyword',
 }
+
+export enum STYLE_ENUM {
+  REPORT_DETAIL_HEADER_HEIGHT = 85,
+}

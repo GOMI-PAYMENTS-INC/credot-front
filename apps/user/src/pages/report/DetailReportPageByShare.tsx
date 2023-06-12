@@ -10,6 +10,7 @@ import DetailReportBody from '@/pages/report/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/components/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
+import { STYLE_ENUM } from '@/types/enum.code';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
@@ -84,7 +85,7 @@ const DetailReportPageByShare = () => {
     return (
       <Default>
         <DetailReportHeader
-          height={85}
+          height={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
           main={main}
           params={params}
           scrollEvent={scrollEvent}
@@ -97,7 +98,7 @@ const DetailReportPageByShare = () => {
           {combinedComponent}
           <DetailReportRightQuickBar
             isUser={true}
-            headerHeight={85}
+            headerHeight={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}
@@ -118,7 +119,7 @@ const DetailReportPageByShare = () => {
           {combinedComponent}
           <DetailReportRightQuickBar
             isUser={true}
-            headerHeight={85}
+            headerHeight={STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}

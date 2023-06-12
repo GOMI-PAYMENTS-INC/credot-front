@@ -25,7 +25,6 @@ export const Default = ({ children }: IDefaultProps) => {
   return (
     <Fragment>
       <div className='h-screen'>
-        {/*<div className='flex h-full'>*/}
         <SideBar
           openWidth={sideBarOpenWidth}
           closeWidth={sideBarCloseWidth}
@@ -33,7 +32,6 @@ export const Default = ({ children }: IDefaultProps) => {
           _dispatch={_dispatch}
         />
         <div style={sideBarWidthStyle}>{children}</div>
-        {/*</div>*/}
       </div>
     </Fragment>
   );
