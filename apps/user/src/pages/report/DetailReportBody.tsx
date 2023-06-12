@@ -12,8 +12,6 @@ const DetailReportBody = (props: TDetailReportContent) => {
   const { children, contentSection, setScrollEvent, scrollEvent } = props;
   const { scrollY: windowScrollY } = useScroll();
 
-  console.log('scrollY', scrollY);
-
   useEffect(() => {
     setScrollEvent(
       Object.assign({}, scrollEvent, {
