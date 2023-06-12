@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Params, useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
@@ -10,13 +10,14 @@ import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { getParameter } from '@/utils/getParameter';
 
 interface TDetailReport {
+  height: number;
   params: Params<string>;
   main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
   scrollEvent: scrollEventState;
 }
 
 const DetailReportHeader = (props: TDetailReport) => {
-  const { params, main, scrollEvent } = props;
+  const { height, params, main, scrollEvent } = props;
   const navigation = useNavigate();
 
   const listUrlMake = () => {
@@ -29,10 +30,14 @@ const DetailReportHeader = (props: TDetailReport) => {
     }
   };
 
+  const headerHeightStyle = useMemo(() => {
+    return { height: height };
+  }, []);
+
   return (
-    <header className='border-b-[1px] border-b-grey-200 bg-white'>
+    <header className='sticky top-0 z-10 border-b-[1px] border-b-grey-200 bg-white'>
       <div className='container'>
-        <div className='flex h-[84px] items-center justify-between'>
+        <div style={headerHeightStyle} className='flex items-center justify-between'>
           <div className='flex items-center'>
             <div
               className='h-5 w-5 cursor-pointer pl-[7px]'

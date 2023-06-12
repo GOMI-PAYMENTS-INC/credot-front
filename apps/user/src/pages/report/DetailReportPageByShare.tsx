@@ -83,15 +83,21 @@ const DetailReportPageByShare = () => {
   if (isUser) {
     return (
       <Default>
-        <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
+        <DetailReportHeader
+          height={85}
+          main={main}
+          params={params}
+          scrollEvent={scrollEvent}
+        />
         <DetailReportBody
-          isUser={isUser}
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
           scrollEvent={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
+            isUser={true}
+            headerHeight={85}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}
@@ -105,13 +111,14 @@ const DetailReportPageByShare = () => {
     return (
       <Fragment>
         <DetailReportBody
-          isUser={isUser}
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
           scrollEvent={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
+            isUser={true}
+            headerHeight={85}
             title={main?.text}
             scrollEvent={scrollEvent}
             contentSection={contentSection}

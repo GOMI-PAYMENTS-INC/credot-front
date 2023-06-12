@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback, useEffect } from 'react';
+import { useScroll } from '@/utils/useScroll';
 
 interface TDetailReportContent {
-  isUser: boolean;
   scrollEvent: scrollEventState;
   setScrollEvent: React.Dispatch<React.SetStateAction<scrollEventState>>;
   contentSection: React.RefObject<HTMLDivElement>;
@@ -9,19 +9,21 @@ interface TDetailReportContent {
 }
 
 const DetailReportBody = (props: TDetailReportContent) => {
-  const { isUser, children, contentSection, setScrollEvent, scrollEvent } = props;
+  const { children, contentSection, setScrollEvent, scrollEvent } = props;
+  const { scrollY: windowScrollY } = useScroll();
+
+  console.log('scrollY', scrollY);
+
+  useEffect(() => {
+    setScrollEvent(
+      Object.assign({}, scrollEvent, {
+        scrollY: windowScrollY,
+      }),
+    );
+  }, [scrollY]);
+
   return (
-    <section
-      className={`${isUser && 'overflow-y-scroll'}`}
-      onScroll={(event) => {
-        setScrollEvent(
-          Object.assign({}, scrollEvent, {
-            scrollY: (event.target as HTMLElement).scrollTop,
-          }),
-        );
-      }}
-      ref={contentSection}
-    >
+    <section ref={contentSection}>
       <div className='min-h-full bg-white'>
         <div className='container pt-8 pb-[100px]'>
           <div className='grid grid-cols-12 gap-x-6'>{children}</div>
