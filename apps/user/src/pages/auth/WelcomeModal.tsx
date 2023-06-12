@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { useInterval } from '@/components/useInterval';
-import { useNavigate } from 'react-router-dom';
 import { isTruthy } from '@/utils/isTruthy';
+import { PATH } from '@/types/enum.code';
+import { authReturnUrl } from '@/containers/auth/auth.container';
 interface IWelcomeModal {
   closingTime: number | null;
-  path: string;
+  path: PATH;
 }
 
 export const WelcomeModal = (props: IWelcomeModal) => {
   const { closingTime, path } = props;
   const [isOpen, setIsOpen] = useState(true);
-  const navigation = useNavigate();
+  const { moveToMain } = authReturnUrl();
 
   useInterval(() => {
     setIsOpen(false);
-    navigation(path);
+    moveToMain(path);
   }, closingTime);
 
   return (

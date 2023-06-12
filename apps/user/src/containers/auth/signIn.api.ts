@@ -24,9 +24,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/types/enum.code';
-import { getParameter } from '@/utils/getParameter';
 import { isFalsy } from '@/utils/isFalsy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { authReturnUrl } from '@/containers/auth/auth.container';
 
 export const signInApi = () => {
   const navigation = useNavigate();
@@ -34,6 +34,8 @@ export const signInApi = () => {
   const clearUserAtom = useResetRecoilState(UserAtom);
   const clearLoginTokenAtom = useResetRecoilState(LoginTokenAtom);
   const userInfo = useRecoilValue(UserAtom);
+
+  const { moveToMain } = authReturnUrl();
 
   // 로컬 로그인
   const { mutate: loginMutate } = useLoginMutation(graphQLClient().config, {
@@ -53,12 +55,7 @@ export const signInApi = () => {
         useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
           useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
 
-        const return_url = getParameter('return_url');
-        if (return_url) {
-          window.location.href = decodeURIComponent(return_url);
-        } else {
-          navigation(PATH.SEARCH_PRODUCTS);
-        }
+        moveToMain();
       }
     },
     onError: (err) => {},
@@ -77,7 +74,7 @@ export const signInApi = () => {
 
       //구글 로그인
       authTokenStorage.setToken(res.googleLogin.token);
-      navigation(PATH.SEARCH_PRODUCTS);
+      moveToMain();
       _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
     },
     onError: (err) => {
@@ -136,7 +133,7 @@ export const signInApi = () => {
   const { mutate: changePassword } = useChangePasswordMutation(graphQLClient().config, {
     onSuccess: () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
-      navigation(PATH.SEARCH_PRODUCTS);
+      moveToMain();
 
       _amplitudeChangePwCompleted();
     },
