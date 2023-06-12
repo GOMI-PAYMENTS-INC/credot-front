@@ -594,8 +594,18 @@ export const onScrollDetail = (
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
   }
 
-  if (keywordInfo && salePrice && scrollY >= keywordInfo && scrollY < salePrice) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
+  if(keywordInfo){
+    //회원 상세페이지 접근시
+    if(salePrice){
+      if (salePrice && scrollY >= keywordInfo && scrollY < salePrice) {
+        _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
+      }
+    }else{
+      //비회원 공유하기로 인한 상세페이지 접근시
+      if (scrollY >= keywordInfo) {
+        _setState(Object.assign({}, _state, {title: name, current: TITLE.KEYWORD_INFO}));
+      }
+    }
   }
 
   if (salePrice && overseaProduct && scrollY >= salePrice && scrollY < overseaProduct) {
