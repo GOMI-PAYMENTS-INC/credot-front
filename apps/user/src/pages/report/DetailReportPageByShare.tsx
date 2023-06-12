@@ -23,7 +23,7 @@ const DetailReportPageByShare = () => {
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
-  const { main, relation } = _state;
+  const { main } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
   const scrollController = useRef<HTMLTableSectionElement>(null);
