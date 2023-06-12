@@ -1,13 +1,8 @@
-import { ReactSVG } from 'react-svg';
-import { RefObject, useEffect, Dispatch, SetStateAction, useMemo } from 'react';
-import {
-  _getReportInfo,
-  onScrollDetail,
-  switchContents,
-  scrollToTop,
-} from '@/containers/report/report.container';
-import { STYLE_ENUM, TITLE } from '@/types/enum.code';
-import { convertTitle } from '@/utils/convertEnum';
+import {ReactSVG} from 'react-svg';
+import {Dispatch, RefObject, SetStateAction, useEffect, useMemo} from 'react';
+import {onScrollDetail, scrollToTop, switchContents,} from '@/containers/report/report.container';
+import {STYLE_ENUM, TITLE} from '@/types/enum.code';
+import {convertTitle} from '@/utils/convertEnum';
 
 interface IDetailReportRightQuickBarProps {
   isUser: boolean;

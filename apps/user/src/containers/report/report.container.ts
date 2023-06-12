@@ -10,7 +10,7 @@ import {
   getSalePriceByShare,
   postReportShareToken,
 } from './report.api';
-import { Dispatch, RefObject, SetStateAction } from 'react';
+import {Dispatch, RefObject, SetStateAction} from 'react';
 
 import {
   REPORT_ACTION,
@@ -18,19 +18,19 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import { scrollController } from '@/utils/scrollController';
+import {scrollController} from '@/utils/scrollController';
 
 import {
-  GRADE_ITEMS,
   BATCH_STATUS,
+  GRADE_ITEMS,
+  REPORT_DETAIL_TYPE,
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
   TITLE,
-  REPORT_DETAIL_TYPE,
 } from '@/types/enum.code';
-import { convertTime } from '@/utils/parsingTimezone';
-import { getReportList } from '@/containers/report/report.api';
-import { formatNumber } from '@/utils/formatNumber';
+import {convertTime} from '@/utils/parsingTimezone';
+import {getReportList} from '@/containers/report/report.api';
+import {formatNumber} from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -38,13 +38,10 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import { toast } from 'react-toastify';
-import { isFalsy } from '@/utils/isFalsy';
-import { isIncluded } from '@/utils/isIncluded';
-import {
-  _amplitudeKeywordReportDeleted,
-  _amplitudeKeywordReportViewed,
-} from '@/amplitude/amplitude.service';
+import {toast} from 'react-toastify';
+import {isFalsy} from '@/utils/isFalsy';
+import {isIncluded} from '@/utils/isIncluded';
+import {_amplitudeKeywordReportDeleted, _amplitudeKeywordReportViewed,} from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -583,8 +580,6 @@ export const onScrollDetail = (
 ): void => {
   const { scrollY } = _state;
   const sections = document.getElementsByClassName('detailReport-h1-header');
-
-  console.log('sections', scrollY);
 
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
   const [marketSize, keywordInfo, salePrice, overseaProduct] = [...sections].map(
