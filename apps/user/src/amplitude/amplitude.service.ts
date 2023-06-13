@@ -1,4 +1,4 @@
-import { CountryType, Role, SearchDto, User } from '@/generated/graphql';
+import { CountryType, Role, SearchDto } from '@/generated/graphql';
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import {
   AMPLITUDE_ACCOUNT_TYPE,
@@ -263,7 +263,10 @@ export const _amplitudeKeywordReportRequested = (
 };
 
 // ##### KEYWORD REPORT - 키워드 리포트 상세 조회 시 ##### //
-export const _amplitudeKeywordReportViewed = (routeId: string, data: TGetMainReport) => {
+export const _amplitudeKeywordReportViewed = (
+  routeId: string,
+  data: TGetMainReportResponse,
+) => {
   const report = data.data;
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
     report_id: routeId,

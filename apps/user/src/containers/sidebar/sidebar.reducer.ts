@@ -13,7 +13,7 @@ export type TSidebarAction = {
 };
 
 const sidebarInitialState: TSidebarState = {
-  openedSidebar: false,
+  openedSidebar: true,
   //lnb 내 메뉴 열림 여부
   openedDepthList: [Object.values(menuData)[0].key],
   //마이 메뉴 열림 여부

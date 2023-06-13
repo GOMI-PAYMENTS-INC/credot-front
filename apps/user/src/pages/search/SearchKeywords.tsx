@@ -2,7 +2,7 @@ import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } fro
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
-import { Defalut as Layout } from '@/components/layouts/Defalut';
+import { Default } from '@/components/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { SearchModal } from '@/pages/search/SearchModal';
 import {
@@ -48,6 +48,8 @@ import DropDown, {
   TDropDownOption,
 } from '@/components/dropDown';
 import { CountryType } from '@/generated/graphql';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { useRecoilValue } from 'recoil';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
@@ -235,7 +237,7 @@ const SearchKeywords = () => {
   };
 
   return (
-    <Layout>
+    <Default>
       <ModalComponent isOpen={_state.isModalOpen}>
         <SearchModal
           _state={_state}
@@ -499,7 +501,7 @@ const SearchKeywords = () => {
         searchSortBy={getValues('sortBy')}
         updateSearchKeyword={setValue}
       />
-    </Layout>
+    </Default>
   );
 };
 export default SearchKeywords;

@@ -16,7 +16,7 @@ import {
   activateVerifyCode,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
-  exccedVerifyTry,
+  exceptedVerifyTry,
 } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -34,7 +34,7 @@ export const useVerifyCode = (
   setError: UseFormSetError<TAuthEssentialProps>,
 ) => {
   const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation(
-    graphQLClient,
+    graphQLClient().config,
     {
       onSuccess: () => {
         activateVerifyCode(isVerification, setIsVerification);
@@ -42,7 +42,7 @@ export const useVerifyCode = (
       onError: (err) => {
         const [error] = err.response.errors;
         if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
-          exccedVerifyTry(isVerification, setIsVerification);
+          exceptedVerifyTry(isVerification, setIsVerification);
 
           return;
         }
@@ -67,7 +67,7 @@ export const useVerifyCode = (
     const { verifyCode } = isVerification;
 
     const { isSuccess } = useSmsVerifyCodeConfirmQuery(
-      graphQLClient,
+      graphQLClient().config,
       { phone, verifyCode },
       {
         enabled: phone?.length === 11 && verifyCode?.length === 6,
@@ -96,7 +96,7 @@ export const useVerifyCode = (
   const _getUserAccount = (user: { phone: string; verifyCodeSign: string }) => {
     // "상태에 따라 아이디가 없습니다."  | "아이디 출력"
     const { data } = useFindAccountQuery(
-      graphQLClient,
+      graphQLClient().config,
       {
         user,
         country: CountryType.Kr,
@@ -127,7 +127,7 @@ export const useVerifyCode = (
   };
 
   const { mutate: sendTemporaryPassword } = useSendTemporaryPasswordMutation(
-    graphQLClient,
+    graphQLClient().config,
     {
       onSuccess: (res) => {
         if (res.sendTemporaryPassword.accounts) {

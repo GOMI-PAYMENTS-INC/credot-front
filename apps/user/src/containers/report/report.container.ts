@@ -1,11 +1,16 @@
 import {
   deleteReportList,
   getMainReport,
+  getMainReportByShare,
   getOverseaProduct,
+  getOverseaProductByShare,
   getRelationReport,
+  getRelationReportByShare,
   getSalePrice,
+  getSalePriceByShare,
+  postReportShareToken,
 } from './report.api';
-import { ChangeEvent, Dispatch, RefObject, SetStateAction } from 'react';
+import {Dispatch, RefObject, SetStateAction} from 'react';
 
 import {
   REPORT_ACTION,
@@ -13,19 +18,19 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import { scrollController } from '@/utils/scrollController';
+import {scrollController} from '@/utils/scrollController';
 
 import {
-  GRADE_ITEMS,
   BATCH_STATUS,
+  GRADE_ITEMS,
+  REPORT_DETAIL_TYPE,
   STATUS_CODE,
   TAG_SENTIMENT_STATUS,
   TITLE,
-  REPORT_DETAIL_TYPE,
 } from '@/types/enum.code';
-import { convertTime } from '@/utils/parsingTimezone';
-import { getReportList } from '@/containers/report/report.api';
-import { formatNumber } from '@/utils/formatNumber';
+import {convertTime} from '@/utils/parsingTimezone';
+import {getReportList} from '@/containers/report/report.api';
+import {formatNumber} from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -33,16 +38,29 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import { toast } from 'react-toastify';
-import { isFalsy } from '@/utils/isFalsy';
-import { isIncluded } from '@/utils/isIncluded';
-import {
-  _amplitudeKeywordReportDeleted,
-  _amplitudeKeywordReportViewed,
-} from '@/amplitude/amplitude.service';
+import {toast} from 'react-toastify';
+import {isFalsy} from '@/utils/isFalsy';
+import {isIncluded} from '@/utils/isIncluded';
+import {_amplitudeKeywordReportDeleted, _amplitudeKeywordReportViewed,} from '@/amplitude/amplitude.service';
 
-export const openBrowser = (url: string) => {
-  window.open(url);
+export const _postReportShareToken = async (
+  id: string,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  try {
+    const response = await postReportShareToken({ id });
+    if (response?.data.code === STATUS_CODE.SUCCESS) {
+      const { data } = response.data;
+      _dispatch({
+        type: REPORT_ACTION.CREAT_SHARE_TOKEN,
+        payload: data,
+      });
+      return response.data.data;
+    }
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportAction>) => {
@@ -63,6 +81,47 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
+
+        _dispatch({
+          type: REPORT_ACTION.INITIALIZE_DATA,
+          payload: { type: dataName[idx], data: data },
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const _getReportInfoByShare = async (
+  token: string,
+  isUser: boolean,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  try {
+    let response;
+
+    if (isUser) {
+      response = await Promise.all([
+        getMainReportByShare(token),
+        getRelationReportByShare(token),
+        getSalePriceByShare(token),
+        getOverseaProductByShare(token),
+      ]);
+    } else {
+      response = await Promise.all([getMainReportByShare(token)]);
+    }
+
+    const dataName = Object.values(REPORT_DETAIL_TYPE);
+
+    const [first] = response;
+    if (first) {
+      _amplitudeKeywordReportViewed(token, first.data);
+    }
+
+    response.forEach((chunk, idx) => {
+      if (chunk) {
+        const { data } = chunk.data;
+
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
           payload: { type: dataName[idx], data: data },
@@ -80,7 +139,7 @@ export const _getRelationReport = async (
 ) => {
   try {
     const response = await getRelationReport(id);
-    if (response?.data) {
+    if (response?.data.code === STATUS_CODE.SUCCESS) {
       const { data } = response.data;
       _dispatch({
         type: REPORT_ACTION.INITIALIZE_DATA,
@@ -254,7 +313,7 @@ export const _deleteReportList = async (ids: number[]) => {
     const response = await deleteReportList({
       ids: ids,
     });
-    if (response?.data) {
+    if (response?.data.code === STATUS_CODE.SUCCESS) {
       return response.data;
     }
   } catch (error) {
@@ -468,7 +527,7 @@ export const convertGrade = (item: GRADE_ITEMS) => {
   }
 };
 
-export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: number) => {
+export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
   const median = Math.floor(items.length / 2);
   const scope = Math.floor(items.length / 4);
   let Q3: number, Q1: number;
@@ -485,18 +544,17 @@ export const removeOutlinerinItems = (items: TSalePriceItems[], basePrice: numbe
 
   const IQR = Q3 - Q1;
 
-  const removedOutliner = items.filter((item) => {
+  return items.filter((item) => {
     if (Q1 - 1.5 * IQR < item.itemPriceMin && Q3 + 1.5 * IQR > item.itemPriceMin) {
       return item;
     }
 
     return false;
   });
-  return removedOutliner;
 };
 
 export const changeSalePriceData = (items: TSalePriceItems[], basePrice: number) => {
-  const removedOutlinerItmes = removeOutlinerinItems(items, basePrice);
+  const removedOutlinerItmes = removeOutlinerinItems(items);
   const min = removedOutlinerItmes[0].itemPriceMin;
   const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
 
@@ -520,35 +578,40 @@ export const onScrollDetail = (
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const [first, second, third, fourth] = document.getElementsByClassName(
-    'detailReport-h1-header',
-  );
+  const sections = document.getElementsByClassName('detailReport-h1-header');
 
   //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, salePrice, overseaProduct] = [
-    first,
-    second,
-    third,
-    fourth,
-  ].map((element) => (element as HTMLElement).offsetTop - 100);
+  const [marketSize, keywordInfo, salePrice, overseaProduct] = [...sections].map(
+    (element) => (element as HTMLElement).offsetTop - 100,
+  );
 
   if (scrollY < 100) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
     return;
   }
 
-  if (scrollY >= marketSize && scrollY < keywordInfo) {
+  if (marketSize && keywordInfo && scrollY >= marketSize && scrollY < keywordInfo) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
   }
 
-  if (scrollY >= keywordInfo && scrollY < salePrice) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
+  if(keywordInfo){
+    //회원 상세페이지 접근시
+    if(salePrice){
+      if (salePrice && scrollY >= keywordInfo && scrollY < salePrice) {
+        _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
+      }
+    }else{
+      //비회원 공유하기로 인한 상세페이지 접근시
+      if (scrollY >= keywordInfo) {
+        _setState(Object.assign({}, _state, {title: name, current: TITLE.KEYWORD_INFO}));
+      }
+    }
   }
 
-  if (scrollY >= salePrice && scrollY < overseaProduct) {
+  if (salePrice && overseaProduct && scrollY >= salePrice && scrollY < overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
   }
-  if (scrollY >= overseaProduct) {
+  if (overseaProduct && scrollY >= overseaProduct) {
     _setState(Object.assign({}, _state, { title: name, current: TITLE.OVERSEA_PRODUCT }));
   }
 };

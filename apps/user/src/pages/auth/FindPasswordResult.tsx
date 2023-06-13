@@ -1,10 +1,11 @@
 import { Fragment, Dispatch, SetStateAction } from 'react';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { Link } from 'react-router-dom';
-import { PATH, AUTH_RESPONSE_TYPE } from '@/types/enum.code';
+import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
 
-import { maskingPhone, initializeAuteState } from '@/containers/auth/auth.container';
+import { maskingPhone, initializeAuthState } from '@/containers/auth/auth.container';
 import { UseFormSetValue } from 'react-hook-form';
+import { PATH } from '@/types/enum.code';
 
 interface IFindPasswordResult {
   phone: string;
@@ -60,7 +61,7 @@ export const FindPasswordResult = (props: IFindPasswordResult) => {
               <Link to={PATH.FIND_PASSWORD}>
                 <button
                   type='button'
-                  onClick={() => initializeAuteState(setIsVerification, setValue)}
+                  onClick={() => initializeAuthState(setIsVerification, setValue)}
                   className='button-filled-normal-large-primary-false-false-true w-full min-w-[102px] bg-white text-grey-700'
                 >
                   다시 비밀번호 찾기

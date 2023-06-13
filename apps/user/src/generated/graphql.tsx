@@ -130,8 +130,12 @@ export type LoginPassword = {
 
 export type LoginToken = {
   __typename?: 'LoginToken';
+  /** 휴대폰 번호 여부 */
+  isPhoneNumber: Scalars['Boolean'];
   /** 로그인 토큰 */
   token: Scalars['String'];
+  /** 회원 식별자 */
+  userId: Scalars['Int'];
 };
 
 export type Mutation = {
@@ -382,7 +386,12 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = {
   __typename?: 'Mutation';
-  signup: { __typename?: 'LoginToken'; token: string };
+  signup: {
+    __typename?: 'LoginToken';
+    isPhoneNumber: boolean;
+    token: string;
+    userId: number;
+  };
 };
 
 export type LoginMutationVariables = Exact<{
@@ -404,7 +413,12 @@ export type GoogleLoginMutationVariables = Exact<{
 
 export type GoogleLoginMutation = {
   __typename?: 'Mutation';
-  googleLogin: { __typename?: 'LoginToken'; token: string };
+  googleLogin: {
+    __typename?: 'LoginToken';
+    isPhoneNumber: boolean;
+    token: string;
+    userId: number;
+  };
 };
 
 export type ChangePasswordMutationVariables = Exact<{
@@ -448,7 +462,12 @@ export type GoogleSignupMutationVariables = Exact<{
 
 export type GoogleSignupMutation = {
   __typename?: 'Mutation';
-  googleSignUp: { __typename?: 'LoginToken'; token: string };
+  googleSignUp: {
+    __typename?: 'LoginToken';
+    isPhoneNumber: boolean;
+    token: string;
+    userId: number;
+  };
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
@@ -584,7 +603,9 @@ export const useSendSmsVerificationCodeMutation = <
 export const SignupDocument = `
     mutation Signup($user: SignUpInput!) {
   signup(user: $user) {
+    isPhoneNumber
     token
+    userId
   }
 }
     `;
@@ -634,7 +655,9 @@ export const useLoginMutation = <TError extends unknown, TContext extends unknow
 export const GoogleLoginDocument = `
     mutation GoogleLogin($idToken: String!) {
   googleLogin(idToken: $idToken) {
+    isPhoneNumber
     token
+    userId
   }
 }
     `;
@@ -753,7 +776,9 @@ export const useSendTemporaryPasswordMutation = <
 export const GoogleSignupDocument = `
     mutation GoogleSignup($socialSignUpDto: GoogleSignUpInput!) {
   googleSignUp(socialSignUpDto: $socialSignUpDto) {
+    isPhoneNumber
     token
+    userId
   }
 }
     `;

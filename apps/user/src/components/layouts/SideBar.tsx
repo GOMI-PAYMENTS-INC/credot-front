@@ -1,39 +1,38 @@
-import { useLocation, useNavigate, matchRoutes, Link } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
+import {Link, matchRoutes, useLocation, useNavigate} from 'react-router-dom';
+import {ReactSVG} from 'react-svg';
 
-import { AuthContainer } from '@/containers/auth/auth.legacy.container';
-import { PATH, routeList } from '@/router/routeList';
-import { isIncluded } from '@/utils/isIncluded';
-import { useEffect, useReducer, useRef } from 'react';
-import { menuData } from '@/containers/sidebar/sideBarData';
-import {
-  sidebarInitialState,
-  sidebarReducer,
-} from '@/containers/sidebar/sidebar.reducer';
+import {routeList} from '@/router/routeList';
+import {isIncluded} from '@/utils/isIncluded';
+import {Dispatch, useEffect, useRef, useState} from 'react';
+import {PATH} from '@/types/enum.code';
+import {menuData} from '@/containers/sidebar/sideBarData';
+import {TSidebarAction,} from '@/containers/sidebar/sidebar.reducer';
 
-import {
-  onClickUserMenu,
-  toggleDepth2Menu,
-  toggleSidebar,
-  clearSessionStorage,
-} from '@/containers/sidebar';
-import { replaceOverLength } from '@/utils/replaceOverLength';
-import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { openBrowser } from '@/containers/report';
+import {onClickUserMenu, toggleDepth2Menu, toggleSidebar} from '@/containers/sidebar';
+import {replaceOverLength} from '@/utils/replaceOverLength';
+import {_amplitudeMovedToUserGuide} from '@/amplitude/amplitude.service';
+import {MeQuery} from '@/generated/graphql';
+import {UserAtom} from '@/atom/auth/auth-atom';
+import {useRecoilValue} from 'recoil';
+import {signInApi} from '@/containers/auth/signIn.api';
+import {openBrowser} from '@/utils/openBrowser';
 
-const SideBar = () => {
-  const { onLogout } = AuthContainer();
+interface TSideBarProps {
+  openWidth: number;
+  closeWidth: number;
+  _state: TSidebarState;
+  _dispatch: Dispatch<TSidebarAction>;
+}
+const SideBar = (props: TSideBarProps) => {
+  const { openWidth, closeWidth, _state, _dispatch } = props;
+  const { onLogout } = signInApi();
   const navigation = useNavigate();
   const { pathname } = useLocation();
   const [{ route }] = matchRoutes(routeList, pathname) || [];
   const { path } = route;
-
-  const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
-
-  const { userInfo } = AuthContainer();
-  const userId = userInfo ? replaceOverLength(userInfo.me.email, 17) : '';
-
   const modalEl = useRef<HTMLDivElement>(null);
+  const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
+
   useEffect(() => {
     const clickOutside = (event: any) => {
       if (
@@ -50,90 +49,19 @@ const SideBar = () => {
     };
   }, [_state.openedUserMenu]);
 
+  const userAtom = useRecoilValue(UserAtom);
+  useEffect(() => {
+    if (userAtom) {
+      setUserInfo(userAtom);
+    }
+  }, [userAtom]);
+
   return (
-    <aside className='relative'>
+    <aside className='fixed left-0 h-full'>
       {_state.openedSidebar ? (
-        <div className='flex h-full w-[64px] flex-[0_0_64px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5'>
-          <div>
-            <div className='flex h-20 items-center justify-center'>
-              <button
-                className='iconButton-large-normal-ghost-grey'
-                onClick={() => toggleSidebar(_dispatch)}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/MenuOpen.svg'
-                  className='cursor-pointer'
-                />
-              </button>
-            </div>
-            <ul>
-              {menuData.map((menu, menuIndex) => {
-                const isActive = isIncluded(path, ...menu.path);
-                return (
-                  <li
-                    className='cursor-pointer text-S/Medium text-grey-800'
-                    key={menuIndex}
-                  >
-                    <button
-                      className={`${
-                        isActive ? `bg-orange-100` : `bg-white`
-                      } flex justify-between rounded-lg p-3`}
-                      onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
-                    >
-                      <div className='flex items-center'>
-                        <ReactSVG
-                          src={menu.iconPath}
-                          className='cursor-pointer'
-                          beforeInjection={(svg) => {
-                            svg.setAttribute(
-                              'class',
-                              `h-5 w-5 ${isActive ? 'fill-orange-500' : 'text-grey-900'}`,
-                            );
-                          }}
-                        />
-                      </div>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <ul className='mb-6 space-y-6 leading-none'>
-            <li className='text-center'>
-              <button
-                className='iconButton-medium-normal-ghost-grey'
-                onClick={() => {
-                  openBrowser(
-                    'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
-                  );
-                  _amplitudeMovedToUserGuide('lnb');
-                }}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/QuestionCircle.svg'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'h-4 w-4 ');
-                  }}
-                />
-              </button>
-            </li>
-            <li className='text-center'>
-              <button
-                className='iconButton-medium-normal-ghost-grey'
-                onClick={() => onClickUserMenu(_dispatch)}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/User.svg'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'h-4 w-4 ');
-                  }}
-                />
-              </button>
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <div className='flex h-full w-[200px] flex-[0_0_200px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white'>
+        <div
+          className={`flex h-full w-[${openWidth}px] flex-[0_0_${openWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}
+        >
           <div className='px-2.5'>
             <div className='flex h-20 items-center'>
               <button
@@ -308,10 +236,12 @@ const SideBar = () => {
             <div>
               <a href='#' onClick={() => onClickUserMenu(_dispatch)}>
                 <div className='flex cursor-pointer items-center justify-between px-4 py-[18px]'>
-                  <p className='text-S/Medium text-grey-800'>{userId}</p>
+                  <p className='text-S/Medium text-grey-800'>
+                    {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
+                  </p>
                   <ReactSVG
                     src='/assets/icons/outlined/ArrowRight-Small.svg'
-                    className='cursor-pointer '
+                    className='cursor-pointer'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', `w-6 fill-grey-800`);
                     }}
@@ -320,6 +250,88 @@ const SideBar = () => {
               </a>
             </div>
           </div>
+        </div>
+      ) : (
+        <div
+          className={`flex h-full w-[${closeWidth}px] flex-[0_0_${closeWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5`}
+        >
+          <div>
+            <div className='flex h-20 items-center justify-center'>
+              <button
+                className='iconButton-large-normal-ghost-grey'
+                onClick={() => toggleSidebar(_dispatch)}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/MenuOpen.svg'
+                  className='cursor-pointer'
+                />
+              </button>
+            </div>
+            <ul>
+              {menuData.map((menu, menuIndex) => {
+                const isActive = isIncluded(path, ...menu.path);
+                return (
+                  <li
+                    className='cursor-pointer text-S/Medium text-grey-800'
+                    key={menuIndex}
+                  >
+                    <button
+                      className={`${
+                        isActive ? `bg-orange-100` : `bg-white`
+                      } flex justify-between rounded-lg p-3`}
+                      onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
+                    >
+                      <div className='flex items-center'>
+                        <ReactSVG
+                          src={menu.iconPath}
+                          className='cursor-pointer'
+                          beforeInjection={(svg) => {
+                            svg.setAttribute(
+                              'class',
+                              `h-5 w-5 ${isActive ? 'fill-orange-500' : 'text-grey-900'}`,
+                            );
+                          }}
+                        />
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <ul className='mb-6 space-y-6 leading-none'>
+            <li className='text-center'>
+              <button
+                className='iconButton-medium-normal-ghost-grey'
+                onClick={() => {
+                  openBrowser(
+                    'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                  );
+                  _amplitudeMovedToUserGuide('lnb');
+                }}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/QuestionCircle.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'h-4 w-4 ');
+                  }}
+                />
+              </button>
+            </li>
+            <li className='text-center'>
+              <button
+                className='iconButton-medium-normal-ghost-grey'
+                onClick={() => onClickUserMenu(_dispatch)}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/User.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'h-4 w-4 ');
+                  }}
+                />
+              </button>
+            </li>
+          </ul>
         </div>
       )}
       {_state.openedUserMenu ? (
@@ -331,10 +343,7 @@ const SideBar = () => {
             <li className='px-4 py-3'>
               <a
                 href='#'
-                onClick={() => {
-                  clearSessionStorage();
-                  onLogout();
-                }}
+                onClick={() => void onLogout()}
                 className='text-S/Regular text-red-700'
               >
                 로그아웃

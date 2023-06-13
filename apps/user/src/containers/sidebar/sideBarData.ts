@@ -20,7 +20,7 @@ export const menuData = [
         iconPath: '/assets/icons/outlined/FileText.svg',
         path: PATH.REPORT_LIST,
         //path와 활동화될 페이지가 다른 경우 사용
-        activePath: [PATH.REPORT_LIST, PATH.REPORT_DETAIL],
+        activePath: [PATH.REPORT_LIST, PATH.REPORT_DETAIL, PATH.REPORT_DETAIL_BY_SHARE],
       },
     ],
   },

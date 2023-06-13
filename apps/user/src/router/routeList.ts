@@ -13,6 +13,7 @@ export const PATH = {
   REAPPLY_PASSWORD: '/signin/password',
   REPORT_LIST: '/report',
   REPORT_DETAIL: '/report/:id',
+  REPORT_DETAIL_BY_SHARE: '/share/:id',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -40,7 +41,7 @@ export const routeList: IRoute[] = [
     component: AuthRoutes.SignUp,
   },
   {
-    //소셜 로그인
+    //소셜 회원가입시 전화번호 추가 입력
     isPrivate: false,
     description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
@@ -69,7 +70,7 @@ export const routeList: IRoute[] = [
   },
   {
     //비밀번호 재설정
-    isPrivate: false,
+    isPrivate: true,
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: AuthRoutes.TemporaryPassword,
@@ -82,15 +83,24 @@ export const routeList: IRoute[] = [
     component: SearchKeywords,
   },
   {
+    //리포트 목록
     isPrivate: true,
     description: 'ReportList',
     path: PATH.REPORT_LIST,
     component: ReportRoutes.ReportList,
   },
   {
+    //리포트 상세
     isPrivate: true,
     description: 'DetailReport',
     path: PATH.REPORT_DETAIL,
-    component: ReportRoutes.DetailReport,
+    component: ReportRoutes.DetailReportPage,
+  },
+  {
+    //리포트 상세 - 공유하기
+    isPrivate: false,
+    description: 'DetailReportByShare',
+    path: PATH.REPORT_DETAIL_BY_SHARE,
+    component: ReportRoutes.DetailReportPageByShare,
   },
 ];

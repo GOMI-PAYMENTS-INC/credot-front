@@ -17,7 +17,6 @@ export const CustomToastContainer = () => {
   const typeConvert = () => {};
 
   const iconCustom = (type: TypeOptions) => {
-    console.log('dd', type);
     switch (type) {
       case 'success':
         return (

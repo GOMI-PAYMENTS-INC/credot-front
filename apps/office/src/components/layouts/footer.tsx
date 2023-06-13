@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
+import {Link} from 'react-router-dom';
+import {ReactSVG} from 'react-svg';
 
-import { PATH } from '@/types/paths';
+import {PATH} from '@/types/paths';
+
 const Footer = () => {
   const IMG_PATH = '/assets/images';
   return (
@@ -17,14 +18,12 @@ const Footer = () => {
                 }}
               />
             </Link>
-            <h3 className='mt-[28px] text-M/Bold'>(주)고미코퍼레이션</h3>
+            <h3 className='mt-[28px] text-M/Bold'>(주)고미인사이트</h3>
             <div className='mt-4 space-y-1.5 text-S/Medium text-grey-700'>
-              <p>대표이사 : 장건영, 이상곤 | 개인정보관리책임자 : 양원석</p>
-              <p>사업자등록번호 : 613-86-01212</p>
-              <p>통신판매업신고번호 : 제2019-서울강남-01431호</p>
-              <p>주소 : 서울시 강남구 강남대로 624, ICT 타워 5~7층</p>
+              <p>대표이사 : 오채윤 | 개인정보관리책임자 : 오채윤</p>
+              <p>사업자등록번호 : 460-81-03324</p>
+              <p>주소 : 서울시 송파구 법원로 128, C동 G114-S108호</p>
               <p>메일 : support@gomiinsight.com</p>
-              <p>전화 : 1833-3176 | 팩스 : 02-557-3176</p>
             </div>
           </div>
           <div className='sm:mt-4 sm:grid sm:w-full sm:grid-cols-2 sm:gap-x-[11px]'>

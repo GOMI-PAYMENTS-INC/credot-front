@@ -1,9 +1,61 @@
-import { createElement } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { createElement, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
+import { _setUserId } from '@/amplitude/amplitude.service';
+import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
+import { signInApi } from '@/containers/auth/signIn.api';
+import { useMeQuery } from '@/generated/graphql';
 import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
+import { authTokenStorage } from '@/utils/authToken';
+import { graphQLClient } from '@/utils/graphqlCient';
+import { isFalsy } from '@/utils/isFalsy';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 export const Router = () => {
+  // 인증이 반드시 필요한 페이지
+  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
+  const [token, setToken] = useRecoilState(LoginTokenAtom);
+
+  const { clearUserInfo, clearAmplitude } = signInApi();
+  const navigation = useNavigate();
+
+  const { data: userQueryData } = useMeQuery(
+    graphQLClient().config,
+    {},
+    {
+      enabled: isFalsy(token) === false,
+      refetchOnWindowFocus: false,
+      onSuccess: (res) => {
+        if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
+          //앰플리튜드에서 사용할 회원 정보 셋팅
+          _setUserId(res.me.id);
+          useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
+        }
+      },
+      onError: (error) => {
+        clearUserInfo();
+        clearAmplitude();
+        navigation(PATH.SIGN_IN);
+      },
+    },
+  );
+
+  const storageToken = authTokenStorage.getToken();
+
+  useEffect(() => {
+    if (storageToken && isFalsy(token)) {
+      setToken(storageToken);
+    }
+  }, [storageToken]);
+
+  useEffect(() => {
+    if (userQueryData && isFalsy(userInfo)) {
+      setUserInfo(userQueryData);
+    }
+  }, [userQueryData]);
+
   return (
     <Routes>
       {routeList.map((route) => {
