@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY, MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
-import { postCreateReport, getReportExisted } from '@/containers/search/search.api';
+import { getReportExisted, postCreateReport } from '@/containers/search/search.api';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import {
@@ -160,10 +160,32 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
       }
     }
 
+    const makeJobId = () => {
+      const prefix = 'cr_report_';
+      const makeDateFormat = (number: number) => (number >= 10 ? number : '0' + number);
+
+      const date = new Date();
+      const yy = date.getFullYear() % 100;
+      const MM = date.getMonth() + 1;
+      const dd = date.getDate();
+      const hh = date.getHours();
+      const mm = date.getMinutes();
+      const ss = date.getSeconds();
+
+      const convertDateArray = [MM, dd, hh, mm, ss];
+      const convertDateResult = convertDateArray.reduce(
+        (previousValue, currentValue, currentIndex, array) =>
+          previousValue + makeDateFormat(currentValue),
+        '',
+      );
+      return prefix + String(yy) + convertDateResult;
+    };
+
     const postReport = await postCreateReport({
       reportInvokeId: reportInvokeId,
       country: country,
       sortBy: sortBy,
+      jobId: makeJobId(),
     });
 
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
