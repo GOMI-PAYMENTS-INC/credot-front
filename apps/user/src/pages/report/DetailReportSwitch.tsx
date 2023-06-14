@@ -8,6 +8,7 @@ import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { Fragment } from 'react';
 import { Params } from 'react-router-dom';
 import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
+import BrandAnalysis from '@/pages/report/BrandAnalysis';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
@@ -41,6 +42,7 @@ export const DetailReportSwitch = ({
               keywordInfo={main!}
               amplitudeData={amplitudeData}
             />
+            <BrandAnalysis />
             <MarketSize marketSize={main!} />
             <AnalysisKeyword analysisInfo={main!} />
 
