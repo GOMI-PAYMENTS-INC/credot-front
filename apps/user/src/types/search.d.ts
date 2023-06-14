@@ -30,11 +30,6 @@ type TSearchState = {
 
 type TSearchRef = { current: Omit<TSearchState, 'translateType' | 'isSearched'> };
 
-type TCreateReportParamsType = {
-  country: CountryType; // 국가코드
-  reportInvokeId: string; // 키워드 아이디
-};
-
 type TCreateReportReponseType = {
   code: string;
   message: string;

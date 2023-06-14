@@ -109,7 +109,9 @@ type TCreateReportParamsType = {
   country: CountryType;
   reportInvokeId: string;
   sortBy: TSortBy;
+  jobId: string;
 };
+
 type TGetReportExistedParamsType = {
   country: CountryType;
   text: string;
