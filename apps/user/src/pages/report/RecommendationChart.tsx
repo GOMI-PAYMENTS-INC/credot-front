@@ -7,26 +7,26 @@ import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 
-import { roundNumber } from '@/containers/report';
+import { isToggleOpen, roundNumber } from '@/containers/report';
 
 import {
-  convertRecommendationScoreToText,
   convertEvaluateStatus,
+  convertRecommendationScoreToText,
 } from '@/constants/report.constant';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/containers/report/report.reducer';
-import { isToggleOpen } from '@/containers/report';
 import {
   _getRelationReport,
-  delayEvent,
   buttonSpinnerEvent,
   convertExchangeRate,
+  delayEvent,
 } from '@/containers/report/report.container';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
 import { openBrowser } from '@/utils/openBrowser';
+
 interface IRecommendationChart {
   relation: TGetRelationReportDataType[];
   country: CountryType | null;
@@ -167,7 +167,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                   >
                     <td>
                       <div className='ml-3 flex'>
-                        <p>{data.text}d</p>
+                        <p>{data.text}</p>
                       </div>
                     </td>
                     <td>
