@@ -1,5 +1,6 @@
 import {
   deleteReportList,
+  getBrandAnalysis,
   getMainReport,
   getMainReportByShare,
   getOverseaProduct,
@@ -10,7 +11,7 @@ import {
   getSalePriceByShare,
   postReportShareToken,
 } from './report.api';
-import {Dispatch, RefObject, SetStateAction} from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 
 import {
   REPORT_ACTION,
@@ -18,7 +19,7 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import {scrollController} from '@/utils/scrollController';
+import { scrollController } from '@/utils/scrollController';
 
 import {
   BATCH_STATUS,
@@ -28,9 +29,9 @@ import {
   TAG_SENTIMENT_STATUS,
   TITLE,
 } from '@/types/enum.code';
-import {convertTime} from '@/utils/parsingTimezone';
-import {getReportList} from '@/containers/report/report.api';
-import {formatNumber} from '@/utils/formatNumber';
+import { convertTime } from '@/utils/parsingTimezone';
+import { getReportList } from '@/containers/report/report.api';
+import { formatNumber } from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -38,10 +39,13 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import {toast} from 'react-toastify';
-import {isFalsy} from '@/utils/isFalsy';
-import {isIncluded} from '@/utils/isIncluded';
-import {_amplitudeKeywordReportDeleted, _amplitudeKeywordReportViewed,} from '@/amplitude/amplitude.service';
+import { toast } from 'react-toastify';
+import { isFalsy } from '@/utils/isFalsy';
+import { isIncluded } from '@/utils/isIncluded';
+import {
+  _amplitudeKeywordReportDeleted,
+  _amplitudeKeywordReportViewed,
+} from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -70,6 +74,7 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
       getRelationReport(id),
       getSalePrice(id),
       getOverseaProduct(id),
+      getBrandAnalysis(id),
     ]);
     const dataName = Object.values(REPORT_DETAIL_TYPE);
 
@@ -81,7 +86,7 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
-
+        console.log(dataName[idx], data);
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
           payload: { type: dataName[idx], data: data },
@@ -515,7 +520,9 @@ export const selectSalePriceCompetitionType = (
 ) => {
   _dispatch({ type: REPORT_ACTION.FOCUS_ITEMS, payload: { focus: focus } });
 };
-
+export const selectBrandIndex = (focus: number, _dispatch: Dispatch<TReportAction>) => {
+  _dispatch({ type: REPORT_ACTION.FOCUS_BRAND, payload: { focus: focus } });
+};
 export const convertGrade = (item: GRADE_ITEMS) => {
   switch (item) {
     case GRADE_ITEMS.HIGH:
@@ -594,16 +601,20 @@ export const onScrollDetail = (
     _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
   }
 
-  if(keywordInfo){
+  if (keywordInfo) {
     //회원 상세페이지 접근시
-    if(salePrice){
+    if (salePrice) {
       if (salePrice && scrollY >= keywordInfo && scrollY < salePrice) {
-        _setState(Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }));
+        _setState(
+          Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }),
+        );
       }
-    }else{
+    } else {
       //비회원 공유하기로 인한 상세페이지 접근시
       if (scrollY >= keywordInfo) {
-        _setState(Object.assign({}, _state, {title: name, current: TITLE.KEYWORD_INFO}));
+        _setState(
+          Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }),
+        );
       }
     }
   }

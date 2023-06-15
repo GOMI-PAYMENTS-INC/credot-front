@@ -68,7 +68,7 @@ input[type='number'] {
 
   /* 툴팁 */
   .react-tooltip {
-    @apply !rounded-[3px] !border-[1px] !border-grey-200 !bg-white !px-4 !py-4;
+    @apply !rounded-[3px] !border-[1px] !border-grey-200 !bg-white !px-4 !py-4 !text-XS/Regular !text-grey-900;
   }
 }
 
@@ -147,7 +147,7 @@ input[type='number'] {
     @apply h-4 w-4 fill-grey-500;
   }
   .tooltip-container{
-    @apply relative
+    @apply relative ml-[5px]
   }
   .tooltip-container .react-tooltip{
     @apply z-10

@@ -44,7 +44,13 @@ const getRelationReportByShare = async (token: string) => {
     console.error(error);
   }
 };
-
+const getBrandAnalysis = async (id: string) => {
+  try {
+    return await HTTP.get<TBrandAnalysisResponse>(`${REPORT_URL}/${id}/brand`);
+  } catch (error) {
+    console.error(error);
+  }
+};
 const getOverseaProduct = async (id: string) => {
   try {
     return await HTTP.get<TOverseaProductResponse>(`${REPORT_URL}/${id}/oversea`);
@@ -103,6 +109,7 @@ export {
   postReportShareToken,
   getMainReport,
   getMainReportByShare,
+  getBrandAnalysis,
   getRelationReport,
   getRelationReportByShare,
   getSalePrice,

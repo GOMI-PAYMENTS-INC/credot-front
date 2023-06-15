@@ -140,6 +140,10 @@ type TReportState = {
     list: TSalePriceItems[] | [];
   };
   oversea: TOverseaProductData | null;
+  brand: {
+    focus: number;
+    data: TBrandAnalysis | null;
+  };
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -296,4 +300,44 @@ type scrollEventState = {
   title: string;
   isOpen: boolean;
   current: string;
+};
+
+type TBrandAnalysisProduct = {
+  id: number;
+  itemName: string;
+  itemUrl: string;
+  itemImage: string;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  item30daySales: number;
+  item30daysSold: number;
+  rank: number;
+};
+
+type TBrandAnalysisBrand = {
+  rank: number;
+  name: string;
+  productCount: number;
+  totalSalesAmount: number;
+  totalSalesCount: number;
+  avgSalesAmount: number;
+  avgSalesCount: number;
+  avgPrice: number;
+  products: TBrandAnalysisProduct[];
+};
+
+type TBrandAnalysis = {
+  text: string;
+  country: CountryType;
+  channel: TChannel;
+  sorted: TSortBy;
+  currencyUnit: number;
+  basePrice: number;
+  brands: TBrandAnalysisBrand[];
+};
+
+type TBrandAnalysisResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TBrandAnalysis;
 };

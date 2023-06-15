@@ -104,6 +104,7 @@ export enum REPORT_DETAIL_TYPE {
   RELATION = 'relation',
   PRICE = 'price',
   OVERSEA = 'oversea',
+  BRAND = 'brand',
 }
 
 export enum GRADE_ITEMS {

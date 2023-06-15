@@ -7,7 +7,6 @@ import { convertExchangeRate, roundNumber } from '@/containers/report';
 
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { isFalsy } from '@/utils/isFalsy';
-import { COUNTRY_CODE } from '@/containers/report/country.code';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 import { TITLE } from '@/types/enum.code';
@@ -15,12 +14,12 @@ import { TITLE } from '@/types/enum.code';
 interface IBrandAnalysisProductTable {
   currencyUnit: number;
   basePrice: number;
-  overseaItems: TOverSeaItems[];
+  brandAnalysisProduct: TBrandAnalysisProduct[];
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => {
-  const { amplitudeData, overseaItems, currencyUnit, basePrice } = props;
+  const { amplitudeData, brandAnalysisProduct, currencyUnit, basePrice } = props;
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
@@ -28,10 +27,10 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[368px] text-left' colSpan={1}>
-            <p className=' pl-3 text-XS/Medium'>해외 배송 상품</p>
+            <p className='pl-3 text-XS/Medium'>해외 배송 상품</p>
           </th>
           <th className='w-[132px] text-left' colSpan={1}>
-            <p className=' pl-3 text-XS/Medium'>국가</p>
+            <p className='pl-3 text-XS/Medium'>국가</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
             <p className='px-4  text-XS/Medium'>판매가</p>
@@ -51,10 +50,10 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
       <tbody
         id='scrollbar'
         className={`${
-          isFalsy(overseaItems) ? '' : 'block'
+          isFalsy(brandAnalysisProduct) ? '' : 'block'
         } max-h-[393px] w-full overflow-y-auto`}
       >
-        {isFalsy(overseaItems) ? (
+        {isFalsy(brandAnalysisProduct) ? (
           <tr>
             <td colSpan={7}>
               <div className='flex flex-col items-center justify-center text-center'>
@@ -67,14 +66,11 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
           </tr>
         ) : (
           <Fragment>
-            {overseaItems.map((item, idx) => {
-              const countryCode = COUNTRY_CODE[
-                item.itemShopCountry as keyof typeof COUNTRY_CODE
-              ] ?? { name: '미분류국가', flag: 'None' };
+            {brandAnalysisProduct.map((item, idx) => {
               return (
                 <tr
                   className={
-                    idx === overseaItems.length - 1
+                    idx === brandAnalysisProduct.length - 1
                       ? 'w-full border-grey-300 text-right'
                       : 'w-full border-b-[1px] border-grey-300 text-right'
                   }
@@ -91,12 +87,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                       </div>
                     </div>
                   </td>
-                  <td className='w-[132px]'>
-                    <div className='flex items-center text-S/Medium text-grey-900'>
-                      <ReactSVG src={`/assets/icons/country/${countryCode.flag}.svg`} />
-                      <p className='pl-2'>{countryCode.name}</p>
-                    </div>
-                  </td>
+
                   <td className='w-[128px]'>
                     {item.itemPriceMax === item.itemPriceMin ? (
                       <Fragment>
@@ -106,7 +97,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                               roundNumber(
                                 convertExchangeRate(
                                   currencyUnit,
-                                  item.itemPriceAvg,
+                                  item.itemPriceMax,
                                   basePrice,
                                 ),
                               ),
@@ -164,7 +155,8 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                           roundNumber(
                             convertExchangeRate(
                               currencyUnit,
-                              item.itemPriceAvg * item.item30daysSold,
+                              ((item.itemPriceMax + item.itemPriceMin) / 2) *
+                                item.item30daysSold,
                               basePrice,
                             ),
                           ),

@@ -147,7 +147,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 <a data-tooltip-id='anchor-market-evaluation'>
                   <ReactSVG
                     src='/assets/icons/outlined/QuestionCircle.svg'
-                    className='fill-grey-500 pl-[7px]'
+                    className='fill-grey-500'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                     }}

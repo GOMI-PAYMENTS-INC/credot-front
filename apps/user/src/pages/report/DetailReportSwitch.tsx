@@ -25,12 +25,14 @@ export const DetailReportSwitch = ({
   scrollController,
   params,
 }: IDetailReportSwitchProps) => {
-  const { main, relation } = _state;
+  const { main, relation, brand } = _state;
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
     keyword: main!.text,
   };
+
+  console.log(_state);
 
   return (
     <div className='col-span-10'>
@@ -42,7 +44,14 @@ export const DetailReportSwitch = ({
               keywordInfo={main!}
               amplitudeData={amplitudeData}
             />
-            <BrandAnalysis />
+            <BrandAnalysis
+              _dispatch={_dispatch}
+              amplitudeData={amplitudeData}
+              basePrice={main!.basePrice}
+              currencyUnit={main!.currencyUnit}
+              brandAnalysis={brand}
+              forceBrandIndex={_state.brand.focus}
+            />
             <MarketSize marketSize={main!} />
             <AnalysisKeyword analysisInfo={main!} />
 
