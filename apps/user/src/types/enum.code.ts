@@ -72,6 +72,7 @@ export enum SORT_BY_TYPE {
 export enum TITLE {
   REPORT = 'Report',
   MARKET_SIZE = 'MarketSize',
+  BRAND_ANALYSIS = 'BrandAnalysis',
   KEYWORD_INFO = 'KeywordInfo',
   SALE_PRICE = 'SalePrice',
   OVERSEA_PRODUCT = 'overseaProduct',
@@ -103,6 +104,7 @@ export enum REPORT_DETAIL_TYPE {
   RELATION = 'relation',
   PRICE = 'price',
   OVERSEA = 'oversea',
+  BRAND = 'brand',
 }
 
 export enum GRADE_ITEMS {
@@ -152,4 +154,5 @@ export enum CACHING_KEY {
 
 export enum STYLE_ENUM {
   REPORT_DETAIL_HEADER_HEIGHT = 85,
+  REPORT_DETAIL_BODY_PADDING_TOP = 32,
 }

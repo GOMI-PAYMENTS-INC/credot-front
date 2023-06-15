@@ -60,6 +60,16 @@ input[type='number'] {
     background-position-y: 50%;
     background-size: 12px;
   }
+
+  /* 토스트 알림 */
+  .Toastify__toast-body{
+    @apply !p-0;
+  }
+
+  /* 툴팁 */
+  .react-tooltip {
+    @apply !rounded-[3px] !border-[1px] !border-grey-200 !bg-white !px-4 !py-4 !text-XS/Regular !text-grey-900;
+  }
 }
 
 @layer components {
@@ -137,7 +147,7 @@ input[type='number'] {
     @apply h-4 w-4 fill-grey-500;
   }
   .tooltip-container{
-    @apply relative
+    @apply relative ml-[5px]
   }
   .tooltip-container .react-tooltip{
     @apply z-10
@@ -151,6 +161,9 @@ input[type='number'] {
   .keywordInfo-divide-by-single-dot:nth-child(even) {
     @apply before:content-[''] before:left-[-8px] before:absolute before:top-1/2 before:translate-y-[-50%] before:w-0.5 before:h-0.5 before:bg-grey-700;
   }
+
+
+
 }
 
 /* Works on Firefox */
@@ -468,7 +481,3 @@ input[type='number'] {
   }
 }
 
-/*토스트 알림*/
-.Toastify__toast-body{
-  padding:0 !important;
-}

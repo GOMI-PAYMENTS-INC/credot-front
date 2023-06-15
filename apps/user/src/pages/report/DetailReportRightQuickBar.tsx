@@ -1,8 +1,12 @@
-import {ReactSVG} from 'react-svg';
-import {Dispatch, RefObject, SetStateAction, useEffect, useMemo} from 'react';
-import {onScrollDetail, scrollToTop, switchContents,} from '@/containers/report/report.container';
-import {STYLE_ENUM, TITLE} from '@/types/enum.code';
-import {convertTitle} from '@/utils/convertEnum';
+import { ReactSVG } from 'react-svg';
+import { Dispatch, RefObject, SetStateAction, useEffect, useMemo } from 'react';
+import {
+  onScrollDetail,
+  scrollToTop,
+  switchContents,
+} from '@/containers/report/report.container';
+import { STYLE_ENUM, TITLE } from '@/types/enum.code';
+import { convertTitle } from '@/utils/convertEnum';
 
 interface IDetailReportRightQuickBarProps {
   isUser: boolean;
@@ -25,7 +29,7 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
   }, [scrollY]);
 
   const quickBarTopStyle = useMemo(() => {
-    const paddingTop = 32;
+    const paddingTop = STYLE_ENUM.REPORT_DETAIL_BODY_PADDING_TOP;
     const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
     return isUser ? { top: paddingTop + headerHeight } : { top: paddingTop };
   }, [isUser]);

@@ -48,8 +48,6 @@ import DropDown, {
   TDropDownOption,
 } from '@/components/dropDown';
 import { CountryType } from '@/generated/graphql';
-import { UserAtom } from '@/atom/auth/auth-atom';
-import { useRecoilValue } from 'recoil';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
@@ -366,15 +364,19 @@ const SearchKeywords = () => {
                     <div className=''>
                       <h3 className='text-L/Medium'>
                         월간 검색량
-                        <ReactSVG
-                          id='anchor-montly-search-volum'
-                          src='assets/icons/filled/Help.svg'
-                          className='ml-[7px] inline-block'
-                        />
+                        <a
+                          data-tooltip-id='anchor-montly-search-volum'
+                          data-tooltip-html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
+                        >
+                          <ReactSVG
+                            src='assets/icons/filled/Help.svg'
+                            className='ml-[7px] inline-block'
+                          />
+                        </a>
                         <Tooltip
-                          anchorId='anchor-montly-search-volum'
-                          html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
+                          id='anchor-montly-search-volum'
                           place='right'
+                          variant='light'
                         />
                       </h3>
                     </div>
@@ -392,15 +394,20 @@ const SearchKeywords = () => {
                     <div>
                       <h3 className='text-L/Medium'>
                         연간 키워드
-                        <ReactSVG
+                        <a
+                          data-tooltip-
                           id='relation-keyword-tip'
-                          src='assets/icons/filled/Help.svg'
-                          className='ml-[7px] inline-block'
-                        />
+                          data-tooltip-html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
+                        >
+                          <ReactSVG
+                            src='assets/icons/filled/Help.svg'
+                            className='ml-[7px] inline-block'
+                          />
+                        </a>
                         <Tooltip
-                          anchorId='relation-keyword-tip'
-                          html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
+                          id='relation-keyword-tip'
                           place='right'
+                          variant='light'
                         />
                       </h3>
                     </div>

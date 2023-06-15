@@ -8,6 +8,7 @@ import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { Fragment } from 'react';
 import { Params } from 'react-router-dom';
 import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
+import BrandAnalysis from '@/pages/report/BrandAnalysis';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
@@ -24,12 +25,14 @@ export const DetailReportSwitch = ({
   scrollController,
   params,
 }: IDetailReportSwitchProps) => {
-  const { main, relation } = _state;
+  const { main, relation, brand } = _state;
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
     keyword: main!.text,
   };
+
+  console.log(_state);
 
   return (
     <div className='col-span-10'>
@@ -40,6 +43,14 @@ export const DetailReportSwitch = ({
               _dispatch={_dispatch}
               keywordInfo={main!}
               amplitudeData={amplitudeData}
+            />
+            <BrandAnalysis
+              _dispatch={_dispatch}
+              amplitudeData={amplitudeData}
+              basePrice={main!.basePrice}
+              currencyUnit={main!.currencyUnit}
+              brandAnalysis={brand}
+              forceBrandIndex={_state.brand.focus}
             />
             <MarketSize marketSize={main!} />
             <AnalysisKeyword analysisInfo={main!} />
