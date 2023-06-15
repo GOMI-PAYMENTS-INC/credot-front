@@ -72,6 +72,7 @@ export enum SORT_BY_TYPE {
 export enum TITLE {
   REPORT = 'Report',
   MARKET_SIZE = 'MarketSize',
+  BRAND_ANALYSIS = 'BrandAnalysis',
   KEYWORD_INFO = 'KeywordInfo',
   SALE_PRICE = 'SalePrice',
   OVERSEA_PRODUCT = 'overseaProduct',
