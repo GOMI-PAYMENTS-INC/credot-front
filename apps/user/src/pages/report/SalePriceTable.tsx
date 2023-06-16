@@ -1,10 +1,9 @@
-import { RefObject } from 'react';
+import { Fragment, RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/containers/report';
 import { openBrowser } from '@/utils/openBrowser';
-import { Fragment } from 'react';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
@@ -62,8 +61,8 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                 <div className='flex items-center'>
                   <img className='my-2 ml-4 h-14 w-14' src={item.itemImage} />
 
-                  <div className='basis-full py-4'>
-                    <p className=' w-[320px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
+                  <div className='basis-full py-4 pr-3'>
+                    <p className='break-all pl-[11px] text-left text-S/Regular text-grey-900'>
                       {replaceOverLength(item.itemName, 70)}
                     </p>
                   </div>

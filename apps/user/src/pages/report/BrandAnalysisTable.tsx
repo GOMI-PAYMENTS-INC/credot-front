@@ -7,9 +7,9 @@ import { convertExchangeRate, roundNumber } from '@/containers/report';
 
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { isFalsy } from '@/utils/isFalsy';
+import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
-import { TITLE } from '@/types/enum.code';
 
 interface IBrandAnalysisProductTable {
   currencyUnit: number;
@@ -23,26 +23,23 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
-    <table className='overflow-y col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
+    <table className='col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
-          <th className='w-[368px] text-left' colSpan={1}>
+          <th className='w-[500px] text-left' colSpan={2}>
             <p className='pl-3 text-XS/Medium'>해외 배송 상품</p>
           </th>
-          <th className='w-[132px] text-left' colSpan={1}>
-            <p className='pl-3 text-XS/Medium'>국가</p>
+          <th className='w-[128px] text-right' colSpan={1}>
+            <p className='pr-3 text-XS/Medium'>판매가</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
-            <p className='px-4  text-XS/Medium'>판매가</p>
+            <p className='pr-3 text-XS/Medium'>월 추정 매출</p>
           </th>
-          <th className='w-[128px] text-right' colSpan={1}>
-            <p className='px-4  text-XS/Medium'>월 추정 매출</p>
+          <th className='w-[80px] text-right' colSpan={1}>
+            <p className='pr-3 text-XS/Medium'>월 판매량</p>
           </th>
-          <th className='w-[120px] text-right' colSpan={1}>
-            <p className='px-[13px] text-XS/Medium'>월 판매량</p>
-          </th>
-          <th className='w-[100px] text-center' colSpan={1}>
-            <p className='px-1 text-XS/Medium'>노출 순위</p>
+          <th className='w-[64px] text-center' colSpan={1}>
+            <p className='pr-[9.5px] text-XS/Medium'>노출 순위</p>
           </th>
           <th className='w-[80px] text-right' colSpan={1}></th>
         </tr>
@@ -55,7 +52,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
       >
         {isFalsy(brandAnalysisProduct) ? (
           <tr>
-            <td colSpan={7}>
+            <td colSpan={6}>
               <div className='flex flex-col items-center justify-center text-center'>
                 <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
                 <div className='mt-4 text-L/Medium text-grey-800'>
@@ -76,12 +73,12 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                   }
                   key={`${item.id}_${idx}`}
                 >
-                  <td className='w-[368px]'>
+                  <td className='w-[500px]'>
                     <div className='flex items-center'>
                       <img className='my-2 ml-4 h-14 w-14' src={item.itemImage} />
 
-                      <div className='basis-full py-4'>
-                        <p className=' w-[230px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
+                      <div className='basis-full py-4 pr-3'>
+                        <p className='break-all pl-[11px] text-left text-S/Regular text-grey-900'>
                           {replaceOverLength(item.itemName, 55)}
                         </p>
                       </div>
@@ -91,7 +88,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                   <td className='w-[128px]'>
                     {item.itemPriceMax === item.itemPriceMin ? (
                       <Fragment>
-                        <div className='flex items-center justify-end px-4'>
+                        <div className='flex items-center justify-end pr-3'>
                           <p className='texgt-grey-800 text-S/Medium'>
                             {formatNumber(
                               roundNumber(
@@ -149,7 +146,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                     )}
                   </td>
                   <td className='w-[128px]'>
-                    <div className='flex items-center justify-end px-4 text-S/Medium'>
+                    <div className='flex items-center justify-end pr-3 text-S/Medium'>
                       <p>
                         {formatNumber(
                           roundNumber(
@@ -166,13 +163,13 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                     </div>
                   </td>
 
-                  <td className='w-[120px]'>
-                    <div className='flex items-center justify-end px-[13px] text-S/Medium'>
+                  <td className='w-[80px]'>
+                    <div className='flex items-center justify-end pr-3  text-S/Medium'>
                       <p>{item.item30daysSold}</p>
                       <p className='pl-0.5 text-XS/Medium text-grey-700'>개</p>
                     </div>
                   </td>
-                  <td className='w-[100px]'>
+                  <td className='w-[64px]'>
                     <div className='flex items-center justify-center text-S/Medium'>
                       <p>{item.rank}</p>
                       <p className='pl-0.5 text-XS/Medium text-grey-700'>위</p>
@@ -187,7 +184,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                           _amplitudeMovedToPDP(
                             amplitudeData.param,
                             amplitudeData.keyword,
-                            convertTitle(TITLE.OVERSEA_PRODUCT),
+                            convertTitle(TITLE.BRAND_ANALYSIS),
                           );
                         }}
                       >

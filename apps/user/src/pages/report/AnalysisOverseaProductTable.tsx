@@ -11,6 +11,7 @@ import { COUNTRY_CODE } from '@/containers/report/country.code';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 import { TITLE } from '@/types/enum.code';
+
 interface ISalePriceTable {
   currencyUnit: number;
   basePrice: number;
@@ -83,8 +84,8 @@ export const AnalysisOverseaProductTable = (props: ISalePriceTable) => {
                     <div className='flex items-center'>
                       <img className='my-2 ml-4 h-14 w-14' src={item.itemImage} />
 
-                      <div className='basis-full py-4'>
-                        <p className=' w-[230px] break-all pl-[11px] text-left text-S/Regular text-grey-900'>
+                      <div className='basis-full py-4 pr-3'>
+                        <p className='break-all pl-[11px] text-left text-S/Regular text-grey-900'>
                           {replaceOverLength(item.itemName, 55)}
                         </p>
                       </div>
