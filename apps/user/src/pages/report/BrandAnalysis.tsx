@@ -7,7 +7,7 @@ import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader'
 import { TITLE } from '@/types/enum.code';
 import { BrandAnalysisProductTable } from '@/pages/report/BrandAnalysisTable';
 import { isFalsy } from '@/utils/isFalsy';
-import { selectBrandIndex } from '@/containers/report';
+import { convertExchangeRate, roundNumber, selectBrandIndex } from '@/containers/report';
 import { TReportAction } from '@/containers/report/report.reducer';
 import { formatNumber } from '@/utils/formatNumber';
 
@@ -71,6 +71,23 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
     currencyUnit,
   } = props;
   const { focus, data: brandAnalysisData } = brandAnalysis;
+
+  const {
+    totalSalesAmount: totalAmount,
+    avgSalesAmount: avgAmount,
+    avgPrice: avg,
+    rank,
+    productCount,
+    totalSalesCount,
+    avgSalesCount,
+    products,
+  } = brandAnalysisData!.brands[forceBrandIndex];
+
+  const [totalSalesAmount, avgSalesAmount, avgPrice] = [totalAmount, avgAmount, avg].map(
+    (price) =>
+      formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice))),
+  );
+
   return (
     <section className='col-span-full'>
       <DetailReportSectionHeader id={TITLE.BRAND_ANALYSIS} />
@@ -124,7 +141,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                     />
 
                     <div className='absolute w-full text-center text-M/Regular leading-[40px] text-white'>
-                      {brandAnalysisData!.brands[forceBrandIndex].rank}위
+                      {rank}위
                     </div>
                   </div>
                 </div>
@@ -137,10 +154,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
-                    {formatNumber(
-                      brandAnalysisData!.brands[forceBrandIndex].productCount,
-                    )}
-                    개
+                    {formatNumber(productCount)}개
                   </p>
                 </div>
               </div>
@@ -170,12 +184,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                   </div>
                 </div>
                 <div className='mt-2 py-[15px]'>
-                  <p className='text-M/Bold text-orange-400'>
-                    {formatNumber(
-                      brandAnalysisData!.brands[forceBrandIndex].totalSalesAmount,
-                    )}
-                    원
-                  </p>
+                  <p className='text-M/Bold text-orange-400'>{totalSalesAmount}원</p>
                 </div>
               </div>
             </div>
@@ -205,10 +214,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
-                    {formatNumber(
-                      brandAnalysisData!.brands[forceBrandIndex].totalSalesCount,
-                    )}
-                    개
+                    {formatNumber(totalSalesCount)}개
                   </p>
                 </div>
               </div>
@@ -238,12 +244,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                   </div>
                 </div>
                 <div className='mt-2 py-[15px]'>
-                  <p className='text-M/Bold text-grey-900'>
-                    {formatNumber(
-                      brandAnalysisData!.brands[forceBrandIndex].avgSalesAmount,
-                    )}
-                    원
-                  </p>
+                  <p className='text-M/Bold text-grey-900'>{avgSalesAmount}원</p>
                 </div>
               </div>
             </div>
@@ -273,10 +274,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
-                    {formatNumber(
-                      brandAnalysisData!.brands[forceBrandIndex].avgSalesCount,
-                    )}
-                    원
+                    {formatNumber(avgSalesCount)}원
                   </p>
                 </div>
               </div>
@@ -306,9 +304,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                   </div>
                 </div>
                 <div className='mt-2 py-[15px]'>
-                  <p className='text-M/Bold text-grey-900'>
-                    {formatNumber(brandAnalysisData!.brands[forceBrandIndex].avgPrice)}원
-                  </p>
+                  <p className='text-M/Bold text-grey-900'>{avgPrice}원</p>
                 </div>
               </div>
             </div>
@@ -319,7 +315,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
       {/*브랜드 상품 리스트*/}
       {isFalsy(brandAnalysis) === false && (
         <BrandAnalysisProductTable
-          brandAnalysisProduct={brandAnalysisData!.brands[forceBrandIndex].products}
+          brandAnalysisProduct={products}
           basePrice={basePrice}
           currencyUnit={brandAnalysisData!.currencyUnit}
           amplitudeData={amplitudeData}
