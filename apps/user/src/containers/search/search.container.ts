@@ -191,13 +191,26 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
     if (postReport?.data.code === STATUS_CODE.SUCCESS) {
       _setTrigger(false);
 
-      _dispatch({
-        type: SEARCH_ACTION.SWITCH_MODAL,
-        payload: {
-          isModalOpen: true,
-          modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
-        },
-      });
+      const { isSendSms, reportId } = postReport?.data.data;
+      if (isSendSms) {
+        _dispatch({
+          type: SEARCH_ACTION.SWITCH_MODAL,
+          payload: {
+            isModalOpen: true,
+            modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
+          },
+        });
+      } else {
+        _dispatch({
+          type: SEARCH_ACTION.SWITCH_MODAL,
+          payload: {
+            isModalOpen: true,
+            modalType: MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses,
+          },
+        });
+      }
+      _dispatch({ type: SEARCH_ACTION.SET_NEW_REPORT_ID, payload: reportId });
+
       _amplitudeKeywordReportRequested(1, country, sortBy, keyword);
     }
 
@@ -226,7 +239,7 @@ export const switchModal = async ({
 };
 
 export const _getProductImages = (
-  data: TGetProductImageResponseType,
+  data: TGetProductImageResponse,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   _dispatch({

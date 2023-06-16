@@ -69,9 +69,9 @@ const REPORT_URL = {
   getProductImage: `api/v1/keyword/`,
 };
 
-export const postCreateReport = async (params: TCreateReportParamsType) => {
+export const postCreateReport = async (params: TCreateReportParams) => {
   try {
-    return await HTTP.post<TCreateReportParamsType, TPostCreateReport>(
+    return await HTTP.post<TCreateReportParams, TPostCreateReportResponse>(
       REPORT_URL.postCreateReport,
       params,
     );
@@ -82,7 +82,7 @@ export const postCreateReport = async (params: TCreateReportParamsType) => {
 
 export const getReportExisted = async (params: TGetReportExistedParamsType) => {
   try {
-    return await HTTP.get<TReportExistedResponseType>(REPORT_URL.getReportExisted, {
+    return await HTTP.get<TReportExistedResponse>(REPORT_URL.getReportExisted, {
       params,
     });
   } catch (error) {
@@ -93,14 +93,14 @@ export const getReportExisted = async (params: TGetReportExistedParamsType) => {
 export const getProductImages = async (queryString: { keyword: string }) => {
   try {
     const URL = REPORT_URL.getProductImage + queryString.keyword + '/image';
-    return await HTTP.get<TGetProductImageResponseType>(URL);
+    return await HTTP.get<TGetProductImageResponse>(URL);
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getTranslationOfKeyword = async (
-  queryString: TGetTranslationOfKeywordParamsType,
+  queryString: TGetTranslationOfKeywordParams,
 ) => {
   try {
     const res = await HTTP.get<TGetTranslationOfKeywordResponse>(

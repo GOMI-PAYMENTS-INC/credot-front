@@ -1,4 +1,4 @@
-import { MODAL_TYPE_ENUM, CACHING_KEY, SORT_BY_TYPE } from '@/types/enum.code';
+import { CACHING_KEY, MODAL_TYPE_ENUM, SORT_BY_TYPE } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CountryType } from '@/generated/graphql';
 
@@ -14,6 +14,7 @@ export enum SEARCH_ACTION {
   INITIALIZE_IMAGES = 'INITIALIZE_IMAGES',
   USE_TRANSLATION = 'USE_TRANSLATION',
   CHANGE_SORT_BY = 'CHANGE_SORT_BY',
+  SET_NEW_REPORT_ID = 'SET_NEW_REPORT_ID',
 }
 
 const searchInitialState: TSearchState = {
@@ -26,6 +27,7 @@ const searchInitialState: TSearchState = {
   modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
   createdAt: '',
   productImages: null,
+  newReportId: 0,
 };
 
 const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
@@ -87,6 +89,10 @@ const searchReducer = (_state: TSearchState, action: TSearchActionType) => {
       if (action.payload.trim() !== _state.keyword) {
         state.productImages = searchInitialState.productImages;
       }
+      return state;
+
+    case SEARCH_ACTION.SET_NEW_REPORT_ID:
+      state.newReportId = action.payload;
       return state;
 
     default:
