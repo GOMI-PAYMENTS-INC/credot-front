@@ -32,8 +32,6 @@ export const DetailReportSwitch = ({
     keyword: main!.text,
   };
 
-  console.log(_state);
-
   return (
     <div className='col-span-10'>
       <div className='space-y-[72px]'>
