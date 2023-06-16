@@ -105,7 +105,7 @@ type TDeleteReportListParamsType = {
   ids: number[];
 };
 
-type TCreateReportParamsType = {
+type TCreateReportParams = {
   country: CountryType;
   reportInvokeId: string;
   sortBy: TSortBy;

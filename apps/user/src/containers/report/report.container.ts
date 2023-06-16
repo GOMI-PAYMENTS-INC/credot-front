@@ -86,7 +86,6 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
-        console.log(dataName[idx], data);
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
           payload: { type: dataName[idx], data: data },

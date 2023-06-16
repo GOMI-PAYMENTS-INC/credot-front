@@ -10,6 +10,7 @@ type TRecommanderActionType = {
 
 type TSearchModalType =
   | 'MakeReportSuccesses'
+  | 'MakeDuplicateReportSuccesses'
   | 'SameKeywordReportExisted'
   | 'LessMonthlyKeywordVolume'
   | 'NotBeOverDayReport';
@@ -22,33 +23,34 @@ type TSearchState = {
   isSearched: boolean;
   keyword: string;
   isModalOpen: boolean;
-
   modalType: TSearchModalType;
   createdAt: string;
   productImages: TGetProductImageResponseType | null;
+  newReportId: number;
 };
 
 type TSearchRef = { current: Omit<TSearchState, 'translateType' | 'isSearched'> };
 
-type TCreateReportReponseType = {
-  code: string;
-  message: string;
-  data: any;
-};
-
-type TPostCreateReport = {
+type TPostCreateReportResponse = {
   code: STATUS_CODE;
   message: string;
-  data: null;
+  data: TPostCreateReportResponseData;
 };
 
-type TReportExistedResponseType = {
+type TPostCreateReportResponseData = {
+  country: CountryType;
+  reportInvokeId: string;
+  reportId: number;
+  isSendSms: boolean;
+};
+
+type TReportExistedResponse = {
   code: STATUS_CODE;
   message: string;
   data: { isDaily: boolean; createdAt: Date } | null;
 };
 
-type TGetProductImageResponseType = {
+type TGetProductImageResponse = {
   code: string;
   message: string;
   data: TProductImageType[];
@@ -84,7 +86,7 @@ type TTranslationKeywordType = {
   isError: boolean;
 };
 
-type TGetTranslationOfKeywordParamsType = {
+type TGetTranslationOfKeywordParams = {
   term: string;
   country: CountryType;
 };
