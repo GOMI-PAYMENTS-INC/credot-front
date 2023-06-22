@@ -3,6 +3,7 @@ type TVerifyButtonState = {
   activeVerifyCode: boolean;
   theElseCalled: boolean;
   isExceeded: boolean;
+  isDuplicated: boolean;
   verifyCode: string;
   verifyCodeSignatureNumber: string;
   isExistedAccount: null | 'EMPTY' | 'FILLED';
