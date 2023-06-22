@@ -252,6 +252,7 @@ export const _amplitudeKeywordReportRequested = (
   country: CountryType,
   sortBy: TSortBy,
   keyword: string,
+  jobId: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
     report_id: reportId,
@@ -259,6 +260,7 @@ export const _amplitudeKeywordReportRequested = (
     country: country,
     sort_by: sortBy,
     keyword,
+    job_id: jobId,
   });
 };
 

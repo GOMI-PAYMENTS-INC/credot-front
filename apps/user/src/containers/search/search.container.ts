@@ -211,7 +211,7 @@ const createReport = async ({ _state, data, _dispatch, _setTrigger }: TCreateRep
       }
       _dispatch({ type: SEARCH_ACTION.SET_NEW_REPORT_ID, payload: reportId });
 
-      _amplitudeKeywordReportRequested(1, country, sortBy, keyword);
+      _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, makeJobId());
     }
 
     return postReport;
