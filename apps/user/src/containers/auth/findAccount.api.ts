@@ -1,22 +1,23 @@
 import { Dispatch, SetStateAction } from 'react';
 import {
-  useSmsVerifyCodeConfirmQuery,
   CountryType,
+  FindPasswordInput,
+  SmsVerifyType,
   useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
   useSendTemporaryPasswordMutation,
-  FindPasswordInput,
+  useSmsVerifyCodeConfirmQuery,
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
 
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
-  clickVerifyBtn,
   activateVerifyCode,
+  clickVerifyBtn,
+  exceptedVerifyTry,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
-  exceptedVerifyTry,
 } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -29,6 +30,7 @@ import {
 } from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
+  type: SmsVerifyType,
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TAuthEssentialProps>,
@@ -58,6 +60,7 @@ export const useVerifyCode = (
     const payload = {
       phone: phone,
       country: CountryType.Kr,
+      type: type,
     };
 
     mutateRequestVerify(payload);

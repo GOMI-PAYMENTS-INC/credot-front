@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useVerifyCode } from '@/containers/auth/findAccount.api';
 import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
+import { SmsVerifyType } from '@/generated/graphql';
 
 const FindId = () => {
   const {
@@ -35,6 +36,7 @@ const FindId = () => {
     useState<TVerifyButtonState>(authInitialState);
 
   const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useVerifyCode(
+    SmsVerifyType.P,
     isVerification,
     setIsVerification,
     setError,

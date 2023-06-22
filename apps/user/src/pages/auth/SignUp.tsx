@@ -1,4 +1,4 @@
-import React, { useMemo, useState, ChangeEvent, useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PATH } from '@/types/enum.code';
 
@@ -15,21 +15,22 @@ import { isFalsy } from '@/utils/isFalsy';
 import { useVerifyCode } from '@/containers/auth/findAccount.api';
 import { useSignUp } from '@/containers/auth/signUp.api';
 import {
+  assignEmail,
   authInitialState,
   eventHandlerByFindAccount,
-  termInitialState,
-  assignEmail,
-  selectTerm,
-  selectAllTerms,
+  isCheckedEssentialTerms,
   isReadyToSignUp,
   openDetailTermContent,
+  selectAllTerms,
+  selectTerm,
   signUpVerifyCode,
-  isCheckedEssentialTerms,
+  termInitialState,
 } from '@/containers/auth/auth.container';
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import { SmsVerifyType } from '@/generated/graphql';
 
 const SignUpRef = () => {
   const [isVerification, setIsVerification] =
@@ -47,6 +48,7 @@ const SignUpRef = () => {
   });
 
   const { _getVerifyCode, _checkSmsVerifyCode } = useVerifyCode(
+    SmsVerifyType.S,
     isVerification,
     setIsVerification,
     setError,

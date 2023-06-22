@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useVerifyCode } from '@/containers/auth/findAccount.api';
@@ -18,6 +18,7 @@ import {
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeFindPwStarted } from '@/amplitude/amplitude.service';
 import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
+import { SmsVerifyType } from '@/generated/graphql';
 
 export const FindPasswordRef = () => {
   const [isVerification, setIsVerification] =
@@ -34,6 +35,7 @@ export const FindPasswordRef = () => {
   });
 
   const { _getVerifyCode, _checkSmsVerifyCode, _sendTemporaryPassword } = useVerifyCode(
+    SmsVerifyType.P,
     isVerification,
     setIsVerification,
     setError,

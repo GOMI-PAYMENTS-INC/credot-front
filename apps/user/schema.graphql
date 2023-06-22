@@ -63,7 +63,9 @@ type Mutation {
         "국가 코드"
         country: CountryType!,
         "수신 핸드폰 번호"
-        phone: String!
+        phone: String!,
+        "인증번호 발급 유형"
+        type: SmsVerifyType!
     ): Boolean!
     "유저 임시 비밀번호 발급"
     sendTemporaryPassword(
@@ -233,6 +235,13 @@ enum CountryType {
 enum Role {
     ADMIN
     USER
+}
+
+enum SmsVerifyType {
+    "비밀번호 찾기 유형"
+    P
+    "회원가입 유형"
+    S
 }
 
 enum SocialProvider {

@@ -3,8 +3,12 @@ import gql from 'graphql-tag';
 const authMutation = {
   // 휴대폰 인증번호 발송
   sendSmsVerificationCodeQuery: gql`
-    mutation SendSmsVerificationCode($country: CountryType!, $phone: String!) {
-      sendSmsVerificationCode(country: $country, phone: $phone)
+    mutation SendSmsVerificationCode(
+      $country: CountryType!
+      $phone: String!
+      $type: SmsVerifyType!
+    ) {
+      sendSmsVerificationCode(country: $country, phone: $phone, type: $type)
     }
   `,
 
