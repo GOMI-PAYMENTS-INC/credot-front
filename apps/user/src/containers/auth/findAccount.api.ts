@@ -15,6 +15,7 @@ import { isTruthy } from '@/utils/isTruthy';
 import {
   activateVerifyCode,
   clickVerifyBtn,
+  duplicationVerifyTry,
   exceptedVerifyTry,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
@@ -43,12 +44,19 @@ export const useVerifyCode = (
       },
       onError: (err) => {
         const [error] = err.response.errors;
+        setError('phone', { message: error.message });
+
         if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
           exceptedVerifyTry(isVerification, setIsVerification);
 
           return;
         }
-        setError('phone', { message: error.message });
+
+        if (String(error.extensions.code) === STATUS_CODE.DUPLICATE_VERIFY_CODE) {
+          duplicationVerifyTry(isVerification, setIsVerification);
+
+          return;
+        }
         clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
       },
     },
