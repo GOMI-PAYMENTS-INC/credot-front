@@ -6,7 +6,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { Tooltip } from 'react-tooltip';
 
 interface ISearchKeywordsImageBox {
-  images: TGetProductImageResponseType | null;
+  images: TGetProductImageResponse | null;
   keyword: string;
 }
 

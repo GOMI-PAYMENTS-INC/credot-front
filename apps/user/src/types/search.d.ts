@@ -25,7 +25,7 @@ type TSearchState = {
   isModalOpen: boolean;
   modalType: TSearchModalType;
   createdAt: string;
-  productImages: TGetProductImageResponseType | null;
+  productImages: TGetProductImageResponse | null;
   newReportId: number;
 };
 
