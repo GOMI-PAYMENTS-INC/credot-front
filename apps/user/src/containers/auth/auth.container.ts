@@ -236,7 +236,6 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
   };
 
   if (isVerification.firstCalled && isVerification.theElseCalled === false) {
-    console.log('ss');
     eventOption.phone.className =
       'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
     eventOption.phone.text = '재발송';
