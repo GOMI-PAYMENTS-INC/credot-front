@@ -1,24 +1,24 @@
-import { Fragment, RefObject } from 'react';
-import { ReactSVG } from 'react-svg';
+import {Fragment, RefObject} from 'react';
+import {ReactSVG} from 'react-svg';
 
-import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
-import { openBrowser } from '@/utils/openBrowser';
-import { replaceOverLength } from '@/utils/replaceOverLength';
-import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
-import { convertTitle } from '@/utils/convertEnum';
-import { TITLE } from '@/types/enum.code';
+import {formatNumber} from '@/utils/formatNumber';
+import {convertExchangeRate, roundNumber} from '@/containers/report';
+import {openBrowser} from '@/utils/openBrowser';
+import {replaceOverLength} from '@/utils/replaceOverLength';
+import {_amplitudeMovedToPDP} from '@/amplitude/amplitude.service';
+import {convertTitle} from '@/utils/convertEnum';
+import {TITLE} from '@/types/enum.code';
 
 interface ISalePriceTable {
   salePriceItemList: TSalePriceItems[];
   currencyUnit: number;
   basePrice: number;
-  scollerRef: RefObject<HTMLTableSectionElement>;
+  scrollerRef: RefObject<HTMLTableSectionElement>;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {
-  const { amplitudeData, salePriceItemList, currencyUnit, basePrice, scollerRef } = props;
+  const { amplitudeData, salePriceItemList, currencyUnit, basePrice, scrollerRef } = props;
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
     <table className='overflow-y col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
@@ -45,7 +45,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
       <tbody
         id='scrollbar'
         className='block max-h-[393px] w-full overflow-y-auto '
-        ref={scollerRef}
+        ref={scrollerRef}
       >
         {salePriceItemList.map((item, idx) => {
           return (

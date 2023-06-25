@@ -1,19 +1,15 @@
-import { Dispatch, RefObject, useMemo } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
+import {Dispatch, useMemo, useRef} from 'react';
+import {ReactSVG} from 'react-svg';
+import {Tooltip} from 'react-tooltip';
 
-import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
-import { SalePriceChart } from '@/pages/report/SalePriceChart';
-import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
-import { SalePriceTable } from '@/pages/report/SalePriceTable';
+import {GRADE_ITEMS, TITLE} from '@/types/enum.code';
+import {SalePriceChart} from '@/pages/report/SalePriceChart';
+import {formatNumber} from '@/utils/formatNumber';
+import {convertExchangeRate, roundNumber} from '@/containers/report';
+import {SalePriceTable} from '@/pages/report/SalePriceTable';
 
-import {
-  changeSalePriceData,
-  convertGrade,
-  selectSalePriceCompetitionType,
-} from '@/containers/report/report.container';
-import { TReportAction } from '@/containers/report/report.reducer';
+import {changeSalePriceData, convertGrade, selectSalePriceCompetitionType,} from '@/containers/report/report.container';
+import {TReportAction} from '@/containers/report/report.reducer';
 import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
 
 interface ISalePrice {
@@ -22,7 +18,6 @@ interface ISalePrice {
   list: TSalePriceItems[];
   focus: GRADE_TYPE;
   currencyUnit: number;
-  scollerRef: RefObject<HTMLTableSectionElement>;
   amplitudeData: TAmplitudeDetailData;
 }
 
@@ -33,9 +28,10 @@ export const SalePrice = (props: ISalePrice) => {
     list,
     focus,
     currencyUnit,
-    scollerRef,
     amplitudeData,
   } = props;
+  const scrollerRef = useRef<HTMLTableSectionElement>(null);
+
   const { id, text, gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
@@ -209,7 +205,7 @@ export const SalePrice = (props: ISalePrice) => {
                     key={`${item}_${idx}`}
                     onClick={() => {
                       selectSalePriceCompetitionType(item, _dispatch);
-                      scollerRef.current?.scroll(0, 0);
+                      scrollerRef.current?.scroll(0, 0);
                     }}
                   >
                     <p className={`px-2 py-2 ${highlight.textStyle}`}>
@@ -240,7 +236,7 @@ export const SalePrice = (props: ISalePrice) => {
           </div>
         </div>
         <SalePriceTable
-          scollerRef={scollerRef}
+          scrollerRef={scrollerRef}
           salePriceItemList={list}
           currencyUnit={currencyUnit}
           basePrice={basePrice}

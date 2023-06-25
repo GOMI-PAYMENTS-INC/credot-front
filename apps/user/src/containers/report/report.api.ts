@@ -37,7 +37,7 @@ const getRelationReport = async (id: string) => {
 };
 const getRelationReportByShare = async (token: string) => {
   try {
-    return await HTTP.get<TGetRelationReportResponse>(
+    return await HTTP.get<TGetRelationReportShareTokenResponse>(
       `${REPORT_URL}/share/${token}/relation`,
     );
   } catch (error) {

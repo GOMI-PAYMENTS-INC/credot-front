@@ -3,7 +3,7 @@ import { isFalsy } from '@/utils/isFalsy';
 
 const reportInitialState: TReportState = {
   main: null,
-  relation: [],
+  relation: { id: 0, relations: null },
   salePrice: { data: null, focus: GRADE_ITEMS.HIGH, list: [] },
   oversea: null,
   brand: {
@@ -37,7 +37,6 @@ export type TReportAction = {
 
 const reportReducer = (_state: TReportState, action: TReportAction) => {
   const state = structuredClone(_state);
-
   switch (action.type) {
     case REPORT_ACTION.INITIALIZE_DATA: {
       const { type, data } = action.payload;
@@ -46,7 +45,8 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       }
       if (type === REPORT_DETAIL_TYPE.RELATION) {
         state.relation = data;
-        const [first] = data;
+        const { relations } = data;
+        const [first] = relations;
         if (first) {
           state.toggleEvent = state.toggleEvent.concat(first);
         }

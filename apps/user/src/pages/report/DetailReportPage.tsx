@@ -25,7 +25,6 @@ const DetailReportPage = () => {
   const { main, relation } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
-  const scrollController = useRef<HTMLTableSectionElement>(null);
 
   useEffect(() => {
     if (isFalsy(params.id)) return;
@@ -41,10 +40,9 @@ const DetailReportPage = () => {
         _state={_state}
         _dispatch={_dispatch}
         params={params}
-        scrollController={scrollController}
       ></DetailReportSwitch>
     );
-  }, [main]);
+  }, [main, relation]);
 
   if (isFalsy(main) || main === null) {
     return (
@@ -72,7 +70,6 @@ const DetailReportPage = () => {
           title={main?.text}
           scrollEvent={scrollEvent}
           contentSection={contentSection}
-          scrollController={scrollController}
           setScrollEvent={setScrollEvent}
         />
       </DetailReportBody>

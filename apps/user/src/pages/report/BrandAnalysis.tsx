@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, useMemo, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
@@ -70,8 +70,8 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
     amplitudeData,
     currencyUnit,
   } = props;
+  const scrollerRef = useRef<HTMLTableSectionElement>(null);
   const { focus, data: brandAnalysisData } = brandAnalysis;
-
   const {
     totalSalesAmount: totalAmount,
     avgSalesAmount: avgAmount,
@@ -87,6 +87,22 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
     (price) =>
       formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice))),
   );
+
+  const rankLabelStyleClass = useMemo(() => {
+    let style = 'fill-transparent text-black';
+
+    if (rank === 1) {
+      style = 'fill-orange-500 text-white';
+    }
+    if (rank === 2) {
+      style = 'fill-[#B1B1B1] text-white';
+    }
+    if (rank === 3) {
+      style = 'fill-grey-800 text-white';
+    }
+
+    return style;
+  }, [rank]);
 
   return (
     <section className='col-span-full'>
@@ -105,7 +121,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                   } rounded-sm px-[19px] py-[6px] shadow-[0px_4px_6px_rgba(0,0,0,0.06)]`}
                   onClick={() => {
                     selectBrandIndex(index, _dispatch);
-                    // scollerRef.current?.scroll(0, 0);
+                    scrollerRef.current?.scroll(0, 0);
                   }}
                 >
                   <span className=''>{value.name || 'No brand'}</span>
@@ -128,7 +144,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>순위</span>
+                  <span className='text-S/Regular text-grey-800'>순위</span>
                 </div>
                 <div className='mt-2 flex items-center justify-center'>
                   <div className='relative h-[46px] w-[38px]'>
@@ -136,11 +152,13 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
                       src='/assets/icons/filled/RateLabel.svg'
                       className='absolute top-0 left-0'
                       beforeInjection={(svg) => {
-                        svg.setAttribute('class', 'fill-grey-300');
+                        svg.setAttribute('class', `${rankLabelStyleClass}`);
                       }}
                     />
 
-                    <div className='absolute w-full text-center text-M/Regular leading-[40px] text-white'>
+                    <div
+                      className={`absolute w-full text-center text-M/Regular leading-[40px] ${rankLabelStyleClass}`}
+                    >
                       {rank}위
                     </div>
                   </div>
@@ -150,7 +168,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>상품 수</span>
+                  <span className='text-S/Regular text-grey-800'>상품 수</span>
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
@@ -162,7 +180,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>매출 합계</span>
+                  <span className='text-S/Regular text-grey-800'>매출 합계</span>
                   <div className='tooltip-container'>
                     <a
                       data-tooltip-id='anchor-brand-sale'
@@ -191,7 +209,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>판매량 합계</span>
+                  <span className='text-S/Regular text-grey-800'>판매량 합계</span>
                   <div className='tooltip-container'>
                     <a
                       data-tooltip-id='anchor-brand-sales-rate'
@@ -222,7 +240,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>평균 매출</span>
+                  <span className='text-S/Regular text-grey-800'>평균 매출</span>
                   <div className='tooltip-container'>
                     <a
                       data-tooltip-id='anchor-brand-average-sales'
@@ -251,7 +269,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>평균 판매량</span>
+                  <span className='text-S/Regular text-grey-800'>평균 판매량</span>
                   <div className='tooltip-container'>
                     <a
                       data-tooltip-id='anchor-brand-average-sales'
@@ -282,7 +300,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
-                  <span className='text-M/Regular text-grey-800'>평균 판매가</span>
+                  <span className='text-S/Regular text-grey-800'>평균 판매가</span>
                   <div className='tooltip-container'>
                     <a
                       data-tooltip-id='anchor-brand-average-selling-price'
@@ -319,6 +337,7 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
           basePrice={basePrice}
           currencyUnit={brandAnalysisData!.currencyUnit}
           amplitudeData={amplitudeData}
+          scrollerRef={scrollerRef}
         />
       )}
     </section>

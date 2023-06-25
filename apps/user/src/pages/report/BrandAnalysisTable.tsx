@@ -1,25 +1,26 @@
-import { Fragment } from 'react';
-import { ReactSVG } from 'react-svg';
+import {Fragment, RefObject} from 'react';
+import {ReactSVG} from 'react-svg';
 
-import { openBrowser } from '@/utils/openBrowser';
-import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
+import {openBrowser} from '@/utils/openBrowser';
+import {formatNumber} from '@/utils/formatNumber';
+import {convertExchangeRate, roundNumber} from '@/containers/report';
 
-import { replaceOverLength } from '@/utils/replaceOverLength';
-import { isFalsy } from '@/utils/isFalsy';
-import { TITLE } from '@/types/enum.code';
-import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
-import { convertTitle } from '@/utils/convertEnum';
+import {replaceOverLength} from '@/utils/replaceOverLength';
+import {isFalsy} from '@/utils/isFalsy';
+import {TITLE} from '@/types/enum.code';
+import {_amplitudeMovedToPDP} from '@/amplitude/amplitude.service';
+import {convertTitle} from '@/utils/convertEnum';
 
 interface IBrandAnalysisProductTable {
   currencyUnit: number;
   basePrice: number;
   brandAnalysisProduct: TBrandAnalysisProduct[];
+  scrollerRef: RefObject<HTMLTableSectionElement>;
   amplitudeData: TAmplitudeDetailData;
 }
 
 export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => {
-  const { amplitudeData, brandAnalysisProduct, currencyUnit, basePrice } = props;
+  const { amplitudeData, brandAnalysisProduct, currencyUnit, basePrice,scrollerRef } = props;
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
@@ -49,6 +50,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
         className={`${
           isFalsy(brandAnalysisProduct) ? '' : 'block'
         } max-h-[393px] w-full overflow-y-auto`}
+        ref={scrollerRef}
       >
         {isFalsy(brandAnalysisProduct) ? (
           <tr>
