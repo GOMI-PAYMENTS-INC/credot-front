@@ -25,7 +25,7 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
   useEffect(() => {
     let name = scrollY > 100 ? title : '';
 
-    onScrollDetail(scrollEvent, setScrollEvent, name);
+    onScrollDetail(isUser, scrollEvent, setScrollEvent, name);
   }, [scrollY]);
 
   const quickBarTopStyle = useMemo(() => {

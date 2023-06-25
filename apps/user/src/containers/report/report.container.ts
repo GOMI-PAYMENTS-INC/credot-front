@@ -26,6 +26,7 @@ import {
   GRADE_ITEMS,
   REPORT_DETAIL_TYPE,
   STATUS_CODE,
+  STYLE_ENUM,
   TAG_SENTIMENT_STATUS,
   TITLE,
 } from '@/types/enum.code';
@@ -596,50 +597,53 @@ export const changeSalePriceData = (items: TSalePriceItems[], basePrice: number)
 };
 
 export const onScrollDetail = (
+  isUser: boolean,
   _state: TScrollEvent,
   _setState: Dispatch<SetStateAction<TScrollEvent>>,
   name: string = '',
 ): void => {
   const { scrollY } = _state;
-  const sections = document.getElementsByClassName('detailReport-h1-header');
-
-  //FIXME: 수동으로 추가하지 않아도 인식할수 있도록 추후 개선
-  const [marketSize, keywordInfo, salePrice, overseaProduct] = [...sections].map(
-    (element) => (element as HTMLElement).offsetTop - 100,
-  );
-
-  if (scrollY < 100) {
+  const header = document.getElementsByClassName('detailReport-h1-header');
+  const titleName = Object.values(TITLE);
+  // 현재 뷰포트의 높이
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  // 문서 전체의 높이
+  const documentHeight = document.documentElement.scrollHeight;
+  // 스크롤이 끝까지 도달했을 때의 임계값 (예: 20 픽셀)
+  const threshold = 20;
+  // 스크롤이 처음일 때
+  if (scrollY < threshold) {
     _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
-    return;
   }
 
-  if (marketSize && keywordInfo && scrollY >= marketSize && scrollY < keywordInfo) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.MARKET_SIZE }));
-  }
+  [...header].map((element, index) => {
+    const target = element as HTMLElement;
+    const offsetTop = target.offsetTop;
+    if (target.parentElement) {
+      const parentElement = target.parentElement.closest('section');
 
-  if (keywordInfo) {
-    //회원 상세페이지 접근시
-    if (salePrice) {
-      if (salePrice && scrollY >= keywordInfo && scrollY < salePrice) {
-        _setState(
-          Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }),
-        );
-      }
-    } else {
-      //비회원 공유하기로 인한 상세페이지 접근시
-      if (scrollY >= keywordInfo) {
-        _setState(
-          Object.assign({}, _state, { title: name, current: TITLE.KEYWORD_INFO }),
-        );
+      if (parentElement) {
+        const paddingTop = STYLE_ENUM.REPORT_DETAIL_BODY_PADDING_TOP;
+        const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
+        const space = paddingTop + headerHeight;
+        const sectionClientHeight = parentElement.clientHeight - space;
+        if (offsetTop < scrollY && scrollY < offsetTop + sectionClientHeight) {
+          _setState(
+            Object.assign({}, _state, { title: name, current: titleName[index + 1] }),
+          );
+        }
       }
     }
-  }
+  });
+  if (isUser) {
+    // 스크롤이 끝까지 도달했을 때의 조건 검사
+    if (scrollY + viewportHeight >= documentHeight - threshold) {
+      const lastTitleIndex = titleName.length - 1;
 
-  if (salePrice && overseaProduct && scrollY >= salePrice && scrollY < overseaProduct) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.SALE_PRICE }));
-  }
-  if (overseaProduct && scrollY >= overseaProduct) {
-    _setState(Object.assign({}, _state, { title: name, current: TITLE.OVERSEA_PRODUCT }));
+      _setState(
+        Object.assign({}, _state, { title: name, current: titleName[lastTitleIndex] }),
+      );
+    }
   }
 };
 
