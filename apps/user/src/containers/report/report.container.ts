@@ -71,24 +71,34 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
   try {
     const response = await Promise.all([
       getMainReport(id),
-      getRelationReport(id),
       getSalePrice(id),
       getOverseaProduct(id),
+      getRelationReport(id),
       getBrandAnalysis(id),
     ]);
     const dataName = Object.values(REPORT_DETAIL_TYPE);
 
-    const [first] = response;
+    const [first, second, third, four] = response;
     if (first) {
       _amplitudeKeywordReportViewed(id, first.data);
     }
-
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
+        let payloadData;
+        if (dataName[idx] === REPORT_DETAIL_TYPE.RELATION) {
+          const relationResponse = {
+            id: 0,
+            relations: data,
+          };
+          payloadData = relationResponse;
+        } else {
+          payloadData = data;
+        }
+
         _dispatch({
           type: REPORT_ACTION.INITIALIZE_DATA,
-          payload: { type: dataName[idx], data: data },
+          payload: { type: dataName[idx], data: payloadData },
         });
       }
     });
@@ -102,15 +112,22 @@ export const _getReportInfoByShare = async (
   _dispatch: Dispatch<TReportAction>,
 ) => {
   try {
-    let response;
+    let response: any[];
 
     if (isUser) {
       response = await Promise.all([
         getMainReportByShare(token),
-        getRelationReportByShare(token),
         getSalePriceByShare(token),
         getOverseaProductByShare(token),
       ]);
+
+      const relationResponse = await getRelationReportByShare(token);
+      //TODO: 회원에게 공유된 리포트인 경우, 백엔드에서 리포트 복사 기능 완료되면 relationResponse내 정보로 변경할 것(하단 코드 활성화)
+      // const copyReportId = relationResponse!.data.data.id;
+      const copyReportId = response[0].data.data.id;
+      const brandResponse = await getBrandAnalysis(String(copyReportId));
+      response.push(relationResponse);
+      response.push(brandResponse);
     } else {
       response = await Promise.all([getMainReportByShare(token)]);
     }

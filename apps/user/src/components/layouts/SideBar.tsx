@@ -57,7 +57,7 @@ const SideBar = (props: TSideBarProps) => {
   }, [userAtom]);
 
   return (
-    <aside className='fixed left-0 h-full'>
+    <aside className='fixed left-0 h-full z-50'>
       {_state.openedSidebar ? (
         <div
           className={`flex h-full w-[${openWidth}px] flex-[0_0_${openWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}

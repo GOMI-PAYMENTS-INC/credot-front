@@ -14,7 +14,6 @@ interface IDetailReportSwitchProps {
   isUser: boolean;
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
-  scrollController: React.RefObject<HTMLTableSectionElement>;
   params: Params<string>;
 }
 
@@ -22,7 +21,6 @@ export const DetailReportSwitch = ({
   isUser,
   _state,
   _dispatch,
-  scrollController,
   params,
 }: IDetailReportSwitchProps) => {
   const { main, relation, brand } = _state;
@@ -42,21 +40,21 @@ export const DetailReportSwitch = ({
               keywordInfo={main!}
               amplitudeData={amplitudeData}
             />
-            <BrandAnalysis
-              _dispatch={_dispatch}
-              amplitudeData={amplitudeData}
-              basePrice={main!.basePrice}
-              currencyUnit={main!.currencyUnit}
-              brandAnalysis={brand}
-              forceBrandIndex={_state.brand.focus}
-            />
             <MarketSize marketSize={main!} />
             <AnalysisKeyword analysisInfo={main!} />
 
             {isUser && (
               <Fragment>
+                <BrandAnalysis
+                  _dispatch={_dispatch}
+                  basePrice={main!.basePrice}
+                  currencyUnit={main!.currencyUnit}
+                  brandAnalysis={brand}
+                  forceBrandIndex={_state.brand.focus}
+                  amplitudeData={amplitudeData}
+                />
                 <RecommendationChart
-                  relation={relation}
+                  relations={relation.relations}
                   _dispatch={_dispatch}
                   spinnerEvent={_state.spinnerEvent}
                   toggleEvent={_state.toggleEvent}
@@ -67,7 +65,6 @@ export const DetailReportSwitch = ({
                 />
                 <SalePrice
                   currencyUnit={main!.currencyUnit}
-                  scollerRef={scrollController}
                   salePriceInfo={_state.salePrice?.data!}
                   list={_state.salePrice.list}
                   focus={_state.salePrice.focus}

@@ -11,7 +11,7 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
   if (isUser) {
     return <Fragment>{children}</Fragment>;
   } else {
-    const dummy: TGetRelationReportDataType = {
+    const dummy: TRelationReport = {
       id: 168,
       text: 'stickers',
       avgPrice: 1.8,
@@ -33,7 +33,7 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
           <div className='space-y-[72px]'>
             {children}
             <RecommendationChart
-              relation={[dummy]}
+              relations={[dummy]}
               _dispatch={null}
               spinnerEvent={false}
               toggleEvent={[{ id: 168, isOpen: true }]}

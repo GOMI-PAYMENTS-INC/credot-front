@@ -133,7 +133,10 @@ type GRADE_TYPE = 'high' | 'medium' | 'low';
 
 type TReportState = {
   main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
-  relation: TGetRelationReportDataType[];
+  relation: {
+    id: number;
+    relations: TRelationReport[] | null;
+  };
   salePrice: {
     data: TSalePriceData | null;
     focus: GRADE_TYPE;
@@ -159,7 +162,16 @@ type TChannel = 'SHOPEE' | 'NONE';
 
 type TSortBy = 'R' | 'S' | 'NONE';
 
-type TGetRelationReportDataType = {
+type TGetRelationReportResponseData = {
+  relations: TRelationReport[];
+};
+
+type TGetRelationReportShareTokenResponseData = {
+  id: number;
+  relations: TRelationReport[];
+};
+
+type TRelationReport = {
   [key: string]: any;
   id: number;
   text: string;
@@ -189,7 +201,12 @@ type TGetMainReportResponse = {
 type TGetRelationReportResponse = {
   code: STATUS_CODE;
   message: string;
-  data: TGetRelationReportDataType[];
+  data: TGetRelationReportResponseData;
+};
+type TGetRelationReportShareTokenResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TGetRelationReportShareTokenResponseData;
 };
 
 type TSalePriceResponse = {
