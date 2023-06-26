@@ -11,7 +11,7 @@ import {
   getSalePriceByShare,
   postReportShareToken,
 } from './report.api';
-import { Dispatch, RefObject, SetStateAction } from 'react';
+import {Dispatch, RefObject, SetStateAction} from 'react';
 
 import {
   REPORT_ACTION,
@@ -19,7 +19,7 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import { scrollController } from '@/utils/scrollController';
+import {scrollController} from '@/utils/scrollController';
 
 import {
   BATCH_STATUS,
@@ -30,9 +30,9 @@ import {
   TAG_SENTIMENT_STATUS,
   TITLE,
 } from '@/types/enum.code';
-import { convertTime } from '@/utils/parsingTimezone';
-import { getReportList } from '@/containers/report/report.api';
-import { formatNumber } from '@/utils/formatNumber';
+import {convertTime} from '@/utils/parsingTimezone';
+import {getReportList} from '@/containers/report/report.api';
+import {formatNumber} from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -40,13 +40,10 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import { toast } from 'react-toastify';
-import { isFalsy } from '@/utils/isFalsy';
-import { isIncluded } from '@/utils/isIncluded';
-import {
-  _amplitudeKeywordReportDeleted,
-  _amplitudeKeywordReportViewed,
-} from '@/amplitude/amplitude.service';
+import {toast} from 'react-toastify';
+import {isFalsy} from '@/utils/isFalsy';
+import {isIncluded} from '@/utils/isIncluded';
+import {_amplitudeKeywordReportDeleted, _amplitudeKeywordReportViewed,} from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -123,9 +120,7 @@ export const _getReportInfoByShare = async (
       ]);
 
       const relationResponse = await getRelationReportByShare(token);
-      //TODO: 회원에게 공유된 리포트인 경우, 백엔드에서 리포트 복사 기능 완료되면 relationResponse내 정보로 변경할 것(하단 코드 활성화)
-      // const copyReportId = relationResponse!.data.data.id;
-      const copyReportId = response[0].data.data.id;
+      const copyReportId = relationResponse!.data.data.id;
       const brandResponse = await getBrandAnalysis(String(copyReportId));
       response.push(relationResponse);
       response.push(brandResponse);
