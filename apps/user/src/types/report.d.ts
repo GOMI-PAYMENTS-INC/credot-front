@@ -38,6 +38,7 @@ type TDeleteReportListResponse = {
 };
 
 type TKeywordInfo = {
+  id: string;
   text: string;
   country: CountryType;
   channel: TChannel;
