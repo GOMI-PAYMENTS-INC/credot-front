@@ -48,10 +48,16 @@ export const SearchModal = ({
       case MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses:
         return {
           title: '리포트 생성 완료!',
-          content: <Fragment>리포트 조회 탭을 확인해주세요.</Fragment>,
+          content: <Fragment>생성된 리포트를 확인해주세요.</Fragment>,
           onCancel: {
-            name: '확인',
-            cancelEvent: () => navigate(`/report/${_state.newReportId}`),
+            name: '닫기',
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch });
+            },
+          },
+          onConfirm: {
+            name: '바로 확인하기',
+            confirmEvent: () => navigate(`/report/${_state.newReportId}`),
           },
         };
 
