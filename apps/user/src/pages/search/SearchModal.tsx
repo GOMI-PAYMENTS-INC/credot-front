@@ -1,8 +1,8 @@
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
-import { switchModal } from '@/containers/search';
-import { convertTime } from '@/utils/parsingTimezone';
-import { MODAL_SIZE_ENUM, MODAL_TYPE_ENUM } from '@/types/enum.code';
-import { useNavigate } from 'react-router-dom';
+import {Dispatch, Fragment, SetStateAction, useEffect, useState} from 'react';
+import {switchModal} from '@/containers/search';
+import {convertTime} from '@/utils/parsingTimezone';
+import {MODAL_SIZE_ENUM, MODAL_TYPE_ENUM} from '@/types/enum.code';
+import {useNavigate} from 'react-router-dom';
 
 interface ISearchModalPrpos {
   data?: any;
@@ -48,10 +48,10 @@ export const SearchModal = ({
       case MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses:
         return {
           title: '리포트 생성 완료!',
-          content: <Fragment>생성된 리포트를 지금 확인하실 수 있습니다.</Fragment>,
-          onConfirm: {
-            name: '리포트 확인하기',
-            confirmEvent: () => navigate(`/report/${_state.newReportId}`),
+          content: <Fragment>리포트 조회 탭을 확인해주세요.</Fragment>,
+          onCancel: {
+            name: '확인',
+            cancelEvent: () => navigate(`/report/${_state.newReportId}`),
           },
         };
 
