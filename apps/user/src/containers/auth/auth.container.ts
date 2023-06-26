@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.code';
-import { UseFormSetError, FieldErrorsImpl, UseFormSetValue } from 'react-hook-form';
+import { FieldErrorsImpl, UseFormSetError, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { TERMS_LIST } from '@/constants/auth.constants';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
@@ -13,6 +13,7 @@ export const authInitialState: TVerifyButtonState = {
   activeVerifyCode: false,
   theElseCalled: true,
   isExceeded: false,
+  isDuplicated: false,
   verifyCode: '',
   verifyCodeSignatureNumber: '',
   isExistedAccount: null,
@@ -165,13 +166,29 @@ export const exceptedVerifyTry = (
   _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
 ) => {
   const _state = mergeCopiedValue(state);
-
   _setState(
     _state({
       activeVerifyCode: true,
       firstCalled: true,
       theElseCalled: true,
       isExceeded: true,
+      isDuplication: false,
+    }),
+  );
+};
+
+export const duplicationVerifyTry = (
+  state: TVerifyButtonState,
+  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
+) => {
+  const _state = mergeCopiedValue(state);
+  _setState(
+    _state({
+      activeVerifyCode: false,
+      firstCalled: false,
+      theElseCalled: true,
+      isExceeded: false,
+      isDuplication: true,
     }),
   );
 };
@@ -292,7 +309,6 @@ export const signUpVerifyCode = (
     clickVerifyBtn(state, _setState);
     return true;
   }
-  setError('phone', { message: NOTIFICATION_MESSAGE.emptyPhoneNumber });
   return false;
 };
 

@@ -2,10 +2,11 @@ import { GraphQLClient } from 'graphql-request';
 import { RequestInit } from 'graphql-request/dist/types.dom';
 import {
   useMutation,
-  useQuery,
   UseMutationOptions,
+  useQuery,
   UseQueryOptions,
 } from '@tanstack/react-query';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -175,6 +176,7 @@ export type MutationLoginArgs = {
 export type MutationSendSmsVerificationCodeArgs = {
   country: CountryType;
   phone: Scalars['String'];
+  type: SmsVerifyType;
 };
 
 export type MutationSendTemporaryPasswordArgs = {
@@ -251,6 +253,13 @@ export type SignUpInput = {
   /** 인증코드 서명 */
   verifyCodeSign: Scalars['String'];
 };
+
+export enum SmsVerifyType {
+  /** 비밀번호 찾기 유형 */
+  P = 'P',
+  /** 회원가입 유형 */
+  S = 'S',
+}
 
 export enum SocialProvider {
   Google = 'GOOGLE',
@@ -373,6 +382,7 @@ export type SearchDto = {
 export type SendSmsVerificationCodeMutationVariables = Exact<{
   country: CountryType;
   phone: Scalars['String'];
+  type: SmsVerifyType;
 }>;
 
 export type SendSmsVerificationCodeMutation = {
@@ -551,8 +561,8 @@ export type SearchQuery = {
 };
 
 export const SendSmsVerificationCodeDocument = `
-    mutation SendSmsVerificationCode($country: CountryType!, $phone: String!) {
-  sendSmsVerificationCode(country: $country, phone: $phone)
+    mutation SendSmsVerificationCode($country: CountryType!, $phone: String!, $type: SmsVerifyType!) {
+  sendSmsVerificationCode(country: $country, phone: $phone, type: $type)
 }
     `;
 export const useSendSmsVerificationCodeMutation = <

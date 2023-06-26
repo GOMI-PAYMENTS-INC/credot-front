@@ -1,13 +1,17 @@
-import { REPORT_DETAIL_TYPE, GRADE_ITEMS } from '@/types/enum.code';
+import { GRADE_ITEMS, REPORT_DETAIL_TYPE } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
 const reportInitialState: TReportState = {
   main: null,
-  relation: [],
+  relation: { id: 0, relations: null },
   salePrice: { data: null, focus: GRADE_ITEMS.HIGH, list: [] },
+  oversea: null,
+  brand: {
+    focus: 0,
+    data: null,
+  },
   scrollEvent: { title: 'Report', isOpen: true, current: 'Report' },
   toggleEvent: [],
-  oversea: null,
   spinnerEvent: false,
   shareToken: null,
 };
@@ -21,6 +25,7 @@ export enum REPORT_ACTION {
   INITIALIZE_SCROLL_EVENT = 'INITIALIZE_SCROLL_EVENT',
   SPINNER_EVENT = 'SPINNER_EVENT',
   FOCUS_ITEMS = 'FOCUS_ITEMS',
+  FOCUS_BRAND = 'FOCUS_BRAND',
   GET_OVERSEA_PRODUCT = 'GET_OVERSEA_PRODUCT',
   CREAT_SHARE_TOKEN = 'CREAT_SHARE_TOKEN',
 }
@@ -32,7 +37,6 @@ export type TReportAction = {
 
 const reportReducer = (_state: TReportState, action: TReportAction) => {
   const state = structuredClone(_state);
-
   switch (action.type) {
     case REPORT_ACTION.INITIALIZE_DATA: {
       const { type, data } = action.payload;
@@ -41,7 +45,8 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       }
       if (type === REPORT_DETAIL_TYPE.RELATION) {
         state.relation = data;
-        const [first] = data;
+        const { relations } = data;
+        const [first] = relations;
         if (first) {
           state.toggleEvent = state.toggleEvent.concat(first);
         }
@@ -55,6 +60,9 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       }
       if (type === REPORT_DETAIL_TYPE.OVERSEA) {
         state.oversea = data;
+      }
+      if (type === REPORT_DETAIL_TYPE.BRAND) {
+        state.brand.data = data;
       }
       return state;
     }
@@ -109,6 +117,10 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
           state.salePrice.list = low;
         }
       }
+      return state;
+    }
+    case REPORT_ACTION.FOCUS_BRAND: {
+      state.brand.focus = action.payload.focus;
       return state;
     }
     case REPORT_ACTION.CREAT_SHARE_TOKEN: {

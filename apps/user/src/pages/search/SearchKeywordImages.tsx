@@ -6,7 +6,7 @@ import { STATUS_CODE } from '@/types/enum.code';
 import { Tooltip } from 'react-tooltip';
 
 interface ISearchKeywordsImageBox {
-  images: TGetProductImageResponseType | null;
+  images: TGetProductImageResponse | null;
   keyword: string;
 }
 
@@ -94,16 +94,16 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
             <header className='pb-5 pt-[25px] pl-6'>
               <h3 className='text-L/Medium'>
                 관련 이미지
-                <ReactSVG
-                  id='anchor-keyword-tip'
-                  src='assets/icons/filled/Help.svg'
-                  className='ml-[7px] inline-block'
-                />
-                <Tooltip
-                  anchorId='anchor-keyword-tip'
-                  html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
-                  place='right'
-                />
+                <a
+                  data-tooltip-id='anchor-keyword-tip'
+                  data-tooltip-html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
+                >
+                  <ReactSVG
+                    src='assets/icons/filled/Help.svg'
+                    className='ml-[7px] inline-block'
+                  />
+                </a>
+                <Tooltip id='anchor-keyword-tip' place='right' variant='light' />
               </h3>
             </header>
 

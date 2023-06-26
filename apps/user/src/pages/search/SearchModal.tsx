@@ -1,7 +1,8 @@
-import { Dispatch, Fragment, useState, useEffect, SetStateAction } from 'react';
-import { switchModal } from '@/containers/search';
-import { convertTime } from '@/utils/parsingTimezone';
-import { MODAL_TYPE_ENUM, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import {Dispatch, Fragment, SetStateAction, useEffect, useState} from 'react';
+import {switchModal} from '@/containers/search';
+import {convertTime} from '@/utils/parsingTimezone';
+import {MODAL_SIZE_ENUM, MODAL_TYPE_ENUM} from '@/types/enum.code';
+import {useNavigate} from 'react-router-dom';
 
 interface ISearchModalPrpos {
   data?: any;
@@ -20,6 +21,7 @@ export const SearchModal = ({
 }: ISearchModalPrpos) => {
   const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
   const [eventTrigger, setEventTrigger] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (eventTrigger === false) return;
@@ -41,6 +43,21 @@ export const SearchModal = ({
             cancelEvent: async () => {
               await switchModal({ _setTrigger, _dispatch });
             },
+          },
+        };
+      case MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses:
+        return {
+          title: '리포트 생성 완료!',
+          content: <Fragment>생성된 리포트를 확인해주세요.</Fragment>,
+          onCancel: {
+            name: '닫기',
+            cancelEvent: async () => {
+              await switchModal({ _setTrigger, _dispatch });
+            },
+          },
+          onConfirm: {
+            name: '바로 확인하기',
+            confirmEvent: () => navigate(`/report/${_state.newReportId}`),
           },
         };
 
@@ -152,7 +169,9 @@ export const SearchModal = ({
                 <button
                   type='button'
                   className='button-filled-normal-large-primary-false-false-true w-full'
-                  onClick={() => setEventTrigger(true)}
+                  onClick={() => {
+                    modal.onConfirm?.confirmEvent() || setEventTrigger(true);
+                  }}
                 >
                   {eventTrigger ? (
                     <div className=' scale-[0.2]'>

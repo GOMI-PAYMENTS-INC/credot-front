@@ -8,7 +8,6 @@ import { CACHING_KEY, LANGUAGE_TYPE } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
 import { _amplitudeKeywordTranslated } from '@/amplitude/amplitude.service';
-import { CountryType } from '@/generated/graphql';
 
 export const switchTranslationTab = (
   _dispatch: Dispatch<TSearchActionType>,
@@ -53,12 +52,12 @@ const queryKeyword = async (
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
-  const parms: TGetTranslationOfKeywordParamsType = {
+  const params: TGetTranslationOfKeywordParams = {
     term: keyword,
     country: country,
   };
 
-  const response = await getTranslationOfKeyword(parms);
+  const response = await getTranslationOfKeyword(params);
   const translatedData = response!.data.data;
   _dispatch({ type: RECOMMENDER_ACTION.STORE_KEYWORD_RESULT, payload: translatedData });
 
@@ -74,7 +73,7 @@ const querySameKeyword = async (
   const isOverSearch = payload.dictionaries.length > 5;
   if (isOverSearch) return false;
 
-  const parms: TGetTranslationOfKeywordParamsType = {
+  const parms: TGetTranslationOfKeywordParams = {
     term: payload.keyword,
     country: payload.country,
   };

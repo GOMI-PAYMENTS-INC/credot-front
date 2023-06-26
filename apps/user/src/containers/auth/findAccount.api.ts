@@ -1,22 +1,24 @@
 import { Dispatch, SetStateAction } from 'react';
 import {
-  useSmsVerifyCodeConfirmQuery,
   CountryType,
+  FindPasswordInput,
+  SmsVerifyType,
   useFindAccountQuery,
   useSendSmsVerificationCodeMutation,
   useSendTemporaryPasswordMutation,
-  FindPasswordInput,
+  useSmsVerifyCodeConfirmQuery,
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
 
 import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
-  clickVerifyBtn,
   activateVerifyCode,
+  clickVerifyBtn,
+  duplicationVerifyTry,
+  exceptedVerifyTry,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
-  exceptedVerifyTry,
 } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -29,6 +31,7 @@ import {
 } from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
+  type: SmsVerifyType,
   isVerification: TVerifyButtonState,
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TAuthEssentialProps>,
@@ -41,12 +44,19 @@ export const useVerifyCode = (
       },
       onError: (err) => {
         const [error] = err.response.errors;
+        setError('phone', { message: error.message });
+
         if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
           exceptedVerifyTry(isVerification, setIsVerification);
 
           return;
         }
-        setError('phone', { message: error.message });
+
+        if (String(error.extensions.code) === STATUS_CODE.DUPLICATE_VERIFY_CODE) {
+          duplicationVerifyTry(isVerification, setIsVerification);
+
+          return;
+        }
         clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
       },
     },
@@ -58,6 +68,7 @@ export const useVerifyCode = (
     const payload = {
       phone: phone,
       country: CountryType.Kr,
+      type: type,
     };
 
     mutateRequestVerify(payload);

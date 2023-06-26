@@ -25,6 +25,7 @@ export enum STATUS_CODE {
   INVALID_USER = '1000',
   WRONG_PHONE = '1007',
   NOT_RETRY_VERIFY_CODE = '1008',
+  DUPLICATE_VERIFY_CODE = '1009',
   NOT_EXIST_SEARCH_KEYWORD = '1101',
 
   INVALID_PATH = '9400',
@@ -73,6 +74,7 @@ export enum TITLE {
   REPORT = 'Report',
   MARKET_SIZE = 'MarketSize',
   KEYWORD_INFO = 'KeywordInfo',
+  BRAND_ANALYSIS = 'BrandAnalysis',
   SALE_PRICE = 'SalePrice',
   OVERSEA_PRODUCT = 'overseaProduct',
 }
@@ -100,9 +102,10 @@ export enum MODAL_SIZE_ENUM {
 
 export enum REPORT_DETAIL_TYPE {
   MAIN = 'main',
-  RELATION = 'relation',
   PRICE = 'price',
   OVERSEA = 'oversea',
+  RELATION = 'relation',
+  BRAND = 'brand',
 }
 
 export enum GRADE_ITEMS {
@@ -138,6 +141,7 @@ export enum TERM_TYPE {
 
 export enum MODAL_TYPE_ENUM {
   MakeReportSuccesses = 'MakeReportSuccesses',
+  MakeDuplicateReportSuccesses = 'MakeDuplicateReportSuccesses',
   SameKeywordReportExisted = 'SameKeywordReportExisted',
   LessMonthlyKeywordVolume = 'LessMonthlyKeywordVolume',
   NotBeOverDayReport = 'NotBeOverDayReport',
@@ -152,4 +156,5 @@ export enum CACHING_KEY {
 
 export enum STYLE_ENUM {
   REPORT_DETAIL_HEADER_HEIGHT = 85,
+  REPORT_DETAIL_BODY_PADDING_TOP = 32,
 }

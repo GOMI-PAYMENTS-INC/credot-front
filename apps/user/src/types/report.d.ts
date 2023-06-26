@@ -105,7 +105,7 @@ type TDeleteReportListParamsType = {
   ids: number[];
 };
 
-type TCreateReportParamsType = {
+type TCreateReportParams = {
   country: CountryType;
   reportInvokeId: string;
   sortBy: TSortBy;
@@ -133,13 +133,20 @@ type GRADE_TYPE = 'high' | 'medium' | 'low';
 
 type TReportState = {
   main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
-  relation: TGetRelationReportDataType[];
+  relation: {
+    id: number;
+    relations: TRelationReport[] | null;
+  };
   salePrice: {
     data: TSalePriceData | null;
     focus: GRADE_TYPE;
     list: TSalePriceItems[] | [];
   };
   oversea: TOverseaProductData | null;
+  brand: {
+    focus: number;
+    data: TBrandAnalysis | null;
+  };
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -155,7 +162,16 @@ type TChannel = 'SHOPEE' | 'NONE';
 
 type TSortBy = 'R' | 'S' | 'NONE';
 
-type TGetRelationReportDataType = {
+type TGetRelationReportResponseData = {
+  relations: TRelationReport[];
+};
+
+type TGetRelationReportShareTokenResponseData = {
+  id: number;
+  relations: TRelationReport[];
+};
+
+type TRelationReport = {
   [key: string]: any;
   id: number;
   text: string;
@@ -185,7 +201,12 @@ type TGetMainReportResponse = {
 type TGetRelationReportResponse = {
   code: STATUS_CODE;
   message: string;
-  data: TGetRelationReportDataType[];
+  data: TGetRelationReportResponseData;
+};
+type TGetRelationReportShareTokenResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TGetRelationReportShareTokenResponseData;
 };
 
 type TSalePriceResponse = {
@@ -296,4 +317,44 @@ type scrollEventState = {
   title: string;
   isOpen: boolean;
   current: string;
+};
+
+type TBrandAnalysisProduct = {
+  id: number;
+  itemName: string;
+  itemUrl: string;
+  itemImage: string;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  item30daySales: number;
+  item30daysSold: number;
+  rank: number;
+};
+
+type TBrandAnalysisBrand = {
+  rank: number;
+  name: string;
+  productCount: number;
+  totalSalesAmount: number;
+  totalSalesCount: number;
+  avgSalesAmount: number;
+  avgSalesCount: number;
+  avgPrice: number;
+  products: TBrandAnalysisProduct[];
+};
+
+type TBrandAnalysis = {
+  text: string;
+  country: CountryType;
+  channel: TChannel;
+  sorted: TSortBy;
+  currencyUnit: number;
+  basePrice: number;
+  brands: TBrandAnalysisBrand[];
+};
+
+type TBrandAnalysisResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TBrandAnalysis;
 };

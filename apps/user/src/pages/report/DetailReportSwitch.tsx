@@ -8,12 +8,12 @@ import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
 import { Fragment } from 'react';
 import { Params } from 'react-router-dom';
 import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
+import BrandAnalysis from '@/pages/report/BrandAnalysis';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
-  scrollController: React.RefObject<HTMLTableSectionElement>;
   params: Params<string>;
 }
 
@@ -21,10 +21,9 @@ export const DetailReportSwitch = ({
   isUser,
   _state,
   _dispatch,
-  scrollController,
   params,
 }: IDetailReportSwitchProps) => {
-  const { main, relation } = _state;
+  const { main, relation, brand } = _state;
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
@@ -46,8 +45,16 @@ export const DetailReportSwitch = ({
 
             {isUser && (
               <Fragment>
+                <BrandAnalysis
+                  _dispatch={_dispatch}
+                  basePrice={main!.basePrice}
+                  currencyUnit={main!.currencyUnit}
+                  brandAnalysis={brand}
+                  forceBrandIndex={_state.brand.focus}
+                  amplitudeData={amplitudeData}
+                />
                 <RecommendationChart
-                  relation={relation}
+                  relations={relation.relations}
                   _dispatch={_dispatch}
                   spinnerEvent={_state.spinnerEvent}
                   toggleEvent={_state.toggleEvent}
@@ -58,7 +65,6 @@ export const DetailReportSwitch = ({
                 />
                 <SalePrice
                   currencyUnit={main!.currencyUnit}
-                  scollerRef={scrollController}
                   salePriceInfo={_state.salePrice?.data!}
                   list={_state.salePrice.list}
                   focus={_state.salePrice.focus}

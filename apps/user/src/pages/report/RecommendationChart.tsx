@@ -1,4 +1,4 @@
-import { Dispatch, Fragment } from 'react';
+import { Dispatch, Fragment, useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useParams } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ import { CountryType } from '@/generated/graphql';
 import { openBrowser } from '@/utils/openBrowser';
 
 interface IRecommendationChart {
-  relation: TGetRelationReportDataType[];
+  relations: TRelationReport[] | null;
   country: CountryType | null;
   _dispatch: Dispatch<TReportAction> | null;
   toggleEvent: { id: number; isOpen: boolean }[];
@@ -41,7 +41,7 @@ interface IRecommendationChart {
 export const RecommendationChart = (props: IRecommendationChart) => {
   const {
     amplitudeData,
-    relation,
+    relations,
     country,
     _dispatch,
     toggleEvent,
@@ -49,10 +49,26 @@ export const RecommendationChart = (props: IRecommendationChart) => {
     currencyUnit,
     basePrice,
   } = props;
-  const batchStatusDoneItems = relation.filter((data) =>
-    isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
-  );
-  const isDone = relation.length === batchStatusDoneItems.length;
+
+  const batchStatusDoneItems = useMemo(() => {
+    if (isFalsy(relations) || relations === null) {
+      return;
+    }
+    return relations.filter((data) =>
+      isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
+    );
+  }, [relations]);
+
+  const isDone = useMemo(() => {
+    if (
+      isFalsy(batchStatusDoneItems) ||
+      batchStatusDoneItems === undefined ||
+      relations === null
+    ) {
+      return;
+    }
+    return relations.length === batchStatusDoneItems.length;
+  }, [batchStatusDoneItems]);
 
   const routeId = useParams();
   return (
@@ -98,14 +114,14 @@ export const RecommendationChart = (props: IRecommendationChart) => {
         </thead>
 
         <tbody>
-          {isFalsy(relation) && (
+          {isFalsy(relations) && (
             <Fragment>
               <tr className='mt-3 flex' />
               <EmptyRecommendation />
             </Fragment>
           )}
 
-          {isFalsy(relation) === false && isFalsy(batchStatusDoneItems) && (
+          {isFalsy(relations) === false && isFalsy(batchStatusDoneItems) && (
             <Fragment>
               <tr className='mt-3 flex' />
               <tr>
@@ -151,8 +167,9 @@ export const RecommendationChart = (props: IRecommendationChart) => {
             </Fragment>
           )}
 
-          {isFalsy(relation) === false &&
+          {isFalsy(relations) === false &&
             isFalsy(batchStatusDoneItems) === false &&
+            batchStatusDoneItems !== undefined &&
             batchStatusDoneItems.map((data, idx) => {
               const [search, competiton, cpc] = data.evaluateStatus;
               const status = isFalsy(toggleEvent.find((event) => event.id === data.id));

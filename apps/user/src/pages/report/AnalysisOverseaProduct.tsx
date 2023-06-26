@@ -1,15 +1,15 @@
-import {useMemo} from 'react';
-import {ReactSVG} from 'react-svg';
+import { useMemo } from 'react';
+import { ReactSVG } from 'react-svg';
 
-import {TITLE} from '@/types/enum.code';
-import {convertTitle} from '@/utils/convertEnum';
+import { TITLE } from '@/types/enum.code';
 
-import {AnalysisOverseaProductTable} from '@/pages/report/AnalysisOverseaProductTable';
-import {OVERSEA_PRODUCT_RATIO} from '@/constants/report.constant';
-import {isFalsy} from '@/utils/isFalsy';
+import { AnalysisOverseaProductTable } from '@/pages/report/AnalysisOverseaProductTable';
+import { OVERSEA_PRODUCT_RATIO } from '@/constants/report.constant';
+import { isFalsy } from '@/utils/isFalsy';
 
-import {COUNTRY_CODE} from '@/containers/report/country.code';
-import {replaceOverLength} from '@/utils/replaceOverLength';
+import { COUNTRY_CODE } from '@/containers/report/country.code';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
 
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;
@@ -46,10 +46,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
 
   return (
     <section className='col-span-full'>
-      <h1 id={TITLE.OVERSEA_PRODUCT} className='detailReport-h1-header'>
-        {convertTitle(TITLE.OVERSEA_PRODUCT)}
-      </h1>
-
+      <DetailReportSectionHeader id={TITLE.OVERSEA_PRODUCT} />
       <div className='pt-4'>
         <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='relative col-span-10 flex w-full bg-grey-100'>
@@ -142,7 +139,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                     </div>
                   </div>
                 ) : (
-                  <div className='flex flex-wrap text-S/Regular text-grey-900 gap-x-1 gap-y-3'>
+                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900'>
                     {overseaCountryCount.map((country) => {
                       const countryCode = COUNTRY_CODE[
                         country.itemShopCountry as keyof typeof COUNTRY_CODE
@@ -150,7 +147,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
 
                       return (
                         <div
-                          className={`px-1 rounded-[4px] bg-grey-100 py-1`}
+                          className={`rounded-[4px] bg-grey-100 px-1 py-1`}
                           key={country.itemShopCountry}
                         >
                           <div className='flex items-center'>

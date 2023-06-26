@@ -1,10 +1,12 @@
-import { TITLE, BATCH_STATUS, LANGUAGE_TYPE, SORT_BY_TYPE } from '@/types/enum.code';
+import { BATCH_STATUS, LANGUAGE_TYPE, SORT_BY_TYPE, TITLE } from '@/types/enum.code';
 import { CountryType } from '@/generated/graphql';
 
 export const convertTitle = (id: string) => {
   switch (id) {
     case TITLE.REPORT:
       return '리포트';
+    case TITLE.BRAND_ANALYSIS:
+      return '브랜드 분석';
     case TITLE.MARKET_SIZE:
       return '시장 분석';
     case TITLE.KEYWORD_INFO:

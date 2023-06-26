@@ -37,14 +37,20 @@ const getRelationReport = async (id: string) => {
 };
 const getRelationReportByShare = async (token: string) => {
   try {
-    return await HTTP.get<TGetRelationReportResponse>(
+    return await HTTP.get<TGetRelationReportShareTokenResponse>(
       `${REPORT_URL}/share/${token}/relation`,
     );
   } catch (error) {
     console.error(error);
   }
 };
-
+const getBrandAnalysis = async (id: string) => {
+  try {
+    return await HTTP.get<TBrandAnalysisResponse>(`${REPORT_URL}/${id}/brand`);
+  } catch (error) {
+    console.error(error);
+  }
+};
 const getOverseaProduct = async (id: string) => {
   try {
     return await HTTP.get<TOverseaProductResponse>(`${REPORT_URL}/${id}/oversea`);
@@ -103,6 +109,7 @@ export {
   postReportShareToken,
   getMainReport,
   getMainReportByShare,
+  getBrandAnalysis,
   getRelationReport,
   getRelationReportByShare,
   getSalePrice,

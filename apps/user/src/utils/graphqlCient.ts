@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
+import { useRecoilValue } from 'recoil';
 
 import { GlobalEnv } from '@/api/config';
-import { useRecoilValue } from 'recoil';
 import { LoginTokenAtom } from '@/atom/auth/auth-atom';
 
 export const graphQLClient = () => {
