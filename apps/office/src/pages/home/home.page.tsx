@@ -1,15 +1,15 @@
 import 'swiper/swiper.min.css';
 
-import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
+import {useState} from 'react';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Autoplay} from 'swiper';
 
-import { ReactSVG } from 'react-svg';
-import { Swiper as SwiperClass } from 'swiper/types';
-import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
-import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
-import { GlobalEnv } from '@/api/config';
-import { openBrowser } from '@/utils/openBrowser';
+import {ReactSVG} from 'react-svg';
+import {Swiper as SwiperClass} from 'swiper/types';
+import {_introPageMovedToSolution} from '@/amplitude/amplitude.service';
+import {CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY} from '@/amplitude/amplitude.enum';
+import {GlobalEnv} from '@/api/config';
+import {openBrowser} from '@/utils/openBrowser';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
@@ -110,7 +110,7 @@ export default function HomePage() {
     {
       name: '브랜드 분석',
       icoName: 'Brand',
-      launching: false,
+      launching: true,
       data: {
         insightNum: '6',
         content:

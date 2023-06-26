@@ -1,15 +1,16 @@
-import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { _getReportInfoByShare } from '@/containers/report/report.container';
-import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
-import { isFalsy } from '@/utils/isFalsy';
+import React, {Fragment, useEffect, useMemo, useReducer, useRef, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {_getReportInfoByShare} from '@/containers/report/report.container';
+import {reportInitialState, reportReducer} from '@/containers/report/report.reducer';
+import {DetailReportRightQuickBar} from '@/pages/report/DetailReportRightQuickBar';
+import {isFalsy} from '@/utils/isFalsy';
 
-import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
+import {DetailReportSwitch} from '@/pages/report/DetailReportSwitch';
 import DetailReportBody from '@/pages/report/DetailReportBody';
-import { authTokenStorage } from '@/utils/authToken';
-import { Default } from '@/components/layouts';
+import {authTokenStorage} from '@/utils/authToken';
+import {Default} from '@/components/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
+import {_amplitudeSharedKeywordReportViewed} from '@/amplitude/amplitude.service';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
@@ -24,7 +25,6 @@ const DetailReportPageByShare = () => {
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
   const { main } = _state;
-
   const contentSection = useRef<HTMLDivElement>(null);
   const scrollController = useRef<HTMLTableSectionElement>(null);
 
@@ -40,11 +40,17 @@ const DetailReportPageByShare = () => {
       setIsUser(false);
     }
 
-    if (params.id && _state.main === null) {
+    if (params.id && main === null) {
       void _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
     }
   }, []);
 
+  useEffect(() => {
+    if(main){
+      _amplitudeSharedKeywordReportViewed(main.id, main.country, main.sorted, main.text)
+    }
+  },[main])
+  
   const combinedComponent = useMemo(() => {
     return (
       <DetailReportSwitch
