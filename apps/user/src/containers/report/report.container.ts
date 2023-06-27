@@ -43,7 +43,7 @@ import {
 import {toast} from 'react-toastify';
 import {isFalsy} from '@/utils/isFalsy';
 import {isIncluded} from '@/utils/isIncluded';
-import {_amplitudeKeywordReportDeleted, _amplitudeKeywordReportViewed,} from '@/amplitude/amplitude.service';
+import {_amplitudeKeywordReportDeleted,} from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -76,10 +76,6 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
     ]);
     const dataName = Object.values(REPORT_DETAIL_TYPE);
 
-    const [first, second, third, four] = response;
-    if (first) {
-      _amplitudeKeywordReportViewed(id, first.data);
-    }
     response.forEach((chunk, idx) => {
       if (chunk) {
         const { data } = chunk.data;
@@ -129,11 +125,6 @@ export const _getReportInfoByShare = async (
     }
 
     const dataName = Object.values(REPORT_DETAIL_TYPE);
-
-    const [first] = response;
-    if (first) {
-      _amplitudeKeywordReportViewed(token, first.data);
-    }
 
     response.forEach((chunk, idx) => {
       if (chunk) {

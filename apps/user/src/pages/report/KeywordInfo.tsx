@@ -1,19 +1,19 @@
-import { ReactSVG } from 'react-svg';
-import { convertTime } from '@/utils/parsingTimezone';
+import {ReactSVG} from 'react-svg';
+import {convertTime} from '@/utils/parsingTimezone';
+import {convertCountry, convertExchangeRate, convertShopeeSiteUrl, convertSortedType,} from '@/utils/convertEnum';
 import {
-  convertCountry,
-  convertExchangeRate,
-  convertShopeeSiteUrl,
-  convertSortedType,
-} from '@/utils/convertEnum';
-import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { copyToClipboard } from '@/utils/copyToClipboard';
-import { useMatch } from 'react-router-dom';
-import { PATH } from '@/types/enum.code';
-import { openBrowser } from '@/utils/openBrowser';
-import { _postReportShareToken } from '@/containers/report';
-import { TReportAction } from '@/containers/report/report.reducer';
-import { Dispatch } from 'react';
+  _amplitudeKeywordReportShared,
+  _amplitudeMovedToSERP,
+  _amplitudeSharedKeywordReportShared
+} from '@/amplitude/amplitude.service';
+import {copyToClipboard} from '@/utils/copyToClipboard';
+import {useMatch} from 'react-router-dom';
+import {PATH} from '@/types/enum.code';
+import {openBrowser} from '@/utils/openBrowser';
+import {_postReportShareToken} from '@/containers/report';
+import {TReportAction} from '@/containers/report/report.reducer';
+import {Dispatch} from 'react';
+
 interface IKeywordInfoProps {
   _dispatch: Dispatch<TReportAction>;
   keywordInfo: TKeywordInfo;
@@ -23,7 +23,7 @@ interface IKeywordInfoProps {
 export const KeywordInfo = (props: IKeywordInfoProps) => {
   const { text, country, createdAt, basePrice, currencyUnit, sorted, itemCount } =
     props.keywordInfo;
-  const { param } = props.amplitudeData;
+  const { param:reportIdOrShareToken } = props.amplitudeData;
   const isMatchSharePath = useMatch('/share/:id');
 
   const domain = window.location.origin;
@@ -33,13 +33,17 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
     let url = '';
     if (isMatchSharePath) {
       url = `${href}`;
+
+      _amplitudeSharedKeywordReportShared(reportIdOrShareToken,country,sorted,text)
     } else {
-      const shareToken = await _postReportShareToken(param, props._dispatch);
+      const shareToken = await _postReportShareToken(reportIdOrShareToken, props._dispatch);
 
       const utmLink =
         'utm_source=gomiinsight&utm_medium=share&utm_campaign=keywordreport&utm_content=' +
-        param;
+        reportIdOrShareToken;
       url = `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
+
+      _amplitudeKeywordReportShared(reportIdOrShareToken,country,sorted,text)
     }
 
     copyToClipboard('주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.', url);
@@ -88,7 +92,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <button
               onClick={() => {
                 openBrowser(`${convertShopeeSiteUrl(country)}/search?keyword=${text}`);
-                _amplitudeMovedToSERP(param, text, null);
+                _amplitudeMovedToSERP(reportIdOrShareToken, text, null);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
             >

@@ -10,6 +10,7 @@ import DetailReportBody from '@/pages/report/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/components/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
+import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
@@ -24,7 +25,6 @@ const DetailReportPageByShare = () => {
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
   const { main } = _state;
-
   const contentSection = useRef<HTMLDivElement>(null);
   const scrollController = useRef<HTMLTableSectionElement>(null);
 
@@ -40,10 +40,16 @@ const DetailReportPageByShare = () => {
       setIsUser(false);
     }
 
-    if (params.id && _state.main === null) {
+    if (params.id && main === null) {
       void _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
     }
   }, []);
+
+  useEffect(() => {
+    if (main) {
+      _amplitudeSharedKeywordReportViewed(main.id, main.country, main.sorted, main.text);
+    }
+  }, [main?.id]);
 
   const combinedComponent = useMemo(() => {
     return (

@@ -7,7 +7,7 @@ import {
   onCheckReportList,
   reportListConverter,
 } from '@/containers/report/report.container';
-import { Dispatch, Fragment, JSXElementConstructor } from 'react';
+import { Dispatch, Fragment } from 'react';
 
 type TReportListColumn = {
   _state: TReportListState;
@@ -124,7 +124,7 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                   <p className='text-S/Regular'>
                     {addLink(
                       report,
-                      convertTime(report.updatedAt.toString(), 'YYYY.MM.DD'),
+                      convertTime(report.createdAt.toString(), 'YYYY.MM.DD'),
                       true,
                     )}
                   </p>

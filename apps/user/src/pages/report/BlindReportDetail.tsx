@@ -1,6 +1,5 @@
 import { Fragment, ReactNode } from 'react';
 import { PATH } from '@/types/enum.code';
-import { RecommendationChart } from '@/pages/report/RecommendationChart';
 import { authReturnUrl } from '@/containers/auth/auth.container';
 
 interface IBlindReportProps {
@@ -11,37 +10,12 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
   if (isUser) {
     return <Fragment>{children}</Fragment>;
   } else {
-    const dummy: TRelationReport = {
-      id: 168,
-      text: 'stickers',
-      avgPrice: 1.8,
-      batchStatus: 'DONE',
-      competitionProductCount: 714429,
-      competitionRate: 17.23,
-      cpcPrice: 3,
-      cpcRate: 166.66667,
-      createdAt: new Date('2023-05-03T07:31:24.364+00:00'),
-      evaluateStatus: 'AEE',
-      searchCount: 41456,
-    };
-
     const { saveReturnUrl } = authReturnUrl();
 
     return (
       <Fragment>
         <div>
-          <div className='space-y-[72px]'>
-            {children}
-            <RecommendationChart
-              relations={[dummy]}
-              _dispatch={null}
-              spinnerEvent={false}
-              toggleEvent={[{ id: 168, isOpen: true }]}
-              country={null}
-              basePrice={968.92}
-              currencyUnit={1}
-            />
-          </div>
+          <div className='space-y-[72px]'>{children}</div>
           <div className='relative'>
             <div className='absolute top-[-300px] block h-[300px] w-full bg-gradient-to-t from-white to-transparent'></div>
           </div>

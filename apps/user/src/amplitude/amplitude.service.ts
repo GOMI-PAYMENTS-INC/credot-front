@@ -266,16 +266,18 @@ export const _amplitudeKeywordReportRequested = (
 
 // ##### KEYWORD REPORT - 키워드 리포트 상세 조회 시 ##### //
 export const _amplitudeKeywordReportViewed = (
-  routeId: string,
-  data: TGetMainReportResponse,
+  reportId: string,
+  country: CountryType,
+  platform: TChannel,
+  sortBy: TSortBy,
+  keyword: string,
 ) => {
-  const report = data.data;
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
-    report_id: routeId,
-    platform: report?.channel,
-    country: report?.country,
-    sort_by: report?.sorted,
-    keyword: report?.text,
+    report_id: reportId,
+    country: country,
+    platform: platform,
+    sort_by: sortBy,
+    keyword: keyword,
   });
 };
 // ##### KEYWORD REPORT - 키워드 리포트 삭제 완료 시 ##### //
@@ -346,6 +348,53 @@ export const _amplitudeTranslatedSearched = (
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.translatedKeywordSearched, {
     platform: CHANNEL_TYPE.SHOPEE,
+    country: country,
+    sort_by: sortBy,
+    keyword,
+  });
+};
+
+// ##### KEYWORD REPORT SHARE - 리포트 상세에서 '공유하기' 버튼 클릭 시 ##### //
+export const _amplitudeKeywordReportShared = (
+  reportId: string,
+  country: CountryType,
+  sortBy: TSortBy,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordReportShared, {
+    report_id: reportId,
+    country: country,
+    sort_by: sortBy,
+    keyword,
+  });
+};
+
+// ##### KEYWORD REPORT SHARE - 공유된 리포트에서 '공유하기' 버튼 클릭 시 ##### //
+export const _amplitudeSharedKeywordReportShared = (
+  reportId: string,
+  country: CountryType,
+  sortBy: TSortBy,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.sharedKeywordReportShared, {
+    report_id: reportId,
+    country: country,
+    sort_by: sortBy,
+    keyword,
+  });
+};
+
+// ##### KEYWORD REPORT SHARE - 공유된 리포트 view 발생 시 ##### //
+export const _amplitudeSharedKeywordReportViewed = (
+  reportId: string,
+  // sharedBy: string,
+  country: CountryType,
+  sortBy: TSortBy,
+  keyword: string,
+) => {
+  void _setAmplitudeEvents(amplitudeConstant.sharedKeywordReportViewed, {
+    report_id: reportId,
+    // shared_by: sharedBy,
     country: country,
     sort_by: sortBy,
     keyword,

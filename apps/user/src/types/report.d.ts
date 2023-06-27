@@ -38,6 +38,7 @@ type TDeleteReportListResponse = {
 };
 
 type TKeywordInfo = {
+  id: string;
   text: string;
   country: CountryType;
   channel: TChannel;
@@ -68,6 +69,7 @@ type TGoogleTrendDataType = {
 }[];
 
 type TRecommendKeyword = {
+  country: CountryType;
   searchCount: number;
   competitionProductCount: number;
   competitionRate: number;

@@ -8,13 +8,34 @@ import { convertEvaluateStatus, convertScoreToText } from '@/constants/report.co
 import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
+import { RecommendationChart } from '@/pages/report/RecommendationChart';
+import { TReportAction } from '@/containers/report/report.reducer';
 
 interface IAnalysisKeyword {
+  _state: TReportState;
+  _dispatch: React.Dispatch<TReportAction>;
+  isUser: boolean;
   analysisInfo: TRecommendKeyword;
+  relations: TRelationReport[] | null;
+  amplitudeData?: TAmplitudeDetailData;
 }
 
+const dummy: TRelationReport = {
+  id: 168,
+  text: 'stickers',
+  avgPrice: 1.8,
+  batchStatus: 'DONE',
+  competitionProductCount: 714429,
+  competitionRate: 17.23,
+  cpcPrice: 3,
+  cpcRate: 166.66667,
+  createdAt: new Date('2023-05-03T07:31:24.364+00:00'),
+  evaluateStatus: 'AEE',
+  searchCount: 41456,
+};
+
 export const AnalysisKeyword = (props: IAnalysisKeyword) => {
-  const { analysisInfo } = props;
+  const { _state, _dispatch, isUser, analysisInfo, relations, amplitudeData } = props;
 
   const [cpcPrice, avgPrice, searchCount, competitionProductCount, cpcRate] = [
     analysisInfo.cpcPrice,
@@ -290,6 +311,28 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
+      {isUser ? (
+        <RecommendationChart
+          relations={relations}
+          _dispatch={_dispatch}
+          spinnerEvent={_state.spinnerEvent}
+          toggleEvent={_state.toggleEvent}
+          country={analysisInfo!.country}
+          basePrice={analysisInfo!.basePrice}
+          currencyUnit={analysisInfo!.currencyUnit}
+          amplitudeData={amplitudeData}
+        />
+      ) : (
+        <RecommendationChart
+          relations={[dummy]}
+          _dispatch={null}
+          spinnerEvent={false}
+          toggleEvent={[{ id: 168, isOpen: true }]}
+          country={null}
+          basePrice={968.92}
+          currencyUnit={1}
+        />
+      )}
     </section>
   );
 };

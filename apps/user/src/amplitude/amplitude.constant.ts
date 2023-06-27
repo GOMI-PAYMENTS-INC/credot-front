@@ -33,4 +33,8 @@ export const amplitudeConstant = {
   movedToPDP: 'moved to PDP',
   keywordTranslated: 'keyword translated',
   translatedKeywordSearched: 'translated keyword searched',
+
+  keywordReportShared : 'keyword report shared',
+  sharedKeywordReportShared : 'shared keyword report shared',
+  sharedKeywordReportViewed : 'shared keyword report viewed'
 };
