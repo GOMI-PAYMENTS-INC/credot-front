@@ -38,7 +38,7 @@ const DetailReportPage = () => {
     if(main){
       _amplitudeKeywordReportViewed(main.id, main.country, main.channel, main.sorted, main.text)
     }
-  },[main])
+  },[main?.id])
 
   const combinedComponent = useMemo(() => {
     return (

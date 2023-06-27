@@ -1,7 +1,10 @@
-import {CountryType, Role, SearchDto} from '@/generated/graphql';
-import {amplitudeConstant} from '@/amplitude/amplitude.constant';
-import {AMPLITUDE_ACCOUNT_TYPE, convertAmplitudeSortedType,} from '@/amplitude/amplitude.enum';
-import {CHANNEL_TYPE} from '@/types/enum.code';
+import { CountryType, Role, SearchDto } from '@/generated/graphql';
+import { amplitudeConstant } from '@/amplitude/amplitude.constant';
+import {
+  AMPLITUDE_ACCOUNT_TYPE,
+  convertAmplitudeSortedType,
+} from '@/amplitude/amplitude.enum';
+import { CHANNEL_TYPE } from '@/types/enum.code';
 
 declare var amplitude: any;
 
@@ -265,7 +268,7 @@ export const _amplitudeKeywordReportRequested = (
 export const _amplitudeKeywordReportViewed = (
   reportId: string,
   country: CountryType,
-  platform:TChannel,
+  platform: TChannel,
   sortBy: TSortBy,
   keyword: string,
 ) => {
@@ -359,7 +362,7 @@ export const _amplitudeKeywordReportShared = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportShared, {
-    platform: CHANNEL_TYPE.SHOPEE,
+    report_id: reportId,
     country: country,
     sort_by: sortBy,
     keyword,
@@ -374,7 +377,7 @@ export const _amplitudeSharedKeywordReportShared = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.sharedKeywordReportShared, {
-    platform: CHANNEL_TYPE.SHOPEE,
+    report_id: reportId,
     country: country,
     sort_by: sortBy,
     keyword,
@@ -390,7 +393,8 @@ export const _amplitudeSharedKeywordReportViewed = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.sharedKeywordReportViewed, {
-    platform: CHANNEL_TYPE.SHOPEE,
+    report_id: reportId,
+    // shared_by: sharedBy,
     country: country,
     sort_by: sortBy,
     keyword,
