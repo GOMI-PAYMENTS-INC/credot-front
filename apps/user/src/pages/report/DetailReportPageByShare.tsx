@@ -92,7 +92,7 @@ const DetailReportPageByShare = () => {
         <DetailReportBody
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
-          scrollEventState={scrollEvent}
+          scrollEvent={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
@@ -112,7 +112,7 @@ const DetailReportPageByShare = () => {
         <DetailReportBody
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
-          scrollEventState={scrollEvent}
+          scrollEvent={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
