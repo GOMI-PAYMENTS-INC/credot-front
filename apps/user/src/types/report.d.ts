@@ -69,6 +69,7 @@ type TGoogleTrendDataType = {
 }[];
 
 type TRecommendKeyword = {
+  country: CountryType;
   searchCount: number;
   competitionProductCount: number;
   competitionRate: number;

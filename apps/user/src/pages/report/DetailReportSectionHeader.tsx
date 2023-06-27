@@ -32,7 +32,7 @@ const DetailReportSectionHeader = ({
     <div
       id={id}
       style={headerSpaceStyle}
-      className='detailReport-h1-header relative flex items-center text-XL/Bold text-black'
+      className='detailReport-h1-header relative flex items-center text-2XL/Bold text-black'
     >
       <h1>{convertTitle(id)}</h1>
       {isTooltip && tooltipInfo && (

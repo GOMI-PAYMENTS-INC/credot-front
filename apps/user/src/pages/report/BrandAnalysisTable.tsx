@@ -1,15 +1,15 @@
-import {Fragment, RefObject} from 'react';
-import {ReactSVG} from 'react-svg';
+import { Fragment, RefObject } from 'react';
+import { ReactSVG } from 'react-svg';
 
-import {openBrowser} from '@/utils/openBrowser';
-import {formatNumber} from '@/utils/formatNumber';
-import {convertExchangeRate, roundNumber} from '@/containers/report';
+import { openBrowser } from '@/utils/openBrowser';
+import { formatNumber } from '@/utils/formatNumber';
+import { convertExchangeRate, roundNumber } from '@/containers/report';
 
-import {replaceOverLength} from '@/utils/replaceOverLength';
-import {isFalsy} from '@/utils/isFalsy';
-import {TITLE} from '@/types/enum.code';
-import {_amplitudeMovedToPDP} from '@/amplitude/amplitude.service';
-import {convertTitle} from '@/utils/convertEnum';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import { isFalsy } from '@/utils/isFalsy';
+import { TITLE } from '@/types/enum.code';
+import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
+import { convertTitle } from '@/utils/convertEnum';
 
 interface IBrandAnalysisProductTable {
   currencyUnit: number;
@@ -20,7 +20,8 @@ interface IBrandAnalysisProductTable {
 }
 
 export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => {
-  const { amplitudeData, brandAnalysisProduct, currencyUnit, basePrice,scrollerRef } = props;
+  const { amplitudeData, brandAnalysisProduct, currencyUnit, basePrice, scrollerRef } =
+    props;
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
@@ -28,7 +29,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[500px] text-left' colSpan={2}>
-            <p className='pl-3 text-XS/Medium'>해외 배송 상품</p>
+            <p className='pl-3 text-XS/Medium'>브랜드 상품</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
             <p className='pr-3 text-XS/Medium'>판매가</p>
