@@ -49,7 +49,7 @@ const DetailReportPageByShare = () => {
     if(main){
       _amplitudeSharedKeywordReportViewed(main.id, main.country, main.sorted, main.text)
     }
-  },[main])
+  },[main?.id])
   
   const combinedComponent = useMemo(() => {
     return (
