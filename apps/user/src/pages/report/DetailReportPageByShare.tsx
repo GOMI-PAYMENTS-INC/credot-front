@@ -1,16 +1,16 @@
-import React, {Fragment, useEffect, useMemo, useReducer, useRef, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {_getReportInfoByShare} from '@/containers/report/report.container';
-import {reportInitialState, reportReducer} from '@/containers/report/report.reducer';
-import {DetailReportRightQuickBar} from '@/pages/report/DetailReportRightQuickBar';
-import {isFalsy} from '@/utils/isFalsy';
+import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { _getReportInfoByShare } from '@/containers/report/report.container';
+import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
+import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
+import { isFalsy } from '@/utils/isFalsy';
 
-import {DetailReportSwitch} from '@/pages/report/DetailReportSwitch';
+import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import DetailReportBody from '@/pages/report/DetailReportBody';
-import {authTokenStorage} from '@/utils/authToken';
-import {Default} from '@/components/layouts';
+import { authTokenStorage } from '@/utils/authToken';
+import { Default } from '@/components/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
-import {_amplitudeSharedKeywordReportViewed} from '@/amplitude/amplitude.service';
+import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
@@ -46,11 +46,11 @@ const DetailReportPageByShare = () => {
   }, []);
 
   useEffect(() => {
-    if(main){
-      _amplitudeSharedKeywordReportViewed(main.id, main.country, main.sorted, main.text)
+    if (main) {
+      _amplitudeSharedKeywordReportViewed(main.id, main.country, main.sorted, main.text);
     }
-  },[main?.id])
-  
+  }, [main?.id]);
+
   const combinedComponent = useMemo(() => {
     return (
       <DetailReportSwitch
@@ -92,7 +92,7 @@ const DetailReportPageByShare = () => {
         <DetailReportBody
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
-          scrollEvent={scrollEvent}
+          scrollEventState={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar
@@ -112,7 +112,7 @@ const DetailReportPageByShare = () => {
         <DetailReportBody
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
-          scrollEvent={scrollEvent}
+          scrollEventState={scrollEvent}
         >
           {combinedComponent}
           <DetailReportRightQuickBar

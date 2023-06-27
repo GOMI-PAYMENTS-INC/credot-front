@@ -24,7 +24,6 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
 
   useEffect(() => {
     let name = scrollY > 100 ? title : '';
-
     onScrollDetail(isUser, scrollEvent, setScrollEvent, name);
   }, [scrollY]);
 
@@ -36,8 +35,8 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
 
   return (
     <aside style={quickBarTopStyle} className={`sticky col-span-2 h-fit w-[180px]`}>
-      <ul>
-        <li>
+      <div>
+        <div>
           <p
             className='flex cursor-pointer items-center text-S/Medium text-grey-700'
             onClick={() => switchContents(scrollEvent, setScrollEvent)}
@@ -49,35 +48,41 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
             />
             목차
           </p>
-        </li>
-        <li>
+        </div>
+        <div>
           <ul>
             {isOpen &&
               Object.values(TITLE)
-                .filter((title) => title !== TITLE.REPORT)
-                .map((id, idx) => {
+                .filter((keyword) => keyword !== TITLE.REPORT)
+                .map((title, idx) => {
                   return (
                     <li
-                      key={`menu-items-${id}`}
+                      key={`menu-items-${title}`}
                       className={`flex h-9 cursor-pointer items-center hover:bg-grey-100 ${
                         idx === 0 && 'mt-1'
                       }`}
                     >
-                      <a href={`#${id}`} className='flex-auto'>
+                      <a
+                        href={`#${title}`}
+                        className='flex-auto'
+                        onClick={() =>
+                          setScrollEvent({ ...scrollEvent, current: String(title) })
+                        }
+                      >
                         <h1
                           className={`ml-6 py-1 text-S/Regular ${
-                            id === current ? 'text-orange-500' : 'text-grey-700'
+                            title === current ? 'text-orange-500' : 'text-grey-700'
                           }`}
                         >
-                          {convertTitle(id)}
+                          {convertTitle(title)}
                         </h1>
                       </a>
                     </li>
                   );
                 })}
           </ul>
-        </li>
-      </ul>
+        </div>
+      </div>
 
       <button
         className='fixed right-[60px] bottom-[100px] flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
