@@ -3,7 +3,10 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertedData, convertExchangeRate } from '@/containers/report/report.container';
+import {
+  convertedGoogleTrendData,
+  convertExchangeRate,
+} from '@/containers/report/report.container';
 import { TITLE } from '@/types/enum.code';
 
 import { MarketSizeTrendChart } from './MarketSizeTrendChart';
@@ -44,7 +47,8 @@ export const MarketSize = (props: IMarketSize) => {
     })
     .map((number) => formatNumber(number));
 
-  const { interest, date, minTurnoverMonth, maxTurnoverMonth } = convertedData(trend);
+  const { interest, date, minTurnoverMonth, maxTurnoverMonth } =
+    convertedGoogleTrendData(trend);
 
   const created = convertTime(createdAt, 'YYYY');
   const lastYearToCreated = Number(created) - 1;

@@ -149,6 +149,7 @@ type TReportState = {
     focus: number;
     data: TBrandAnalysis | null;
   };
+  category: TCategoryAnalysis;
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
@@ -359,4 +360,37 @@ type TBrandAnalysisResponse = {
   code: STATUS_CODE;
   message: string;
   data: TBrandAnalysis;
+};
+
+type TCategoryAnalysisCategories = {
+  id: string;
+  productCount: number;
+  infos: [
+    {
+      depth: number;
+      name: string;
+    },
+  ];
+};
+
+type TCategoryAnalysis = {
+  text: string;
+  country: CountryType;
+  channel: TChannel;
+  sorted: TSortBy;
+  categories: TCategoryAnalysisCategories[];
+};
+
+type TCategoryAnalysisResponse = {
+  code: STATUS_CODE;
+  message: string;
+  data: TCategoryAnalysis;
+};
+
+type TCategoryAnalysisFrontResult = {
+  rank: number;
+  fullName: string;
+  shortName: string;
+  productCount: number;
+  color: string;
 };

@@ -11,7 +11,7 @@ import {
   getSalePriceByShare,
   postReportShareToken,
 } from './report.api';
-import {Dispatch, RefObject, SetStateAction} from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 
 import {
   REPORT_ACTION,
@@ -19,7 +19,7 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import {scrollController} from '@/utils/scrollController';
+import { scrollController } from '@/utils/scrollController';
 
 import {
   BATCH_STATUS,
@@ -30,9 +30,9 @@ import {
   TAG_SENTIMENT_STATUS,
   TITLE,
 } from '@/types/enum.code';
-import {convertTime} from '@/utils/parsingTimezone';
-import {getReportList} from '@/containers/report/report.api';
-import {formatNumber} from '@/utils/formatNumber';
+import { convertTime } from '@/utils/parsingTimezone';
+import { getCategoryAnalysis, getReportList } from '@/containers/report/report.api';
+import { formatNumber } from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -40,10 +40,10 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import {toast} from 'react-toastify';
-import {isFalsy} from '@/utils/isFalsy';
-import {isIncluded} from '@/utils/isIncluded';
-import {_amplitudeKeywordReportDeleted,} from '@/amplitude/amplitude.service';
+import { toast } from 'react-toastify';
+import { isFalsy } from '@/utils/isFalsy';
+import { isIncluded } from '@/utils/isIncluded';
+import { _amplitudeKeywordReportDeleted } from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -73,6 +73,7 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
       getOverseaProduct(id),
       getRelationReport(id),
       getBrandAnalysis(id),
+      getCategoryAnalysis(id),
     ]);
     const dataName = Object.values(REPORT_DETAIL_TYPE);
 
@@ -117,9 +118,13 @@ export const _getReportInfoByShare = async (
 
       const relationResponse = await getRelationReportByShare(token);
       const copyReportId = relationResponse!.data.data.id;
-      const brandResponse = await getBrandAnalysis(String(copyReportId));
-      response.push(relationResponse);
-      response.push(brandResponse);
+
+      const afterResponse = await Promise.all([
+        getBrandAnalysis(String(copyReportId)),
+        getCategoryAnalysis(String(copyReportId)),
+      ]);
+
+      response.push(afterResponse);
     } else {
       response = await Promise.all([getMainReportByShare(token)]);
     }
@@ -673,7 +678,7 @@ export const setChartLabels = (
   }, init);
 };
 
-export const convertedData = (trend: TGoogleTrendDataType) => {
+export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
   const minTurnoverMonth: string[] = [],
     maxTurnoverMonth: string[] = [];
 
@@ -703,4 +708,70 @@ export const convertedData = (trend: TGoogleTrendDataType) => {
   });
 
   return { interest, date, minTurnoverMonth, maxTurnoverMonth };
+};
+
+export const convertedCategoryAnalysisData = (data: TCategoryAnalysis) => {
+  type TChart = {
+    datasets: [
+      {
+        data: number[];
+        backgroundColor: string[];
+      },
+    ];
+
+    labels: string[];
+  };
+
+  let chartData: TChart = {
+    datasets: [
+      {
+        data: [],
+        backgroundColor: [
+          'rgba(255, 117, 0, 1)',
+          'rgba(24, 160, 251, 1)',
+          'rgba(123, 97, 255, 1)',
+          'rgba(255, 105, 122, 1)',
+          'rgba(30, 242, 140, 1)',
+          'rgba(255, 229, 0, 1)',
+        ],
+      },
+    ],
+
+    labels: [],
+  };
+  let frontData: TCategoryAnalysisFrontResult[] = [];
+  //기타 상품 갯수
+  let etcProductCount = 0;
+  data.categories.map((category, index) => {
+    if (index > 4) {
+      etcProductCount += category.productCount;
+      return;
+    }
+
+    chartData.datasets[0].data.push(category.productCount);
+
+    let fullName: string[] = [];
+    category.infos.map((info, index) => {
+      fullName.push(info.name);
+    });
+    let shortName: string[] = [fullName[0], fullName[fullName.length - 1]];
+
+    chartData.labels.push(shortName.join(' >...> '));
+
+    const frontResult: TCategoryAnalysisFrontResult = {
+      rank: index + 1,
+      fullName: fullName.join(' > '),
+      shortName: shortName.join(' >...> '),
+      productCount: category.productCount,
+      color: chartData.datasets[0].backgroundColor[index],
+    };
+
+    frontData.push(frontResult);
+  });
+
+  //기타 데이터
+  chartData.datasets[0].data.push(etcProductCount);
+  chartData.labels.push('기타');
+
+  return { chartData, frontData, etcProductCount };
 };

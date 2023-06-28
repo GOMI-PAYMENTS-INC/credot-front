@@ -77,6 +77,7 @@ export enum TITLE {
   BRAND_ANALYSIS = 'BrandAnalysis',
   SALE_PRICE = 'SalePrice',
   OVERSEA_PRODUCT = 'overseaProduct',
+  CATEGORY_ANALYSIS = 'CategoryAnalysis',
 }
 
 export enum TAG_SENTIMENT_STATUS {
@@ -106,6 +107,7 @@ export enum REPORT_DETAIL_TYPE {
   OVERSEA = 'oversea',
   RELATION = 'relation',
   BRAND = 'brand',
+  CATEGORY = 'category',
 }
 
 export enum GRADE_ITEMS {
