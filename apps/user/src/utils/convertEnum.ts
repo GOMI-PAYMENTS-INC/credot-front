@@ -15,6 +15,8 @@ export const convertTitle = (id: string) => {
       return '가격 분석';
     case TITLE.OVERSEA_PRODUCT:
       return '해외배송 상품 분석';
+    case TITLE.CATEGORY_ANALYSIS:
+      return '카테고리 분석';
     default:
       return id;
   }

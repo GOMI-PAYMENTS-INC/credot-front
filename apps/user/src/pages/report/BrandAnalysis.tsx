@@ -1,53 +1,13 @@
-import React, { Dispatch, useMemo, useRef } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
-import { CountryType } from '@/generated/graphql';
+import React, {Dispatch, useMemo, useRef} from 'react';
+import {ReactSVG} from 'react-svg';
+import {Tooltip} from 'react-tooltip';
 import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
-import { TITLE } from '@/types/enum.code';
-import { BrandAnalysisProductTable } from '@/pages/report/BrandAnalysisTable';
-import { isFalsy } from '@/utils/isFalsy';
-import { convertExchangeRate, roundNumber, selectBrandIndex } from '@/containers/report';
-import { TReportAction } from '@/containers/report/report.reducer';
-import { formatNumber } from '@/utils/formatNumber';
-
-const dummyProduct: TBrandAnalysisProduct[] = [
-  {
-    id: 100,
-    itemName: '상품 명',
-    itemUrl: '',
-    itemImage: '상품 이미지url',
-    itemPriceMin: 100,
-    itemPriceMax: 100,
-    item30daySales: 100,
-    item30daysSold: 100,
-    rank: 1,
-  },
-];
-
-const dummyBrand: TBrandAnalysisBrand[] = [
-  {
-    rank: 1,
-    name: 'nn',
-    productCount: 100,
-    totalSalesAmount: 100,
-    totalSalesCount: 100,
-    avgSalesAmount: 100,
-    avgSalesCount: 100,
-    avgPrice: 100,
-    products: dummyProduct,
-  },
-];
-
-const dummy: TBrandAnalysis = {
-  text: '메인 키워드',
-  country: CountryType.Kr,
-  channel: 'SHOPEE',
-  sorted: 'R',
-  currencyUnit: 10,
-  basePrice: 10,
-  brands: dummyBrand,
-};
+import {TITLE} from '@/types/enum.code';
+import {BrandAnalysisProductTable} from '@/pages/report/BrandAnalysisTable';
+import {isFalsy} from '@/utils/isFalsy';
+import {convertExchangeRate, roundNumber, selectBrandIndex} from '@/containers/report';
+import {TReportAction} from '@/containers/report/report.reducer';
+import {formatNumber} from '@/utils/formatNumber';
 
 interface IBrandAnalysis {
   brandAnalysis: {

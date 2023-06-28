@@ -10,6 +10,7 @@ const reportInitialState: TReportState = {
     focus: 0,
     data: null,
   },
+  category: null,
   scrollEvent: { title: 'Report', isOpen: true, current: 'Report' },
   toggleEvent: [],
   spinnerEvent: false,
@@ -63,6 +64,9 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       }
       if (type === REPORT_DETAIL_TYPE.BRAND) {
         state.brand.data = data;
+      }
+      if (type === REPORT_DETAIL_TYPE.CATEGORY) {
+        state.category = data;
       }
       return state;
     }
