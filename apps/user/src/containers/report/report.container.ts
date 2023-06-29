@@ -1,6 +1,7 @@
 import {
   deleteReportList,
   getBrandAnalysis,
+  getCategoryAnalysis,
   getMainReport,
   getMainReportByShare,
   getOverseaProduct,
@@ -31,7 +32,7 @@ import {
   TITLE,
 } from '@/types/enum.code';
 import { convertTime } from '@/utils/parsingTimezone';
-import { getCategoryAnalysis, getReportList } from '@/containers/report/report.api';
+import { getReportList } from '@/containers/report/report.api';
 import { formatNumber } from '@/utils/formatNumber';
 import {
   convertBatchStatus,

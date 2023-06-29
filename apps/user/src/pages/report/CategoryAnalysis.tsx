@@ -6,14 +6,17 @@ import { CategoryRankChart } from '@/pages/report/CategoryRankChart';
 import CategoryAnalysisList from '@/pages/report/CategoryAnalysisList';
 
 interface ICategoryAnalysis {
-  categoryAnalysis: TCategoryAnalysis;
+  categoryAnalysis: null | TCategoryAnalysis;
 }
 
 const CategoryAnalysis = (props: ICategoryAnalysis) => {
   const { categoryAnalysis } = props;
 
+  if (categoryAnalysis === null) {
+    return <></>;
+  }
   const { frontData, chartData, etcProductCount } =
-    categoryAnalysis && convertedCategoryAnalysisData(categoryAnalysis);
+    convertedCategoryAnalysisData(categoryAnalysis);
 
   return (
     <section className='col-span-full'>

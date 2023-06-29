@@ -149,7 +149,7 @@ type TReportState = {
     focus: number;
     data: TBrandAnalysis | null;
   };
-  category: TCategoryAnalysis;
+  category: TCategoryAnalysis | null;
   scrollEvent: { title: TTitle; isOpen: boolean; current: TTitle };
   toggleEvent: { id: number; isOpen: boolean }[];
   spinnerEvent: boolean;
