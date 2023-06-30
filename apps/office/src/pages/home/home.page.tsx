@@ -1,15 +1,15 @@
 import 'swiper/swiper.min.css';
 
-import {useState} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {Autoplay} from 'swiper';
+import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper';
 
-import {ReactSVG} from 'react-svg';
-import {Swiper as SwiperClass} from 'swiper/types';
-import {_introPageMovedToSolution} from '@/amplitude/amplitude.service';
-import {CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY} from '@/amplitude/amplitude.enum';
-import {GlobalEnv} from '@/api/config';
-import {openBrowser} from '@/utils/openBrowser';
+import { ReactSVG } from 'react-svg';
+import { Swiper as SwiperClass } from 'swiper/types';
+import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
+import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
+import { GlobalEnv } from '@/api/config';
+import { openBrowser } from '@/utils/openBrowser';
 
 export default function HomePage() {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
@@ -122,7 +122,7 @@ export default function HomePage() {
     {
       name: '카테고리 분석',
       icoName: 'Appstore',
-      launching: false,
+      launching: true,
       data: {
         insightNum: '7',
         content: '상위 노출에 유리한 카테고리 등록이 무엇인지 \n' + '알 수 있어요.',
@@ -448,7 +448,7 @@ export default function HomePage() {
           </div>
 
           <div className='container-tab mx-auto mb-[100px] max-w-[870px] overflow-x-auto pb-8 sm:mb-10 sm:block sm:pb-0 md:max-w-[720px]  lg:mb-[72px] lg:pb-0'>
-            <ul className='swiper-pagination mx-auto grid grid-cols-[repeat(5,_minmax(119px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 sm:gap-y-2 '>
+            <ul className='swiper-pagination mx-auto grid  grid-cols-[repeat(5,_minmax(160px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 sm:gap-y-2 md:grid-cols-[repeat(5,_minmax(140px,_1fr))] '>
               {tabData.map((tab, index) => (
                 <li
                   key={index}
