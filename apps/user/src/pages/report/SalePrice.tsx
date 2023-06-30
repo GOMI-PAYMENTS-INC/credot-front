@@ -84,7 +84,7 @@ export const SalePrice = (props: ISalePrice) => {
             상품 판매가를 월 판매량과 곱하여 추정한 월 매출이에요 (옵션
             <br /> 상품인 경우 옵션가의 중앙값을 적용하여 계산)
           </span>
-          <p className='pt-2 text-XS/Bold'>월 판매</p>
+          <p className='pt-2 text-XS/Bold'>월 판매량</p>
           <span>최근 30일간 상품이 판매된 건수에요.</span>
           <p className='pt-2 text-XS/Bold'>노출 순위</p>
           <span>키워드 검색 시 상품이 노출되고 있는 순위에요.</span>
