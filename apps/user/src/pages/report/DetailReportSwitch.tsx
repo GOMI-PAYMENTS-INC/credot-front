@@ -1,14 +1,14 @@
-import {TReportAction} from '@/containers/report/report.reducer';
-import {KeywordInfo} from '@/pages/report/KeywordInfo';
-import {MarketSize} from '@/pages/report/MarketSize';
-import {AnalysisKeyword} from '@/pages/report/AnalysisKeyword';
-import {SalePrice} from '@/pages/report/SalePrice';
-import {AnalysisOverseaProduct} from '@/pages/report/AnalysisOverseaProduct';
-import {Fragment} from 'react';
-import {Params} from 'react-router-dom';
-import {BlindReportDetail} from '@/pages/report/BlindReportDetail';
+import { TReportAction } from '@/containers/report/report.reducer';
+import { KeywordInfo } from '@/pages/report/KeywordInfo';
+import { MarketSize } from '@/pages/report/MarketSize';
+import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
+import { SalePrice } from '@/pages/report/SalePrice';
+import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
+import { Fragment } from 'react';
+import { Params } from 'react-router-dom';
+import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
 import BrandAnalysis from '@/pages/report/BrandAnalysis';
-import CategoryAnalysis from "@/pages/report/CategoryAnalysis";
+import CategoryAnalysis from '@/pages/report/CategoryAnalysis';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
@@ -23,7 +23,7 @@ export const DetailReportSwitch = ({
   _dispatch,
   params,
 }: IDetailReportSwitchProps) => {
-  const { main,oversea, salePrice, relation, brand,category } = _state;
+  const { main, oversea, salePrice, relation, brand, category } = _state;
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
@@ -74,7 +74,10 @@ export const DetailReportSwitch = ({
                   overseaProduct={oversea}
                   amplitudeData={amplitudeData}
                 />
-                <CategoryAnalysis categoryAnalysis={category}/>
+                <CategoryAnalysis
+                  itemCount={main!.itemCount}
+                  categoryAnalysis={category}
+                />
               </Fragment>
             )}
           </Fragment>

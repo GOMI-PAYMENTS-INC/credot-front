@@ -12,7 +12,7 @@ import {
   getSalePriceByShare,
   postReportShareToken,
 } from './report.api';
-import {Dispatch, RefObject, SetStateAction} from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 
 import {
   REPORT_ACTION,
@@ -20,7 +20,7 @@ import {
   reportListInitialState,
   TReportAction,
 } from '@/containers/report/report.reducer';
-import {scrollController} from '@/utils/scrollController';
+import { scrollController } from '@/utils/scrollController';
 
 import {
   BATCH_STATUS,
@@ -31,9 +31,9 @@ import {
   TAG_SENTIMENT_STATUS,
   TITLE,
 } from '@/types/enum.code';
-import {convertTime} from '@/utils/parsingTimezone';
-import {getReportList} from '@/containers/report/report.api';
-import {formatNumber} from '@/utils/formatNumber';
+import { convertTime } from '@/utils/parsingTimezone';
+import { getReportList } from '@/containers/report/report.api';
+import { formatNumber } from '@/utils/formatNumber';
 import {
   convertBatchStatus,
   convertCountry,
@@ -41,10 +41,10 @@ import {
   convertSortByIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import {toast} from 'react-toastify';
-import {isFalsy} from '@/utils/isFalsy';
-import {isIncluded} from '@/utils/isIncluded';
-import {_amplitudeKeywordReportDeleted} from '@/amplitude/amplitude.service';
+import { toast } from 'react-toastify';
+import { isFalsy } from '@/utils/isFalsy';
+import { isIncluded } from '@/utils/isIncluded';
+import { _amplitudeKeywordReportDeleted } from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -757,7 +757,7 @@ export const convertedCategoryAnalysisData = (data: TCategoryAnalysis) => {
     });
     let shortName: string[] = [fullName[0], fullName[fullName.length - 1]];
 
-    chartData.labels.push(index+1+"위 "+shortName.join(' >...> '));
+    chartData.labels.push(index + 1 + '위 ' + shortName.join(' >...> '));
 
     const frontResult: TCategoryAnalysisFrontResult = {
       rank: index + 1,
@@ -772,7 +772,7 @@ export const convertedCategoryAnalysisData = (data: TCategoryAnalysis) => {
 
   //기타 데이터
   chartData.datasets[0].data.push(etcProductCount);
-  chartData.labels.push('기타');
+  chartData.labels.push('그외');
 
-  return { chartData, frontData, etcProductCount };
+  return { chartData, frontData };
 };

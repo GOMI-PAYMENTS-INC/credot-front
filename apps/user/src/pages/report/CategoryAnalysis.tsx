@@ -7,16 +7,16 @@ import CategoryAnalysisList from '@/pages/report/CategoryAnalysisList';
 
 interface ICategoryAnalysis {
   categoryAnalysis: null | TCategoryAnalysis;
+  itemCount: number;
 }
 
 const CategoryAnalysis = (props: ICategoryAnalysis) => {
-  const { categoryAnalysis } = props;
+  const { categoryAnalysis, itemCount } = props;
 
   if (categoryAnalysis === null) {
     return <></>;
   }
-  const { frontData, chartData, etcProductCount } =
-    convertedCategoryAnalysisData(categoryAnalysis);
+  const { frontData, chartData } = convertedCategoryAnalysisData(categoryAnalysis);
 
   return (
     <section className='col-span-full'>
@@ -34,7 +34,7 @@ const CategoryAnalysis = (props: ICategoryAnalysis) => {
               <div className='relative'>
                 <div className='absolute top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] text-center text-M/Bold'>
                   <p>Total</p>
-                  {etcProductCount}개
+                  {itemCount}개
                 </div>
                 <CategoryRankChart data={chartData} />
               </div>
