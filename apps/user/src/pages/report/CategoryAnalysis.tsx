@@ -31,7 +31,13 @@ const CategoryAnalysis = (props: ICategoryAnalysis) => {
           </div>
           <div className='col-span-3 flex min-h-[244px] items-center justify-center'>
             <div>
-              <CategoryRankChart data={chartData} />
+              <div className='relative'>
+                <div className='absolute top-1/2 left-1/2 translate-y-[-50%] translate-x-[-50%] text-center text-M/Bold'>
+                  <p>Total</p>
+                  {etcProductCount}개
+                </div>
+                <CategoryRankChart data={chartData} />
+              </div>
             </div>
           </div>
           <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>

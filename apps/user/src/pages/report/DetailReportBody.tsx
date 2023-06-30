@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useScroll } from '@/utils/useScroll';
 
 interface TDetailReportContent {
@@ -23,7 +23,7 @@ const DetailReportBody = (props: TDetailReportContent) => {
   return (
     <section ref={contentSection}>
       <div className='min-h-full bg-white'>
-        <div className='container pt-8 pb-[100px]'>
+        <div className='container pt-8 pb-[200px]'>
           <div className='grid grid-cols-12 gap-x-6'>{children}</div>
         </div>
       </div>
