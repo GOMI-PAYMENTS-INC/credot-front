@@ -10,7 +10,7 @@ import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { graphQLClient } from '@/utils/graphqlCient';
+
 import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import { isTruthy } from '@/utils/isTruthy';
@@ -25,10 +25,9 @@ export const Router = () => {
   const navigation = useNavigate();
 
   const { data: userQueryData } = useMeQuery(
-    graphQLClient().config,
     { token: storageToken },
     {
-      enabled: isTruthy(token),
+      enabled: isTruthy(storageToken),
       refetchOnWindowFocus: false,
       onSuccess: (res) => {
         if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {

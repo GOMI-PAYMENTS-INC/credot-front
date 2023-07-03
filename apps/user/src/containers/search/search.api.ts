@@ -1,6 +1,5 @@
 import { Dispatch } from 'react';
 import { CountryType, useSearchQuery } from '@/generated/graphql';
-import { graphQLClient } from '@/utils/graphqlCient';
 
 import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
@@ -17,7 +16,6 @@ export const getQueryResult = (
   _dispatch: Dispatch<TSearchActionType>,
 ) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
-    graphQLClient().config,
     {
       country: country,
       text: keyword,

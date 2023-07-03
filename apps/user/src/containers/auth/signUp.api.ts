@@ -10,7 +10,6 @@ import {
 } from '@/generated/graphql';
 import { TERM_TYPE } from '@/types/enum.code';
 import { toast } from 'react-toastify';
-import { graphQLClient } from '@/utils/graphqlCient';
 
 import { setWelcomeModalClosingTime } from '@/containers/auth/auth.container';
 import { UseFormSetError } from 'react-hook-form';
@@ -23,7 +22,7 @@ import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
-  const { mutate: signUpMutate } = useSignupMutation(graphQLClient().config, {
+  const { mutate: signUpMutate } = useSignupMutation({
     onError: () => {
       toast.error('회원가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },
@@ -104,7 +103,6 @@ export const useSignUp = () => {
     const regex: RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     return useExistsUserEmailQuery(
-      graphQLClient().config,
       { email },
       {
         enabled: regex.test(email) === true && triggerConfirmEmail,
@@ -124,7 +122,7 @@ export const useSignUp = () => {
     );
   };
 
-  const { mutate: signUpSocialMutate } = useGoogleSignupMutation(graphQLClient().config, {
+  const { mutate: signUpSocialMutate } = useGoogleSignupMutation({
     onError: () => {
       toast.error('회원 가입 실패하였습니다. 입력값을 재확인 하십시오.');
     },

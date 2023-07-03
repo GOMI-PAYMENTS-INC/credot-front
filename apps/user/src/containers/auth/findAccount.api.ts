@@ -10,7 +10,6 @@ import {
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
 
-import { graphQLClient } from '@/utils/graphqlCient';
 import { isTruthy } from '@/utils/isTruthy';
 import {
   activateVerifyCode,
@@ -36,31 +35,28 @@ export const useVerifyCode = (
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>,
   setError: UseFormSetError<TAuthEssentialProps>,
 ) => {
-  const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation(
-    graphQLClient().config,
-    {
-      onSuccess: () => {
-        activateVerifyCode(isVerification, setIsVerification);
-      },
-      onError: (err) => {
-        const [error] = err.response.errors;
-        setError('phone', { message: error.message });
-
-        if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
-          exceptedVerifyTry(isVerification, setIsVerification);
-
-          return;
-        }
-
-        if (String(error.extensions.code) === STATUS_CODE.DUPLICATE_VERIFY_CODE) {
-          duplicationVerifyTry(isVerification, setIsVerification);
-
-          return;
-        }
-        clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
-      },
+  const { mutate: mutateRequestVerify } = useSendSmsVerificationCodeMutation({
+    onSuccess: () => {
+      activateVerifyCode(isVerification, setIsVerification);
     },
-  );
+    onError: (err) => {
+      const [error] = err.response.errors;
+      setError('phone', { message: error.message });
+
+      if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
+        exceptedVerifyTry(isVerification, setIsVerification);
+
+        return;
+      }
+
+      if (String(error.extensions.code) === STATUS_CODE.DUPLICATE_VERIFY_CODE) {
+        duplicationVerifyTry(isVerification, setIsVerification);
+
+        return;
+      }
+      clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
+    },
+  });
 
   const _getVerifyCode = (phone: string = '') => {
     if (phone?.length !== 11) return;
@@ -78,7 +74,6 @@ export const useVerifyCode = (
     const { verifyCode } = isVerification;
 
     const { isSuccess } = useSmsVerifyCodeConfirmQuery(
-      graphQLClient().config,
       { phone, verifyCode },
       {
         enabled: phone?.length === 11 && verifyCode?.length === 6,
@@ -107,7 +102,6 @@ export const useVerifyCode = (
   const _getUserAccount = (user: { phone: string; verifyCodeSign: string }) => {
     // "상태에 따라 아이디가 없습니다."  | "아이디 출력"
     const { data } = useFindAccountQuery(
-      graphQLClient().config,
       {
         user,
         country: CountryType.Kr,
@@ -137,26 +131,23 @@ export const useVerifyCode = (
     return [data];
   };
 
-  const { mutate: sendTemporaryPassword } = useSendTemporaryPasswordMutation(
-    graphQLClient().config,
-    {
-      onSuccess: (res) => {
-        if (res.sendTemporaryPassword.accounts) {
-          isAccountExisted(
-            res.sendTemporaryPassword.accounts.length,
-            isVerification,
-            setIsVerification,
-          );
+  const { mutate: sendTemporaryPassword } = useSendTemporaryPasswordMutation({
+    onSuccess: (res) => {
+      if (res.sendTemporaryPassword.accounts) {
+        isAccountExisted(
+          res.sendTemporaryPassword.accounts.length,
+          isVerification,
+          setIsVerification,
+        );
 
-          _amplitudeFindPwSucceeded();
-        }
-      },
-      onError: (err) => {
-        isAccountExisted(undefined, isVerification, setIsVerification);
-        _amplitudeFindPwFailed();
-      },
+        _amplitudeFindPwSucceeded();
+      }
     },
-  );
+    onError: (err) => {
+      isAccountExisted(undefined, isVerification, setIsVerification);
+      _amplitudeFindPwFailed();
+    },
+  });
 
   const _sendTemporaryPassword = (user: FindPasswordInput) => {
     const isValid = Object.values(user).every((userData) => isTruthy(userData));

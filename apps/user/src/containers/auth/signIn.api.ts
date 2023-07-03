@@ -10,7 +10,7 @@ import {
 } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { graphQLClient } from '@/utils/graphqlCient';
+
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import {
   _amplitudeChangePwCompleted,
@@ -38,7 +38,7 @@ export const signInApi = () => {
   const { moveToMain } = authReturnUrl();
 
   // 로컬 로그인
-  const { mutate: loginMutate } = useLoginMutation(graphQLClient().config, {
+  const { mutate: loginMutate } = useLoginMutation({
     onSuccess: (res) => {
       authTokenStorage.setToken(res.login.token);
       // 임시비밀번호로 로그인 한 경우
@@ -62,7 +62,7 @@ export const signInApi = () => {
   });
 
   // 구글 로그인/회원가입 시도
-  const { mutate: googleLoginMutate } = useGoogleLoginMutation(graphQLClient().config, {
+  const { mutate: googleLoginMutate } = useGoogleLoginMutation({
     onSuccess: (res, variables) => {
       //구글 회원가입
       if (isFalsy(res.googleLogin.isPhoneNumber)) {
@@ -130,7 +130,7 @@ export const signInApi = () => {
   };
 
   // 비밀번호 변경
-  const { mutate: changePassword } = useChangePasswordMutation(graphQLClient().config, {
+  const { mutate: changePassword } = useChangePasswordMutation({
     onSuccess: () => {
       toast.success('비밀번호가 정상적으로 변경되었어요.');
       moveToMain();

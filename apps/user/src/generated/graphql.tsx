@@ -6,6 +6,8 @@ import {
   useQuery,
   UseQueryOptions,
 } from '@tanstack/react-query';
+import { authTokenStorage } from '@/utils/authToken';
+import { GlobalEnv } from '@/api/config';
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -18,17 +20,22 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 
 function fetcher<TData, TVariables extends { [key: string]: any }>(
-  client: GraphQLClient,
   query: string,
   variables?: TVariables,
   requestHeaders?: RequestInit['headers'],
 ) {
-  return async (): Promise<TData> =>
-    client.request({
+  return async (): Promise<TData> => {
+    const token = authTokenStorage.getToken();
+    const client = new GraphQLClient(GlobalEnv.graphqlUrl, {
+      headers: { authorization: token ? `Bearer ${token}` : '' },
+    });
+
+    return client.request({
       document: query,
       variables,
       requestHeaders,
     });
+  };
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -585,7 +592,6 @@ export const useSendSmsVerificationCodeMutation = <
   },
   TContext extends unknown,
 >(
-  client: GraphQLClient,
   options?: UseMutationOptions<
     SendSmsVerificationCodeMutation,
     TError,
@@ -603,7 +609,6 @@ export const useSendSmsVerificationCodeMutation = <
     ['SendSmsVerificationCode'],
     (variables?: SendSmsVerificationCodeMutationVariables) =>
       fetcher<SendSmsVerificationCodeMutation, SendSmsVerificationCodeMutationVariables>(
-        client,
         SendSmsVerificationCodeDocument,
         variables,
         headers,
@@ -620,7 +625,6 @@ export const SignupDocument = `
 }
     `;
 export const useSignupMutation = <TError extends unknown, TContext extends unknown>(
-  client: GraphQLClient,
   options?: UseMutationOptions<SignupMutation, TError, SignupMutationVariables, TContext>,
   headers?: RequestInit['headers'],
 ) =>
@@ -628,7 +632,6 @@ export const useSignupMutation = <TError extends unknown, TContext extends unkno
     ['Signup'],
     (variables?: SignupMutationVariables) =>
       fetcher<SignupMutation, SignupMutationVariables>(
-        client,
         SignupDocument,
         variables,
         headers,
@@ -647,19 +650,13 @@ export const LoginDocument = `
 }
     `;
 export const useLoginMutation = <TError extends unknown, TContext extends unknown>(
-  client: GraphQLClient,
   options?: UseMutationOptions<LoginMutation, TError, LoginMutationVariables, TContext>,
   headers?: RequestInit['headers'],
 ) =>
   useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
     ['Login'],
     (variables?: LoginMutationVariables) =>
-      fetcher<LoginMutation, LoginMutationVariables>(
-        client,
-        LoginDocument,
-        variables,
-        headers,
-      )(),
+      fetcher<LoginMutation, LoginMutationVariables>(LoginDocument, variables, headers)(),
     options,
   );
 export const GoogleLoginDocument = `
@@ -672,7 +669,6 @@ export const GoogleLoginDocument = `
 }
     `;
 export const useGoogleLoginMutation = <TError extends unknown, TContext extends unknown>(
-  client: GraphQLClient,
   options?: UseMutationOptions<
     GoogleLoginMutation,
     TError,
@@ -685,7 +681,6 @@ export const useGoogleLoginMutation = <TError extends unknown, TContext extends 
     ['GoogleLogin'],
     (variables?: GoogleLoginMutationVariables) =>
       fetcher<GoogleLoginMutation, GoogleLoginMutationVariables>(
-        client,
         GoogleLoginDocument,
         variables,
         headers,
@@ -707,7 +702,6 @@ export const useChangePasswordMutation = <
   TError extends unknown,
   TContext extends unknown,
 >(
-  client: GraphQLClient,
   options?: UseMutationOptions<
     ChangePasswordMutation,
     TError,
@@ -720,7 +714,6 @@ export const useChangePasswordMutation = <
     ['ChangePassword'],
     (variables?: ChangePasswordMutationVariables) =>
       fetcher<ChangePasswordMutation, ChangePasswordMutationVariables>(
-        client,
         ChangePasswordDocument,
         variables,
         headers,
@@ -758,7 +751,6 @@ export const useSendTemporaryPasswordMutation = <
   },
   TContext extends unknown,
 >(
-  client: GraphQLClient,
   options?: UseMutationOptions<
     SendTemporaryPasswordMutation,
     TError,
@@ -776,7 +768,6 @@ export const useSendTemporaryPasswordMutation = <
     ['SendTemporaryPassword'],
     (variables?: SendTemporaryPasswordMutationVariables) =>
       fetcher<SendTemporaryPasswordMutation, SendTemporaryPasswordMutationVariables>(
-        client,
         SendTemporaryPasswordDocument,
         variables,
         headers,
@@ -793,7 +784,6 @@ export const GoogleSignupDocument = `
 }
     `;
 export const useGoogleSignupMutation = <TError extends unknown, TContext extends unknown>(
-  client: GraphQLClient,
   options?: UseMutationOptions<
     GoogleSignupMutation,
     TError,
@@ -806,7 +796,6 @@ export const useGoogleSignupMutation = <TError extends unknown, TContext extends
     ['GoogleSignup'],
     (variables?: GoogleSignupMutationVariables) =>
       fetcher<GoogleSignupMutation, GoogleSignupMutationVariables>(
-        client,
         GoogleSignupDocument,
         variables,
         headers,
@@ -830,14 +819,14 @@ export const MeDocument = `
 }
     `;
 export const useMeQuery = <TData extends MeQuery, TError extends unknown>(
-  client: GraphQLClient,
   variables?: MeQueryVariables,
   options?: UseQueryOptions<MeQuery, TError, TData>,
   headers?: RequestInit['headers'],
 ) => {
+  console.log(variables?.token, 'variables');
   return useQuery<MeQuery, TError, TData>(
-    variables === undefined ? ['Me'] : ['Me', variables],
-    fetcher<MeQuery, MeQueryVariables>(client, MeDocument, variables, headers),
+    variables?.token ? ['Me', variables] : ['Me'],
+    fetcher<MeQuery, MeQueryVariables>(MeDocument, variables, headers),
     options,
   );
 };
@@ -851,7 +840,6 @@ export const useExistsUserEmailQuery = <
   TData extends ExistsUserEmailQuery,
   TError extends unknown,
 >(
-  client: GraphQLClient,
   variables: ExistsUserEmailQueryVariables,
   options?: UseQueryOptions<ExistsUserEmailQuery, TError, TData>,
   headers?: RequestInit['headers'],
@@ -859,7 +847,6 @@ export const useExistsUserEmailQuery = <
   useQuery<ExistsUserEmailQuery, TError, TData>(
     ['ExistsUserEmail', variables],
     fetcher<ExistsUserEmailQuery, ExistsUserEmailQueryVariables>(
-      client,
       ExistsUserEmailDocument,
       variables,
       headers,
@@ -881,7 +868,6 @@ export const useFindAccountQuery = <
   TData extends FindAccountQuery,
   TError extends unknown,
 >(
-  client: GraphQLClient,
   variables: FindAccountQueryVariables,
   options?: UseQueryOptions<FindAccountQuery, TError, TData>,
   headers?: RequestInit['headers'],
@@ -889,7 +875,6 @@ export const useFindAccountQuery = <
   useQuery<FindAccountQuery, TError, TData>(
     ['FindAccount', variables],
     fetcher<FindAccountQuery, FindAccountQueryVariables>(
-      client,
       FindAccountDocument,
       variables,
       headers,
@@ -923,7 +908,6 @@ export const useSmsVerifyCodeConfirmQuery = <
     };
   },
 >(
-  client: GraphQLClient,
   variables: SmsVerifyCodeConfirmQueryVariables,
   options?: UseQueryOptions<SmsVerifyCodeConfirmQuery, TError, TData>,
   headers?: RequestInit['headers'],
@@ -931,7 +915,6 @@ export const useSmsVerifyCodeConfirmQuery = <
   useQuery<SmsVerifyCodeConfirmQuery, TError, TData>(
     ['SmsVerifyCodeConfirm', variables],
     fetcher<SmsVerifyCodeConfirmQuery, SmsVerifyCodeConfirmQueryVariables>(
-      client,
       SmsVerifyCodeConfirmDocument,
       variables,
       headers,
@@ -977,18 +960,12 @@ export const useSearchQuery = <
     };
   },
 >(
-  client: GraphQLClient,
   variables: SearchQueryVariables,
   options?: UseQueryOptions<SearchQuery, TError, TData>,
   headers?: RequestInit['headers'],
 ) =>
   useQuery<SearchQuery, TError, TData>(
     ['Search', variables],
-    fetcher<SearchQuery, SearchQueryVariables>(
-      client,
-      SearchDocument,
-      variables,
-      headers,
-    ),
+    fetcher<SearchQuery, SearchQueryVariables>(SearchDocument, variables, headers),
     options,
   );
