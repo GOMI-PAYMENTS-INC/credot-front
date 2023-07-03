@@ -480,7 +480,7 @@ export type GoogleSignupMutation = {
   };
 };
 
-export type MeQueryVariables = Exact<{ [key: string]: never }>;
+export type MeQueryVariables = Exact<{ [key: string]: string | null }>;
 
 export type MeQuery = {
   __typename?: 'Query';
@@ -834,12 +834,14 @@ export const useMeQuery = <TData extends MeQuery, TError extends unknown>(
   variables?: MeQueryVariables,
   options?: UseQueryOptions<MeQuery, TError, TData>,
   headers?: RequestInit['headers'],
-) =>
-  useQuery<MeQuery, TError, TData>(
+) => {
+  return useQuery<MeQuery, TError, TData>(
     variables === undefined ? ['Me'] : ['Me', variables],
     fetcher<MeQuery, MeQueryVariables>(client, MeDocument, variables, headers),
     options,
   );
+};
+
 export const ExistsUserEmailDocument = `
     query ExistsUserEmail($email: String!) {
   existsUserEmail(email: $email)
