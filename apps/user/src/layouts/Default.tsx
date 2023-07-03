@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useMemo, useReducer } from 'react';
 
-import SideBar from '@/components/layouts/SideBar';
+import SideBar from '@/layouts/SideBar';
 import {
   sidebarInitialState,
   sidebarReducer,

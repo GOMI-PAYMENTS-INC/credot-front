@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react';
-import { Default } from '@/components/layouts';
+import { Default } from '@/layouts';
 import { isFalsy } from '@/utils/isFalsy';
 interface IDetailReportSwitchProps {
   isUser: boolean;
@@ -18,7 +18,7 @@ export const DetailReportLayoutSwitch = ({
   } else {
     Layout = Fragment;
   }
-  if (isFalsy(main) || main === null) {
+  if (isFalsy(main)) {
     return (
       <Layout>
         <div className='flex h-full flex-col items-center justify-center self-center'>

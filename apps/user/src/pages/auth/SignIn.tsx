@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { Common2Section as Layout } from '@/components/layouts/Common2Section';
+import { Common2Section as Layout } from '@/layouts/Common2Section';
 import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { STATUS_CODE } from '@/types/enum.code';

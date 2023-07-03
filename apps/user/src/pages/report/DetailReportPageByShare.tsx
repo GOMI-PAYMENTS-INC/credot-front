@@ -8,7 +8,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import DetailReportBody from '@/pages/report/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
-import { Default } from '@/components/layouts';
+import { Default } from '@/layouts';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 

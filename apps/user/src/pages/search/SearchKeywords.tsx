@@ -2,7 +2,7 @@ import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } fro
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
-import { Default } from '@/components/layouts/Default';
+import { Default } from '@/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { SearchModal } from '@/pages/search/SearchModal';
 import {

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { Common2Section as Layout } from '@/components/layouts/Common2Section';
+import { Common2Section as Layout } from '@/layouts/Common2Section';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { useRecoilValue } from 'recoil';

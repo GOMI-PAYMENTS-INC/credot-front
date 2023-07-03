@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { PATH } from '@/types/enum.code';
 import { useLocation } from 'react-router-dom';
 
-import { Common1Section as Layout } from '@/components/layouts/Common1Section';
+import { Common1Section as Layout } from '@/layouts/Common1Section';
 import { WelcomeModal } from '@/pages/auth/WelcomeModal';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 

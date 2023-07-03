@@ -1,15 +1,15 @@
-import React, {useEffect, useMemo, useReducer, useRef, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {_getReportInfo} from '@/containers/report/report.container';
-import {reportInitialState, reportReducer} from '@/containers/report/report.reducer';
-import {DetailReportRightQuickBar} from '@/pages/report/DetailReportRightQuickBar';
-import {isFalsy} from '@/utils/isFalsy';
+import React, { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { _getReportInfo } from '@/containers/report/report.container';
+import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
+import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
+import { isFalsy } from '@/utils/isFalsy';
 
-import {DetailReportSwitch} from '@/pages/report/DetailReportSwitch';
+import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
 import DetailReportHeader from '@/pages/report/DetailReportHeader';
 import DetailReportBody from '@/pages/report/DetailReportBody';
-import {Default} from '@/components/layouts';
-import {_amplitudeKeywordReportViewed} from "@/amplitude/amplitude.service";
+import { Default } from '@/layouts';
+import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 
 const DetailReportPage = () => {
   const params = useParams();
@@ -35,10 +35,16 @@ const DetailReportPage = () => {
   }, []);
 
   useEffect(() => {
-    if(main){
-      _amplitudeKeywordReportViewed(main.id, main.country, main.channel, main.sorted, main.text)
+    if (main) {
+      _amplitudeKeywordReportViewed(
+        main.id,
+        main.country,
+        main.channel,
+        main.sorted,
+        main.text,
+      );
     }
-  },[main?.id])
+  }, [main?.id]);
 
   const combinedComponent = useMemo(() => {
     return (

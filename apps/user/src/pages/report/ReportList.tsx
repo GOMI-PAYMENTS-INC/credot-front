@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
-import { Default } from '@/components/layouts';
+import { Default } from '@/layouts';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import Pagination from '@/components/pagination';
 import {

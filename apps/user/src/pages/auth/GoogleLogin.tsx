@@ -2,7 +2,7 @@
 // https://developers.google.com/identity/gsi/web/reference/js-reference#CredentialResponse
 import { useEffect, useRef, useState } from 'react';
 
-import useScript from '@/utils/useScript';
+import useScript from '@/components/useScript';
 import { GlobalEnv } from '@/api/config';
 import { ReactSVG } from 'react-svg';
 

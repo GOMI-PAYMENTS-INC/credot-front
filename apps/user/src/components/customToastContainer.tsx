@@ -1,21 +1,7 @@
 import { ToastContainer, TypeOptions } from 'react-toastify';
 import { ReactSVG } from 'react-svg';
 
-// enum STATUS_TYPE {
-//   INFORMATIVE = 'INFORMATIVE',
-//   WARNING = 'WARNING',
-//   POSITIVE = 'POSITIVE',
-// }
-// type TToastOption = {
-//   status: STATUS_TYPE;
-//   title: boolean;
-//   body: boolean;
-//   close: boolean;
-// };
-
 export const CustomToastContainer = () => {
-  const typeConvert = () => {};
-
   const iconCustom = (type: TypeOptions) => {
     switch (type) {
       case 'success':

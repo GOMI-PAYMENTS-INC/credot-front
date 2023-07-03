@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useVerifyCode } from '@/containers/auth/findAccount.api';
 
-import { FindAccountLayout as Layout } from '@/components/layouts/FindAccountLayout';
+import { FindAccountLayout as Layout } from '@/layouts/FindAccountLayout';
 import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
 import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
 import { isFalsy } from '@/utils/isFalsy';

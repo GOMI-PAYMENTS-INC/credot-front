@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
-import { useScroll } from '@/utils/useScroll';
+import { useScroll } from '@/components/useScroll';
 
 interface TDetailReportContent {
   scrollEvent: scrollEventState;
