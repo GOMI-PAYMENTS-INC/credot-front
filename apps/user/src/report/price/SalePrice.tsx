@@ -3,18 +3,18 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
-import { SalePriceChart } from '@/pages/report/SalePriceChart';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
-import { SalePriceTable } from '@/pages/report/SalePriceTable';
+import { convertExchangeRate, roundNumber } from '@/report/container';
+import { SalePriceChart } from '@/report/price/SalePriceChart';
+import { SalePriceTable } from '@/report/price/SalePriceTable';
 
 import {
   changeSalePriceData,
   convertGrade,
   selectSalePriceCompetitionType,
-} from '@/containers/report/report.container';
-import { TReportAction } from '@/containers/report/report.reducer';
-import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
+} from '@/report/container';
+import { TReportAction } from '@/report/reducer';
+import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
 
 interface ISalePrice {
   salePriceInfo: TSalePriceData;

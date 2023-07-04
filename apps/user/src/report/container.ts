@@ -11,7 +11,7 @@ import {
   getSalePrice,
   getSalePriceByShare,
   postReportShareToken,
-} from './report.api';
+} from '@/report/api';
 import { Dispatch, RefObject, SetStateAction } from 'react';
 
 import {
@@ -19,7 +19,7 @@ import {
   REPORT_LIST_ACTION,
   reportListInitialState,
   TReportAction,
-} from '@/containers/report/report.reducer';
+} from '@/report/reducer';
 import { scrollController } from '@/utils/scrollController';
 
 import {
@@ -32,7 +32,7 @@ import {
   TITLE,
 } from '@/types/enum.code';
 import { convertTime } from '@/utils/parsingTimezone';
-import { getReportList } from '@/containers/report/report.api';
+import { getReportList } from '@/report/api';
 import { formatNumber } from '@/utils/formatNumber';
 import {
   convertBatchStatus,

@@ -1,15 +1,15 @@
 import { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { _getReportInfoByShare } from '@/containers/report/report.container';
-import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
-import { DetailReportRightQuickBar } from '@/pages/report/DetailReportRightQuickBar';
+import { _getReportInfoByShare } from '@/report/container';
+import { reportInitialState, reportReducer } from '@/report/reducer';
+import { DetailReportRightQuickBar } from '@/report/elements/DetailReportRightQuickBar';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { DetailReportSwitch } from '@/pages/report/DetailReportSwitch';
-import DetailReportBody from '@/pages/report/DetailReportBody';
+import { DetailReportSwitch } from '@/report/elements/DetailReportSwitch';
+import DetailReportBody from '@/report/elements/DetailReportBody';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/layouts';
-import DetailReportHeader from '@/pages/report/DetailReportHeader';
+import DetailReportHeader from '@/report/elements/DetailReportHeader';
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 
 const DetailReportPageByShare = () => {
@@ -40,9 +40,8 @@ const DetailReportPageByShare = () => {
       setIsUser(false);
     }
 
-    if (params.id && main === null) {
-      void _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
-    }
+    if (params.id && main === null)
+      _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
   }, []);
 
   useEffect(() => {
@@ -62,53 +61,50 @@ const DetailReportPageByShare = () => {
     );
   }, [main]);
 
-  if (isFalsy(main)) {
-    if (isUser) {
-      return (
-        <Default>
-          <div className='flex h-screen flex-col items-center justify-center self-center'>
-            <div className='scale-[0.3]'>
-              <div id='loader' />
-            </div>
-          </div>
-        </Default>
-      );
-    } else {
-      return (
-        <Fragment>
-          <div className='flex h-full flex-col items-center justify-center self-center'>
-            <div className='absolute scale-[0.3] pb-[84px]'>
-              <div id='loader' />
-            </div>
-          </div>
-        </Fragment>
-      );
-    }
-  }
+  const LoadingSpinner = useMemo(
+    () => (
+      <div className='flex h-full flex-col items-center justify-center self-center'>
+        <div className='absolute scale-[0.3] pb-[84px]'>
+          <div id='loader' />
+        </div>
+      </div>
+    ),
+    [],
+  );
+
   if (isUser) {
     return (
       <Default>
-        <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
-        <DetailReportBody
-          contentSection={contentSection}
-          setScrollEvent={setScrollEvent}
-          scrollEvent={scrollEvent}
-        >
-          {combinedComponent}
-          <DetailReportRightQuickBar
-            isUser={isUser}
-            title={main?.text}
-            scrollEvent={scrollEvent}
-            contentSection={contentSection}
-            scrollController={scrollController}
-            setScrollEvent={setScrollEvent}
-          />
-        </DetailReportBody>
+        {isFalsy(main) ? (
+          LoadingSpinner
+        ) : (
+          <Fragment>
+            <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
+            <DetailReportBody
+              contentSection={contentSection}
+              setScrollEvent={setScrollEvent}
+              scrollEvent={scrollEvent}
+            >
+              {combinedComponent}
+              <DetailReportRightQuickBar
+                isUser={isUser}
+                title={main?.text}
+                scrollEvent={scrollEvent}
+                contentSection={contentSection}
+                scrollController={scrollController}
+                setScrollEvent={setScrollEvent}
+              />
+            </DetailReportBody>
+          </Fragment>
+        )}
       </Default>
     );
-  } else {
-    return (
-      <Fragment>
+  }
+  return (
+    <Fragment>
+      {isFalsy(main) ? (
+        LoadingSpinner
+      ) : (
         <DetailReportBody
           contentSection={contentSection}
           setScrollEvent={setScrollEvent}
@@ -124,9 +120,9 @@ const DetailReportPageByShare = () => {
             setScrollEvent={setScrollEvent}
           />
         </DetailReportBody>
-      </Fragment>
-    );
-  }
+      )}
+    </Fragment>
+  );
 };
 
 export default DetailReportPageByShare;

@@ -1,8 +1,8 @@
-import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
+import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
 import { TITLE } from '@/types/enum.code';
-import { convertedCategoryAnalysisData } from '@/containers/report';
-import { CategoryRankChart } from '@/pages/report/CategoryRankChart';
-import CategoryAnalysisList from '@/pages/report/CategoryAnalysisList';
+import { convertedCategoryAnalysisData } from '@/report/container';
+import { CategoryRankChart } from '@/report/category/CategoryRankChart';
+import CategoryAnalysisList from '@/report/category/CategoryAnalysisList';
 
 interface ICategoryAnalysis {
   categoryAnalysis: null | TCategoryAnalysis;

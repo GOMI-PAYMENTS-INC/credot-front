@@ -3,10 +3,7 @@ import { StatusTag } from '@/components/statusTag';
 import { convertTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  onCheckReportList,
-  reportListConverter,
-} from '@/containers/report/report.container';
+import { onCheckReportList, reportListConverter } from '@/report/container';
 import { Dispatch, Fragment } from 'react';
 
 type TReportListColumn = {

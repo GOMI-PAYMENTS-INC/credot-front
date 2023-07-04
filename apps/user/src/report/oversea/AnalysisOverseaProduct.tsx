@@ -3,13 +3,13 @@ import { ReactSVG } from 'react-svg';
 
 import { TITLE } from '@/types/enum.code';
 
-import { AnalysisOverseaProductTable } from '@/pages/report/AnalysisOverseaProductTable';
-import { OVERSEA_PRODUCT_RATIO } from '@/constants/report.constant';
+import { AnalysisOverseaProductTable } from '@/report/oversea/AnalysisOverseaProductTable';
+import { OVERSEA_PRODUCT_RATIO } from '@/report/constant';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { COUNTRY_CODE } from '@/containers/report/country.code';
+import { COUNTRY_CODE } from '@/report/country';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
+import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
 
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;

@@ -8,7 +8,7 @@ import {
   SubTitle,
 } from 'chart.js';
 
-import { roundNumber, countProductsByPrice, setChartLabels } from '@/containers/report';
+import { roundNumber, countProductsByPrice, setChartLabels } from '@/report/container';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 

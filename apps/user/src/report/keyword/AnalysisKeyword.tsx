@@ -2,19 +2,19 @@ import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate } from '@/containers/report/report.container';
+import { convertExchangeRate } from '@/report/container';
 import { openBrowser } from '@/utils/openBrowser';
-import { convertEvaluateStatus, convertScoreToText } from '@/constants/report.constant';
+import { convertEvaluateStatus, convertScoreToText } from '@/report/constant';
 import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
-import { RecommendationChart } from '@/pages/report/RecommendationChart';
-import { TReportAction } from '@/containers/report/report.reducer';
+import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { RecommendationChart } from '@/report/keyword/RecommendationChart';
+import { TReportAction } from '@/report/reducer';
 
 interface IAnalysisKeyword {
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
-  isUser: boolean;
+  isUser?: boolean;
   analysisInfo: TRecommendKeyword;
   relations: TRelationReport[] | null;
   amplitudeData?: TAmplitudeDetailData;
@@ -35,7 +35,14 @@ const dummy: TRelationReport = {
 };
 
 export const AnalysisKeyword = (props: IAnalysisKeyword) => {
-  const { _state, _dispatch, isUser, analysisInfo, relations, amplitudeData } = props;
+  const {
+    _state,
+    _dispatch,
+    isUser = true,
+    analysisInfo,
+    relations,
+    amplitudeData,
+  } = props;
 
   const [cpcPrice, avgPrice, searchCount, competitionProductCount, cpcRate] = [
     analysisInfo.cpcPrice,
@@ -311,7 +318,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
-      {isUser ? (
+      {props.isUser ? (
         <RecommendationChart
           relations={relations}
           _dispatch={_dispatch}
@@ -324,7 +331,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
         />
       ) : (
         <RecommendationChart
-          relations={[dummy]}
+          relations={null}
           _dispatch={null}
           spinnerEvent={false}
           toggleEvent={[{ id: 168, isOpen: true }]}

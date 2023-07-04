@@ -15,8 +15,8 @@ import { copyToClipboard } from '@/utils/copyToClipboard';
 import { useMatch } from 'react-router-dom';
 import { PATH } from '@/types/enum.code';
 import { openBrowser } from '@/utils/openBrowser';
-import { _postReportShareToken } from '@/containers/report';
-import { TReportAction } from '@/containers/report/report.reducer';
+import { _postReportShareToken } from '@/report/container';
+import { TReportAction } from '@/report/reducer';
 import type { Dispatch } from 'react';
 
 interface IKeywordInfoProps {

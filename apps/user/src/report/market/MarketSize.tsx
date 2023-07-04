@@ -3,10 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
 import { formatNumber } from '@/utils/formatNumber';
-import {
-  convertedGoogleTrendData,
-  convertExchangeRate,
-} from '@/containers/report/report.container';
+import { convertedGoogleTrendData, convertExchangeRate } from '@/report/container';
 import { TITLE } from '@/types/enum.code';
 
 import { MarketSizeTrendChart } from './MarketSizeTrendChart';
@@ -15,7 +12,7 @@ import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry } from '@/utils/convertEnum';
 import { convertTime } from '@/utils/parsingTimezone';
 import { openBrowser } from '@/utils/openBrowser';
-import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
+import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
 
 interface IMarketSize {
   marketSize: TMarketSize;

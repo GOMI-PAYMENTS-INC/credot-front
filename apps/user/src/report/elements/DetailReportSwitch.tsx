@@ -1,16 +1,17 @@
-import { TReportAction } from '@/containers/report/report.reducer';
-import { KeywordInfo } from '@/pages/report/KeywordInfo';
-import { MarketSize } from '@/pages/report/MarketSize';
-import { AnalysisKeyword } from '@/pages/report/AnalysisKeyword';
-import { SalePrice } from '@/pages/report/SalePrice';
-import { AnalysisOverseaProduct } from '@/pages/report/AnalysisOverseaProduct';
+import { TReportAction } from '@/report/reducer';
+import { KeywordInfo } from '@/report/keyword/KeywordInfo';
+import { MarketSize } from '@/report/market/MarketSize';
+import { AnalysisKeyword } from '@/report/keyword/AnalysisKeyword';
+import { SalePrice } from '@/report/price/SalePrice';
+import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
 import { Fragment } from 'react';
 import { Params } from 'react-router-dom';
 
-import BrandAnalysis from '@/pages/report/BrandAnalysis';
-import CategoryAnalysis from '@/pages/report/CategoryAnalysis';
+import BrandAnalysis from '@/report/brand/BrandAnalysis';
+import CategoryAnalysis from '@/report/category/CategoryAnalysis';
 import { authReturnUrl } from '@/auth/container';
 import { PATH } from '@/types/enum.code';
+
 interface IDetailReportSwitchProps {
   isUser: boolean;
   _state: TReportState;

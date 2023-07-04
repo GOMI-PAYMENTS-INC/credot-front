@@ -1,5 +1,5 @@
 import { Dispatch, Fragment } from 'react';
-import { deleteReports, switchDeleteModal } from '@/containers/report';
+import { deleteReports, switchDeleteModal } from '@/report/container';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 
 interface IReportListDeleteModalPrpos {
@@ -66,13 +66,13 @@ export const ReportListDeleteModal = ({
 
           <footer className='flex justify-between pt-4'>
             {modal.onCancel && (
-            <button
-              type='button'
-              className='button-outlined-normal-large-grey-false-false w-full '
-              onClick={() => modal.onCancel?.cancelEvent()}
-            >
-              {modal.onCancel.name}
-            </button>
+              <button
+                type='button'
+                className='button-outlined-normal-large-grey-false-false w-full '
+                onClick={() => modal.onCancel?.cancelEvent()}
+              >
+                {modal.onCancel.name}
+              </button>
             )}
             {modal.onConfirm && (
               <Fragment>

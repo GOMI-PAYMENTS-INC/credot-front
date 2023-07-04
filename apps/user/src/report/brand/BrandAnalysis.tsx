@@ -1,13 +1,13 @@
-import React, {Dispatch, useMemo, useRef} from 'react';
-import {ReactSVG} from 'react-svg';
-import {Tooltip} from 'react-tooltip';
-import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
-import {TITLE} from '@/types/enum.code';
-import {BrandAnalysisProductTable} from '@/pages/report/BrandAnalysisTable';
-import {isFalsy} from '@/utils/isFalsy';
-import {convertExchangeRate, roundNumber, selectBrandIndex} from '@/containers/report';
-import {TReportAction} from '@/containers/report/report.reducer';
-import {formatNumber} from '@/utils/formatNumber';
+import { Dispatch, useMemo, useRef } from 'react';
+import { ReactSVG } from 'react-svg';
+import { Tooltip } from 'react-tooltip';
+import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { TITLE } from '@/types/enum.code';
+import { BrandAnalysisProductTable } from '@/report/brand/BrandAnalysisTable';
+import { isFalsy } from '@/utils/isFalsy';
+import { convertExchangeRate, roundNumber, selectBrandIndex } from '@/report/container';
+import { TReportAction } from '@/report/reducer';
+import { formatNumber } from '@/utils/formatNumber';
 
 interface IBrandAnalysis {
   brandAnalysis: {

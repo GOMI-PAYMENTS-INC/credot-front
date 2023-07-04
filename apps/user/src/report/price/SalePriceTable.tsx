@@ -2,7 +2,7 @@ import { Fragment, RefObject } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate, roundNumber } from '@/containers/report';
+import { convertExchangeRate, roundNumber } from '@/report/container';
 import { openBrowser } from '@/utils/openBrowser';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';

@@ -8,7 +8,7 @@ import {
   TemporaryPassword,
 } from '@/auth';
 import SearchKeywords from '@/pages/search/SearchKeywords';
-import * as ReportRoutes from '@/pages/report';
+import * as ReportRoutes from '@/report';
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',

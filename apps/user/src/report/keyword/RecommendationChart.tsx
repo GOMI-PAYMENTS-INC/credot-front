@@ -3,25 +3,25 @@ import { ReactSVG } from 'react-svg';
 import { useParams } from 'react-router-dom';
 
 import { BATCH_STATUS } from '@/types/enum.code';
-import { EmptyRecommendation } from '@/pages/report/EmptyRecommendation';
+import { EmptyRecommendation } from '@/report/keyword/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 
-import { isToggleOpen, roundNumber } from '@/containers/report';
+import { isToggleOpen, roundNumber } from '@/report/container';
 
 import {
   convertEvaluateStatus,
   convertRecommendationScoreToText,
-} from '@/constants/report.constant';
+} from '@/report/constant';
 import { formatNumber } from '@/utils/formatNumber';
 
-import { TReportAction } from '@/containers/report/report.reducer';
+import { TReportAction } from '@/report/reducer';
 import {
   _getRelationReport,
   buttonSpinnerEvent,
   convertExchangeRate,
   delayEvent,
-} from '@/containers/report/report.container';
+} from '@/report/container';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';

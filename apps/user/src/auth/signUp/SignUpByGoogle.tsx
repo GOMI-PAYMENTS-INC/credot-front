@@ -14,7 +14,7 @@ import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
 import { isFalsy } from '@/utils/isFalsy';
 
 import { useVerifyCode } from '@/auth/findAccount/api';
-import { useSignUp } from '@/containers/auth/signUp.api';
+import { useSignUp } from '@/auth/signUp/api';
 import {
   authInitialState,
   eventHandlerByFindAccount,

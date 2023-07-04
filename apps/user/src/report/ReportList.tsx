@@ -12,13 +12,10 @@ import {
   onCheckAllReportList,
   onClickDeleteReport,
   onClickReload,
-} from '@/containers/report/report.container';
-import {
-  reportListInitialState,
-  reportListReducer,
-} from '@/containers/report/report.reducer';
-import { ReportListColumn } from '@/pages/report/ReportListColumn';
-import { ReportListDeleteModal } from '@/pages/report/ReportListDeleteModal';
+} from '@/report/container';
+import { reportListInitialState, reportListReducer } from '@/report/reducer';
+import { ReportListColumn } from '@/report/elements/ReportListColumn';
+import { ReportListDeleteModal } from '@/report/elements/ReportListDeleteModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import DropDown, {
