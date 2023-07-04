@@ -2,7 +2,7 @@ import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
 import { convertedCategoryAnalysisData } from '@/report/container';
 import { CategoryRankChart } from '@/report/category/CategoryRankChart';
-import CategoryAnalysisList from '@/report/category/CategoryAnalysisList';
+import { CategoryAnalysisList } from '@/report/category/CategoryAnalysisList';
 
 interface ICategoryAnalysis {
   categoryAnalysis: null | TCategoryAnalysis;

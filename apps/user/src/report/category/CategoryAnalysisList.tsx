@@ -4,7 +4,7 @@ interface ICategoryAnalysisList {
   data: TCategoryAnalysisFrontResult;
 }
 
-const CategoryAnalysisList = ({ data }: ICategoryAnalysisList) => {
+export const CategoryAnalysisList = ({ data }: ICategoryAnalysisList) => {
   const chartColorStyle = useMemo(() => {
     return {
       backgroundColor: data.color,
@@ -29,4 +29,3 @@ const CategoryAnalysisList = ({ data }: ICategoryAnalysisList) => {
     </li>
   );
 };
-export default CategoryAnalysisList;

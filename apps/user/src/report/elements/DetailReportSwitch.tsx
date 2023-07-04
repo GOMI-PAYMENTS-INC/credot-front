@@ -7,8 +7,8 @@ import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct'
 import { Fragment } from 'react';
 import { Params } from 'react-router-dom';
 
-import BrandAnalysis from '@/report/brand/BrandAnalysis';
-import CategoryAnalysis from '@/report/category/CategoryAnalysis';
+import { BrandAnalysis } from '@/report/brand/BrandAnalysis';
+import { CategoryAnalysis } from '@/report/category/CategoryAnalysis';
 import { authReturnUrl } from '@/auth/container';
 import { PATH } from '@/types/enum.code';
 
