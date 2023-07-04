@@ -26,7 +26,7 @@ import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { authReturnUrl } from '@/containers/auth/auth.container';
+import { authReturnUrl } from '@/auth/container';
 //TODO: 분리시키기
 export const signInApi = () => {
   const navigation = useNavigate();

@@ -3,7 +3,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.code';
 import { FieldErrorsImpl, UseFormSetError, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
-import { TERMS_LIST } from '@/constants/auth.constants';
+import { TERMS_LIST } from '@/auth/constants';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import { useNavigate } from 'react-router-dom';

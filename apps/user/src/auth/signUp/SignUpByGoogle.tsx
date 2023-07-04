@@ -1,21 +1,21 @@
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PATH } from '@/types/enum.code';
+import { useLocation } from 'react-router-dom';
 
 import { Common1Section as Layout } from '@/layouts/Common1Section';
-import { WelcomeModal } from '@/pages/auth/WelcomeModal';
-import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
+import { WelcomeModal } from '@/auth/common/WelcomeModal';
+import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
 
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { TERMS_LIST } from '@/constants/auth.constants';
+import { TERMS_LIST } from '@/auth/constants';
 import { ErrorMessage } from '@hookform/error-message';
-import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
+import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { useVerifyCode } from '@/containers/auth/findAccount.api';
+import { useVerifyCode } from '@/auth/findAccount/api';
 import { useSignUp } from '@/containers/auth/signUp.api';
 import {
-  assignEmail,
   authInitialState,
   eventHandlerByFindAccount,
   isCheckedEssentialTerms,
@@ -25,14 +25,15 @@ import {
   selectTerm,
   signUpVerifyCode,
   termInitialState,
-} from '@/containers/auth/auth.container';
+} from '@/auth/container';
 import { isTruthy } from '@/utils/isTruthy';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { SmsVerifyType } from '@/generated/graphql';
 
-const SignUpRef = () => {
+export const SignUpByGoogle = () => {
+  const { token } = useLocation().state;
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
   const [signUpState, setSignUpState] = useState(termInitialState);
@@ -41,7 +42,6 @@ const SignUpRef = () => {
     register,
     setError,
     getValues,
-    watch,
     formState: { errors },
   } = useForm<TAuthEssentialProps>({
     mode: 'onChange',
@@ -55,15 +55,14 @@ const SignUpRef = () => {
   );
 
   useEffect(() => {
-    _amplitudeSignupStarted(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
+    _amplitudeSignupStarted(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
   }, []);
 
   useEffect(() => {
-    if (isFalsy(isPassedVerifyCode)) return;
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);
 
-  const { _applyAccount, _isExistedAccount } = useSignUp();
+  const { _applySocialAccount } = useSignUp();
 
   const clickVerifyButton = () => {
     const phone = getValues('phone');
@@ -77,8 +76,6 @@ const SignUpRef = () => {
 
     return isValid && _getVerifyCode(phone);
   };
-
-  _isExistedAccount(watch('email'), signUpState.triggerConfirmEmail, setError);
 
   const [isPassedVerifyCode] = _checkSmsVerifyCode(getValues('phone'));
 
@@ -97,116 +94,13 @@ const SignUpRef = () => {
         />
       )}
 
-      <div className='flex flex-col justify-between'>
+      <div className='flex h-full flex-col justify-between'>
         <div>
           <div>
             <h3 className='text-left text-3XL/medium text-grey-800'>회원가입</h3>
           </div>
 
           <div className='mt-10 space-y-8'>
-            {/*이메일*/}
-            <div className='inputCustom-group'>
-              <label className='inputCustom-label' htmlFor='email'>
-                이메일
-              </label>
-              <div className='inputCustom-textbox-wrap'>
-                <input
-                  className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
-                  id='email'
-                  type='email'
-                  placeholder='이메일'
-                  {...register('email', {
-                    required: NOTIFICATION_MESSAGE.emptyEmail,
-                    pattern: {
-                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                      message: NOTIFICATION_MESSAGE.invalidEmail,
-                    },
-                    onChange: (event: ChangeEvent<HTMLInputElement>) => {
-                      assignEmail(event, signUpState, setSignUpState);
-                    },
-                  })}
-                />
-                <InputIcon
-                  status={errors?.email ? INPUTSTATUS.ERROR : undefined}
-                  iconSize={5}
-                />
-              </div>
-              <ErrorMessage
-                errors={errors}
-                name='email'
-                render={({ message }) => (
-                  <p className='inputCustom-helptext'>{message}</p>
-                )}
-              />
-            </div>
-
-            {/*비밀번호*/}
-            <div className='space-y-2'>
-              <div className='inputCustom-group'>
-                <label className='inputCustom-label' htmlFor='password'>
-                  비밀번호
-                </label>
-                <div className='inputCustom-textbox-wrap'>
-                  <input
-                    id='password'
-                    className={`inputCustom-textbox w-full ${
-                      errors?.password ? 'error' : ''
-                    }`}
-                    type='password'
-                    placeholder='비밀번호를 입력해주세요. (8자리 이상)'
-                    {...register('password', {
-                      required: NOTIFICATION_MESSAGE.emtpyPassword,
-                      pattern: {
-                        // : 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력
-                        value:
-                          /(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&\s]{8,50}$/,
-                        message: NOTIFICATION_MESSAGE.invalidPasswordType,
-                      },
-                    })}
-                  />
-                  <InputIcon
-                    status={errors?.password ? INPUTSTATUS.ERROR : undefined}
-                    iconSize={5}
-                  />
-                </div>
-                <ErrorMessage
-                  errors={errors}
-                  name='password'
-                  render={({ message }) => (
-                    <p className='inputCustom-helptext'>{message}</p>
-                  )}
-                />
-              </div>
-
-              <div className='inputCustom-group'>
-                <div className='inputCustom-textbox-wrap'>
-                  <input
-                    id='confirmedPassword'
-                    className={`inputCustom-textbox w-full ${
-                      errors?.confirmedPassword ? 'error' : ''
-                    }`}
-                    type='password'
-                    placeholder='비밀번호를 한번 더 입력해주세요.'
-                    {...register('confirmedPassword', {
-                      required: NOTIFICATION_MESSAGE.emtpyConfirmPassword,
-                      validate: (value: string) =>
-                        value === getValues('password') || '비밀번호가 일치하지 않아요.',
-                    })}
-                  />
-                  <InputIcon
-                    status={errors?.confirmedPassword ? INPUTSTATUS.ERROR : undefined}
-                    iconSize={5}
-                  />
-                </div>
-                <ErrorMessage
-                  errors={errors}
-                  name='confirmedPassword'
-                  render={({ message }) => (
-                    <p className='inputCustom-helptext'>{message}</p>
-                  )}
-                />
-              </div>
-            </div>
             <div className='space-y-2'>
               <div>
                 <label className='inputCustom-label' htmlFor='email'>
@@ -354,9 +248,14 @@ const SignUpRef = () => {
               <button
                 className='button-filled-normal-xLarge-red-false-false-true w-full'
                 onClick={() => {
-                  _applyAccount(
-                    getValues(),
-                    isVerification.verifyCodeSignatureNumber,
+                  const payload = {
+                    phone: getValues('phone'),
+                    verifyCode: isVerification.verifyCodeSignatureNumber,
+                    requiredAgreeTerm: signUpState.checkedTerms,
+                  };
+                  _applySocialAccount(
+                    payload,
+                    token,
                     signUpState,
                     setSignUpState,
                     setError,
@@ -373,5 +272,3 @@ const SignUpRef = () => {
     </Layout>
   );
 };
-
-export default SignUpRef;

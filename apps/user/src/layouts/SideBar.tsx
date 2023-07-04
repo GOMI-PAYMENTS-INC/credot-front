@@ -1,21 +1,21 @@
-import {Link, matchRoutes, useLocation, useNavigate} from 'react-router-dom';
-import {ReactSVG} from 'react-svg';
+import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
-import {routeList} from '@/router/routeList';
-import {isIncluded} from '@/utils/isIncluded';
-import {Dispatch, useEffect, useRef, useState} from 'react';
-import {PATH} from '@/types/enum.code';
-import {menuData} from '@/containers/sidebar/sideBarData';
-import {TSidebarAction,} from '@/containers/sidebar/sidebar.reducer';
+import { routeList } from '@/router/routeList';
+import { isIncluded } from '@/utils/isIncluded';
+import { Dispatch, useEffect, useRef, useState } from 'react';
+import { PATH } from '@/types/enum.code';
+import { menuData } from '@/containers/sidebar/sideBarData';
+import { TSidebarAction } from '@/containers/sidebar/sidebar.reducer';
 
-import {onClickUserMenu, toggleDepth2Menu, toggleSidebar} from '@/containers/sidebar';
-import {replaceOverLength} from '@/utils/replaceOverLength';
-import {_amplitudeMovedToUserGuide} from '@/amplitude/amplitude.service';
-import {MeQuery} from '@/generated/graphql';
-import {UserAtom} from '@/atom/auth/auth-atom';
-import {useRecoilValue} from 'recoil';
-import {signInApi} from '@/containers/auth/signIn.api';
-import {openBrowser} from '@/utils/openBrowser';
+import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { MeQuery } from '@/generated/graphql';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { useRecoilValue } from 'recoil';
+import { signInApi } from '@/auth/signIn/api';
+import { openBrowser } from '@/utils/openBrowser';
 
 interface TSideBarProps {
   openWidth: number;
@@ -57,7 +57,7 @@ const SideBar = (props: TSideBarProps) => {
   }, [userAtom]);
 
   return (
-    <aside className='fixed left-0 h-full z-50'>
+    <aside className='fixed left-0 z-50 h-full'>
       {_state.openedSidebar ? (
         <div
           className={`flex h-full w-[${openWidth}px] flex-[0_0_${openWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}

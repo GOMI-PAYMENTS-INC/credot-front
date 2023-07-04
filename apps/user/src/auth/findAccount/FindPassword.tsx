@@ -1,26 +1,25 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/findAccount.api';
+import { useVerifyCode } from '@/auth/findAccount/api';
 
 import { FindAccountLayout as Layout } from '@/layouts/FindAccountLayout';
-import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { FindPasswordResult } from '@/pages/auth/FindPasswordResult';
+import { FindAccountTittle, FindPasswordResult } from '@/auth/findAccount/elements';
 
 import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container';
+} from '@/auth/container';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeFindPwStarted } from '@/amplitude/amplitude.service';
-import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
+import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
 import { SmsVerifyType } from '@/generated/graphql';
 
-export const FindPasswordRef = () => {
+export const FindPassword = () => {
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
 
@@ -178,5 +177,3 @@ export const FindPasswordRef = () => {
     </Layout>
   );
 };
-
-export default FindPasswordRef;

@@ -18,7 +18,7 @@ import {
   exceptedVerifyTry,
   getVerifyCodeSignatureNumber,
   isAccountExisted,
-} from '@/containers/auth/auth.container';
+} from '@/auth/container';
 import { UseFormSetError } from 'react-hook-form';
 
 import {
@@ -41,6 +41,7 @@ export const useVerifyCode = (
     },
     onError: (err) => {
       const [error] = err.response.errors;
+
       setError('phone', { message: error.message });
 
       if (String(error.extensions.code) === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
@@ -123,7 +124,8 @@ export const useVerifyCode = (
           }
         },
         onError: (err) => {
-          // 계정 없음
+          isAccountExisted(undefined, isVerification, setIsVerification);
+          _amplitudeFindPwFailed();
         },
       },
     );

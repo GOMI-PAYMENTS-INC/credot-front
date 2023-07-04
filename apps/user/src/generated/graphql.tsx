@@ -822,14 +822,12 @@ export const useMeQuery = <TData extends MeQuery, TError extends unknown>(
   variables?: MeQueryVariables,
   options?: UseQueryOptions<MeQuery, TError, TData>,
   headers?: RequestInit['headers'],
-) => {
-  console.log(variables?.token, 'variables');
-  return useQuery<MeQuery, TError, TData>(
+) =>
+  useQuery<MeQuery, TError, TData>(
     variables?.token ? ['Me', variables] : ['Me'],
     fetcher<MeQuery, MeQueryVariables>(MeDocument, variables, headers),
     options,
   );
-};
 
 export const ExistsUserEmailDocument = `
     query ExistsUserEmail($email: String!) {

@@ -3,7 +3,7 @@ import { ModalComponent } from '@/components/modals/ModalComponent';
 import { useInterval } from '@/components/useInterval';
 import { isTruthy } from '@/utils/isTruthy';
 import { PATH } from '@/types/enum.code';
-import { authReturnUrl } from '@/containers/auth/auth.container';
+import { authReturnUrl } from '@/auth/container';
 interface IWelcomeModal {
   closingTime: number | null;
   path: PATH;

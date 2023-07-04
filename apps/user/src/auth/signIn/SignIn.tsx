@@ -12,15 +12,15 @@ import {
 } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import GoogleLogin from '@/pages/auth/GoogleLogin';
-import { signInApi } from '@/containers/auth/signIn.api';
+import GoogleLogin from '@/auth/signIn/GoogleLogin';
+import { signInApi } from '@/auth/signIn/api';
 
 interface ISignInForm {
   email: string;
   password: string;
 }
 
-const SignIn = () => {
+export const SignIn = () => {
   const navigation = useNavigate();
   const { loginMutate, _googleLoginMutate } = signInApi();
 
@@ -217,4 +217,3 @@ const SignIn = () => {
     </Layout>
   );
 };
-export default SignIn;

@@ -1,10 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
-
-import { signInApi } from '@/containers/auth/signIn.api';
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
-import { authReturnUrl } from '@/containers/auth/auth.container';
+import { authReturnUrl } from '@/auth/container';
 
 export default function PrivateRoute() {
   const storageToken = authTokenStorage.getToken();

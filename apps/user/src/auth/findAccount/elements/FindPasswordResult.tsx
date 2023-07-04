@@ -1,9 +1,9 @@
 import { Fragment, Dispatch, SetStateAction } from 'react';
-import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { FindAccountTittle } from '@/auth/findAccount/elements';
 import { Link } from 'react-router-dom';
 import { AUTH_RESPONSE_TYPE } from '@/types/enum.code';
 
-import { maskingPhone, initializeAuthState } from '@/containers/auth/auth.container';
+import { maskingPhone, initializeAuthState } from '@/auth/container';
 import { UseFormSetValue } from 'react-hook-form';
 import { PATH } from '@/types/enum.code';
 
@@ -16,6 +16,7 @@ interface IFindPasswordResult {
 
 export const FindPasswordResult = (props: IFindPasswordResult) => {
   const { phone, isExistedAccount, setIsVerification, setValue } = props;
+
   return (
     <Fragment>
       {isExistedAccount === AUTH_RESPONSE_TYPE.FILLED ? (

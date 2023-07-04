@@ -1,5 +1,5 @@
 import { Fragment, Dispatch, SetStateAction } from 'react';
-import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { FindAccountTittle } from '@/auth/findAccount/elements';
 import { AUTH_RESPONSE_TYPE, PATH } from '@/types/enum.code';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
 
-import { initializeAuthState } from '@/containers/auth/auth.container';
+import { initializeAuthState } from '@/auth/container';
 import { UseFormSetValue } from 'react-hook-form';
 
 interface IFindIdResultProps {

@@ -1,5 +1,5 @@
-import {TERM_TYPE} from '@/types/enum.code';
-import {NOTIFICATION_MESSAGE} from './notification.constant';
+import { TERM_TYPE } from '@/types/enum.code';
+import { NOTIFICATION_MESSAGE } from '../constants/notification.constant';
 
 const required = { essential: '필수', option: '선택' };
 
@@ -413,13 +413,14 @@ export const TERMS_LIST = [
       '\n' +
       '이 약관은 2022.10.28일부터 시행합니다.\n' +
       '\n' +
-      '\n'
+      '\n',
   },
   {
     id: TERM_TYPE.PERSONAL_AGREE,
     label: '개인정보 수집 및 이용 동의',
     required: required.essential,
-    detail: '개인정보 수집 및 이용 동의\n' +
+    detail:
+      '개인정보 수집 및 이용 동의\n' +
       '주식회사 고미인사이트(이하 ‘회사’라 한다)는 개인정보 보호법 제30조에 따라 정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을 수립, 공개합니다.\n' +
       '\n' +
       '\n' +
@@ -606,7 +607,7 @@ export const TERMS_LIST = [
       '보유 기간 : 탈 후 30일간 보관\n' +
       '\n' +
       '\n' +
-      '그 밖의 사항은 (주)고미인사이트 서비스 개인정보 처리방침에 따릅니다.\n'
+      '그 밖의 사항은 (주)고미인사이트 서비스 개인정보 처리방침에 따릅니다.\n',
   },
   {
     id: TERM_TYPE.MARKETING_AGREE,
@@ -623,7 +624,7 @@ export const TERMS_LIST = [
       '항목\n' +
       '이름, 이메일 주소, 휴대전화번호, SNS계정 정보, 마케팅 수신 동의 여부\n' +
       '보유기간\n' +
-      '회원 탈퇴 시 또는 동의 철회 시\n'
+      '회원 탈퇴 시 또는 동의 철회 시\n',
   },
 ];
 

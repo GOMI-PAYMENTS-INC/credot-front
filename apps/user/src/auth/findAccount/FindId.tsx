@@ -3,25 +3,24 @@ import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
-import { FindAccountBottom } from '@/pages/auth/FindAccountBottom';
-import { FindAccountTittle } from '@/pages/auth/FindAccountTittle';
+import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
+import { FindAccountTittle, FindIdResult } from '@/auth/findAccount/elements';
 
-import { VerifyCodeInput } from '@/pages/auth/VerifyCodeInput';
+import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
 import { FindAccountLayout as Layout } from '@/layouts/FindAccountLayout';
 import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
-} from '@/containers/auth/auth.container';
-import { FindIdResult } from '@/pages/auth/FindIdResult';
+} from '@/auth/container';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/containers/auth/findAccount.api';
+import { useVerifyCode } from '@/auth/findAccount/api';
 import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
 import { SmsVerifyType } from '@/generated/graphql';
 
-const FindId = () => {
+export const FindId = () => {
   const {
     register,
     setError,
@@ -116,7 +115,6 @@ const FindId = () => {
                   )}
                 />
               </div>
-
               <div className='basis-[102px]'>
                 <button
                   className={className}
@@ -126,6 +124,7 @@ const FindId = () => {
                   {text}
                 </button>
               </div>
+              –
             </div>
             {isVerification.activeVerifyCode && (
               <VerifyCodeInput
@@ -150,5 +149,3 @@ const FindId = () => {
     </Layout>
   );
 };
-
-export default FindId;

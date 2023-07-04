@@ -1,6 +1,6 @@
 import { Fragment, ReactNode } from 'react';
 import { PATH } from '@/types/enum.code';
-import { authReturnUrl } from '@/containers/auth/auth.container';
+import { authReturnUrl } from '@/auth/container';
 
 interface IBlindReportProps {
   isUser: boolean;

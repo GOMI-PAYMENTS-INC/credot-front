@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 
 import { _setUserId } from '@/amplitude/amplitude.service';
 import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
-import { signInApi } from '@/containers/auth/signIn.api';
+import { signInApi } from '@/auth/signIn/api';
 import { useMeQuery } from '@/generated/graphql';
 import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';

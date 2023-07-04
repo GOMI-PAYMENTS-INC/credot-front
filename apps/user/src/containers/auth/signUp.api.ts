@@ -11,11 +11,11 @@ import {
 import { TERM_TYPE } from '@/types/enum.code';
 import { toast } from 'react-toastify';
 
-import { setWelcomeModalClosingTime } from '@/containers/auth/auth.container';
+import { setWelcomeModalClosingTime } from '@/auth/container';
 import { UseFormSetError } from 'react-hook-form';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_ESSENTIAL } from '@/constants/auth.constants';
+import { AUTH_ESSENTIAL } from '@/auth/constants';
 import { _amplitudeLoggedIn, _setUserProperties } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
 import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
