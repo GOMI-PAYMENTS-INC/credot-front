@@ -7,7 +7,7 @@ import { convertExchangeRate, roundNumber } from '@/report/container';
 
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { isFalsy } from '@/utils/isFalsy';
-import { COUNTRY_CODE } from '@/report/country';
+import { COUNTRY_CODE } from '@/report/constants/country';
 import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
 import { convertTitle } from '@/utils/convertEnum';
 import { TITLE } from '@/types/enum.code';

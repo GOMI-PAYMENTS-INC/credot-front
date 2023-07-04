@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate } from '@/report/container';
 import { openBrowser } from '@/utils/openBrowser';
-import { convertEvaluateStatus, convertScoreToText } from '@/report/constant';
+import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/score';
 import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';

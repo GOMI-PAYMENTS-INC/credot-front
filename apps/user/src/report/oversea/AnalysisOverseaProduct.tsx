@@ -4,10 +4,10 @@ import { ReactSVG } from 'react-svg';
 import { TITLE } from '@/types/enum.code';
 
 import { AnalysisOverseaProductTable } from '@/report/oversea/AnalysisOverseaProductTable';
-import { OVERSEA_PRODUCT_RATIO } from '@/report/constant';
+import { OVERSEA_PRODUCT_RATIO } from '@/report/constants/score';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { COUNTRY_CODE } from '@/report/country';
+import { COUNTRY_CODE } from '@/report/constants/country';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
 

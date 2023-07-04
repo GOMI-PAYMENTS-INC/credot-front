@@ -12,7 +12,7 @@ import { isToggleOpen, roundNumber } from '@/report/container';
 import {
   convertEvaluateStatus,
   convertRecommendationScoreToText,
-} from '@/report/constant';
+} from '@/report/constants/score';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/report/reducer';
