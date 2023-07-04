@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.code';
 import { FieldErrorsImpl, UseFormSetError, UseFormSetValue } from 'react-hook-form';

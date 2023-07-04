@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { _getReportInfoByShare } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
@@ -62,7 +62,7 @@ const DetailReportPageByShare = () => {
     );
   }, [main]);
 
-  if (isFalsy(main) || main === null) {
+  if (isFalsy(main)) {
     if (isUser) {
       return (
         <Default>

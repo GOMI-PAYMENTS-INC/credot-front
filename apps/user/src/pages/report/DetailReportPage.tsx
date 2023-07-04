@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { _getReportInfo } from '@/containers/report/report.container';
 import { reportInitialState, reportReducer } from '@/containers/report/report.reducer';
@@ -57,7 +57,7 @@ const DetailReportPage = () => {
     );
   }, [main, relation]);
 
-  if (isFalsy(main) || main === null) {
+  if (isFalsy(main)) {
     return (
       <Default>
         <div className='flex h-screen flex-col items-center justify-center self-center'>

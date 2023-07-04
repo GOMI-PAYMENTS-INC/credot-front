@@ -17,7 +17,7 @@ const reportInitialState: TReportState = {
   shareToken: null,
 };
 
-export enum REPORT_ACTION {
+enum REPORT_ACTION {
   INITIALIZE_DATA = 'INITIALIZE_DATA',
   SCROLL_EVENT = 'SCROLL_EVENT',
   TOGGLE_CONTROL = 'TOGGLE_CONTROL',
@@ -136,9 +136,7 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
   }
 };
 
-export { reportInitialState, reportReducer };
-
-export enum REPORT_LIST_ACTION {
+enum REPORT_LIST_ACTION {
   //최초 리스트 가져오기
   REPORT_LIST = 'REPORT_LIST',
   //리포트 삭제
@@ -197,4 +195,11 @@ const reportListReducer = (_state: TReportListState, action: TReportListAction) 
   }
 };
 
-export { reportListReducer, reportListInitialState };
+export {
+  reportInitialState,
+  reportReducer,
+  reportListReducer,
+  reportListInitialState,
+  REPORT_LIST_ACTION,
+  REPORT_ACTION,
+};
