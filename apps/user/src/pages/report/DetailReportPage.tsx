@@ -28,13 +28,7 @@ const DetailReportPage = () => {
   const contentSection = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isFalsy(params.id)) return;
-    if (params.id && _state.main === null) {
-      void _getReportInfo(params.id, _dispatch);
-    }
-  }, []);
-
-  useEffect(() => {
+    if (params.id && _state.main === null) _getReportInfo(params.id, _dispatch);
     if (main) {
       _amplitudeKeywordReportViewed(
         main.id,

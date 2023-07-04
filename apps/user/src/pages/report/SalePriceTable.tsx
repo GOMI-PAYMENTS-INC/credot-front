@@ -1,13 +1,13 @@
-import {Fragment, RefObject} from 'react';
-import {ReactSVG} from 'react-svg';
+import { Fragment, RefObject } from 'react';
+import { ReactSVG } from 'react-svg';
 
-import {formatNumber} from '@/utils/formatNumber';
-import {convertExchangeRate, roundNumber} from '@/containers/report';
-import {openBrowser} from '@/utils/openBrowser';
-import {replaceOverLength} from '@/utils/replaceOverLength';
-import {_amplitudeMovedToPDP} from '@/amplitude/amplitude.service';
-import {convertTitle} from '@/utils/convertEnum';
-import {TITLE} from '@/types/enum.code';
+import { formatNumber } from '@/utils/formatNumber';
+import { convertExchangeRate, roundNumber } from '@/containers/report';
+import { openBrowser } from '@/utils/openBrowser';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import { _amplitudeMovedToPDP } from '@/amplitude/amplitude.service';
+import { convertTitle } from '@/utils/convertEnum';
+import { TITLE } from '@/types/enum.code';
 
 interface ISalePriceTable {
   salePriceItemList: TSalePriceItems[];
@@ -18,7 +18,8 @@ interface ISalePriceTable {
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {
-  const { amplitudeData, salePriceItemList, currencyUnit, basePrice, scrollerRef } = props;
+  const { amplitudeData, salePriceItemList, currencyUnit, basePrice, scrollerRef } =
+    props;
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
     <table className='overflow-y col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
@@ -162,6 +163,7 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                   <button
                     className='flex h-5 w-5 cursor-pointer items-center'
                     onClick={() => {
+                      console.log(item);
                       openBrowser(item.itemUrl);
                       _amplitudeMovedToPDP(
                         amplitudeData.param,

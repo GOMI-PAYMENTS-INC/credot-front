@@ -1,15 +1,19 @@
-import {Dispatch, useMemo, useRef} from 'react';
-import {ReactSVG} from 'react-svg';
-import {Tooltip} from 'react-tooltip';
+import { Dispatch, useMemo, useRef } from 'react';
+import { ReactSVG } from 'react-svg';
+import { Tooltip } from 'react-tooltip';
 
-import {GRADE_ITEMS, TITLE} from '@/types/enum.code';
-import {SalePriceChart} from '@/pages/report/SalePriceChart';
-import {formatNumber} from '@/utils/formatNumber';
-import {convertExchangeRate, roundNumber} from '@/containers/report';
-import {SalePriceTable} from '@/pages/report/SalePriceTable';
+import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
+import { SalePriceChart } from '@/pages/report/SalePriceChart';
+import { formatNumber } from '@/utils/formatNumber';
+import { convertExchangeRate, roundNumber } from '@/containers/report';
+import { SalePriceTable } from '@/pages/report/SalePriceTable';
 
-import {changeSalePriceData, convertGrade, selectSalePriceCompetitionType,} from '@/containers/report/report.container';
-import {TReportAction} from '@/containers/report/report.reducer';
+import {
+  changeSalePriceData,
+  convertGrade,
+  selectSalePriceCompetitionType,
+} from '@/containers/report/report.container';
+import { TReportAction } from '@/containers/report/report.reducer';
 import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
 
 interface ISalePrice {
@@ -22,14 +26,7 @@ interface ISalePrice {
 }
 
 export const SalePrice = (props: ISalePrice) => {
-  const {
-    _dispatch,
-    salePriceInfo,
-    list,
-    focus,
-    currencyUnit,
-    amplitudeData,
-  } = props;
+  const { _dispatch, salePriceInfo, list, focus, currencyUnit, amplitudeData } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
 
   const { id, text, gradeItems, priceAnalysisInfo, items } = salePriceInfo!;

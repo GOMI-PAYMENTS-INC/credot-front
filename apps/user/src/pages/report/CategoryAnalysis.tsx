@@ -1,4 +1,3 @@
-import React from 'react';
 import DetailReportSectionHeader from '@/pages/report/DetailReportSectionHeader';
 import { TITLE } from '@/types/enum.code';
 import { convertedCategoryAnalysisData } from '@/containers/report';
@@ -13,9 +12,8 @@ interface ICategoryAnalysis {
 const CategoryAnalysis = (props: ICategoryAnalysis) => {
   const { categoryAnalysis, itemCount } = props;
 
-  if (categoryAnalysis === null) {
-    return <></>;
-  }
+  if (categoryAnalysis === null) return <></>;
+
   const { frontData, chartData } = convertedCategoryAnalysisData(categoryAnalysis);
 
   return (
@@ -43,7 +41,7 @@ const CategoryAnalysis = (props: ICategoryAnalysis) => {
           <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
             <ul className='space-y-3 p-5'>
               {frontData.map((data) => (
-                <CategoryAnalysisList data={data} />
+                <CategoryAnalysisList key={data.fullName} data={data} />
               ))}
             </ul>
           </div>
