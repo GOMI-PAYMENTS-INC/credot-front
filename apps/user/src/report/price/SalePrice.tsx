@@ -14,7 +14,7 @@ import {
   selectSalePriceCompetitionType,
 } from '@/report/container';
 import { TReportAction } from '@/report/reducer';
-import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { DetailReportSectionHeader } from '@/report/elements';
 
 interface ISalePrice {
   salePriceInfo: TSalePriceData;

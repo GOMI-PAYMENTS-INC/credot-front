@@ -2,14 +2,17 @@ import { Fragment, useEffect, useMemo, useReducer, useRef, useState } from 'reac
 import { useParams } from 'react-router-dom';
 import { _getReportInfoByShare } from '@/report/container';
 import { reportInitialState, reportReducer } from '@/report/reducer';
-import { DetailReportRightQuickBar } from '@/report/elements/DetailReportRightQuickBar';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { DetailReportSwitch } from '@/report/elements/DetailReportSwitch';
-import DetailReportBody from '@/report/elements/DetailReportBody';
+import {
+  DetailReportBody,
+  DetailReportHeader,
+  DetailReportSwitch,
+  DetailReportRightQuickBar,
+} from '@/report/elements';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/layouts';
-import DetailReportHeader from '@/report/elements/DetailReportHeader';
+
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 
 const DetailReportPageByShare = () => {

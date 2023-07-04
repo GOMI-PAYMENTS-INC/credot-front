@@ -8,7 +8,7 @@ interface TDetailReportContent {
   children?: ReactNode;
 }
 
-const DetailReportBody = (props: TDetailReportContent) => {
+export const DetailReportBody = (props: TDetailReportContent) => {
   const { children, contentSection, setScrollEvent, scrollEvent } = props;
   const { scrollY: windowScrollY } = useScroll();
 
@@ -30,5 +30,3 @@ const DetailReportBody = (props: TDetailReportContent) => {
     </section>
   );
 };
-
-export default DetailReportBody;

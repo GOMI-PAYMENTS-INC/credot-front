@@ -1,7 +1,7 @@
 import { Dispatch, useMemo, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
-import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
 import { BrandAnalysisProductTable } from '@/report/brand/BrandAnalysisTable';
 import { isFalsy } from '@/utils/isFalsy';
@@ -21,7 +21,7 @@ interface IBrandAnalysis {
   amplitudeData: TAmplitudeDetailData;
 }
 
-const BrandAnalysis = (props: IBrandAnalysis) => {
+export const BrandAnalysis = (props: IBrandAnalysis) => {
   const {
     brandAnalysis,
     forceBrandIndex,
@@ -303,4 +303,3 @@ const BrandAnalysis = (props: IBrandAnalysis) => {
     </section>
   );
 };
-export default BrandAnalysis;

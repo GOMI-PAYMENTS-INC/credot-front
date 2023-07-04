@@ -9,7 +9,7 @@ import { isFalsy } from '@/utils/isFalsy';
 
 import { COUNTRY_CODE } from '@/report/constants/country';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { DetailReportSectionHeader } from '@/report/elements';
 
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;

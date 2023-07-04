@@ -15,7 +15,7 @@ interface TDetailReport {
   scrollEvent: scrollEventState;
 }
 
-const DetailReportHeader = (props: TDetailReport) => {
+export const DetailReportHeader = (props: TDetailReport) => {
   const { params, main, scrollEvent } = props;
   const navigation = useNavigate();
 
@@ -66,5 +66,3 @@ const DetailReportHeader = (props: TDetailReport) => {
     </header>
   );
 };
-
-export default DetailReportHeader;

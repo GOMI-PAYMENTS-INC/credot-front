@@ -1,4 +1,4 @@
-import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
 import { convertedCategoryAnalysisData } from '@/report/container';
 import { CategoryRankChart } from '@/report/category/CategoryRankChart';
@@ -9,7 +9,7 @@ interface ICategoryAnalysis {
   itemCount: number;
 }
 
-const CategoryAnalysis = (props: ICategoryAnalysis) => {
+export const CategoryAnalysis = (props: ICategoryAnalysis) => {
   const { categoryAnalysis, itemCount } = props;
 
   if (categoryAnalysis === null) return <></>;
@@ -50,4 +50,3 @@ const CategoryAnalysis = (props: ICategoryAnalysis) => {
     </section>
   );
 };
-export default CategoryAnalysis;

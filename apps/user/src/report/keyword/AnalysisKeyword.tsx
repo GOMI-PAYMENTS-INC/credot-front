@@ -7,7 +7,7 @@ import { openBrowser } from '@/utils/openBrowser';
 import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/score';
 import { TITLE } from '@/types/enum.code';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { DetailReportSectionHeader } from '@/report/elements/DetailReportSectionHeader';
 import { RecommendationChart } from '@/report/keyword/RecommendationChart';
 import { TReportAction } from '@/report/reducer';
 

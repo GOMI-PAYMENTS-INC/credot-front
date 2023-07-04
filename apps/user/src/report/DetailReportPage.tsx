@@ -4,16 +4,15 @@ import { _getReportInfo } from '@/report/container';
 import { reportInitialState, reportReducer } from '@/report/reducer';
 import { DetailReportRightQuickBar } from '@/report/elements/DetailReportRightQuickBar';
 import { isFalsy } from '@/utils/isFalsy';
-import BrandAnalysis from '@/report/brand/BrandAnalysis';
-import CategoryAnalysis from '@/report/category/CategoryAnalysis';
+import { BrandAnalysis } from '@/report/brand/BrandAnalysis';
+import { CategoryAnalysis } from '@/report/category/CategoryAnalysis';
 import { KeywordInfo } from '@/report/keyword/KeywordInfo';
 import { MarketSize } from '@/report/market/MarketSize';
 import { AnalysisKeyword } from '@/report/keyword/AnalysisKeyword';
 import { SalePrice } from '@/report/price/SalePrice';
 import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
+import { DetailReportHeader, DetailReportBody } from '@/report/elements';
 
-import DetailReportHeader from '@/report/elements/DetailReportHeader';
-import DetailReportBody from '@/report/elements/DetailReportBody';
 import { Default } from '@/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 

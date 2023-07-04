@@ -15,7 +15,7 @@ interface TDetailReportSectionHeaderProps {
   };
 }
 
-const DetailReportSectionHeader = ({
+export const DetailReportSectionHeader = ({
   id,
   isTooltip = false,
   tooltipInfo,
@@ -52,4 +52,3 @@ const DetailReportSectionHeader = ({
     </div>
   );
 };
-export default DetailReportSectionHeader;

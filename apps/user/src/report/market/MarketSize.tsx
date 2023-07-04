@@ -12,7 +12,7 @@ import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry } from '@/utils/convertEnum';
 import { convertTime } from '@/utils/parsingTimezone';
 import { openBrowser } from '@/utils/openBrowser';
-import DetailReportSectionHeader from '@/report/elements/DetailReportSectionHeader';
+import { DetailReportSectionHeader } from '@/report/elements';
 
 interface IMarketSize {
   marketSize: TMarketSize;
