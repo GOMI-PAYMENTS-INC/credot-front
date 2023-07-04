@@ -11,7 +11,7 @@ import {
   _amplitudeLoginPageViewed,
 } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
-import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import GoogleLogin from '@/auth/signIn/GoogleLogin';
 import { signInApi } from '@/auth/signIn/api';
 

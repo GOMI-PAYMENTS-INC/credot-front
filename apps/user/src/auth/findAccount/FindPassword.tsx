@@ -14,7 +14,7 @@ import {
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/auth/container';
-import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { _amplitudeFindPwStarted } from '@/amplitude/amplitude.service';
 import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
 import { SmsVerifyType } from '@/generated/graphql';

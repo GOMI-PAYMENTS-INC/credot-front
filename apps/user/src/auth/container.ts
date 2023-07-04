@@ -4,7 +4,7 @@ import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.c
 import { FieldErrorsImpl, UseFormSetError, UseFormSetValue } from 'react-hook-form';
 import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { TERMS_LIST } from '@/auth/constants';
-import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import { useNavigate } from 'react-router-dom';
 

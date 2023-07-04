@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 
-import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
 import { FindAccountTittle, FindIdResult } from '@/auth/findAccount/elements';
 

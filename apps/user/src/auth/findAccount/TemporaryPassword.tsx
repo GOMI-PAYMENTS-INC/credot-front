@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { Common2Section as Layout } from '@/layouts/Common2Section';
 import { ChangePasswordInput } from '@/generated/graphql';
-import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '@/atom/auth/auth-atom';
 import { signInApi } from '@/auth/signIn/api';

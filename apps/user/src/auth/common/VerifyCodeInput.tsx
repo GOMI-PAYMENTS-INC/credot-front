@@ -6,7 +6,7 @@ import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useInterval } from '@/components/useInterval';
 import { clickVerifyBtn } from '@/auth/container';
-import { NOTIFICATION_MESSAGE } from '@/constants/notification.constant';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
