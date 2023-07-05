@@ -1,12 +1,10 @@
 import { Dispatch, Fragment, useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
-import { useParams } from 'react-router-dom';
 
 import { BATCH_STATUS } from '@/types/enum.code';
 import { EmptyRecommendation } from '@/report/keyword/EmptyRecommendation';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
-
 import { isToggleOpen, roundNumber } from '@/report/container';
 
 import {
@@ -16,12 +14,7 @@ import {
 import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/report/reducer';
-import {
-  _getRelationReport,
-  buttonSpinnerEvent,
-  convertExchangeRate,
-  delayEvent,
-} from '@/report/container';
+import { _getRelationReport, convertExchangeRate } from '@/report/container';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
@@ -32,7 +25,6 @@ interface IRecommendationChart {
   country: CountryType | null;
   _dispatch: Dispatch<TReportAction> | null;
   toggleEvent: { id: number; isOpen: boolean }[];
-  spinnerEvent: boolean;
   currencyUnit: number;
   basePrice: number;
   amplitudeData?: TAmplitudeDetailData;
@@ -45,32 +37,18 @@ export const RecommendationChart = (props: IRecommendationChart) => {
     country,
     _dispatch,
     toggleEvent,
-    spinnerEvent,
     currencyUnit,
     basePrice,
   } = props;
 
-  const batchStatusDoneItems = useMemo(() => {
-    if (isFalsy(relations) || relations === null) {
-      return;
-    }
-    return relations.filter((data) =>
+  const recomendationItems = useMemo(() => {
+    if (isFalsy(relations)) return;
+
+    return relations!.filter((data) =>
       isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
     );
   }, [relations]);
 
-  const isDone = useMemo(() => {
-    if (
-      isFalsy(batchStatusDoneItems) ||
-      batchStatusDoneItems === undefined ||
-      relations === null
-    ) {
-      return;
-    }
-    return relations.length === batchStatusDoneItems.length;
-  }, [batchStatusDoneItems]);
-
-  const routeId = useParams();
   return (
     <section className='pt-10'>
       <table className='col-span-full h-full w-full  table-auto bg-white'>
@@ -114,63 +92,13 @@ export const RecommendationChart = (props: IRecommendationChart) => {
         </thead>
 
         <tbody>
-          {isFalsy(relations) && (
+          {isFalsy(relations) || recomendationItems === undefined ? (
             <Fragment>
               <tr className='mt-3 flex' />
               <EmptyRecommendation />
             </Fragment>
-          )}
-
-          {isFalsy(relations) === false && isFalsy(batchStatusDoneItems) && (
-            <Fragment>
-              <tr className='mt-3 flex' />
-              <tr>
-                <td colSpan={10}>
-                  <div className='relative flex items-center justify-center'>
-                    <img
-                      src='/assets/images/EmptyRow.png'
-                      className='relative border-[1px] border-grey-300'
-                    />
-                    <div className='absolute flex flex-col items-center justify-center border-[1px] border-grey-300 bg-white'>
-                      <div className='flex py-3 px-3'>
-                        <p className=' text-S/Regular'>
-                          추천 키워드의 정보를 수집중이에요. <br /> 새로고침을 통해
-                          수집현황을 확인해주세요.
-                        </p>
-                        <div className='flex pl-[26px]'>
-                          <button
-                            className='button-outlined-small-xLarge-primary-false-false-true relative'
-                            onClick={() => {
-                              if (_dispatch) {
-                                void _getRelationReport(routeId.id!, _dispatch);
-                                buttonSpinnerEvent(_dispatch);
-                                delayEvent(() => buttonSpinnerEvent(_dispatch), 1000);
-                              }
-                            }}
-                          >
-                            {spinnerEvent ? (
-                              <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
-                                <div className='absolute scale-[0.12] '>
-                                  <div id='loader' />
-                                </div>
-                              </div>
-                            ) : (
-                              <p className='px-[18px]'>새로고침</p>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </Fragment>
-          )}
-
-          {isFalsy(relations) === false &&
-            isFalsy(batchStatusDoneItems) === false &&
-            batchStatusDoneItems !== undefined &&
-            batchStatusDoneItems.map((data, idx) => {
+          ) : (
+            recomendationItems.map((data) => {
               const [search, competiton, cpc] = data.evaluateStatus;
               const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
               const backgroundColor = status ? 'border-grey-300' : 'border-orange-200';
@@ -271,12 +199,11 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                         <button
                           className='flex h-5 w-5 cursor-pointer items-center'
                           onClick={() => {
-                            country &&
-                              openBrowser(
-                                `${convertShopeeSiteUrl(country)}/search?keyword=${
-                                  data.text
-                                }`,
-                              );
+                            openBrowser(
+                              `${convertShopeeSiteUrl(country!)}/search?keyword=${
+                                data.text
+                              }`,
+                            );
                             amplitudeData &&
                               _amplitudeMovedToSERP(
                                 amplitudeData.param,
@@ -331,57 +258,10 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                       </td>
                     </tr>
                   )}
-                  {idx === batchStatusDoneItems.length - 1 && isDone === false && (
-                    <Fragment>
-                      <tr className='mt-3 flex' />
-                      <tr>
-                        <td colSpan={10}>
-                          <div className='relative flex items-center justify-center'>
-                            <img
-                              src='/assets/images/EmptyRow.png'
-                              className='relative border-[1px] border-grey-300'
-                            />
-                            <div className='absolute flex flex-col items-center justify-center border-[1px] border-grey-300 bg-white'>
-                              <div className='flex py-3 px-3'>
-                                <p className=' text-S/Regular'>
-                                  추천 키워드의 정보를 수집중이에요. <br /> 새로고침을
-                                  통해 수집현황을 확인해주세요.
-                                </p>
-                                <div className='flex pl-[26px]'>
-                                  <button
-                                    className='button-outlined-small-xLarge-primary-false-false-true relative'
-                                    onClick={() => {
-                                      if (_dispatch) {
-                                        void _getRelationReport(routeId.id!, _dispatch);
-                                        buttonSpinnerEvent(_dispatch);
-                                        delayEvent(
-                                          () => buttonSpinnerEvent(_dispatch),
-                                          1000,
-                                        );
-                                      }
-                                    }}
-                                  >
-                                    {spinnerEvent ? (
-                                      <div className='flex h-4 w-[76px]  items-center justify-center px-[18px]'>
-                                        <div className='absolute scale-[0.12] '>
-                                          <div id='loader' />
-                                        </div>
-                                      </div>
-                                    ) : (
-                                      <p className='px-[18px]'>새로고침</p>
-                                    )}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </Fragment>
-                  )}
                 </Fragment>
               );
-            })}
+            })
+          )}
         </tbody>
       </table>
     </section>
