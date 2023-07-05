@@ -315,7 +315,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
         <RecommendationChart
           relations={relations}
           _dispatch={_dispatch}
-          spinnerEvent={_state.spinnerEvent}
           toggleEvent={_state.toggleEvent}
           country={analysisInfo!.country}
           basePrice={analysisInfo!.basePrice}
@@ -326,7 +325,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
         <RecommendationChart
           relations={[dummy]}
           _dispatch={null}
-          spinnerEvent={false}
           toggleEvent={[{ id: 168, isOpen: true }]}
           country={null}
           basePrice={968.92}
