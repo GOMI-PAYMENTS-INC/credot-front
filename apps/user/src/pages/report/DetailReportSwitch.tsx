@@ -8,6 +8,7 @@ import { Fragment } from 'react';
 import { Params } from 'react-router-dom';
 import { BlindReportDetail } from '@/pages/report/BlindReportDetail';
 import BrandAnalysis from '@/pages/report/BrandAnalysis';
+import CategoryAnalysis from '@/pages/report/CategoryAnalysis';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
@@ -22,7 +23,7 @@ export const DetailReportSwitch = ({
   _dispatch,
   params,
 }: IDetailReportSwitchProps) => {
-  const { main, relation, brand } = _state;
+  const { main, oversea, salePrice, relation, brand, category } = _state;
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
@@ -56,22 +57,26 @@ export const DetailReportSwitch = ({
                   basePrice={main!.basePrice}
                   currencyUnit={main!.currencyUnit}
                   brandAnalysis={brand}
-                  forceBrandIndex={_state.brand.focus}
+                  forceBrandIndex={brand.focus}
                   amplitudeData={amplitudeData}
                 />
                 <SalePrice
                   _dispatch={_dispatch}
                   currencyUnit={main!.currencyUnit}
-                  salePriceInfo={_state.salePrice?.data!}
-                  list={_state.salePrice.list}
-                  focus={_state.salePrice.focus}
+                  salePriceInfo={salePrice?.data!}
+                  list={salePrice.list}
+                  focus={salePrice.focus}
                   amplitudeData={amplitudeData}
                 />
                 <AnalysisOverseaProduct
                   currencyUnit={main!.currencyUnit}
                   basePrice={main!.basePrice}
-                  overseaProduct={_state.oversea}
+                  overseaProduct={oversea}
                   amplitudeData={amplitudeData}
+                />
+                <CategoryAnalysis
+                  itemCount={main!.itemCount}
+                  categoryAnalysis={category}
                 />
               </Fragment>
             )}

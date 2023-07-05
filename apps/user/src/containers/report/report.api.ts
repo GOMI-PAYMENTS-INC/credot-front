@@ -51,6 +51,14 @@ const getBrandAnalysis = async (id: string) => {
     console.error(error);
   }
 };
+const getCategoryAnalysis = async (id: string) => {
+  try {
+    return await HTTP.get<TCategoryAnalysisResponse>(`${REPORT_URL}/${id}/category`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getOverseaProduct = async (id: string) => {
   try {
     return await HTTP.get<TOverseaProductResponse>(`${REPORT_URL}/${id}/oversea`);
@@ -110,6 +118,7 @@ export {
   getMainReport,
   getMainReportByShare,
   getBrandAnalysis,
+  getCategoryAnalysis,
   getRelationReport,
   getRelationReportByShare,
   getSalePrice,

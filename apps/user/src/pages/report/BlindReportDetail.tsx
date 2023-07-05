@@ -15,12 +15,15 @@ export const BlindReportDetail = ({ children, isUser }: IBlindReportProps) => {
     return (
       <Fragment>
         <div>
-          <div className='space-y-[72px]'>{children}</div>
+          <div>{children}</div>
           <div className='relative'>
-            <div className='absolute top-[-300px] block h-[300px] w-full bg-gradient-to-t from-white to-transparent'></div>
+            <div
+              className='from-10% via-30% to-70% absolute top-[-300px]
+            block h-[300px] w-full bg-gradient-to-t from-white via-white to-transparent'
+            ></div>
           </div>
         </div>
-        <div className='relative mt-8 text-center'>
+        <div className='relative !-mt-[72px] text-center'>
           <div>
             <p className='text-XL/Medium'>리포트의 다음 내용이 궁금하신가요?</p>
             <p className='mt-[9px] text-XL/Bold'>

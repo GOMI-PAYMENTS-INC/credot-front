@@ -1,7 +1,7 @@
-import {Link} from 'react-router-dom';
-import {ReactSVG} from 'react-svg';
+import { Link } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
-import {PATH} from '@/types/paths';
+import { PATH } from '@/types/paths';
 
 const Footer = () => {
   const IMG_PATH = '/assets/images';
@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
         <div className='mt-6 text-S/Medium text-grey-500'>
-          Copyright © 2022 Gomi corporation Inc. All rights reserved
+          Copyright © 2023 Gomi Insight Inc. All rights reserved
         </div>
       </div>
     </footer>
