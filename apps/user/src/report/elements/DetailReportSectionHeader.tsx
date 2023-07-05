@@ -2,7 +2,8 @@ import { STYLE_ENUM, TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
 import { ReactSVG } from 'react-svg';
 import { PlacesType, Tooltip } from 'react-tooltip';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
+import { isTruthy } from '@/utils/isTruthy';
 
 interface TDetailReportSectionHeaderProps {
   id: TITLE;
@@ -28,6 +29,25 @@ export const DetailReportSectionHeader = ({
     return { marginTop: -space + 30, paddingTop: space };
   }, []);
 
+  const ToolTip = useMemo(() => {
+    return [isTooltip, tooltipInfo].every((tooltip) => isTruthy(tooltip)) ? (
+      <Fragment />
+    ) : (
+      <div className='tooltip-container'>
+        <a data-tooltip-id={id} data-tooltip-html={tooltipInfo?.tooltipText || ''}>
+          <ReactSVG src={tooltipInfo?.iconPath || ''} className='inline-block pl-[7px]' />
+        </a>
+
+        <Tooltip
+          id={id}
+          place={tooltipInfo?.tooltipPlace || 'right'}
+          variant='light'
+          render={() => tooltipInfo?.tooltipRender || 'null'}
+        ></Tooltip>
+      </div>
+    );
+  }, [isTooltip, tooltipInfo]);
+
   return (
     <div
       id={id}
@@ -35,20 +55,7 @@ export const DetailReportSectionHeader = ({
       className='detailReport-h1-header relative flex items-center text-2XL/Bold text-black'
     >
       <h1>{convertTitle(id)}</h1>
-      {isTooltip && tooltipInfo && (
-        <div className='tooltip-container'>
-          <a data-tooltip-id={id} data-tooltip-html={tooltipInfo.tooltipText || ''}>
-            <ReactSVG src={tooltipInfo.iconPath} className='inline-block pl-[7px]' />
-          </a>
-
-          <Tooltip
-            id={id}
-            place={tooltipInfo.tooltipPlace || 'right'}
-            variant='light'
-            render={() => tooltipInfo.tooltipRender || 'null'}
-          ></Tooltip>
-        </div>
-      )}
+      {ToolTip}
     </div>
   );
 };
