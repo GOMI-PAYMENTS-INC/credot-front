@@ -395,8 +395,7 @@ const SearchKeywords = () => {
                       <h3 className='text-L/Medium'>
                         연간 키워드
                         <a
-                          data-tooltip-
-                          id='relation-keyword-tip'
+                          data-tooltip-id='relation-keyword-tip'
                           data-tooltip-html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
                         >
                           <ReactSVG
