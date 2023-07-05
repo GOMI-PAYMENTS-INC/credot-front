@@ -25,7 +25,7 @@ export const DetailReportSectionHeader = ({
     const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
     const space = paddingTop + headerHeight;
 
-    return { marginTop: -space, paddingTop: space };
+    return { marginTop: -space + 30, paddingTop: space };
   }, []);
 
   return (
