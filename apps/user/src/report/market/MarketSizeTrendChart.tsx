@@ -1,92 +1,40 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import ReactECharts from 'echarts-for-react';
 
 interface IMarketSizeTrendChart {
   trendData: { date: string[]; interest: number[] };
 }
 
-export const MarketSizeTrendChart = (props: IMarketSizeTrendChart) => {
-  const { date, interest } = props.trendData;
-
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-  );
+export const MarketSizeTrendChart = ({ trendData }: IMarketSizeTrendChart) => {
+  const { date, interest } = trendData;
 
   const options = {
-    responsive: true,
-    elements: {
-      point: {
-        radius: 0,
-      },
+    grid: { top: 50, right: 8, bottom: 50, left: 50 },
+    xAxis: {
+      type: 'category',
+      data: date,
+      step: 30,
     },
-    scales: {
-      x: {
-        grid: {
-          display: true,
-        },
-      },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          max: 100,
-          stepSize: 25,
-        },
-      },
+    yAxis: {
+      name: '검색빈도',
+      type: 'value',
+      nameLocation: 'middle',
+      nameGap: 35,
     },
-    plugins: {
-      subtitle: {
-        display: true,
-        position: 'left' as const,
-        text: '검색빈도',
-        padding: { bottom: 4 },
-        lineWeight: 500,
-      },
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        yAlign: 'bottom' as const,
-        xAlign: 'center' as const,
-        callbacks: {
-          title: () => '',
-          label: (value: any) => {
-            value.formattedValue = value.formattedValue + '%';
-          },
-          labelColor: () => {},
-        },
-        displayColors: false,
-      },
-    },
-  };
-
-  const labels = date;
-
-  const data = {
-    labels,
-    datasets: [
+    series: [
       {
+        name: '검색빈도',
         data: interest,
-        borderColor: 'rgb(255, 108, 40)',
-        borderWidth: 4,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        type: 'line',
+
+        itemStyle: { color: 'rgb(255, 108, 40)' },
+        lineStyle: { color: 'rgb(255, 108, 40)' },
       },
     ],
+
+    tooltip: {
+      trigger: 'axis',
+    },
   };
 
-  return <Line options={options} width={1000} height={400} data={data} />;
+  return <ReactECharts option={options} />;
 };

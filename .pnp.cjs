@@ -5567,6 +5567,45 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["echarts", [\
+        ["npm:5.4.2", {\
+          "packageLocation": "./.yarn/cache/echarts-npm-5.4.2-bf8b169f82-933c28dada.zip/node_modules/echarts/",\
+          "packageDependencies": [\
+            ["echarts", "npm:5.4.2"],\
+            ["tslib", "npm:2.3.0"],\
+            ["zrender", "npm:5.4.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["echarts-for-react", [\
+        ["npm:3.0.2", {\
+          "packageLocation": "./.yarn/cache/echarts-for-react-npm-3.0.2-1e95fef430-d3b16325be.zip/node_modules/echarts-for-react/",\
+          "packageDependencies": [\
+            ["echarts-for-react", "npm:3.0.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:3.0.2", {\
+          "packageLocation": "./.yarn/__virtual__/echarts-for-react-virtual-a78b26d829/0/cache/echarts-for-react-npm-3.0.2-1e95fef430-d3b16325be.zip/node_modules/echarts-for-react/",\
+          "packageDependencies": [\
+            ["echarts-for-react", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:3.0.2"],\
+            ["@types/echarts", null],\
+            ["@types/react", "npm:18.0.27"],\
+            ["echarts", "npm:5.4.2"],\
+            ["fast-deep-equal", "npm:3.1.3"],\
+            ["react", "npm:18.2.0"],\
+            ["size-sensor", "npm:1.0.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/echarts",\
+            "@types/react",\
+            "echarts",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["electron-to-chromium", [\
         ["npm:1.4.284", {\
           "packageLocation": "./.yarn/cache/electron-to-chromium-npm-1.4.284-2fb881a7ac-be496e9dca.zip/node_modules/electron-to-chromium/",\
@@ -8455,6 +8494,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["chart.js", "npm:4.2.1"],\
             ["daisyui", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.47.0"],\
             ["dayjs", "npm:1.11.7"],\
+            ["echarts", "npm:5.4.2"],\
+            ["echarts-for-react", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:3.0.2"],\
             ["graphql", "npm:16.6.0"],\
             ["graphql-config", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.4.0"],\
             ["graphql-request", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.3.0"],\
@@ -10748,6 +10789,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["size-sensor", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/size-sensor-npm-1.0.1-7327cd89a6-8af239ea1a.zip/node_modules/size-sensor/",\
+          "packageDependencies": [\
+            ["size-sensor", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["slash", [\
         ["npm:3.0.0", {\
           "packageLocation": "./.yarn/cache/slash-npm-3.0.0-b87de2279a-94a93fff61.zip/node_modules/slash/",\
@@ -11455,6 +11505,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/tslib-npm-1.14.1-102499115e-dbe628ef87.zip/node_modules/tslib/",\
           "packageDependencies": [\
             ["tslib", "npm:1.14.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:2.3.0", {\
+          "packageLocation": "./.yarn/cache/tslib-npm-2.3.0-277e75e108-8869694c26.zip/node_modules/tslib/",\
+          "packageDependencies": [\
+            ["tslib", "npm:2.3.0"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -12212,6 +12269,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yocto-queue-npm-0.1.0-c6c9a7db29-f77b3d8d00.zip/node_modules/yocto-queue/",\
           "packageDependencies": [\
             ["yocto-queue", "npm:0.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["zrender", [\
+        ["npm:5.4.3", {\
+          "packageLocation": "./.yarn/cache/zrender-npm-5.4.3-f5573f7bc2-ae89584fbe.zip/node_modules/zrender/",\
+          "packageDependencies": [\
+            ["zrender", "npm:5.4.3"],\
+            ["tslib", "npm:2.3.0"]\
           ],\
           "linkType": "HARD"\
         }]\

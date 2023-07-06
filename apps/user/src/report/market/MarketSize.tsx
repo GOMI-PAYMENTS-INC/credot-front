@@ -5,8 +5,7 @@ import { Tooltip } from 'react-tooltip';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertedGoogleTrendData, convertExchangeRate } from '@/report/container';
 import { TITLE } from '@/types/enum.code';
-
-import { MarketSizeTrendChart } from './MarketSizeTrendChart';
+import { MarketSizeTrendChart } from '@/report/market/MarketSizeTrendChart';
 import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { convertCountry } from '@/utils/convertEnum';
@@ -178,6 +177,7 @@ export const MarketSize = (props: IMarketSize) => {
                   </div>
                 ) : (
                   <MarketSizeTrendChart trendData={{ interest, date }} />
+                  // <MarketSizeTrendChart trendData={{ interest, date }} />
                 )}
               </div>
             </div>
