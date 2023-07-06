@@ -1,16 +1,7 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  SubTitle,
-} from 'chart.js';
-
-import { roundNumber, countProductsByPrice, setChartLabels } from '@/report/container';
+import ReactECharts from 'echarts-for-react';
+import { roundNumber, countProductsByPrice } from '@/report/container';
+import { setChartLabels } from '@/report/price/container';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
 
 interface ISalePriceChart {
   priceChartProps: TSalePriceData;
@@ -42,68 +33,43 @@ export const SalePriceChart = (props: ISalePriceChart) => {
     return res.map((price) => (typeof price === 'string' ? parseInt(price) : price));
   }, [min, max]);
 
-  const countProducts = useMemo(() => {
-    const countProducts = countProductsByPrice(salePriceScope, removedOutlinerItmes);
-
-    const maxCount = Math.max(...countProducts);
-
-    return { countProducts: countProducts, max: maxCount };
-  }, [salePriceScope]);
-
-  ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, SubTitle);
-
-  const options = {
-    responsive: true,
-    scales: {
-      y: {
-        display: true,
-        beginAtZero: true,
-      },
-    },
-
-    plugins: {
-      title: {
-        display: true,
-        position: 'bottom' as const,
-        text: '판매가격',
-      },
-      subtitle: {
-        display: true,
-        position: 'left' as const,
-        text: '상품 수',
-        padding: { bottom: 32 },
-        lineWeight: 10,
-      },
-      tooltip: {
-        yAlign: 'bottom' as const,
-        xAlign: 'center' as const,
-        backgroundColor: '#00000',
-        callbacks: {
-          title: () => '',
-          label: (value: any) => {
-            value.formattedValue = value.formattedValue + ' 개';
-          },
-          labelColor: () => {},
-        },
-        displayColors: false,
-      },
-      legend: {
-        display: false,
-      },
-    },
-  };
-
+  const countProducts = useMemo(
+    () => countProductsByPrice(salePriceScope, removedOutlinerItmes),
+    [salePriceScope],
+  );
   const labels = setChartLabels(props.currencyUnit, salePriceScope, basePrice);
 
-  const data = {
-    labels,
-    datasets: [
+  const option = {
+    grid: { top: 20, right: 8, bottom: 20, left: 50 },
+
+    xAxis: {
+      type: 'category',
+      data: labels,
+      name: '판매가격',
+      nameLocation: 'middle',
+      nameGap: 40,
+    },
+    yAxis: {
+      type: 'value',
+      name: '상품 수',
+      nameLocation: 'middle',
+      nameGap: 35,
+    },
+    series: [
       {
-        data: countProducts.countProducts,
-        backgroundColor: 'rgba(255,163,120)',
+        name: `상품 수`,
+        data: countProducts,
+        type: 'bar',
+        itemStyle: { color: 'rgba(255,163,120)' },
       },
     ],
-  };
+    tooltip: {
+      trigger: 'axis',
 
-  return <Bar options={options} data={data} />;
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+  };
+  return <ReactECharts option={option} />;
 };

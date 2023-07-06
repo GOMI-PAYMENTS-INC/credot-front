@@ -5,6 +5,7 @@ import { Tooltip } from 'react-tooltip';
 import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/report/container';
+
 import { SalePriceChart } from '@/report/price/SalePriceChart';
 import { SalePriceTable } from '@/report/price/SalePriceTable';
 

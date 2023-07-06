@@ -7,7 +7,7 @@ interface IMarketSizeTrendChart {
 export const MarketSizeTrendChart = ({ trendData }: IMarketSizeTrendChart) => {
   const { date, interest } = trendData;
 
-  const options = {
+  const option = {
     grid: { top: 50, right: 8, bottom: 50, left: 50 },
     xAxis: {
       type: 'category',
@@ -36,5 +36,5 @@ export const MarketSizeTrendChart = ({ trendData }: IMarketSizeTrendChart) => {
     },
   };
 
-  return <ReactECharts option={options} />;
+  return <ReactECharts option={option} />;
 };
