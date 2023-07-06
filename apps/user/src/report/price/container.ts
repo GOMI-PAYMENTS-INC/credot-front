@@ -23,6 +23,6 @@ export const setChartLabels = (
     if (idx === salePriceScope.length - 1) {
       return pre.concat(_cur);
     }
-    return pre.concat([`${_cur}\n ~${_next}`]);
+    return pre.concat([`${_cur}\n~ ${_next}`]);
   }, init);
 };

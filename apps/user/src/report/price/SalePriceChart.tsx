@@ -40,7 +40,7 @@ export const SalePriceChart = (props: ISalePriceChart) => {
   const labels = setChartLabels(props.currencyUnit, salePriceScope, basePrice);
 
   const option = {
-    grid: { top: 20, right: 8, bottom: 20, left: 50 },
+    grid: { top: 30, right: 8, bottom: 52, left: 50 },
 
     xAxis: {
       type: 'category',
