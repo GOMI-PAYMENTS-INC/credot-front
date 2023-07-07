@@ -1,5 +1,5 @@
 import { ComponentType } from 'react';
-import HomePage from '@/home/Home';
+import Intro from '@/home/Home';
 import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 
 export const PATH = {
@@ -23,6 +23,6 @@ export const routeList: IRoute[] = [
     pageCategory: PAGE_CATEGORY.MAIN,
     pageName: 'main',
     path: PATH.HOME,
-    component: HomePage,
+    component: Intro,
   },
 ];
