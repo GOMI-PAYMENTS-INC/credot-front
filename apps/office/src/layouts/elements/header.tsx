@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { IRoute, PATH } from '@/router/paths';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
@@ -13,7 +14,8 @@ interface HeaderProps {
   route: IRoute;
 }
 const Header = ({ route }: HeaderProps) => {
-  const [current, setCurrent] = useState(PATH.HOME);
+  const { pathname } = useLocation();
+  const [current, setCurrent] = useState(pathname || PATH.HOME);
 
   return (
     <header className='fixed top-0 left-0 z-50 h-20 w-full bg-white'>
@@ -27,12 +29,11 @@ const Header = ({ route }: HeaderProps) => {
               }}
             />
           </Link>
-          <div className='ml-[58px] flex gap-x-[50px] text-center text-M/Medium'>
+
+          <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium'>
             {GNB_ROUTE.map((route) => {
               const underLine =
-                route.path === current
-                  ? 'border-b-orange-500 border-b-[2px] mt-[2px]'
-                  : '';
+                route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
               return (
                 <Link
                   to={route.path}
@@ -42,7 +43,7 @@ const Header = ({ route }: HeaderProps) => {
                 >
                   <p
                     key={route.path}
-                    className={`flex h-[52px] w-20 cursor-pointer items-center justify-center ${underLine}`}
+                    className={`w-20 cursor-pointer border-b-[2px] pt-[14px] pb-3 ${underLine}`}
                   >
                     {route.text}
                   </p>
