@@ -1,4 +1,4 @@
-import { Plan } from '@/price/elements';
+import { Plan, KeywordContents } from '@/price/elements';
 import { FAQ } from '@/common';
 
 const Price = () => {
@@ -12,6 +12,13 @@ const Price = () => {
         </p>
       </section>
       <Plan />
+      <section>
+        <div className='ralative flex h-[280px] w-full flex-col items-center justify-center overflow-hidden'>
+          <div className='absolute mb-[200px] h-[130px] w-[348px] self-center rounded-[348px] bg-orange-500 opacity-20 blur-[132px]' />
+          <p className='text-4XL/Bold'>키워드 리포트 콘텐츠</p>
+        </div>
+      </section>
+      <KeywordContents />
       <FAQ />
     </main>
   );
