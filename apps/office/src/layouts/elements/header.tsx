@@ -17,6 +17,10 @@ const Header = ({ route }: HeaderProps) => {
   const { pathname } = useLocation();
   const [current, setCurrent] = useState(pathname || PATH.HOME);
 
+  useEffect(() => {
+    if (pathname !== current) setCurrent(pathname || PATH.HOME);
+  }, [pathname]);
+
   return (
     <header className='fixed top-0 left-0 z-50 h-20 w-full bg-white'>
       <div className='container flex h-full items-center  justify-between px-6'>
