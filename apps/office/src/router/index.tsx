@@ -1,10 +1,9 @@
 import { createElement } from 'react';
 import { matchRoutes, Route, Routes, useLocation } from 'react-router-dom';
 
-import Layout from '@/components/layouts/layout';
-import { routeList } from '@/types/paths';
+import Layout from '@/layouts/layout';
+import { routeList } from '@/router/paths';
 import { _introPageIntroPageViewed } from '@/amplitude/amplitude.service';
-
 export const Router = () => {
   const { pathname } = useLocation();
 

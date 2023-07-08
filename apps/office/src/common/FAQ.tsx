@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { QUE_ANS_DATA } from '@/home/constant';
+import { QUE_ANS_DATA } from '@/common/constants';
 import { ReactSVG } from 'react-svg';
-import { openFAQ } from '@/home/container';
+import { openFAQ } from '@/common/container';
 
 export const FAQ = () => {
   const [openedFAQ, setOpenedFAQ] = useState<number[]>([]);

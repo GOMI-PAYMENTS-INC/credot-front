@@ -155,7 +155,7 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                 <div className='mt-10'>
                   <button
                     onClick={() => navigate(PATH.SEARCH_PRODUCTS)}
-                    className='button-outlined-normal-large-red-false-false-true min-w-[160px]'
+                    className='button-outlined-normal-large-primary-false-false-true min-w-[160px]'
                   >
                     키워드 검색하기
                   </button>

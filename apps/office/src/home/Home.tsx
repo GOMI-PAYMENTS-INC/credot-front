@@ -1,8 +1,7 @@
 import 'swiper/swiper.min.css';
-
+import { FAQ } from '@/common';
 import {
   Header,
-  FAQ,
   Promotion,
   Efficient,
   Partner,
