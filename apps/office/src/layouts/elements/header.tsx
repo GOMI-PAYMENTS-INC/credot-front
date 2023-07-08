@@ -36,6 +36,7 @@ const Header = ({ route }: HeaderProps) => {
                 route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
               return (
                 <Link
+                  key={route.path}
                   to={route.path}
                   onClick={() => {
                     setCurrent(route.path);
