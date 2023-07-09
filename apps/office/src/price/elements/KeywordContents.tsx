@@ -41,27 +41,34 @@ export const KeywordContents = () => {
   );
   return (
     <section>
-      <div className='mb-[59px] flex w-full justify-center gap-[18px]'>
-        {KeywordContent}
-      </div>
-      <div className='flex justify-center'>
-        <div className='flex max-w-[1320px]  justify-center  rounded-[50px] bg-gradient-to-r from-orange-500 to-orange-300 px-[113px]'>
-          <div className='flex w-full flex-col items-start justify-center text-2XL/Bold text-grey-100'>
-            <p>고미인사이트를 통해 시장을 미리 분석하고</p>
-            <p className='mt-2'>데이터를 기반의 판매 전략을 수립하세요</p>
-
-            <button className='button-filled-normal-large-primary-false-false-true mt-[47px] flex justify-end bg-grey-100 text-orange-400'>
-              구독 전, 키워드 리포트 미리보기
-              <ReactSVG
-                src='assets/icons/Union.svg'
-                className='absolute mt-6 cursor-auto'
-              />
-            </button>
+      <div className='flex flex-col items-center justify-center'>
+        <div className='xs:w-[405px] md:w-[532px] lg:w-[806px]'>
+          <div className='xs:justify-center mb-[59px] flex w-full justify-start gap-[18px] lg:flex-wrap'>
+            {KeywordContent}
           </div>
-          <ReactSVG
-            className='ml-[100px] mt-5 max-w-[600px]'
-            src='/assets/icons/reports.svg'
-          />
+          <div className='flex justify-center'>
+            <div className='xs:max-w-[405px] xs:items-center flex max-w-[1320px] justify-center rounded-[50px]  bg-gradient-to-r from-orange-500 to-orange-300 px-[113px] sm:max-w-[530px] sm:px-0 md:max-w-[712px] md:px-[81px] lg:flex-col'>
+              <div className='flex w-full flex-col items-start justify-center text-2XL/Bold text-grey-100 sm:text-2XL/Bold md:w-[550px] lg:my-[86px] lg:items-center lg:text-3XL/Bold'>
+                <p>고미인사이트를 통해 시장을 미리 분석하고</p>
+                <p className='mt-2'>데이터를 기반의 판매 전략을 수립하세요</p>
+
+                <button className='button-filled-normal-large-primary-false-false-true mt-[47px] flex justify-end bg-grey-100 text-orange-400'>
+                  구독 전, 키워드 리포트 미리보기
+                  <ReactSVG
+                    src='assets/icons/Union.svg'
+                    className='absolute mt-6 cursor-auto'
+                  />
+                </button>
+              </div>
+              <ReactSVG
+                className='ml-[100px] mt-5 md:self-center lg:ml-0 lg:mt-0'
+                src='/assets/icons/reports.svg' //md:max-w-[488px]
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'md:w-[488px] h-[200px] xs:w-[360px]');
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
