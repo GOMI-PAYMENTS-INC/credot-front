@@ -83,35 +83,39 @@ export const Plan = () => {
         </div>
       );
     });
-  }, []);
+  }, [activeToggle]);
 
   return (
-    <section className=' flex flex-col items-center bg-grey-50'>
-      <p className='mt-10 text-3XL/Bold'>Plan</p>
-      <ul className='mt-[33px] flex rounded-lg bg-grey-200 p-1 text-center text-L/Medium text-grey-700'>
-        <li
-          className={` ${activeToggle === 'MONTH' && activeToggleCss} block rounded-lg`}
-          onClick={() => setActiveToggle('MONTH')}
-        >
-          <p className='mx-3 my-3 flex w-[136px] items-center justify-center gap-1'>
-            월 결제
-            <span
-              className={`rounded-[58px] ${
-                activeToggle === 'MONTH' ? 'bg-green-600' : 'bg-grey-500'
-              } px-2 py-1 text-XS/Medium text-grey-100`}
-            >
-              +20%
-            </span>
-          </p>
-        </li>
-        <li
-          className={` ${activeToggle === 'YEAR' && activeToggleCss} block rounded-lg`}
-          onClick={() => setActiveToggle('YEAR')}
-        >
-          <p className='mx-3 my-3 w-[136px]'>연 결제</p>
-        </li>
-      </ul>
-      <div className='mb-[77px] flex w-full justify-center gap-[23px]'>{PriceCard}</div>
+    <section className='flex flex-col items-center justify-center bg-grey-50'>
+      <div className='flex flex-col items-center justify-center sm:w-[277px] lg:w-[580px]'>
+        <p className='mt-10 text-3XL/Bold'>Plan</p>
+        <ul className='mt-[33px] flex rounded-lg bg-grey-200 p-1 text-center text-L/Medium text-grey-700'>
+          <li
+            className={` ${activeToggle === 'MONTH' && activeToggleCss} block rounded-lg`}
+            onClick={() => setActiveToggle('MONTH')}
+          >
+            <p className='mx-3 my-3 flex w-[136px] items-center justify-center gap-1'>
+              월 결제
+              <span
+                className={`rounded-[58px] ${
+                  activeToggle === 'MONTH' ? 'bg-green-600' : 'bg-grey-500'
+                } px-2 py-1 text-XS/Medium text-grey-100`}
+              >
+                +20%
+              </span>
+            </p>
+          </li>
+          <li
+            className={` ${activeToggle === 'YEAR' && activeToggleCss} block rounded-lg`}
+            onClick={() => setActiveToggle('YEAR')}
+          >
+            <p className='mx-3 my-3 w-[136px]'>연 결제</p>
+          </li>
+        </ul>
+        <div className='mb-[77px] flex w-full justify-start gap-[23px] lg:flex-wrap'>
+          {PriceCard}
+        </div>
+      </div>
     </section>
   );
 };

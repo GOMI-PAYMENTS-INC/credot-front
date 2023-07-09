@@ -16,24 +16,7 @@ module.exports = {
     },
 
     container: {
-      // you can configure the container to be centered
       center: true,
-
-      // or have default horizontal padding
-      // padding: {
-      //   xl: '60px',
-      //   lg: '12px',
-      //   md: '24px',
-      //   sm: '24px',
-      // },
-      // default breakpoints but with 40px removed
-      // screens: {
-      //   //xl이상인 경우
-      //   lg: '1440px',
-      //   md: '992px',
-      //   sm: '768px',
-      //   xs: '540px'
-      // },
     },
 
     extend: {

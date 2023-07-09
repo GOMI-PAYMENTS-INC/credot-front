@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, useEffect } from 'react';
 import { matchRoutes, Route, Routes, useLocation } from 'react-router-dom';
 
 import Layout from '@/layouts/layout';
@@ -10,7 +10,9 @@ export const Router = () => {
   const [{ route }] = matchRoutes(routeList, pathname) || [];
 
   _introPageIntroPageViewed(route.pageCategory, window.location.href);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <Layout route={route}>
       <Routes>

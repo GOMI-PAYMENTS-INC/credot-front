@@ -34,7 +34,7 @@ const Header = ({ route }: HeaderProps) => {
             />
           </Link>
 
-          <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium'>
+          <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium sm:hidden'>
             {GNB_ROUTE.map((route) => {
               const underLine =
                 route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
@@ -60,7 +60,7 @@ const Header = ({ route }: HeaderProps) => {
 
         <div className='space-x-4'>
           <button
-            className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 lg:hidden'
+            className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 md:hidden'
             onClick={(event) => {
               openBrowser(GlobalEnv.serviceUrl);
 
