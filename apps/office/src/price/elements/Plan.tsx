@@ -83,7 +83,7 @@ export const Plan = () => {
         </div>
       );
     });
-  }, []);
+  }, [activeToggle]);
 
   return (
     <section className=' flex flex-col items-center bg-grey-50'>
