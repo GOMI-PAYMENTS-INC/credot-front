@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 
 import { PATH } from '@/router/paths';
 
-const Footer = () => {
+export const Footer = () => {
   const IMG_PATH = '/assets/images';
   return (
     <footer className='py-[56px] text-grey-900'>
@@ -54,5 +54,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
