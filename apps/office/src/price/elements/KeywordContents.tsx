@@ -62,7 +62,7 @@ export const KeywordContents = () => {
               </div>
               <ReactSVG
                 className='ml-[23px] mt-5 md:self-center lg:ml-0 lg:mt-0'
-                src='/assets/icons/reports.svg'
+                src='/assets/icons/ReportS.svg'
                 beforeInjection={(svg) => {
                   svg.setAttribute('class', 'md:w-[488px] h-[200px] xs:w-[360px]');
                 }}
