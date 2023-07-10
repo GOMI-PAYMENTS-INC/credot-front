@@ -26,10 +26,10 @@ export const routeList: IRoute[] = [
     path: PATH.HOME,
     component: Intro,
   },
-  {
-    pageCategory: PAGE_CATEGORY.PRICE,
-    pageName: PAGE_CATEGORY.PRICE,
-    path: PATH.PRICE,
-    component: Price,
-  },
+  // {
+  //   pageCategory: PAGE_CATEGORY.PRICE,
+  //   pageName: PAGE_CATEGORY.PRICE,
+  //   path: PATH.PRICE,
+  //   component: Price,
+  // },
 ];
