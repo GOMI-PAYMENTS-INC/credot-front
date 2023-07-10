@@ -48,7 +48,7 @@ module.exports = {
         '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
         },
-        '.button-outlined-normal-large-red-false-false-true': {
+        '.button-outlined-normal-large-primary-false-false-true': {
           '@apply rounded bg-white py-3 text-M/Bold text-orange-500 border border-orange-300':
             {},
         },
@@ -95,11 +95,8 @@ module.exports = {
       'Outlined/Check':
         '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.3754 4.45312H19.7371C19.5074 4.45312 19.2894 4.55859 19.1488 4.73906L9.48554 16.9805L4.85194 11.1094C4.78185 11.0204 4.6925 10.9484 4.59061 10.8989C4.48873 10.8494 4.37695 10.8236 4.26366 10.8234H2.62538C2.46835 10.8234 2.38163 11.0039 2.47772 11.1258L8.89725 19.2586C9.19725 19.6383 9.77382 19.6383 10.0762 19.2586L21.523 4.75313C21.6191 4.63359 21.5324 4.45312 21.3754 4.45312V4.45312Z" fill="svgcolor"/></svg>',
     },
+
     extend: {
-      backgroundImage: {
-        0: 'linear-gradient(90deg, #FF5100 0%, #FF8C04 100%)',
-        1: 'linear-gradient(90deg, #FF6C28 0%, #FFA378 100%)',
-      },
       //색상
       colors: {
         orange: {
@@ -226,6 +223,10 @@ module.exports = {
 
       boxShadow: {
         inputHover: '0px 0px 4px rgba(255, 163, 120, 0.5)',
+      },
+      orangeGradient: {
+        500: 'bg-gradient-to-r from-[#FF5100] to-[#FFA378]',
+        300: 'bg-gradient-to-r from-[#FFA378] to-[#FFF5F0]',
       },
     },
   },

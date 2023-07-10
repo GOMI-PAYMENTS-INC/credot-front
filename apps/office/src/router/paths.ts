@@ -1,9 +1,11 @@
 import { ComponentType } from 'react';
-import HomePage from '@/pages/home/home.page';
+import Intro from '@/home/Home';
+import Price from '@/price/Price';
 import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 
 export const PATH = {
   HOME: '/',
+  PRICE: '/price',
 };
 
 type TPathKey = keyof typeof PATH;
@@ -19,10 +21,15 @@ export interface IRoute {
 
 export const routeList: IRoute[] = [
   {
-    //메인
     pageCategory: PAGE_CATEGORY.MAIN,
-    pageName: 'main',
+    pageName: PAGE_CATEGORY.MAIN,
     path: PATH.HOME,
-    component: HomePage,
+    component: Intro,
+  },
+  {
+    pageCategory: PAGE_CATEGORY.PRICE,
+    pageName: PAGE_CATEGORY.PRICE,
+    path: PATH.PRICE,
+    component: Price,
   },
 ];

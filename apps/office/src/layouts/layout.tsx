@@ -1,8 +1,8 @@
 import { Fragment, ReactNode } from 'react';
 
-import Footer from '@/components/layouts/footer';
-import Header from '@/components/layouts/header';
-import { IRoute } from '@/types/paths';
+import Footer from '@/layouts/elements/footer';
+import Header from '@/layouts/elements/header';
+import { IRoute } from '@/router/paths';
 
 interface LayoutProps {
   route: IRoute;
