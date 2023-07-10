@@ -268,9 +268,9 @@ const SearchKeywords = () => {
         <div className=''>
           <div>
             <h1 className='break-keep text-center text-3XL/Bold'>
-              <span className='text-orange-500'>상위 노출 </span>을 원하는
+              <span className='text-orange-500'>키워드 검색 </span> 후
               <br />
-              <span className='text-orange-500'>키워드</span>를 검색해주세요.
+              <span className='text-orange-500'>리포트를 생성</span>해 주세요.
             </h1>
           </div>
           <div className='m-auto w-full max-w-[580px] px-[50px]'>
@@ -414,7 +414,7 @@ const SearchKeywords = () => {
                   </span>
                 </p>
               </div>
-              <div className='flex gap-x-[18px]'>
+              <div className='flex gap-x-[18px] pb-[100px]'>
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className=''>
