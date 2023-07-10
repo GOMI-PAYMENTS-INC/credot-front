@@ -1,31 +1,33 @@
-import React, { createElement, useEffect } from 'react';
+import { createElement, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { _setUserId } from '@/amplitude/amplitude.service';
 import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
-import { signInApi } from '@/containers/auth/signIn.api';
+import { signInApi } from '@/auth/signIn/api';
 import { useMeQuery } from '@/generated/graphql';
 import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
-import { graphQLClient } from '@/utils/graphqlCient';
+
 import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
+import { isTruthy } from '@/utils/isTruthy';
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [token, setToken] = useRecoilState(LoginTokenAtom);
+  const storageToken = authTokenStorage.getToken();
 
+  //FIXME: signInAPI 분리하기
   const { clearUserInfo, clearAmplitude } = signInApi();
   const navigation = useNavigate();
 
   const { data: userQueryData } = useMeQuery(
-    graphQLClient().config,
-    {},
+    { token: storageToken },
     {
-      enabled: isFalsy(token) === false,
+      enabled: isTruthy(storageToken),
       refetchOnWindowFocus: false,
       onSuccess: (res) => {
         if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
@@ -34,7 +36,7 @@ export const Router = () => {
           useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
         }
       },
-      onError: (error) => {
+      onError: () => {
         clearUserInfo();
         clearAmplitude();
         navigation(PATH.SIGN_IN);
@@ -42,37 +44,26 @@ export const Router = () => {
     },
   );
 
-  const storageToken = authTokenStorage.getToken();
-
   useEffect(() => {
-    if (storageToken && isFalsy(token)) {
+    if (isFalsy(userInfo)) {
       setToken(storageToken);
-    }
-  }, [storageToken]);
-
-  useEffect(() => {
-    if (userQueryData && isFalsy(userInfo)) {
       setUserInfo(userQueryData);
     }
-  }, [userQueryData]);
+  }, [userQueryData?.me.id]);
 
   return (
     <Routes>
       {routeList.map((route) => {
-        if (route.isPrivate) {
-          return (
-            <Route key={route.path} element={<PrivateRoute />}>
-              {/* 인증을 반드시 해야지만 접속 가능한 페이지 정의 */}
-              <Route
-                key={route.path}
-                path={route.path}
-                element={createElement(route.component)}
-              />
-            </Route>
-          );
-        }
-
-        return (
+        return route.isPrivate ? (
+          <Route key={route.path} element={<PrivateRoute />}>
+            {/* 인증을 반드시 해야지만 접속 가능한 페이지 정의 */}
+            <Route
+              key={route.path}
+              path={route.path}
+              element={createElement(route.component)}
+            />
+          </Route>
+        ) : (
           <Route
             key={route.description}
             path={route.path}

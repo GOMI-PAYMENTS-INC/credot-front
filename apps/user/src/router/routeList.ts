@@ -1,7 +1,14 @@
 import { ComponentType } from 'react';
-import * as AuthRoutes from '@/pages/auth';
-import SearchKeywords from '@/pages/search/SearchKeywords';
-import * as ReportRoutes from '@/pages/report';
+import {
+  FindId,
+  SignUp,
+  SignUpByGoogle,
+  FindPassword,
+  SignIn,
+  TemporaryPassword,
+} from '@/auth';
+import SearchKeywords from '@/search/SearchKeywords';
+import * as ReportRoutes from '@/report';
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',
@@ -29,7 +36,7 @@ export interface IRoute {
 export const signInRouter = {
   description: 'SignIn',
   path: PATH.SIGN_IN,
-  component: AuthRoutes.FindId,
+  component: FindId,
 };
 
 export const routeList: IRoute[] = [
@@ -38,42 +45,42 @@ export const routeList: IRoute[] = [
     isPrivate: false,
     description: 'SignUp',
     path: PATH.SIGN_UP,
-    component: AuthRoutes.SignUp,
+    component: SignUp,
   },
   {
     //소셜 회원가입시 전화번호 추가 입력
     isPrivate: false,
     description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
-    component: AuthRoutes.SignUpByGoogle,
+    component: SignUpByGoogle,
   },
   {
     //비밀번호 찾기
     isPrivate: false,
     description: 'FindPassword',
     path: PATH.FIND_PASSWORD,
-    component: AuthRoutes.FindPassword,
+    component: FindPassword,
   },
   {
     //아이디 찾기
     isPrivate: false,
     description: 'FindIdentification',
     path: PATH.FIND_ID,
-    component: AuthRoutes.FindId,
+    component: FindId,
   },
   {
     //로그인
     isPrivate: false,
     description: 'SignIn',
     path: PATH.SIGN_IN,
-    component: AuthRoutes.SignIn,
+    component: SignIn,
   },
   {
     //비밀번호 재설정
     isPrivate: true,
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
-    component: AuthRoutes.TemporaryPassword,
+    component: TemporaryPassword,
   },
   {
     //검색

@@ -1,8 +1,7 @@
 import { Dispatch, Fragment } from 'react';
 
 import { ReactSVG } from 'react-svg';
-import { getReportListByPage } from '@/containers/report';
-import { NavigateOptions, URLSearchParamsInit } from 'react-router-dom';
+import { getReportListByPage } from '@/report/container';
 
 type TPagination = {
   total: number;
