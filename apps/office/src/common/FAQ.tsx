@@ -1,9 +1,15 @@
 import { useState } from 'react';
-import { QUE_ANS_DATA } from '@/common/constants';
 import { ReactSVG } from 'react-svg';
 import { openFAQ } from '@/common/container';
 
-export const FAQ = () => {
+interface IFAQ {
+  list: {
+    subject: string;
+    content: string;
+  }[];
+}
+
+export const FAQ = ({ list }: IFAQ) => {
   const [openedFAQ, setOpenedFAQ] = useState<number[]>([]);
 
   return (
@@ -22,7 +28,7 @@ export const FAQ = () => {
           </div>
           <div className='mt-12'>
             <div className='rounded-[20.107px] bg-white px-12 py-14  lg:py-6 lg:px-6'>
-              {QUE_ANS_DATA.map((question, index) => {
+              {list.map((question, index) => {
                 const isOpened = openedFAQ.includes(index + 1);
                 return (
                   <dl

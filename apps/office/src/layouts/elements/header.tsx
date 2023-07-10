@@ -4,16 +4,15 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { IRoute, PATH } from '@/router/paths';
-import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
-import { openBrowser } from '@/utils/openBrowser';
+import { openAppWithTag } from '@/utils/openBrowser';
 import { GNB_ROUTE } from '@/layouts/constants';
 
 interface HeaderProps {
   route: IRoute;
 }
-const Header = ({ route }: HeaderProps) => {
+export const Header = ({ route }: HeaderProps) => {
   const { pathname } = useLocation();
   const [current, setCurrent] = useState(pathname || PATH.HOME);
 
@@ -34,7 +33,7 @@ const Header = ({ route }: HeaderProps) => {
             />
           </Link>
 
-          {/* <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium sm:hidden'>
+          <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium sm:hidden'>
             {GNB_ROUTE.map((route) => {
               const underLine =
                 route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
@@ -55,22 +54,20 @@ const Header = ({ route }: HeaderProps) => {
                 </Link>
               );
             })}
-          </div> */}
+          </div>
         </div>
 
         <div className='space-x-4'>
           <button
             className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 md:hidden'
             onClick={(event) => {
-              openBrowser(GlobalEnv.serviceUrl);
-
-              const eventTarget = event.target as HTMLElement;
-              _introPageMovedToSolution(
-                route.pageCategory,
-                CTA_TYPE.BUTTON,
-                CTA_LOCATION.HEADER,
-                eventTarget.innerText,
-              );
+              openAppWithTag({
+                url: GlobalEnv.serviceUrl,
+                path: route.pageCategory,
+                type: CTA_TYPE.BUTTON,
+                location: CTA_LOCATION.HEADER,
+                event: event,
+              });
             }}
           >
             로그인
@@ -78,15 +75,13 @@ const Header = ({ route }: HeaderProps) => {
           <button
             className='rounded-md bg-orange-500 p-3 text-M/Bold text-white'
             onClick={(event) => {
-              openBrowser(GlobalEnv.serviceUrl);
-
-              const eventTarget = event.target as HTMLElement;
-              _introPageMovedToSolution(
-                route.pageCategory,
-                CTA_TYPE.BUTTON,
-                CTA_LOCATION.HEADER,
-                eventTarget.innerText,
-              );
+              openAppWithTag({
+                url: GlobalEnv.serviceUrl,
+                path: route.pageCategory,
+                type: CTA_TYPE.BUTTON,
+                location: CTA_LOCATION.HEADER,
+                event: event,
+              });
             }}
           >
             무료 시작하기
@@ -96,4 +91,3 @@ const Header = ({ route }: HeaderProps) => {
     </header>
   );
 };
-export default Header;
