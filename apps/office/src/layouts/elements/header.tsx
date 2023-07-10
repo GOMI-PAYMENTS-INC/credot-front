@@ -34,7 +34,7 @@ const Header = ({ route }: HeaderProps) => {
             />
           </Link>
 
-          <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium sm:hidden'>
+          {/* <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium sm:hidden'>
             {GNB_ROUTE.map((route) => {
               const underLine =
                 route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
@@ -55,7 +55,7 @@ const Header = ({ route }: HeaderProps) => {
                 </Link>
               );
             })}
-          </div>
+          </div> */}
         </div>
 
         <div className='space-x-4'>
