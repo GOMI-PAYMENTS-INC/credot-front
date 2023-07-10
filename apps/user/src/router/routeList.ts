@@ -7,7 +7,7 @@ import {
   SignIn,
   TemporaryPassword,
 } from '@/auth';
-import SearchKeywords from '@/pages/search/SearchKeywords';
+import SearchKeywords from '@/search/SearchKeywords';
 import * as ReportRoutes from '@/report';
 
 export const PATH = {

@@ -1,17 +1,13 @@
 import { Dispatch, Fragment, RefObject } from 'react';
 
-import { getTranslatorStatus } from '@/containers/search/translator.container';
+import { getTranslatorStatus } from '@/search/elements/translator/container';
 import { UseFormSetValue } from 'react-hook-form';
 import { ReactSVG } from 'react-svg';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import { queryKeywordByClick } from '@/containers/search';
+import { queryKeywordByClick } from '@/search/container';
 
-import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
-import {
-  NoneDataError,
-  NoneDataLoading,
-  Landing,
-} from '@/pages/search/YetToGetDataStatus';
+import { SEARCH_KEYWORD_STATUS } from '@/search/constants';
+import { NoneDataError, NoneDataLoading, Landing } from '@/search/elements';
 import { _amplitudeTranslatedSearched } from '@/amplitude/amplitude.service';
 import { CountryType } from '@/generated/graphql';
 

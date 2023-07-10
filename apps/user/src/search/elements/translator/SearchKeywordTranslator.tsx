@@ -4,15 +4,15 @@ import { CountryType } from '@/generated/graphql';
 import { CACHING_KEY, LANGUAGE_TYPE } from '@/types/enum.code';
 
 import { useForm, UseFormSetValue } from 'react-hook-form';
-import { recommenderInitialState, recommenderReducer } from '@/containers/search';
-import { SearchKeywordTranslationResult } from '@/pages/search/SearchKeywordTranslationResult';
+import { recommenderInitialState, recommenderReducer } from '@/search/reducer';
+import { SearchKeywordTranslationResult } from '@/search/elements';
 
 import {
   initializeKeyword,
   searchKeyword,
   switchIsLoadingState,
   switchTranslationTab,
-} from '@/containers/search/translator.container';
+} from '@/search/elements/translator/container';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import DropDown, {

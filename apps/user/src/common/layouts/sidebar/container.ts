@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
-import { SIDE_BAR_ACTION, TSidebarAction } from '@/containers/sidebar/sidebar.reducer';
-import { useSessionStorage } from '@/utils/useSessionStorage';
+import { SIDE_BAR_ACTION, TSidebarAction } from '@/common/layouts/sidebar/reducer';
+
 //사이드 바 토클
 export const toggleSidebar = (_dispatch: Dispatch<TSidebarAction>) => {
   _dispatch({ type: SIDE_BAR_ACTION.TOGGLE_SIDE_BAR });

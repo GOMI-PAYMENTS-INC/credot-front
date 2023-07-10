@@ -1,10 +1,6 @@
 import { Fragment, ReactNode, useMemo, useReducer } from 'react';
-
-import SideBar from '@/layouts/SideBar';
-import {
-  sidebarInitialState,
-  sidebarReducer,
-} from '@/containers/sidebar/sidebar.reducer';
+import SideBar from '@/common/layouts/sidebar/SideBar';
+import { sidebarInitialState, sidebarReducer } from '@/common/layouts/sidebar/reducer';
 
 interface IDefaultProps {
   children?: ReactNode;

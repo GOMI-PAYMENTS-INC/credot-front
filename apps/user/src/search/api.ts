@@ -3,7 +3,7 @@ import { CountryType, useSearchQuery } from '@/generated/graphql';
 
 import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
-import { _getProductImages } from '@/containers/search/search.container';
+import { _getProductImages } from '@/search/container';
 import {
   _amplitudeKeywordSearchedFailed,
   _amplitudeKeywordSearchedSucceeded,

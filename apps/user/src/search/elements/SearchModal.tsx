@@ -1,8 +1,8 @@
-import {Dispatch, Fragment, SetStateAction, useEffect, useState} from 'react';
-import {switchModal} from '@/containers/search';
-import {convertTime} from '@/utils/parsingTimezone';
-import {MODAL_SIZE_ENUM, MODAL_TYPE_ENUM} from '@/types/enum.code';
-import {useNavigate} from 'react-router-dom';
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
+import { switchModal } from '@/search/container';
+import { convertTime } from '@/utils/parsingTimezone';
+import { MODAL_SIZE_ENUM, MODAL_TYPE_ENUM } from '@/types/enum.code';
+import { useNavigate } from 'react-router-dom';
 
 interface ISearchModalPrpos {
   data?: any;

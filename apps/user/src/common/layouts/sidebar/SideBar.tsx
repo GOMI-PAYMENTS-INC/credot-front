@@ -5,10 +5,13 @@ import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { Dispatch, useEffect, useRef, useState } from 'react';
 import { PATH } from '@/types/enum.code';
-import { menuData } from '@/containers/sidebar/sideBarData';
-import { TSidebarAction } from '@/containers/sidebar/sidebar.reducer';
-
-import { onClickUserMenu, toggleDepth2Menu, toggleSidebar } from '@/containers/sidebar';
+import { menuData } from '@/common/layouts/sidebar/constants';
+import { TSidebarAction } from '@/common/layouts/sidebar/reducer';
+import {
+  onClickUserMenu,
+  toggleDepth2Menu,
+  toggleSidebar,
+} from '@/common/layouts/sidebar/container';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { MeQuery } from '@/generated/graphql';

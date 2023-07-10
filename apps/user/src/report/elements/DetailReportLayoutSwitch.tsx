@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react';
-import { Default } from '@/layouts';
+import { Default } from '@/common/layouts';
 import { isFalsy } from '@/utils/isFalsy';
 interface IDetailReportSwitchProps {
   isUser: boolean;

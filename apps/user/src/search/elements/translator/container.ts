@@ -1,12 +1,12 @@
-import { RECOMMENDER_ACTION } from '@/containers/search/search.reducer';
+import { RECOMMENDER_ACTION } from '@/search/reducer';
 import { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { UseFormSetValue } from 'react-hook-form';
 
-import { getTranslationOfKeyword } from '@/containers/search/search.api';
+import { getTranslationOfKeyword } from '@/search/api';
 import { CACHING_KEY, LANGUAGE_TYPE } from '@/types/enum.code';
+import { SEARCH_KEYWORD_STATUS } from '@/search/constants';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { SEARCH_KEYWORD_STATUS } from '@/containers/search/emun';
 import { _amplitudeKeywordTranslated } from '@/amplitude/amplitude.service';
 
 export const switchTranslationTab = (

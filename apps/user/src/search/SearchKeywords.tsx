@@ -2,30 +2,29 @@ import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } fro
 import { ReactSVG } from 'react-svg';
 import { Tooltip } from 'react-tooltip';
 
-import { Default } from '@/layouts/Default';
+import { Default } from '@/common/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
-import { SearchModal } from '@/pages/search/SearchModal';
+import { SearchModal, SearchKeywordTranslator } from '@/search/elements';
 import {
   CACHING_KEY,
   COUNTRY_TYPE,
   MODAL_SIZE_ENUM,
   SORT_BY_TYPE,
 } from '@/types/enum.code';
-import { SearchKeywordTranslator } from '@/pages/search/SearchKeywordTranslator';
 
 import {
   initializeState,
   queryKeyword,
   queryKeywordByClick,
-  SEARCH_ACTION,
   switchModal,
-} from '@/containers/search';
-import { searchInitialState, searchReducer } from '@/containers/search/search.reducer';
-import { getQueryResult } from '@/containers/search/search.api';
+} from '@/search/container';
+import { SEARCH_ACTION } from '@/search/reducer';
+import { searchInitialState, searchReducer } from '@/search/reducer';
+import { getQueryResult } from '@/search/api';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
-import { SearchKeywordImages } from '@/pages/search/SearchKeywordImages';
+import { SearchKeywordImages } from '@/search/elements/SearchKeywordImages';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isTruthy } from '@/utils/isTruthy';

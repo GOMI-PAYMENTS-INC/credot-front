@@ -1,4 +1,4 @@
-import { menuData } from '@/containers/sidebar/sideBarData';
+import { menuData } from '@/common/layouts/sidebar/constants';
 
 export enum SIDE_BAR_ACTION {
   TOGGLE_SIDE_BAR = 'TOGGLE_SIDE_BAR',

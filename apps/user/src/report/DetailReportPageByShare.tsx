@@ -11,7 +11,7 @@ import {
   DetailReportRightQuickBar,
 } from '@/report/elements';
 import { authTokenStorage } from '@/utils/authToken';
-import { Default } from '@/layouts';
+import { Default } from '@/common/layouts';
 
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 

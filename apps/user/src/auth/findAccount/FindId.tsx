@@ -7,7 +7,7 @@ import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom
 import { FindAccountTittle, FindIdResult } from '@/auth/findAccount/elements';
 
 import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
-import { FindAccountLayout as Layout } from '@/layouts/FindAccountLayout';
+import { FindAccountLayout as Layout } from '@/common/layouts/FindAccountLayout';
 import {
   authInitialState,
   eventHandlerByFindAccount,

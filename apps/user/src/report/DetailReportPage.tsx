@@ -13,7 +13,7 @@ import { SalePrice } from '@/report/price/SalePrice';
 import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
 import { DetailReportHeader, DetailReportBody } from '@/report/elements';
 
-import { Default } from '@/layouts';
+import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 
 const DetailReportPage = () => {
