@@ -1,5 +1,5 @@
 import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
-import { openBrowser } from '@/utils/openBrowser';
+import { openAppWithTag } from '@/utils/openBrowser';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { USER_TARGET_DATA } from '@/home/constant';
 import { GlobalEnv } from '@/api/config';
@@ -84,15 +84,13 @@ export const Efficient = ({ imagePath }: IEfficient) => {
                 <button
                   className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
                   onClick={(event) => {
-                    openBrowser(GlobalEnv.serviceUrl);
-
-                    const eventTarget = event.target as HTMLElement;
-                    _introPageMovedToSolution(
-                      PAGE_CATEGORY.MAIN,
-                      CTA_TYPE.BUTTON,
-                      CTA_LOCATION.MIDDLE_OF_CONTENT,
-                      eventTarget.innerText,
-                    );
+                    openAppWithTag({
+                      url: GlobalEnv.serviceUrl,
+                      path: PAGE_CATEGORY.MAIN,
+                      type: CTA_TYPE.BUTTON,
+                      location: CTA_LOCATION.MIDDLE_OF_CONTENT,
+                      event: event,
+                    });
                   }}
                 >
                   고미인사이트 바로 시작하기

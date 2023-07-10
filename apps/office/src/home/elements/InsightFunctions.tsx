@@ -7,7 +7,6 @@ import { TAB_DATA } from '@/home/constant';
 import { ReactSVG } from 'react-svg';
 import { Swiper as SwiperClass } from 'swiper/types';
 
-import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 import { onChangeTab, dragTab } from '@/home/container';
 
 interface IInsightFunctions {
