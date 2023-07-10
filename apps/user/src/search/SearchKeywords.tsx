@@ -233,6 +233,22 @@ const SearchKeywords = () => {
     }
   };
 
+  const KeywordSearchToolTip = useMemo(() => {
+    return (
+      <div className='flex flex-col p-3 text-S/Regular'>
+        <p className='text-S/Bold'>국가</p>
+        <p>키워드를 분석할 Shopee 국가 </p>
+        <br />
+        <p className='text-S/Bold'>수집기준</p>
+        <p>데이터를 수집할 키워드 검색결과의 상품 정렬 기준</p>
+        <ul className='ml-5 list-disc'>
+          <li>연관도순: 키워드 검색 시 기본값으로 노출되는 상품순</li>
+          <li>판매량순: 키워드 검색 후 판매량순으로 정렬 시 노출되는 상품순</li>
+        </ul>
+      </div>
+    );
+  }, []);
+
   return (
     <Default>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -252,9 +268,9 @@ const SearchKeywords = () => {
         <div className=''>
           <div>
             <h1 className='break-keep text-center text-3XL/Bold'>
-              <span className='text-orange-600'>키워드 검색 </span>후
+              <span className='text-orange-500'>상위 노출 </span>을 원하는
               <br />
-              <span className='text-orange-600'>리포트를 생성</span>해주세요.
+              <span className='text-orange-500'>키워드</span>를 검색해주세요.
             </h1>
           </div>
           <div className='m-auto w-full max-w-[580px] px-[50px]'>
@@ -281,6 +297,23 @@ const SearchKeywords = () => {
                 variants={DROPDOWN_VARIANTS.CLEAR}
                 onClickOption={onClickSortOption}
               ></DropDown>
+              <div className='tooltip-container'>
+                <a data-tooltip-id='anchor-keyword-search-volum'>
+                  <ReactSVG
+                    src='assets/icons/outlined/QuestionCircle.svg'
+                    className='ml-[7px] inline-block'
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                    }}
+                  />
+                </a>
+                <Tooltip
+                  render={() => KeywordSearchToolTip}
+                  id='anchor-keyword-search-volum'
+                  place='right'
+                  variant='light'
+                />
+              </div>
             </div>
 
             <div>
@@ -335,7 +368,23 @@ const SearchKeywords = () => {
             </div>
           </div>
         </div>
-
+        <div className='mt-10 flex justify-center'>
+          <button
+            className={`w-full max-w-[480px] rounded-md bg-orange-500 py-4 ${
+              (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
+            }`}
+            disabled={_state.keyword === '' || isMonthlyCountZero}
+            onClick={() => setRequestReport(true)}
+          >
+            {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
+              <div className=' scale-[0.2]'>
+                <div id='loader-white' />
+              </div>
+            ) : (
+              <span className='text-L/Bold text-white'>{reportCreatorButtonText}</span>
+            )}
+          </button>
+        </div>
         <div className='mt-12'>
           {isFalsy(monthlySearchVolume) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
@@ -357,7 +406,15 @@ const SearchKeywords = () => {
             </div>
           ) : (
             <Fragment>
-              <div className='flex gap-x-[18px] '>
+              <div className='mb-6 border border-grey-300 bg-white text-S/Regular text-grey-800 '>
+                <p className='p-3'>
+                  아래는 키워드에 대한 간략한 정보에요. 보다 상세한 분석을 위해 상단의
+                  <span className='ml-1 text-orange-500'>
+                    리포트 생성하기 버튼을 눌러주세요.
+                  </span>
+                </p>
+              </div>
+              <div className='flex gap-x-[18px]'>
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className=''>
@@ -368,8 +425,11 @@ const SearchKeywords = () => {
                           data-tooltip-html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
                         >
                           <ReactSVG
-                            src='assets/icons/filled/Help.svg'
+                            src='assets/icons/outlined/QuestionCircle.svg'
                             className='ml-[7px] inline-block'
+                            beforeInjection={(svg) => {
+                              svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                            }}
                           />
                         </a>
                         <Tooltip
@@ -398,8 +458,11 @@ const SearchKeywords = () => {
                           data-tooltip-html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
                         >
                           <ReactSVG
-                            src='assets/icons/filled/Help.svg'
+                            src='assets/icons/outlined/QuestionCircle.svg'
                             className='ml-[7px] inline-block'
+                            beforeInjection={(svg) => {
+                              svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                            }}
                           />
                         </a>
                         <Tooltip
@@ -468,32 +531,13 @@ const SearchKeywords = () => {
                               </li>
                             </Fragment>
                           );
-                        })}{' '}
+                        })}
                       </ul>
                     ) : (
                       relativeKeyword
                     )}
                   </div>
                 </div>
-              </div>
-              <div className='mt-10 flex justify-center'>
-                <button
-                  className={`w-full max-w-[480px] rounded-md bg-orange-500 py-4 ${
-                    (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
-                  }`}
-                  disabled={_state.keyword === '' || isMonthlyCountZero}
-                  onClick={() => setRequestReport(true)}
-                >
-                  {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
-                    <div className=' scale-[0.2]'>
-                      <div id='loader-white' />
-                    </div>
-                  ) : (
-                    <span className='text-L/Bold text-white'>
-                      {reportCreatorButtonText}
-                    </span>
-                  )}
-                </button>
               </div>
             </Fragment>
           )}

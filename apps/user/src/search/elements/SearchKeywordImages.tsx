@@ -99,8 +99,11 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                   data-tooltip-html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
                 >
                   <ReactSVG
-                    src='assets/icons/filled/Help.svg'
+                    src='assets/icons/outlined/QuestionCircle.svg'
                     className='ml-[7px] inline-block'
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                    }}
                   />
                 </a>
                 <Tooltip id='anchor-keyword-tip' place='right' variant='light' />
