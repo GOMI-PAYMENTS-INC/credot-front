@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 
 import { PATH } from '@/router/paths';
 
-const Footer = () => {
+export const Footer = () => {
   const IMG_PATH = '/assets/images';
   return (
     <footer className='py-[56px] text-grey-900'>
@@ -19,11 +19,12 @@ const Footer = () => {
               />
             </Link>
             <h3 className='mt-[28px] text-M/Bold'>(주)고미인사이트</h3>
-            <div className='mt-4 space-y-1.5 text-S/Medium text-grey-700'>
+            <div className='mt-4 space-y-1.5 text-S/Regular text-grey-700'>
               <p>대표이사 : 오채윤 | 개인정보관리책임자 : 오채윤</p>
-              <p>사업자등록번호 : 460-81-03324</p>
-              <p>주소 : 서울시 송파구 법원로 128, C동 G114-S108호</p>
-              <p>메일 : support@gomiinsight.com</p>
+              <p>사업자등록번호 : 460-81-03224</p>
+              <p>통신판매업신고번호 : 제2023-서울송파-01431호</p>
+              <p>주소 : 서울광역시 송파구 법원로 128, 씨동 지114-에스108호(문정동)</p>
+              <p>메일 : support@gomiinsight.com | 전화: 010-2988-6441</p>
             </div>
           </div>
           <div className='sm:mt-4 sm:grid sm:w-full sm:grid-cols-2 sm:gap-x-[11px]'>
@@ -54,5 +55,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

@@ -8,7 +8,7 @@ import {
   EcommerceMargin,
   InsightFunctions,
 } from '@/home/elements';
-
+import { HOME_QNA } from '@/common/constants';
 const Intro = () => {
   const IMG_PATH = '/assets/images';
 
@@ -20,7 +20,7 @@ const Intro = () => {
       <Partner imagePath={IMG_PATH} />
       <Efficient imagePath={IMG_PATH} />
       <Promotion imagePath={IMG_PATH} />
-      <FAQ />
+      <FAQ list={HOME_QNA} />
     </main>
   );
 };
