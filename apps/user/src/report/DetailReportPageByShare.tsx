@@ -42,9 +42,8 @@ const DetailReportPageByShare = () => {
     } else {
       setIsUser(false);
     }
-
     if (params.id && main === null)
-      _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
+      _getReportInfoByShare(params.id, isAuthenticated, _dispatch);
   }, []);
 
   useEffect(() => {
