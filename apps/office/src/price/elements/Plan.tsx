@@ -1,8 +1,12 @@
 import { useMemo, useState } from 'react';
 import { GRADE, PLANS } from '@/price/constans';
+import { openAppWithTag } from '@/utils/openBrowser';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
+import { GlobalEnv } from '@/api/config';
+import { PATH } from '@/router/paths';
 
 export const Plan = () => {
-  const [activeToggle, setActiveToggle] = useState<'MONTH' | 'YEAR'>('MONTH');
+  const [activeToggle, setActiveToggle] = useState<'MONTH' | 'YEAR'>('YEAR');
   const activeToggleCss =
     'bg-white font-bold text-orange-400 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]';
 
@@ -68,7 +72,7 @@ export const Plan = () => {
               <div id='cardBody' className='mt-6 w-[240px]'>
                 <div className='my-3 flex h-[133px] items-end justify-end'>
                   <p className='text-3XL/Bold'>
-                    {plan.price}
+                    {plan.price[activeToggle]}
                     <span className='ml-2 text-XL/Regular'>
                       /{activeToggle === 'MONTH' ? '월' : '년'}
                     </span>
@@ -76,7 +80,20 @@ export const Plan = () => {
                 </div>
               </div>
               <div id='cardBottom' className='my-6 flex w-[240px] justify-center'>
-                <button className={`${btnStyle} w-full px-3 py-3`}>{plan.button}</button>
+                <button
+                  className={`${btnStyle} w-full px-3 py-3`}
+                  onClick={(event) =>
+                    openAppWithTag({
+                      url: GlobalEnv.serviceUrl,
+                      path: PATH.PRICE,
+                      type: CTA_TYPE.BUTTON,
+                      location: CTA_LOCATION.MIDDLE_OF_CONTENT,
+                      event: event,
+                    })
+                  }
+                >
+                  {plan.button}
+                </button>
               </div>
             </div>
           </div>
@@ -88,28 +105,26 @@ export const Plan = () => {
   return (
     <section className='flex flex-col items-center justify-center bg-grey-50'>
       <div className='flex flex-col items-center justify-center sm:w-[277px] lg:w-[580px]'>
-        <p className='mt-10 text-3XL/Bold'>Plan</p>
+        <p className='mt-10 text-3XL/Bold'>Plan(VAT 포함)</p>
         <ul className='mt-[33px] flex rounded-lg bg-grey-200 p-1 text-center text-L/Medium text-grey-700'>
           <li
             className={` ${activeToggle === 'MONTH' && activeToggleCss} block rounded-lg`}
             onClick={() => setActiveToggle('MONTH')}
           >
-            <p className='mx-3 my-3 flex w-[136px] items-center justify-center gap-1'>
-              월 결제
-              <span
-                className={`rounded-[58px] ${
-                  activeToggle === 'MONTH' ? 'bg-green-600' : 'bg-grey-500'
-                } px-2 py-1 text-XS/Medium text-grey-100`}
-              >
-                +20%
-              </span>
-            </p>
+            <p className='mx-3 my-3 w-[136px]'>월 결제</p>
           </li>
           <li
             className={` ${activeToggle === 'YEAR' && activeToggleCss} block rounded-lg`}
             onClick={() => setActiveToggle('YEAR')}
           >
-            <p className='mx-3 my-3 w-[136px]'>연 결제</p>
+            <p className='mx-3 my-3 flex w-[136px] items-center justify-center gap-1'>
+              연 결제
+              <span
+                className={`rounded-[58px] bg-green-600 px-2 py-1 text-XS/Medium text-grey-100`}
+              >
+                +20%
+              </span>
+            </p>
           </li>
         </ul>
         <div className='mb-[77px] flex w-full justify-start gap-[23px] lg:flex-wrap'>

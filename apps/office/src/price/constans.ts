@@ -11,25 +11,25 @@ export const PLANS = [
   {
     grade: GRADE.FREE,
     subscribe: '키워드 분석 최대 5회',
-    price: '무료',
+    price: { MONTH: '무료', YEAR: '무료' },
     button: '무료로 사용하기',
   },
   {
     grade: GRADE.STARTER,
     subscribe: '키워드 분석 최대 50회',
-    price: '15,000원',
+    price: { MONTH: '15,000원', YEAR: '12,000원' },
     button: '구독하기',
   },
   {
     grade: GRADE.PRO,
     subscribe: '키워드 분석 최대 200회',
-    price: '30,000원',
+    price: { MONTH: '30,000원', YEAR: '19,200원' },
     button: '구독하기',
   },
   {
     grade: GRADE.ENTERPRISE,
     subscribe: '키워드 분석 최대 150회 초과',
-    price: '$50~',
+    price: { MONTH: '50,000원~', YEAR: '40,000원~' },
     button: '채팅 문의하기',
   },
 ];

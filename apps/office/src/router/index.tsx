@@ -1,7 +1,7 @@
 import { createElement, useEffect } from 'react';
 import { matchRoutes, Route, Routes, useLocation } from 'react-router-dom';
 
-import Layout from '@/layouts/layout';
+import Layout from '@/layouts/Layout';
 import { routeList } from '@/router/paths';
 import { _introPageIntroPageViewed } from '@/amplitude/amplitude.service';
 export const Router = () => {
