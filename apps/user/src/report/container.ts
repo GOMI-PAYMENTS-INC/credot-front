@@ -103,31 +103,29 @@ export const _getReportInfo = async (id: string, _dispatch: Dispatch<TReportActi
   }
 };
 export const _getReportInfoByShare = async (
-  token: string,
-  isUser: boolean,
+  reportId: string,
+  token: string | null,
   _dispatch: Dispatch<TReportAction>,
 ) => {
   try {
     let response: any[];
 
-    if (isUser) {
+    if (token) {
       response = await Promise.all([
-        getMainReportByShare(token),
-        getSalePriceByShare(token),
-        getOverseaProductByShare(token),
+        getMainReportByShare(reportId),
+        getSalePriceByShare(reportId),
+        getOverseaProductByShare(reportId),
+        getRelationReportByShare(reportId),
       ]);
-
-      const relationResponse = await getRelationReportByShare(token);
-      const copyReportId = relationResponse!.data.data.id;
-
-      const afterResponse = await Promise.all([
-        getBrandAnalysis(String(copyReportId)),
-        getCategoryAnalysis(String(copyReportId)),
+      const [main, sale, oversea, relation] = response;
+      const relationId = String(relation.data.data.id);
+      const leftData = await Promise.all([
+        getBrandAnalysis(relationId),
+        getCategoryAnalysis(relationId),
       ]);
-
-      response.push(afterResponse);
+      response = response.concat(...leftData);
     } else {
-      response = await Promise.all([getMainReportByShare(token)]);
+      response = await Promise.all([getMainReportByShare(reportId)]);
     }
 
     const dataName = Object.values(REPORT_DETAIL_TYPE);

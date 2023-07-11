@@ -32,6 +32,8 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
   } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
   const { focus, data: brandAnalysisData } = brandAnalysis;
+
+  console.log(brandAnalysis, 'brandAnalysisData!.brands[forceBrandIndex];');
   const {
     totalSalesAmount: totalAmount,
     avgSalesAmount: avgAmount,
