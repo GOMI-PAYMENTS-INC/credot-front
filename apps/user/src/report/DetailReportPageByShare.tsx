@@ -39,12 +39,11 @@ const DetailReportPageByShare = () => {
     const isAuthenticated = authTokenStorage.getToken();
     if (isAuthenticated) {
       setIsUser(true);
+      if (params.id && main === null)
+        _getReportInfoByShare(params.id, isAuthenticated, _dispatch);
     } else {
       setIsUser(false);
     }
-
-    if (params.id && main === null)
-      _getReportInfoByShare(params.id, !isFalsy(isAuthenticated), _dispatch);
   }, []);
 
   useEffect(() => {
