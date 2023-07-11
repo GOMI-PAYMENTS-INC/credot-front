@@ -73,9 +73,7 @@ export const Plan = () => {
                 <div className='my-3 flex h-[133px] items-end justify-end'>
                   <p className='text-3XL/Bold'>
                     {plan.price[activeToggle]}
-                    <span className='ml-2 text-XL/Regular'>
-                      /{activeToggle === 'MONTH' ? '월' : '년'}
-                    </span>
+                    <span className='ml-2 text-XL/Regular'>/월</span>
                   </p>
                 </div>
               </div>
