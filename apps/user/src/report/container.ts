@@ -110,7 +110,9 @@ export const _getReportInfoByShare = async (
   try {
     let response: any[];
 
-    if (token) {
+    if (isFalsy(token)) {
+      response = await Promise.all([getMainReportByShare(reportId)]);
+    } else {
       response = await Promise.all([
         getMainReportByShare(reportId),
         getSalePriceByShare(reportId),
@@ -124,8 +126,6 @@ export const _getReportInfoByShare = async (
         getCategoryAnalysis(relationId),
       ]);
       response = response.concat(...leftData);
-    } else {
-      response = await Promise.all([getMainReportByShare(reportId)]);
     }
 
     const dataName = Object.values(REPORT_DETAIL_TYPE);
