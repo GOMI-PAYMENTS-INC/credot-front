@@ -26,13 +26,13 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
                 divStyle: 'flex-col',
                 place: 'text-XL/Medium',
                 square: 'w-[10px] h-[10px]',
-                category: 'text-L/Medium text-grey-900 ml-5 mt-[11px]',
+                category: 'text-L/Medium text-grey-900 ml-5 mt-[11px] max-w-[600px]',
               }
             : {
                 divStyle: 'items-center',
                 place: 'text-M/Medium',
                 square: 'w-2 h-2',
-                category: 'text-M/Medium text-grey-700 ',
+                category: 'text-M/Medium text-grey-700 max-w-[575px]',
               };
         return (
           <li key={`category_${index}`}>
@@ -50,7 +50,7 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
               </div>
 
               <div>
-                <div className={`break-word  max-w-[550px] ${firstPlaceCss.category}`}>
+                <div className={`break-word ${firstPlaceCss.category}`}>
                   {category} ({count}개)
                 </div>
               </div>
@@ -72,14 +72,14 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
               카테고리 등록순
             </h1>
           </div>
-          <div className='col-span-3 flex h-[388px] flex-col items-center justify-center'>
+          <div className='col-span-3 flex flex-col items-center justify-center'>
             <CategoryRankChart data={formatedData} />
-            <div className='text-center text-2XL/Bold'>
+            <div className='pt-[11px] text-center text-2XL/Bold'>
               <p className='text-S/Medium'>Total</p>
               {itemCount}개
             </div>
           </div>
-          <div className='col-span-7 col-start-4 flex h-full flex-col justify-center border-l-[1px] border-grey-300'>
+          <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
             <ul className='space-y-3 p-5'>{CategoryList}</ul>
           </div>
         </div>

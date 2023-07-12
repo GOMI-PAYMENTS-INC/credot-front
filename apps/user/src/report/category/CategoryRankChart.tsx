@@ -14,7 +14,7 @@ export const CategoryRankChart = ({ data }: ICategoryRankChart) => {
       {
         name: '상품 카테고리',
         type: 'pie',
-        radius: [40, 120],
+        radius: [40, 100],
         center: ['50%', '50%'],
         roseType: 'radius',
         itemStyle: {
@@ -42,7 +42,7 @@ export const CategoryRankChart = ({ data }: ICategoryRankChart) => {
   return (
     <ReactECharts
       option={option}
-      style={{ height: '300px', paddingTop: '10px', width: '250px' }}
+      style={{ height: '230px', paddingTop: '10px', width: '260px' }}
     />
   );
 };
