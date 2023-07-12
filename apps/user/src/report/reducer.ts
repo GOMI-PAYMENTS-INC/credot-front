@@ -44,15 +44,15 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       if (type === REPORT_DETAIL_TYPE.MAIN) {
         state.main = data;
       }
-      // if (type === REPORT_DETAIL_TYPE.RELATION) {
-      //   state.relation = data;
-      //   const { relations } = data;
-      //   console.log(relations, 'relation');
-      //   const [first] = relations;
-      //   if (first) {
-      //     state.toggleEvent = state.toggleEvent.concat(first);
-      //   }
-      // }
+      if (type === REPORT_DETAIL_TYPE.RELATION) {
+        state.relation = data;
+        const { relations } = data;
+        console.log(relations, 'relation');
+        const [first] = relations;
+        if (first) {
+          state.toggleEvent = state.toggleEvent.concat(first);
+        }
+      }
       if (type === REPORT_DETAIL_TYPE.PRICE) {
         state.salePrice.data = data;
         if (isFalsy(data.gradeItems) === false) {
