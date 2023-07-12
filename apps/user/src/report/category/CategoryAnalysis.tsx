@@ -1,10 +1,9 @@
 import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
-import { convertedCategoryAnalysisData } from '@/report/container';
-import { CategoryRankChart } from '@/report/category/CategoryRankChart';
+
 import { useMemo } from 'react';
 import { setCategoryData } from '@/report/category/container';
-import { Chart } from '@/report/category/Chart';
+import { CategoryRankChart } from '@/report/category/CategoryRankChart';
 interface ICategoryAnalysis {
   categoryAnalysis: null | TCategoryAnalysis;
   itemCount: number;
@@ -73,14 +72,14 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
               카테고리 등록순
             </h1>
           </div>
-          <div className='col-span-3 flex flex-col items-center justify-center'>
-            <Chart data={formatedData} />
+          <div className='col-span-3 flex h-[388px] flex-col items-center justify-center'>
+            <CategoryRankChart data={formatedData} />
             <div className='text-center text-2XL/Bold'>
               <p className='text-S/Medium'>Total</p>
               {itemCount}개
             </div>
           </div>
-          <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
+          <div className='col-span-7 col-start-4 flex h-full flex-col justify-center border-l-[1px] border-grey-300'>
             <ul className='space-y-3 p-5'>{CategoryList}</ul>
           </div>
         </div>

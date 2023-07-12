@@ -1,68 +1,48 @@
-import {
-  ArcElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-} from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import ReactECharts from 'echarts-for-react';
 
 interface ICategoryRankChart {
-  data: {
-    datasets: [
-      {
-        data: number[];
-        backgroundColor: string[];
-      },
-    ];
-
-    labels: string[];
-  };
+  data: TCategoryChart[];
 }
-export const CategoryRankChart = (props: ICategoryRankChart) => {
-  const { datasets, labels } = props.data;
-
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement,
-  );
-
-  const options = {
-    responsive: true, // 차트가 반응형으로 크기 조정되도록 설정
-    plugins: {
-      legend: {
-        display: false, // 라벨 목록 숨김
-      },
+export const CategoryRankChart = ({ data }: ICategoryRankChart) => {
+  // console.log(convertedData, 'convertedData');
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)',
     },
-  };
-
-  const ranks: string[] = labels.reduce(
-    (accumulator: string[], currentValue: string, currentIndex: number) => {
-      accumulator.push(currentIndex + 1 + '위');
-      return accumulator;
-    },
-    [],
-  );
-
-  const data = {
-    labels: labels,
-    datasets: [
+    series: [
       {
-        data: datasets[0].data,
-        backgroundColor: datasets[0].backgroundColor,
+        name: '상품 카테고리',
+        type: 'pie',
+        radius: [40, 120],
+        center: ['50%', '50%'],
+        roseType: 'radius',
+        itemStyle: {
+          borderRadius: 5,
+        },
+        label: {
+          show: false,
+        },
+        emphasis: {
+          label: {
+            show: false,
+          },
+        },
+        data: data.map((form) => {
+          return {
+            value: form.count,
+            name: form.category,
+            itemStyle: { color: form.background },
+          };
+        }),
       },
     ],
   };
 
-  return <Doughnut options={options} data={data} width={179} height={179} />;
+  return (
+    <ReactECharts
+      option={option}
+      style={{ height: '300px', paddingTop: '10px', width: '250px' }}
+    />
+  );
 };
