@@ -235,11 +235,8 @@ export const AnalysisKeyword = () => {
         <div className='bordered flex h-[92px] border-[1px]  border-grey-300 '>
           <div className='flex pl-3 pr-3 pb-3 pt-3'>
             <ReactSVG
-              src='/assets/icons/QuestionCircle.svg'
-              className='inline-block self-center pl-[7px]'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-              }}
+              className='pt-[5px] pl-px'
+              src='/assets/icons/ExclamationCircle.14px.svg'
             />
 
             <div className='pl-[11px]'>
@@ -267,16 +264,7 @@ export const AnalysisKeyword = () => {
           </div>
         </div>
       </div>
-
-      {/* <RecommendationChart
-        relations={relations}
-        _dispatch={_dispatch}
-        toggleEvent={_state.toggleEvent}
-        country={analysisInfo!.country}
-        basePrice={analysisInfo!.basePrice}
-        currencyUnit={analysisInfo!.currencyUnit}
-        amplitudeData={amplitudeData}
-      /> */}
+      <RecommendationChart />
     </section>
   );
 };

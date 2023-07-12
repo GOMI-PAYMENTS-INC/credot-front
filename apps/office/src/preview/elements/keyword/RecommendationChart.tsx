@@ -1,27 +1,26 @@
-import { Dispatch, Fragment, useMemo } from 'react';
+import { useState, Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
-
-import { BATCH_STATUS } from '@/types/enum.code';
-import { EmptyRecommendation } from '@/report/keyword/EmptyRecommendation';
-import { isFalsy } from '@/utils/isFalsy';
-import { isIncluded } from '@/utils/isIncluded';
-import { isToggleOpen, roundNumber } from '@/report/container';
-
 import {
   convertEvaluateStatus,
   convertRecommendationScoreToText,
-} from '@/report/constants/score';
-import { formatNumber } from '@/utils/formatNumber';
+} from '@/preview/elements/keyword/Convertor';
 
-import { TReportAction } from '@/report/reducer';
-import { _getRelationReport, convertExchangeRate } from '@/report/container';
-import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { convertShopeeSiteUrl } from '@/utils/convertEnum';
-import { CountryType } from '@/generated/graphql';
 import { openBrowser } from '@/utils/openBrowser';
-import { relations } from '@/preview/constants/reportData';
+import { CountryType } from '@/preview/elements/keyword/constant';
+import { RECOMMENDATION_DATA } from '@/preview/elements/keyword/constant';
+import {
+  _setOpenContent,
+  convertShopeeSiteUrl,
+  convertExchangeRate,
+  formatNumber,
+  roundNumber,
+} from '@/preview/container';
 
 export const RecommendationChart = () => {
+  const { relations, country, currencyUnit, basePrice } = RECOMMENDATION_DATA;
+
+  const [openToggle, setOpenToggle] = useState<number[]>([0]);
+
   return (
     <section className='pt-10'>
       <table className='col-span-full h-full w-full  table-auto bg-white'>
@@ -65,17 +64,24 @@ export const RecommendationChart = () => {
         </thead>
 
         <tbody>
-          {relations.map((data) => {
+          {relations.map((data, index) => {
             const [search, competiton, cpc] = data.evaluateStatus;
-            const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
-            const backgroundColor = status ? 'border-grey-300' : 'border-orange-200';
+            const status = openToggle.includes(index);
+            const backgroundColor = status ? 'border-orange-200' : 'border-grey-300';
             const { top, bottom } = convertEvaluateStatus(data.evaluateStatus);
+
             return (
               <Fragment key={`product_key_${data.id}`}>
                 <tr className='mt-3 flex' />
                 <tr
                   className={`border-[1px] ${backgroundColor} cursor-pointer hover:bg-grey-200`}
-                  onClick={() => _dispatch && isToggleOpen(_dispatch, false, data.id)}
+                  onClick={() =>
+                    _setOpenContent({
+                      _dipatch: setOpenToggle,
+                      _state: openToggle,
+                      index,
+                    })
+                  }
                 >
                   <td>
                     <div className='ml-3 flex'>
@@ -159,13 +165,13 @@ export const RecommendationChart = () => {
                         className='flex h-5 w-5 cursor-pointer items-center'
                         onClick={() => {
                           openBrowser(
-                            `${convertShopeeSiteUrl(country!)}/search?keyword=${
-                              data.text
-                            }`,
+                            `${convertShopeeSiteUrl(
+                              country as CountryType,
+                            )}/search?keyword=${data.text}`,
                           );
                         }}
                       >
-                        <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
+                        <ReactSVG className='' src='/assets/icons/Linkout.svg' />
                       </button>
                     </div>
                   </td>
@@ -173,18 +179,14 @@ export const RecommendationChart = () => {
                     <div className='flex justify-center'>
                       <div className='flex h-5 w-5'>
                         <ReactSVG
-                          className={
-                            isFalsy(toggleEvent.find((event) => event.id === data.id))
-                              ? 'z-0 -rotate-90'
-                              : 'z-0 rotate-90'
-                          }
-                          src='/assets/icons/outlined/LeftArrow.svg'
+                          className={status ? 'z-0 rotate-90' : 'z-0 -rotate-90'}
+                          src='/assets/icons/LeftArrow.svg'
                         />
                       </div>
                     </div>
                   </td>
                 </tr>
-                {status === false && (
+                {status && (
                   <tr>
                     <td
                       colSpan={10}
