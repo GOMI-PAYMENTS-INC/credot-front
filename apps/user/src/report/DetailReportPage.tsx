@@ -50,21 +50,62 @@ const DetailReportPage = () => {
     keyword: main?.text ? main.text : '',
   };
 
-  const LoadingSpinner = useMemo(
-    () => (
-      <div className='flex h-screen flex-col items-center justify-center self-center'>
-        <div className='scale-[0.3]'>
-          <div id='loader' />
+  const ReportComponents = useMemo(() => {
+    return isFalsy(main) ? (
+      <Fragment />
+    ) : (
+      <div className='col-span-10'>
+        <div className='space-y-[72px]'>
+          <KeywordInfo
+            _dispatch={_dispatch}
+            keywordInfo={main!}
+            amplitudeData={amplitudeData}
+          />
+          <MarketSize marketSize={main!} />
+          <AnalysisKeyword
+            _dispatch={_dispatch}
+            _state={_state}
+            analysisInfo={main!}
+            relations={relation.relations}
+            amplitudeData={amplitudeData}
+          />
+
+          <BrandAnalysis
+            _dispatch={_dispatch}
+            basePrice={main!.basePrice}
+            currencyUnit={main!.currencyUnit}
+            brandAnalysis={brand}
+            forceBrandIndex={brand.focus}
+            amplitudeData={amplitudeData}
+          />
+          <SalePrice
+            _dispatch={_dispatch}
+            currencyUnit={main!.currencyUnit}
+            salePriceInfo={salePrice?.data!}
+            list={salePrice.list}
+            focus={salePrice.focus}
+            amplitudeData={amplitudeData}
+          />
+          <AnalysisOverseaProduct
+            currencyUnit={main!.currencyUnit}
+            basePrice={main!.basePrice}
+            overseaProduct={oversea}
+            amplitudeData={amplitudeData}
+          />
+          <CategoryAnalysis itemCount={main!.itemCount} categoryAnalysis={category} />
         </div>
       </div>
-    ),
-    [],
-  );
+    );
+  }, [main?.id, brand, salePrice]);
 
   return (
     <Default>
       {isFalsy(main) ? (
-        LoadingSpinner
+        <div className='flex h-screen flex-col items-center justify-center self-center'>
+          <div className='scale-[0.3]'>
+            <div id='loader' />
+          </div>
+        </div>
       ) : (
         <Fragment>
           <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
@@ -73,50 +114,7 @@ const DetailReportPage = () => {
             setScrollEvent={setScrollEvent}
             scrollEvent={scrollEvent}
           >
-            <div className='col-span-10'>
-              <div className='space-y-[72px]'>
-                <KeywordInfo
-                  _dispatch={_dispatch}
-                  keywordInfo={main!}
-                  amplitudeData={amplitudeData}
-                />
-                <MarketSize marketSize={main!} />
-                <AnalysisKeyword
-                  _dispatch={_dispatch}
-                  _state={_state}
-                  analysisInfo={main!}
-                  relations={relation.relations}
-                  amplitudeData={amplitudeData}
-                />
-
-                <BrandAnalysis
-                  _dispatch={_dispatch}
-                  basePrice={main!.basePrice}
-                  currencyUnit={main!.currencyUnit}
-                  brandAnalysis={brand}
-                  forceBrandIndex={brand.focus}
-                  amplitudeData={amplitudeData}
-                />
-                <SalePrice
-                  _dispatch={_dispatch}
-                  currencyUnit={main!.currencyUnit}
-                  salePriceInfo={salePrice?.data!}
-                  list={salePrice.list}
-                  focus={salePrice.focus}
-                  amplitudeData={amplitudeData}
-                />
-                <AnalysisOverseaProduct
-                  currencyUnit={main!.currencyUnit}
-                  basePrice={main!.basePrice}
-                  overseaProduct={oversea}
-                  amplitudeData={amplitudeData}
-                />
-                <CategoryAnalysis
-                  itemCount={main!.itemCount}
-                  categoryAnalysis={category}
-                />
-              </div>
-            </div>
+            {ReportComponents}
             <DetailReportRightQuickBar
               isUser={true}
               title={main?.text}

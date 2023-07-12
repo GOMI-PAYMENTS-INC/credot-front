@@ -394,3 +394,8 @@ type TCategoryAnalysisFrontResult = {
   productCount: number;
   color: string;
 };
+type TCategoryChart = {
+  count: number;
+  category: string;
+  background: string;
+};
