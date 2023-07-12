@@ -1,4 +1,4 @@
-import { DICTIONARY } from '@/preview/constants/dictionary';
+import { DICTIONARY } from '@/preview/constants/Dictionary';
 import { ReactSVG } from 'react-svg';
 import { useEffect, useState } from 'react';
 import { _setOpenContent } from '@/preview/container';

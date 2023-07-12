@@ -20,8 +20,36 @@ const KEYWORD = [
     description:
       '작년도 기준, 키워드 월별 검색량을 알려드려요. 시즌성이 있는 상품인지 여부와 시장의 성장세를 파악할 수 있으며, 재고를 미리 준비해야하는 시기를 알 수 있어요.',
   },
-  { title: '종합 평가-노출 경쟁', description: '' },
-  { title: '종합 평가-CPC 경쟁', description: '' },
+  {
+    title: '종합 평가-노출 경쟁',
+    description: (
+      <div>
+        [검색량 : 경쟁상품 수]의 비율을 5개 등급으로 나누어 평가해요.
+        <ul className='ml-5 list-disc'>
+          <li>매우 좋음 : 0.5 미만</li>
+          <li>좋음 : 0.5 이상 1 미만</li>
+          <li>보통 : 1 이상 3 미만</li>
+          <li>매우 좋음 : 3 이상 5 미만</li>
+          <li>매우 나쁨 : 5 이상</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: '종합 평가-CPC 경쟁',
+    description: (
+      <div>
+        평균 판매가 대비 CPC 금액의 비율을 5개 등급으로 나누어 평가해요.
+        <ul className='ml-5 list-disc'>
+          <li>매우 좋음 : 3% 미만</li>
+          <li>좋음 : 3% 이상 5% 미만</li>
+          <li>보통 : 5% 이상 10% 미만</li>
+          <li>나쁨 : 10% 이상 15% 미만</li>
+          <li>매우 나쁨 : 15% 이상</li>
+        </ul>
+      </div>
+    ),
+  },
   {
     title: '노출 경쟁률',
     description:
