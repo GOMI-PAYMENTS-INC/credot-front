@@ -11,7 +11,7 @@ export const Dictionary = ({ toggle }: IDictionary) => {
   const [openContent, setOpenContent] = useState<number[]>([]);
   useEffect(() => setOpenContent([]), [toggle]);
   return (
-    <aside className='sticky top-0 '>
+    <aside className='sticky top-[360px] '>
       <ul className='rounded-lg border-[1px] border-grey-300 bg-white'>
         {DICTIONARY[toggle].map((data, index) => {
           const borderBottom =

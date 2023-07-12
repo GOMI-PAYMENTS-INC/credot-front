@@ -21,8 +21,8 @@ export const Report = ({ toggle }: IReport) => {
     <section>
       <div className='mt-[30px]'>
         <div className='w-full'>
-          <div className='mt-8 flex justify-between gap-3'>
-            <div className='h-fit w-full overflow-hidden rounded-lg border border-grey-300'>
+          <div className='mt-8 flex items-start justify-around  gap-3'>
+            <div className='h-fit w-full overflow-visible rounded-lg border border-grey-300'>
               <div className='my-[34px] mx-[44px]'>{Content()}</div>
             </div>
             <Dictionary toggle={toggle} />
