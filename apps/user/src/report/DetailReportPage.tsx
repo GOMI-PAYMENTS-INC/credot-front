@@ -96,7 +96,7 @@ const DetailReportPage = () => {
         </div>
       </div>
     );
-  }, [main?.id]);
+  }, [main?.id, brand, salePrice]);
 
   return (
     <Default>
