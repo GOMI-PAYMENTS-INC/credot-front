@@ -47,7 +47,7 @@ const reportReducer = (_state: TReportState, action: TReportAction) => {
       if (type === REPORT_DETAIL_TYPE.RELATION) {
         state.relation = data;
         const { relations } = data;
-        console.log(relations, 'relation');
+
         const [first] = relations;
         if (first) {
           state.toggleEvent = state.toggleEvent.concat(first);

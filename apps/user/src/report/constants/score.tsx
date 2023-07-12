@@ -113,7 +113,7 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가도 낮은 편이라,
-        <span className='text-S/Bold'>CPC광고를 집행해도 나쁘지 않을 키워드에요.</span>
+        <span className='text-S/Bold'>CPC광고를 집행해도 나쁘지 않을 키워드</span>
         에요.
       </p>
     ),
