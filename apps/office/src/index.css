@@ -35,6 +35,10 @@ html {
   animation-iteration-count: infinite;
 }
 
+.keywordInfo-span-subtitle {
+  @apply flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
+}
+
 .animation-ico:nth-child(1) {
   transform-origin: 50% 30%;
   animation-name: shake-1;

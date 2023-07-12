@@ -1,5 +1,5 @@
 type TGoogleTrendDataType = {
   id: number;
-  trend_date: string;
+  trendDate: string;
   interest: number;
 }[];

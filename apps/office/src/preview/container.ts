@@ -1,5 +1,5 @@
 import { convertTime } from '@/utils/parsingTimezone';
-
+import type { Dispatch, SetStateAction } from 'react';
 export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
   const minTurnoverMonth: string[] = [],
     maxTurnoverMonth: string[] = [];
@@ -30,4 +30,17 @@ export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
   });
 
   return { interest, date, minTurnoverMonth, maxTurnoverMonth };
+};
+
+export const _setOpenContent = (params: {
+  _dipatch: Dispatch<SetStateAction<number[]>>;
+  _state: number[];
+  index: number;
+}) => {
+  const { _state, _dipatch, index } = params;
+
+  if (_state.includes(index)) {
+    return _dipatch(_state.filter((number) => number !== index));
+  }
+  return _dipatch(_state.concat(index));
 };

@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import { MarketSizeTrendChart } from '@/preview/elements/market/MarketSizeTrendChart';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertedGoogleTrendData } from '@/preview/container';
-import { TRAND_DATA } from '@/preview/constants';
+import { TRAND_DATA } from '@/preview/constants/reportData';
 
 export const MarketSize = () => {
   const Data = {
@@ -44,7 +44,7 @@ export const MarketSize = () => {
   }, []);
 
   return (
-    <div className=''>
+    <>
       <div className='grid grid-cols-10'>
         <div className='border-grey-30 relative col-span-10 flex w-full items-center border-b-[1px]  bg-grey-100'>
           <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
@@ -144,6 +144,6 @@ export const MarketSize = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

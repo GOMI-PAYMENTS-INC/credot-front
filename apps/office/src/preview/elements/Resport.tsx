@@ -1,37 +1,36 @@
-import { REPORT_CONTENTS, REPORT_CONTENT } from '@/preview/constants';
-import { useMemo, useState } from 'react';
 import { MarketSize } from '@/preview/elements/market/MarketSize';
-export const Report = () => {
-  const [activeToggle, setActiveToggle] = useState<REPORT_CONTENT>(REPORT_CONTENT.MARKET);
-  const activeToggleCss =
-    'bg-white font-bold text-orange-400 shadow-[0_0_3px_0_rgba(0,0,0,0.08)]';
+import { Dictionary } from '@/preview/elements/Dictionary';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
+import { AnalysisKeyword } from '@/preview/elements/keyword/AnalysisKeyword';
 
+interface IReport {
+  toggle: REPORT_CONTENT;
+}
+export const Report = ({ toggle }: IReport) => {
+  const Content = () => {
+    switch (toggle) {
+      case REPORT_CONTENT.MARKET:
+        return <MarketSize />;
+      case REPORT_CONTENT.KEYWORD:
+        return <AnalysisKeyword />;
+      default:
+        return <></>;
+    }
+  };
   return (
-    <section className='mt-[30px] flex flex-col items-center'>
-      <ul className='flex w-fit rounded-lg bg-grey-300 p-1 text-center text-L/Medium text-grey-700'>
-        {REPORT_CONTENTS.map((content) => {
-          return (
-            <li
-              className={` ${
-                activeToggle === content.key && activeToggleCss
-              } block cursor-pointer rounded-lg`}
-              onClick={() => setActiveToggle(content.key)}
-            >
-              <p className='mx-3 my-3 flex w-[136px] items-center justify-center gap-1'>
-                {content.text}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-      <div className='w-full'>
-        <div className='mt-8 flex justify-between gap-3'>
-          <div className='h-fit w-full overflow-hidden rounded-lg border border-grey-300'>
-            <MarketSize />
+    <section>
+      <div className='mt-[30px]'>
+        <div className='w-full'>
+          <div className='mt-8 flex justify-between gap-3'>
+            <div className='h-fit w-full overflow-hidden rounded-lg border border-grey-300'>
+              <div className='my-[34px] mx-[44px]'>{Content()}</div>
+            </div>
+            <Dictionary toggle={toggle} />
           </div>
-          <div className='h-[668px] w-[281px] bg-grey-600' />
         </div>
       </div>
     </section>
   );
 };
+
+//flex flex-col items-center
