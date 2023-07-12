@@ -23,7 +23,7 @@ export const PLANS = [
   {
     grade: GRADE.PRO,
     subscribe: '키워드 분석 최대 200회',
-    price: { MONTH: '30,000원', YEAR: '19,200원' },
+    price: { MONTH: '24,000원', YEAR: '19,200원' },
     button: '구독하기',
   },
   {
