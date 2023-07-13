@@ -18,10 +18,10 @@ export const Efficient = ({ imagePath }: IEfficient) => {
                 고미인사이트와 함께
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
-                <p>잘 팔릴 상품인지 미리 확인하고</p>
+                <p>유망한 상품을 발굴</p>하고
                 <p className='mt-2'>
-                  <span className='text-orange-400'>상위노출을 통해 </span>매출 선순환
-                  구조를 만드세요!
+                  <span className='text-orange-400'>상위 노출 전략</span>으로 매출 상승을
+                  경험해보세요!
                 </p>
               </div>
             </div>
@@ -40,10 +40,10 @@ export const Efficient = ({ imagePath }: IEfficient) => {
           <div className='mb-20 sm:mb-[56px]'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
-                누가, 어떻게 활용할 수 있을 까요?
+                전략적으로 상품을 소싱하고 판매하고 싶은
               </div>
               <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
-                <p>쇼피에 상품을 판매하는 누구나!</p>
+                <p>Shopee 셀러 누구나!</p>
               </div>
             </div>
           </div>

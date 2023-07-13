@@ -12,7 +12,7 @@ export const EcommerceMargin = ({ imagePath }: IEcommerceMargin) => {
                 알고 계신가요?
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
-                <p>이커머스 플랫폼 매출의 86%는</p>
+                <p>Shopee 매출의 86%는</p>
                 <p className='mt-2'>
                   <span className='text-orange-400'>키워드 검색</span>을 통해서 발생한다는
                   사실!
@@ -42,12 +42,12 @@ export const EcommerceMargin = ({ imagePath }: IEcommerceMargin) => {
           <div className='xs:mb-[56px] mb-20 lg:mb-[70px]'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
-                검색결과 상위 50개 상품들을 분석하여
+                Shopee 키워드 검색결과 상위 50개 상품들을 분석하여
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>
-                  <span className='text-orange-400'>시장 정보</span>와
-                  <span className='text-orange-400'>상위 노출 노하우</span>를 한 눈에!
+                  <span className='text-orange-400'>시장 정보</span> 와
+                  <span className='text-orange-400'> 상위 노출 노하우</span>를 한 눈에!
                 </p>
               </div>
             </div>
