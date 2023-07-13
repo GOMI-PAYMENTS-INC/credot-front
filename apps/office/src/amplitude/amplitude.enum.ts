@@ -2,7 +2,7 @@
 export enum PAGE_CATEGORY {
   MAIN = 'main',
   PRICE = 'price',
-  ARTICLE = 'article',
+  PREVIEW = 'preview',
 }
 export enum CTA_TYPE {
   BUTTON = 'button',

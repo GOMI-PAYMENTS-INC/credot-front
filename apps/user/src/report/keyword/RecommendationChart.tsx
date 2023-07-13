@@ -10,7 +10,7 @@ import { isToggleOpen, roundNumber } from '@/report/container';
 import {
   convertEvaluateStatus,
   convertRecommendationScoreToText,
-} from '@/report/constants/score';
+} from '@/report/constants/Score';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { TReportAction } from '@/report/reducer';
@@ -41,13 +41,15 @@ export const RecommendationChart = (props: IRecommendationChart) => {
     basePrice,
   } = props;
 
-  const recomendationItems = useMemo(() => {
-    if (isFalsy(relations)) return;
-
-    return relations!.filter((data) =>
-      isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
-    );
-  }, [relations]);
+  const recomendationItems = useMemo(
+    () =>
+      isFalsy(relations)
+        ? []
+        : relations!.filter((data) =>
+            isIncluded(data.batchStatus, BATCH_STATUS.DONE, BATCH_STATUS.REPLICATE),
+          ),
+    [],
+  );
 
   return (
     <section className='pt-10'>
@@ -92,7 +94,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
         </thead>
 
         <tbody>
-          {isFalsy(relations) || recomendationItems === undefined ? (
+          {isFalsy(relations) || isFalsy(recomendationItems) ? (
             <Fragment>
               <tr className='mt-3 flex' />
               <EmptyRecommendation />

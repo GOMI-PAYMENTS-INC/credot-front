@@ -16,6 +16,8 @@ import { DetailReportHeader, DetailReportBody } from '@/report/elements';
 import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 
+import { camelize } from 'casing';
+
 const DetailReportPage = () => {
   const params = useParams();
 
@@ -49,7 +51,148 @@ const DetailReportPage = () => {
     param: params.id ? params.id : '',
     keyword: main?.text ? main.text : '',
   };
-
+  console.log(
+    camelize({
+      text: 'foundation',
+      country: 'SG',
+      channel: 'SHOPEE',
+      sorted: 'R',
+      categories: [
+        {
+          id: '101628',
+          product_count: 39,
+          infos: [
+            {
+              depth: 0,
+              name: 'Beauty',
+            },
+            {
+              depth: 1,
+              name: 'Makeup',
+            },
+            {
+              depth: 2,
+              name: 'Face',
+            },
+            {
+              depth: 3,
+              name: 'Foundation',
+            },
+          ],
+        },
+        {
+          id: '101629',
+          product_count: 3,
+          infos: [
+            {
+              depth: 0,
+              name: 'Beauty',
+            },
+            {
+              depth: 1,
+              name: 'Makeup',
+            },
+            {
+              depth: 2,
+              name: 'Face',
+            },
+            {
+              depth: 3,
+              name: 'BB & CC Cream',
+            },
+          ],
+        },
+        {
+          id: '101631',
+          product_count: 3,
+          infos: [
+            {
+              depth: 0,
+              name: 'Beauty',
+            },
+            {
+              depth: 1,
+              name: 'Makeup',
+            },
+            {
+              depth: 2,
+              name: 'Face',
+            },
+            {
+              depth: 3,
+              name: 'Concealer & Corrector',
+            },
+          ],
+        },
+        {
+          id: '101630',
+          product_count: 2,
+          infos: [
+            {
+              depth: 0,
+              name: 'Beauty',
+            },
+            {
+              depth: 1,
+              name: 'Makeup',
+            },
+            {
+              depth: 2,
+              name: 'Face',
+            },
+            {
+              depth: 3,
+              name: 'Powder',
+            },
+          ],
+        },
+        {
+          id: '101653',
+          product_count: 2,
+          infos: [
+            {
+              depth: 0,
+              name: 'Beauty',
+            },
+            {
+              depth: 1,
+              name: 'Beauty Tools',
+            },
+            {
+              depth: 2,
+              name: 'Makeup Accessories',
+            },
+            {
+              depth: 3,
+              name: 'Makeup Brushes',
+            },
+          ],
+        },
+        {
+          id: '101627',
+          product_count: 1,
+          infos: [
+            {
+              depth: 0,
+              name: 'Beauty',
+            },
+            {
+              depth: 1,
+              name: 'Makeup',
+            },
+            {
+              depth: 2,
+              name: 'Face',
+            },
+            {
+              depth: 3,
+              name: 'Makeup Base & Primer',
+            },
+          ],
+        },
+      ],
+    }),
+  );
   const ReportComponents = useMemo(() => {
     return isFalsy(main) ? (
       <Fragment />

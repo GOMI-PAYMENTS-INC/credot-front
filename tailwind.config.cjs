@@ -48,6 +48,10 @@ module.exports = {
         '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
         },
+        //FIXME: 변경해야함
+        '.button-filled-xLarge-primary-false-false-false': {
+          '@apply rounded bg-orange-500 py-4 px-4 text-L/Bold text-grey-100': {},
+        },
         '.button-outlined-normal-large-primary-false-false-true': {
           '@apply rounded bg-white py-3 text-M/Bold text-orange-500 border border-orange-300':
             {},

@@ -1,5 +1,3 @@
-import { ReactSVG } from 'react-svg';
-
 export enum GRADE {
   FREE = 'Free',
   STARTER = 'Starter',

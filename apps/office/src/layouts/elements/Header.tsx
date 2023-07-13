@@ -33,7 +33,7 @@ export const Header = ({ route }: HeaderProps) => {
             />
           </Link>
 
-          <div className='ml-[58px] flex items-center justify-center gap-x-[50px] text-center text-M/Medium sm:hidden'>
+          <div className='ml-[58px] flex items-center justify-center gap-x-[25px] text-center text-M/Medium sm:hidden'>
             {GNB_ROUTE.map((route) => {
               const underLine =
                 route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
@@ -47,7 +47,7 @@ export const Header = ({ route }: HeaderProps) => {
                 >
                   <p
                     key={route.path}
-                    className={`w-20 cursor-pointer border-b-[2px] pt-[14px] pb-3 ${underLine}`}
+                    className={`w-[110px] cursor-pointer border-b-[2px] pt-[14px] pb-3 ${underLine}`}
                   >
                     {route.text}
                   </p>

@@ -3584,6 +3584,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.9":
+  version: 1.11.9
+  resolution: "dayjs@npm:1.11.9"
+  checksum: a4844d83dc87f921348bb9b1b93af851c51e6f71fa259604809cfe1b49d1230e6b0212dab44d1cb01994c096ad3a77ea1cf18fa55154da6efcc9d3610526ac38
+  languageName: node
+  linkType: hard
+
 "debounce@npm:^1.2.0":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -6130,6 +6137,9 @@ __metadata:
     "@vitejs/plugin-react": ^2.2.0
     autoprefixer: ^10.4.13
     daisyui: ^2.38.1
+    dayjs: ^1.11.9
+    echarts: ^5.4.2
+    echarts-for-react: ^3.0.2
     postcss: ^8.4.18
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -6137,6 +6147,7 @@ __metadata:
     react-router-dom: ^6.4.2
     react-svg: ^16.0.0
     react-toastify: ^9.1.1
+    react-tooltip: ^5.18.0
     recoil: ^0.7.6
     swiper: ^8.4.5
     tailwindcss: ^3.2.1
@@ -7620,6 +7631,19 @@ __metadata:
     react: ">=16.14.0"
     react-dom: ">=16.14.0"
   checksum: 0580729b2613d70798f7dd3a64d792b75f8b73fe9b89d4378943e0f63490bfbd9044ecef0e0448322cb906229a7fd81e79ae45c6c59bb9fc4abda4ad44eb9c8c
+  languageName: node
+  linkType: hard
+
+"react-tooltip@npm:^5.18.0":
+  version: 5.18.0
+  resolution: "react-tooltip@npm:5.18.0"
+  dependencies:
+    "@floating-ui/dom": ^1.0.0
+    classnames: ^2.3.0
+  peerDependencies:
+    react: ">=16.14.0"
+    react-dom: ">=16.14.0"
+  checksum: 3d650e729c73a02ac366584b45ada93b07422a5ba158b8c98aa064ab5186522013cd14057f622bf91a6726ac8d99bd4511a2f148c9b42239501b357490ade64d
   languageName: node
   linkType: hard
 

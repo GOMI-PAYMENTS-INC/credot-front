@@ -177,7 +177,6 @@ export const MarketSize = (props: IMarketSize) => {
                   </div>
                 ) : (
                   <MarketSizeTrendChart trendData={{ interest, date }} />
-                  // <MarketSizeTrendChart trendData={{ interest, date }} />
                 )}
               </div>
             </div>

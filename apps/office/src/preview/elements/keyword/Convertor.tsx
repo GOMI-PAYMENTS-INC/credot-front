@@ -159,7 +159,6 @@ const SCORE = {
       <p>
         검색량은 적지만,
         <span className='text-S/Bold'>
-          {' '}
           그만큼 경쟁이 수월한 키워드에요. 신규 상품 등록 시 공략하기 좋을 수 있어요.
         </span>
       </p>
