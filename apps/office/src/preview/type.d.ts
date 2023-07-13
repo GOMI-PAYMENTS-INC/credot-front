@@ -26,3 +26,15 @@ type TCategoryChart = {
   category: string;
   background: string;
 };
+
+type TBrandAnalysisProduct = {
+  id: number;
+  itemName: string;
+  itemUrl: string;
+  itemImage: string;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  item30daysSales: number;
+  item30daysSold: number;
+  rank: number;
+};

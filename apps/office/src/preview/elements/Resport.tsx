@@ -1,8 +1,9 @@
 import { MarketSize } from '@/preview/elements/market/MarketSize';
 import { AnalysisKeyword } from '@/preview/elements/keyword/AnalysisKeyword';
 import { Dictionary } from '@/preview/elements/Dictionary';
-import { REPORT_CONTENT } from '@/preview/constants/reportData';
 import { CategoryAnalysis } from '@/preview/elements/category/CategoryAnalysis';
+import { BrandAnalysis } from '@/preview/elements/brand/BrandAnalysis';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 interface IReport {
   toggle: REPORT_CONTENT;
 }
@@ -15,6 +16,8 @@ export const Report = ({ toggle }: IReport) => {
         return <AnalysisKeyword />;
       case REPORT_CONTENT.CATEGORY:
         return <CategoryAnalysis />;
+      case REPORT_CONTENT.BRAND:
+        return <BrandAnalysis />;
       default:
         return <></>;
     }
