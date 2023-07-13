@@ -11,6 +11,8 @@ import {
 import { SalePriceChart } from '@/preview/elements/price/SalePriceChart';
 import { SalePriceTable } from '@/preview/elements/price/SalePriceTable';
 import { PRICE_DATA, GRADE_ITEMS } from '@/preview/elements/price/constant';
+import { DetailReportSectionHeader } from '@/preview/elements';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const SalePrice = () => {
   const { salePriceInfo, currencyUnit, list } = PRICE_DATA;
@@ -28,8 +30,9 @@ export const SalePrice = () => {
   const [highLength, mediumLength, lowLength] = gradeItems.map((item) => item.length);
 
   return (
-    <section className='col-span-full'>
-      <div className='pt-4'>
+    <section>
+      <DetailReportSectionHeader id={REPORT_CONTENT.PRICE} />
+      <div>
         <div className='flex  border-[1px] border-grey-300 py-3 px-3'>
           <p className='text-S/Regular text-grey-800'>
             <span className='text-S/Bold text-grey-800'>이상값(outliner)제외 안내 :</span>

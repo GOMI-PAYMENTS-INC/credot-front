@@ -1,10 +1,11 @@
 import { useMemo, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
-
 import { BrandAnalysisProductTable } from '@/preview/elements/brand/BrandAnalysisTable';
 
 import { formatNumber, convertExchangeRate, roundNumber } from '@/preview/container';
 import { BRAND_DATA } from '@/preview/elements/brand/constant';
+import { DetailReportSectionHeader } from '@/preview/elements';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const BrandAnalysis = () => {
   const { brandAnalysis, basePrice, currencyUnit } = BRAND_DATA;
@@ -46,7 +47,7 @@ export const BrandAnalysis = () => {
 
   return (
     <section className='col-span-full'>
-      {/*브랜드 리스트*/}
+      <DetailReportSectionHeader id={REPORT_CONTENT.BRAND} />
       <div className='mt-4 bg-grey-100 px-5 py-3'>
         <ul className='flex flex-wrap gap-x-[14px] gap-y-3'>
           {brandAnalysisData?.brands.map((value, index) => {

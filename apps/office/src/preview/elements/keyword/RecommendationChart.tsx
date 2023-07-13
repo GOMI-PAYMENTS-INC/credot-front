@@ -23,7 +23,7 @@ export const RecommendationChart = () => {
 
   return (
     <section className='pt-10'>
-      <table className='col-span-full h-full w-full  table-auto bg-white'>
+      <table className='relative z-[2] col-span-full h-full w-full  table-auto bg-white'>
         <thead className='h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
           <tr>
             <th className='w-[302px] text-left' colSpan={1}>

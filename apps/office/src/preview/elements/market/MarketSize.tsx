@@ -1,10 +1,8 @@
-import { useMemo } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
 import { MarketSizeTrendChart } from '@/preview/elements/market/MarketSizeTrendChart';
-import { openBrowser } from '@/utils/openBrowser';
 import { convertedGoogleTrendData } from '@/preview/container';
 import { TRAND_DATA } from '@/preview/constants/reportData';
+import { DetailReportSectionHeader } from '@/preview/elements';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const MarketSize = () => {
   const Data = {
@@ -19,58 +17,17 @@ export const MarketSize = () => {
   const created = 2023;
   const lastYearToCreated = created - 1;
 
-  const googleTrendTooltipContent = useMemo(() => {
-    return (
-      <>
-        <p className='text-XS/Regular text-grey-900'>
-          현지에서 해당 키워드에 대한 작년도 검색 트랜드를 나타내요.
-          <br />
-          검색 트랜드 정보는 매출을 예측하거나 재고관리를 위해 사용할 수 있어요.
-        </p>
-        <div className='flex w-full justify-end'>
-          <button
-            className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-            onClick={() => {
-              openBrowser(
-                'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#5d9a582f9946471aa96bd093ca7b16c7',
-              );
-            }}
-          >
-            자세히 알아보기
-          </button>
-        </div>
-      </>
-    );
-  }, []);
-
   return (
-    <>
+    <section className='mt-[30px]'>
+      <DetailReportSectionHeader id={REPORT_CONTENT.MARKET} />
       <div className='grid grid-cols-10'>
-        <div className='border-grey-30 relative col-span-10 flex w-full items-center border-b-[1px]  bg-grey-100'>
+        <div className='border-grey-30 relative col-span-10 flex w-full items-center border-b-[1px] bg-grey-100'>
           <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
             검색트렌드
             <span className='pl-[4px] text-XS/Medium text-grey-700'>
               {lastYearToCreated}_google 베트남
             </span>
           </h1>
-          <div className='tooltip-container'>
-            <a data-tooltip-id='anchor-market-google-trend'>
-              <ReactSVG
-                src='/assets/icons/QuestionCircle.svg'
-                className='inline-block self-center pl-[7px]'
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-                }}
-              />
-            </a>
-            <Tooltip
-              id='anchor-market-google-trend'
-              place='right'
-              variant='light'
-              clickable={true}
-              render={() => googleTrendTooltipContent}
-            ></Tooltip>
-          </div>
         </div>
 
         <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
@@ -92,7 +49,7 @@ export const MarketSize = () => {
         </div>
       </div>
 
-      <div className='border-grey-30 flex w-full border-t-[1px]'>
+      <div className='border-grey-30 flex w-full border-t-[1px] border-b-[1px]'>
         <div className='w-1/2'>
           <div className='h-10 w-full bg-grey-100 pl-5 text-left '>
             <h1 className='pt-2.5 text-S/Medium text-grey-900'>매출</h1>
@@ -144,6 +101,6 @@ export const MarketSize = () => {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };

@@ -1,127 +1,17 @@
-import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
-import { openBrowser } from '@/utils/openBrowser';
 import { RecommendationChart } from '@/preview/elements/keyword/RecommendationChart';
+import { DetailReportSectionHeader } from '@/preview/elements';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const AnalysisKeyword = () => {
-  const evaluationTooltipContent = useMemo(() => {
-    const divStyle = 'h-5 w-[58px] rounded border-[1.5px] text-center';
-    const pStyle = 'text-XS/Medium';
-
-    return (
-      <>
-        <p className='text-XS/Regular text-grey-900'>
-          리포트를 생성하신 키워드를{' '}
-          <span className='text-XS/Bold'>검색량, 노출 경쟁률, 입찰 경쟁률</span> 관점에서
-          총 5개 등급으로 평가해요.
-        </p>
-        <div className='inline-flex space-x-3 pt-3'>
-          <div className={`border-[#ABDCFF] ${divStyle}`}>
-            <p className={`text-[#0279D4] ${pStyle}`}>매우좋음</p>
-          </div>
-          <div className={`border-[#C9F5DF] ${divStyle}`}>
-            <p className={`text-[#187A41] ${pStyle}`}>좋음</p>
-          </div>
-          <div className={`border-[#D9D9D9] ${divStyle}`}>
-            <p className={`text-[#262626] ${pStyle}`}>보통</p>
-          </div>
-          <div className={`border-[#F8CB32] ${divStyle}`}>
-            <p className={`text-[#AC6600] ${pStyle}`}>나쁨</p>
-          </div>
-          <div className={`border-red-300 ${divStyle}`}>
-            <p className={`text-[#C9162B] ${pStyle}`}>나쁨</p>
-          </div>
-        </div>
-        <div className='flex w-full justify-end'>
-          <button
-            className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-            onClick={() => {
-              openBrowser(
-                'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
-              );
-            }}
-          >
-            자세히 알아보기
-          </button>
-        </div>
-      </>
-    );
-  }, []);
-
-  const detailTooltipContent = useMemo(
-    () => (
-      <section>
-        <div className='flex space-x-3'>
-          <div className='flex flex-col'>
-            <p className='pt-2 text-XS/Bold'>노출 경쟁률</p>
-            <span>
-              검색량 대비 경쟁상품 수를 의미해요. 키워드에 대한
-              <br /> 수요와 공급 비율을 알 수 있어요.
-            </span>
-
-            <p className='pt-2 text-XS/Bold'>검색량</p>
-            <span>최근 30일간 검색된 수를 의미해요.</span>
-            <p className='pt-2 text-XS/Bold'>경쟁상품 수</p>
-            <span>키워드 검색 시 노출되는 경쟁 상품 수를 의미해요.</span>
-          </div>
-
-          <div className='flex flex-col'>
-            <p className='pt-2 text-XS/Bold'>CPC 비율</p>
-            <span>
-              키워드 검색결과 내 상품들이 판매되는 평균 판매가
-              <br /> 대비 CPC 금액의 비율을 의미해요. CPC 입찰 경쟁
-              <br />이 얼마나 심한지 알 수 있어요.
-            </span>
-            <p className='pt-2 text-XS/Bold'>CPC</p>
-            <span>키워드 광고 집행을 위한 최소한의 입찰 비용이에요</span>
-            <p className='pt-2 text-XS/Bold'>키워드 경쟁률</p>
-            <span>키워드 검색 시 노출되는 상품들의 평균 판매가에요.</span>
-          </div>
-        </div>
-        <div className='flex w-full justify-end'>
-          <button
-            className='cursor-pointer pt-[14px] text-XS/Bold text-[#FF5100]'
-            onClick={() => {
-              openBrowser(
-                'https://gomicorp.notion.site/4c1f1b468dbf47798c860d73df8ca605#04587a656fcc4a41a193a72298b0cffe',
-              );
-            }}
-          >
-            자세히 알아보기
-          </button>
-        </div>
-      </section>
-    ),
-    [],
-  );
-
   return (
     <section>
+      <DetailReportSectionHeader id={REPORT_CONTENT.KEYWORD} />
       <div className='w-full'>
         <div className='flex divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
           <div className='basis-[390px]'>
             <div className='keywordInfo-span-subtitle'>
               <span>종합 평가</span>
-              <div className='tooltip-container'>
-                <a data-tooltip-id='anchor-market-evaluation'>
-                  <ReactSVG
-                    src='/assets/icons/QuestionCircle.svg'
-                    className='inline-block self-center pl-[7px]'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-                    }}
-                  />
-                </a>
-                <Tooltip
-                  id='anchor-market-evaluation'
-                  place='right'
-                  variant='light'
-                  clickable={true}
-                  render={() => evaluationTooltipContent}
-                ></Tooltip>
-              </div>
             </div>
             <div className='flex h-[163px] items-center  text-center'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
@@ -151,24 +41,6 @@ export const AnalysisKeyword = () => {
           <div className='flex-1'>
             <div className='keywordInfo-span-subtitle'>
               <span>상세 데이터</span>
-              <div className='tooltip-container'>
-                <a data-tooltip-id='anchor-market-detail'>
-                  <ReactSVG
-                    src='/assets/icons/QuestionCircle.svg'
-                    className='inline-block self-center pl-[7px]'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-                    }}
-                  />
-                </a>
-                <Tooltip
-                  id='anchor-market-detail'
-                  place='bottom'
-                  variant='light'
-                  clickable={true}
-                  render={() => detailTooltipContent}
-                ></Tooltip>
-              </div>
             </div>
             <div className='flex divide-x-[1px] divide-dotted'>
               <div className='flex flex-col'>

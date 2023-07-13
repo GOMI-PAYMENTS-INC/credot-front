@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { setCategoryData } from '@/preview/elements/category/container';
 import { CategoryRankChart } from '@/preview/elements/category/CategoryRankChart';
 import { CATEGORY_DATA } from '@/preview/elements/category/constant';
+import { DetailReportSectionHeader } from '@/preview/elements';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const CategoryAnalysis = () => {
   const formatedData = setCategoryData(CATEGORY_DATA);
@@ -53,8 +55,9 @@ export const CategoryAnalysis = () => {
 
   return (
     <section className='col-span-full'>
-      <div className='pt-6'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
+      <DetailReportSectionHeader id={REPORT_CONTENT.CATEGORY} />
+      <div className=''>
+        <div className='grid grid-cols-10 border-t-[1px] border-grey-300'>
           <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px]  bg-grey-100'>
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               카테고리 등록순

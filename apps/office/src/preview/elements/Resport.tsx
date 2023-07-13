@@ -5,35 +5,44 @@ import { CategoryAnalysis } from '@/preview/elements/category/CategoryAnalysis';
 import { BrandAnalysis } from '@/preview/elements/brand/BrandAnalysis';
 import { SalePrice } from '@/preview/elements/price/SalePrice';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
+import { Fragment, useMemo, useEffect, type Dispatch, type SetStateAction } from 'react';
+import { onScrollDetail } from '@/preview/container';
+
 interface IReport {
-  toggle: REPORT_CONTENT;
+  scrollEvent: TScrollEvent;
+  setScrollEvent: Dispatch<SetStateAction<TScrollEvent>>;
 }
-export const Report = ({ toggle }: IReport) => {
-  const Content = () => {
-    switch (toggle) {
-      case REPORT_CONTENT.MARKET:
-        return <MarketSize />;
-      case REPORT_CONTENT.KEYWORD:
-        return <AnalysisKeyword />;
-      case REPORT_CONTENT.CATEGORY:
-        return <CategoryAnalysis />;
-      case REPORT_CONTENT.BRAND:
-        return <BrandAnalysis />;
-      case REPORT_CONTENT.PRICE:
-        return <SalePrice />;
-      default:
-        return <></>;
-    }
-  };
+export const Report = (props: IReport) => {
+  const { scrollEvent, setScrollEvent } = props;
+
+  const { scrollY, current } = scrollEvent;
+
+  useEffect(() => {
+    onScrollDetail(scrollEvent, setScrollEvent);
+  }, [scrollY]);
+
+  const ReportComponents = useMemo(
+    () => (
+      <Fragment>
+        <MarketSize />
+        <AnalysisKeyword />
+        <BrandAnalysis />
+        <SalePrice />
+        <CategoryAnalysis />
+      </Fragment>
+    ),
+    [],
+  );
+
   return (
     <section>
       <div className='mt-[30px]'>
         <div className='w-full'>
           <div className='mt-8 flex items-start justify-around  gap-3'>
             <div className='h-fit w-full overflow-visible rounded-lg border border-grey-300'>
-              <div className='my-[34px] mx-[44px]'>{Content()}</div>
+              <div className='mx-[44px] space-y-[120px]'>{ReportComponents}</div>
             </div>
-            <Dictionary toggle={toggle} />
+            <Dictionary current={current as REPORT_CONTENT} />
           </div>
         </div>
       </div>

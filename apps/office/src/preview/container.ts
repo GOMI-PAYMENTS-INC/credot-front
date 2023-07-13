@@ -3,6 +3,8 @@ import type { Dispatch, SetStateAction } from 'react';
 import { CountryType } from '@/preview/elements/keyword/constant';
 import { isFalsy } from '@/utils/isFalsy';
 import { GRADE_ITEMS } from '@/preview/elements/price/constant';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
+
 export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
   const minTurnoverMonth: string[] = [],
     maxTurnoverMonth: string[] = [];
@@ -204,4 +206,39 @@ export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) 
   );
 
   return res.map((data) => data.length);
+};
+
+export const onScrollDetail = (
+  _state: TScrollEvent,
+  _setState: Dispatch<SetStateAction<TScrollEvent>>,
+): void => {
+  const { scrollY } = _state;
+  const header = document.getElementsByClassName('detailReport-h1-header');
+  const titleName = Object.values(REPORT_CONTENT);
+  // 현재 뷰포트의 높이
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  // 문서 전체의 높이
+  const documentHeight = document.documentElement.scrollHeight;
+  // 스크롤이 끝까지 도달했을 때의 임계값 (예: 20 픽셀)
+  const threshold = 20;
+  // 스크롤이 처음일 때
+  // if (scrollY < threshold) {
+  //   _setState(Object.assign({}, _state, { current: REPORT_CONTENT.MARKET }));
+  // }
+
+  [...header].map((element, index) => {
+    const target = element as HTMLElement;
+    const offsetTop = target.offsetTop;
+    if (target.parentElement) {
+      const parentElement = target.parentElement.closest('section');
+
+      if (parentElement) {
+        const space = 150;
+        const sectionClientHeight = parentElement.clientHeight - space;
+        if (offsetTop < scrollY && scrollY < offsetTop + sectionClientHeight) {
+          _setState(Object.assign({}, _state, { current: titleName[index] }));
+        }
+      }
+    }
+  });
 };

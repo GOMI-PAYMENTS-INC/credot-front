@@ -13,11 +13,10 @@ interface ISalePriceTable {
 }
 
 export const SalePriceTable = (props: ISalePriceTable) => {
-  console.log(props.salePriceItemList);
   const { salePriceItemList, currencyUnit, basePrice, scrollerRef } = props;
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
-    <table className='overflow-y col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
+    <table className='overflow-y relative z-[2] col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[422px] text-left' colSpan={1}>

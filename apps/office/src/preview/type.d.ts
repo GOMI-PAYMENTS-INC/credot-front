@@ -79,3 +79,9 @@ type TSalePriceData = {
   totalItemCount: number;
   items: TSalePriceItems[];
 } | null;
+
+type TScrollEvent = {
+  scrollY: number;
+  isOpen: boolean;
+  current: string;
+};

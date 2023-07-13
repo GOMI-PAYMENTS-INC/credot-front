@@ -4,18 +4,18 @@ import { useEffect, useState } from 'react';
 import { _setOpenContent } from '@/preview/container';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
 interface IDictionary {
-  toggle: REPORT_CONTENT;
+  current: REPORT_CONTENT;
 }
 
-export const Dictionary = ({ toggle }: IDictionary) => {
+export const Dictionary = ({ current }: IDictionary) => {
   const [openContent, setOpenContent] = useState<number[]>([]);
-  useEffect(() => setOpenContent([]), [toggle]);
+  useEffect(() => setOpenContent([]), [current]);
   return (
-    <aside className='sticky top-[360px] '>
+    <aside className='sticky top-[200px] '>
       <ul className='rounded-lg border-[1px] border-grey-300 bg-white'>
-        {DICTIONARY[toggle].map((data, index) => {
+        {DICTIONARY[current].map((data, index) => {
           const borderBottom =
-            DICTIONARY[toggle].length === index + 1
+            DICTIONARY[current].length === index + 1
               ? ''
               : 'border-b-[1px] border-grey-300';
           const isOpen = openContent.includes(index);
