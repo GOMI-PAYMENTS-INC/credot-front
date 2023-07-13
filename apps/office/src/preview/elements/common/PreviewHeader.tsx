@@ -9,10 +9,10 @@ interface IPreviewHeader {
 export const PreviewHeader = (props: IPreviewHeader) => {
   const { scrollEvent, setScrollEvent } = props;
   return (
-    <section className='sticky top-20 z-40 mt-[50px] rounded-lg bg-white py-4 shadow-[0_2px_6px_2px_rgba(0,0,0,0.08)]'>
+    <section className='sticky top-20 z-40 mt-[50px] rounded-b-lg bg-white py-4 shadow-[0_2px_6px_2px_rgba(0,0,0,0.08)]'>
       <div className='flex items-center text-center'>
         <p className='border-r-4 border-grey-600 pl-[46px] pr-[30px] text-XL/Bold'>
-          bộ mỹ phẩm du lịch bộ
+          foundation
         </p>
         <div className='flex gap-[18px] pl-[30px]'>
           {REPORT_CONTENTS.map((content, index) => {
