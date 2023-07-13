@@ -3,6 +3,7 @@ import { AnalysisKeyword } from '@/preview/elements/keyword/AnalysisKeyword';
 import { Dictionary } from '@/preview/elements/Dictionary';
 import { CategoryAnalysis } from '@/preview/elements/category/CategoryAnalysis';
 import { BrandAnalysis } from '@/preview/elements/brand/BrandAnalysis';
+import { SalePrice } from '@/preview/elements/price/SalePrice';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
 interface IReport {
   toggle: REPORT_CONTENT;
@@ -18,6 +19,8 @@ export const Report = ({ toggle }: IReport) => {
         return <CategoryAnalysis />;
       case REPORT_CONTENT.BRAND:
         return <BrandAnalysis />;
+      case REPORT_CONTENT.PRICE:
+        return <SalePrice />;
       default:
         return <></>;
     }

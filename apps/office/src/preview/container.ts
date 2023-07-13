@@ -2,7 +2,7 @@ import { convertTime } from '@/utils/parsingTimezone';
 import type { Dispatch, SetStateAction } from 'react';
 import { CountryType } from '@/preview/elements/keyword/constant';
 import { isFalsy } from '@/utils/isFalsy';
-
+import { GRADE_ITEMS } from '@/preview/elements/price/constant';
 export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
   const minTurnoverMonth: string[] = [],
     maxTurnoverMonth: string[] = [];
@@ -107,4 +107,101 @@ export const roundNumber = (number: number | string) => {
   if (secondPlaceNumber[0] === '0' && isFalsy(secondPlaceNumber[1]))
     return firstPlaceNumber + '.0';
   return fixedNumber;
+};
+
+export const setChartLabels = (
+  currencyUnit: number,
+  salePriceScope: number[],
+  basePrice: number,
+): string[] => {
+  const init: string[] = [];
+  return salePriceScope.reduce((pre, cur, idx) => {
+    const _cur = formatNumber(convertExchangeRate(currencyUnit, cur, basePrice));
+    const _next = formatNumber(
+      convertExchangeRate(currencyUnit, salePriceScope[idx + 1], basePrice) - 1,
+    );
+    if (idx === salePriceScope.length - 1) {
+      return pre.concat(_cur);
+    }
+    return pre.concat([`${_cur}\n~ ${_next}`]);
+  }, init);
+};
+
+export const convertGrade = (item: GRADE_ITEMS) => {
+  switch (item) {
+    case GRADE_ITEMS.HIGH:
+      return '낮은';
+    case GRADE_ITEMS.MEDIUM:
+      return '보통';
+    default:
+      return '높은';
+  }
+};
+
+export const removeOutlinerinItems = (items: TSalePriceItems[]) => {
+  const median = Math.floor(items.length / 2);
+  const scope = Math.floor(items.length / 4);
+  let Q3: number, Q1: number;
+  const lowLength = median - scope - 1;
+  const highLength = median + scope;
+
+  if (lowLength % 2 === 1) {
+    Q1 = (items[lowLength].itemPriceMin + items[lowLength + 1].itemPriceMin) / 2;
+    Q3 = (items[highLength].itemPriceMin + items[highLength + 1].itemPriceMin) / 2;
+  } else {
+    Q1 = items[lowLength].itemPriceMin;
+    Q3 = items[highLength].itemPriceMin;
+  }
+
+  const IQR = Q3 - Q1;
+
+  return items.filter((item) => {
+    if (Q1 - 1.5 * IQR < item.itemPriceMin && Q3 + 1.5 * IQR > item.itemPriceMin) {
+      return item;
+    }
+
+    return false;
+  });
+};
+
+export const changeSalePriceData = (items: any) => {
+  const removedOutlinerItmes = removeOutlinerinItems(items);
+  const min = removedOutlinerItmes[0].itemPriceMin;
+  const max = removedOutlinerItmes[removedOutlinerItmes.length - 1].itemPriceMin;
+
+  const levelBound = (max - min) / 10;
+  const avg =
+    removedOutlinerItmes.reduce((pre, item) => pre + item.itemPriceMin, 0) /
+    removedOutlinerItmes.length;
+
+  return {
+    min: min,
+    max: max,
+    levelBound: levelBound,
+    avg: avg,
+    removedOutlinerItmes: removedOutlinerItmes,
+  };
+};
+
+export const countProductsByPrice = (scope: number[], items: TSalePriceItems[]) => {
+  const store = new Set();
+  const res = scope.map((price, idx) =>
+    items.filter((item, itemIdx) => {
+      if ((idx === 0 || itemIdx === items.length - 1) && item.itemPriceMin <= price) {
+        store.add(item.id);
+        return item;
+      } else if (
+        store.has(item.id) === false &&
+        item.itemPriceMin < scope[idx + 1] &&
+        item.itemPriceMin > price
+      ) {
+        store.add(item.id);
+        return item;
+      }
+
+      return;
+    }),
+  );
+
+  return res.map((data) => data.length);
 };
