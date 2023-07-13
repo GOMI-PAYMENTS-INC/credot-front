@@ -1,220 +1,138 @@
 export const CATEGORY_DATA = {
-  text: 'watermelon',
+  text: 'foundation',
   country: 'SG',
   channel: 'SHOPEE',
   sorted: 'R',
   categories: [
     {
-      id: '102089',
-      productCount: 34,
+      id: '101628',
+      productCount: 39,
       infos: [
         {
           depth: 0,
-          name: 'Food & Beverages',
+          name: 'Beauty',
         },
         {
           depth: 1,
-          name: 'Fresh & Frozen Food',
+          name: 'Makeup',
         },
         {
           depth: 2,
-          name: 'Fruits',
+          name: 'Face',
         },
         {
           depth: 3,
-          name: 'Melons',
+          name: 'Foundation',
         },
       ],
     },
     {
-      id: '102093',
-      productCount: 5,
+      id: '101629',
+      productCount: 3,
       infos: [
         {
           depth: 0,
-          name: 'Food & Beverages',
+          name: 'Beauty',
         },
         {
           depth: 1,
-          name: 'Fresh & Frozen Food',
+          name: 'Makeup',
         },
         {
           depth: 2,
-          name: 'Fruits',
+          name: 'Face',
         },
         {
           depth: 3,
-          name: 'Others',
+          name: 'BB & CC Cream',
         },
       ],
     },
     {
-      id: '100119',
+      id: '101631',
+      productCount: 3,
+      infos: [
+        {
+          depth: 0,
+          name: 'Beauty',
+        },
+        {
+          depth: 1,
+          name: 'Makeup',
+        },
+        {
+          depth: 2,
+          name: 'Face',
+        },
+        {
+          depth: 3,
+          name: 'Concealer & Corrector',
+        },
+      ],
+    },
+    {
+      id: '101630',
       productCount: 2,
       infos: [
         {
           depth: 0,
-          name: 'Health',
+          name: 'Beauty',
         },
         {
           depth: 1,
-          name: 'Medical Supplies',
+          name: 'Makeup',
         },
         {
           depth: 2,
-          name: 'Over-the-counter Medicine',
+          name: 'Face',
+        },
+        {
+          depth: 3,
+          name: 'Powder',
         },
       ],
     },
     {
-      id: '102092',
+      id: '101653',
       productCount: 2,
       infos: [
         {
           depth: 0,
-          name: 'Food & Beverages',
+          name: 'Beauty',
         },
         {
           depth: 1,
-          name: 'Fresh & Frozen Food',
+          name: 'Beauty Tools',
         },
         {
           depth: 2,
-          name: 'Fruits',
+          name: 'Makeup Accessories',
         },
         {
           depth: 3,
-          name: 'Pre-cut & Assorted Fruit Set',
+          name: 'Makeup Brushes',
         },
       ],
     },
     {
-      id: '100785',
+      id: '101627',
       productCount: 1,
       infos: [
         {
           depth: 0,
-          name: 'Food & Beverages',
+          name: 'Beauty',
         },
         {
           depth: 1,
-          name: 'Snacks',
+          name: 'Makeup',
         },
         {
           depth: 2,
-          name: 'Sweets & Candy',
-        },
-      ],
-    },
-    {
-      id: '100120',
-      productCount: 1,
-      infos: [
-        {
-          depth: 0,
-          name: 'Health',
-        },
-        {
-          depth: 1,
-          name: 'Medical Supplies',
-        },
-        {
-          depth: 2,
-          name: 'Traditional Medicine',
-        },
-      ],
-    },
-    {
-      id: '101461',
-      productCount: 1,
-      infos: [
-        {
-          depth: 0,
-          name: 'Automobiles',
-        },
-        {
-          depth: 1,
-          name: 'Automotive Care',
-        },
-        {
-          depth: 2,
-          name: 'Wash & Waxes',
-        },
-      ],
-    },
-    {
-      id: '100829',
-      productCount: 1,
-      infos: [
-        {
-          depth: 0,
-          name: 'Food & Beverages',
-        },
-        {
-          depth: 1,
-          name: 'Beverages',
-        },
-        {
-          depth: 2,
-          name: 'Juice & Juice Vinegar',
-        },
-      ],
-    },
-    {
-      id: '100827',
-      productCount: 1,
-      infos: [
-        {
-          depth: 0,
-          name: 'Food & Beverages',
-        },
-        {
-          depth: 1,
-          name: 'Beverages',
-        },
-        {
-          depth: 2,
-          name: 'Energy & Isotonic Drinks',
-        },
-      ],
-    },
-    {
-      id: '102090',
-      productCount: 1,
-      infos: [
-        {
-          depth: 0,
-          name: 'Food & Beverages',
-        },
-        {
-          depth: 1,
-          name: 'Fresh & Frozen Food',
-        },
-        {
-          depth: 2,
-          name: 'Fruits',
+          name: 'Face',
         },
         {
           depth: 3,
-          name: 'Stonefruits',
-        },
-      ],
-    },
-    {
-      id: '100983',
-      productCount: 1,
-      infos: [
-        {
-          depth: 0,
-          name: 'Mom & Baby',
-        },
-        {
-          depth: 1,
-          name: 'Nursery',
-        },
-        {
-          depth: 2,
-          name: 'Others',
+          name: 'Makeup Base & Primer',
         },
       ],
     },

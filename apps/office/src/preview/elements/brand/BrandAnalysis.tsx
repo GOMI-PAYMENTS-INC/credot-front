@@ -8,21 +8,20 @@ import { DetailReportSectionHeader } from '@/preview/elements';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const BrandAnalysis = () => {
-  const { brandAnalysis, basePrice, currencyUnit } = BRAND_DATA;
+  const { basePrice, currencyUnit } = BRAND_DATA;
   const [focusItem, setFocusItem] = useState<number>(0);
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
-  const { data: brandAnalysisData } = brandAnalysis;
 
   const {
     totalSalesAmount: totalAmount,
     avgSalesAmount: avgAmount,
     avgPrice: avg,
-    rank,
+
     productCount,
     totalSalesCount,
     avgSalesCount,
     products,
-  } = brandAnalysisData.brands[focusItem];
+  } = BRAND_DATA.brands[focusItem];
 
   const [totalSalesAmount, avgSalesAmount, avgPrice] = [totalAmount, avgAmount, avg].map(
     (price) =>
@@ -50,7 +49,7 @@ export const BrandAnalysis = () => {
       <DetailReportSectionHeader id={REPORT_CONTENT.BRAND} />
       <div className='mt-4 bg-grey-100 px-5 py-3'>
         <ul className='flex flex-wrap gap-x-[14px] gap-y-3'>
-          {brandAnalysisData?.brands.map((value, index) => {
+          {BRAND_DATA?.brands.map((value, index) => {
             return (
               <li key={index}>
                 <button
@@ -178,7 +177,7 @@ export const BrandAnalysis = () => {
       <BrandAnalysisProductTable
         brandAnalysisProduct={products}
         basePrice={basePrice}
-        currencyUnit={brandAnalysisData!.currencyUnit}
+        currencyUnit={BRAND_DATA.currencyUnit}
         scrollerRef={scrollerRef}
       />
     </section>

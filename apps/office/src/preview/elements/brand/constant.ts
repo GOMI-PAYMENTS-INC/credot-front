@@ -1,768 +1,966 @@
 export const BRAND_DATA = {
-  basePrice: 964.08,
+  text: 'foundation',
+  country: 'SG',
+  channel: 'SHOPEE',
+  sorted: 'R',
   currencyUnit: 1,
-  brandAnalysis: {
-    focus: 0,
-    data: {
-      text: 'hard disk',
-      country: 'SG',
-      channel: 'SHOPEE',
-      sorted: 'R',
-      currencyUnit: 1,
-      basePrice: 964.08,
-      brands: [
+  basePrice: 958.6,
+  brands: [
+    {
+      rank: 1,
+      name: 'Maybelline New York',
+      productCount: 4,
+      totalSalesAmount: 2575.12,
+      totalSalesCount: 158,
+      avgSalesAmount: 643.78,
+      avgSalesCount: 39,
+      avgPrice: 16.51,
+      products: [
         {
-          rank: 1,
-          name: 'Western Digital',
-          productCount: 3,
-          totalSalesAmount: 8025.48,
-          totalSalesCount: 119,
-          avgSalesAmount: 2675.16,
-          avgSalesCount: 39,
-          avgPrice: 68.59,
-          products: [
-            {
-              id: 734,
-              itemName:
-                'WD My Passport™ External Portable Hard Drive HDD (1TB / 2TB / 4TB / 5TB)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134207-23030-nbls9txiwqov6f',
-              itemUrl:
-                'https://shopee.sg/WD-My-Passport-External-Portable-Hard-Drive-HDD-(1TB-2TB-4TB-5TB)-i.34638192.3907801418',
-              itemPriceMin: 67.62,
-              itemPriceMax: 185.22,
-              item30daysSales: 6826.68,
-              item30daysSold: 54,
-              rank: 6,
-            },
-            {
-              id: 738,
-              itemName:
-                'WD My Passport 2.5" 1TB/2TB/4TB/5TB USB3.0 Portable Hard Drive/HDD- Free Pouch - Black/Blue/Red/White (3-Yr Wty)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22100-0uzozrljh8iv6d',
-              itemUrl:
-                'https://shopee.sg/WD-My-Passport-2.5"-1TB-2TB-4TB-5TB-USB3.0-Portable-Hard-Drive-HDD-Free-Pouch-Black-Blue-Red-White-(3-Yr-Wty)-i.2135844.745729189',
-              itemPriceMin: 66,
-              itemPriceMax: 138,
-              item30daysSales: 6426,
-              item30daysSold: 63,
-              rank: 10,
-            },
-            {
-              id: 775,
-              itemName:
-                'WD_BLACK P10 Game Drive (2TB/4TB/5TB) USB 3.2 Gen 1 External Hard Disk Drive',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134207-7qvf4-lhu3zrwsda95b9',
-              itemUrl:
-                'https://shopee.sg/WD_BLACK-P10-Game-Drive-(2TB-4TB-5TB)-USB-3.2-Gen-1-External-Hard-Disk-Drive-i.64753399.21780717384',
-              itemPriceMin: 108,
-              itemPriceMax: 188,
-              item30daysSales: 296,
-              item30daysSold: 2,
-              rank: 47,
-            },
-          ],
+          id: 35818,
+          itemName:
+            'Maybelline Fit Me Matte & Poreless Liquid Foundation 30ml (SPF22/16H Oil Control) - For Normal to Oily Skin',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvg2-li0evhvhlzasd0',
+          itemUrl:
+            'https://shopee.sg/Maybelline-Fit-Me-Matte-&-Poreless-Liquid-Foundation-30ml-(SPF22-16H-Oil-Control)-For-Normal-to-Oily-Skin-i.11719013.2649075535',
+          itemPriceMin: 20,
+          itemPriceMax: 20,
+          item30daysSales: 2280,
+          item30daysSold: 114,
+          rank: 31,
         },
         {
-          rank: 2,
-          name: 'TOSHIBA',
-          productCount: 5,
-          totalSalesAmount: 6185.16,
-          totalSalesCount: 112,
-          avgSalesAmount: 1237.03,
-          avgSalesCount: 22,
-          avgPrice: 56.23,
-          products: [
-            {
-              id: 736,
-              itemName:
-                '|SG| Toshiba V10 Canvio Advance 1TB / 2TB / 4TB External HDD NEW DESIGN 3 YEARS LOCAL WARRANTY',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/19c47dd87edd36a170ab8e4b59338bb6',
-              itemUrl:
-                'https://shopee.sg/SG-Toshiba-V10-Canvio-Advance-1TB-2TB-4TB-External-HDD-NEW-DESIGN-3-YEARS-LOCAL-WARRANTY-i.752207592.21904261064',
-              itemPriceMin: 59.9,
-              itemPriceMax: 128,
-              item30daysSales: 3570.1,
-              item30daysSold: 38,
-              rank: 8,
-            },
-            {
-              id: 731,
-              itemName:
-                '|SG| Toshiba Canvio Ready 1TB/2TB/4TB External HDD / Hard Disk / Hard Drive / USB 3.0 3 Years Local Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/81a92caa4b052a2551ff3a1700819892',
-              itemUrl:
-                'https://shopee.sg/SG-Toshiba-Canvio-Ready-1TB-2TB-4TB-External-HDD-Hard-Disk-Hard-Drive-USB-3.0-3-Years-Local-Warranty-i.752207592.12689231373',
-              itemPriceMin: 53.8,
-              itemPriceMax: 125.9,
-              item30daysSales: 3324.45,
-              item30daysSold: 37,
-              rank: 3,
-            },
-            {
-              id: 746,
-              itemName:
-                'Toshiba Canvio V10 Advance External HDD / Hard Disk / Hard Drive / USB 3.0 (1TB/2TB/4TB) 3 Years Local Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/8082a1027f05710b23e4b0e771f9dd29',
-              itemUrl:
-                'https://shopee.sg/Toshiba-Canvio-V10-Advance-External-HDD-Hard-Disk-Hard-Drive-USB-3.0-(1TB-2TB-4TB)-3-Years-Local-Warranty-i.182919813.3107444000',
-              itemPriceMin: 65,
-              itemPriceMax: 135,
-              item30daysSales: 2300,
-              item30daysSold: 23,
-              rank: 18,
-            },
-            {
-              id: 737,
-              itemName:
-                'Toshiba External Hard Drives 2TB 1TB USB 3.0 External Hard Disk PORTABLE Hard drive HDD Hard Disk Super Speed Slim Storage',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/cn-11134207-7qukw-lg0p3wzhxx540a',
-              itemUrl:
-                'https://shopee.sg/Toshiba-External-Hard-Drives-2TB-1TB-USB-3.0-External-Hard-Disk-PORTABLE-Hard-drive-HDD-Hard-Disk-Super-Speed-Slim-Storage-i.310471618.16697264201',
-              itemPriceMin: 30.24,
-              itemPriceMax: 38.88,
-              item30daysSales: 414.72,
-              item30daysSold: 12,
-              rank: 9,
-            },
-            {
-              id: 755,
-              itemName:
-                "Toshiba 2TB 2.5'' USB3.0 1TB 2TB Hard Drive Portable External Hard Drive USB3.0 external hard disk",
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/cn-11134207-7qukw-lg0nd2ct3t6m5b',
-              itemUrl:
-                "https://shopee.sg/Toshiba-2TB-2.5''-USB3.0-1TB-2TB-Hard-Drive-Portable-External-Hard-Drive-USB3.0-external-hard-disk-i.310471618.21488108202",
-              itemPriceMin: 30.24,
-              itemPriceMax: 38.88,
-              item30daysSales: 69.12,
-              item30daysSold: 2,
-              rank: 27,
-            },
-          ],
+          id: 35823,
+          itemName: 'Maybelline Fit Me Matte + Poreless Liquid Foundation 30ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/32ed3ffca66f42bf6c4a1916ef46dac2',
+          itemUrl:
+            'https://shopee.sg/Maybelline-Fit-Me-Matte-Poreless-Liquid-Foundation-30ml-i.268024893.20765890621',
+          itemPriceMin: 5.92,
+          itemPriceMax: 5.92,
+          item30daysSales: 236.8,
+          item30daysSold: 40,
+          rank: 36,
         },
         {
-          rank: 3,
-          name: '',
-          productCount: 39,
-          totalSalesAmount: 3808.25,
-          totalSalesCount: 162,
-          avgSalesAmount: 97.65,
-          avgSalesCount: 4,
-          avgPrice: 24.41,
-          products: [
-            {
-              id: 729,
-              itemName:
-                'Seagate Backup Plus Slim 2TB External Hard Drive Portable HDD – Black USB 3.0 for PC Laptop',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22120-zpbhp47mblkvf8',
-              itemUrl:
-                'https://shopee.sg/Seagate-Backup-Plus-Slim-2TB-External-Hard-Drive-Portable-HDD-–-Black-USB-3.0-for-PC-Laptop-i.690762793.22615289096',
-              itemPriceMin: 31.83,
-              itemPriceMax: 36.21,
-              item30daysSales: 2211.3,
-              item30daysSold: 65,
-              rank: 1,
-            },
-            {
-              id: 735,
-              itemName:
-                '[1TB/2TB] TOSHIBA CANVIO BASIC 2.5" EXT EXTERNAL HARDDISK HARD DRIVE SUPERSPEED USB3.0 PORTABLE DISK + Bag',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/10a16c0de111827472c23bbc41566c9d',
-              itemUrl:
-                'https://shopee.sg/-1TB-2TB-TOSHIBA-CANVIO-BASIC-2.5"-EXT-EXTERNAL-HARDDISK-HARD-DRIVE-SUPERSPEED-USB3.0-PORTABLE-DISK-Bag-i.690762793.23915287086',
-              itemPriceMin: 31.56,
-              itemPriceMax: 38.71,
-              item30daysSales: 948.78,
-              item30daysSold: 27,
-              rank: 7,
-            },
-            {
-              id: 749,
-              itemName:
-                'Mini 1TB/2TB/4TB/8TB SSD High Speed Portable External M.2 Solid State Disk',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/d07034806472b0e694dfb71f1579a33d',
-              itemUrl:
-                'https://shopee.sg/Mini-1TB-2TB-4TB-8TB-SSD-High-Speed-Portable-External-M.2-Solid-State-Disk-i.26913943.21733715509',
-              itemPriceMin: 17.2,
-              itemPriceMax: 32.6,
-              item30daysSales: 348.6,
-              item30daysSold: 14,
-              rank: 21,
-            },
-            {
-              id: 732,
-              itemName:
-                'Fnw 4TB/2TB/1TBGB Mobile Hard Disk Type C USB3.1 Portable SSD Solid State Drive .',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22120-xvq7139g24kv82',
-              itemUrl:
-                'https://shopee.sg/Fnw-4TB-2TB-1TBGB-Mobile-Hard-Disk-Type-C-USB3.1-Portable-SSD-Solid-State-Drive-.-i.308393915.22111537731',
-              itemPriceMin: 8.91,
-              itemPriceMax: 10.79,
-              item30daysSales: 344.75,
-              item30daysSold: 35,
-              rank: 4,
-            },
-            {
-              id: 730,
-              itemName:
-                'HD USB3.0 SATA High Speed 2.5 External Hard Drive 16T 8T 4T 2T High Speed Portable Hard Disk SATA Hard Storage Devices',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22100-ksh77kvz93ivd5',
-              itemUrl:
-                'https://shopee.sg/HD-USB3.0-SATA-High-Speed-2.5-External-Hard-Drive-16T-8T-4T-2T-High-Speed-Portable-Hard-Disk-SATA-Hard-Storage-Devices-i.898933011.20463514429',
-              itemPriceMin: 12.52,
-              itemPriceMax: 25,
-              item30daysSales: 112.56,
-              item30daysSold: 6,
-              rank: 2,
-            },
-            {
-              id: 754,
-              itemName:
-                '【SG】Toshiba External Hard Disk Canvio Basics Portable HDD USB 3.0 (500GB/1TB/2TB )',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22120-uve2cf3smjkv9d',
-              itemUrl:
-                'https://shopee.sg/【SG】Toshiba-External-Hard-Disk-Canvio-Basics-Portable-HDD-USB-3.0-(500GB-1TB-2TB-)-i.690733662.22537370796',
-              itemPriceMin: 29.08,
-              itemPriceMax: 113.43,
-              item30daysSales: 71.26,
-              item30daysSold: 1,
-              rank: 26,
-            },
-            {
-              id: 773,
-              itemName:
-                '⚡NEW⚡HDD External Seagate 2.5" Backup Plus 1TB Portable External Hard Drive Disk For Desktop Laptop HDD Disk Silver',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-5hvhd2x3jlnvce',
-              itemUrl:
-                'https://shopee.sg/NEWHDD-External-Seagate-2.5"-Backup-Plus-1TB-Portable-External-Hard-Drive-Disk-For-Desktop-Laptop-HDD-Disk-Silver-i.282541642.22124803792',
-              itemPriceMin: 23.76,
-              itemPriceMax: 23.76,
-              item30daysSales: 47.52,
-              item30daysSold: 2,
-              rank: 45,
-            },
-            {
-              id: 744,
-              itemName:
-                'Fast delivery Seagate 1TB Hard Disk Expansion USB3.0 Portable External Hard Drive',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23010-wc8pb3caazlv2d',
-              itemUrl:
-                'https://shopee.sg/Fast-delivery-Seagate-1TB-Hard-Disk-Expansion-USB3.0-Portable-External-Hard-Drive-i.240218100.19470676377',
-              itemPriceMin: 9.45,
-              itemPriceMax: 35.56,
-              item30daysSales: 45,
-              item30daysSold: 2,
-              rank: 16,
-            },
-            {
-              id: 763,
-              itemName:
-                '【SG】Western Digital My Passport HDD 1TB  USB 3.0 Portable External Hard Drive Disk+ 3 Years Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-50kkm4bgbhnve5',
-              itemUrl:
-                'https://shopee.sg/【SG】Western-Digital-My-Passport-HDD-1TB-USB-3.0-Portable-External-Hard-Drive-Disk-3-Years-Warranty-i.722489219.19477961208',
-              itemPriceMin: 36.96,
-              itemPriceMax: 41.1,
-              item30daysSales: 39.03,
-              item30daysSold: 1,
-              rank: 35,
-            },
-            {
-              id: 753,
-              itemName:
-                '(100% usable)Seagate HDD Hard Disk SATA 160GB/250GB/320GB/400GB/500GB 3.5/2.5 inch Desktop PC Notebook Laptop',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/4cdf067eafc0c8d34d21c589f1afad86',
-              itemUrl:
-                'https://shopee.sg/(100-usable)Seagate-HDD-Hard-Disk-SATA-160GB-250GB-320GB-400GB-500GB-3.5-2.5-inch-Desktop-PC-Notebook-Laptop-i.984647634.17594220082',
-              itemPriceMin: 13.93,
-              itemPriceMax: 63.18,
-              item30daysSales: 38.56,
-              item30daysSold: 1,
-              rank: 25,
-            },
-            {
-              id: 733,
-              itemName:
-                '【SG】Western Digital WD My Passport 1TB 2TB 4TB 5TB External Hard Drive Disk WD Backup software and password protection HDD storage+ 3 Years Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-acrcqbvjbhnv0d',
-              itemUrl:
-                'https://shopee.sg/【SG】Western-Digital-WD-My-Passport-1TB-2TB-4TB-5TB-External-Hard-Drive-Disk-WD-Backup-software-and-password-protection-HDD-storage-3-Years-Warranty-i.531826534.18177976369',
-              itemPriceMin: 36.37,
-              itemPriceMax: 40.49,
-              item30daysSales: 38.43,
-              item30daysSold: 1,
-              rank: 5,
-            },
-            {
-              id: 760,
-              itemName:
-                'Toshiba External Hard Disk 1TB / 2TB / 4TB Canvio Basic Portable HDD USB 3.0 External Hard Drives',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23010-1tqq023rrxlv7a',
-              itemUrl:
-                'https://shopee.sg/Toshiba-External-Hard-Disk-1TB-2TB-4TB-Canvio-Basic-Portable-HDD-USB-3.0-External-Hard-Drives-i.531826534.18776452750',
-              itemPriceMin: 34.37,
-              itemPriceMax: 34.37,
-              item30daysSales: 34.37,
-              item30daysSold: 1,
-              rank: 32,
-            },
-            {
-              id: 769,
-              itemName:
-                '【COD】Western Digital WD Elements 2.5&quot; Portable Hard Drive 1TB 2TB Hdd USB3.0 External Hard Disk for Desktop PC laptop pc 1111',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22120-bj7xtm5gmjkv6e',
-              itemUrl:
-                'https://shopee.sg/【COD】Western-Digital-WD-Elements-2.5&quot;-Portable-Hard-Drive-1TB-2TB-Hdd-USB3.0-External-Hard-Disk-for-Desktop-PC-laptop-pc-1111-i.867557330.23540089491',
-              itemPriceMin: 8.1,
-              itemPriceMax: 40.04,
-              item30daysSales: 24.07,
-              item30daysSold: 1,
-              rank: 41,
-            },
-            {
-              id: 768,
-              itemName:
-                'FULL- T5 Mini Solid State Disk Computer Accessories Type-C External Mobile Hard Drive Storage Device High Efficiency',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-vvwa7b8hirnv4e',
-              itemUrl:
-                'https://shopee.sg/FULL-T5-Mini-Solid-State-Disk-Computer-Accessories-Type-C-External-Mobile-Hard-Drive-Storage-Device-High-Efficiency-i.283005694.18673703283',
-              itemPriceMin: 19.06,
-              itemPriceMax: 22.9,
-              item30daysSales: 20.98,
-              item30daysSold: 1,
-              rank: 40,
-            },
-            {
-              id: 758,
-              itemName:
-                '<Dobetter> 1T 2T Portable External High Speed USB 3.0 Flash Drive Data Storage U Disk Pen',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/5c130cb971f73b4b2aa5c766f74364fa',
-              itemUrl:
-                'https://shopee.sg/<Dobetter>-1T-2T-Portable-External-High-Speed-USB-3.0-Flash-Drive-Data-Storage-U-Disk-Pen-i.134972689.18935502937',
-              itemPriceMin: 3.78,
-              itemPriceMax: 3.81,
-              item30daysSales: 15.2,
-              item30daysSold: 4,
-              rank: 30,
-            },
-            {
-              id: 739,
-              itemName:
-                '【SG】Toshiba Canvio Basics 1TB / 2TB External Hard Disk Ext. HDD USB3.0+ 3 Years Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-wv58jnhsbhnvdf',
-              itemUrl:
-                'https://shopee.sg/【SG】Toshiba-Canvio-Basics-1TB-2TB-External-Hard-Disk-Ext.-HDD-USB3.0-3-Years-Warranty-i.531826534.22137359890',
-              itemPriceMin: 37.07,
-              itemPriceMax: 42.03,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 11,
-            },
-            {
-              id: 742,
-              itemName:
-                "【COD】Original 500GB 1TB 2TB External Hard Disk ,2.5'' Portable HDD  Elements - Black +Pouch",
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22120-jaa7oqdmmjkvcf',
-              itemUrl:
-                "https://shopee.sg/【COD】Original-500GB-1TB-2TB-External-Hard-Disk-2.5''-Portable-HDD-Elements-Black-Pouch-i.867557330.22465734267",
-              itemPriceMin: 9.53,
-              itemPriceMax: 40.04,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 14,
-            },
-            {
-              id: 743,
-              itemName:
-                'Moamegift Lightweight Flash Drive 512GB/1TB/2TB USB Flash Disk Waterproof for Computer',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/deaaf37edd1cf45ccc6206f198f37bf2',
-              itemUrl:
-                'https://shopee.sg/Moamegift-Lightweight-Flash-Drive-512GB-1TB-2TB-USB-Flash-Disk-Waterproof-for-Computer-i.282989055.11671557849',
-              itemPriceMin: 5.59,
-              itemPriceMax: 6.3,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 15,
-            },
-            {
-              id: 745,
-              itemName:
-                'USB Drive TypeC Mobile Phone USB Drive 64G/128G Mobile Computer Dual Purpose High-speed USB 3.1 Android OTG USB Drive Pendrive U Disk',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-7qvdk-lfb5kymtn8ma29',
-              itemUrl:
-                'https://shopee.sg/USB-Drive-TypeC-Mobile-Phone-USB-Drive-64G-128G-Mobile-Computer-Dual-Purpose-High-speed-USB-3.1-Android-OTG-USB-Drive-Pendrive-U-Disk-i.234770102.22637497768',
-              itemPriceMin: 16.62,
-              itemPriceMax: 49.45,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 17,
-            },
-            {
-              id: 747,
-              itemName:
-                'Sunshineshop Solid State Drive Portable External Hard Drive Disks USB 3.1 SSD Storage Device .',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/5a02e4cd5fa7b8aaedf5d1167248830d',
-              itemUrl:
-                'https://shopee.sg/Sunshineshop-Solid-State-Drive-Portable-External-Hard-Drive-Disks-USB-3.1-SSD-Storage-Device-.-i.114294618.21143479065',
-              itemPriceMin: 11.82,
-              itemPriceMax: 24.93,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 19,
-            },
-            {
-              id: 748,
-              itemName:
-                "[DB] 2.5'' USB 3.0 to SATA SSD HDD Hard Drive Disk External Case Enclosure [Ready Stock]",
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-7qvfn-lgoz796ko9h675',
-              itemUrl:
-                "https://shopee.sg/-DB-2.5''-USB-3.0-to-SATA-SSD-HDD-Hard-Drive-Disk-External-Case-Enclosure-Ready-Stock-i.970097251.18479743396",
-              itemPriceMin: 5.51,
-              itemPriceMax: 5.51,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 20,
-            },
-            {
-              id: 750,
-              itemName:
-                'External Hard Drive Expansion USB 3.0 HDD 1TB、2TB Portable 2.5" Hard Disk',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/my-11134207-7qul8-lf4b4m4bh2fp44',
-              itemUrl:
-                'https://shopee.sg/External-Hard-Drive-Expansion-USB-3.0-HDD-1TB、2TB-Portable-2.5"-Hard-Disk-i.999031484.20888740586',
-              itemPriceMin: 47.41,
-              itemPriceMax: 51.73,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 22,
-            },
-            {
-              id: 751,
-              itemName: 'Harddisk Second 1tb Sentinel health 100% (PC)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/id-11134207-7qul3-lfhot8k15cwyb9',
-              itemUrl:
-                'https://shopee.sg/Harddisk-Second-1tb-Sentinel-health-100-(PC)-i.972804429.23838358225',
-              itemPriceMin: 30.78,
-              itemPriceMax: 30.78,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 23,
-            },
-            {
-              id: 752,
-              itemName:
-                'Samsung HDD Hard Disk SATA 160GB/250GB/320GB/500GB/1TB 2.5 inch Notebook Laptop(Refurbished)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/3ae9c1c76f0c1395b56f2e444e352dc1',
-              itemUrl:
-                'https://shopee.sg/Samsung-HDD-Hard-Disk-SATA-160GB-250GB-320GB-500GB-1TB-2.5-inch-Notebook-Laptop(Refurbished)-i.984647634.22538648347',
-              itemPriceMin: 13.5,
-              itemPriceMax: 62.1,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 24,
-            },
-            {
-              id: 756,
-              itemName:
-                '🔥XD.storeHGSTSuntech Hitachi2.5InchSATASerial Port250GNotebook Hard Drive7200Turn32MCache Thin Disk🔥 BfjU',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/783a43116106ede1ba5ad34ae2cadd87',
-              itemUrl:
-                'https://shopee.sg/XD.storeHGSTSuntech-Hitachi2.5InchSATASerial-Port250GNotebook-Hard-Drive7200Turn32MCache-Thin-Disk-BfjU-i.538811382.13912537412',
-              itemPriceMin: 56.8,
-              itemPriceMax: 56.8,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 28,
-            },
-            {
-              id: 757,
-              itemName:
-                '【SG】Seagate ONE TOUCH 5TB 4TB 2TB 1TB External 2.5" Portable HDD USB3 Hard Disk Drive+ 3 Years Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-2436hhakbhnv60',
-              itemUrl:
-                'https://shopee.sg/【SG】Seagate-ONE-TOUCH-5TB-4TB-2TB-1TB-External-2.5"-Portable-HDD-USB3-Hard-Disk-Drive-3-Years-Warranty-i.867557330.23023858649',
-              itemPriceMin: 30.42,
-              itemPriceMax: 39.96,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 29,
-            },
-            {
-              id: 759,
-              itemName:
-                '<Dobetter> Storage Bag Waterproof Zipper Closure EVA Portable Big Capacity Hard Disk Case for Hard Disk',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-7qvfg-levtwe2h4fh431',
-              itemUrl:
-                'https://shopee.sg/<Dobetter>-Storage-Bag-Waterproof-Zipper-Closure-EVA-Portable-Big-Capacity-Hard-Disk-Case-for-Hard-Disk-i.134972689.22865493850',
-              itemPriceMin: 4.54,
-              itemPriceMax: 4.54,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 31,
-            },
-            {
-              id: 761,
-              itemName:
-                '【SG】Seagate ONE TOUCH 5TB 4TB 2TB 1TB External 2.5" Portable HDD USB3 Hard Disk Drive+ 3 Years Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-2436hhakbhnv60',
-              itemUrl:
-                'https://shopee.sg/【SG】Seagate-ONE-TOUCH-5TB-4TB-2TB-1TB-External-2.5"-Portable-HDD-USB3-Hard-Disk-Drive-3-Years-Warranty-i.531826534.18177976361',
-              itemPriceMin: 30.94,
-              itemPriceMax: 40.73,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 33,
-            },
-            {
-              id: 762,
-              itemName:
-                'Mini Solid State Hard Disk 16TB 8TB 4TB 2TB 500G Large Capacity Usb3.1 C Interface High Speed Portable Aluminum Alloy',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-5ly3u97rnynvb1',
-              itemUrl:
-                'https://shopee.sg/Mini-Solid-State-Hard-Disk-16TB-8TB-4TB-2TB-500G-Large-Capacity-Usb3.1-C-Interface-High-Speed-Portable-Aluminum-Alloy-i.141020136.22828202157',
-              itemPriceMin: 12.52,
-              itemPriceMax: 30.08,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 34,
-            },
-            {
-              id: 764,
-              itemName:
-                '1TB/2TB/500GB Original Portable HDD, USB3.0 External Hard Drive Hard Disk  for PC,Laptop',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23010-9vm9s7muazlv6f',
-              itemUrl:
-                'https://shopee.sg/1TB-2TB-500GB-Original-Portable-HDD-USB3.0-External-Hard-Drive-Hard-Disk-for-PCLaptop-i.240218100.19178879147',
-              itemPriceMin: 9.18,
-              itemPriceMax: 34.52,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 36,
-            },
-            {
-              id: 765,
-              itemName:
-                '【SG】2TB 1TB Expansion Hard Disc USB 3.0 Portable 2.5 Inch External Hard Drive Hard disk+ 3 Years Warranty',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-23020-79xgq1bsbhnv42',
-              itemUrl:
-                'https://shopee.sg/【SG】2TB-1TB-Expansion-Hard-Disc-USB-3.0-Portable-2.5-Inch-External-Hard-Drive-Hard-disk-3-Years-Warranty-i.531826534.23737354475',
-              itemPriceMin: 35.9,
-              itemPriceMax: 40.73,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 37,
-            },
-            {
-              id: 766,
-              itemName:
-                '【COD】Western Digital WD Elements Portable hard drive 1TB 2TB  External hdd 2.5inch USB 3.0 Hard Drive Disk Original for PC laptop',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-22120-ia38coahmjkvc1',
-              itemUrl:
-                'https://shopee.sg/【COD】Western-Digital-WD-Elements-Portable-hard-drive-1TB-2TB-External-hdd-2.5inch-USB-3.0-Hard-Drive-Disk-Original-for-PC-laptop-i.867557330.23840084472',
-              itemPriceMin: 7.77,
-              itemPriceMax: 36.4,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 38,
-            },
-            {
-              id: 767,
-              itemName:
-                '[newhope8] SSD M2 NGFF 500GB 980 EVO Plus 250GB Internal Solid State Drive 1TB hdd Hard Disk 970 PRO M.2 2TB for laptop Computer sata hd [SG]',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-7qvdu-lh5wm425nn5mbf',
-              itemUrl:
-                'https://shopee.sg/-newhope8-SSD-M2-NGFF-500GB-980-EVO-Plus-250GB-Internal-Solid-State-Drive-1TB-hdd-Hard-Disk-970-PRO-M.2-2TB-for-laptop-Computer-sata-hd-SG-i.659991886.18880110437',
-              itemPriceMin: 23.34,
-              itemPriceMax: 23.34,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 39,
-            },
-            {
-              id: 774,
-              itemName:
-                'SF_ USB 3.0/2.0 2.5inch SATA External HDD SSD Mobile Hard Disk Drive Case Box for PC',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/681605bf765317a17ffc1ca817165380',
-              itemUrl:
-                'https://shopee.sg/SF_-USB-3.0-2.0-2.5inch-SATA-External-HDD-SSD-Mobile-Hard-Disk-Drive-Case-Box-for-PC-i.104804366.10265100592',
-              itemPriceMin: 5.63,
-              itemPriceMax: 8.18,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 46,
-            },
-            {
-              id: 770,
-              itemName:
-                'The 2nd HDD Caddy 12.7mm Aluminum Optibay SATA 3.0 Hard Disk Drive Box',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/5cb32781695f45c41e7572e568aaf66e',
-              itemUrl:
-                'https://shopee.sg/The-2nd-HDD-Caddy-12.7mm-Aluminum-Optibay-SATA-3.0-Hard-Disk-Drive-Box-i.144661944.4512978843',
-              itemPriceMin: 3.46,
-              itemPriceMax: 3.46,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 42,
-            },
-            {
-              id: 771,
-              itemName:
-                'Portable SSD 2TB 4TB 8TB 16TB 32TB High Speed External Hard Drive Type-C 16TB USB 3.1 External Storage Hard Disks',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-7qvem-leseex69s0cs8c',
-              itemUrl:
-                'https://shopee.sg/Portable-SSD-2TB-4TB-8TB-16TB-32TB-High-Speed-External-Hard-Drive-Type-C-16TB-USB-3.1-External-Storage-Hard-Disks-i.898933011.22143182280',
-              itemPriceMin: 12.52,
-              itemPriceMax: 30.08,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 43,
-            },
-            {
-              id: 772,
-              itemName:
-                'HITACHI SATA 160GB/250GB/320GB/500GB/1TB 3.5/2.5 “ HDD Hard Disk Desktop PC Notebook Laptop(Refurbished)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/0ad4bc190c1cb8e26db02f27ea18c2f5',
-              itemUrl:
-                'https://shopee.sg/HITACHI-SATA-160GB-250GB-320GB-500GB-1TB-3.5-2.5-“-HDD-Hard-Disk-Desktop-PC-Notebook-Laptop(Refurbished)-i.984647634.17194218600',
-              itemPriceMin: 15.66,
-              itemPriceMax: 64.26,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 44,
-            },
-            {
-              id: 776,
-              itemName: 'Hard Disk Drive To USB 2.0 Adapter Cable For 2.5 HDD Laptop',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/e6f78fac15ff72d0638737bb99482f15',
-              itemUrl:
-                'https://shopee.sg/Hard-Disk-Drive-To-USB-2.0-Adapter-Cable-For-2.5-HDD-Laptop-i.26234966.5204523671',
-              itemPriceMin: 3,
-              itemPriceMax: 3,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 48,
-            },
-            {
-              id: 777,
-              itemName:
-                '[newhope8] USB3.0 SATA High Speed 2.5 External Hard Drive Portable Hard Disk Storage [SG]',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/sg-11134201-7qvdy-lh63hp4whkhm70',
-              itemUrl:
-                'https://shopee.sg/-newhope8-USB3.0-SATA-High-Speed-2.5-External-Hard-Drive-Portable-Hard-Disk-Storage-SG-i.659991886.23543339490',
-              itemPriceMin: 8.93,
-              itemPriceMax: 9.36,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 49,
-            },
-          ],
+          id: 35805,
+          itemName: 'Maybelline Fit Me Matte + Poreless Foundation 30ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/my-11134207-7qula-lgqf8haq4gx922',
+          itemUrl:
+            'https://shopee.sg/Maybelline-Fit-Me-Matte-Poreless-Foundation-30ml-i.361504813.17457885649',
+          itemPriceMin: 14.58,
+          itemPriceMax: 14.58,
+          item30daysSales: 58.32,
+          item30daysSold: 4,
+          rank: 18,
         },
         {
-          rank: 4,
-          name: 'Seagate',
-          productCount: 3,
-          totalSalesAmount: 1694.66,
-          totalSalesCount: 26,
-          avgSalesAmount: 564.89,
-          avgSalesCount: 8,
-          avgPrice: 70.61,
-          products: [
-            {
-              id: 740,
-              itemName:
-                'Seagate BarraCuda 3.5" Hard Drive : 1TB / 2TB / 3TB / 4TB / 6TB / 8TB',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/698f627169b61ffe211c0943f6492c24',
-              itemUrl:
-                'https://shopee.sg/Seagate-BarraCuda-3.5"-Hard-Drive-:-1TB-2TB-3TB-4TB-6TB-8TB-i.70006977.1178980718',
-              itemPriceMin: 69,
-              itemPriceMax: 259,
-              item30daysSales: 3936,
-              item30daysSold: 24,
-              rank: 12,
-            },
-            {
-              id: 778,
-              itemName:
-                'Seagate Backup Plus Ultra Slim 500GB 1TB 2TB USB 3.0 Portable External Hard Disk Drive - 9.6mm Slim (Gold / Silver)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/my-11134207-23030-sa0emtmqcnov09',
-              itemUrl:
-                'https://shopee.sg/Seagate-Backup-Plus-Ultra-Slim-500GB-1TB-2TB-USB-3.0-Portable-External-Hard-Disk-Drive-9.6mm-Slim-(Gold-Silver)-i.365059916.23731904221',
-              itemPriceMin: 19.33,
-              itemPriceMax: 46.98,
-              item30daysSales: 66.32,
-              item30daysSold: 2,
-              rank: 50,
-            },
-            {
-              id: 741,
-              itemName:
-                'Seagate Hard Disk 3.5 Inch 2TB with SATA interface (Refurbished)',
-              itemImage:
-                'https://down-sg.img.susercontent.com/file/8a45244070ef38ad4a3230bb0ddef46e',
-              itemUrl:
-                'https://shopee.sg/Seagate-Hard-Disk-3.5-Inch-2TB-with-SATA-interface-(Refurbished)-i.61905405.19901751786',
-              itemPriceMin: 60,
-              itemPriceMax: 60,
-              item30daysSales: 0,
-              item30daysSold: 0,
-              rank: 13,
-            },
-          ],
+          id: 35809,
+          itemName:
+            'Maybelline Super Stay Full Coverage Liquid Foundation , UP TO 30HR WEAR (USA Version)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/506d32e373012a11dfad3717ae6c4d7f',
+          itemUrl:
+            'https://shopee.sg/Maybelline-Super-Stay-Full-Coverage-Liquid-Foundation-UP-TO-30HR-WEAR-(USA-Version)-i.7770291.10406368227',
+          itemPriceMin: 13.9,
+          itemPriceMax: 13.9,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 22,
         },
       ],
     },
-  },
-  forceBrandIndex: 0,
-  amplitudeData: {
-    param: '787',
-    keyword: 'hard disk',
-  },
+    {
+      rank: 2,
+      name: "L'Oreal Paris",
+      productCount: 5,
+      totalSalesAmount: 1672.54,
+      totalSalesCount: 80,
+      avgSalesAmount: 334.51,
+      avgSalesCount: 16,
+      avgPrice: 20.91,
+      products: [
+        {
+          id: 35808,
+          itemName:
+            "L'Oreal Paris Infaillible Freshwear Powder (Waterproof/Heat proof/Sweat proof)",
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qve7-lh8sq0stvcxred',
+          itemUrl:
+            "https://shopee.sg/L'Oreal-Paris-Infaillible-Freshwear-Powder-(Waterproof-Heat-proof-Sweat-proof)-i.15235546.16082407405",
+          itemPriceMin: 27.2,
+          itemPriceMax: 27.2,
+          item30daysSales: 707.2,
+          item30daysSold: 26,
+          rank: 21,
+        },
+        {
+          id: 35833,
+          itemName: "Tone Up To 24h L'OreaL Infallible 24h Fresh Wear Powder Foundation",
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/19c82f37eea1639248adc3107069da04',
+          itemUrl:
+            "https://shopee.sg/Tone-Up-To-24h-L'OreaL-Infallible-24h-Fresh-Wear-Powder-Foundation-i.462649703.16261848577",
+          itemPriceMin: 16.09,
+          itemPriceMax: 16.09,
+          item30daysSales: 579.24,
+          item30daysSold: 36,
+          rank: 46,
+        },
+        {
+          id: 35806,
+          itemName: "L'OREAL TRUE MATCH LIQUID FOUNDATION",
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/2ec70729a18e2231088734e3fd19d70f',
+          itemUrl:
+            "https://shopee.sg/L'OREAL-TRUE-MATCH-LIQUID-FOUNDATION-i.732425172.17436867415",
+          itemPriceMin: 24.84,
+          itemPriceMax: 25.38,
+          item30daysSales: 276.21,
+          item30daysSold: 11,
+          rank: 19,
+        },
+        {
+          id: 35796,
+          itemName:
+            "L'oreal Paris Infallible Pro 24 H & 32h Matte Cover Liquid Foundation Loreal 30ml Lasts 32hours",
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/2de50dc58b1bd7750f7de50538a5aa5a',
+          itemUrl:
+            "https://shopee.sg/L'oreal-Paris-Infallible-Pro-24-H-&-32h-Matte-Cover-Liquid-Foundation-Loreal-30ml-Lasts-32hours-i.265451803.14378906827",
+          itemPriceMin: 21.06,
+          itemPriceMax: 24.73,
+          item30daysSales: 114.5,
+          item30daysSold: 5,
+          rank: 9,
+        },
+        {
+          id: 35829,
+          itemName: '[SHARE] Loreal Infallible Matte Cover Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/a79f9d00ad9a83f245888af4d7339a29',
+          itemUrl:
+            'https://shopee.sg/-SHARE-Loreal-Infallible-Matte-Cover-Foundation-i.423254246.13395482323',
+          itemPriceMin: 3.78,
+          itemPriceMax: 7.02,
+          item30daysSales: 10.8,
+          item30daysSold: 2,
+          rank: 42,
+        },
+      ],
+    },
+    {
+      rank: 3,
+      name: 'THE FACE SHOP',
+      productCount: 2,
+      totalSalesAmount: 1293.6,
+      totalSalesCount: 120,
+      avgSalesAmount: 646.8,
+      avgSalesCount: 60,
+      avgPrice: 10.78,
+      products: [
+        {
+          id: 35793,
+          itemName:
+            '[Miffy Edition]The Face Shop fmgt Ink Lasting Foundation Slim Fit 30ml★Shipping From Korea★',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/my-11134201-23030-k57exxbfilov40',
+          itemUrl:
+            'https://shopee.sg/-Miffy-Edition-The-Face-Shop-fmgt-Ink-Lasting-Foundation-Slim-Fit-30ml★Shipping-From-Korea★-i.100262732.22031681536',
+          itemPriceMin: 10.69,
+          itemPriceMax: 30.02,
+          item30daysSales: 2422.84,
+          item30daysSold: 119,
+          rank: 6,
+        },
+        {
+          id: 35831,
+          itemName:
+            '[THE FACE SHOP] Fmgt Gold Collagen Ampoule Foundation SPF30 PA++ 40ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvdk-lgn0uoviazojde',
+          itemUrl:
+            'https://shopee.sg/-THE-FACE-SHOP-Fmgt-Gold-Collagen-Ampoule-Foundation-SPF30-PA-40ml-i.171423487.14450010425',
+          itemPriceMin: 21.49,
+          itemPriceMax: 21.49,
+          item30daysSales: 21.49,
+          item30daysSold: 1,
+          rank: 44,
+        },
+      ],
+    },
+    {
+      rank: 4,
+      name: 'ROM&ND',
+      productCount: 1,
+      totalSalesAmount: 1213.9,
+      totalSalesCount: 61,
+      avgSalesAmount: 1213.9,
+      avgSalesCount: 61,
+      avgPrice: 19.9,
+      products: [
+        {
+          id: 35821,
+          itemName: '[ROM&ND] ROMAND Bare Water Cushion 20g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvd5-li17x2wwl33o2c',
+          itemUrl:
+            'https://shopee.sg/-ROM&ND-ROMAND-Bare-Water-Cushion-20g-i.267761018.22920037222',
+          itemPriceMin: 19.9,
+          itemPriceMax: 25.98,
+          item30daysSales: 1399.34,
+          item30daysSold: 61,
+          rank: 34,
+        },
+      ],
+    },
+    {
+      rank: 5,
+      name: 'Innisfree',
+      productCount: 4,
+      totalSalesAmount: 1045.33,
+      totalSalesCount: 61,
+      avgSalesAmount: 261.33,
+      avgSalesCount: 15,
+      avgPrice: 17.42,
+      products: [
+        {
+          id: 35813,
+          itemName: '❤️Renewal❤️ [Innisfree] No-Sebum Powder Cushion 14g / Refill 14g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvet-licdlf83yubb92',
+          itemUrl:
+            'https://shopee.sg/️Renewal️-Innisfree-No-Sebum-Powder-Cushion-14g-Refill-14g-i.108071059.1731590324',
+          itemPriceMin: 16.5,
+          itemPriceMax: 23.9,
+          item30daysSales: 686.8,
+          item30daysSold: 34,
+          rank: 26,
+        },
+        {
+          id: 35825,
+          itemName: '[INNISFREE] No-Sebum Powder Cushion 14g (SPF35/PA++)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/619dbbf57f18e18b254d0101e70135d2',
+          itemUrl:
+            'https://shopee.sg/-INNISFREE-No-Sebum-Powder-Cushion-14g-(SPF35-PA-)-i.90483698.7987641387',
+          itemPriceMin: 15.98,
+          itemPriceMax: 22.46,
+          item30daysSales: 307.52,
+          item30daysSold: 16,
+          rank: 38,
+        },
+        {
+          id: 35807,
+          itemName: '❤️8 color❤️[INNISFREE] My Foundation 30ml [All day-Longwear]',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/e28cc1cdaafa5ae3d863864f44d40bc6',
+          itemUrl:
+            'https://shopee.sg/️8-color️-INNISFREE-My-Foundation-30ml-All-day-Longwear-i.90483698.4818880876',
+          itemPriceMin: 20.2,
+          itemPriceMax: 20.2,
+          item30daysSales: 121.2,
+          item30daysSold: 6,
+          rank: 20,
+        },
+        {
+          id: 35812,
+          itemName: '[Innisfree X PEANUTS] No Sebum Powder Cushion 14g / Refill',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/52751bb5022c37f8761af1abac6b1254',
+          itemUrl:
+            'https://shopee.sg/-Innisfree-X-PEANUTS-No-Sebum-Powder-Cushion-14g-Refill-i.192709023.8166824215',
+          itemPriceMin: 21.49,
+          itemPriceMax: 23.22,
+          item30daysSales: 111.8,
+          item30daysSold: 5,
+          rank: 25,
+        },
+      ],
+    },
+    {
+      rank: 6,
+      name: 'MAJOLICA MAJORCA',
+      productCount: 1,
+      totalSalesAmount: 1002.33,
+      totalSalesCount: 37,
+      avgSalesAmount: 1002.33,
+      avgSalesCount: 37,
+      avgPrice: 27.09,
+      products: [
+        {
+          id: 35830,
+          itemName:
+            'Japan Majolica Majorca Milky Wrapping Foundation Foundation 30g Authentic Item Directly Ships from Japan',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/0fba73d429209ce6bd470b42e5db1042',
+          itemUrl:
+            'https://shopee.sg/Japan-Majolica-Majorca-Milky-Wrapping-Foundation-Foundation-30g-Authentic-Item-Directly-Ships-from-Japan-i.155997789.18647588976',
+          itemPriceMin: 27.09,
+          itemPriceMax: 27.09,
+          item30daysSales: 1002.33,
+          item30daysSold: 37,
+          rank: 43,
+        },
+      ],
+    },
+    {
+      rank: 7,
+      name: '',
+      productCount: 12,
+      totalSalesAmount: 839.1,
+      totalSalesCount: 81,
+      avgSalesAmount: 69.92,
+      avgSalesCount: 6,
+      avgPrice: 11.65,
+      products: [
+        {
+          id: 35820,
+          itemName:
+            'Saint Roland Air Cushion Sample Leather Feather 5G Air Cushion Sample',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/6a7997dd503eb378c8b37494afac5c32',
+          itemUrl:
+            'https://shopee.sg/Saint-Roland-Air-Cushion-Sample-Leather-Feather-5G-Air-Cushion-Sample-i.500454954.19333208461',
+          itemPriceMin: 11.77,
+          itemPriceMax: 11.77,
+          item30daysSales: 200.09,
+          item30daysSold: 17,
+          rank: 33,
+        },
+        {
+          id: 35826,
+          itemName:
+            'NEW!!! Alha Alfa Royal Propolis Foundation NORMAL SIZE & TESTER SIZE',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134201-22110-4gj9t33q4ijv19',
+          itemUrl:
+            'https://shopee.sg/NEW!!!-Alha-Alfa-Royal-Propolis-Foundation-NORMAL-SIZE-&-TESTER-SIZE-i.332190583.3876638363',
+          itemPriceMin: 10.26,
+          itemPriceMax: 34.02,
+          item30daysSales: 177.12,
+          item30daysSold: 8,
+          rank: 39,
+        },
+        {
+          id: 35828,
+          itemName:
+            'Hourglass Crescent Medium Foundation Brush Fiber Gross Beauty Tools Loose Powder Brush Face Makeup Brushes Set',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/53f0892baa6141073ba6f918889691b8',
+          itemUrl:
+            'https://shopee.sg/Hourglass-Crescent-Medium-Foundation-Brush-Fiber-Gross-Beauty-Tools-Loose-Powder-Brush-Face-Makeup-Brushes-Set-i.97084677.21022343964',
+          itemPriceMin: 6.25,
+          itemPriceMax: 11.33,
+          item30daysSales: 149.43,
+          item30daysSold: 17,
+          rank: 41,
+        },
+        {
+          id: 35837,
+          itemName:
+            'RT new makeup brush lock in foundation and concealer powder cream eyeliner highlighter set makeup powder brush',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/cdd32b3491c9a6c5b62affa3b9cebd8b',
+          itemUrl:
+            'https://shopee.sg/RT-new-makeup-brush-lock-in-foundation-and-concealer-powder-cream-eyeliner-highlighter-set-makeup-powder-brush-i.299405489.13057257642',
+          itemPriceMin: 11.87,
+          itemPriceMax: 12.95,
+          item30daysSales: 111.69,
+          item30daysSold: 9,
+          rank: 50,
+        },
+        {
+          id: 35832,
+          itemName:
+            'UODO Liquid Foundation Oil Control Concealer Moisturizing Long Lasting Setting Non-stick Powder Suitable for Dry and Oily Skin',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/ph-11134201-7qukw-letf7tpbol5a99',
+          itemUrl:
+            'https://shopee.sg/UODO-Liquid-Foundation-Oil-Control-Concealer-Moisturizing-Long-Lasting-Setting-Non-stick-Powder-Suitable-for-Dry-and-Oily-Skin-i.891832101.17394080247',
+          itemPriceMin: 10.21,
+          itemPriceMax: 10.21,
+          item30daysSales: 102.1,
+          item30daysSold: 10,
+          rank: 45,
+        },
+        {
+          id: 35801,
+          itemName:
+            'Florasis 花西子 Emerald Cushion BB cream Lotus Jade Nourish Skin Foundation Cushion 花西子玉容睡莲翡翠养肤气垫CC霜 Face Makeup',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/c0bf98e8bd5bdbe02827257f2f6dd2ea',
+          itemUrl:
+            'https://shopee.sg/Florasis-花西子-Emerald-Cushion-BB-cream-Lotus-Jade-Nourish-Skin-Foundation-Cushion-花西子玉容睡莲翡翠养肤气垫CC霜-Face-Makeup-i.97084677.4293653278',
+          itemPriceMin: 16.08,
+          itemPriceMax: 16.08,
+          item30daysSales: 80.4,
+          item30daysSold: 5,
+          rank: 14,
+        },
+        {
+          id: 35798,
+          itemName:
+            'Essence Plant Flawless Mousse Foundation Cream 16g Refreshing Oil Control Concealer Matte Moisturizing Natural',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/f6a75de9119481e6ef8fab6752288788',
+          itemUrl:
+            'https://shopee.sg/Essence-Plant-Flawless-Mousse-Foundation-Cream-16g-Refreshing-Oil-Control-Concealer-Matte-Moisturizing-Natural-i.330223937.10059601427',
+          itemPriceMin: 8.62,
+          itemPriceMax: 8.62,
+          item30daysSales: 68.96,
+          item30daysSold: 8,
+          rank: 11,
+        },
+        {
+          id: 35790,
+          itemName:
+            'Nars Light Reflecting Advanced Liquid Foundation Square Bottle Liquid Foundation Matte Concealer Natural Nourishing Skin Liquid Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/4342a6b6f6d0fc49468a812e9c33d446',
+          itemUrl:
+            'https://shopee.sg/Nars-Light-Reflecting-Advanced-Liquid-Foundation-Square-Bottle-Liquid-Foundation-Matte-Concealer-Natural-Nourishing-Skin-Liquid-Foundation-i.97084677.19729230792',
+          itemPriceMin: 12.95,
+          itemPriceMax: 12.95,
+          item30daysSales: 51.8,
+          item30daysSold: 4,
+          rank: 3,
+        },
+        {
+          id: 35800,
+          itemName: '[cotd] la colors truly matte foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/1f9b9b0ee24f651807a6c2aa27484b92',
+          itemUrl:
+            'https://shopee.sg/-cotd-la-colors-truly-matte-foundation-i.193411977.6405259783',
+          itemPriceMin: 16.74,
+          itemPriceMax: 16.74,
+          item30daysSales: 16.74,
+          item30daysSold: 1,
+          rank: 13,
+        },
+        {
+          id: 35819,
+          itemName:
+            '【Uny】AGAG is clear and flawless, does not stick to the screen, moisturizing, light and natural concealer, makeup foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/3a5e411a9ba50c4ccb1d9d6d9d7c2122',
+          itemUrl:
+            'https://shopee.sg/【Uny】AGAG-is-clear-and-flawless-does-not-stick-to-the-screen-moisturizing-light-and-natural-concealer-makeup-foundation-i.801833615.21827914955',
+          itemPriceMin: 14.14,
+          itemPriceMax: 14.14,
+          item30daysSales: 14.14,
+          item30daysSold: 1,
+          rank: 32,
+        },
+        {
+          id: 35791,
+          itemName:
+            'RVN Rose Matte Air Cushion BB Cream Oil Control Waterproof Sweat-proof Concealer Foundation BB Cream Face Makeup',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/d03ee8b92c49d48944ce96b3551ee865',
+          itemUrl:
+            'https://shopee.sg/RVN-Rose-Matte-Air-Cushion-BB-Cream-Oil-Control-Waterproof-Sweat-proof-Concealer-Foundation-BB-Cream-Face-Makeup-i.97084677.18926607520',
+          itemPriceMin: 9.71,
+          itemPriceMax: 9.71,
+          item30daysSales: 9.71,
+          item30daysSold: 1,
+          rank: 4,
+        },
+        {
+          id: 35827,
+          itemName: '🇸🇬Fasha Magic Foundation Stick (Waterproof/spf 50/lightweight)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/bebeaa78d9e5fb60674844954cd2b4e3',
+          itemUrl:
+            'https://shopee.sg/Fasha-Magic-Foundation-Stick-(Waterproof-spf-50-lightweight)-i.115861510.19547781091',
+          itemPriceMin: 15,
+          itemPriceMax: 15,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 40,
+        },
+      ],
+    },
+    {
+      rank: 8,
+      name: 'Estee Lauder',
+      productCount: 4,
+      totalSalesAmount: 826.06,
+      totalSalesCount: 111,
+      avgSalesAmount: 206.52,
+      avgSalesCount: 27,
+      avgPrice: 7.65,
+      products: [
+        {
+          id: 35789,
+          itemName:
+            'ESTEE LAUDER | Double Wear Stay In Place Makeup Foundation 1W1 Bone,1W2 Sand,2C0 Cool Vanilla,7ml/30ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/08d55bd20b596129e96b613e84c2a6ed',
+          itemUrl:
+            'https://shopee.sg/ESTEE-LAUDER-Double-Wear-Stay-In-Place-Makeup-Foundation-1W1-Bone1W2-Sand2C0-Cool-Vanilla7ml-30ml-i.496088238.2998325245',
+          itemPriceMin: 8,
+          itemPriceMax: 55,
+          item30daysSales: 1858.5,
+          item30daysSold: 59,
+          rank: 2,
+        },
+        {
+          id: 35834,
+          itemName:
+            '【Travel Size】Estee Lauder Double Wear Stay-in-Place Makeup foundation Sample 1W1 Bone/1W2Sand  7ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/4d61de0de0c0a9bf0ba78885a8be2c17',
+          itemUrl:
+            'https://shopee.sg/【Travel-Size】Estee-Lauder-Double-Wear-Stay-in-Place-Makeup-foundation-Sample-1W1-Bone-1W2Sand-7ml-i.569679025.18142574935',
+          itemPriceMin: 6.48,
+          itemPriceMax: 6.48,
+          item30daysSales: 304.56,
+          item30daysSold: 47,
+          rank: 47,
+        },
+        {
+          id: 35788,
+          itemName:
+            'Estee Lauder Double Wear Stay-in-Place Makeup 1W1 Bone 1W2 Sand - 7ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/7adc71fcb8c290348ab40e6252bcd3a1',
+          itemUrl:
+            'https://shopee.sg/Estee-Lauder-Double-Wear-Stay-in-Place-Makeup-1W1-Bone-1W2-Sand-7ml-i.152789735.10409412852',
+          itemPriceMin: 9.9,
+          itemPriceMax: 9.9,
+          item30daysSales: 49.5,
+          item30daysSold: 5,
+          rank: 1,
+        },
+        {
+          id: 35816,
+          itemName: 'ESTÉE LAUDERDouble Wear Stay-In-Place Makeup SPF 10 Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/109c3d6e29ebae85947cd149dcd41ee4',
+          itemUrl:
+            'https://shopee.sg/ESTÉE-LAUDERDouble-Wear-Stay-In-Place-Makeup-SPF-10-Foundation-i.67390781.18552927882',
+          itemPriceMin: 9,
+          itemPriceMax: 9,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 29,
+        },
+      ],
+    },
+    {
+      rank: 9,
+      name: 'LANEIGE',
+      productCount: 2,
+      totalSalesAmount: 538.29,
+      totalSalesCount: 37,
+      avgSalesAmount: 269.14,
+      avgSalesCount: 18,
+      avgPrice: 14.95,
+      products: [
+        {
+          id: 35794,
+          itemName:
+            'Laneige Air Cushion BB Cream CC Cream Concealer Watery Lasting Moisturizing Oil Control Whitening BB cream Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/ce13f029b5b539ab42ec5b220dacd571',
+          itemUrl:
+            'https://shopee.sg/Laneige-Air-Cushion-BB-Cream-CC-Cream-Concealer-Watery-Lasting-Moisturizing-Oil-Control-Whitening-BB-cream-Foundation-i.97084677.9279188604',
+          itemPriceMin: 13.89,
+          itemPriceMax: 13.89,
+          item30daysSales: 458.37,
+          item30daysSold: 33,
+          rank: 7,
+        },
+        {
+          id: 35803,
+          itemName: 'LANEIGE Neo Foundation Matte 30ml - Cloudcoverage, Naturalglow',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/52c886937f0ba16a4d63a819a3f1f525',
+          itemUrl:
+            'https://shopee.sg/LANEIGE-Neo-Foundation-Matte-30ml-Cloudcoverage-Naturalglow-i.498524385.12329003075',
+          itemPriceMin: 19.98,
+          itemPriceMax: 53.46,
+          item30daysSales: 146.88,
+          item30daysSold: 4,
+          rank: 16,
+        },
+      ],
+    },
+    {
+      rank: 10,
+      name: 'Shiseido',
+      productCount: 1,
+      totalSalesAmount: 280,
+      totalSalesCount: 14,
+      avgSalesAmount: 280,
+      avgSalesCount: 14,
+      avgPrice: 20,
+      products: [
+        {
+          id: 35815,
+          itemName:
+            '［In stock］ Shiseido Integrate Gracy Moist Cream Foundation 25g SPF22 PA++ 4 color',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/65ce27621282ea9e9b4b98a3cd18b276',
+          itemUrl:
+            'https://shopee.sg/［In-stock］-Shiseido-Integrate-Gracy-Moist-Cream-Foundation-25g-SPF22-PA-4-color-i.101667372.1773945051',
+          itemPriceMin: 20,
+          itemPriceMax: 20,
+          item30daysSales: 280,
+          item30daysSold: 14,
+          rank: 28,
+        },
+      ],
+    },
+    {
+      rank: 11,
+      name: 'Etude House',
+      productCount: 2,
+      totalSalesAmount: 228.8,
+      totalSalesCount: 16,
+      avgSalesAmount: 114.4,
+      avgSalesCount: 8,
+      avgPrice: 14.3,
+      products: [
+        {
+          id: 35797,
+          itemName: '[ETUDE] Double Lasting Cushion Glow 15g SPF50+ PA+++',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/253bd00b6ccb7775d889025f66b8e4f3',
+          itemUrl:
+            'https://shopee.sg/-ETUDE-Double-Lasting-Cushion-Glow-15g-SPF50-PA-i.114919380.19730699797',
+          itemPriceMin: 11.87,
+          itemPriceMax: 19.43,
+          item30daysSales: 187.8,
+          item30daysSold: 12,
+          rank: 10,
+        },
+        {
+          id: 35811,
+          itemName: '[ETUDE] NEW Double Lasting Foundation SPF35 PA++ 30g / 12 options',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/74d9e69f4464739af3bc1f6da8908820',
+          itemUrl:
+            'https://shopee.sg/-ETUDE-NEW-Double-Lasting-Foundation-SPF35-PA-30g-12-options-i.114919380.19830928692',
+          itemPriceMin: 21.59,
+          itemPriceMax: 21.59,
+          item30daysSales: 86.36,
+          item30daysSold: 4,
+          rank: 24,
+        },
+      ],
+    },
+    {
+      rank: 12,
+      name: 'Moonshot',
+      productCount: 1,
+      totalSalesAmount: 205.1,
+      totalSalesCount: 10,
+      avgSalesAmount: 205.1,
+      avgSalesCount: 10,
+      avgPrice: 20.51,
+      products: [
+        {
+          id: 35799,
+          itemName: '[moonshot] Micro Glassyfit Cushion SPF 50+ PA++++ 15g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/6edf93343bf4f015443268b87d2fa080',
+          itemUrl:
+            'https://shopee.sg/-moonshot-Micro-Glassyfit-Cushion-SPF-50-PA-15g-i.114919380.3556256183',
+          itemPriceMin: 20.51,
+          itemPriceMax: 20.51,
+          item30daysSales: 205.1,
+          item30daysSold: 10,
+          rank: 12,
+        },
+      ],
+    },
+    {
+      rank: 13,
+      name: 'wet n wild',
+      productCount: 1,
+      totalSalesAmount: 127.75,
+      totalSalesCount: 7,
+      avgSalesAmount: 127.75,
+      avgSalesCount: 7,
+      avgPrice: 18.25,
+      products: [
+        {
+          id: 35810,
+          itemName: '[cotd] wet n wild photo focus foundation matte',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/2d9f5355d2b5adacb09b67def7beec5e',
+          itemUrl:
+            'https://shopee.sg/-cotd-wet-n-wild-photo-focus-foundation-matte-i.193411977.5605259771',
+          itemPriceMin: 18.25,
+          itemPriceMax: 18.25,
+          item30daysSales: 127.75,
+          item30daysSold: 7,
+          rank: 23,
+        },
+      ],
+    },
+    {
+      rank: 14,
+      name: 'NARS Cosmetics',
+      productCount: 1,
+      totalSalesAmount: 103.44,
+      totalSalesCount: 12,
+      avgSalesAmount: 103.44,
+      avgSalesCount: 12,
+      avgPrice: 8.62,
+      products: [
+        {
+          id: 35817,
+          itemName:
+            'NARS Casida Vanilla Honey Cream Puff Sweetheart Concealer Honey 1.4ml Face Liquid foundation Comestics Face Concealer',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/efa8ce196950ea7a15a5150dfa6c059c',
+          itemUrl:
+            'https://shopee.sg/NARS-Casida-Vanilla-Honey-Cream-Puff-Sweetheart-Concealer-Honey-1.4ml-Face-Liquid-foundation-Comestics-Face-Concealer-i.97084677.11119026262',
+          itemPriceMin: 8.62,
+          itemPriceMax: 8.62,
+          item30daysSales: 103.44,
+          item30daysSold: 12,
+          rank: 30,
+        },
+      ],
+    },
+    {
+      rank: 15,
+      name: 'essence',
+      productCount: 1,
+      totalSalesAmount: 90.93,
+      totalSalesCount: 7,
+      avgSalesAmount: 90.93,
+      avgSalesCount: 7,
+      avgPrice: 12.99,
+      products: [
+        {
+          id: 35822,
+          itemName:
+            'ESSENCE Pretty Natural Hydrating Foundation 30ml Hyaluron + Aloe Vera 24H Long Lasting Hydration Vegan',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/5ff3d26c702b2a95394d49fcae0e9101',
+          itemUrl:
+            'https://shopee.sg/ESSENCE-Pretty-Natural-Hydrating-Foundation-30ml-Hyaluron-Aloe-Vera-24H-Long-Lasting-Hydration-Vegan-i.413381811.21223129613',
+          itemPriceMin: 12.99,
+          itemPriceMax: 12.99,
+          item30daysSales: 90.93,
+          item30daysSold: 7,
+          rank: 35,
+        },
+      ],
+    },
+    {
+      rank: 16,
+      name: 'the SAEM',
+      productCount: 1,
+      totalSalesAmount: 77.76,
+      totalSalesCount: 6,
+      avgSalesAmount: 77.76,
+      avgSalesCount: 6,
+      avgPrice: 12.96,
+      products: [
+        {
+          id: 35824,
+          itemName: 'THE SAEM Studio Glow Foundation SPF35 PA++ 10ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/1e9ba49ac31096b574e92ec9f3d4c455',
+          itemUrl:
+            'https://shopee.sg/THE-SAEM-Studio-Glow-Foundation-SPF35-PA-10ml-i.59846544.4410080706',
+          itemPriceMin: 12.96,
+          itemPriceMax: 12.96,
+          item30daysSales: 77.76,
+          item30daysSold: 6,
+          rank: 37,
+        },
+      ],
+    },
+    {
+      rank: 17,
+      name: 'Nature Republic',
+      productCount: 1,
+      totalSalesAmount: 61.76,
+      totalSalesCount: 4,
+      avgSalesAmount: 61.76,
+      avgSalesCount: 4,
+      avgPrice: 15.44,
+      products: [
+        {
+          id: 35835,
+          itemName:
+            '[NATURE REPUBLIC] Provence Air Skin Fit One Day Lasting Foundation 32ml (SPF30/PA++)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/6d785a7d8f74be77ef90ed9198347efa',
+          itemUrl:
+            'https://shopee.sg/-NATURE-REPUBLIC-Provence-Air-Skin-Fit-One-Day-Lasting-Foundation-32ml-(SPF30-PA-)-i.90483698.14342034839',
+          itemPriceMin: 15.44,
+          itemPriceMax: 15.44,
+          item30daysSales: 61.76,
+          item30daysSold: 4,
+          rank: 48,
+        },
+      ],
+    },
+    {
+      rank: 18,
+      name: 'The Body Shop',
+      productCount: 1,
+      totalSalesAmount: 55.72,
+      totalSalesCount: 4,
+      avgSalesAmount: 55.72,
+      avgSalesCount: 4,
+      avgPrice: 13.93,
+      products: [
+        {
+          id: 35836,
+          itemName:
+            'The BODY SHOP MATTE CLAY SKIN CLARIFYING FOUNDATION HAVANA SAND RAILAY BEACH TAMERZA DUNE SAGANO BAMBOO SAVANNAH PECAN MOLUCCAN NUTMEG JAPANESE MAPLE BRAZILIAN HAZEL ORIGINAL',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/42ce68e149c9d6a5cd114bf47451f495',
+          itemUrl:
+            'https://shopee.sg/The-BODY-SHOP-MATTE-CLAY-SKIN-CLARIFYING-FOUNDATION-HAVANA-SAND-RAILAY-BEACH-TAMERZA-DUNE-SAGANO-BAMBOO-SAVANNAH-PECAN-MOLUCCAN-NUTMEG-JAPANESE-MAPLE-BRAZILIAN-HAZEL-ORIGINAL-i.427783721.12812283482',
+          itemPriceMin: 13.93,
+          itemPriceMax: 18.9,
+          item30daysSales: 65.68,
+          item30daysSold: 4,
+          rank: 49,
+        },
+      ],
+    },
+    {
+      rank: 19,
+      name: 'Hourglass',
+      productCount: 1,
+      totalSalesAmount: 48.57,
+      totalSalesCount: 3,
+      avgSalesAmount: 48.57,
+      avgSalesCount: 3,
+      avgPrice: 16.19,
+      products: [
+        {
+          id: 35814,
+          itemName:
+            'Hourglass Seamless Concealer Liquid Foundation Concealer 6ml Face Makeup',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/30183bcff269a25496e5bf4df2e44d1f',
+          itemUrl:
+            'https://shopee.sg/Hourglass-Seamless-Concealer-Liquid-Foundation-Concealer-6ml-Face-Makeup-i.97084677.18221070709',
+          itemPriceMin: 16.19,
+          itemPriceMax: 16.19,
+          item30daysSales: 48.57,
+          item30daysSold: 3,
+          rank: 27,
+        },
+      ],
+    },
+    {
+      rank: 20,
+      name: 'REVLON',
+      productCount: 1,
+      totalSalesAmount: 31.89,
+      totalSalesCount: 3,
+      avgSalesAmount: 31.89,
+      avgSalesCount: 3,
+      avgPrice: 10.63,
+      products: [
+        {
+          id: 35802,
+          itemName:
+            'American revlon 24 hours liquid foundation moisturizing nude makeup oil control Face Conceal foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/e326a28af47dbbdbd72a4364385dfe27',
+          itemUrl:
+            'https://shopee.sg/American-revlon-24-hours-liquid-foundation-moisturizing-nude-makeup-oil-control-Face-Conceal-foundation-i.330223937.9326605846',
+          itemPriceMin: 10.63,
+          itemPriceMax: 10.63,
+          item30daysSales: 31.89,
+          item30daysSold: 3,
+          rank: 15,
+        },
+      ],
+    },
+    {
+      rank: 21,
+      name: 'MISSHA',
+      productCount: 1,
+      totalSalesAmount: 0,
+      totalSalesCount: 0,
+      avgSalesAmount: 0,
+      avgSalesCount: 0,
+      avgPrice: 0,
+      products: [
+        {
+          id: 35804,
+          itemName: '[MISSHA] Velvet Finish Cushion SPF50+ PA+++ 15g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/7216bd6979913ec6d38f435d38ee2349',
+          itemUrl:
+            'https://shopee.sg/-MISSHA-Velvet-Finish-Cushion-SPF50-PA-15g-i.114919380.15830778598',
+          itemPriceMin: 13.93,
+          itemPriceMax: 13.93,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 17,
+        },
+      ],
+    },
+    {
+      rank: 22,
+      name: 'Zeesea',
+      productCount: 1,
+      totalSalesAmount: 0,
+      totalSalesCount: 0,
+      avgSalesAmount: 0,
+      avgSalesCount: 0,
+      avgPrice: 0,
+      products: [
+        {
+          id: 35795,
+          itemName:
+            'ZEESEA Liquid Foundation 滋色 粉底液Pre-makeup Silky Smooth Long-lasting Makeup Foundation Concealer Moisturizing Long-lasting Brightening BB Cream',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/3e875eb46b32b5740728ac0747b3c635',
+          itemUrl:
+            'https://shopee.sg/ZEESEA-Liquid-Foundation-滋色-粉底液Pre-makeup-Silky-Smooth-Long-lasting-Makeup-Foundation-Concealer-Moisturizing-Long-lasting-Brightening-BB-Cream-i.601078130.20536631568',
+          itemPriceMin: 11.87,
+          itemPriceMax: 11.87,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 8,
+        },
+      ],
+    },
+    {
+      rank: 23,
+      name: 'Red Earth',
+      productCount: 1,
+      totalSalesAmount: 0,
+      totalSalesCount: 0,
+      avgSalesAmount: 0,
+      avgSalesCount: 0,
+      avgPrice: 0,
+      products: [
+        {
+          id: 35792,
+          itemName:
+            'Japan Red Earth Nourishing Liquid Foundation Concealer and Moisturizing Lasting Red Earth Hydrating Face Oil Control Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/caa05eaf2873f3d626d4504d4064e85f',
+          itemUrl:
+            'https://shopee.sg/Japan-Red-Earth-Nourishing-Liquid-Foundation-Concealer-and-Moisturizing-Lasting-Red-Earth-Hydrating-Face-Oil-Control-Foundation-i.97084677.16139482306',
+          itemPriceMin: 12.95,
+          itemPriceMax: 12.95,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 5,
+        },
+      ],
+    },
+  ],
 };

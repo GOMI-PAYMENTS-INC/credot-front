@@ -15,11 +15,11 @@ import { DetailReportSectionHeader } from '@/preview/elements';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 export const SalePrice = () => {
-  const { salePriceInfo, currencyUnit, list } = PRICE_DATA;
+  // const { salePriceInfo, currencyUnit, list } = PRICE_DATA;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
   const [fouceItem, setFocusItem] = useState<number>(0);
 
-  const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
+  const { gradeItems, priceAnalysisInfo, items, currencyUnit } = PRICE_DATA!;
   const { basePrice } = priceAnalysisInfo;
 
   const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(items);
@@ -81,7 +81,7 @@ export const SalePrice = () => {
             <div className='flex h-full  items-center justify-center'>
               <div className='w-full max-w-[710px] py-5'>
                 <SalePriceChart
-                  priceChartProps={salePriceInfo}
+                  priceChartProps={PRICE_DATA}
                   currencyUnit={currencyUnit}
                   changedPrice={{
                     min: min,
@@ -138,7 +138,7 @@ export const SalePrice = () => {
         </div>
         <SalePriceTable
           scrollerRef={scrollerRef}
-          salePriceItemList={list[fouceItem]}
+          salePriceItemList={gradeItems[fouceItem]}
           currencyUnit={currencyUnit}
           basePrice={basePrice}
         />

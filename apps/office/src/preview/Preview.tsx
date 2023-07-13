@@ -2,11 +2,7 @@ import { ReactSVG } from 'react-svg';
 import { Report } from '@/preview/elements/Resport';
 
 import { useMemo, useState, useEffect, useRef } from 'react';
-import {
-  REPORT_CONTENT,
-  REPORT_CONTENTS,
-  REPORT_INFO,
-} from '@/preview/constants/reportData';
+import { REPORT_CONTENT, REPORT_INFO } from '@/preview/constants/reportData';
 import { PreviewHeader } from '@/preview/elements';
 import { useScroll } from '@/common/useScroll';
 
