@@ -59,7 +59,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                             index === activeTabIndex
                               ? 'fill-white'
                               : tab.launching
-                              ? 'fill-grey-800'
+                              ? 'fill-orange-500'
                               : 'fill-grey-500'
                           }`,
                         );

@@ -58,15 +58,14 @@ const Preview = () => {
         <Report setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} />
       </section>
       <section className='mt-[120px]'>
-        <div className='flex justify-center'>
+        <div className='flex h-[340px] justify-center'>
           <div className='relative flex w-full justify-around overflow-hidden'>
             <div className='absolute ml-[500px] mt-[50px] h-[1000px] w-[1000px] rounded-[1000px] bg-orange-500 opacity-20 blur-[132px]' />
-            <div className='z-10 mt-[92px] mb-[72px] flex flex-col justify-start text-XL/Medium'>
-              <p className='text-4XL/Bold'>리포트 미리보기</p>
-              <p className='mt-4'>
-                고미인사이트의 키워드 리포트는 Shopee 키워드 검색결과 화면에서
+            <div className='flex h-full flex-col justify-center text-XL/Bold'>
+              <p>고미인사이트의 키워드 리포트는 Shopee 키워드 검색결과 화면에서</p>
+              <p className='mt-1'>
+                광고 상품을 제외한 상위 50개의 상품 데이터를 기반으로 제공되어요.
               </p>
-              <p>광고 상품을 제외한 상위 50개의 상품 데이터를 기반으로 제공되어요.</p>
               <button className='button-filled-xLarge-primary-false-false-false mt-[26px] w-fit text-L/Bold'>
                 내가 원하는 키워드 분석하러 가기
               </button>
