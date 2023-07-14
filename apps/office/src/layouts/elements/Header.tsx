@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 
 import { IRoute, PATH } from '@/router/paths';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
+import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
+
 import { GlobalEnv } from '@/api/config';
 import { openAppWithTag } from '@/utils/openBrowser';
 import { GNB_ROUTE } from '@/layouts/constants';
@@ -43,6 +45,7 @@ export const Header = ({ route }: HeaderProps) => {
                   to={route.path}
                   onClick={() => {
                     setCurrent(route.path);
+                    _keywordReportPreviewed();
                   }}
                 >
                   <p

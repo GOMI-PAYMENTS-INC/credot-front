@@ -75,9 +75,9 @@ const Preview = () => {
                 onClick={(event) => {
                   openAppWithTag({
                     url: GlobalEnv.serviceUrl,
-                    path: PAGE_CATEGORY.PREVIEW,
+                    path: PAGE_CATEGORY.KEYWORD_REPORT_PREVIEWED,
                     type: CTA_TYPE.BUTTON,
-                    location: CTA_LOCATION.MIDDLE_OF_CONTENT,
+                    location: CTA_LOCATION.BOTTOM,
                     event: event,
                   });
                 }}

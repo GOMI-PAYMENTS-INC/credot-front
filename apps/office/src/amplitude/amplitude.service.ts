@@ -46,3 +46,7 @@ export const _introPageMovedToSolution = (
     cta_text: ctaText,
   });
 };
+
+export const _keywordReportPreviewed = () => {
+  void _setAmplitudeEvents(amplitudeConstant.keywordReportPreviewed);
+};
