@@ -61,7 +61,7 @@ export const FAQ = ({ list }: IFAQ) => {
                       {question.content}
                       {question?.link && (
                         <p
-                          className='mt-4 text-L/Medium text-orange-500'
+                          className='mt-4 text-orange-500'
                           onClick={() => openBrowser(question.link!)}
                         >
                           {question.linkName}
