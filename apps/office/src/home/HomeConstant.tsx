@@ -124,7 +124,6 @@ export const PARTENER_DATA = [
           수출지원기반활용사업 수출바우처,
           <br /> 제조혁신바우처 공식 수행기관
         </li>
-        <li> 서울산업진흥원 Shopee 강사</li>
         <li> Shopee셀러 커뮤니티 {'<스타터클럽>'} 운영</li>
       </>
     ),
