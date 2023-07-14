@@ -15,3 +15,14 @@ export enum CTA_LOCATION {
   MIDDLE_OF_CONTENT = 'middle of content',
   BOTTOM = 'bottom',
 }
+
+export const pageCategoryConvertor = (pathname: string) => {
+  switch (pathname) {
+    case '/price':
+      return PAGE_CATEGORY.PRICE;
+    case '/preview':
+      return PAGE_CATEGORY.KEYWORD_REPORT_PREVIEWED;
+    default:
+      return PAGE_CATEGORY.MAIN;
+  }
+};

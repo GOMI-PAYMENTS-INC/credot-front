@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { IRoute, PATH } from '@/router/paths';
-import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
+import {
+  CTA_LOCATION,
+  CTA_TYPE,
+  PAGE_CATEGORY,
+  pageCategoryConvertor,
+} from '@/amplitude/amplitude.enum';
 
 import { GlobalEnv } from '@/api/config';
 import { openAppWithTag } from '@/utils/openBrowser';
@@ -62,7 +67,7 @@ export const Header = ({ route }: HeaderProps) => {
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
-                path: route.pageCategory,
+                path: pageCategoryConvertor(pathname),
                 type: CTA_TYPE.BUTTON,
                 location: CTA_LOCATION.HEADER,
                 event: event,
@@ -76,7 +81,7 @@ export const Header = ({ route }: HeaderProps) => {
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
-                path: route.pageCategory,
+                path: pageCategoryConvertor(pathname),
                 type: CTA_TYPE.BUTTON,
                 location: CTA_LOCATION.HEADER,
                 event: event,
