@@ -11,11 +11,11 @@ export const Promotion = ({ imagePath }: IPromotion) => {
               <div className='mb-[13px] inline-block rounded-[33px] bg-grey-900 px-5 py-[7px]'>
                 <span className='text-S/Medium text-white'>Event 2023.03~ 종료시</span>
               </div>
-              <div className='mb-[20px] text-3XL/Bold'>무제한 사용 이벤트</div>
+              <div className='mb-[20px] text-3XL/Bold'>월 무료 10회 이벤트</div>
               <div className='text-grey-700'>
-                고미인사이트는 현재 무료 서비스 이벤트를 진행중이에요.
+                키워드 분석은 매월 10회까지 무료로 가능해요.
                 <br />
-                별도의 이벤트 종료 안내까지는 무제한 리포트 조회가 가능해요!
+                지금 바로 판매하고자 하는 상품을 분석해보세요!
               </div>
             </div>
 

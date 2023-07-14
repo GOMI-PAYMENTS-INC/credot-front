@@ -24,7 +24,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
           <div className='mb-[70px] sm:mb-10 lg:mb-[72px]'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
-                베스트 셀러가 되기 위한
+                베스트 글로벌 셀러가 되기 위한
               </div>
               <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
                 <p>10여가지 종합 인사이트!</p>
@@ -51,7 +51,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                 <div className=' flex items-center  justify-center'>
                   <i className='mr-1'>
                     <ReactSVG
-                      src={`/assets/icons/${tab.icoName}.svg`}
+                      src={`/assets/icons/${tab.icon}.svg`}
                       beforeInjection={(svg) => {
                         svg.setAttribute(
                           'class',

@@ -11,7 +11,7 @@ export const Dictionary = ({ current }: IDictionary) => {
   const [openContent, setOpenContent] = useState<number[]>([]);
   useEffect(() => setOpenContent([]), [current]);
   return (
-    <aside className='sticky top-[200px] '>
+    <aside className='sticky top-[150px] '>
       <ul className='rounded-lg border-[1px] border-grey-300 bg-white'>
         {DICTIONARY[current].map((data, index) => {
           const borderBottom =
