@@ -4,68 +4,873 @@ export const BRAND_DATA = {
   channel: 'SHOPEE',
   sorted: 'R',
   currencyUnit: 1,
-  basePrice: 958.6,
+  basePrice: 959.48,
   brands: [
     {
       rank: 1,
       name: 'Maybelline New York',
-      productCount: 4,
-      totalSalesAmount: 2575.12,
-      totalSalesCount: 158,
-      avgSalesAmount: 643.78,
-      avgSalesCount: 39,
-      avgPrice: 16.51,
+      productCount: 2,
+      totalSalesAmount: 7062.6,
+      totalSalesCount: 320,
+      avgSalesAmount: 3531.3,
+      avgSalesCount: 160,
+      avgPrice: 22.07,
       products: [
         {
-          id: 35818,
+          id: 2700,
           itemName:
             'Maybelline Fit Me Matte & Poreless Liquid Foundation 30ml (SPF22/16H Oil Control) - For Normal to Oily Skin',
           itemImage:
-            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvg2-li0evhvhlzasd0',
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvfg-lj2hunpqvwc360',
           itemUrl:
             'https://shopee.sg/Maybelline-Fit-Me-Matte-&-Poreless-Liquid-Foundation-30ml-(SPF22-16H-Oil-Control)-For-Normal-to-Oily-Skin-i.11719013.2649075535',
-          itemPriceMin: 20,
-          itemPriceMax: 20,
-          item30daysSales: 2280,
-          item30daysSold: 114,
-          rank: 31,
+          itemPriceMin: 25.89,
+          itemPriceMax: 25.89,
+          item30daysSales: 6472.5,
+          item30daysSold: 250,
+          rank: 13,
         },
         {
-          id: 35823,
+          id: 2723,
           itemName: 'Maybelline Fit Me Matte + Poreless Liquid Foundation 30ml',
           itemImage:
             'https://down-sg.img.susercontent.com/file/32ed3ffca66f42bf6c4a1916ef46dac2',
           itemUrl:
             'https://shopee.sg/Maybelline-Fit-Me-Matte-Poreless-Liquid-Foundation-30ml-i.268024893.20765890621',
-          itemPriceMin: 5.92,
-          itemPriceMax: 5.92,
-          item30daysSales: 236.8,
-          item30daysSold: 40,
+          itemPriceMin: 8.43,
+          itemPriceMax: 8.43,
+          item30daysSales: 590.1,
+          item30daysSold: 70,
           rank: 36,
         },
+      ],
+    },
+    {
+      rank: 2,
+      name: 'LANEIGE',
+      productCount: 5,
+      totalSalesAmount: 6149.71,
+      totalSalesCount: 246,
+      avgSalesAmount: 1229.94,
+      avgSalesCount: 49,
+      avgPrice: 25.1,
+      products: [
         {
-          id: 35805,
-          itemName: 'Maybelline Fit Me Matte + Poreless Foundation 30ml',
+          id: 2726,
+          itemName: '❤️BEST❤️[LANEIGE] Neo Cushion (Matte)  / Shipping from Korea',
           itemImage:
-            'https://down-sg.img.susercontent.com/file/my-11134207-7qula-lgqf8haq4gx922',
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvf7-lj2xgtwke7w333',
           itemUrl:
-            'https://shopee.sg/Maybelline-Fit-Me-Matte-Poreless-Foundation-30ml-i.361504813.17457885649',
-          itemPriceMin: 14.58,
-          itemPriceMax: 14.58,
-          item30daysSales: 58.32,
+            'https://shopee.sg/️BEST️-LANEIGE-Neo-Cushion-(Matte)-Shipping-from-Korea-i.145818032.5638078338',
+          itemPriceMin: 25.77,
+          itemPriceMax: 83.8,
+          item30daysSales: 7176.18,
+          item30daysSold: 131,
+          rank: 39,
+        },
+        {
+          id: 2718,
+          itemName: '❤️BEST❤️[LANEIGE] Neo Cushion Glow / Shipping from Korea',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/98fc74054e2c059ec4589ced0ed13aff',
+          itemUrl:
+            'https://shopee.sg/️BEST️-LANEIGE-Neo-Cushion-Glow-Shipping-from-Korea-i.145818032.5538634018',
+          itemPriceMin: 27.58,
+          itemPriceMax: 68.33,
+          item30daysSales: 1774.52,
+          item30daysSold: 37,
+          rank: 31,
+        },
+        {
+          id: 2688,
+          itemName:
+            'Laneige Air Cushion BB Cream CC Cream Concealer Watery Lasting Moisturizing Oil Control Whitening BB cream Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/ce13f029b5b539ab42ec5b220dacd571',
+          itemUrl:
+            'https://shopee.sg/Laneige-Air-Cushion-BB-Cream-CC-Cream-Concealer-Watery-Lasting-Moisturizing-Oil-Control-Whitening-BB-cream-Foundation-i.97084677.9279188604',
+          itemPriceMin: 20.72,
+          itemPriceMax: 20.72,
+          item30daysSales: 1367.52,
+          item30daysSold: 66,
+          rank: 1,
+        },
+        {
+          id: 2727,
+          itemName:
+            '❤️TIME SALE❤️[LANEIGE] Neo Foundation High Cover 30ml (SPF20/PA++) / Shipping from Korea',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/e14b4afcd7c64a86dea0cec490a1c24d',
+          itemUrl:
+            'https://shopee.sg/️TIME-SALE️-LANEIGE-Neo-Foundation-High-Cover-30ml-(SPF20-PA-)-Shipping-from-Korea-i.145818032.4676125112',
+          itemPriceMin: 37.46,
+          itemPriceMax: 78.31,
+          item30daysSales: 347.28,
+          item30daysSold: 6,
+          rank: 40,
+        },
+        {
+          id: 2691,
+          itemName: 'LANEIGE Neo Foundation Matte 30ml - Cloudcoverage, Naturalglow',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/52c886937f0ba16a4d63a819a3f1f525',
+          itemUrl:
+            'https://shopee.sg/LANEIGE-Neo-Foundation-Matte-30ml-Cloudcoverage-Naturalglow-i.498524385.12329003075',
+          itemPriceMin: 26.85,
+          itemPriceMax: 71.85,
+          item30daysSales: 296.1,
+          item30daysSold: 6,
+          rank: 4,
+        },
+      ],
+    },
+    {
+      rank: 3,
+      name: '',
+      productCount: 14,
+      totalSalesAmount: 4891.97,
+      totalSalesCount: 289,
+      avgSalesAmount: 349.43,
+      avgSalesCount: 20,
+      avgPrice: 17.47,
+      products: [
+        {
+          id: 2724,
+          itemName: '[ROM ND] ROMAND Bare Water Cushion 20g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qve4-lj3iwpcj14wd9a',
+          itemUrl:
+            'https://shopee.sg/-ROM-ND-ROMAND-Bare-Water-Cushion-20g-i.267761018.22920037222',
+          itemPriceMin: 26.78,
+          itemPriceMax: 30.41,
+          item30daysSales: 2717,
+          item30daysSold: 95,
+          rank: 37,
+        },
+        {
+          id: 2713,
+          itemName: 'SAKA GLOWING FOUNDATION by SITINORHALIZA',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134201-22120-0ilo1xm3xdlv55',
+          itemUrl:
+            'https://shopee.sg/SAKA-GLOWING-FOUNDATION-by-SITINORHALIZA-i.509468282.18669488689',
+          itemPriceMin: 7.13,
+          itemPriceMax: 7.13,
+          item30daysSales: 641.7,
+          item30daysSold: 90,
+          rank: 26,
+        },
+        {
+          id: 2735,
+          itemName: 'Naturactor Foundation Cover Spot Cream 20g Four Colors Available',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/f57a739c5deaa16095fe85088b55ab6f',
+          itemUrl:
+            'https://shopee.sg/Naturactor-Foundation-Cover-Spot-Cream-20g-Four-Colors-Available-i.237063449.18349642061',
+          itemPriceMin: 19.92,
+          itemPriceMax: 19.92,
+          item30daysSales: 398.4,
+          item30daysSold: 20,
+          rank: 48,
+        },
+        {
+          id: 2720,
+          itemName: '% Authentic Dermacolor Camouflage Cream',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/cf5dca5132aab37e409b0fb0e369b903',
+          itemUrl:
+            'https://shopee.sg/-Authentic-Dermacolor-Camouflage-Cream-i.208828582.4311517369',
+          itemPriceMin: 28.78,
+          itemPriceMax: 124.26,
+          item30daysSales: 382.6,
+          item30daysSold: 5,
+          rank: 33,
+        },
+        {
+          id: 2730,
+          itemName:
+            'UODO Liquid Foundation Oil Control Concealer Moisturizing Long Lasting Setting Non-stick Powder Suitable for Dry and Oily Skin',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/ph-11134201-7qukw-letf7tpbol5a99',
+          itemUrl:
+            'https://shopee.sg/UODO-Liquid-Foundation-Oil-Control-Concealer-Moisturizing-Long-Lasting-Setting-Non-stick-Powder-Suitable-for-Dry-and-Oily-Skin-i.891832101.17394080247',
+          itemPriceMin: 12.43,
+          itemPriceMax: 12.43,
+          item30daysSales: 285.89,
+          item30daysSold: 23,
+          rank: 43,
+        },
+        {
+          id: 2704,
+          itemName: '【官方正品】法汀妮空气持妆粉底液滋润养肤定妆防水防汗持久带妆4.18',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134201-7qveq-lfqjusfx8z9o96',
+          itemUrl:
+            'https://shopee.sg/【官方正品】法汀妮空气持妆粉底液滋润养肤定妆防水防汗持久带妆4.18-i.976992923.19578811321',
+          itemPriceMin: 18.94,
+          itemPriceMax: 45.95,
+          item30daysSales: 259.52,
+          item30daysSold: 8,
+          rank: 17,
+        },
+        {
+          id: 2716,
+          itemName:
+            '正 MKUP Air Sense Essence Liquid Foundation White Color/Natural Color SPF19 Hold Makeup 12 Hours Aisha Recommended 30g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134201-23010-liu8syt80vlv3b',
+          itemUrl:
+            'https://shopee.sg/正-MKUP-Air-Sense-Essence-Liquid-Foundation-White-Color-Natural-Color-SPF19-Hold-Makeup-12-Hours-Aisha-Recommended-30g-i.332239251.23765653674',
+          itemPriceMin: 49.51,
+          itemPriceMax: 49.51,
+          item30daysSales: 198.04,
           item30daysSold: 4,
+          rank: 29,
+        },
+        {
+          id: 2732,
+          itemName:
+            'Florasis 花西子 Emerald Cushion BB cream Lotus Jade Nourish Skin Foundation Cushion 花西子玉容睡莲翡翠养肤气垫CC霜 Face Makeup',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/c0bf98e8bd5bdbe02827257f2f6dd2ea',
+          itemUrl:
+            'https://shopee.sg/Florasis-花西子-Emerald-Cushion-BB-cream-Lotus-Jade-Nourish-Skin-Foundation-Cushion-花西子玉容睡莲翡翠养肤气垫CC霜-Face-Makeup-i.97084677.4293653278',
+          itemPriceMin: 21.04,
+          itemPriceMax: 21.04,
+          item30daysSales: 126.24,
+          item30daysSold: 6,
+          rank: 45,
+        },
+        {
+          id: 2703,
+          itemName:
+            'Nars Light Reflecting Advanced Liquid Foundation Square Bottle Liquid Foundation Matte Concealer Natural Nourishing Skin Liquid Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/4342a6b6f6d0fc49468a812e9c33d446',
+          itemUrl:
+            'https://shopee.sg/Nars-Light-Reflecting-Advanced-Liquid-Foundation-Square-Bottle-Liquid-Foundation-Matte-Concealer-Natural-Nourishing-Skin-Liquid-Foundation-i.97084677.19729230792',
+          itemPriceMin: 16.02,
+          itemPriceMax: 16.02,
+          item30daysSales: 112.14,
+          item30daysSold: 7,
+          rank: 16,
+        },
+        {
+          id: 2705,
+          itemName: 'FITME FOUNDATION VIRAL matte poreless Waterprood hq open pemborong',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134201-22110-pnsuewrhfkjv58',
+          itemUrl:
+            'https://shopee.sg/FITME-FOUNDATION-VIRAL-matte-poreless-Waterprood-hq-open-pemborong-i.961749561.22528836433',
+          itemPriceMin: 6.84,
+          itemPriceMax: 6.84,
+          item30daysSales: 95.76,
+          item30daysSold: 14,
           rank: 18,
         },
         {
-          id: 35809,
+          id: 2715,
           itemName:
-            'Maybelline Super Stay Full Coverage Liquid Foundation , UP TO 30HR WEAR (USA Version)',
+            'Essence Plant Flawless Mousse Foundation Cream 16g Refreshing Oil Control Concealer Matte Moisturizing Natural',
           itemImage:
-            'https://down-sg.img.susercontent.com/file/506d32e373012a11dfad3717ae6c4d7f',
+            'https://down-sg.img.susercontent.com/file/f6a75de9119481e6ef8fab6752288788',
           itemUrl:
-            'https://shopee.sg/Maybelline-Super-Stay-Full-Coverage-Liquid-Foundation-UP-TO-30HR-WEAR-(USA-Version)-i.7770291.10406368227',
-          itemPriceMin: 13.9,
-          itemPriceMax: 13.9,
+            'https://shopee.sg/Essence-Plant-Flawless-Mousse-Foundation-Cream-16g-Refreshing-Oil-Control-Concealer-Matte-Moisturizing-Natural-i.330223937.10059601427',
+          itemPriceMin: 10.6,
+          itemPriceMax: 10.6,
+          item30daysSales: 95.4,
+          item30daysSold: 9,
+          rank: 28,
+        },
+        {
+          id: 2714,
+          itemName:
+            'RVN Rose Matte Air Cushion BB Cream Oil Control Waterproof Sweat-proof Concealer Foundation BB Cream Face Makeup',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/d03ee8b92c49d48944ce96b3551ee865',
+          itemUrl:
+            'https://shopee.sg/RVN-Rose-Matte-Air-Cushion-BB-Cream-Oil-Control-Waterproof-Sweat-proof-Concealer-Foundation-BB-Cream-Face-Makeup-i.97084677.18926607520',
+          itemPriceMin: 13.36,
+          itemPriceMax: 13.36,
+          item30daysSales: 53.44,
+          item30daysSold: 4,
+          rank: 27,
+        },
+        {
+          id: 2712,
+          itemName: 'Neutrogena Sensitive Skin Serum Foundation',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/vn-11134207-7qukw-lgdv8zqcrjvu51',
+          itemUrl:
+            'https://shopee.sg/Neutrogena-Sensitive-Skin-Serum-Foundation-i.689613854.18088421022',
+          itemPriceMin: 24.26,
+          itemPriceMax: 24.87,
+          item30daysSales: 24.56,
+          item30daysSold: 1,
+          rank: 25,
+        },
+        {
+          id: 2725,
+          itemName: 'FAUXFILTER FOUNDATION I TRENDING BY HUD BEAUTY',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/73234837a7d6afb06e1ef8f030ef89a2',
+          itemUrl:
+            'https://shopee.sg/FAUXFILTER-FOUNDATION-I-TRENDING-BY-HUD-BEAUTY-i.304041935.11340881558',
+          itemPriceMin: 7.06,
+          itemPriceMax: 7.06,
+          item30daysSales: 21.18,
+          item30daysSold: 3,
+          rank: 38,
+        },
+      ],
+    },
+    {
+      rank: 4,
+      name: 'MISSHA',
+      productCount: 1,
+      totalSalesAmount: 3851.16,
+      totalSalesCount: 402,
+      avgSalesAmount: 3851.16,
+      avgSalesCount: 402,
+      avgPrice: 9.58,
+      products: [
+        {
+          id: 2731,
+          itemName: '[MISSHA] Magic cushion SPF50+ PA+++ (4 Type)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/a3f4c889590d1c32ee286fdc85a48b97',
+          itemUrl:
+            'https://shopee.sg/-MISSHA-Magic-cushion-SPF50-PA-(4-Type)-i.8926646.4409852559',
+          itemPriceMin: 9.58,
+          itemPriceMax: 12.55,
+          item30daysSales: 4446.12,
+          item30daysSold: 402,
+          rank: 44,
+        },
+      ],
+    },
+    {
+      rank: 5,
+      name: 'SISTER ANN',
+      productCount: 1,
+      totalSalesAmount: 3485.28,
+      totalSalesCount: 137,
+      avgSalesAmount: 3485.28,
+      avgSalesCount: 137,
+      avgPrice: 25.44,
+      products: [
+        {
+          id: 2722,
+          itemName:
+            '[SISTERANN Official] Pinkhole Jelly Cover Pact Refill (4 Colors)/ Semi-matte Coverage, Pink Essence with Balm foundation Waterproof Compact Moisturizing Long Lasting UV Protection SPF 50+PA+++',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvdo-limf982rgu8d10',
+          itemUrl:
+            'https://shopee.sg/-SISTERANN-Official-Pinkhole-Jelly-Cover-Pact-Refill-(4-Colors)-Semi-matte-Coverage-Pink-Essence-with-Balm-foundation-Waterproof-Compact-Moisturizing-Long-Lasting-UV-Protection-SPF-50-PA-i.310896029.7853756848',
+          itemPriceMin: 25.44,
+          itemPriceMax: 25.44,
+          item30daysSales: 3485.28,
+          item30daysSold: 137,
+          rank: 35,
+        },
+      ],
+    },
+    {
+      rank: 6,
+      name: 'THE FACE SHOP',
+      productCount: 1,
+      totalSalesAmount: 2464.66,
+      totalSalesCount: 187,
+      avgSalesAmount: 2464.66,
+      avgSalesCount: 187,
+      avgPrice: 13.18,
+      products: [
+        {
+          id: 2706,
+          itemName:
+            '[Miffy Edition]The Face Shop fmgt Ink Lasting Foundation Slim Fit 30ml★Shipping From Korea★',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/my-11134201-23030-k57exxbfilov40',
+          itemUrl:
+            'https://shopee.sg/-Miffy-Edition-The-Face-Shop-fmgt-Ink-Lasting-Foundation-Slim-Fit-30ml★Shipping-From-Korea★-i.100262732.22031681536',
+          itemPriceMin: 13.18,
+          itemPriceMax: 37,
+          item30daysSales: 4691.83,
+          item30daysSold: 187,
+          rank: 19,
+        },
+      ],
+    },
+    {
+      rank: 7,
+      name: 'Innisfree',
+      productCount: 4,
+      totalSalesAmount: 2024.2,
+      totalSalesCount: 86,
+      avgSalesAmount: 506.05,
+      avgSalesCount: 21,
+      avgPrice: 24.1,
+      products: [
+        {
+          id: 2694,
+          itemName: '❤️Renewal❤️ [Innisfree] No-Sebum Powder Cushion 14g / Refill 14g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvet-licdlf83yubb92',
+          itemUrl:
+            'https://shopee.sg/️Renewal️-Innisfree-No-Sebum-Powder-Cushion-14g-Refill-14g-i.108071059.1731590324',
+          itemPriceMin: 21.72,
+          itemPriceMax: 31.46,
+          item30daysSales: 1914.48,
+          item30daysSold: 72,
+          rank: 7,
+        },
+        {
+          id: 2734,
+          itemName:
+            '❤️July 2023 NEW❤️[INNISFREE] Light Fitting Foundation 30ml (SPF20/PA++)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvfn-lj42maxk78xy23',
+          itemUrl:
+            'https://shopee.sg/️July-2023-NEW️-INNISFREE-Light-Fitting-Foundation-30ml-(SPF20-PA-)-i.90483698.4818880876',
+          itemPriceMin: 37.01,
+          itemPriceMax: 37.01,
+          item30daysSales: 296.08,
+          item30daysSold: 8,
+          rank: 47,
+        },
+        {
+          id: 2698,
+          itemName: '[Innisfree X PEANUTS] No Sebum Powder Cushion 14g / Refill',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/52751bb5022c37f8761af1abac6b1254',
+          itemUrl:
+            'https://shopee.sg/-Innisfree-X-PEANUTS-No-Sebum-Powder-Cushion-14g-Refill-i.192709023.8166824215',
+          itemPriceMin: 27.38,
+          itemPriceMax: 29.58,
+          item30daysSales: 170.88,
+          item30daysSold: 6,
+          rank: 11,
+        },
+        {
+          id: 2699,
+          itemName: '[Innisfree] My Foundation All Day Long Wear 30mL (8Type) New 2020',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/b4a68f4db209dd22eb2163db77c87beb',
+          itemUrl:
+            'https://shopee.sg/-Innisfree-My-Foundation-All-Day-Long-Wear-30mL-(8Type)-New-2020-i.192709023.5006097691',
+          itemPriceMin: 29.99,
+          itemPriceMax: 29.99,
+          item30daysSales: 0,
+          item30daysSold: 0,
+          rank: 12,
+        },
+      ],
+    },
+    {
+      rank: 8,
+      name: 'Etude House',
+      productCount: 3,
+      totalSalesAmount: 1451.96,
+      totalSalesCount: 102,
+      avgSalesAmount: 483.99,
+      avgSalesCount: 34,
+      avgPrice: 14.24,
+      products: [
+        {
+          id: 2708,
+          itemName: '[Etude House] Double Lasting Cushion Glow',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/9a33b85a0c166ca83418cfac1c247bec',
+          itemUrl:
+            'https://shopee.sg/-Etude-House-Double-Lasting-Cushion-Glow-i.107921853.5418659056',
+          itemPriceMin: 12.79,
+          itemPriceMax: 20.69,
+          item30daysSales: 1322.46,
+          item30daysSold: 79,
+          rank: 21,
+        },
+        {
+          id: 2695,
+          itemName: '[ETUDE] Double Lasting Cushion Glow 15g SPF50+ PA+++',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/253bd00b6ccb7775d889025f66b8e4f3',
+          itemUrl:
+            'https://shopee.sg/-ETUDE-Double-Lasting-Cushion-Glow-15g-SPF50-PA-i.114919380.19730699797',
+          itemPriceMin: 16.97,
+          itemPriceMax: 27.78,
+          item30daysSales: 425.22,
+          item30daysSold: 19,
+          rank: 8,
+        },
+        {
+          id: 2733,
+          itemName: '[ETUDE] NEW Double Lasting Foundation SPF35 PA++ 30g / 12 options',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/74d9e69f4464739af3bc1f6da8908820',
+          itemUrl:
+            'https://shopee.sg/-ETUDE-NEW-Double-Lasting-Foundation-SPF35-PA-30g-12-options-i.114919380.19830928692',
+          itemPriceMin: 29.78,
+          itemPriceMax: 29.78,
+          item30daysSales: 119.12,
+          item30daysSold: 4,
+          rank: 46,
+        },
+      ],
+    },
+    {
+      rank: 9,
+      name: 'Estee Lauder',
+      productCount: 2,
+      totalSalesAmount: 837.93,
+      totalSalesCount: 81,
+      avgSalesAmount: 418.96,
+      avgSalesCount: 40,
+      avgPrice: 10.47,
+      products: [
+        {
+          id: 2697,
+          itemName:
+            'ESTEE LAUDER | Double Wear Stay In Place Makeup Foundation 30ml-1W1 Bone,1W2 Sand,2C0 Cool Vanilla,7ml/30ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/08d55bd20b596129e96b613e84c2a6ed',
+          itemUrl:
+            'https://shopee.sg/ESTEE-LAUDER-Double-Wear-Stay-In-Place-Makeup-Foundation-30ml-1W1-Bone1W2-Sand2C0-Cool-Vanilla7ml-30ml-i.496088238.2998325245',
+          itemPriceMin: 8.87,
+          itemPriceMax: 61,
+          item30daysSales: 1677.12,
+          item30daysSold: 48,
+          rank: 10,
+        },
+        {
+          id: 2690,
+          itemName:
+            'Estee Lauder Double Wear Stay-in-Place Makeup 1W1 Bone 1W2 Sand - 7ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/7adc71fcb8c290348ab40e6252bcd3a1',
+          itemUrl:
+            'https://shopee.sg/Estee-Lauder-Double-Wear-Stay-in-Place-Makeup-1W1-Bone-1W2-Sand-7ml-i.152789735.10409412852',
+          itemPriceMin: 12.49,
+          itemPriceMax: 12.49,
+          item30daysSales: 412.17,
+          item30daysSold: 33,
+          rank: 3,
+        },
+      ],
+    },
+    {
+      rank: 10,
+      name: 'Lancome',
+      productCount: 1,
+      totalSalesAmount: 563.5,
+      totalSalesCount: 7,
+      avgSalesAmount: 563.5,
+      avgSalesCount: 7,
+      avgPrice: 80.5,
+      products: [
+        {
+          id: 2710,
+          itemName: 'LANCOME Teint Idole Ultra Long Wear Foundation 30ml / 6 shades',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/8153f74de3abcd3bc0c1661a55781997',
+          itemUrl:
+            'https://shopee.sg/LANCOME-Teint-Idole-Ultra-Long-Wear-Foundation-30ml-6-shades-i.380210896.5779360902',
+          itemPriceMin: 80.5,
+          itemPriceMax: 96.63,
+          item30daysSales: 619.92,
+          item30daysSold: 7,
+          rank: 23,
+        },
+      ],
+    },
+    {
+      rank: 11,
+      name: "L'Oreal Paris",
+      productCount: 3,
+      totalSalesAmount: 425.12,
+      totalSalesCount: 15,
+      avgSalesAmount: 141.71,
+      avgSalesCount: 5,
+      avgPrice: 28.34,
+      products: [
+        {
+          id: 2719,
+          itemName: "L'OREAL TRUE MATCH LIQUID FOUNDATION",
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/2ec70729a18e2231088734e3fd19d70f',
+          itemUrl:
+            "https://shopee.sg/L'OREAL-TRUE-MATCH-LIQUID-FOUNDATION-i.732425172.17436867415",
+          itemPriceMin: 30.03,
+          itemPriceMax: 30.03,
+          item30daysSales: 360.36,
+          item30daysSold: 12,
+          rank: 32,
+        },
+        {
+          id: 2689,
+          itemName: 'LOREAL 24H Flawless Perfect Liquid Foundation 24H Lure',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/64bf2bf2e962436df4071b4eecd0214f',
+          itemUrl:
+            'https://shopee.sg/LOREAL-24H-Flawless-Perfect-Liquid-Foundation-24H-Lure-i.273298305.14180700944',
+          itemPriceMin: 16.55,
+          itemPriceMax: 25.61,
+          item30daysSales: 42.16,
+          item30daysSold: 2,
+          rank: 2,
+        },
+        {
+          id: 2717,
+          itemName: "L'Oreal True Match Liquid Foundation",
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134201-22100-hh7yv1l25piv00',
+          itemUrl:
+            "https://shopee.sg/L'Oreal-True-Match-Liquid-Foundation-i.7770291.8869776969",
+          itemPriceMin: 31.66,
+          itemPriceMax: 31.66,
+          item30daysSales: 31.66,
+          item30daysSold: 1,
+          rank: 30,
+        },
+      ],
+    },
+    {
+      rank: 12,
+      name: 'the SAEM',
+      productCount: 2,
+      totalSalesAmount: 419.66,
+      totalSalesCount: 28,
+      avgSalesAmount: 209.83,
+      avgSalesCount: 14,
+      avgPrice: 14.99,
+      products: [
+        {
+          id: 2711,
+          itemName: '[the SAEM] True Fit Fixer Cushion 15g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/eeeb8a673a3cac7ec4e8d2d72fa6d552',
+          itemUrl:
+            'https://shopee.sg/-the-SAEM-True-Fit-Fixer-Cushion-15g-i.114919380.15735339240',
+          itemPriceMin: 14.18,
+          itemPriceMax: 22.87,
+          item30daysSales: 277.8,
+          item30daysSold: 15,
+          rank: 24,
+        },
+        {
+          id: 2696,
+          itemName: 'THE SAEM Studio Glow Foundation SPF35 PA++ 10ml',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/1e9ba49ac31096b574e92ec9f3d4c455',
+          itemUrl:
+            'https://shopee.sg/THE-SAEM-Studio-Glow-Foundation-SPF35-PA-10ml-i.59846544.4410080706',
+          itemPriceMin: 15.92,
+          itemPriceMax: 15.92,
+          item30daysSales: 206.96,
+          item30daysSold: 13,
+          rank: 9,
+        },
+      ],
+    },
+    {
+      rank: 13,
+      name: 'Shiseido',
+      productCount: 1,
+      totalSalesAmount: 398.14,
+      totalSalesCount: 17,
+      avgSalesAmount: 398.14,
+      avgSalesCount: 17,
+      avgPrice: 23.42,
+      products: [
+        {
+          id: 2693,
+          itemName:
+            '［In stock］ Shiseido Integrate Gracy Moist Cream Foundation 25g SPF22 PA++ 4 color',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/65ce27621282ea9e9b4b98a3cd18b276',
+          itemUrl:
+            'https://shopee.sg/［In-stock］-Shiseido-Integrate-Gracy-Moist-Cream-Foundation-25g-SPF22-PA-4-color-i.101667372.1773945051',
+          itemPriceMin: 23.42,
+          itemPriceMax: 31.62,
+          item30daysSales: 467.84,
+          item30daysSold: 17,
+          rank: 6,
+        },
+      ],
+    },
+    {
+      rank: 14,
+      name: 'Moonshot',
+      productCount: 1,
+      totalSalesAmount: 390.39,
+      totalSalesCount: 13,
+      avgSalesAmount: 390.39,
+      avgSalesCount: 13,
+      avgPrice: 30.03,
+      products: [
+        {
+          id: 2707,
+          itemName: '[moonshot] Micro Glassyfit Cushion SPF 50+ PA++++ 15g',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/6edf93343bf4f015443268b87d2fa080',
+          itemUrl:
+            'https://shopee.sg/-moonshot-Micro-Glassyfit-Cushion-SPF-50-PA-15g-i.114919380.3556256183',
+          itemPriceMin: 30.03,
+          itemPriceMax: 30.03,
+          item30daysSales: 390.39,
+          item30daysSold: 13,
+          rank: 20,
+        },
+      ],
+    },
+    {
+      rank: 15,
+      name: 'COSRX',
+      productCount: 1,
+      totalSalesAmount: 243.18,
+      totalSalesCount: 6,
+      avgSalesAmount: 243.18,
+      avgSalesCount: 6,
+      avgPrice: 40.53,
+      products: [
+        {
+          id: 2728,
+          itemName:
+            '[COSRX] Full Fit Propolis Ampoule Cushion (2 colors) Propolis Extract 29.6%, for Revitalizing & Nourishing Skin',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-23020-piq15r6seunv34',
+          itemUrl:
+            'https://shopee.sg/-COSRX-Full-Fit-Propolis-Ampoule-Cushion-(2-colors)-Propolis-Extract-29.6-for-Revitalizing-&-Nourishing-Skin-i.116704504.6359573392',
+          itemPriceMin: 40.53,
+          itemPriceMax: 40.53,
+          item30daysSales: 243.18,
+          item30daysSold: 6,
+          rank: 41,
+        },
+      ],
+    },
+    {
+      rank: 16,
+      name: 'Giorgio Armani',
+      productCount: 1,
+      totalSalesAmount: 162.84,
+      totalSalesCount: 2,
+      avgSalesAmount: 162.84,
+      avgSalesCount: 2,
+      avgPrice: 81.42,
+      products: [
+        {
+          id: 2721,
+          itemName:
+            'Giorgio Armani Power Fabric + Longwear Weightless Matte Foundation SPF 20 30ml (No. 2 / No. 3)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvd8-lfj9dq5vhgf64a',
+          itemUrl:
+            'https://shopee.sg/Giorgio-Armani-Power-Fabric-Longwear-Weightless-Matte-Foundation-SPF-20-30ml-(No.-2-No.-3)-i.27998060.513080632',
+          itemPriceMin: 81.42,
+          itemPriceMax: 81.42,
+          item30daysSales: 162.84,
+          item30daysSold: 2,
+          rank: 34,
+        },
+      ],
+    },
+    {
+      rank: 17,
+      name: 'REVLON',
+      productCount: 2,
+      totalSalesAmount: 141.04,
+      totalSalesCount: 6,
+      avgSalesAmount: 70.52,
+      avgSalesCount: 3,
+      avgPrice: 23.51,
+      products: [
+        {
+          id: 2737,
+          itemName: 'Liquid foundation colorstay 24hr',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/6214a8996f9d990cf7be4496a4c9e2f2',
+          itemUrl:
+            'https://shopee.sg/Liquid-foundation-colorstay-24hr-i.308081434.3952715373',
+          itemPriceMin: 23.17,
+          itemPriceMax: 23.17,
+          item30daysSales: 92.68,
+          item30daysSold: 4,
+          rank: 50,
+        },
+        {
+          id: 2692,
+          itemName: 'Revlon Colorstay Makeup Foundation 30ML',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/30da50087360951808b7cd7b096d211b',
+          itemUrl:
+            'https://shopee.sg/Revlon-Colorstay-Makeup-Foundation-30ML-i.358947650.3370490797',
+          itemPriceMin: 24.18,
+          itemPriceMax: 24.18,
+          item30daysSales: 48.36,
+          item30daysSold: 2,
+          rank: 5,
+        },
+      ],
+    },
+    {
+      rank: 18,
+      name: 'Nature Republic',
+      productCount: 1,
+      totalSalesAmount: 135.96,
+      totalSalesCount: 6,
+      avgSalesAmount: 135.96,
+      avgSalesCount: 6,
+      avgPrice: 22.66,
+      products: [
+        {
+          id: 2701,
+          itemName:
+            '[NATURE REPUBLIC] Provence Air Skin Fit One Day Lasting Foundation 32ml (SPF30/PA++)',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/6d785a7d8f74be77ef90ed9198347efa',
+          itemUrl:
+            'https://shopee.sg/-NATURE-REPUBLIC-Provence-Air-Skin-Fit-One-Day-Lasting-Foundation-32ml-(SPF30-PA-)-i.90483698.14342034839',
+          itemPriceMin: 22.66,
+          itemPriceMax: 22.66,
+          item30daysSales: 135.96,
+          item30daysSold: 6,
+          rank: 14,
+        },
+      ],
+    },
+    {
+      rank: 19,
+      name: 'NARS Cosmetics',
+      productCount: 2,
+      totalSalesAmount: 127.01,
+      totalSalesCount: 13,
+      avgSalesAmount: 63.5,
+      avgSalesCount: 6,
+      avgPrice: 10.58,
+      products: [
+        {
+          id: 2736,
+          itemName:
+            'NARS Casida Vanilla Honey Cream Puff Sweetheart Concealer Honey 1.4ml Face Liquid foundation Comestics Face Concealer',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/efa8ce196950ea7a15a5150dfa6c059c',
+          itemUrl:
+            'https://shopee.sg/NARS-Casida-Vanilla-Honey-Cream-Puff-Sweetheart-Concealer-Honey-1.4ml-Face-Liquid-foundation-Comestics-Face-Concealer-i.97084677.11119026262',
+          itemPriceMin: 9.77,
+          itemPriceMax: 9.77,
+          item30daysSales: 127.01,
+          item30daysSold: 13,
+          rank: 49,
+        },
+        {
+          id: 2709,
+          itemName: 'Nars foundation [ Waterproof 24hr ] Zeelifestyle',
+          itemImage:
+            'https://down-sg.img.susercontent.com/file/my-11134207-7qul7-lg8b4gsp0hgp26',
+          itemUrl:
+            'https://shopee.sg/Nars-foundation-Waterproof-24hr-Zeelifestyle-i.961749561.21274961179',
+          itemPriceMin: 6.48,
+          itemPriceMax: 6.48,
           item30daysSales: 0,
           item30daysSold: 0,
           rank: 22,
@@ -73,892 +878,42 @@ export const BRAND_DATA = {
       ],
     },
     {
-      rank: 2,
-      name: "L'Oreal Paris",
-      productCount: 5,
-      totalSalesAmount: 1672.54,
-      totalSalesCount: 80,
-      avgSalesAmount: 334.51,
-      avgSalesCount: 16,
-      avgPrice: 20.91,
+      rank: 20,
+      name: 'essence',
+      productCount: 2,
+      totalSalesAmount: 61.71,
+      totalSalesCount: 7,
+      avgSalesAmount: 30.86,
+      avgSalesCount: 3,
+      avgPrice: 10.29,
       products: [
         {
-          id: 35808,
+          id: 2729,
           itemName:
-            "L'Oreal Paris Infaillible Freshwear Powder (Waterproof/Heat proof/Sweat proof)",
+            'essence make-up drops (No Worries About The Wrong Foundation Number)',
           itemImage:
-            'https://down-sg.img.susercontent.com/file/sg-11134207-7qve7-lh8sq0stvcxred',
+            'https://down-sg.img.susercontent.com/file/9932d6a32622da59e9b01bfde18896ce',
           itemUrl:
-            "https://shopee.sg/L'Oreal-Paris-Infaillible-Freshwear-Powder-(Waterproof-Heat-proof-Sweat-proof)-i.15235546.16082407405",
-          itemPriceMin: 27.2,
-          itemPriceMax: 27.2,
-          item30daysSales: 707.2,
-          item30daysSold: 26,
-          rank: 21,
-        },
-        {
-          id: 35833,
-          itemName: "Tone Up To 24h L'OreaL Infallible 24h Fresh Wear Powder Foundation",
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/19c82f37eea1639248adc3107069da04',
-          itemUrl:
-            "https://shopee.sg/Tone-Up-To-24h-L'OreaL-Infallible-24h-Fresh-Wear-Powder-Foundation-i.462649703.16261848577",
-          itemPriceMin: 16.09,
-          itemPriceMax: 16.09,
-          item30daysSales: 579.24,
-          item30daysSold: 36,
-          rank: 46,
-        },
-        {
-          id: 35806,
-          itemName: "L'OREAL TRUE MATCH LIQUID FOUNDATION",
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/2ec70729a18e2231088734e3fd19d70f',
-          itemUrl:
-            "https://shopee.sg/L'OREAL-TRUE-MATCH-LIQUID-FOUNDATION-i.732425172.17436867415",
-          itemPriceMin: 24.84,
-          itemPriceMax: 25.38,
-          item30daysSales: 276.21,
-          item30daysSold: 11,
-          rank: 19,
-        },
-        {
-          id: 35796,
-          itemName:
-            "L'oreal Paris Infallible Pro 24 H & 32h Matte Cover Liquid Foundation Loreal 30ml Lasts 32hours",
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/2de50dc58b1bd7750f7de50538a5aa5a',
-          itemUrl:
-            "https://shopee.sg/L'oreal-Paris-Infallible-Pro-24-H-&-32h-Matte-Cover-Liquid-Foundation-Loreal-30ml-Lasts-32hours-i.265451803.14378906827",
-          itemPriceMin: 21.06,
-          itemPriceMax: 24.73,
-          item30daysSales: 114.5,
-          item30daysSold: 5,
-          rank: 9,
-        },
-        {
-          id: 35829,
-          itemName: '[SHARE] Loreal Infallible Matte Cover Foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/a79f9d00ad9a83f245888af4d7339a29',
-          itemUrl:
-            'https://shopee.sg/-SHARE-Loreal-Infallible-Matte-Cover-Foundation-i.423254246.13395482323',
-          itemPriceMin: 3.78,
-          itemPriceMax: 7.02,
-          item30daysSales: 10.8,
-          item30daysSold: 2,
+            'https://shopee.sg/essence-make-up-drops-(No-Worries-About-The-Wrong-Foundation-Number)-i.732481932.17336637769',
+          itemPriceMin: 7.65,
+          itemPriceMax: 7.65,
+          item30daysSales: 45.9,
+          item30daysSold: 6,
           rank: 42,
         },
-      ],
-    },
-    {
-      rank: 3,
-      name: 'THE FACE SHOP',
-      productCount: 2,
-      totalSalesAmount: 1293.6,
-      totalSalesCount: 120,
-      avgSalesAmount: 646.8,
-      avgSalesCount: 60,
-      avgPrice: 10.78,
-      products: [
         {
-          id: 35793,
-          itemName:
-            '[Miffy Edition]The Face Shop fmgt Ink Lasting Foundation Slim Fit 30ml★Shipping From Korea★',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/my-11134201-23030-k57exxbfilov40',
-          itemUrl:
-            'https://shopee.sg/-Miffy-Edition-The-Face-Shop-fmgt-Ink-Lasting-Foundation-Slim-Fit-30ml★Shipping-From-Korea★-i.100262732.22031681536',
-          itemPriceMin: 10.69,
-          itemPriceMax: 30.02,
-          item30daysSales: 2422.84,
-          item30daysSold: 119,
-          rank: 6,
-        },
-        {
-          id: 35831,
-          itemName:
-            '[THE FACE SHOP] Fmgt Gold Collagen Ampoule Foundation SPF30 PA++ 40ml',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvdk-lgn0uoviazojde',
-          itemUrl:
-            'https://shopee.sg/-THE-FACE-SHOP-Fmgt-Gold-Collagen-Ampoule-Foundation-SPF30-PA-40ml-i.171423487.14450010425',
-          itemPriceMin: 21.49,
-          itemPriceMax: 21.49,
-          item30daysSales: 21.49,
-          item30daysSold: 1,
-          rank: 44,
-        },
-      ],
-    },
-    {
-      rank: 4,
-      name: 'ROM&ND',
-      productCount: 1,
-      totalSalesAmount: 1213.9,
-      totalSalesCount: 61,
-      avgSalesAmount: 1213.9,
-      avgSalesCount: 61,
-      avgPrice: 19.9,
-      products: [
-        {
-          id: 35821,
-          itemName: '[ROM&ND] ROMAND Bare Water Cushion 20g',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvd5-li17x2wwl33o2c',
-          itemUrl:
-            'https://shopee.sg/-ROM&ND-ROMAND-Bare-Water-Cushion-20g-i.267761018.22920037222',
-          itemPriceMin: 19.9,
-          itemPriceMax: 25.98,
-          item30daysSales: 1399.34,
-          item30daysSold: 61,
-          rank: 34,
-        },
-      ],
-    },
-    {
-      rank: 5,
-      name: 'Innisfree',
-      productCount: 4,
-      totalSalesAmount: 1045.33,
-      totalSalesCount: 61,
-      avgSalesAmount: 261.33,
-      avgSalesCount: 15,
-      avgPrice: 17.42,
-      products: [
-        {
-          id: 35813,
-          itemName: '❤️Renewal❤️ [Innisfree] No-Sebum Powder Cushion 14g / Refill 14g',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/sg-11134207-7qvet-licdlf83yubb92',
-          itemUrl:
-            'https://shopee.sg/️Renewal️-Innisfree-No-Sebum-Powder-Cushion-14g-Refill-14g-i.108071059.1731590324',
-          itemPriceMin: 16.5,
-          itemPriceMax: 23.9,
-          item30daysSales: 686.8,
-          item30daysSold: 34,
-          rank: 26,
-        },
-        {
-          id: 35825,
-          itemName: '[INNISFREE] No-Sebum Powder Cushion 14g (SPF35/PA++)',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/619dbbf57f18e18b254d0101e70135d2',
-          itemUrl:
-            'https://shopee.sg/-INNISFREE-No-Sebum-Powder-Cushion-14g-(SPF35-PA-)-i.90483698.7987641387',
-          itemPriceMin: 15.98,
-          itemPriceMax: 22.46,
-          item30daysSales: 307.52,
-          item30daysSold: 16,
-          rank: 38,
-        },
-        {
-          id: 35807,
-          itemName: '❤️8 color❤️[INNISFREE] My Foundation 30ml [All day-Longwear]',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/e28cc1cdaafa5ae3d863864f44d40bc6',
-          itemUrl:
-            'https://shopee.sg/️8-color️-INNISFREE-My-Foundation-30ml-All-day-Longwear-i.90483698.4818880876',
-          itemPriceMin: 20.2,
-          itemPriceMax: 20.2,
-          item30daysSales: 121.2,
-          item30daysSold: 6,
-          rank: 20,
-        },
-        {
-          id: 35812,
-          itemName: '[Innisfree X PEANUTS] No Sebum Powder Cushion 14g / Refill',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/52751bb5022c37f8761af1abac6b1254',
-          itemUrl:
-            'https://shopee.sg/-Innisfree-X-PEANUTS-No-Sebum-Powder-Cushion-14g-Refill-i.192709023.8166824215',
-          itemPriceMin: 21.49,
-          itemPriceMax: 23.22,
-          item30daysSales: 111.8,
-          item30daysSold: 5,
-          rank: 25,
-        },
-      ],
-    },
-    {
-      rank: 6,
-      name: 'MAJOLICA MAJORCA',
-      productCount: 1,
-      totalSalesAmount: 1002.33,
-      totalSalesCount: 37,
-      avgSalesAmount: 1002.33,
-      avgSalesCount: 37,
-      avgPrice: 27.09,
-      products: [
-        {
-          id: 35830,
-          itemName:
-            'Japan Majolica Majorca Milky Wrapping Foundation Foundation 30g Authentic Item Directly Ships from Japan',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/0fba73d429209ce6bd470b42e5db1042',
-          itemUrl:
-            'https://shopee.sg/Japan-Majolica-Majorca-Milky-Wrapping-Foundation-Foundation-30g-Authentic-Item-Directly-Ships-from-Japan-i.155997789.18647588976',
-          itemPriceMin: 27.09,
-          itemPriceMax: 27.09,
-          item30daysSales: 1002.33,
-          item30daysSold: 37,
-          rank: 43,
-        },
-      ],
-    },
-    {
-      rank: 7,
-      name: '',
-      productCount: 12,
-      totalSalesAmount: 839.1,
-      totalSalesCount: 81,
-      avgSalesAmount: 69.92,
-      avgSalesCount: 6,
-      avgPrice: 11.65,
-      products: [
-        {
-          id: 35820,
-          itemName:
-            'Saint Roland Air Cushion Sample Leather Feather 5G Air Cushion Sample',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/6a7997dd503eb378c8b37494afac5c32',
-          itemUrl:
-            'https://shopee.sg/Saint-Roland-Air-Cushion-Sample-Leather-Feather-5G-Air-Cushion-Sample-i.500454954.19333208461',
-          itemPriceMin: 11.77,
-          itemPriceMax: 11.77,
-          item30daysSales: 200.09,
-          item30daysSold: 17,
-          rank: 33,
-        },
-        {
-          id: 35826,
-          itemName:
-            'NEW!!! Alha Alfa Royal Propolis Foundation NORMAL SIZE & TESTER SIZE',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/sg-11134201-22110-4gj9t33q4ijv19',
-          itemUrl:
-            'https://shopee.sg/NEW!!!-Alha-Alfa-Royal-Propolis-Foundation-NORMAL-SIZE-&-TESTER-SIZE-i.332190583.3876638363',
-          itemPriceMin: 10.26,
-          itemPriceMax: 34.02,
-          item30daysSales: 177.12,
-          item30daysSold: 8,
-          rank: 39,
-        },
-        {
-          id: 35828,
-          itemName:
-            'Hourglass Crescent Medium Foundation Brush Fiber Gross Beauty Tools Loose Powder Brush Face Makeup Brushes Set',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/53f0892baa6141073ba6f918889691b8',
-          itemUrl:
-            'https://shopee.sg/Hourglass-Crescent-Medium-Foundation-Brush-Fiber-Gross-Beauty-Tools-Loose-Powder-Brush-Face-Makeup-Brushes-Set-i.97084677.21022343964',
-          itemPriceMin: 6.25,
-          itemPriceMax: 11.33,
-          item30daysSales: 149.43,
-          item30daysSold: 17,
-          rank: 41,
-        },
-        {
-          id: 35837,
-          itemName:
-            'RT new makeup brush lock in foundation and concealer powder cream eyeliner highlighter set makeup powder brush',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/cdd32b3491c9a6c5b62affa3b9cebd8b',
-          itemUrl:
-            'https://shopee.sg/RT-new-makeup-brush-lock-in-foundation-and-concealer-powder-cream-eyeliner-highlighter-set-makeup-powder-brush-i.299405489.13057257642',
-          itemPriceMin: 11.87,
-          itemPriceMax: 12.95,
-          item30daysSales: 111.69,
-          item30daysSold: 9,
-          rank: 50,
-        },
-        {
-          id: 35832,
-          itemName:
-            'UODO Liquid Foundation Oil Control Concealer Moisturizing Long Lasting Setting Non-stick Powder Suitable for Dry and Oily Skin',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/ph-11134201-7qukw-letf7tpbol5a99',
-          itemUrl:
-            'https://shopee.sg/UODO-Liquid-Foundation-Oil-Control-Concealer-Moisturizing-Long-Lasting-Setting-Non-stick-Powder-Suitable-for-Dry-and-Oily-Skin-i.891832101.17394080247',
-          itemPriceMin: 10.21,
-          itemPriceMax: 10.21,
-          item30daysSales: 102.1,
-          item30daysSold: 10,
-          rank: 45,
-        },
-        {
-          id: 35801,
-          itemName:
-            'Florasis 花西子 Emerald Cushion BB cream Lotus Jade Nourish Skin Foundation Cushion 花西子玉容睡莲翡翠养肤气垫CC霜 Face Makeup',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/c0bf98e8bd5bdbe02827257f2f6dd2ea',
-          itemUrl:
-            'https://shopee.sg/Florasis-花西子-Emerald-Cushion-BB-cream-Lotus-Jade-Nourish-Skin-Foundation-Cushion-花西子玉容睡莲翡翠养肤气垫CC霜-Face-Makeup-i.97084677.4293653278',
-          itemPriceMin: 16.08,
-          itemPriceMax: 16.08,
-          item30daysSales: 80.4,
-          item30daysSold: 5,
-          rank: 14,
-        },
-        {
-          id: 35798,
-          itemName:
-            'Essence Plant Flawless Mousse Foundation Cream 16g Refreshing Oil Control Concealer Matte Moisturizing Natural',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/f6a75de9119481e6ef8fab6752288788',
-          itemUrl:
-            'https://shopee.sg/Essence-Plant-Flawless-Mousse-Foundation-Cream-16g-Refreshing-Oil-Control-Concealer-Matte-Moisturizing-Natural-i.330223937.10059601427',
-          itemPriceMin: 8.62,
-          itemPriceMax: 8.62,
-          item30daysSales: 68.96,
-          item30daysSold: 8,
-          rank: 11,
-        },
-        {
-          id: 35790,
-          itemName:
-            'Nars Light Reflecting Advanced Liquid Foundation Square Bottle Liquid Foundation Matte Concealer Natural Nourishing Skin Liquid Foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/4342a6b6f6d0fc49468a812e9c33d446',
-          itemUrl:
-            'https://shopee.sg/Nars-Light-Reflecting-Advanced-Liquid-Foundation-Square-Bottle-Liquid-Foundation-Matte-Concealer-Natural-Nourishing-Skin-Liquid-Foundation-i.97084677.19729230792',
-          itemPriceMin: 12.95,
-          itemPriceMax: 12.95,
-          item30daysSales: 51.8,
-          item30daysSold: 4,
-          rank: 3,
-        },
-        {
-          id: 35800,
-          itemName: '[cotd] la colors truly matte foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/1f9b9b0ee24f651807a6c2aa27484b92',
-          itemUrl:
-            'https://shopee.sg/-cotd-la-colors-truly-matte-foundation-i.193411977.6405259783',
-          itemPriceMin: 16.74,
-          itemPriceMax: 16.74,
-          item30daysSales: 16.74,
-          item30daysSold: 1,
-          rank: 13,
-        },
-        {
-          id: 35819,
-          itemName:
-            '【Uny】AGAG is clear and flawless, does not stick to the screen, moisturizing, light and natural concealer, makeup foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/3a5e411a9ba50c4ccb1d9d6d9d7c2122',
-          itemUrl:
-            'https://shopee.sg/【Uny】AGAG-is-clear-and-flawless-does-not-stick-to-the-screen-moisturizing-light-and-natural-concealer-makeup-foundation-i.801833615.21827914955',
-          itemPriceMin: 14.14,
-          itemPriceMax: 14.14,
-          item30daysSales: 14.14,
-          item30daysSold: 1,
-          rank: 32,
-        },
-        {
-          id: 35791,
-          itemName:
-            'RVN Rose Matte Air Cushion BB Cream Oil Control Waterproof Sweat-proof Concealer Foundation BB Cream Face Makeup',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/d03ee8b92c49d48944ce96b3551ee865',
-          itemUrl:
-            'https://shopee.sg/RVN-Rose-Matte-Air-Cushion-BB-Cream-Oil-Control-Waterproof-Sweat-proof-Concealer-Foundation-BB-Cream-Face-Makeup-i.97084677.18926607520',
-          itemPriceMin: 9.71,
-          itemPriceMax: 9.71,
-          item30daysSales: 9.71,
-          item30daysSold: 1,
-          rank: 4,
-        },
-        {
-          id: 35827,
-          itemName: '🇸🇬Fasha Magic Foundation Stick (Waterproof/spf 50/lightweight)',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/bebeaa78d9e5fb60674844954cd2b4e3',
-          itemUrl:
-            'https://shopee.sg/Fasha-Magic-Foundation-Stick-(Waterproof-spf-50-lightweight)-i.115861510.19547781091',
-          itemPriceMin: 15,
-          itemPriceMax: 15,
-          item30daysSales: 0,
-          item30daysSold: 0,
-          rank: 40,
-        },
-      ],
-    },
-    {
-      rank: 8,
-      name: 'Estee Lauder',
-      productCount: 4,
-      totalSalesAmount: 826.06,
-      totalSalesCount: 111,
-      avgSalesAmount: 206.52,
-      avgSalesCount: 27,
-      avgPrice: 7.65,
-      products: [
-        {
-          id: 35789,
-          itemName:
-            'ESTEE LAUDER | Double Wear Stay In Place Makeup Foundation 1W1 Bone,1W2 Sand,2C0 Cool Vanilla,7ml/30ml',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/08d55bd20b596129e96b613e84c2a6ed',
-          itemUrl:
-            'https://shopee.sg/ESTEE-LAUDER-Double-Wear-Stay-In-Place-Makeup-Foundation-1W1-Bone1W2-Sand2C0-Cool-Vanilla7ml-30ml-i.496088238.2998325245',
-          itemPriceMin: 8,
-          itemPriceMax: 55,
-          item30daysSales: 1858.5,
-          item30daysSold: 59,
-          rank: 2,
-        },
-        {
-          id: 35834,
-          itemName:
-            '【Travel Size】Estee Lauder Double Wear Stay-in-Place Makeup foundation Sample 1W1 Bone/1W2Sand  7ml',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/4d61de0de0c0a9bf0ba78885a8be2c17',
-          itemUrl:
-            'https://shopee.sg/【Travel-Size】Estee-Lauder-Double-Wear-Stay-in-Place-Makeup-foundation-Sample-1W1-Bone-1W2Sand-7ml-i.569679025.18142574935',
-          itemPriceMin: 6.48,
-          itemPriceMax: 6.48,
-          item30daysSales: 304.56,
-          item30daysSold: 47,
-          rank: 47,
-        },
-        {
-          id: 35788,
-          itemName:
-            'Estee Lauder Double Wear Stay-in-Place Makeup 1W1 Bone 1W2 Sand - 7ml',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/7adc71fcb8c290348ab40e6252bcd3a1',
-          itemUrl:
-            'https://shopee.sg/Estee-Lauder-Double-Wear-Stay-in-Place-Makeup-1W1-Bone-1W2-Sand-7ml-i.152789735.10409412852',
-          itemPriceMin: 9.9,
-          itemPriceMax: 9.9,
-          item30daysSales: 49.5,
-          item30daysSold: 5,
-          rank: 1,
-        },
-        {
-          id: 35816,
-          itemName: 'ESTÉE LAUDERDouble Wear Stay-In-Place Makeup SPF 10 Foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/109c3d6e29ebae85947cd149dcd41ee4',
-          itemUrl:
-            'https://shopee.sg/ESTÉE-LAUDERDouble-Wear-Stay-In-Place-Makeup-SPF-10-Foundation-i.67390781.18552927882',
-          itemPriceMin: 9,
-          itemPriceMax: 9,
-          item30daysSales: 0,
-          item30daysSold: 0,
-          rank: 29,
-        },
-      ],
-    },
-    {
-      rank: 9,
-      name: 'LANEIGE',
-      productCount: 2,
-      totalSalesAmount: 538.29,
-      totalSalesCount: 37,
-      avgSalesAmount: 269.14,
-      avgSalesCount: 18,
-      avgPrice: 14.95,
-      products: [
-        {
-          id: 35794,
-          itemName:
-            'Laneige Air Cushion BB Cream CC Cream Concealer Watery Lasting Moisturizing Oil Control Whitening BB cream Foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/ce13f029b5b539ab42ec5b220dacd571',
-          itemUrl:
-            'https://shopee.sg/Laneige-Air-Cushion-BB-Cream-CC-Cream-Concealer-Watery-Lasting-Moisturizing-Oil-Control-Whitening-BB-cream-Foundation-i.97084677.9279188604',
-          itemPriceMin: 13.89,
-          itemPriceMax: 13.89,
-          item30daysSales: 458.37,
-          item30daysSold: 33,
-          rank: 7,
-        },
-        {
-          id: 35803,
-          itemName: 'LANEIGE Neo Foundation Matte 30ml - Cloudcoverage, Naturalglow',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/52c886937f0ba16a4d63a819a3f1f525',
-          itemUrl:
-            'https://shopee.sg/LANEIGE-Neo-Foundation-Matte-30ml-Cloudcoverage-Naturalglow-i.498524385.12329003075',
-          itemPriceMin: 19.98,
-          itemPriceMax: 53.46,
-          item30daysSales: 146.88,
-          item30daysSold: 4,
-          rank: 16,
-        },
-      ],
-    },
-    {
-      rank: 10,
-      name: 'Shiseido',
-      productCount: 1,
-      totalSalesAmount: 280,
-      totalSalesCount: 14,
-      avgSalesAmount: 280,
-      avgSalesCount: 14,
-      avgPrice: 20,
-      products: [
-        {
-          id: 35815,
-          itemName:
-            '［In stock］ Shiseido Integrate Gracy Moist Cream Foundation 25g SPF22 PA++ 4 color',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/65ce27621282ea9e9b4b98a3cd18b276',
-          itemUrl:
-            'https://shopee.sg/［In-stock］-Shiseido-Integrate-Gracy-Moist-Cream-Foundation-25g-SPF22-PA-4-color-i.101667372.1773945051',
-          itemPriceMin: 20,
-          itemPriceMax: 20,
-          item30daysSales: 280,
-          item30daysSold: 14,
-          rank: 28,
-        },
-      ],
-    },
-    {
-      rank: 11,
-      name: 'Etude House',
-      productCount: 2,
-      totalSalesAmount: 228.8,
-      totalSalesCount: 16,
-      avgSalesAmount: 114.4,
-      avgSalesCount: 8,
-      avgPrice: 14.3,
-      products: [
-        {
-          id: 35797,
-          itemName: '[ETUDE] Double Lasting Cushion Glow 15g SPF50+ PA+++',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/253bd00b6ccb7775d889025f66b8e4f3',
-          itemUrl:
-            'https://shopee.sg/-ETUDE-Double-Lasting-Cushion-Glow-15g-SPF50-PA-i.114919380.19730699797',
-          itemPriceMin: 11.87,
-          itemPriceMax: 19.43,
-          item30daysSales: 187.8,
-          item30daysSold: 12,
-          rank: 10,
-        },
-        {
-          id: 35811,
-          itemName: '[ETUDE] NEW Double Lasting Foundation SPF35 PA++ 30g / 12 options',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/74d9e69f4464739af3bc1f6da8908820',
-          itemUrl:
-            'https://shopee.sg/-ETUDE-NEW-Double-Lasting-Foundation-SPF35-PA-30g-12-options-i.114919380.19830928692',
-          itemPriceMin: 21.59,
-          itemPriceMax: 21.59,
-          item30daysSales: 86.36,
-          item30daysSold: 4,
-          rank: 24,
-        },
-      ],
-    },
-    {
-      rank: 12,
-      name: 'Moonshot',
-      productCount: 1,
-      totalSalesAmount: 205.1,
-      totalSalesCount: 10,
-      avgSalesAmount: 205.1,
-      avgSalesCount: 10,
-      avgPrice: 20.51,
-      products: [
-        {
-          id: 35799,
-          itemName: '[moonshot] Micro Glassyfit Cushion SPF 50+ PA++++ 15g',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/6edf93343bf4f015443268b87d2fa080',
-          itemUrl:
-            'https://shopee.sg/-moonshot-Micro-Glassyfit-Cushion-SPF-50-PA-15g-i.114919380.3556256183',
-          itemPriceMin: 20.51,
-          itemPriceMax: 20.51,
-          item30daysSales: 205.1,
-          item30daysSold: 10,
-          rank: 12,
-        },
-      ],
-    },
-    {
-      rank: 13,
-      name: 'wet n wild',
-      productCount: 1,
-      totalSalesAmount: 127.75,
-      totalSalesCount: 7,
-      avgSalesAmount: 127.75,
-      avgSalesCount: 7,
-      avgPrice: 18.25,
-      products: [
-        {
-          id: 35810,
-          itemName: '[cotd] wet n wild photo focus foundation matte',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/2d9f5355d2b5adacb09b67def7beec5e',
-          itemUrl:
-            'https://shopee.sg/-cotd-wet-n-wild-photo-focus-foundation-matte-i.193411977.5605259771',
-          itemPriceMin: 18.25,
-          itemPriceMax: 18.25,
-          item30daysSales: 127.75,
-          item30daysSold: 7,
-          rank: 23,
-        },
-      ],
-    },
-    {
-      rank: 14,
-      name: 'NARS Cosmetics',
-      productCount: 1,
-      totalSalesAmount: 103.44,
-      totalSalesCount: 12,
-      avgSalesAmount: 103.44,
-      avgSalesCount: 12,
-      avgPrice: 8.62,
-      products: [
-        {
-          id: 35817,
-          itemName:
-            'NARS Casida Vanilla Honey Cream Puff Sweetheart Concealer Honey 1.4ml Face Liquid foundation Comestics Face Concealer',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/efa8ce196950ea7a15a5150dfa6c059c',
-          itemUrl:
-            'https://shopee.sg/NARS-Casida-Vanilla-Honey-Cream-Puff-Sweetheart-Concealer-Honey-1.4ml-Face-Liquid-foundation-Comestics-Face-Concealer-i.97084677.11119026262',
-          itemPriceMin: 8.62,
-          itemPriceMax: 8.62,
-          item30daysSales: 103.44,
-          item30daysSold: 12,
-          rank: 30,
-        },
-      ],
-    },
-    {
-      rank: 15,
-      name: 'essence',
-      productCount: 1,
-      totalSalesAmount: 90.93,
-      totalSalesCount: 7,
-      avgSalesAmount: 90.93,
-      avgSalesCount: 7,
-      avgPrice: 12.99,
-      products: [
-        {
-          id: 35822,
+          id: 2702,
           itemName:
             'ESSENCE Pretty Natural Hydrating Foundation 30ml Hyaluron + Aloe Vera 24H Long Lasting Hydration Vegan',
           itemImage:
             'https://down-sg.img.susercontent.com/file/5ff3d26c702b2a95394d49fcae0e9101',
           itemUrl:
             'https://shopee.sg/ESSENCE-Pretty-Natural-Hydrating-Foundation-30ml-Hyaluron-Aloe-Vera-24H-Long-Lasting-Hydration-Vegan-i.413381811.21223129613',
-          itemPriceMin: 12.99,
-          itemPriceMax: 12.99,
-          item30daysSales: 90.93,
-          item30daysSold: 7,
-          rank: 35,
-        },
-      ],
-    },
-    {
-      rank: 16,
-      name: 'the SAEM',
-      productCount: 1,
-      totalSalesAmount: 77.76,
-      totalSalesCount: 6,
-      avgSalesAmount: 77.76,
-      avgSalesCount: 6,
-      avgPrice: 12.96,
-      products: [
-        {
-          id: 35824,
-          itemName: 'THE SAEM Studio Glow Foundation SPF35 PA++ 10ml',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/1e9ba49ac31096b574e92ec9f3d4c455',
-          itemUrl:
-            'https://shopee.sg/THE-SAEM-Studio-Glow-Foundation-SPF35-PA-10ml-i.59846544.4410080706',
-          itemPriceMin: 12.96,
-          itemPriceMax: 12.96,
-          item30daysSales: 77.76,
-          item30daysSold: 6,
-          rank: 37,
-        },
-      ],
-    },
-    {
-      rank: 17,
-      name: 'Nature Republic',
-      productCount: 1,
-      totalSalesAmount: 61.76,
-      totalSalesCount: 4,
-      avgSalesAmount: 61.76,
-      avgSalesCount: 4,
-      avgPrice: 15.44,
-      products: [
-        {
-          id: 35835,
-          itemName:
-            '[NATURE REPUBLIC] Provence Air Skin Fit One Day Lasting Foundation 32ml (SPF30/PA++)',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/6d785a7d8f74be77ef90ed9198347efa',
-          itemUrl:
-            'https://shopee.sg/-NATURE-REPUBLIC-Provence-Air-Skin-Fit-One-Day-Lasting-Foundation-32ml-(SPF30-PA-)-i.90483698.14342034839',
-          itemPriceMin: 15.44,
-          itemPriceMax: 15.44,
-          item30daysSales: 61.76,
-          item30daysSold: 4,
-          rank: 48,
-        },
-      ],
-    },
-    {
-      rank: 18,
-      name: 'The Body Shop',
-      productCount: 1,
-      totalSalesAmount: 55.72,
-      totalSalesCount: 4,
-      avgSalesAmount: 55.72,
-      avgSalesCount: 4,
-      avgPrice: 13.93,
-      products: [
-        {
-          id: 35836,
-          itemName:
-            'The BODY SHOP MATTE CLAY SKIN CLARIFYING FOUNDATION HAVANA SAND RAILAY BEACH TAMERZA DUNE SAGANO BAMBOO SAVANNAH PECAN MOLUCCAN NUTMEG JAPANESE MAPLE BRAZILIAN HAZEL ORIGINAL',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/42ce68e149c9d6a5cd114bf47451f495',
-          itemUrl:
-            'https://shopee.sg/The-BODY-SHOP-MATTE-CLAY-SKIN-CLARIFYING-FOUNDATION-HAVANA-SAND-RAILAY-BEACH-TAMERZA-DUNE-SAGANO-BAMBOO-SAVANNAH-PECAN-MOLUCCAN-NUTMEG-JAPANESE-MAPLE-BRAZILIAN-HAZEL-ORIGINAL-i.427783721.12812283482',
-          itemPriceMin: 13.93,
-          itemPriceMax: 18.9,
-          item30daysSales: 65.68,
-          item30daysSold: 4,
-          rank: 49,
-        },
-      ],
-    },
-    {
-      rank: 19,
-      name: 'Hourglass',
-      productCount: 1,
-      totalSalesAmount: 48.57,
-      totalSalesCount: 3,
-      avgSalesAmount: 48.57,
-      avgSalesCount: 3,
-      avgPrice: 16.19,
-      products: [
-        {
-          id: 35814,
-          itemName:
-            'Hourglass Seamless Concealer Liquid Foundation Concealer 6ml Face Makeup',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/30183bcff269a25496e5bf4df2e44d1f',
-          itemUrl:
-            'https://shopee.sg/Hourglass-Seamless-Concealer-Liquid-Foundation-Concealer-6ml-Face-Makeup-i.97084677.18221070709',
-          itemPriceMin: 16.19,
-          itemPriceMax: 16.19,
-          item30daysSales: 48.57,
-          item30daysSold: 3,
-          rank: 27,
-        },
-      ],
-    },
-    {
-      rank: 20,
-      name: 'REVLON',
-      productCount: 1,
-      totalSalesAmount: 31.89,
-      totalSalesCount: 3,
-      avgSalesAmount: 31.89,
-      avgSalesCount: 3,
-      avgPrice: 10.63,
-      products: [
-        {
-          id: 35802,
-          itemName:
-            'American revlon 24 hours liquid foundation moisturizing nude makeup oil control Face Conceal foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/e326a28af47dbbdbd72a4364385dfe27',
-          itemUrl:
-            'https://shopee.sg/American-revlon-24-hours-liquid-foundation-moisturizing-nude-makeup-oil-control-Face-Conceal-foundation-i.330223937.9326605846',
-          itemPriceMin: 10.63,
-          itemPriceMax: 10.63,
-          item30daysSales: 31.89,
-          item30daysSold: 3,
+          itemPriceMin: 15.81,
+          itemPriceMax: 15.81,
+          item30daysSales: 15.81,
+          item30daysSold: 1,
           rank: 15,
-        },
-      ],
-    },
-    {
-      rank: 21,
-      name: 'MISSHA',
-      productCount: 1,
-      totalSalesAmount: 0,
-      totalSalesCount: 0,
-      avgSalesAmount: 0,
-      avgSalesCount: 0,
-      avgPrice: 0,
-      products: [
-        {
-          id: 35804,
-          itemName: '[MISSHA] Velvet Finish Cushion SPF50+ PA+++ 15g',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/7216bd6979913ec6d38f435d38ee2349',
-          itemUrl:
-            'https://shopee.sg/-MISSHA-Velvet-Finish-Cushion-SPF50-PA-15g-i.114919380.15830778598',
-          itemPriceMin: 13.93,
-          itemPriceMax: 13.93,
-          item30daysSales: 0,
-          item30daysSold: 0,
-          rank: 17,
-        },
-      ],
-    },
-    {
-      rank: 22,
-      name: 'Zeesea',
-      productCount: 1,
-      totalSalesAmount: 0,
-      totalSalesCount: 0,
-      avgSalesAmount: 0,
-      avgSalesCount: 0,
-      avgPrice: 0,
-      products: [
-        {
-          id: 35795,
-          itemName:
-            'ZEESEA Liquid Foundation 滋色 粉底液Pre-makeup Silky Smooth Long-lasting Makeup Foundation Concealer Moisturizing Long-lasting Brightening BB Cream',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/3e875eb46b32b5740728ac0747b3c635',
-          itemUrl:
-            'https://shopee.sg/ZEESEA-Liquid-Foundation-滋色-粉底液Pre-makeup-Silky-Smooth-Long-lasting-Makeup-Foundation-Concealer-Moisturizing-Long-lasting-Brightening-BB-Cream-i.601078130.20536631568',
-          itemPriceMin: 11.87,
-          itemPriceMax: 11.87,
-          item30daysSales: 0,
-          item30daysSold: 0,
-          rank: 8,
-        },
-      ],
-    },
-    {
-      rank: 23,
-      name: 'Red Earth',
-      productCount: 1,
-      totalSalesAmount: 0,
-      totalSalesCount: 0,
-      avgSalesAmount: 0,
-      avgSalesCount: 0,
-      avgPrice: 0,
-      products: [
-        {
-          id: 35792,
-          itemName:
-            'Japan Red Earth Nourishing Liquid Foundation Concealer and Moisturizing Lasting Red Earth Hydrating Face Oil Control Foundation',
-          itemImage:
-            'https://down-sg.img.susercontent.com/file/caa05eaf2873f3d626d4504d4064e85f',
-          itemUrl:
-            'https://shopee.sg/Japan-Red-Earth-Nourishing-Liquid-Foundation-Concealer-and-Moisturizing-Lasting-Red-Earth-Hydrating-Face-Oil-Control-Foundation-i.97084677.16139482306',
-          itemPriceMin: 12.95,
-          itemPriceMax: 12.95,
-          item30daysSales: 0,
-          item30daysSold: 0,
-          rank: 5,
         },
       ],
     },

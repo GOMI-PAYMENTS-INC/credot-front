@@ -58,6 +58,7 @@ export const MarketSize = () => {
           <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
             <p>가장 적게 팔려요</p>
             <ul className='flex flex-wrap'>
+              <li className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'>06월</li>
               <li className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'>12월</li>
             </ul>
           </div>

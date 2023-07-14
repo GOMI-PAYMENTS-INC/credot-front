@@ -4,7 +4,9 @@ import { Dictionary } from '@/preview/elements/Dictionary';
 import { CategoryAnalysis } from '@/preview/elements/category/CategoryAnalysis';
 import { BrandAnalysis } from '@/preview/elements/brand/BrandAnalysis';
 import { SalePrice } from '@/preview/elements/price/SalePrice';
+import { AnalysisOverseaProduct } from '@/preview/elements/oversea/AnalysisOverseaProduct';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
+
 import { Fragment, useMemo, useEffect, type Dispatch, type SetStateAction } from 'react';
 import { onScrollDetail } from '@/preview/container';
 
@@ -28,6 +30,7 @@ export const Report = (props: IReport) => {
         <AnalysisKeyword />
         <BrandAnalysis />
         <SalePrice />
+        <AnalysisOverseaProduct />
         <CategoryAnalysis />
       </Fragment>
     ),
