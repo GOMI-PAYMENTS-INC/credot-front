@@ -50,7 +50,10 @@ const Preview = () => {
         </div>
       </section>
 
-      <PreviewHeader setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} />
+      {/* 
+      모바일에서 활성화 ??? 
+      <PreviewHeader setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} /> 
+      */}
       <section ref={contentSection}>
         <Report setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} />
       </section>

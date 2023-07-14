@@ -3,7 +3,7 @@ import 'swiper/swiper.min.css';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { TAB_DATA } from '@/home/constant';
+import { TAB_DATA } from '@/home/HomeConstant';
 import { ReactSVG } from 'react-svg';
 import { Swiper as SwiperClass } from 'swiper/types';
 

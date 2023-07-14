@@ -85,3 +85,27 @@ type TScrollEvent = {
   isOpen: boolean;
   current: string;
 };
+
+type TOverSeaItems = {
+  itemHasLowestPriceGuarantee: boolean;
+  id: number;
+  insightReportId: number;
+  reportUniqueId: string;
+  rank: number;
+  itemName: string;
+  itemUrl: string;
+  itemImage: string;
+  itemStockLocation: string | null;
+  storeName: string | null;
+  itemShopCountry: string;
+  storeItemCount: number | null;
+  itemPriceMin: number;
+  itemPriceMax: number;
+  itemPriceAvg: number;
+  itemHasLowestPriceGuarantee: true;
+  itemHistoricalSold: number;
+  item30daysSold: number;
+  itemSales: number;
+  item30daySales: number;
+  itemBrand: string | null;
+};

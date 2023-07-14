@@ -108,11 +108,11 @@ const KEYWORD = [
 const BRAND = [
   {
     title: '브랜드 정보-순위',
-    description: '선택된 브랜드 상품들의 매출 합계를 기준으로 매겨진 순위에요.',
+    description: '매출이 가장 많은 브랜드 순위에요.',
   },
   {
     title: '브랜드 정보-상품수',
-    description: '수집된 상품들중 선택된 브랜드의 상품 수에요.',
+    description: '선택된 브랜드의 상품 수에요.',
   },
   {
     title: '브랜드 정보-매출 합계',
@@ -136,14 +136,14 @@ const BRAND = [
   },
   {
     title: '브랜드 상품',
-    description: '선택된 브랜드에 해당하는  상품들의 상세 정보에요.',
+    description: '선택된 브랜드에 해당하는 상품들의 상세 정보에요.',
   },
 ];
 
 const PRICE = [
   {
     title: '판매가 정보',
-    description: '상품들의 최저 판매가격과 평균 판매가격을 의미해요.',
+    description: '상위 노출 상품들이 판매되고 있는 평균 판매가격과 최저가 정보에요.',
   },
   {
     title: '판매가 분포 차트',
@@ -159,22 +159,27 @@ const PRICE = [
   },
   {
     title: '가격 높은 상품',
-    description: '최저가 상위 20~80%에 해당하는 상품들의 상세 정보에요.',
+    description: '최저가순 하위 20%에 해당하는 상품들의 상세 정보에요.',
   },
 ];
 
 const OVERSEA = [
   {
     title: '해외 상품 비율',
-    description:
-      '현지가 아닌 국가로부터 배송되는 상품들에 대한 정보에요.타 키워드 대비 해외 배송 상품의 많고 적음 여부도 알려드려요.',
+    description: (
+      <>
+        <p>분석한 Shopee 국가가 아닌 다른 국가로부터 배송되는 상품들의 정보에요.</p>
+        <p className='mt-4'>키워드의 국가별 경쟁력을 알 수 있어요.</p>
+      </>
+    ),
   },
 ];
 
 const CATEGORY = [
   {
-    title: '카테고리',
-    description: '상품들이 가장 많이 등록된 카테고리 순위를 나타낸 정보에요.',
+    title: '카테고리 등록순',
+    description:
+      '상위 노출 상품들이 어떤 카테고리로 등록이 가장 많이 되었는지를 나타낸 정보에요.',
   },
 ];
 

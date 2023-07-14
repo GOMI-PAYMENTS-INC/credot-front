@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import type { Swiper } from 'swiper';
-import { TAB_DATA } from '@/home/constant';
+import { TAB_DATA } from '@/home/HomeConstant';
 
 export const onChangeTab = (params: {
   tabIndex: number;
