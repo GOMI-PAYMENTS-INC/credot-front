@@ -26,7 +26,10 @@ export const Dictionary = ({ current }: IDictionary) => {
                 <div className='my-3 mx-4 flex w-[217px] flex-col'>
                   <div
                     className='flex cursor-pointer items-center justify-between'
-                    onClick={() => setOpenContent(index)}
+                    onClick={() => {
+                      if (index === openContent) return setOpenContent(null);
+                      setOpenContent(index);
+                    }}
                   >
                     <p className='text-M/Regular text-grey-900 '>{data.title}</p>
                     <ReactSVG
