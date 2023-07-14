@@ -3,8 +3,12 @@ import { Report } from '@/preview/elements/Resport';
 
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { REPORT_CONTENT, REPORT_INFO } from '@/preview/constants/reportData';
-import { PreviewHeader } from '@/preview/elements';
 import { useScroll } from '@/common/useScroll';
+import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
+
+import { openAppWithTag } from '@/utils/openBrowser';
+import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
+import { GlobalEnv } from '@/api/config';
 
 const Preview = () => {
   const scrollEventState: TScrollEvent = {
@@ -66,7 +70,18 @@ const Preview = () => {
               <p className='mt-1'>
                 광고 상품을 제외한 상위 50개의 상품 데이터를 기반으로 제공되어요.
               </p>
-              <button className='button-filled-xLarge-primary-false-false-false mt-[26px] w-fit text-L/Bold'>
+              <button
+                className='button-filled-xLarge-primary-false-false-false mt-[26px] w-fit text-L/Bold'
+                onClick={(event) => {
+                  openAppWithTag({
+                    url: GlobalEnv.serviceUrl,
+                    path: PAGE_CATEGORY.PREVIEW,
+                    type: CTA_TYPE.BUTTON,
+                    location: CTA_LOCATION.MIDDLE_OF_CONTENT,
+                    event: event,
+                  });
+                }}
+              >
                 내가 원하는 키워드 분석하러 가기
               </button>
             </div>
