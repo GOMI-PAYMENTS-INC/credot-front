@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
-import { PARTENER_DATA } from '@/home/constant';
+import { PARTENER_DATA } from '@/home/Constant';
 
 interface IPartner {
   imagePath: string;
@@ -27,11 +27,11 @@ export const Partner = ({ imagePath }: IPartner) => {
           {PARTENER_DATA.map((partener, index) => (
             <div
               key={index}
-              className='shadow-partner-card h-auto w-[424px] rounded-[16.5097px] border  border-grey-300 bg-white p-6 md:w-full md:p-[18.54px]'
+              className=' h-auto w-[424px] rounded-[16.5097px]   border-grey-300 bg-white p-6 md:w-full md:p-[18.54px]'
             >
-              <div className='mb-6 md:mb-[18.54px]'>
-                <div className='flex'>
-                  <div className='mr-2.5 h-[65px] w-[65px] md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
+              <div className='mb-6 h-[130px] md:mb-[18.54px]'>
+                <div className='flex h-full'>
+                  <div className='mr-2.5 h-[65px] w-[65px] self-center md:mr-[7.73px] md:h-[43.25px] md:w-[43.25px]'>
                     <img
                       src={`${imagePath}/Partner/${partener.imgName}`}
                       alt='{partener.name}'
@@ -41,17 +41,13 @@ export const Partner = ({ imagePath }: IPartner) => {
                     <div className='mb-2 text-L/Medium  text-grey-900 md:mb-[3.09px]  md:text-S/Medium'>
                       {partener.name}
                     </div>
-                    <ul className='ml-5 text-M/Regular  text-grey-800 md:text-S/Regular'>
-                      {partener.brand.map((content, index) => (
-                        <li key={`conetent_${index}`} className='list-disc'>
-                          {content}
-                        </li>
-                      ))}
+                    <ul className='ml-5 list-disc  text-M/Regular text-grey-800 md:text-S/Regular'>
+                      {partener.brand}
                     </ul>
                   </div>
                 </div>
               </div>
-              <div>
+              <div className='pt-4'>
                 <div className='mb-4 text-XL/Bold text-grey-900 md:mb-[12.36px] md:text-S/Bold'>
                   {partener.subject}
                 </div>
