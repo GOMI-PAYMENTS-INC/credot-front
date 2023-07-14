@@ -8,17 +8,17 @@ interface IDictionary {
 }
 
 export const Dictionary = ({ current }: IDictionary) => {
-  const [openContent, setOpenContent] = useState<number[]>([]);
-  useEffect(() => setOpenContent([]), [current]);
+  const [openContent, setOpenContent] = useState<number | null>(null);
+  useEffect(() => setOpenContent(null), [current]);
   return (
-    <aside className='sticky top-[150px] '>
+    <aside className='sticky top-[90px] '>
       <ul className='rounded-lg border-[1px] border-grey-300 bg-white'>
         {DICTIONARY[current].map((data, index) => {
           const borderBottom =
             DICTIONARY[current].length === index + 1
               ? ''
               : 'border-b-[1px] border-grey-300';
-          const isOpen = openContent.includes(index);
+          const isOpen = openContent === index;
           const caretState = isOpen ? 'rotate-180' : '';
           return (
             <li key={`dictionary_${index}`}>
@@ -26,13 +26,7 @@ export const Dictionary = ({ current }: IDictionary) => {
                 <div className='my-3 mx-4 flex w-[217px] flex-col'>
                   <div
                     className='flex cursor-pointer items-center justify-between'
-                    onClick={() => {
-                      _setOpenContent({
-                        _dipatch: setOpenContent,
-                        _state: openContent,
-                        index,
-                      });
-                    }}
+                    onClick={() => setOpenContent(index)}
                   >
                     <p className='text-M/Regular text-grey-900 '>{data.title}</p>
                     <ReactSVG

@@ -62,6 +62,9 @@ export const AnalysisKeyword = () => {
             </div>
           </div>
           <div className='flex-1'>
+            <div className='keywordInfo-span-subtitle'>
+              <span>상세 데이터</span>
+            </div>
             <div className='flex divide-x-[1px] divide-dotted'>
               <div className='flex flex-col'>
                 <div className='flex h-[96px] w-[295px] items-center justify-center'>
