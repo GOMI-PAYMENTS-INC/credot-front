@@ -5,6 +5,7 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { REPORT_CONTENT, REPORT_INFO } from '@/preview/constants/reportData';
 import { useScroll } from '@/common/useScroll';
 import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
+import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 
 import { openAppWithTag } from '@/utils/openBrowser';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
@@ -20,6 +21,10 @@ const Preview = () => {
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
   const { scrollY: windowScrollY } = useScroll();
+
+  useEffect(() => {
+    _keywordReportPreviewed();
+  }, []);
 
   useEffect(() => {
     setScrollEvent(

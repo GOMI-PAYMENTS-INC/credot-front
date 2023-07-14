@@ -1,5 +1,6 @@
 import 'swiper/swiper.min.css';
 import { FAQ } from '@/common';
+
 import {
   Header,
   Promotion,
@@ -8,9 +9,17 @@ import {
   EcommerceMargin,
   InsightFunctions,
 } from '@/home/elements';
+import { _introPageIntroPageViewed } from '@/amplitude/amplitude.service';
+import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 import { HOME_QNA } from '@/common/constants';
+import { useEffect } from 'react';
+
 const Intro = () => {
   const IMG_PATH = '/assets/images';
+
+  useEffect(() => {
+    _introPageIntroPageViewed(PAGE_CATEGORY.MAIN, window.location.href);
+  }, []);
 
   return (
     <main>

@@ -3,13 +3,12 @@ import { matchRoutes, Route, Routes, useLocation } from 'react-router-dom';
 
 import Layout from '@/layouts/Layout';
 import { routeList } from '@/router/paths';
-import { _introPageIntroPageViewed } from '@/amplitude/amplitude.service';
+
 export const Router = () => {
   const { pathname } = useLocation();
 
   const [{ route }] = matchRoutes(routeList, pathname) || [];
 
-  _introPageIntroPageViewed(route.pageCategory, window.location.href);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
