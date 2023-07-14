@@ -4,7 +4,6 @@ interface ICategoryRankChart {
   data: TCategoryChart[];
 }
 export const CategoryRankChart = ({ data }: ICategoryRankChart) => {
-  // console.log(convertedData, 'convertedData');
   const option = {
     tooltip: {
       trigger: 'item',

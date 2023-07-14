@@ -163,7 +163,6 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                   <button
                     className='flex h-5 w-5 cursor-pointer items-center'
                     onClick={() => {
-                      console.log(item);
                       openBrowser(item.itemUrl);
                       _amplitudeMovedToPDP(
                         amplitudeData.param,

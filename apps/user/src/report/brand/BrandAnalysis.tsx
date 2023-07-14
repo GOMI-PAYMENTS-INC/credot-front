@@ -22,7 +22,6 @@ interface IBrandAnalysis {
 }
 
 export const BrandAnalysis = (props: IBrandAnalysis) => {
-  console.log(props, 'props');
   const {
     brandAnalysis,
     forceBrandIndex,
