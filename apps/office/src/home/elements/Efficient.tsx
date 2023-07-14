@@ -18,7 +18,9 @@ export const Efficient = ({ imagePath }: IEfficient) => {
                 고미인사이트와 함께
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
-                <p>유망한 상품을 발굴</p>하고
+                <p>
+                  <span className='text-orange-400'>유망한 상품을 발굴</span>하고
+                </p>
                 <p className='mt-2'>
                   <span className='text-orange-400'>상위 노출 전략</span>으로 매출 상승을
                   경험해보세요!

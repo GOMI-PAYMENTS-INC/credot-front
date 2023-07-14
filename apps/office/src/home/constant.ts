@@ -1,7 +1,7 @@
 export const TAB_DATA = [
   {
     name: '시장 분석',
-    icoName: 'Shopping',
+    icon: 'Shopping',
     launching: true,
     data: {
       insightNum: '1',
@@ -12,7 +12,7 @@ export const TAB_DATA = [
   },
   {
     name: '키워드 분석',
-    icoName: 'KeywordSearch',
+    icon: 'KeywordSearch',
     launching: true,
     data: {
       insightNum: '2',
@@ -25,7 +25,7 @@ export const TAB_DATA = [
   },
   {
     name: '추천 키워드',
-    icoName: 'Like',
+    icon: 'Like',
     launching: true,
     data: {
       insightNum: '3',
@@ -36,7 +36,7 @@ export const TAB_DATA = [
   },
   {
     name: '판매가 분석',
-    icoName: 'DollarCircle',
+    icon: 'DollarCircle',
     launching: true,
     data: {
       insightNum: '4',
@@ -47,7 +47,7 @@ export const TAB_DATA = [
   },
   {
     name: '해외배송 상품 분석',
-    icoName: 'Airplane',
+    icon: 'Airplane',
     launching: true,
     data: {
       insightNum: '5',
@@ -58,7 +58,7 @@ export const TAB_DATA = [
   },
   {
     name: '브랜드 분석',
-    icoName: 'Brand',
+    icon: 'Smile',
     launching: true,
     data: {
       insightNum: '6',
@@ -70,7 +70,7 @@ export const TAB_DATA = [
   },
   {
     name: '카테고리 분석',
-    icoName: 'Appstore',
+    icon: 'Appstore',
     launching: true,
     data: {
       insightNum: '7',
@@ -80,7 +80,7 @@ export const TAB_DATA = [
   },
   {
     name: '상품명 분석',
-    icoName: 'Edit',
+    icon: 'Edit',
     launching: false,
     data: {
       insightNum: '8',
@@ -91,7 +91,7 @@ export const TAB_DATA = [
   },
   {
     name: '썸네일 분석',
-    icoName: 'FileImage',
+    icon: 'FileImage',
     launching: false,
     data: {
       insightNum: '9',
@@ -102,7 +102,7 @@ export const TAB_DATA = [
   },
   {
     name: '평점/리뷰 분석',
-    icoName: 'Star',
+    icon: 'Star',
     launching: false,
     data: {
       insightNum: '10',

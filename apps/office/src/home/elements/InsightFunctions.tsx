@@ -51,7 +51,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                 <div className=' flex items-center  justify-center'>
                   <i className='mr-1'>
                     <ReactSVG
-                      src={`/assets/icons/${tab.icoName}.svg`}
+                      src={`/assets/icons/${tab.icon}.svg`}
                       beforeInjection={(svg) => {
                         svg.setAttribute(
                           'class',
