@@ -34,19 +34,19 @@ export const convertBatchStatus = (status: string) => {
 
 export const convertCountry = (countryCode: CountryType) => {
   switch (countryCode) {
-    case CountryType.Kr:
+    case CountryType.KR:
       return '한국';
-    case CountryType.My:
+    case CountryType.MY:
       return '말레이시아';
-    case CountryType.Sg:
+    case CountryType.SG:
       return '싱가포르';
-    case CountryType.Th:
+    case CountryType.TH:
       return '태국';
-    case CountryType.Tw:
+    case CountryType.TW:
       return '대만';
-    case CountryType.Us:
+    case CountryType.US:
       return '미국';
-    case CountryType.Vn:
+    case CountryType.VN:
       return '베트남';
     default:
       console.error('enum 코드를 확인해주세요.');
@@ -55,13 +55,13 @@ export const convertCountry = (countryCode: CountryType) => {
 };
 export const convertLanguage = (languageCode: LANGUAGE_TYPE) => {
   switch (languageCode) {
-    case LANGUAGE_TYPE.Th:
+    case LANGUAGE_TYPE.TH:
       return '태국어';
-    case LANGUAGE_TYPE.Cn:
+    case LANGUAGE_TYPE.CN:
       return '중국어 (번체)';
-    case LANGUAGE_TYPE.Us:
+    case LANGUAGE_TYPE.US:
       return '영어';
-    case LANGUAGE_TYPE.Vn:
+    case LANGUAGE_TYPE.VN:
       return '베트남어';
     default:
       console.error(languageCode, 'enum 코드를 확인해주세요.');
@@ -71,15 +71,15 @@ export const convertLanguage = (languageCode: LANGUAGE_TYPE) => {
 
 export const convertExchangeRate = (country: CountryType) => {
   switch (country) {
-    case CountryType.Sg:
+    case CountryType.SG:
       return 'SGD';
-    case CountryType.My:
+    case CountryType.MY:
       return 'MYR';
-    case CountryType.Tw:
+    case CountryType.TW:
       return 'TWD';
-    case CountryType.Vn:
+    case CountryType.VN:
       return 'VND';
-    case CountryType.Th:
+    case CountryType.TH:
       return 'THB';
     default:
       console.error('enum 코드를 확인해주세요.');
@@ -89,15 +89,15 @@ export const convertExchangeRate = (country: CountryType) => {
 
 export const convertShopeeSiteUrl = (country: CountryType) => {
   switch (country) {
-    case CountryType.Sg:
+    case CountryType.SG:
       return 'https://shopee.sg';
-    case CountryType.My:
+    case CountryType.MY:
       return 'https://shopee.com.my';
-    case CountryType.Tw:
+    case CountryType.TW:
       return 'https://shopee.tw';
-    case CountryType.Vn:
+    case CountryType.VN:
       return 'https://shopee.vn';
-    case CountryType.Th:
+    case CountryType.TH:
       return 'https://shopee.co.th';
     default:
       console.error('enum 코드를 확인해주세요.');
@@ -108,17 +108,17 @@ export const convertShopeeSiteUrl = (country: CountryType) => {
 export const convertCountryIconPath = (countryCode: CountryType) => {
   const url = '/assets/icons/flag';
   switch (countryCode) {
-    case CountryType.Kr:
+    case CountryType.KR:
       return `${url}/Korea.svg`;
-    case CountryType.My:
+    case CountryType.MY:
       return `${url}/Malaysia.svg`;
-    case CountryType.Sg:
+    case CountryType.SG:
       return `${url}/Singapore.svg`;
-    case CountryType.Th:
+    case CountryType.TH:
       return `${url}/Thailand.svg`;
-    case CountryType.Tw:
+    case CountryType.TW:
       return `${url}/Taiwan.svg`;
-    case CountryType.Vn:
+    case CountryType.VN:
       return `${url}/Vietnam.svg`;
     default:
       console.error('enum 코드를 확인해주세요.');

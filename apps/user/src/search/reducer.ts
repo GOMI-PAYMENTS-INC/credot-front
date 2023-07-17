@@ -18,7 +18,7 @@ export enum SEARCH_ACTION {
 }
 
 const searchInitialState: TSearchState = {
-  country: CountryType.Sg,
+  country: CountryType.SG,
   sortBy: SORT_BY_TYPE.R,
   text: '',
   keyword: '',

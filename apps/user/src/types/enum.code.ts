@@ -39,26 +39,26 @@ export enum STATUS_CODE {
 
 export enum COUNTRY_TYPE {
   /** 싱가포르 */
-  Sg = 'SG',
+  SG = 'SG',
   /** 말레이시아 */
-  My = 'MY',
+  MY = 'MY',
   /** 대만 */
-  Tw = 'TW',
+  TW = 'TW',
   /** 베트남 */
-  Vn = 'VN',
+  VN = 'VN',
   /** 태국 */
-  Th = 'TH',
+  TH = 'TH',
 }
 
 export enum LANGUAGE_TYPE {
   /** 영어 */
-  Us = 'US',
+  US = 'US',
   /** 중국어 (번체) */
-  Cn = 'CN',
+  CN = 'CN',
   /** 베트남어 */
-  Vn = 'VN',
+  VN = 'VN',
   /** 태국어 */
-  Th = 'TH',
+  TH = 'TH',
 }
 
 export enum CHANNEL_TYPE {

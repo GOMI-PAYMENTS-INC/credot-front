@@ -73,19 +73,19 @@ export type ChangePasswordInput = {
 
 export enum CountryType {
   /** 한국 */
-  Kr = 'KR',
+  KR = 'KR',
   /** 말레이시아 */
-  My = 'MY',
+  MY = 'MY',
   /** 싱가포르 */
-  Sg = 'SG',
+  SG = 'SG',
   /** 태국 */
-  Th = 'TH',
+  TH = 'TH',
   /** 대만 */
-  Tw = 'TW',
+  TW = 'TW',
   /** 미국 */
-  Us = 'US',
+  US = 'US',
   /** 베트남 */
-  Vn = 'VN',
+  VN = 'VN',
 }
 
 export type FindAccountInput = {

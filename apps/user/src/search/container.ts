@@ -13,7 +13,7 @@ import {
 import { CountryType } from '@/generated/graphql';
 
 export const queryKeywordByClick = (
-  country: CountryType,
+  country: keyof typeof CountryType,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
   setValue: UseFormSetValue<{

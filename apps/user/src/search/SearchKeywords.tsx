@@ -217,15 +217,15 @@ const SearchKeywords = () => {
 
   const convertSearchPlaceholder = (country: CountryType) => {
     switch (country) {
-      case CountryType.Sg:
+      case CountryType.SG:
         return 'shampoo';
-      case CountryType.My:
+      case CountryType.MY:
         return 'phone charger';
-      case CountryType.Tw:
+      case CountryType.TW:
         return '馬克杯收納';
-      case CountryType.Vn:
+      case CountryType.VN:
         return 'gấu bông';
-      case CountryType.Th:
+      case CountryType.TH:
         return 'มะม่วงอบแห้ง';
       default:
         console.error('enum 코드를 확인해주세요.');
@@ -388,7 +388,11 @@ const SearchKeywords = () => {
               </button>
             </div>
           </div>
-          <HotKeyword />
+          <HotKeyword
+            country={getValues('country') as TSearchCountry}
+            _dispatch={_dispatch}
+            setValue={setValue}
+          />
         </div>
 
         <div className='mt-12'>
