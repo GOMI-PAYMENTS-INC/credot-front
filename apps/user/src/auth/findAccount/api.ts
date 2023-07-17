@@ -64,7 +64,7 @@ export const useVerifyCode = (
 
     const payload = {
       phone: phone,
-      country: CountryType.Kr,
+      country: CountryType.KR,
       type: type,
     };
 
@@ -105,7 +105,7 @@ export const useVerifyCode = (
     const { data } = useFindAccountQuery(
       {
         user,
-        country: CountryType.Kr,
+        country: CountryType.KR,
       },
       {
         enabled: isTruthy(user.verifyCodeSign),
@@ -157,7 +157,7 @@ export const useVerifyCode = (
     if (isValid) {
       const payload = {
         user,
-        country: CountryType.Kr,
+        country: CountryType.KR,
       };
       sendTemporaryPassword(payload);
     }

@@ -42,7 +42,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   }>({
     mode: 'onChange',
     defaultValues: {
-      country: LANGUAGE_TYPE.Us,
+      country: LANGUAGE_TYPE.US,
     },
   });
 

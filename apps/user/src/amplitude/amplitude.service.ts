@@ -333,7 +333,7 @@ export const _amplitudeKeywordTranslated = (
   keyword: string,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordTranslated, {
-    language_before: CountryType.Kr.toLowerCase(),
+    language_before: CountryType.KR.toLowerCase(),
     language_after: languageAfter.toLowerCase(),
     keyword,
   });

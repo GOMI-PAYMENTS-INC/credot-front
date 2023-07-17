@@ -90,3 +90,5 @@ type TGetTranslationOfKeywordParams = {
   term: string;
   country: CountryType;
 };
+
+type TSearchCountry = 'SG' | 'MY' | 'VN' | 'TW' | 'TH';
