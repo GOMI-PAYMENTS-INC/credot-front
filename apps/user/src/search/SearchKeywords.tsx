@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { Default } from '@/common/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
-import { SearchModal, SearchKeywordTranslator } from '@/search/elements';
+import { SearchModal, SearchKeywordTranslator, HotKeyword } from '@/search/elements';
 import {
   CACHING_KEY,
   COUNTRY_TYPE,
@@ -264,127 +264,133 @@ const SearchKeywords = () => {
         <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%]'>
           <img src='/assets/images/Background.png' />
         </div>
-
-        <div className=''>
-          <div>
-            <h1 className='break-keep text-center text-3XL/Bold'>
-              <span className='text-orange-500'>키워드 검색 </span> 후
-              <br />
-              <span className='text-orange-500'>리포트를 생성</span>해 주세요.
-            </h1>
-          </div>
-          <div className='m-auto w-full max-w-[580px] px-[50px]'>
-            <div className='mt-6 flex items-center justify-center'>
-              <DropDown
-                name='country'
-                minWidth={120}
-                value={convertCountry(countryWatcher)}
-                iconPath={convertCountryIconPath(countryWatcher)}
-                isUseIcon={true}
-                options={countryOptions()}
-                status={DROPDOWN_STATUS.FILLED}
-                variants={DROPDOWN_VARIANTS.CLEAR}
-                onClickOption={onClickCountryOption}
-              ></DropDown>
-              <DropDown
-                name='filterOption'
-                minWidth={120}
-                value={convertSortedType(sortByWatcher)}
-                isUseIcon={true}
-                iconPath={convertSortByIconPath(sortByWatcher)}
-                options={sortByOptions()}
-                status={DROPDOWN_STATUS.FILLED}
-                variants={DROPDOWN_VARIANTS.CLEAR}
-                onClickOption={onClickSortOption}
-              ></DropDown>
-              <div className='tooltip-container'>
-                <a data-tooltip-id='anchor-keyword-search-volum'>
-                  <ReactSVG
-                    src='assets/icons/outlined/QuestionCircle.svg'
-                    className='ml-[7px] inline-block'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                    }}
-                  />
-                </a>
-                <Tooltip
-                  render={() => KeywordSearchToolTip}
-                  id='anchor-keyword-search-volum'
-                  place='right'
-                  variant='light'
-                />
-              </div>
-            </div>
-
+        <div className='flex justify-between'>
+          <div className='w-[525px]'>
             <div>
-              <div className='form-control mt-2'>
-                <div className='input-group'>
-                  <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
-                    <input
-                      type='text'
-                      placeholder={convertSearchPlaceholder(countryWatcher)}
-                      {...register('keyword')}
-                      onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                        if (event.key === 'Enter') {
+              <div>
+                <h1 className='break-keep text-center text-3XL/Bold'>
+                  <span className='text-orange-500'>키워드 검색 </span> 후
+                  <br />
+                  <span className='text-orange-500'>리포트를 생성</span>해 주세요.
+                </h1>
+              </div>
+              <div className='m-auto w-full max-w-[580px] '>
+                <div className='mt-6 flex items-center justify-center'>
+                  <DropDown
+                    name='country'
+                    minWidth={120}
+                    value={convertCountry(countryWatcher)}
+                    iconPath={convertCountryIconPath(countryWatcher)}
+                    isUseIcon={true}
+                    options={countryOptions()}
+                    status={DROPDOWN_STATUS.FILLED}
+                    variants={DROPDOWN_VARIANTS.CLEAR}
+                    onClickOption={onClickCountryOption}
+                  />
+                  <DropDown
+                    name='filterOption'
+                    minWidth={120}
+                    value={convertSortedType(sortByWatcher)}
+                    isUseIcon={true}
+                    iconPath={convertSortByIconPath(sortByWatcher)}
+                    options={sortByOptions()}
+                    status={DROPDOWN_STATUS.FILLED}
+                    variants={DROPDOWN_VARIANTS.CLEAR}
+                    onClickOption={onClickSortOption}
+                  />
+                  <div className='tooltip-container'>
+                    <a data-tooltip-id='anchor-keyword-search-volum'>
+                      <ReactSVG
+                        src='assets/icons/outlined/QuestionCircle.svg'
+                        className='ml-[7px] inline-block'
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                        }}
+                      />
+                    </a>
+                    <Tooltip
+                      render={() => KeywordSearchToolTip}
+                      id='anchor-keyword-search-volum'
+                      place='right'
+                      variant='light'
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className='form-control mt-2'>
+                    <div className='input-group'>
+                      <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
+                        <input
+                          type='text'
+                          placeholder={convertSearchPlaceholder(countryWatcher)}
+                          {...register('keyword')}
+                          onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                            if (event.key === 'Enter') {
+                              queryKeyword(
+                                countryWatcher,
+                                sortByWatcher,
+                                getValues('keyword'),
+                                _dispatch,
+                              );
+                            }
+                          }}
+                          className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
+                        />
+                      </div>
+                      <button
+                        onClick={() =>
                           queryKeyword(
                             countryWatcher,
                             sortByWatcher,
                             getValues('keyword'),
                             _dispatch,
-                          );
+                          )
                         }
-                      }}
-                      className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
-                    />
+                        className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
+                      >
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='h-6 w-6'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='currentColor'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    onClick={() =>
-                      queryKeyword(
-                        countryWatcher,
-                        sortByWatcher,
-                        getValues('keyword'),
-                        _dispatch,
-                      )
-                    }
-                    className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-6 w-6'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth='2'
-                        d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-                      />
-                    </svg>
-                  </button>
                 </div>
               </div>
             </div>
+            <div className='mt-10 flex'>
+              <button
+                className={`w-full rounded-md bg-orange-500 py-4 ${
+                  (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
+                }`}
+                disabled={_state.keyword === '' || isMonthlyCountZero}
+                onClick={() => setRequestReport(true)}
+              >
+                {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
+                  <div className=' scale-[0.2]'>
+                    <div id='loader-white' />
+                  </div>
+                ) : (
+                  <span className='text-L/Bold text-white'>
+                    {reportCreatorButtonText}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
+          <HotKeyword />
         </div>
-        <div className='mt-10 flex justify-center'>
-          <button
-            className={`w-full max-w-[480px] rounded-md bg-orange-500 py-4 ${
-              (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
-            }`}
-            disabled={_state.keyword === '' || isMonthlyCountZero}
-            onClick={() => setRequestReport(true)}
-          >
-            {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
-              <div className=' scale-[0.2]'>
-                <div id='loader-white' />
-              </div>
-            ) : (
-              <span className='text-L/Bold text-white'>{reportCreatorButtonText}</span>
-            )}
-          </button>
-        </div>
+
         <div className='mt-12'>
           {isFalsy(monthlySearchVolume) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
