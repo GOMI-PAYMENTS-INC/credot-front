@@ -39,7 +39,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
               <li
                 key={index}
                 onClick={() => onChangeTab({ tabIndex: index, changeActiveTab, swiper })}
-                className={`shrink-0 rounded-[30px] py-4 text-M/Bold md:py-3 md:text-S/Medium
+                className={`shrink-0 cursor-pointer rounded-[30px] py-4 text-M/Bold md:py-3 md:text-S/Medium
                       ${
                         index === activeTabIndex
                           ? 'text-bold bg-grey-900 text-white'
@@ -75,7 +75,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
         <div className='container'>
           <div className='relative mx-auto max-w-[870px] pb-[98px] sm:pb-[115px] md:max-w-[720px]'>
             <Swiper
-              className='banner sm:max-w-[382px]'
+              className='banner cursor-grab sm:max-w-[382px]'
               slidesPerView={1}
               onSlideChange={(e) => changeActiveTab(e.activeIndex)}
               onSwiper={(swiper) => setSwiper(swiper)}
@@ -83,7 +83,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
               {TAB_DATA.map((tab, index) => (
                 <SwiperSlide key={index} className=''>
                   <div className=''>
-                    <div className='mx-auto flex justify-between sm:flex-wrap sm:justify-center md:items-start '>
+                    <div className='mx-auto flex justify-between sm:flex-wrap sm:justify-center md:items-start'>
                       <div className='mr-6 sm:mb-8 sm:text-center'>
                         <div>
                           <div className='text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
