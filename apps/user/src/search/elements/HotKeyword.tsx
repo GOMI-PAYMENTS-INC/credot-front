@@ -30,7 +30,7 @@ export const HotKeyword = (props: IHotKeyword) => {
           <p className='mt-[2px] text-S/Medium text-grey-700'>
             오늘 Shopee
             <span className='text-grey-900'>
-              {convertCountry(country as CountryType)}
+              {` ${convertCountry(country as CountryType)}`}
             </span>
             에서 가장 핫한 키워드들이에요.
           </p>
