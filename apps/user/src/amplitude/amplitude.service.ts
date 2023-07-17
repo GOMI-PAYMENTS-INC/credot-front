@@ -408,6 +408,6 @@ export const _clientHotKeywordSearched = (
 ) =>
   _setAmplitudeEvents(amplitudeConstant.hotKeywordSearched, {
     country,
-    sort_by: convertAmplitudeSortedType(sortBy),
+    sort_by: sortBy,
     keyword,
   });
