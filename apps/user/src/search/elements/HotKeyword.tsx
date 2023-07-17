@@ -6,6 +6,7 @@ import type { Dispatch } from 'react';
 import type { UseFormSetValue } from 'react-hook-form';
 import { _clientHotKeywordSearched } from '@/amplitude/amplitude.service';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+import { useState } from 'react';
 interface IHotKeyword {
   country: TSearchCountry;
   _dispatch: Dispatch<TSearchActionType>;
@@ -17,6 +18,7 @@ interface IHotKeyword {
   searchSortBy: TSortBy;
 }
 export const HotKeyword = (props: IHotKeyword) => {
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const { country, _dispatch, setValue, searchSortBy } = props;
 
   return (
@@ -36,10 +38,18 @@ export const HotKeyword = (props: IHotKeyword) => {
           </p>
           <ul className='mt-5'>
             {HOT_KEYWORD[country].map((keyword, index) => {
+              const isHover =
+                hoverIndex === index ? 'text-M/Bold text-orange-400' : 'text-grey-900';
               return (
                 <li
                   key={keyword.text}
                   className={`flex ${index === 6 ? '' : 'mb-[10px]'} cursor-pointer`}
+                  onMouseOver={() => {
+                    setHoverIndex(index);
+                  }}
+                  onMouseOut={() => {
+                    setHoverIndex(null);
+                  }}
                   onClick={() => {
                     queryKeywordByClick(country, keyword.text, _dispatch, setValue);
                     _clientHotKeywordSearched(country, searchSortBy, keyword.text);
@@ -47,9 +57,8 @@ export const HotKeyword = (props: IHotKeyword) => {
                 >
                   <span className='text-M/Medium text-orange-400'>{`${index + 1}.`}</span>
                   <div className='ml-3 flex w-full justify-between text-M/Regular'>
-                    <p className='text-grey-900 hover:text-M/Bold hover:text-orange-400'>
-                      {replaceOverLength(keyword.text, 13)}
-                    </p>
+                    <p className={isHover}>{replaceOverLength(keyword.text, 13)}</p>
+
                     <p className='text-grey-700'>
                       {replaceOverLength(TRANSLATED_KEYWORD[country][index], 14)}
                     </p>
