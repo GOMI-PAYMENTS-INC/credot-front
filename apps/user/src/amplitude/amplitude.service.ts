@@ -400,3 +400,10 @@ export const _amplitudeSharedKeywordReportViewed = (
     keyword,
   });
 };
+
+export const _clientHotKeywordSearched = (
+  country: TSearchCountry,
+  sortBy: TSortBy,
+  keyword: string,
+) =>
+  _setAmplitudeEvents(amplitudeConstant.hotKeywordSearched, { country, sortBy, keyword });
