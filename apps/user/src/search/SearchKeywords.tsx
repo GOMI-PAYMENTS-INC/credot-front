@@ -390,6 +390,7 @@ const SearchKeywords = () => {
           </div>
           <HotKeyword
             country={getValues('country') as TSearchCountry}
+            searchSortBy={getValues('sortBy')}
             _dispatch={_dispatch}
             setValue={setValue}
           />
