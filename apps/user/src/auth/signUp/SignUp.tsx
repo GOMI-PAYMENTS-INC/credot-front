@@ -100,7 +100,9 @@ export const SignUp = () => {
       <div className='flex flex-col justify-between'>
         <div>
           <div>
-            <h3 className='text-left text-3XL/Medium text-grey-800'>회원가입</h3>
+            <h3 className='text-left text-3XL/Medium text-grey-800 xs:text-2XL/Bold'>
+              회원가입
+            </h3>
           </div>
 
           <div className='mt-10 space-y-8'>
@@ -217,7 +219,7 @@ export const SignUp = () => {
                 <div className='inputCustom-group grow'>
                   <div className='inputCustom-textbox-wrap'>
                     <input
-                      className={`inputCustom-textbox w-full  ${
+                      className={`inputCustom-textbox w-full ${
                         isFalsy(errors.phone) === false && 'error'
                       }`}
                       id='verify'
@@ -258,9 +260,9 @@ export const SignUp = () => {
                     )}
                   />
                 </div>
-                <div className='basis-[102px]'>
+                <div className='basis-[102px] xs:basis-0'>
                   <button
-                    className={className}
+                    className={`${className} xs:min-w-[72px]`}
                     onClick={() => clickVerifyButton()}
                     disabled={isPassedVerifyCode || isVerification.isExceeded}
                   >
@@ -292,7 +294,10 @@ export const SignUp = () => {
                     selectAllTerms(event, signUpState, setSignUpState)
                   }
                 />
-                <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
+                <label
+                  htmlFor='allAgree'
+                  className='termsHeaderCheckbox-label xs:text-S/Medium'
+                >
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                 </label>
               </div>

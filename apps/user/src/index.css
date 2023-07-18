@@ -89,7 +89,7 @@ input[type='number'] {
     @apply ml-0.5 text-S/Medium text-grey-800;
   }
   .inputCustom-textbox-wrap {
-    @apply relative;
+    @apply relative xs:text-S/Medium;
   }
   .inputCustom-textbox {
     @apply rounded border border-grey-400 px-4 py-3

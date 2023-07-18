@@ -237,7 +237,7 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
 
   if (isVerification.firstCalled && isVerification.theElseCalled === false) {
     eventOption.phone.className =
-      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
+      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white  xs:py-2.5 p-2.5 py-3 text-grey-800';
     eventOption.phone.text = '재발송';
   }
 
@@ -246,7 +246,7 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
     isVerification.isExceeded
   ) {
     eventOption.phone.className =
-      'ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 p-2.5 py-3 text-grey-500';
+      'ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 xs:py-2.5 p-2.5 py-3 text-grey-500';
     eventOption.phone.text = '재발송';
     eventOption.phone.disabled = true;
     eventOption.phone.phoneNumberInput = true;
@@ -258,7 +258,7 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
     isVerification.theElseCalled === false
   ) {
     eventOption.phone.className =
-      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white p-2.5 py-3 text-grey-800';
+      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white xs:py-2.5 p-2.5 py-3 text-grey-800';
     eventOption.phone.text = '재발송';
     eventOption.phone.disabled = false;
     eventOption.phone.phoneNumberInput = false;
