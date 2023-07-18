@@ -262,7 +262,7 @@ export const SignUp = () => {
                 </div>
                 <div className='basis-[102px] xs:basis-0'>
                   <button
-                    className={`${className} xs:min-w-[72px]`}
+                    className={className}
                     onClick={() => clickVerifyButton()}
                     disabled={isPassedVerifyCode || isVerification.isExceeded}
                   >

@@ -225,9 +225,11 @@ export const initializeAuthState = (
 };
 
 export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) => {
+  //TODO: 공통으로 들어가는 CSS는 묶기
   const eventOption = {
     phone: {
-      className: 'button-filled-normal-large-primary-false-false-true ml-4 min-w-[102px]',
+      className:
+        'button-filled-normal-large-primary-false-false-true ml-4 xs:min-w-[72px] min-w-[102px]',
       text: '인증',
       disabled: false,
       phoneNumberInput: false,
@@ -237,7 +239,7 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
 
   if (isVerification.firstCalled && isVerification.theElseCalled === false) {
     eventOption.phone.className =
-      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white  xs:py-2.5 p-2.5 py-3 text-grey-800';
+      'ml-4 xs:min-w-[72px] min-w-[102px] rounded border border-grey-400 bg-white xs:py-2.5 p-2.5 py-3 text-grey-800';
     eventOption.phone.text = '재발송';
   }
 
@@ -246,7 +248,7 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
     isVerification.isExceeded
   ) {
     eventOption.phone.className =
-      'ml-4 min-w-[102px] rounded border border-grey-400 bg-grey-50 xs:py-2.5 p-2.5 py-3 text-grey-500';
+      'ml-4 xs:min-w-[72px] min-w-[102px] rounded border border-grey-400 bg-grey-50 xs:py-2.5 p-2.5 py-3 text-grey-500';
     eventOption.phone.text = '재발송';
     eventOption.phone.disabled = true;
     eventOption.phone.phoneNumberInput = true;
@@ -258,7 +260,7 @@ export const eventHandlerByFindAccount = (isVerification: TVerifyButtonState) =>
     isVerification.theElseCalled === false
   ) {
     eventOption.phone.className =
-      'ml-4 min-w-[102px] rounded border border-grey-400 bg-white xs:py-2.5 p-2.5 py-3 text-grey-800';
+      'ml-4 xs:min-w-[72px] min-w-[102px] rounded border border-grey-400 bg-white xs:py-2.5 p-2.5 py-3 text-grey-800';
     eventOption.phone.text = '재발송';
     eventOption.phone.disabled = false;
     eventOption.phone.phoneNumberInput = false;
