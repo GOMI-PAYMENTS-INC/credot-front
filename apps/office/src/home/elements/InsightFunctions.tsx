@@ -26,7 +26,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
               <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
                 베스트 글로벌 셀러가 되기 위한
               </div>
-              <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
+              <div className='xs:mt-2 mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold'>
                 <p>10여가지 종합 인사이트!</p>
               </div>
             </div>

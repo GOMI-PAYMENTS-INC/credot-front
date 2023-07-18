@@ -41,10 +41,10 @@ export const Efficient = ({ imagePath }: IEfficient) => {
         <div className='container pt-[100px] pb-[126px] sm:py-[60px] md:mx-auto  md:pb-[40px] lg:pb-[100px]'>
           <div className='mb-20 sm:mb-[56px]'>
             <div className='text-center'>
-              <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
+              <div className='text-2XL/Bold text-orange-500 md:text-L/Bold'>
                 전략적으로 상품을 소싱하고 판매하고 싶은
               </div>
-              <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold '>
+              <div className='xs:mt-2 mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold'>
                 <p>Shopee 셀러 누구나!</p>
               </div>
             </div>
