@@ -115,7 +115,7 @@ export const FindId = () => {
                   )}
                 />
               </div>
-              <div className='basis-[102px]'>
+              <div className='basis-[102px] xs:basis-0'>
                 <button
                   className={className}
                   onClick={() => clickVerifyButton()}
@@ -124,7 +124,6 @@ export const FindId = () => {
                   {text}
                 </button>
               </div>
-              –
             </div>
             {isVerification.activeVerifyCode && (
               <VerifyCodeInput

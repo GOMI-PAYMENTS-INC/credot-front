@@ -97,7 +97,7 @@ export const SignUpByGoogle = () => {
       <div className='flex h-full flex-col justify-between'>
         <div>
           <div>
-            <h3 className='text-left text-3XL/medium text-grey-800'>회원가입</h3>
+            <h3 className='text-left text-3XL/Medium text-grey-800'>회원가입</h3>
           </div>
 
           <div className='mt-10 space-y-8'>
@@ -152,7 +152,7 @@ export const SignUpByGoogle = () => {
                     )}
                   />
                 </div>
-                <div className='basis-[102px]'>
+                <div className='basis-[102px] xs:basis-0'>
                   <button
                     className={className}
                     onClick={() => clickVerifyButton()}
@@ -186,7 +186,10 @@ export const SignUpByGoogle = () => {
                     selectAllTerms(event, signUpState, setSignUpState)
                   }
                 />
-                <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
+                <label
+                  htmlFor='allAgree'
+                  className='termsHeaderCheckbox-label xs:text-S/Medium'
+                >
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                 </label>
               </div>
