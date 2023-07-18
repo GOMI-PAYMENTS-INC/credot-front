@@ -31,7 +31,7 @@ export const Header = () => {
             <ReactSVG
               src='/assets/icons/Logo.svg'
               beforeInjection={(svg) => {
-                svg.setAttribute('class', 'w-[166px] h-8');
+                svg.setAttribute('class', 'w-[166px] h-8 xs:w-[140px]');
               }}
             />
           </Link>
@@ -58,7 +58,7 @@ export const Header = () => {
           </div>
         </div>
 
-        <div className='space-x-4 sm:space-x-0 md:flex md:items-center'>
+        <div className='space-x-4 md:flex md:items-center sm:space-x-0'>
           <button
             className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 sm:hidden'
             onClick={(event) => {
@@ -74,7 +74,7 @@ export const Header = () => {
             로그인
           </button>
           <button
-            className='rounded-md bg-orange-500 p-3 text-M/Bold text-white'
+            className='rounded-md bg-orange-500 p-3 text-M/Bold text-white xs:text-S/Bold'
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
@@ -89,7 +89,7 @@ export const Header = () => {
           </button>
           <ReactSVG
             src='/assets/icons/Menu.svg'
-            className='xs:pl-[16px] hidden cursor-pointer sm:pl-[26px] md:inline-block md:pl-[14px]'
+            className='hidden cursor-pointer md:inline-block md:pl-[14px] sm:pl-[26px] xs:pl-[16px]'
             onClick={() => {
               isOpenMenu ? setIsOpenMenu(false) : setIsOpenMenu(true);
             }}
