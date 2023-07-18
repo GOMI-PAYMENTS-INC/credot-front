@@ -81,11 +81,9 @@ export const SignIn = () => {
   return (
     <Layout>
       <div>
-        <h3 className='text-center text-3XL/Medium md:mt-[56px] md:text-start md:text-2XL/Medium'>
-          로그인
-        </h3>
+        <h3 className='text-center text-3XL/Medium md:hidden'>로그인</h3>
       </div>
-      <div className='mt-10 space-y-12 md:mt-8 md:space-y-8'>
+      <div className='mt-10 space-y-12 md:mt-[56px] md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
           <div className='space-y-6'>
             <div className='space-y-8'>
