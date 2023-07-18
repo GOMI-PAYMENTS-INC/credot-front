@@ -56,7 +56,6 @@ export const Router = () => {
       {routeList.map((route) => {
         return route.isPrivate ? (
           <Route key={route.path} element={<PrivateRoute />}>
-            {/* 인증을 반드시 해야지만 접속 가능한 페이지 정의 */}
             <Route
               key={route.path}
               path={route.path}

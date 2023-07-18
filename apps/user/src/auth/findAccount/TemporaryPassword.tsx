@@ -65,7 +65,7 @@ export const TemporaryPassword = () => {
   return (
     <Layout>
       <div>
-        <h3 className='text-center text-3XL/medium'>비밀번호 재설정</h3>
+        <h3 className='text-center text-3XL/Medium'>비밀번호 재설정</h3>
       </div>
       <div className='mt-10 space-y-12'>
         <form onSubmit={handleSubmit(onValid, onInvalid)}>

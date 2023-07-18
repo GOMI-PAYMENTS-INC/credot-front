@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Common2Section as Layout } from '@/common/layouts/Common2Section';
@@ -10,7 +10,7 @@ import {
   _amplitudeLoggedIn,
   _amplitudeLoginPageViewed,
 } from '@/amplitude/amplitude.service';
-import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import GoogleLogin from '@/auth/signIn/GoogleLogin';
 import { signInApi } from '@/auth/signIn/api';
@@ -56,10 +56,8 @@ export const SignIn = () => {
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));
 
-        //오류 코드
         const errorCode = error.response.errors[0].extensions.code;
 
-        //useForm error 처리
         if (errorCode) {
           switch (errorCode) {
             case STATUS_CODE.INVALID_PASSWORD:
@@ -80,16 +78,14 @@ export const SignIn = () => {
     });
   };
 
-  // const onLoginStorageCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setIsLoginStorage(e.target.checked);
-  // };
-
   return (
     <Layout>
       <div>
-        <h3 className='text-center text-3XL/medium'>로그인</h3>
+        <h3 className='text-center text-3XL/Medium md:mt-[56px] md:text-start md:text-2XL/Medium'>
+          로그인
+        </h3>
       </div>
-      <div className='mt-10 space-y-12'>
+      <div className='mt-10 space-y-12 md:mt-8 md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
           <div className='space-y-6'>
             <div className='space-y-8'>
@@ -157,8 +153,6 @@ export const SignIn = () => {
                   name='remember_me'
                   type='checkbox'
                   className='checkboxCustom peer'
-                  // checked={isLoginStorage}
-                  // onChange={(event) => onLoginStorageCheck(event)}
                 />
                 <label
                   htmlFor='remember_me'
@@ -206,7 +200,7 @@ export const SignIn = () => {
             <Link to={PATH.SIGN_UP}>
               <button
                 type='submit'
-                className='button-outlined-normal-xLarge-primary-false-false-true w-full'
+                className='button-outlined-normal-xLarge-primary-false-false-true w-full md:mb-[114px]'
               >
                 회원가입 하기
               </button>
