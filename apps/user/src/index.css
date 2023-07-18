@@ -17,7 +17,7 @@ body,
 #root,
 main {
   height: 100%;
-  min-width: 1000px;
+  /* min-width: 1000px; */
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -38,7 +38,7 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-#google-login-button iframe{
+#google-login-button iframe {
   height: 100px !important;
   transform: scale(1.5);
   transform-origin: top;
@@ -46,13 +46,13 @@ input[type='number'] {
 
 @layer base {
   .container {
-    @apply mx-auto my-0 min-w-[1180px] max-w-[1180px];
+    @apply mx-auto my-0 min-w-[360px] max-w-[1180px];
   }
   .container-common {
-    @apply m-auto w-full max-w-[1320px];
+    @apply m-auto w-full min-w-[360px] max-w-[1320px];
   }
 
-  button[id^=select-box]{
+  button[id^='select-box'] {
     -webkit-appearance: none;
     -moz-appearance: none;
     background-repeat: no-repeat;
@@ -62,7 +62,7 @@ input[type='number'] {
   }
 
   /* 토스트 알림 */
-  .Toastify__toast-body{
+  .Toastify__toast-body {
     @apply !p-0;
   }
 
@@ -146,11 +146,11 @@ input[type='number'] {
   .detailReport-h1-header svg {
     @apply h-4 w-4 fill-grey-500;
   }
-  .tooltip-container{
-    @apply relative ml-[5px]
+  .tooltip-container {
+    @apply relative ml-[5px];
   }
-  .tooltip-container .react-tooltip{
-    @apply z-10
+  .tooltip-container .react-tooltip {
+    @apply z-10;
   }
   .keywordInfo-span-subtitle {
     @apply flex h-10 w-full items-center bg-grey-100 pl-5 text-left text-S/Medium text-grey-900;
@@ -159,11 +159,8 @@ input[type='number'] {
     @apply relative ml-[18px];
   }
   .keywordInfo-divide-by-single-dot:nth-child(even) {
-    @apply before:content-[''] before:left-[-8px] before:absolute before:top-1/2 before:translate-y-[-50%] before:w-0.5 before:h-0.5 before:bg-grey-700;
+    @apply before:absolute before:left-[-8px] before:top-1/2 before:h-0.5 before:w-0.5 before:translate-y-[-50%] before:bg-grey-700 before:content-[''];
   }
-
-
-
 }
 
 /* Works on Firefox */
@@ -480,4 +477,3 @@ input[type='number'] {
       -2.6em 0em 0 0em rgba(217, 217, 217, 0.7), -1.8em -1.8em 0 0em #d9d9d9;
   }
 }
-
