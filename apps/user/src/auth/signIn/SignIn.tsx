@@ -81,9 +81,11 @@ export const SignIn = () => {
   return (
     <Layout>
       <div>
-        <h3 className='text-center text-3XL/medium md:text-start'>로그인</h3>
+        <h3 className='text-center text-3XL/Medium md:mt-[56px] md:text-start md:text-2XL/Medium'>
+          로그인
+        </h3>
       </div>
-      <div className='mt-10 space-y-12'>
+      <div className='mt-10 space-y-12 md:mt-8 md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
           <div className='space-y-6'>
             <div className='space-y-8'>
@@ -198,7 +200,7 @@ export const SignIn = () => {
             <Link to={PATH.SIGN_UP}>
               <button
                 type='submit'
-                className='button-outlined-normal-xLarge-primary-false-false-true w-full'
+                className='button-outlined-normal-xLarge-primary-false-false-true w-full md:mb-[114px]'
               >
                 회원가입 하기
               </button>

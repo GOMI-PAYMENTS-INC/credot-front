@@ -193,7 +193,7 @@ module.exports = {
         '4XL/Light': ['48px', { fontWeight: 400, lineHeight: '60px' }],
 
         '3XL/Bold': ['32px', { fontWeight: 700, lineHeight: '40px' }],
-        '3XL/medium': ['32px', { fontWeight: 500, lineHeight: '40px' }],
+        '3XL/Medium': ['32px', { fontWeight: 500, lineHeight: '40px' }],
         '3XL/Regular': ['32px', { fontWeight: 400, lineHeight: '40px' }],
         '3XL/Light': ['32px', { fontWeight: 400, lineHeight: '40px' }],
 

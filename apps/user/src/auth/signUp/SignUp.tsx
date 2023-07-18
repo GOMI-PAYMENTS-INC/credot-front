@@ -100,7 +100,7 @@ export const SignUp = () => {
       <div className='flex flex-col justify-between'>
         <div>
           <div>
-            <h3 className='text-left text-3XL/medium text-grey-800'>회원가입</h3>
+            <h3 className='text-left text-3XL/Medium text-grey-800'>회원가입</h3>
           </div>
 
           <div className='mt-10 space-y-8'>
