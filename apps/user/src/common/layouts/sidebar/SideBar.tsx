@@ -211,39 +211,19 @@ const SideBar = (props: TSideBarProps) => {
                 </button>
               </div>
             </div>
-            <div className='space-y-3 py-6 px-4'>
-              <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5 leading-none'>
-                <span className='text-XS/Medium text-grey-100'>무료체험</span>
-              </div>
-              <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-orange-300'></div>
-              <div className='flex items-center justify-between'>
-                <div className='text-XS/Medium'>리포트 발행 수</div>
-                <ReactSVG
-                  src='/assets/icons/outlined/Infinity.svg'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', `w-5 fill-grey-800`);
-                  }}
-                />
-              </div>
-            </div>
-            <div>
+
+            <div className='px-2.5'>
               <a href='#' onClick={() => onClickUserMenu(_dispatch)}>
-                <div className='flex cursor-pointer items-center justify-between px-4 py-[18px]'>
-                  <p className='text-S/Medium text-grey-800'>
-                    {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
-                  </p>
+                <div className='flex cursor-pointer items-center justify-start p-3'>
                   <ReactSVG
-                    src='/assets/icons/outlined/ArrowRight-Small.svg'
-                    className={`cursor-pointer xs:${
-                      _state.openedUserMenu ? 'rotate-45' : 'rotate-0'
-                    }`}
+                    src='/assets/icons/outlined/User.svg'
                     beforeInjection={(svg) => {
-                      svg.setAttribute(
-                        'class',
-                        `w-6 fill-grey-800 xs:rotate-90 xs:mr-[100px]`,
-                      );
+                      svg.setAttribute('class', 'h-4 w-4 ');
                     }}
                   />
+                  <span className='ml-2 text-S/Medium text-grey-800'>
+                    {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
+                  </span>
                 </div>
               </a>
               {_state.openedUserMenu && (
@@ -259,6 +239,21 @@ const SideBar = (props: TSideBarProps) => {
                   </li>
                 </ul>
               )}
+            </div>
+            <div className='space-y-3 py-6 px-4'>
+              <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5 leading-none'>
+                <span className='text-XS/Medium text-grey-100'>무료체험</span>
+              </div>
+              <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-orange-300'></div>
+              <div className='flex items-center justify-between'>
+                <div className='text-XS/Medium'>리포트 발행 수</div>
+                <ReactSVG
+                  src='/assets/icons/outlined/Infinity.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', `w-5 fill-grey-800`);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -317,15 +312,10 @@ const SideBar = (props: TSideBarProps) => {
               <li className='text-center'>
                 <button
                   className='iconButton-medium-normal-ghost-grey'
-                  onClick={() => {
-                    openBrowser(
-                      'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
-                    );
-                    _amplitudeMovedToUserGuide('lnb');
-                  }}
+                  onClick={() => onClickUserMenu(_dispatch)}
                 >
                   <ReactSVG
-                    src='/assets/icons/outlined/QuestionCircle.svg'
+                    src='/assets/icons/outlined/User.svg'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', 'h-4 w-4 ');
                     }}
@@ -335,10 +325,15 @@ const SideBar = (props: TSideBarProps) => {
               <li className='text-center'>
                 <button
                   className='iconButton-medium-normal-ghost-grey'
-                  onClick={() => onClickUserMenu(_dispatch)}
+                  onClick={() => {
+                    openBrowser(
+                      'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                    );
+                    _amplitudeMovedToUserGuide('lnb');
+                  }}
                 >
                   <ReactSVG
-                    src='/assets/icons/outlined/User.svg'
+                    src='/assets/icons/outlined/QuestionCircle.svg'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', 'h-4 w-4 ');
                     }}
@@ -370,7 +365,7 @@ const SideBar = (props: TSideBarProps) => {
 
       {_state.openedUserMenu ? (
         <div
-          className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)] xs:hidden'
+          className='absolute bottom-[120px] right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)] xs:hidden'
           ref={modalEl}
         >
           <ul className=''>
