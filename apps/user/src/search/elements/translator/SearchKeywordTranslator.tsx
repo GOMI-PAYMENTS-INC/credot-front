@@ -88,7 +88,7 @@ export const SearchKeywordTranslator = (props: ISearchKeywordTranslator) => {
   };
 
   return (
-    <div className='fixed bottom-[100px] right-6 block'>
+    <div className='fixed bottom-[100px] right-6 block xs:hidden'>
       {_state.useTranslation === true ? (
         <article className='z-50 w-[360px] shadow-[0_8px_16px_-15px_rgba(0,0,0,0.5)]'>
           <section className='flex w-full flex-col rounded-t-[16px] border-[1px] border-grey-300 bg-white px-6 pb-5 pt-5'>

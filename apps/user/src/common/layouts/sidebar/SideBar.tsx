@@ -21,13 +21,11 @@ import { signInApi } from '@/auth/signIn/api';
 import { openBrowser } from '@/utils/openBrowser';
 
 interface TSideBarProps {
-  openWidth: number;
-  closeWidth: number;
   _state: TSidebarState;
   _dispatch: Dispatch<TSidebarAction>;
 }
 const SideBar = (props: TSideBarProps) => {
-  const { openWidth, closeWidth, _state, _dispatch } = props;
+  const { _state, _dispatch } = props;
   const { onLogout } = signInApi();
   const navigation = useNavigate();
   const { pathname } = useLocation();
@@ -63,17 +61,20 @@ const SideBar = (props: TSideBarProps) => {
     <aside className='fixed left-0 z-50 h-full'>
       {_state.openedSidebar ? (
         <div
-          className={`flex h-full w-[${openWidth}px] flex-[0_0_${openWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}
+          className={`flex h-full w-[${_state.sideBarWidth}px] flex-[0_0_${_state.sideBarWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white xs:w-[375px]`}
         >
           <div className='px-2.5'>
-            <div className='flex h-20 items-center'>
+            <div className='flex h-20 items-center xs:h-auto xs:justify-center xs:py-5'>
               <button
                 onClick={() => toggleSidebar(_dispatch)}
-                className='iconButton-large-normal-ghost-grey'
+                className='iconButton-large-normal-ghost-grey xs:fixed xs:left-0'
               >
                 <ReactSVG
                   src='/assets/icons/outlined/MenuFold.svg'
                   className='cursor-pointer'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'w-[124px] ml-3 xs:ml-4');
+                  }}
                 />
               </button>
 
@@ -82,19 +83,15 @@ const SideBar = (props: TSideBarProps) => {
                   src='/assets/icons/Logo.svg'
                   className='cursor-pointer'
                   beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'w-[124.5px] ml-3');
+                    svg.setAttribute('class', 'w-[124px] ml-3 xs:ml-[1px] xs:h-6');
                   }}
                 />
               </Link>
             </div>
             <ul>
               {menuData.map((menu, menuIndex) => {
-                //FIXME 리듀서 상태관리로 수정할 것 casey 23.02.28
-                //상위 메뉴가 켜진 상태
                 let isCollapsedActive = false;
-                //상위 메뉴가 접힌 상태
                 let isCollapsed = _state.openedDepthList.includes(menu.key);
-                //접혔을 때
                 if (isCollapsed === false) {
                   isCollapsedActive = isIncluded(path, ...menu.path);
                 }
@@ -172,7 +169,7 @@ const SideBar = (props: TSideBarProps) => {
             </ul>
           </div>
           <div className='divide-y divide-grey-300'>
-            <ul className='flex flex-col items-center gap-y-4 py-6 px-2.5'>
+            <ul className='flex flex-col items-center gap-y-4 py-6 px-2.5 xs:hidden'>
               <li>
                 <a href='http://starterclub.kr' target='_blank'>
                   <ReactSVG
@@ -246,100 +243,141 @@ const SideBar = (props: TSideBarProps) => {
                     src='/assets/icons/outlined/ArrowRight-Small.svg'
                     className='cursor-pointer'
                     beforeInjection={(svg) => {
-                      svg.setAttribute('class', `w-6 fill-grey-800`);
+                      const arrowCss = _state.openedUserMenu
+                        ? 'rotate-90'
+                        : 'rotate-[270deg]';
+                      svg.setAttribute(
+                        'class',
+                        `w-6 fill-grey-800 xs:${arrowCss} xs:mr-[74px]`,
+                      );
                     }}
                   />
                 </div>
               </a>
+              {_state.openedUserMenu && (
+                <ul className='hidden xs:flex'>
+                  <li className='px-4 py-3'>
+                    <a
+                      href='#'
+                      onClick={() => void onLogout()}
+                      className='text-S/Regular text-red-700'
+                    >
+                      로그아웃
+                    </a>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
         </div>
       ) : (
-        <div
-          className={`flex h-full w-[${closeWidth}px] flex-[0_0_${closeWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5`}
-        >
-          <div>
-            <div className='flex h-20 items-center justify-center'>
-              <button
-                className='iconButton-large-normal-ghost-grey'
-                onClick={() => toggleSidebar(_dispatch)}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/MenuOpen.svg'
-                  className='cursor-pointer'
-                />
-              </button>
-            </div>
-            <ul>
-              {menuData.map((menu, menuIndex) => {
-                const isActive = isIncluded(path, ...menu.path);
-                return (
-                  <li
-                    className='cursor-pointer text-S/Medium text-grey-800'
-                    key={menuIndex}
-                  >
-                    <button
-                      className={`${
-                        isActive ? `bg-orange-100` : `bg-white`
-                      } flex justify-between rounded-lg p-3`}
-                      onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
+        <div>
+          <div
+            className={`flex h-full w-[${_state.openedSidebar}px] flex-[0_0_${_state.openedSidebar}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5 xs:hidden`}
+          >
+            <div>
+              <div className='flex h-20 items-center justify-center'>
+                <button
+                  className='iconButton-large-normal-ghost-grey'
+                  onClick={() => toggleSidebar(_dispatch)}
+                >
+                  <ReactSVG
+                    src='/assets/icons/outlined/MenuOpen.svg'
+                    className='cursor-pointer'
+                  />
+                </button>
+              </div>
+              <ul>
+                {menuData.map((menu, menuIndex) => {
+                  const isActive = isIncluded(path, menu.path);
+                  return (
+                    <li
+                      className='cursor-pointer text-S/Medium text-grey-800'
+                      key={menuIndex}
                     >
-                      <div className='flex items-center'>
-                        <ReactSVG
-                          src={menu.iconPath}
-                          className='cursor-pointer'
-                          beforeInjection={(svg) => {
-                            svg.setAttribute(
-                              'class',
-                              `h-5 w-5 ${isActive ? 'fill-orange-500' : 'text-grey-900'}`,
-                            );
-                          }}
-                        />
-                      </div>
-                    </button>
-                  </li>
-                );
-              })}
+                      <button
+                        className={`${
+                          isActive ? `bg-orange-100` : `bg-white`
+                        } flex justify-between rounded-lg p-3`}
+                        onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
+                      >
+                        <div className='flex items-center'>
+                          <ReactSVG
+                            src={menu.iconPath}
+                            className='cursor-pointer'
+                            beforeInjection={(svg) => {
+                              svg.setAttribute(
+                                'class',
+                                `h-5 w-5 ${
+                                  isActive ? 'fill-orange-500' : 'text-grey-900'
+                                }`,
+                              );
+                            }}
+                          />
+                        </div>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <ul className='mb-6 space-y-6 leading-none'>
+              <li className='text-center'>
+                <button
+                  className='iconButton-medium-normal-ghost-grey'
+                  onClick={() => {
+                    openBrowser(
+                      'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                    );
+                    _amplitudeMovedToUserGuide('lnb');
+                  }}
+                >
+                  <ReactSVG
+                    src='/assets/icons/outlined/QuestionCircle.svg'
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'h-4 w-4 ');
+                    }}
+                  />
+                </button>
+              </li>
+              <li className='text-center'>
+                <button
+                  className='iconButton-medium-normal-ghost-grey'
+                  onClick={() => onClickUserMenu(_dispatch)}
+                >
+                  <ReactSVG
+                    src='/assets/icons/outlined/User.svg'
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'h-4 w-4 ');
+                    }}
+                  />
+                </button>
+              </li>
             </ul>
           </div>
-          <ul className='mb-6 space-y-6 leading-none'>
-            <li className='text-center'>
+
+          <div className='hidden w-[375px] justify-center xs:flex'>
+            <div className='fixed top-0 z-20 flex border-b-[1px] border-grey-300 bg-white py-5 px-[640px]'>
               <button
-                className='iconButton-medium-normal-ghost-grey'
-                onClick={() => {
-                  openBrowser(
-                    'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
-                  );
-                  _amplitudeMovedToUserGuide('lnb');
+                className='fixed left-0 ml-4 flex'
+                onClick={() => toggleSidebar(_dispatch)}
+              >
+                <ReactSVG src='/assets/icons/outlined/Menu.svg' />
+              </button>
+              <ReactSVG
+                src='/assets/icons/Logo.svg'
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', 'w-[124px] h-6');
                 }}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/QuestionCircle.svg'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'h-4 w-4 ');
-                  }}
-                />
-              </button>
-            </li>
-            <li className='text-center'>
-              <button
-                className='iconButton-medium-normal-ghost-grey'
-                onClick={() => onClickUserMenu(_dispatch)}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/User.svg'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'h-4 w-4 ');
-                  }}
-                />
-              </button>
-            </li>
-          </ul>
+              />
+            </div>
+          </div>
         </div>
       )}
+
       {_state.openedUserMenu ? (
         <div
-          className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'
+          className='absolute bottom-4 right-[-10px] z-10 w-[216px] translate-x-full rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)] xs:hidden'
           ref={modalEl}
         >
           <ul className=''>
