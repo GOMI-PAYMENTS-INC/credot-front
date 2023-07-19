@@ -357,7 +357,7 @@ export const SignUp = () => {
 
             <div>
               <button
-                className='button-filled-normal-xLarge-red-false-false-true w-full'
+                className='button-filled-normal-xLarge-red-false-false-true w-full xs:fixed xs:bottom-0 xs:right-5 xs:mb-[35px] xs:w-[335px] xs:self-center'
                 onClick={() => {
                   _applyAccount(
                     getValues(),

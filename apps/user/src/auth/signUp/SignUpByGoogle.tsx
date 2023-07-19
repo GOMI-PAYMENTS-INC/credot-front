@@ -152,7 +152,7 @@ export const SignUpByGoogle = () => {
                     )}
                   />
                 </div>
-                <div className='basis-[102px]'>
+                <div className='basis-[102px] xs:basis-0'>
                   <button
                     className={className}
                     onClick={() => clickVerifyButton()}
@@ -186,7 +186,10 @@ export const SignUpByGoogle = () => {
                     selectAllTerms(event, signUpState, setSignUpState)
                   }
                 />
-                <label htmlFor='allAgree' className='termsHeaderCheckbox-label'>
+                <label
+                  htmlFor='allAgree'
+                  className='termsHeaderCheckbox-label xs:text-S/Medium'
+                >
                   이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                 </label>
               </div>
