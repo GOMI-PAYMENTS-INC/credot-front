@@ -61,21 +61,15 @@ const SideBar = (props: TSideBarProps) => {
     <aside className='fixed left-0 z-50 h-full'>
       {_state.openedSidebar ? (
         <div
-          className={`flex h-full w-[${_state.sideBarWidth}px] flex-[0_0_${_state.sideBarWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white xs:w-[375px]`}
+          className={`flex h-full w-[${_state.sideBarWidth}px] xs:max-w-[${window.innerWidth}px] xs:w-screen flex-[0_0_${_state.sideBarWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}
         >
           <div className='px-2.5'>
-            <div className='flex h-20 items-center xs:h-auto xs:justify-center xs:py-5'>
+            <div className='flex h-20 w-full items-center xs:h-[64px] xs:justify-center'>
               <button
                 onClick={() => toggleSidebar(_dispatch)}
-                className='iconButton-large-normal-ghost-grey xs:fixed xs:left-0'
+                className=' w-6 xs:fixed xs:left-0 xs:ml-4 xs:flex xs:h-8 xs:w-8 xs:items-center'
               >
-                <ReactSVG
-                  src='/assets/icons/outlined/MenuFold.svg'
-                  className='cursor-pointer'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'w-[124px] ml-3 xs:ml-4');
-                  }}
-                />
+                <ReactSVG src='/assets/icons/outlined/MenuFold.svg' />
               </button>
 
               <Link to={PATH.SEARCH_PRODUCTS}>
@@ -195,7 +189,7 @@ const SideBar = (props: TSideBarProps) => {
                 </a>
               </li>
             </ul>
-            <div className='px-2.5 '>
+            <div className='px-2.5'>
               <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
                 <button
                   className='flex items-center'
@@ -226,7 +220,6 @@ const SideBar = (props: TSideBarProps) => {
                 <div className='text-XS/Medium'>리포트 발행 수</div>
                 <ReactSVG
                   src='/assets/icons/outlined/Infinity.svg'
-                  // className='cursor-pointer '
                   beforeInjection={(svg) => {
                     svg.setAttribute('class', `w-5 fill-grey-800`);
                   }}
@@ -241,14 +234,13 @@ const SideBar = (props: TSideBarProps) => {
                   </p>
                   <ReactSVG
                     src='/assets/icons/outlined/ArrowRight-Small.svg'
-                    className='cursor-pointer'
+                    className={`cursor-pointer xs:${
+                      _state.openedUserMenu ? 'rotate-45' : 'rotate-0'
+                    }`}
                     beforeInjection={(svg) => {
-                      const arrowCss = _state.openedUserMenu
-                        ? 'rotate-90'
-                        : 'rotate-[270deg]';
                       svg.setAttribute(
                         'class',
-                        `w-6 fill-grey-800 xs:${arrowCss} xs:mr-[74px]`,
+                        `w-6 fill-grey-800 xs:rotate-90 xs:mr-[100px]`,
                       );
                     }}
                   />
@@ -271,9 +263,9 @@ const SideBar = (props: TSideBarProps) => {
           </div>
         </div>
       ) : (
-        <div>
+        <div className='h-full w-full'>
           <div
-            className={`flex h-full w-[${_state.openedSidebar}px] flex-[0_0_${_state.openedSidebar}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5 xs:hidden`}
+            className={`flex h-full w-[${_state.sideBarWidth}px] flex-[0_0_${_state.sideBarWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5 xs:hidden`}
           >
             <div>
               <div className='flex h-20 items-center justify-center'>
@@ -356,14 +348,15 @@ const SideBar = (props: TSideBarProps) => {
             </ul>
           </div>
 
-          <div className='hidden w-[375px] justify-center xs:flex'>
-            <div className='fixed top-0 z-20 flex border-b-[1px] border-grey-300 bg-white py-5 px-[640px]'>
+          <div className='fixed hidden w-full xs:flex'>
+            <div className='top-0 z-20 flex w-full items-center justify-center border-b-[1px] border-grey-300 bg-white py-5'>
               <button
                 className='fixed left-0 ml-4 flex'
                 onClick={() => toggleSidebar(_dispatch)}
               >
                 <ReactSVG src='/assets/icons/outlined/Menu.svg' />
               </button>
+
               <ReactSVG
                 src='/assets/icons/Logo.svg'
                 beforeInjection={(svg) => {
