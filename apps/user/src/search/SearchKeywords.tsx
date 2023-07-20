@@ -50,8 +50,9 @@ import { CountryType } from '@/generated/graphql';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
-
   const [requestReport, setRequestReport] = useState(false);
+
+  const isMobile = window.innerWidth < 431 ? 'flex' : 'hidden';
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
@@ -394,13 +395,14 @@ const SearchKeywords = () => {
               </button>
             </div>
           </div>
-          <HotKeyword
-            visible={window.innerWidth < 431 ? 'hidden' : 'flex'}
-            country={getValues('country') as TSearchCountry}
-            searchSortBy={getValues('sortBy')}
-            _dispatch={_dispatch}
-            setValue={setValue}
-          />
+          <div className='xs:hidden'>
+            <HotKeyword
+              country={getValues('country') as TSearchCountry}
+              searchSortBy={getValues('sortBy')}
+              _dispatch={_dispatch}
+              setValue={setValue}
+            />
+          </div>
         </div>
 
         <div className='mt-12'>
@@ -432,7 +434,7 @@ const SearchKeywords = () => {
                   </span>
                 </p>
               </div>
-              <div className='xs:pb-0ƒ flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex-col xs:gap-x-0'>
+              <div className='flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex-col xs:gap-x-0 xs:pb-0 xs:pb-0'>
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className=''>
@@ -466,7 +468,8 @@ const SearchKeywords = () => {
                     keyword={_state.keyword}
                   />
                 </div>
-                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+
+                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5 xs:mt-[30px] xs:px-3 xs:py-2.5'>
                   <div className='flex justify-between'>
                     <div>
                       <h3 className='text-L/Medium'>
@@ -477,7 +480,7 @@ const SearchKeywords = () => {
                         >
                           <ReactSVG
                             src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block'
+                            className='ml-[7px] inline-block xs:hidden'
                             beforeInjection={(svg) => {
                               svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                             }}
@@ -495,7 +498,7 @@ const SearchKeywords = () => {
 
                   <div
                     id='scrollbar'
-                    className='mt-5 h-full max-h-[324px] overflow-x-auto'
+                    className='mt-5 h-full max-h-[324px] overflow-x-auto xs:mt-2.5'
                   >
                     {Array.isArray(relativeKeyword) ? (
                       <ul className='overflow-y-hidden text-center'>
@@ -508,7 +511,7 @@ const SearchKeywords = () => {
                               >
                                 <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
                                   <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
-                                  <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
+                                  {/* <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div> */}
                                 </div>
 
                                 <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
@@ -557,9 +560,8 @@ const SearchKeywords = () => {
             </Fragment>
           )}
         </div>
-        <div className='xs: mt-[60px] hidden pb-[100px] xs:flex'>
+        <div className='mt-[60px] hidden pb-[100px] xs:mt-[30px] xs:flex'>
           <HotKeyword
-            visible={window.innerWidth < 431 ? 'flex' : 'hidden'}
             country={getValues('country') as TSearchCountry}
             searchSortBy={getValues('sortBy')}
             _dispatch={_dispatch}

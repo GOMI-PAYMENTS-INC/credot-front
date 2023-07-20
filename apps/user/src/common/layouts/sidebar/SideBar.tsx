@@ -56,12 +56,16 @@ const SideBar = (props: TSideBarProps) => {
       setUserInfo(userAtom);
     }
   }, [userAtom]);
-
+  const innerWidth = () => window.innerWidth;
   return (
     <aside className='fixed left-0 z-50 h-full'>
       {_state.openedSidebar ? (
         <div
-          className={`flex h-full w-[${_state.sideBarWidth}px] xs:max-w-[${window.innerWidth}px] xs:w-screen flex-[0_0_${_state.sideBarWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}
+          className={`flex h-full w-[${
+            _state.sideBarWidth
+          }px] xs:max-w-[${innerWidth()}px] xs:w-screen flex-[0_0_${
+            _state.sideBarWidth
+          }px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white`}
         >
           <div className='px-2.5'>
             <div className='flex h-20 w-full items-center xs:h-[64px] xs:justify-center'>
