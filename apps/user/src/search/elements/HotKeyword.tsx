@@ -15,6 +15,7 @@ interface IHotKeyword {
     sortBy: TSortBy;
     keyword: string;
   }>;
+
   searchSortBy: TSortBy;
 }
 export const HotKeyword = (props: IHotKeyword) => {
@@ -22,19 +23,19 @@ export const HotKeyword = (props: IHotKeyword) => {
   const { country, _dispatch, setValue, searchSortBy } = props;
 
   return (
-    <section>
+    <section className={`xs:mx-5`}>
       <div
         id='hotKeywordContentLayout'
         className='rounded-[20px] border-[1px] border-grey-300 bg-white p-5'
       >
-        <div id='hotKeywordFrame' className='w-[334px]'>
+        <div id='hotKeywordFrame' className='w-[334px] xs:w-[310px]'>
           <p className='text-L/Bold text-orange-400'>HOT 키워드</p>
           <p className='mt-[2px] text-S/Medium text-grey-700'>
             오늘 Shopee
             <span className='text-grey-900'>
               {` ${convertCountry(country as CountryType)}`}
             </span>
-            에서 가장 핫한 키워드들이에요.
+            에서 가장 핫한 키워드
           </p>
           <ul className='mt-5'>
             {HOT_KEYWORD[country].map((keyword, index) => {
@@ -43,7 +44,9 @@ export const HotKeyword = (props: IHotKeyword) => {
               return (
                 <li
                   key={keyword.text}
-                  className={`flex ${index === 6 ? '' : 'mb-[10px]'} cursor-pointer`}
+                  className={`flex ${
+                    index === 6 ? '' : 'mb-[10px] xs:mb-[15px]'
+                  } cursor-pointer`}
                   onMouseOver={() => {
                     setHoverIndex(index);
                   }}

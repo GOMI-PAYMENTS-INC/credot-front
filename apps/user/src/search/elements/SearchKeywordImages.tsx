@@ -12,38 +12,13 @@ interface ISearchKeywordsImageBox {
 
 export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
   const { images, keyword } = props;
-  const test: [] = [];
-  const imageBoxTitle = useMemo(() => {
-    // 로딩중
-    if (isFalsy(keyword) === false && images === null) {
-      return {
-        title: '불러오는 중...',
-        subTitle: 'Shopee에 등록된 상품 이미지를 미리 보여드릴게요.',
-      };
-    }
-    if (isFalsy(images) === true) {
-      return {
-        title: '키워드를 검색해주세요.',
-        subTitle: 'Shopee에 등록된 상품 이미지를 미리 보여드릴게요.',
-      };
-    }
-    //  검색결과가 있을 경우
-    if (images) {
-      return {
-        title: '이런 상품들이 검색되고 있어요!',
-        subTitle: 'Shopee에 등록된 상품 이미지를 미리 보여드릴게요.',
-      };
-    }
-    return { title: '', subTitle: '' };
-  }, [props]);
 
-  const { title, subTitle } = imageBoxTitle;
   const imageData = images?.data[0].imageUrl;
 
   const list = imageData === undefined ? [1, 2, 3] : imageData;
   //TODO: return에 조건문이 많음 분기할 것
   return (
-    <div className='flex h-[236px] grow basis-full flex-col self-center bg-white'>
+    <div className='flex h-[236px] grow basis-full flex-col self-center bg-white xs:w-full xs:max-w-[430px]'>
       <div className='flex h-full w-full flex-col overflow-hidden rounded-[20px] border-[1px] border-grey-300'>
         {images?.code === STATUS_CODE.ERROR ? (
           <div className='flex h-full flex-col'>
@@ -91,7 +66,7 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
           </div>
         ) : (
           <Fragment>
-            <header className='pb-5 pt-[25px] pl-6'>
+            <header className='pb-5 pt-[25px] pl-6 xs:pb-[10px]'>
               <h3 className='text-L/Medium'>
                 관련 이미지
                 <a
@@ -100,7 +75,7 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                 >
                   <ReactSVG
                     src='assets/icons/outlined/QuestionCircle.svg'
-                    className='ml-[7px] inline-block'
+                    className='ml-[7px] inline-block xs:hidden'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                     }}
@@ -113,32 +88,37 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
             <section
               className={`h-full w-full ${
                 images !== null && images!.data ? 'overflow-y-auto' : null
-              } px-6 py-3`}
+              } px-6 py-3 xs:overflow-y-hidden xs:pt-0`}
               id='scrollbar'
             >
               {isFalsy(keyword) === false && images === null ? (
-                <div className='flex w-full scale-[0.3] flex-col items-center justify-center self-center'>
+                <div className='flex w-full scale-[0.3] flex-col items-center justify-center self-center xs:h-full'>
                   <div id='loader' />
                 </div>
               ) : (
-                <ul className='grid grid-cols-3 grid-rows-[repeat(auto-fill,_126px)] gap-4 gap-x-6'>
+                <ul
+                  className={`grid h-full grid-cols-3 grid-rows-[repeat(auto-fill,_126px)] gap-4 gap-x-6 xs:flex xs:${
+                    typeof list[0] === 'number' ? 'w-[500px]' : 'h-fit w-fit'
+                  }`}
+                >
                   {list.map((item, idx) => {
-                    return typeof item === 'number' ? (
+                    const isImage = typeof item === 'number';
+
+                    return (
                       <li
-                        key={`keywordImg_${idx}`}
-                        className='flex h-full items-center justify-center overflow-hidden rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'
+                        key={`img_${idx}`}
+                        className='h-full overflow-hidden rounded border-[1px]'
                       >
-                        <img
-                          src='/assets/images/ShopeeIcon.png'
-                          className='w-[46.33px]'
-                        />
-                      </li>
-                    ) : (
-                      <li
-                        key={`keywordImg_${item}_${idx}`}
-                        className='flex items-center justify-center overflow-hidden rounded border-[1px] bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)]'
-                      >
-                        <img className='flex' src={item} />
+                        <div className='flex h-full items-center justify-center bg-grey-100 shadow-[0px_8px_16px_rgba(0,0,0,0.02)] xs:w-[150px]'>
+                          {isImage ? (
+                            <img
+                              src='/assets/images/ShopeeIcon.png'
+                              className='w-[46.33px] xs:mx-[50px]'
+                            />
+                          ) : (
+                            <img key={`img_${idx}`} className='flex' src={item} />
+                          )}
+                        </div>
                       </li>
                     );
                   })}

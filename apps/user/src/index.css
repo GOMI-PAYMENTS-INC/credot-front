@@ -147,7 +147,7 @@ input[type='number'] {
     @apply h-4 w-4 fill-grey-500;
   }
   .tooltip-container {
-    @apply relative ml-[5px];
+    @apply relative ml-[5px] xs:hidden;
   }
   .tooltip-container .react-tooltip {
     @apply z-10;

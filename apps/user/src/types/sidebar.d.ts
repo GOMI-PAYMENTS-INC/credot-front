@@ -5,4 +5,5 @@ type TSidebarState = {
   openedDepthList: string[];
   //마이 메뉴 열림 여부
   openedUserMenu: boolean;
+  sideBarWidth: 0 | 64 | 200;
 };

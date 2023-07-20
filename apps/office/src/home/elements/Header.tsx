@@ -10,7 +10,7 @@ export const Header = () => {
             <br />
             <span className='gradientTitle '>키워드 분석 리포트</span>
           </h1>
-          <p className='mt-12 text-L/Medium text-grey-700'>
+          <p className='xs:w-[290px] mt-12 text-L/Medium text-grey-700'>
             Shopee 키워드 검색결과 내 상위 노출 상품들을 분석하여
             <br />
             상품의 시장 정보와 최고의 판매 전략을 제공해요!

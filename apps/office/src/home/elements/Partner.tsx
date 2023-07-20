@@ -29,7 +29,7 @@ export const Partner = ({ imagePath }: IPartner) => {
                 className='flex h-auto w-[424px] flex-col rounded-[16px] border-grey-300 bg-white p-6 '
               >
                 <div>
-                  <div className='xs:h-[100px] flex h-[130px]'>
+                  <div className='xs:h-[115px] flex h-[130px]'>
                     <div className='mr-2.5 h-[65px] w-[65px] self-center lg:mr-[7px] lg:h-[43px] lg:w-[43px]'>
                       <img
                         src={`${imagePath}/Partner/${partener.imgName}`}

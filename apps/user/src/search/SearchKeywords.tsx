@@ -50,8 +50,9 @@ import { CountryType } from '@/generated/graphql';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
-
   const [requestReport, setRequestReport] = useState(false);
+
+  const isMobile = window.innerWidth < 431 ? 'flex' : 'hidden';
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
@@ -261,11 +262,12 @@ const SearchKeywords = () => {
         />
       </ModalComponent>
       <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px]'>
-        <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%]'>
+        <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%] xs:hidden'>
           <img src='/assets/images/Background.png' />
         </div>
-        <div className='flex justify-between'>
-          <div className='w-[525px]'>
+
+        <div className='flex justify-between xs:flex-col xs:justify-center xs:px-5'>
+          <div className='w-[525px] xs:w-full'>
             <div>
               <div>
                 <h1 className='break-keep text-center text-3XL/Bold'>
@@ -274,7 +276,7 @@ const SearchKeywords = () => {
                   <span className='text-orange-500'>리포트를 생성</span>해 주세요.
                 </h1>
               </div>
-              <div className='m-auto w-full max-w-[580px] '>
+              <div className='m-auto w-full max-w-[580px] xs:max-w-[430px]'>
                 <div className='mt-6 flex items-center justify-center'>
                   <DropDown
                     name='country'
@@ -316,7 +318,7 @@ const SearchKeywords = () => {
                     />
                   </div>
                 </div>
-                <div>
+                <div id='keywordSearchInput'>
                   <div className='form-control mt-2'>
                     <div className='input-group'>
                       <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
@@ -368,11 +370,16 @@ const SearchKeywords = () => {
                 </div>
               </div>
             </div>
-            <div className='mt-10 flex'>
+
+            <div
+              id='reportRequestButton'
+              className='mt-10 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5'
+            >
               <button
                 className={`w-full rounded-md bg-orange-500 py-4 ${
-                  (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
-                }`}
+                  (_state.keyword === '' || isMonthlyCountZero) &&
+                  'opacity-30 xs:bg-orange-200 xs:opacity-100'
+                } `}
                 disabled={_state.keyword === '' || isMonthlyCountZero}
                 onClick={() => setRequestReport(true)}
               >
@@ -388,12 +395,14 @@ const SearchKeywords = () => {
               </button>
             </div>
           </div>
-          <HotKeyword
-            country={getValues('country') as TSearchCountry}
-            searchSortBy={getValues('sortBy')}
-            _dispatch={_dispatch}
-            setValue={setValue}
-          />
+          <div className='xs:hidden'>
+            <HotKeyword
+              country={getValues('country') as TSearchCountry}
+              searchSortBy={getValues('sortBy')}
+              _dispatch={_dispatch}
+              setValue={setValue}
+            />
+          </div>
         </div>
 
         <div className='mt-12'>
@@ -417,7 +426,7 @@ const SearchKeywords = () => {
             </div>
           ) : (
             <Fragment>
-              <div className='mb-6 border border-grey-300 bg-white text-S/Regular text-grey-800 '>
+              <div className='mb-6 border border-grey-300 bg-white text-S/Regular text-grey-800 xs:hidden'>
                 <p className='p-3'>
                   아래는 키워드에 대한 간략한 정보에요. 보다 상세한 분석을 위해 상단의
                   <span className='ml-1 text-orange-500'>
@@ -425,7 +434,7 @@ const SearchKeywords = () => {
                   </span>
                 </p>
               </div>
-              <div className='flex gap-x-[18px] pb-[100px]'>
+              <div className='flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex-col xs:gap-x-0 xs:pb-0 xs:pb-0'>
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className=''>
@@ -437,7 +446,7 @@ const SearchKeywords = () => {
                         >
                           <ReactSVG
                             src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block'
+                            className='ml-[7px] inline-block xs:hidden'
                             beforeInjection={(svg) => {
                               svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                             }}
@@ -459,7 +468,8 @@ const SearchKeywords = () => {
                     keyword={_state.keyword}
                   />
                 </div>
-                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+
+                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5 xs:mt-[30px] xs:px-3 xs:py-2.5'>
                   <div className='flex justify-between'>
                     <div>
                       <h3 className='text-L/Medium'>
@@ -470,7 +480,7 @@ const SearchKeywords = () => {
                         >
                           <ReactSVG
                             src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block'
+                            className='ml-[7px] inline-block xs:hidden'
                             beforeInjection={(svg) => {
                               svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                             }}
@@ -488,7 +498,7 @@ const SearchKeywords = () => {
 
                   <div
                     id='scrollbar'
-                    className='mt-5 h-full max-h-[324px] overflow-x-auto'
+                    className='mt-5 h-full max-h-[324px] overflow-x-auto xs:mt-2.5'
                   >
                     {Array.isArray(relativeKeyword) ? (
                       <ul className='overflow-y-hidden text-center'>
@@ -501,7 +511,7 @@ const SearchKeywords = () => {
                               >
                                 <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
                                   <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
-                                  <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
+                                  {/* <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div> */}
                                 </div>
 
                                 <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
@@ -531,9 +541,6 @@ const SearchKeywords = () => {
                                   <div className='flex h-full items-center justify-center rounded-[50px] border border-grey-300 bg-white px-[19px] py-[6px] text-L/Medium'>
                                     {keyword.text}
                                   </div>
-                                  <div className='text-M/Medium text-orange-400'>
-                                    {/*케이스*/}
-                                  </div>
                                 </div>
 
                                 <div className='text-L/Medium text-grey-700'>
@@ -552,6 +559,14 @@ const SearchKeywords = () => {
               </div>
             </Fragment>
           )}
+        </div>
+        <div className='mt-[60px] hidden pb-[100px] xs:mt-[30px] xs:flex'>
+          <HotKeyword
+            country={getValues('country') as TSearchCountry}
+            searchSortBy={getValues('sortBy')}
+            _dispatch={_dispatch}
+            setValue={setValue}
+          />
         </div>
       </div>
 
