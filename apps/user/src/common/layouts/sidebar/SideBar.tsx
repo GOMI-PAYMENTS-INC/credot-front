@@ -95,9 +95,9 @@ const SideBar = (props: TSideBarProps) => {
                 }
 
                 return (
-                  <li className='' key={menuIndex}>
+                  <li key={menuIndex}>
                     <button
-                      className={`flex w-full cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 ${
+                      className={`flex w-full cursor-pointer justify-between rounded-lg p-3 text-S/Medium text-grey-800 xs:text-M/Medium ${
                         isCollapsedActive && 'bg-orange-100 text-orange-600'
                       }`}
                       onClick={() => toggleDepth2Menu(_state, _dispatch, menu.key)}
@@ -138,7 +138,8 @@ const SideBar = (props: TSideBarProps) => {
                             <li key={childIndex}>
                               <button
                                 className={`flex  w-full cursor-pointer items-center rounded-lg py-2 pl-5 text-S/Medium ${
-                                  isActive && 'bg-orange-100 text-orange-500'
+                                  isActive &&
+                                  'bg-orange-100 text-orange-500 xs:text-M/Medium'
                                 }`}
                                 onClick={() => navigation(child.path)}
                               >
@@ -154,7 +155,13 @@ const SideBar = (props: TSideBarProps) => {
                                     );
                                   }}
                                 />
-                                <span className='ml-2'>{child.title}</span>
+                                <span
+                                  className={`ml-2 ${
+                                    isActive ? 'xs:text-M/Medium' : 'xs:text-M/Regular'
+                                  }`}
+                                >
+                                  {child.title}
+                                </span>
                               </button>
                             </li>
                           );
@@ -194,7 +201,7 @@ const SideBar = (props: TSideBarProps) => {
               </li>
             </ul>
             <div className='px-2.5'>
-              <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
+              <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800 xs:text-M/Medium'>
                 <button
                   className='flex items-center'
                   onClick={() => {
@@ -225,7 +232,7 @@ const SideBar = (props: TSideBarProps) => {
                       svg.setAttribute('class', 'h-4 w-4 ');
                     }}
                   />
-                  <span className='ml-2 text-S/Medium text-grey-800'>
+                  <span className='ml-2 text-S/Medium text-grey-800 xs:text-M/Medium'>
                     {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
                   </span>
                 </div>
@@ -246,11 +253,13 @@ const SideBar = (props: TSideBarProps) => {
             </div>
             <div className='space-y-3 py-6 px-4'>
               <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5 leading-none'>
-                <span className='text-XS/Medium text-grey-100'>무료체험</span>
+                <span className='text-XS/Medium text-grey-100 xs:text-S/Medium'>
+                  무료체험
+                </span>
               </div>
               <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-orange-300'></div>
               <div className='flex items-center justify-between'>
-                <div className='text-XS/Medium'>리포트 발행 수</div>
+                <div className='text-XS/Medium xs:text-M/Medium'>리포트 발행 수</div>
                 <ReactSVG
                   src='/assets/icons/outlined/Infinity.svg'
                   beforeInjection={(svg) => {
@@ -264,7 +273,11 @@ const SideBar = (props: TSideBarProps) => {
       ) : (
         <div className='h-full w-full'>
           <div
-            className={`flex h-full w-[${_state.sideBarWidth}px] flex-[0_0_${_state.sideBarWidth}px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5 xs:hidden`}
+            className={`flex h-full w-[${
+              _state.sideBarWidth
+            }px] xs:max-w-[${innerWidth()}px] flex-[0_0_${
+              _state.sideBarWidth
+            }px] flex-col justify-between border-r-[1px] border-r-grey-200 bg-white px-2.5 xs:hidden`}
           >
             <div>
               <div className='flex h-20 items-center justify-center'>
