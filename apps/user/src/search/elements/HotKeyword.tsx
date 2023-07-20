@@ -15,14 +15,15 @@ interface IHotKeyword {
     sortBy: TSortBy;
     keyword: string;
   }>;
+  visible: 'hidden' | 'flex';
   searchSortBy: TSortBy;
 }
 export const HotKeyword = (props: IHotKeyword) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const { country, _dispatch, setValue, searchSortBy } = props;
+  const { country, _dispatch, setValue, searchSortBy, visible } = props;
 
   return (
-    <section>
+    <section className={visible}>
       <div
         id='hotKeywordContentLayout'
         className='rounded-[20px] border-[1px] border-grey-300 bg-white p-5'
