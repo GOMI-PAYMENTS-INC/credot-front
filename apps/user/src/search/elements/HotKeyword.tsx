@@ -1,4 +1,4 @@
-import { HOT_KEYWORD, TRANSLATED_KEYWORD } from '@/search/elements/constants';
+import { HOT_KEYWORD, TRANSLATED_KEYWORD } from '@/search/elements/hotKeywords';
 import { queryKeywordByClick } from '@/search/container';
 import { convertCountry } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
