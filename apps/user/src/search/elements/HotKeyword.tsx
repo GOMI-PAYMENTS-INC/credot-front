@@ -1,6 +1,8 @@
-import { useState, type Dispatch, type RefObject } from 'react';
-import { HOT_KEYWORD, TRANSLATED_KEYWORD } from '@/search/elements/constants';
-import { queryKeywordByClick, scrollToTop } from '@/search/container';
+import { useState, type Dispatch } from 'react';
+
+import { queryKeywordByClick } from '@/search/container';
+import { HOT_KEYWORD, TRANSLATED_KEYWORD } from '@/search/elements/hotKeywords';
+
 import { convertCountry } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
 import type { UseFormSetValue } from 'react-hook-form';
