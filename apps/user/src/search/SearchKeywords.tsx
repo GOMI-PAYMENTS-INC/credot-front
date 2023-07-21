@@ -377,12 +377,12 @@ const SearchKeywords = () => {
 
             <div
               id='reportRequestButton'
-              className='mt-10 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5'
+              className={`mt-10 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5`}
             >
               <button
                 className={`w-full rounded-md bg-orange-500 py-4 ${
                   (_state.keyword === '' || isMonthlyCountZero) &&
-                  'opacity-30 xs:bg-orange-200 xs:opacity-100'
+                  'opacity-30 xs:hidden xs:bg-orange-200'
                 } `}
                 disabled={_state.keyword === '' || isMonthlyCountZero}
                 onClick={() => setRequestReport(true)}
@@ -529,6 +529,14 @@ const SearchKeywords = () => {
                               <li
                                 className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
                                 onClick={() => {
+                                  if (window.innerWidth < 431) {
+                                    window.scroll({
+                                      top: 0,
+                                      left: 0,
+                                      behavior: 'smooth',
+                                    });
+                                  }
+
                                   queryKeywordByClick(
                                     _state.country,
                                     keyword.text,
