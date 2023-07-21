@@ -265,14 +265,10 @@ const SearchKeywords = () => {
           <img src='/assets/images/Background.png' />
         </div>
 
-        <div
-          className={`flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5 xs:${
-            _state.keyword ? 'pt-0' : 'pt-[25px]'
-          }`}
-        >
+        <div className='flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5'>
           <div className='w-[525px] xs:w-full'>
             <div>
-              <div className={`xs:${_state.keyword ? 'hidden' : 'block'}`}>
+              <div className={`xs:${_state.keyword ? 'hidden' : 'mt-5 block'}`}>
                 <h1 className='break-keep text-center text-3XL/Bold xs:text-XL/Bold'>
                   <span className='text-orange-500'>키워드 검색 </span> 후
                   <br />
@@ -284,7 +280,7 @@ const SearchKeywords = () => {
                 id='dropDownAndSearch'
                 className='relative m-auto w-full max-w-[580px] xs:flex xs:h-[144px] xs:max-w-[430px] xs:items-start xs:justify-around xs:overflow-visible'
               >
-                <div className='sticky top-[118px] mt-6 px-6 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
+                <div className='sticky top-[118px] mt-6 px-8 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
                   <div className='flex items-center justify-center gap-4'>
                     <DropDown
                       name='country'
