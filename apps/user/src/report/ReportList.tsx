@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import { useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
 
@@ -177,7 +177,7 @@ const ReportList = () => {
                   status={DROPDOWN_STATUS.FILLED}
                   variants={DROPDOWN_VARIANTS.DEFAULT}
                   onClickOption={onClickOption}
-                ></DropDown>
+                />
 
                 <div className='absolute left-1/2 top-0 translate-x-[-50%]'>
                   <Pagination

@@ -27,7 +27,7 @@ type TDropDown = {
   value: string;
   minWidth?: number;
   iconPath?: string;
-  setIsOpenDropdown: Dispatch<SetStateAction<boolean>>;
+  setIsOpenDropdown?: Dispatch<SetStateAction<boolean>>;
   options: TDropDownOption[];
   onClickOption?: (value: any) => void;
 };
@@ -79,7 +79,7 @@ const DropDown = ({
   const [isOpen, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsOpenDropdown(isOpen);
+    setIsOpenDropdown && setIsOpenDropdown(isOpen);
   }, [isOpen]);
 
   const handleOnClickOption = (optionValue: any) => {
