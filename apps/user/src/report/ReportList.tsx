@@ -17,6 +17,7 @@ import { reportListInitialState, reportListReducer } from '@/report/reducer';
 import { ReportListColumn } from '@/report/elements/ReportListColumn';
 import { ReportListDeleteModal } from '@/report/elements/ReportListDeleteModal';
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { mobileScrollToTop } from '@/utils/scrollController';
 import { formatNumber } from '@/utils/formatNumber';
 import DropDown, {
   DROPDOWN_STATUS,
@@ -40,6 +41,7 @@ const ReportList = () => {
     // Get a specific query parameter
     const limit = searchParams.get('limit');
     const page = searchParams.get('page');
+    mobileScrollToTop(window.innerWidth);
     if (limit && page) {
       void getReportListByPage(_dispatch, Number(limit), undefined, Number(page));
     } else {

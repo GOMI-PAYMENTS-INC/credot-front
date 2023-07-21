@@ -232,8 +232,14 @@ const SideBar = (props: TSideBarProps) => {
                       svg.setAttribute('class', 'h-4 w-4 ');
                     }}
                   />
-                  <span className='ml-2 text-S/Medium text-grey-800 xs:text-M/Medium'>
+                  <span className='ml-2 flex items-center text-S/Medium text-grey-800 xs:text-M/Medium'>
                     {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
+                    <ReactSVG
+                      src='/assets/icons/outlined/ArrowRight-small.svg'
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', 'h-4 w-4 ml-[30px] xs:hidden');
+                      }}
+                    />
                   </span>
                 </div>
               </a>
@@ -369,12 +375,14 @@ const SideBar = (props: TSideBarProps) => {
                 <ReactSVG src='/assets/icons/outlined/Menu.svg' />
               </button>
 
-              <ReactSVG
-                src='/assets/icons/Logo.svg'
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'w-[124px] h-6');
-                }}
-              />
+              <Link to={PATH.SEARCH_PRODUCTS}>
+                <ReactSVG
+                  src='/assets/icons/Logo.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'w-[124px] h-6');
+                  }}
+                />
+              </Link>
             </div>
           </div>
         </div>

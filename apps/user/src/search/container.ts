@@ -253,7 +253,3 @@ export const initializeImages = (
   _dispatch: Dispatch<TSearchActionType>,
   keyword: string,
 ) => _dispatch({ type: SEARCH_ACTION.INITIALIZE_IMAGES, payload: keyword });
-
-export const scrollToTop = (scrollInfo: RefObject<HTMLDivElement>) => {
-  scrollController(scrollInfo, 0, 0, 'smooth');
-};

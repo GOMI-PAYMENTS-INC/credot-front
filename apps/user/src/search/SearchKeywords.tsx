@@ -18,6 +18,7 @@ import {
   queryKeywordByClick,
   switchModal,
 } from '@/search/container';
+import { mobileScrollToTop } from '@/utils/scrollController';
 import { SEARCH_ACTION } from '@/search/reducer';
 import { searchInitialState, searchReducer } from '@/search/reducer';
 import { getQueryResult } from '@/search/api';
@@ -79,7 +80,7 @@ const SearchKeywords = () => {
     const preKeyword: TSearchState = useSessionStorage.getItem(
       CACHING_KEY.STORED_KEYWORD,
     );
-
+    mobileScrollToTop(window.innerWidth);
     if (isFalsy(preKeyword) === false) initializeState(preKeyword, _dispatch, setValue);
   }, []);
 
@@ -264,10 +265,14 @@ const SearchKeywords = () => {
           <img src='/assets/images/Background.png' />
         </div>
 
-        <div className='flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5 xs:pt-[25px]'>
+        <div
+          className={`flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5 xs:${
+            _state.keyword ? 'pt-0' : 'pt-[25px]'
+          }`}
+        >
           <div className='w-[525px] xs:w-full'>
             <div>
-              <div>
+              <div className={`xs:${_state.keyword ? 'hidden' : 'block'}`}>
                 <h1 className='break-keep text-center text-3XL/Bold xs:text-XL/Bold'>
                   <span className='text-orange-500'>키워드 검색 </span> 후
                   <br />
@@ -529,13 +534,7 @@ const SearchKeywords = () => {
                               <li
                                 className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
                                 onClick={() => {
-                                  if (window.innerWidth < 431) {
-                                    window.scroll({
-                                      top: 0,
-                                      left: 0,
-                                      behavior: 'smooth',
-                                    });
-                                  }
+                                  mobileScrollToTop(window.innerWidth);
 
                                   queryKeywordByClick(
                                     _state.country,
