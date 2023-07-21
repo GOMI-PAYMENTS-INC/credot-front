@@ -1,5 +1,5 @@
 import { ReactSVG } from 'react-svg';
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, Dispatch, useEffect, useRef, useState } from 'react';
 
 export enum DROPDOWN_STATUS {
   NORMAL = 'Normal',
@@ -27,6 +27,7 @@ type TDropDown = {
   value: string;
   minWidth?: number;
   iconPath?: string;
+  setIsOpenDropdown: Dispatch<SetStateAction<boolean>>;
   options: TDropDownOption[];
   onClickOption?: (value: any) => void;
 };
@@ -73,8 +74,13 @@ const DropDown = ({
   isUseIcon,
   options,
   onClickOption,
+  setIsOpenDropdown,
 }: TDropDown) => {
   const [isOpen, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsOpenDropdown(isOpen);
+  }, [isOpen]);
 
   const handleOnClickOption = (optionValue: any) => {
     if (onClickOption) {

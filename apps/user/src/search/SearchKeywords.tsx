@@ -52,6 +52,7 @@ import { CountryType } from '@/generated/graphql';
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
@@ -286,6 +287,7 @@ const SearchKeywords = () => {
                 <div className='sticky top-[118px] mt-6 px-8 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
                   <div className='flex items-center justify-center gap-4'>
                     <DropDown
+                      setIsOpenDropdown={setIsOpenDropdown}
                       name='country'
                       minWidth={152}
                       value={convertCountry(countryWatcher)}
@@ -297,6 +299,7 @@ const SearchKeywords = () => {
                       onClickOption={onClickCountryOption}
                     />
                     <DropDown
+                      setIsOpenDropdown={setIsOpenDropdown}
                       name='filterOption'
                       minWidth={152}
                       value={convertSortedType(sortByWatcher)}
@@ -387,7 +390,7 @@ const SearchKeywords = () => {
                 className={`w-full rounded-md bg-orange-500 py-4 ${
                   (_state.keyword === '' || isMonthlyCountZero) &&
                   'opacity-30 xs:hidden xs:bg-orange-200'
-                } `}
+                } ${isOpenDropdown && 'z-[-1]'}`}
                 disabled={_state.keyword === '' || isMonthlyCountZero}
                 onClick={() => setRequestReport(true)}
               >
