@@ -268,7 +268,7 @@ const SearchKeywords = () => {
         <div className='flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5'>
           <div className='w-[525px] xs:w-full'>
             <div>
-              <div className={`xs:${_state.keyword ? 'hidden' : 'mt-5 block'}`}>
+              <div className={`xs:${_state.keyword ? 'hidden' : 'mt-5'}`}>
                 <h1 className='break-keep text-center text-3XL/Bold xs:text-XL/Bold'>
                   <span className='text-orange-500'>키워드 검색 </span> 후
                   <br />
