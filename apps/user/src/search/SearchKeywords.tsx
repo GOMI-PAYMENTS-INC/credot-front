@@ -52,8 +52,6 @@ const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
 
-  const isMobile = window.innerWidth < 431 ? 'flex' : 'hidden';
-
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
     sortBy: TSortBy;
@@ -261,110 +259,116 @@ const SearchKeywords = () => {
           _setTrigger={setRequestReport}
         />
       </ModalComponent>
-      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px]'>
+      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px] xs:pt-[65px]'>
         <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%] xs:hidden'>
           <img src='/assets/images/Background.png' />
         </div>
 
-        <div className='flex justify-between xs:flex-col xs:justify-center xs:px-5'>
+        <div className='flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5 xs:pt-[25px]'>
           <div className='w-[525px] xs:w-full'>
             <div>
               <div>
-                <h1 className='break-keep text-center text-3XL/Bold'>
+                <h1 className='break-keep text-center text-3XL/Bold xs:text-XL/Bold'>
                   <span className='text-orange-500'>키워드 검색 </span> 후
                   <br />
                   <span className='text-orange-500'>리포트를 생성</span>해 주세요.
                 </h1>
               </div>
-              <div className='m-auto w-full max-w-[580px] xs:max-w-[430px]'>
-                <div className='mt-6 flex items-center justify-center'>
-                  <DropDown
-                    name='country'
-                    minWidth={120}
-                    value={convertCountry(countryWatcher)}
-                    iconPath={convertCountryIconPath(countryWatcher)}
-                    isUseIcon={true}
-                    options={countryOptions()}
-                    status={DROPDOWN_STATUS.FILLED}
-                    variants={DROPDOWN_VARIANTS.CLEAR}
-                    onClickOption={onClickCountryOption}
-                  />
-                  <DropDown
-                    name='filterOption'
-                    minWidth={120}
-                    value={convertSortedType(sortByWatcher)}
-                    isUseIcon={true}
-                    iconPath={convertSortByIconPath(sortByWatcher)}
-                    options={sortByOptions()}
-                    status={DROPDOWN_STATUS.FILLED}
-                    variants={DROPDOWN_VARIANTS.CLEAR}
-                    onClickOption={onClickSortOption}
-                  />
-                  <div className='tooltip-container'>
-                    <a data-tooltip-id='anchor-keyword-search-volum'>
-                      <ReactSVG
-                        src='assets/icons/outlined/QuestionCircle.svg'
-                        className='ml-[7px] inline-block'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      render={() => KeywordSearchToolTip}
-                      id='anchor-keyword-search-volum'
-                      place='right'
-                      variant='light'
+
+              <div
+                id='dropDownAndSearch'
+                className='relative m-auto w-full max-w-[580px] xs:flex xs:h-[144px] xs:max-w-[430px] xs:items-start xs:justify-around xs:overflow-visible'
+              >
+                <div className='sticky top-[118px] px-6 xs:mt-6 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
+                  <div className='flex items-center justify-center gap-4'>
+                    <DropDown
+                      name='country'
+                      minWidth={152}
+                      value={convertCountry(countryWatcher)}
+                      iconPath={convertCountryIconPath(countryWatcher)}
+                      isUseIcon={true}
+                      options={countryOptions()}
+                      status={DROPDOWN_STATUS.FILLED}
+                      variants={DROPDOWN_VARIANTS.CLEAR}
+                      onClickOption={onClickCountryOption}
                     />
-                  </div>
-                </div>
-                <div id='keywordSearchInput'>
-                  <div className='form-control mt-2'>
-                    <div className='input-group'>
-                      <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
-                        <input
-                          type='text'
-                          placeholder={convertSearchPlaceholder(countryWatcher)}
-                          {...register('keyword')}
-                          onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                            if (event.key === 'Enter') {
-                              queryKeyword(
-                                countryWatcher,
-                                sortByWatcher,
-                                getValues('keyword'),
-                                _dispatch,
-                              );
-                            }
+                    <DropDown
+                      name='filterOption'
+                      minWidth={152}
+                      value={convertSortedType(sortByWatcher)}
+                      isUseIcon={true}
+                      iconPath={convertSortByIconPath(sortByWatcher)}
+                      options={sortByOptions()}
+                      status={DROPDOWN_STATUS.FILLED}
+                      variants={DROPDOWN_VARIANTS.CLEAR}
+                      onClickOption={onClickSortOption}
+                    />
+                    <div className='tooltip-container ml-0'>
+                      <a data-tooltip-id='anchor-keyword-search-volum'>
+                        <ReactSVG
+                          src='assets/icons/outlined/QuestionCircle.svg'
+                          className=''
+                          beforeInjection={(svg) => {
+                            svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                           }}
-                          className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                         />
-                      </div>
-                      <button
-                        onClick={() =>
-                          queryKeyword(
-                            countryWatcher,
-                            sortByWatcher,
-                            getValues('keyword'),
-                            _dispatch,
-                          )
-                        }
-                        className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
-                      >
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          className='h-6 w-6'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          stroke='currentColor'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                      </a>
+                      <Tooltip
+                        render={() => KeywordSearchToolTip}
+                        id='anchor-keyword-search-volum'
+                        place='right'
+                        variant='light'
+                      />
+                    </div>
+                  </div>
+                  <div id='keywordSearchInput'>
+                    <div className='form-control mt-4'>
+                      <div className='input-group'>
+                        <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
+                          <input
+                            type='text'
+                            placeholder={convertSearchPlaceholder(countryWatcher)}
+                            {...register('keyword')}
+                            onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                              if (event.key === 'Enter') {
+                                queryKeyword(
+                                  countryWatcher,
+                                  sortByWatcher,
+                                  getValues('keyword'),
+                                  _dispatch,
+                                );
+                              }
+                            }}
+                            className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                           />
-                        </svg>
-                      </button>
+                        </div>
+                        <button
+                          onClick={() =>
+                            queryKeyword(
+                              countryWatcher,
+                              sortByWatcher,
+                              getValues('keyword'),
+                              _dispatch,
+                            )
+                          }
+                          className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
+                        >
+                          <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='h-6 w-6'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
+                          >
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth='2'
+                              d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -405,7 +409,7 @@ const SearchKeywords = () => {
           </div>
         </div>
 
-        <div className='mt-12'>
+        <div className={`mt-12 xs:${isFalsy(_state.keyword) && 'hidden'}`}>
           {isFalsy(monthlySearchVolume) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
               <div className='flex flex-col items-center text-center'>
@@ -434,7 +438,9 @@ const SearchKeywords = () => {
                   </span>
                 </p>
               </div>
-              <div className='flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex-col xs:gap-x-0 xs:pb-0 xs:pb-0'>
+              <div
+                className={`flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex xs:flex-col xs:gap-x-0 xs:pb-0`}
+              >
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className=''>

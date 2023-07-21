@@ -98,8 +98,8 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
               ) : (
                 <ul
                   className={`grid h-full grid-cols-3 grid-rows-[repeat(auto-fill,_126px)] gap-4 gap-x-6 xs:flex xs:${
-                    typeof list[0] === 'number' ? 'w-[500px]' : 'h-fit w-fit'
-                  }`}
+                    typeof list[0] === 'number' ? 'w-[500px]' : 'h-fit'
+                  } xs:w-fit`}
                 >
                   {list.map((item, idx) => {
                     const isImage = typeof item === 'number';
