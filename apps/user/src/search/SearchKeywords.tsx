@@ -265,7 +265,10 @@ const SearchKeywords = () => {
           <img src='/assets/images/Background.png' />
         </div>
 
-        <div className='flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5'>
+        <div
+          className='xs: flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5'
+          style={_state.keyword ? {} : { marginTop: '25px' }}
+        >
           <div className='w-[525px] xs:w-full'>
             <div>
               <div className={`xs:${_state.keyword ? 'hidden' : 'mt-5'}`}>
