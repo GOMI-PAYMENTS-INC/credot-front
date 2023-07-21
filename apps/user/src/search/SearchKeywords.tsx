@@ -279,7 +279,7 @@ const SearchKeywords = () => {
                 id='dropDownAndSearch'
                 className='relative m-auto w-full max-w-[580px] xs:flex xs:h-[144px] xs:max-w-[430px] xs:items-start xs:justify-around xs:overflow-visible'
               >
-                <div className='sticky top-[118px] px-6 xs:mt-6 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
+                <div className='sticky top-[118px] mt-6 px-6 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
                   <div className='flex items-center justify-center gap-4'>
                     <DropDown
                       name='country'
