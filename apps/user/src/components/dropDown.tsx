@@ -30,6 +30,7 @@ type TDropDown = {
   setIsOpenDropdown?: Dispatch<SetStateAction<boolean>>;
   options: TDropDownOption[];
   onClickOption?: (value: any) => void;
+  borderLine?: boolean;
 };
 
 const statusStyle = (status: DROPDOWN_STATUS) => {
@@ -75,6 +76,7 @@ const DropDown = ({
   options,
   onClickOption,
   setIsOpenDropdown,
+  borderLine,
 }: TDropDown) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -108,7 +110,9 @@ const DropDown = ({
   return (
     <div
       id={`select-group-${name}`}
-      className={`relative rounded-lg border-[1px] bg-white text-S/Regular text-grey-900`}
+      className={`relative rounded-lg ${
+        borderLine && 'border-[1px] bg-white'
+      } text-S/Regular text-grey-900`}
       ref={modalEl}
     >
       <button

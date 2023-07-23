@@ -146,7 +146,6 @@ export const convertSortedType = (sortedType: TSortBy) => {
     case SORT_BY_TYPE.R:
       return `연관도순`;
     default:
-      console.error('enum 코드를 확인해주세요.', sortedType);
-      return '';
+      throw new Error();
   }
 };
