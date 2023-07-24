@@ -56,8 +56,8 @@ const DetailReportPage = () => {
     return isFalsy(main) ? (
       <Fragment />
     ) : (
-      <div className='col-span-10'>
-        <div className='space-y-[72px]'>
+      <div className='col-span-12'>
+        <div className='space-y-[72px] xs:space-y-5'>
           <KeywordInfo
             _dispatch={_dispatch}
             keywordInfo={main!}
@@ -117,13 +117,15 @@ const DetailReportPage = () => {
             scrollEvent={scrollEvent}
           >
             {ReportComponents}
-            <DetailReportRightQuickBar
-              isUser={true}
-              title={main?.text}
-              scrollEvent={scrollEvent}
-              contentSection={contentSection}
-              setScrollEvent={setScrollEvent}
-            />
+            <div className='xs:hidden'>
+              <DetailReportRightQuickBar
+                isUser={true}
+                title={main?.text}
+                scrollEvent={scrollEvent}
+                contentSection={contentSection}
+                setScrollEvent={setScrollEvent}
+              />
+            </div>
           </DetailReportBody>
         </Fragment>
       )}

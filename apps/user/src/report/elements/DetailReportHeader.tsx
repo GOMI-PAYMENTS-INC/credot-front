@@ -30,13 +30,17 @@ export const DetailReportHeader = (props: TDetailReport) => {
   };
 
   const headerHeightStyle = useMemo(() => {
+    if (window.innerWidth < 431) return;
     return { height: STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT };
   }, []);
 
   return (
-    <header className='sticky top-0 z-10 border-b-[1px] border-b-grey-200 bg-white'>
+    <header className='sticky top-0 z-10 border-b-[1px] border-b-grey-200 bg-white xs:top-[65px]'>
       <div className='container'>
-        <div style={headerHeightStyle} className='flex items-center justify-between'>
+        <div
+          style={headerHeightStyle}
+          className='flex items-center justify-between xs:h-[64px]'
+        >
           <div className='flex items-center'>
             <div
               className='h-5 w-5 cursor-pointer pl-[7px]'
@@ -44,7 +48,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
             >
               <ReactSVG src='/assets/icons/outlined/LeftArrow.svg' />
             </div>
-            <h1 className='ml-[19px] text-2XL/Bold text-grey-900'>
+            <h1 className='ml-[19px] text-2XL/Bold text-grey-900 xs:text-XL/Medium'>
               {convertTitle(scrollEvent.title)}
             </h1>
             {scrollEvent.title !== TITLE.REPORT && (

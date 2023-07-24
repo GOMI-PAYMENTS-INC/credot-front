@@ -59,10 +59,11 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
 
   return (
     <section>
-      <div className='flex justify-between border-t-2 border-b-2 border-grey-200'>
-        <div className='basis-full py-8 pl-2'>
+      <div className='flex justify-between border-t-2 border-b-2 border-grey-200 xs:mt-[44px] xs:items-center xs:border-white'>
+        <div className='basis-full py-8 pl-2 xs:flex xs:flex-col xs:items-center xs:justify-center'>
           <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
-          <div>
+
+          <div className='xs:flex xs:hidden xs:flex-col xs:items-center'>
             <div className='pt-4 text-S/Medium'>
               <span className='keywordInfo-divide-by-single-dot'>
                 <span className='text-grey-600'>국가</span>
@@ -75,6 +76,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
                 </span>
               </span>
             </div>
+
             <div className='pt-2 text-S/Medium'>
               <span className='keywordInfo-divide-by-single-dot'>
                 <span className='text-grey-600'>데이터 수집 기준</span>
@@ -82,7 +84,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
                   {convertSortedType(sorted)} 상위 {itemCount}개
                 </span>
               </span>
-              <span className='keywordInfo-divide-by-single-dot'>
+              <span className='keywordInfo-divide-by-single-dot xs:flex xs:items-center'>
                 <span className='text-grey-600'>적용 환율</span>
                 <span className='ml-1 space-x-1 text-grey-800'>
                   <span>{currencyUnit}</span>
@@ -94,8 +96,36 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               </span>
             </div>
           </div>
+
+          <div className='mt-[14px] hidden flex-col items-center justify-center gap-y-[6px] text-S/Medium xs:flex'>
+            <div className='flex gap-x-1'>
+              <div className='flex'>
+                <p className='text-grey-600'>국가</p>
+                <p className='ml-1 text-grey-800'>{convertCountry(country)}</p>
+              </div>
+              <span className='text-grey-600'>리포트 생성일</span>
+              <span className='ml-1 text-grey-800'>
+                {convertTime(createdAt!, 'YYYY.MM.DD')}
+              </span>
+            </div>
+
+            <div className='flex'>
+              <p className='text-grey-600'>데이터 수집 기준</p>
+              <p className='ml-1 text-grey-800'>
+                {convertSortedType(sorted)} 상위 {itemCount}개
+              </p>
+            </div>
+            <div className='flex gap-x-1'>
+              <span className='text-grey-600'>적용 환율</span>
+              <span>{currencyUnit}</span>
+              <span className='text-grey-700'>{convertExchangeRate(country)}</span>
+              <span>=</span>
+              <span>{basePrice}</span>
+              <span className='text-grey-700'>KRW</span>
+            </div>
+          </div>
         </div>
-        <div className='mt-[30px]'>
+        <div className='mt-[30px] xs:hidden'>
           <div className='flex grow-0 flex-col items-end gap-y-4'>
             <button
               onClick={() => {
