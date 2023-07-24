@@ -235,7 +235,7 @@ const SideBar = (props: TSideBarProps) => {
                   <span className='ml-2 flex items-center text-S/Medium text-grey-800 xs:text-M/Medium'>
                     {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
                     <ReactSVG
-                      src='/assets/icons/outlined/ArrowRight-small.svg'
+                      src='/assets/icons/outlined/ArrowRightSmall.svg'
                       beforeInjection={(svg) => {
                         svg.setAttribute('class', 'h-4 w-4 ml-[30px] xs:hidden');
                       }}
