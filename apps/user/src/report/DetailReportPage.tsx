@@ -16,8 +16,6 @@ import { DetailReportHeader, DetailReportBody } from '@/report/elements';
 import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 
-import { camelize } from 'casing';
-
 const DetailReportPage = () => {
   const params = useParams();
 
@@ -56,8 +54,8 @@ const DetailReportPage = () => {
     return isFalsy(main) ? (
       <Fragment />
     ) : (
-      <div className='col-span-12'>
-        <div className='space-y-[72px] xs:space-y-5'>
+      <div className='col-span-10 xs:col-span-12'>
+        <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
           <KeywordInfo
             _dispatch={_dispatch}
             keywordInfo={main!}
