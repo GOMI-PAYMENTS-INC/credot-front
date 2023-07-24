@@ -25,6 +25,7 @@ import DropDown, {
   TDropDownOption,
 } from '@/components/dropDown';
 import { useSearchParams } from 'react-router-dom';
+import { MReportList } from '@/report/mobile/MReportList';
 
 const ReportList = () => {
   const [_state, _dispatch] = useReducer(reportListReducer, reportListInitialState);
@@ -67,7 +68,7 @@ const ReportList = () => {
   return (
     <Default>
       {/*헤더*/}
-      <header className='border-b-[1px] border-b-grey-200 bg-white'>
+      <header className='border-b-[1px] border-b-grey-200 bg-white xs:hidden'>
         <div className='container'>
           <div className='flex h-[84px] items-center'>
             <div className='shrink-0'>
@@ -82,7 +83,7 @@ const ReportList = () => {
         </div>
       </header>
       {/*컨텐츠*/}
-      <section className='grow overflow-y-auto'>
+      <section className='grow overflow-y-auto xs:hidden'>
         <div className='min-h-full bg-grey-50'>
           <div className='container pt-[24px]'>
             {/*하단 페이지 별로 변경해야하는 부분*/}
@@ -193,6 +194,7 @@ const ReportList = () => {
           </div>
         </div>
       </section>
+      <MReportList />
     </Default>
   );
 };

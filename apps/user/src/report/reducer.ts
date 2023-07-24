@@ -151,7 +151,7 @@ enum REPORT_LIST_ACTION {
 
 const reportListInitialState: TReportListState = {
   page: 1,
-  limit: 10,
+  limit: window.innerWidth < 432 ? 9999 : 10,
   data: {
     reports: [],
     totalCount: 0,

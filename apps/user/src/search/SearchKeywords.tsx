@@ -288,6 +288,7 @@ const SearchKeywords = () => {
                   <div className='flex items-center justify-center gap-4'>
                     <DropDown
                       setIsOpenDropdown={setIsOpenDropdown}
+                      borderLine={true}
                       name='country'
                       minWidth={152}
                       value={convertCountry(countryWatcher)}
@@ -300,6 +301,7 @@ const SearchKeywords = () => {
                     />
                     <DropDown
                       setIsOpenDropdown={setIsOpenDropdown}
+                      borderLine={true}
                       name='filterOption'
                       minWidth={152}
                       value={convertSortedType(sortByWatcher)}

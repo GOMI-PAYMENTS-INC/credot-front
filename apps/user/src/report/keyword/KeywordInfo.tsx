@@ -99,7 +99,11 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
           <div className='flex grow-0 flex-col items-end gap-y-4'>
             <button
               onClick={() => {
-                openBrowser(`${convertShopeeSiteUrl(country)}/search?keyword=${text}`);
+                openBrowser(
+                  `${convertShopeeSiteUrl(country)}/search?keyword=${text}${
+                    sorted === 'S' ? '&page=0&sortBy=sales' : ''
+                  }`,
+                );
                 _amplitudeMovedToSERP(reportIdOrShareToken, text, null);
               }}
               className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
