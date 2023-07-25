@@ -6,6 +6,7 @@ import { convertExchangeRate } from '@/report/container';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/Score';
 import { TITLE } from '@/types/enum.code';
+import { MRecommendationChart } from '@/report/keyword/MRecommendationChart';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { DetailReportSectionHeader } from '@/report/elements/DetailReportSectionHeader';
 import { RecommendationChart } from '@/report/keyword/RecommendationChart';
@@ -342,6 +343,17 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             currencyUnit={1}
           />
         )}
+      </div>
+      <div className='hidden xs:block'>
+        <MRecommendationChart
+          relations={relations}
+          _dispatch={_dispatch}
+          toggleEvent={_state.toggleEvent}
+          country={analysisInfo!.country}
+          basePrice={analysisInfo!.basePrice}
+          currencyUnit={analysisInfo!.currencyUnit}
+          amplitudeData={amplitudeData}
+        />
       </div>
     </section>
   );

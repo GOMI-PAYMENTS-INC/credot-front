@@ -35,7 +35,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
   }, []);
 
   return (
-    <header className='sticky top-0 z-10 border-b-[1px] border-b-grey-200 bg-white xs:top-[65px]'>
+    <header className='sticky top-0 z-40 border-b-[1px] border-b-grey-200 bg-white xs:top-[65px]'>
       <div className='container'>
         <div
           style={headerHeightStyle}
