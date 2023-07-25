@@ -10,9 +10,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.22629591822624207,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.1895972192287445,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.22629591822624207,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.1895972192287445,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [8287291494, 1768749335, 11910410519],
@@ -38,9 +38,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.2060500681400299,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.16560745239257812,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.2060500681400299,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.16560745239257812,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [19043547043, 19536102712, 18136102405],
@@ -58,62 +58,6 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'Shoes',
-      pic: [
-        'sg-11134201-22100-ix3ylv73f3iv8e',
-        '40b3cde4b8ff60e62d9f28d322c6fd9a',
-        'sg-11134201-22100-uivopj221wiva9',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1946466565132141,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
-      search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1946466565132141,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [19957315385, 21752495678, 18256355219],
-      image: 'sg-11134201-22100-ix3ylv73f3iv8e',
-      images: [
-        'sg-11134201-22100-ix3ylv73f3iv8e',
-        '40b3cde4b8ff60e62d9f28d322c6fd9a',
-        'sg-11134201-22100-uivopj221wiva9',
-      ],
-      hint: 'Shoes',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
-      text: 'Blackpink Starbucks',
-      pic: [
-        '51b99d051a447e096e519940db6c0151',
-        'my-11134207-23030-tii8tcw2y9nv5a',
-        'sg-11134201-22090-5fhtxvxuy1hv18',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.17528104782104492,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
-      search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.17528104782104492,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [14969016398, 16397771341, 16786484575],
-      image: '51b99d051a447e096e519940db6c0151',
-      images: [
-        '51b99d051a447e096e519940db6c0151',
-        'my-11134207-23030-tii8tcw2y9nv5a',
-        'sg-11134201-22090-5fhtxvxuy1hv18',
-      ],
-      hint: 'Blackpink Starbucks',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
       text: 'Dress',
       pic: [
         'th-11134207-7qukx-lg5rokaxuc5rcd',
@@ -122,9 +66,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.17254459857940674,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.16524159908294678,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.17254459857940674,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.16524159908294678,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [16636523332, 23323328463, 5689836455],
@@ -142,6 +86,62 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
+      text: 'Shoes',
+      pic: [
+        'sg-11134201-22100-ix3ylv73f3iv8e',
+        '40b3cde4b8ff60e62d9f28d322c6fd9a',
+        'sg-11134201-22100-uivopj221wiva9',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.1605299711227417,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
+      search_info:
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.1605299711227417,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [19957315385, 21752495678, 18256355219],
+      image: 'sg-11134201-22100-ix3ylv73f3iv8e',
+      images: [
+        'sg-11134201-22100-ix3ylv73f3iv8e',
+        '40b3cde4b8ff60e62d9f28d322c6fd9a',
+        'sg-11134201-22100-uivopj221wiva9',
+      ],
+      hint: 'Shoes',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
+    {
+      id: null,
+      text: 'Airpods',
+      pic: [
+        'a13429dfaa6f8629ed2f7a8d13efeb7e',
+        'd1eb72192cab1de190a443bf2cb9e893',
+        '31001736e794f62a08a742493b9f9f11',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.15243297815322876,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
+      search_info:
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.15243297815322876,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [9958840862, 10361112591, 19536102854],
+      image: 'a13429dfaa6f8629ed2f7a8d13efeb7e',
+      images: [
+        'a13429dfaa6f8629ed2f7a8d13efeb7e',
+        'd1eb72192cab1de190a443bf2cb9e893',
+        '31001736e794f62a08a742493b9f9f11',
+      ],
+      hint: 'Airpods',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
+    {
+      id: null,
       text: 'Phone Case',
       pic: [
         '2975d6a5383c125a08de999abf00765a',
@@ -150,9 +150,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1552211344242096,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.13346517086029053,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1552211344242096,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.13346517086029053,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [14811746844, 14436625825, 23130904109],
@@ -170,27 +170,27 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'Airpods',
+      text: 'Cargo Pants',
       pic: [
-        'a13429dfaa6f8629ed2f7a8d13efeb7e',
-        'd1eb72192cab1de190a443bf2cb9e893',
-        '31001736e794f62a08a742493b9f9f11',
+        'sg-11134201-22110-nl226jigeyjvcc',
+        'sg-11134201-22090-obz4syxdzuhv2e',
+        '15a96b12cff6f3f1ebb51c8552dab62e',
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.15115389227867126,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.12546145915985107,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.15115389227867126,"reqid":"bff-search_sg_sg9_10.168.69.202_{1f8a1b840142badb46997763cc724900:020000e4dbe178df:0100003210ed4c23}_10-168-69-202-cls-gjdmlc6s.shopeemobile.com","timestamp":1690235974}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.12546145915985107,"reqid":"bff-search_sg_sg9_10.168.36.25_{1f8a1b840157332a0e54267990843000:020000f53a720313:01000001610171be}_10-168-36-25-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323892}',
       bff_info: '{}',
       icon_code: 0,
-      item_ids: [9958840862, 10361112591, 19536102854],
-      image: 'a13429dfaa6f8629ed2f7a8d13efeb7e',
+      item_ids: [21062718436, 19949162059, 4186461919],
+      image: 'sg-11134201-22110-nl226jigeyjvcc',
       images: [
-        'a13429dfaa6f8629ed2f7a8d13efeb7e',
-        'd1eb72192cab1de190a443bf2cb9e893',
-        '31001736e794f62a08a742493b9f9f11',
+        'sg-11134201-22110-nl226jigeyjvcc',
+        'sg-11134201-22090-obz4syxdzuhv2e',
+        '15a96b12cff6f3f1ebb51c8552dab62e',
       ],
-      hint: 'Airpods',
+      hint: 'Cargo Pants',
       prefill_icon: '',
       prefill_icon_type: '',
       prefill_icon_height: null,
@@ -209,9 +209,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.29972895979881287,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.2552211880683899,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.29972895979881287,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.2552211880683899,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [20517762129, 23972728958, 20779220677],
@@ -237,9 +237,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.19089975953102112,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.17401555180549622,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.19089975953102112,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.17401555180549622,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [20878379471, 16172932262, 23428883422],
@@ -265,9 +265,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.185689777135849,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.1538582146167755,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.185689777135849,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.1538582146167755,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [15505038224, 12034108333, 13239688188],
@@ -293,9 +293,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.18039247393608093,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.14851343631744385,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.18039247393608093,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.14851343631744385,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [22441050312, 22932500531, 18376514647],
@@ -321,9 +321,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.1673225462436676,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.14540314674377441,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.1673225462436676,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.14540314674377441,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [11415173041, 23033970325, 14955132396],
@@ -341,27 +341,27 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'Ly Giữ Nhiệt',
+      text: 'Vòng Tay',
       pic: [
-        'vn-11134201-23030-gnmgaam6jfov77',
-        'vn-11134207-7qukw-lezc1ly8dizb52',
-        'vn-11134207-7qukw-lih95z7clu4yfb',
+        'sg-11134201-23020-mt9ic8y2vwnv37',
+        'bde7cc0d9e9988b247385a5b05955b54',
+        'cn-11134207-7qukw-lh9wld0dm5b077',
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15754133462905884,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.12426093220710754,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15754133462905884,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.12426093220710754,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
-      item_ids: [23030649012, 21877370980, 17385636804],
-      image: 'vn-11134201-23030-gnmgaam6jfov77',
+      item_ids: [5119034704, 20529936716, 22338262178],
+      image: 'sg-11134201-23020-mt9ic8y2vwnv37',
       images: [
-        'vn-11134201-23030-gnmgaam6jfov77',
-        'vn-11134207-7qukw-lezc1ly8dizb52',
-        'vn-11134207-7qukw-lih95z7clu4yfb',
+        'sg-11134201-23020-mt9ic8y2vwnv37',
+        'bde7cc0d9e9988b247385a5b05955b54',
+        'cn-11134207-7qukw-lh9wld0dm5b077',
       ],
-      hint: 'Ly Giữ Nhiệt',
+      hint: 'Vòng Tay',
       prefill_icon: '',
       prefill_icon_type: '',
       prefill_icon_height: null,
@@ -369,27 +369,27 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'Áo Phông Nam',
+      text: 'Son',
       pic: [
-        'vn-11134201-23030-jaaaylg9b8nv00',
-        'ca96593b72deee14cb09b3bbfb37870d',
-        'b54aa1c5414d5cf78adcd1aca144e16c',
+        'sg-11134201-22110-oxmacfbf87jv36',
+        'vn-11134207-23010-o5wem0ax86lv04',
+        'sg-11134201-23030-61mvhpjz9aovc8',
       ],
       count: null,
       tracking:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15301594138145447,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.11825495958328247,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       search_info:
-        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15301594138145447,"reqid":"bff-search_vn_vn_10.84.247.13_{1f8a1b840142bbe8a3c6b03e3e918e00:020000501cc70ccf:0100004ace2b0f39}_10-84-247-13-cls-r44kgttd.shopeemobile.com","timestamp":1690235992}',
+        '{"ab_sign":[72252],"queue":"HOTKW","rank_score":0.11825495958328247,"reqid":"bff-search_vn_sg9_10.168.36.88_{1f8a1b8401573467febf345ce26bc902:020000ac2995876b:010000932358e50f}_10-168-36-88-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323913}',
       bff_info: '{}',
       icon_code: 0,
-      item_ids: [20075065179, 19626432358, 19546613965],
-      image: 'vn-11134201-23030-jaaaylg9b8nv00',
+      item_ids: [23806869420, 19571023014, 18075261575],
+      image: 'sg-11134201-22110-oxmacfbf87jv36',
       images: [
-        'vn-11134201-23030-jaaaylg9b8nv00',
-        'ca96593b72deee14cb09b3bbfb37870d',
-        'b54aa1c5414d5cf78adcd1aca144e16c',
+        'sg-11134201-22110-oxmacfbf87jv36',
+        'vn-11134207-23010-o5wem0ax86lv04',
+        'sg-11134201-23030-61mvhpjz9aovc8',
       ],
-      hint: 'Áo Phông Nam',
+      hint: 'Son',
       prefill_icon: '',
       prefill_icon_type: '',
       prefill_icon_height: null,
@@ -408,9 +408,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.22201001644134521,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.18268337845802307,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.22201001644134521,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.18268337845802307,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [15660118689, 7591355654, 15365575404],
@@ -436,9 +436,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.1927880048751831,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.16004839539527893,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.1927880048751831,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.16004839539527893,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [22929835829, 23629834567, 3685723914],
@@ -464,9 +464,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.18562743067741394,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15845617651939392,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.18562743067741394,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15845617651939392,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [14380501503, 12696888525, 18473257891],
@@ -484,34 +484,6 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'iPhone 14 Pro Max',
-      pic: [
-        'my-11134211-7qul9-lf0x0fthay509c',
-        '78a7b603c3769d50d035ba5dfe8f4c24',
-        'my-11134207-7qul8-lj73c7bziyx22d',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.17949578166007996,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
-      search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.17949578166007996,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [18744670180, 19546252848, 12696484433],
-      image: 'my-11134211-7qul9-lf0x0fthay509c',
-      images: [
-        'my-11134211-7qul9-lf0x0fthay509c',
-        '78a7b603c3769d50d035ba5dfe8f4c24',
-        'my-11134207-7qul8-lj73c7bziyx22d',
-      ],
-      hint: 'iPhone 14 Pro Max',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
       text: 'Voltbar 12000original',
       pic: [
         'my-11134207-7qul2-lhu6syv5ch5pc7',
@@ -520,9 +492,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.17415520548820496,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.1511363983154297,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.17415520548820496,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.1511363983154297,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [23345093746, 22071193094, 23170585730],
@@ -548,9 +520,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.1689090132713318,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.1448703110218048,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.1689090132713318,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.1448703110218048,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [19754395624, 17993956668, 19888438827],
@@ -568,27 +540,55 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'Jersey',
+      text: 'Sandal',
       pic: [
-        'sg-11134201-22120-168gbvmf9rkv7f',
-        'sg-11134201-23010-9ntf8f5z8qlvf0',
-        'sg-11134201-22100-ojxzu7xvuyivde',
+        '7fe83ba3f9ce52127148e544f55814c8',
+        '423d5c39a2e48bf5326bc0da16076174',
+        '956d5572064588bbbbdf36a6059ea483',
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.1589316725730896,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13788434863090515,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       search_info:
-        '{"ab_sign":[67149],"queue":"HOTKW","rank_score":0.1589316725730896,"reqid":"bff-search_my_sg9_10.168.59.82_{1f8a1b840142bc905b2fc65a09515a02:0200000e2665ef36:010000efc195285e}_10-168-59-82-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236003}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13788434863090515,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
       bff_info: '{}',
       icon_code: 0,
-      item_ids: [15308630522, 15654255891, 14310695380],
-      image: 'sg-11134201-22120-168gbvmf9rkv7f',
+      item_ids: [16246412387, 3079241399, 16469384996],
+      image: '7fe83ba3f9ce52127148e544f55814c8',
       images: [
-        'sg-11134201-22120-168gbvmf9rkv7f',
-        'sg-11134201-23010-9ntf8f5z8qlvf0',
-        'sg-11134201-22100-ojxzu7xvuyivde',
+        '7fe83ba3f9ce52127148e544f55814c8',
+        '423d5c39a2e48bf5326bc0da16076174',
+        '956d5572064588bbbbdf36a6059ea483',
       ],
-      hint: 'Jersey',
+      hint: 'Sandal',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
+    {
+      id: null,
+      text: 'iPhone 14 Pro Max',
+      pic: [
+        'my-11134211-7qul5-lhm7w0ibrh7h58',
+        '78a7b603c3769d50d035ba5dfe8f4c24',
+        'my-11134207-7qul8-lj73c7bziyx22d',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13672327995300293,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
+      search_info:
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13672327995300293,"reqid":"bff-search_my_sg9_10.214.64.101_{1f8a1b840157345f904189c3236dd002:02000076e90c222f:0100000aa0f69917}_10-214-64-101-cls-gjdmlc6s.shopeemobile.com","timestamp":1690323912}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [18744670180, 19546252848, 12696484433],
+      image: 'my-11134211-7qul5-lhm7w0ibrh7h58',
+      images: [
+        'my-11134211-7qul5-lhm7w0ibrh7h58',
+        '78a7b603c3769d50d035ba5dfe8f4c24',
+        'my-11134207-7qul8-lj73c7bziyx22d',
+      ],
+      hint: 'iPhone 14 Pro Max',
       prefill_icon: '',
       prefill_icon_type: '',
       prefill_icon_height: null,
@@ -607,9 +607,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.21161150932312012,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.18594539165496826,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.21161150932312012,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.18594539165496826,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [22923985464, 18350689589, 18540276654],
@@ -635,9 +635,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.17669731378555298,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15762507915496826,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.17669731378555298,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15762507915496826,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [19338273371, 11479198777, 21930916383],
@@ -659,21 +659,21 @@ export const HOT_KEYWORD = {
       pic: [
         'th-11134207-23030-8k6ms54o0xov8c',
         'th-11134207-23030-wwriefmkphovca',
-        'sg-11134201-22090-g6ccdkidr4hvce',
+        'sg-11134201-22120-r1n1gwsrevkvb0',
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1558733582496643,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15525272488594055,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1558733582496643,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.15525272488594055,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       bff_info: '{}',
       icon_code: 0,
-      item_ids: [17993716880, 9582361037, 18851116829],
+      item_ids: [17993716880, 9582361037, 20667786006],
       image: 'th-11134207-23030-8k6ms54o0xov8c',
       images: [
         'th-11134207-23030-8k6ms54o0xov8c',
         'th-11134207-23030-wwriefmkphovca',
-        'sg-11134201-22090-g6ccdkidr4hvce',
+        'sg-11134201-22120-r1n1gwsrevkvb0',
       ],
       hint: 'กางเกง',
       prefill_icon: '',
@@ -683,27 +683,27 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'iPhone 11',
+      text: 'Starbucks Official Store',
       pic: [
-        'th-11134211-7qul9-li9nzr31paxd55',
-        'th-11134207-7qul5-licrfm56ci5k7d',
-        'th-11134207-7qul8-lgc2kk8ohmbyed',
+        'sg-11134201-22110-26jedg7f7gkv31',
+        'th-11134207-23030-xzjf6fr5rmovf6',
+        'th-11134207-23010-r3sdgdrdromve0',
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1556130349636078,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.14626389741897583,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1556130349636078,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.14626389741897583,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       bff_info: '{}',
       icon_code: 0,
-      item_ids: [4644381564, 4161270915, 5261301456],
-      image: 'th-11134211-7qul9-li9nzr31paxd55',
+      item_ids: [18365699067, 20109420399, 21071745583],
+      image: 'sg-11134201-22110-26jedg7f7gkv31',
       images: [
-        'th-11134211-7qul9-li9nzr31paxd55',
-        'th-11134207-7qul5-licrfm56ci5k7d',
-        'th-11134207-7qul8-lgc2kk8ohmbyed',
+        'sg-11134201-22110-26jedg7f7gkv31',
+        'th-11134207-23030-xzjf6fr5rmovf6',
+        'th-11134207-23010-r3sdgdrdromve0',
       ],
-      hint: 'iPhone 11',
+      hint: 'Starbucks Official Store',
       prefill_icon: '',
       prefill_icon_type: '',
       prefill_icon_height: null,
@@ -719,9 +719,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.14884895086288452,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.14139586687088013,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.14884895086288452,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.14139586687088013,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [15687123238, 22903652964, 20879990382],
@@ -739,34 +739,6 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: 'ชุดเซ็ท',
-      pic: [
-        'th-11134207-7qul1-lf3m047zv9jl4b',
-        'bd1127b21a464d351c6ad1e4d1a7afc3',
-        'th-11134207-7qul9-lfbyo39veu9aaf',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1476021111011505,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
-      search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.1476021111011505,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [22436002114, 16961848716, 21652087246],
-      image: 'th-11134207-7qul1-lf3m047zv9jl4b',
-      images: [
-        'th-11134207-7qul1-lf3m047zv9jl4b',
-        'bd1127b21a464d351c6ad1e4d1a7afc3',
-        'th-11134207-7qul9-lfbyo39veu9aaf',
-      ],
-      hint: 'ชุดเซ็ท',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
       text: '1 บาท',
       pic: [
         '4376a4b50e57c696d67f170601397915',
@@ -775,9 +747,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.14047273993492126,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13261988759040833,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       search_info:
-        '{"ab_sign":[72526],"queue":"HOTKW","rank_score":0.14047273993492126,"reqid":"bff-search_th_sg9_10.168.39.153_{1f8a1b840142bd03e91d6ec571d1a002:020000d5829b0aa7:010000d5ec2a724d}_10-168-39-153-cls-gjdmlc6s.shopeemobile.com","timestamp":1690236010}',
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13261988759040833,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [3009524263, 23739662152, 19405047218],
@@ -788,6 +760,34 @@ export const HOT_KEYWORD = {
         '9c3e675567513803d6fe70dc54137e1c',
       ],
       hint: '1 บาท',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
+    {
+      id: null,
+      text: 'iPhone 11',
+      pic: [
+        'th-11134211-7qul9-li9nzr31paxd55',
+        'th-11134207-7qul5-licrfm56ci5k7d',
+        'th-11134207-7qul8-lgc2kk8ohmbyed',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13103380799293518,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
+      search_info:
+        '{"ab_sign":[40548],"queue":"HOTKW","rank_score":0.13103380799293518,"reqid":"bff-search_th_sg9_10.168.99.135_{1f8a1b8401573b72872b7065a4cc2300:020000bbbb341805:010000614ff3c79c}_10-168-99-135-cls-gjdmlc6s.shopeemobile.com","timestamp":1690324031}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [4644381564, 4161270915, 5261301456],
+      image: 'th-11134211-7qul9-li9nzr31paxd55',
+      images: [
+        'th-11134211-7qul9-li9nzr31paxd55',
+        'th-11134207-7qul5-licrfm56ci5k7d',
+        'th-11134207-7qul8-lgc2kk8ohmbyed',
+      ],
+      hint: 'iPhone 11',
       prefill_icon: '',
       prefill_icon_type: '',
       prefill_icon_height: null,
@@ -806,9 +806,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.2636573612689972,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.22712138295173645,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.2636573612689972,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.22712138295173645,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [22639258482, 18063829353, 18145872890],
@@ -826,62 +826,6 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: '陪睡',
-      pic: [
-        '240c313e6e8ca2e9499a4f005570169b',
-        'bc30c79759d80de7e48917e7aab246a7',
-        'sg-11134201-22120-bd5ialhzdflv4d',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.25644731521606445,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
-      search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.25644731521606445,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [15908933982, 3895544401, 23813720088],
-      image: '240c313e6e8ca2e9499a4f005570169b',
-      images: [
-        '240c313e6e8ca2e9499a4f005570169b',
-        'bc30c79759d80de7e48917e7aab246a7',
-        'sg-11134201-22120-bd5ialhzdflv4d',
-      ],
-      hint: '陪睡',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
-      text: '衣服',
-      pic: [
-        '34d2afb4a54b8e21ed6b85b704e6a85c',
-        'a1f98c00408aece3cf4cc24ef8a035e8',
-        'sg-11134201-22110-dyo6gr38wpjve5',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.2342003881931305,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
-      search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.2342003881931305,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [17871126817, 21547253657, 22304789779],
-      image: '34d2afb4a54b8e21ed6b85b704e6a85c',
-      images: [
-        '34d2afb4a54b8e21ed6b85b704e6a85c',
-        'a1f98c00408aece3cf4cc24ef8a035e8',
-        'sg-11134201-22110-dyo6gr38wpjve5',
-      ],
-      hint: '衣服',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
       text: 'YS',
       pic: [
         'tw-11134207-7qul3-lhswh5mil40gd5',
@@ -890,9 +834,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.21521565318107605,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.2079581618309021,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.21521565318107605,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.2079581618309021,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [22244368851, 23920249292, 22107509202],
@@ -910,6 +854,62 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
+      text: '衣服',
+      pic: [
+        '34d2afb4a54b8e21ed6b85b704e6a85c',
+        'a1f98c00408aece3cf4cc24ef8a035e8',
+        'sg-11134201-22110-dyo6gr38wpjve5',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.18554902076721191,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
+      search_info:
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.18554902076721191,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [17871126817, 21547253657, 22304789779],
+      image: '34d2afb4a54b8e21ed6b85b704e6a85c',
+      images: [
+        '34d2afb4a54b8e21ed6b85b704e6a85c',
+        'a1f98c00408aece3cf4cc24ef8a035e8',
+        'sg-11134201-22110-dyo6gr38wpjve5',
+      ],
+      hint: '衣服',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
+    {
+      id: null,
+      text: '辣妹套裝',
+      pic: [
+        'my-11134201-23030-i0iu32tsgyov2f',
+        '80c600678806514355b04fb969e25f6e',
+        '216cde74dcbe3defdd5ef242c6585bc4',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.15555059909820557,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
+      search_info:
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.15555059909820557,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [22136335815, 19129393879, 21333954742],
+      image: 'my-11134201-23030-i0iu32tsgyov2f',
+      images: [
+        'my-11134201-23030-i0iu32tsgyov2f',
+        '80c600678806514355b04fb969e25f6e',
+        '216cde74dcbe3defdd5ef242c6585bc4',
+      ],
+      hint: '辣妹套裝',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
+    {
+      id: null,
       text: '手機',
       pic: [
         'tw-11134207-7qul8-lfqkz2nec2qy18',
@@ -918,9 +918,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.18043914437294006,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.15404337644577026,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.18043914437294006,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.15404337644577026,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [22439685518, 23616893997, 21622624082],
@@ -938,34 +938,6 @@ export const HOT_KEYWORD = {
     },
     {
       id: null,
-      text: '鉛筆盒',
-      pic: [
-        'd6816770125b135f28f6d4ba65b8f3a6',
-        'tw-11134207-7qul5-lg6qb234kmwxbc',
-        'sg-11134201-23030-fst9h1guasov2f',
-      ],
-      count: null,
-      tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.17567843198776245,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
-      search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.17567843198776245,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
-      bff_info: '{}',
-      icon_code: 0,
-      item_ids: [20740186392, 19763716484, 23934900743],
-      image: 'd6816770125b135f28f6d4ba65b8f3a6',
-      images: [
-        'd6816770125b135f28f6d4ba65b8f3a6',
-        'tw-11134207-7qul5-lg6qb234kmwxbc',
-        'sg-11134201-23030-fst9h1guasov2f',
-      ],
-      hint: '鉛筆盒',
-      prefill_icon: '',
-      prefill_icon_type: '',
-      prefill_icon_height: null,
-      prefill_icon_width: null,
-    },
-    {
-      id: null,
       text: '庫洛米',
       pic: [
         'sg-11134201-22110-lshqqp8h9bjv0f',
@@ -974,9 +946,9 @@ export const HOT_KEYWORD = {
       ],
       count: null,
       tracking:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.17242300510406494,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.15120136737823486,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       search_info:
-        '{"ab_sign":[67253],"queue":"HOTKW","rank_score":0.17242300510406494,"reqid":"bff-search_tw_tw1_10.59.235.97_{1f8a1b840142bb279eb1efe480cd1102:02000068925fdfd6:0100006fa425cfcf}_10-59-235-97-cls-sqfqxdss.shopeemobile.com","timestamp":1690235979}',
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.15120136737823486,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
       bff_info: '{}',
       icon_code: 0,
       item_ids: [18659162838, 21751869055, 20150822074],
@@ -992,6 +964,34 @@ export const HOT_KEYWORD = {
       prefill_icon_height: null,
       prefill_icon_width: null,
     },
+    {
+      id: null,
+      text: '鉛筆盒',
+      pic: [
+        'd6816770125b135f28f6d4ba65b8f3a6',
+        'sg-11134201-23030-fst9h1guasov2f',
+        'tw-11134207-7qul5-lg6qb234kmwxbc',
+      ],
+      count: null,
+      tracking:
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.1368016004562378,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
+      search_info:
+        '{"ab_sign":[73226],"queue":"HOTKW","rank_score":0.1368016004562378,"reqid":"bff-search_tw_tw1_10.59.232.229_{1f8a1b84015734745327e53af56a3d02:020000c99de1fc95:0100004b08081bd9}_10-59-232-229-cls-sqfqxdss.shopeemobile.com","timestamp":1690323914}',
+      bff_info: '{}',
+      icon_code: 0,
+      item_ids: [20740186392, 23934900743, 19763716484],
+      image: 'd6816770125b135f28f6d4ba65b8f3a6',
+      images: [
+        'd6816770125b135f28f6d4ba65b8f3a6',
+        'sg-11134201-23030-fst9h1guasov2f',
+        'tw-11134207-7qul5-lg6qb234kmwxbc',
+      ],
+      hint: '鉛筆盒',
+      prefill_icon: '',
+      prefill_icon_type: '',
+      prefill_icon_height: null,
+      prefill_icon_width: null,
+    },
   ],
 };
 
@@ -999,11 +999,11 @@ export const TRANSLATED_KEYWORD = {
   SG: [
     '티셔츠',
     '아이폰 14 프로 맥스',
-    '신발',
-    '블랙핑크 스타벅스',
     '드레스',
-    '휴대폰 케이스',
+    '신발',
     '에어팟',
+    '휴대폰 케이스',
+    '카고 팬츠',
   ],
   VN: [
     '1천원 휴대폰',
@@ -1011,18 +1011,26 @@ export const TRANSLATED_KEYWORD = {
     '1천원 옷',
     '여성 의상 세트',
     '1천원 옷 무료 배송',
-    '보온병',
-    '남성 티셔츠',
+    '팔찌',
+    '립스틱',
   ],
   MY: [
     '티셔츠',
     '여성 옷',
     '운동화',
-    '아이폰 14 프로 맥스',
     '볼트바 12000 오리지널',
     '여성 원피스',
-    '저지',
+    '샌들',
+    '아이폰 14 프로 맥스',
   ],
-  TH: ['집업', '귀여운 셔츠', '바지', '아이폰 11', '숄더백', '세트', '1 바트'],
-  TW: ['휴대폰 케이스', '잠자리', '옷', 'YS', '휴대폰', '연필통', '쿠로미'],
+  TH: [
+    '집업',
+    '귀여운 셔츠',
+    '바지',
+    '스타벅스 공식 스토어',
+    '숄더백',
+    '1 바트',
+    '아이폰 11',
+  ],
+  TW: ['휴대폰 케이스', 'YS', '옷', '섹시한 의상', '휴대폰', '쿠로미', '연필통'],
 };
