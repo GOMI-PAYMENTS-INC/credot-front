@@ -95,7 +95,7 @@ export const SalePrice = (props: ISalePrice) => {
   return (
     <section className='col-span-full'>
       <DetailReportSectionHeader id={TITLE.SALE_PRICE} />
-      <div className='pt-4'>
+      <div className='pt-4 xs:hidden'>
         <div className='flex  border-[1px] border-grey-300 py-3 px-3'>
           <p className='text-S/Regular text-grey-800'>
             <span className='text-S/Bold text-grey-800'>이상값(outliner)제외 안내 :</span>
@@ -105,10 +105,10 @@ export const SalePrice = (props: ISalePrice) => {
         </div>
       </div>
       <div className='pt-4'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
-          <div className='col-span-2 flex flex-col'>
-            <div className='relative flex items-center bg-grey-100'>
-              <div className='py-2.5 pl-5 '>
+        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300 xs:flex xs:flex-col'>
+          <div className='col-span-2 flex flex-col xs:border-b-[1px]'>
+            <div className='relative flex items-center bg-grey-100 xs:border-b-[1px]'>
+              <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
               </div>
               <div className='tooltip-container'>
@@ -129,21 +129,22 @@ export const SalePrice = (props: ISalePrice) => {
                 ></Tooltip>
               </div>
             </div>
-            <div className='flex-grow-1 flex h-full flex-col justify-center '>
-              <div className='flex h-[186px] flex-col justify-center'>
-                <div className='flex flex-col pl-5'>
+
+            <div className='flex-grow-1 flex h-full w-full flex-col justify-center xs:flex-row xs:justify-evenly xs:divide-x-[1px] xs:divide-dotted xs:py-2 xs:text-center'>
+              <div className='flex h-[186px] flex-col justify-center xs:h-[52px]'>
+                <div className='flex flex-col pl-5 xs:pl-0'>
                   <p className=' text-S/Medium text-grey-800'>최저가</p>
-                  <div className='flex items-center pt-[11px]'>
+                  <div className='flex items-center pt-[11px] xs:pt-1'>
                     <p className='text-2XL/Bold text-orange-500'>{minPrice}</p>
                     <span className='pl-1 text-L/Medium text-grey-800'>원</span>
                   </div>
                 </div>
               </div>
 
-              <div className='mx-5 flex flex-col border-t-[1px] '>
-                <div className='flex h-[186px] flex-col justify-center'>
+              <div className='mx-5 flex flex-col border-t-[1px] xs:mx-0 xs:border-t-0 xs:pl-[30px]'>
+                <div className='flex h-[186px] flex-col justify-center xs:h-[52px]'>
                   <p className='text-S/Medium text-grey-800'>평균 판매가</p>
-                  <div className='flex items-center pt-[11px]'>
+                  <div className='flex items-center pt-[11px] xs:pt-1'>
                     <p className='text-2XL/Bold text-grey-900'>{avgPrice}</p>
                     <span className='pl-1 text-L/Medium text-grey-800'>원</span>
                   </div>
@@ -152,7 +153,7 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
           </div>
 
-          <div className='col-span-8 col-start-3 flex h-full flex-col border-l-[1px] border-grey-300'>
+          <div className='col-span-8 col-start-3 flex h-full flex-col border-l-[1px] border-grey-300 xs:mt-[30px] xs:border-t-[1px] xs:border-l-0'>
             <div className='flex bg-grey-100'>
               <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 분포 차트</p>
@@ -174,72 +175,74 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
           </div>
         </div>
-        <div className='mt-[30px] flex items-center'>
-          <div className=' flex w-fit rounded-[8px] bg-grey-200 text-S/Medium'>
-            <div className=' flex space-x-2 px-1 py-1'>
-              {Object.values(GRADE_ITEMS).map((item, idx) => {
-                const countItem =
-                  item === GRADE_ITEMS.HIGH
-                    ? highLength
-                    : item === GRADE_ITEMS.MEDIUM
-                    ? mediumLength
-                    : lowLength;
+        <div className='xs:hidden'>
+          <div className='mt-[30px] flex items-center'>
+            <div className=' flex w-fit rounded-[8px] bg-grey-200 text-S/Medium'>
+              <div className=' flex space-x-2 px-1 py-1'>
+                {Object.values(GRADE_ITEMS).map((item, idx) => {
+                  const countItem =
+                    item === GRADE_ITEMS.HIGH
+                      ? highLength
+                      : item === GRADE_ITEMS.MEDIUM
+                      ? mediumLength
+                      : lowLength;
 
-                const highlight =
-                  item === focus
-                    ? {
-                        divStyle: 'bg-white',
-                        spanStyle: 'text-orange-500',
-                        textStyle: 'text-S/Bold',
-                      }
-                    : {
-                        divStyle: 'bg-grey-200',
-                        spanStyle: 'text-grey-700',
-                        textStyle: '',
-                      };
-                return (
-                  <div
-                    className={`cursor-pointer rounded ${highlight.divStyle}`}
-                    key={`${item}_${idx}`}
-                    onClick={() => {
-                      selectSalePriceCompetitionType(item, _dispatch);
-                      scrollerRef.current?.scroll(0, 0);
-                    }}
-                  >
-                    <p className={`px-2 py-2 ${highlight.textStyle}`}>
-                      {`가격 ${convertGrade(item)} 상품`}
-                      <span className={highlight.spanStyle}>{` ${countItem}`}</span>
-                    </p>
-                  </div>
-                );
-              })}
+                  const highlight =
+                    item === focus
+                      ? {
+                          divStyle: 'bg-white',
+                          spanStyle: 'text-orange-500',
+                          textStyle: 'text-S/Bold',
+                        }
+                      : {
+                          divStyle: 'bg-grey-200',
+                          spanStyle: 'text-grey-700',
+                          textStyle: '',
+                        };
+                  return (
+                    <div
+                      className={`cursor-pointer rounded ${highlight.divStyle}`}
+                      key={`${item}_${idx}`}
+                      onClick={() => {
+                        selectSalePriceCompetitionType(item, _dispatch);
+                        scrollerRef.current?.scroll(0, 0);
+                      }}
+                    >
+                      <p className={`px-2 py-2 ${highlight.textStyle}`}>
+                        {`가격 ${convertGrade(item)} 상품`}
+                        <span className={highlight.spanStyle}>{` ${countItem}`}</span>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className='tooltip-container ml-[11px]'>
+              <a data-tooltip-id='anchor-market-salesChart'>
+                <ReactSVG
+                  src='/assets/icons/outlined/QuestionCircle.svg'
+                  className='flex self-center pl-[5px]'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
+                  }}
+                />
+              </a>
+              <Tooltip
+                id='anchor-market-salesChart'
+                place='right'
+                variant='light'
+                render={() => salesChartTooltipContent}
+              ></Tooltip>
             </div>
           </div>
-          <div className='tooltip-container ml-[11px]'>
-            <a data-tooltip-id='anchor-market-salesChart'>
-              <ReactSVG
-                src='/assets/icons/outlined/QuestionCircle.svg'
-                className='flex self-center pl-[5px]'
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                }}
-              />
-            </a>
-            <Tooltip
-              id='anchor-market-salesChart'
-              place='right'
-              variant='light'
-              render={() => salesChartTooltipContent}
-            ></Tooltip>
-          </div>
+          <SalePriceTable
+            scrollerRef={scrollerRef}
+            salePriceItemList={list}
+            currencyUnit={currencyUnit}
+            basePrice={basePrice}
+            amplitudeData={amplitudeData}
+          />
         </div>
-        <SalePriceTable
-          scrollerRef={scrollerRef}
-          salePriceItemList={list}
-          currencyUnit={currencyUnit}
-          basePrice={basePrice}
-          amplitudeData={amplitudeData}
-        />
       </div>
     </section>
   );

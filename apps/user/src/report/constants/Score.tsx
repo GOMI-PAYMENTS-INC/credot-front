@@ -1,6 +1,7 @@
 export const convertRecommendationScoreToText = (status: string) => {
-  const divStyle = 'py-0.5 w-[58px] rounded border-[1.5px] text-center';
-  const pStyle = 'text-XS/Medium';
+  const divStyle =
+    'py-0.5 xs:h-fit w-[58px] xs:w-fit xs:px-1 rounded border-[1.5px] text-center';
+  const pStyle = 'text-XS/Medium xs:text-M/Medium';
   switch (status) {
     case 'A': {
       return (
