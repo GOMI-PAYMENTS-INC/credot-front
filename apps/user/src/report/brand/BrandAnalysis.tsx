@@ -94,9 +94,9 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
       </div>
       {/*브랜드 정보*/}
       <div className='pt-4'>
-        <div className='border-t-[1px] border-b-[1px] border-grey-300 xs:hidden'>
+        <div className='border-t-[2px]  border-grey-300 xs:hidden'>
           <div className='bg-grey-100'>
-            <div className='py-2.5 pl-5 '>
+            <div className='border-b-[1px] py-2.5 pl-5'>
               <span className='text-S/Medium text-grey-900'>브랜드 정보</span>
             </div>
           </div>

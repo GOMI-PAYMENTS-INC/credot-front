@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Params, useNavigate, useParams } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
 import { PATH, STYLE_ENUM } from '@/types/enum.code';
 import { TITLE } from '@/types/enum.code';
-
+import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { getParameter } from '@/utils/getParameter';
 
@@ -39,21 +39,51 @@ export const DetailReportHeader = (props: TDetailReport) => {
       <div className='container'>
         <div
           style={headerHeightStyle}
-          className='flex items-center justify-between xs:h-[64px]'
+          className='flex items-center xs:h-[64px] xs:justify-between xs:p-5'
         >
-          <div className='flex items-center'>
-            <div
+          <div className='flex w-full items-center'>
+            <button
               className='h-5 w-5 cursor-pointer pl-[7px]'
               onClick={() => navigation(listUrlMake())}
             >
               <ReactSVG src='/assets/icons/outlined/LeftArrow.svg' />
+            </button>
+            <div className='ml-[19px] text-2XL/Bold text-grey-900 xs:flex xs:w-full xs:items-end xs:text-XL/Medium'>
+              <ReactSVG
+                className='hidden pr-2 xs:block xs:self-center xs:pl-0'
+                src={`/assets/icons/country/${main?.country}.svg`}
+                beforeInjection={(svg) => {
+                  svg.setAttribute('class', `xs:w-5 xs:h-5`);
+                }}
+              />
+              {innerWidth < 431
+                ? replaceOverLength(main?.text!, 17)
+                : replaceOverLength(convertTitle(scrollEvent.title), 17)}
             </div>
-            <h1 className='ml-[19px] text-2XL/Bold text-grey-900 xs:text-XL/Medium'>
-              {convertTitle(scrollEvent.title)}
-            </h1>
+
+            <button
+              className='hidden h-5 w-5 cursor-pointer items-center pl-3 xs:flex xs:w-full xs:justify-end'
+              onClick={() => {
+                openBrowser(
+                  `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,
+                );
+                _amplitudeMovedToSERP(params.id, main!.text, null);
+              }}
+            >
+              <ReactSVG
+                src='/assets/icons/outlined/Linkout.svg'
+                beforeInjection={(svg) =>
+                  svg.setAttribute(
+                    'class',
+                    'xs:w-[18px] xs:h-[18px] xs:fill-grey-700 fill-grey-900',
+                  )
+                }
+              />
+            </button>
+
             {scrollEvent.title !== TITLE.REPORT && (
               <button
-                className='flex h-5 w-5 cursor-pointer items-center pl-3'
+                className='flex h-5 w-5 cursor-pointer items-center pl-3 xs:hidden'
                 onClick={() => {
                   openBrowser(
                     `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,
@@ -61,7 +91,10 @@ export const DetailReportHeader = (props: TDetailReport) => {
                   _amplitudeMovedToSERP(params.id, main!.text, null);
                 }}
               >
-                <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
+                <ReactSVG
+                  src='/assets/icons/outlined/Linkout.svg'
+                  beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-900')}
+                />
               </button>
             )}
           </div>

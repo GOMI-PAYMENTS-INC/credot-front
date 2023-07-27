@@ -154,9 +154,9 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     <section>
       <DetailReportSectionHeader id={TITLE.KEYWORD_INFO} />
       <div className='pt-6'>
-        <div className='flex divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300 xs:flex xs:flex-col xs:border-t-[2px]'>
-          <div className='basis-[390px] xs:basis-0'>
-            <div className='keywordInfo-span-subtitle xs:border-b-[1px]'>
+        <div className='flex divide-grey-300 border-t-[2px] border-grey-300 xs:flex xs:flex-col'>
+          <div className='basis-[390px] xs:basis-0 xs:border-b-[1px]'>
+            <div className='keywordInfo-span-subtitle border-b-[1px]'>
               <span>종합 평가</span>
               <div className='tooltip-container'>
                 <a data-tooltip-id='anchor-market-evaluation'>
@@ -221,7 +221,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             </div>
           </div>
           <div className='flex-1'>
-            <div className='keywordInfo-span-subtitle xs:border-b-[1px] xs:border-t-[2px]'>
+            <div className='keywordInfo-span-subtitle border-b-[1px] xs:border-b-[1px] xs:border-t-[2px]'>
               <span>상세 데이터</span>
               <div className='tooltip-container'>
                 <a data-tooltip-id='anchor-market-detail'>
