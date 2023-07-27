@@ -104,7 +104,7 @@ export const SalePrice = (props: ISalePrice) => {
           </p>
         </div>
       </div>
-      <div className='pt-4'>
+      <div className='pt-4 xs:pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-grey-300 xs:flex xs:flex-col'>
           <div className='col-span-2 flex flex-col xs:border-b-[1px]'>
             <div className='relative flex items-center border-b-[1px] border-t-[2px] bg-grey-100 xs:border-b-[1px]'>
