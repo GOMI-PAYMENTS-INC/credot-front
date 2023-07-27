@@ -105,9 +105,9 @@ export const SalePrice = (props: ISalePrice) => {
         </div>
       </div>
       <div className='pt-4'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300 xs:flex xs:flex-col'>
+        <div className='grid grid-cols-10 border-t-[1px] border-grey-300 xs:flex xs:flex-col'>
           <div className='col-span-2 flex flex-col xs:border-b-[1px]'>
-            <div className='relative flex items-center bg-grey-100 xs:border-b-[1px]'>
+            <div className='relative flex items-center border-b-[1px] border-t-[2px] bg-grey-100 xs:border-b-[1px]'>
               <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
               </div>
@@ -131,10 +131,10 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
 
             <div className='flex-grow-1 flex h-full w-full flex-col justify-center xs:flex-row xs:justify-evenly xs:divide-x-[1px] xs:divide-dotted xs:py-2 xs:text-center'>
-              <div className='flex h-[186px] flex-col justify-center xs:h-[52px]'>
+              <div className='flex h-[186px] flex-col justify-center xs:my-4 xs:h-[52px]'>
                 <div className='flex flex-col pl-5 xs:pl-0'>
-                  <p className=' text-S/Medium text-grey-800'>최저가</p>
-                  <div className='flex items-center pt-[11px] xs:pt-1'>
+                  <p className='text-S/Medium text-grey-800'>최저가</p>
+                  <div className='flex items-center pt-[11px] xs:pt-0'>
                     <p className='text-2XL/Bold text-orange-500'>{minPrice}</p>
                     <span className='pl-1 text-L/Medium text-grey-800'>원</span>
                   </div>
@@ -142,7 +142,7 @@ export const SalePrice = (props: ISalePrice) => {
               </div>
 
               <div className='mx-5 flex flex-col border-t-[1px] xs:mx-0 xs:border-t-0 xs:pl-[30px]'>
-                <div className='flex h-[186px] flex-col justify-center xs:h-[52px]'>
+                <div className='flex h-[186px] flex-col justify-center xs:my-4 xs:h-[52px]'>
                   <p className='text-S/Medium text-grey-800'>평균 판매가</p>
                   <div className='flex items-center pt-[11px] xs:pt-1'>
                     <p className='text-2XL/Bold text-grey-900'>{avgPrice}</p>
@@ -153,8 +153,8 @@ export const SalePrice = (props: ISalePrice) => {
             </div>
           </div>
 
-          <div className='col-span-8 col-start-3 flex h-full flex-col border-l-[1px] border-grey-300 xs:mt-[30px] xs:border-t-[1px] xs:border-l-0'>
-            <div className='flex bg-grey-100'>
+          <div className='col-span-8 col-start-3 flex h-full flex-col border-l-[1px] border-t-[2px] border-grey-300 xs:mt-[30px] xs:border-l-0'>
+            <div className='flex border-b-[1px] bg-grey-100'>
               <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 분포 차트</p>
               </div>

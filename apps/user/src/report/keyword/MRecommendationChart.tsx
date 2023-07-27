@@ -52,7 +52,7 @@ export const MRecommendationChart = (props: IMRecommendationChart) => {
 
   return (
     <section className='relative z-20 pt-10'>
-      <div className='keywordInfo-span-subtitle border-b-[1px]'>
+      <div className='keywordInfo-span-subtitle border-t-[2px] border-b-[1px] border-grey-300'>
         <p>추천 키워드</p>
       </div>
 
@@ -61,15 +61,17 @@ export const MRecommendationChart = (props: IMRecommendationChart) => {
           .split('')
           .map((status) => convertRecommendationScoreToText(status));
         const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
-        const rowCommonCss =
-          'mx-2 flex h-[66px] items-center text-center text-S/Regular text-grey-800';
+        const backgroundColor = status
+          ? ''
+          : 'xs:border-orange-200 xs:border-[1px] xs:bg-orange-100';
+        const rowCommonCss = `mx-2 flex h-[66px] items-center text-center text-S/Regular text-grey-800`;
         const cellCommonCss = 'flex flex-1 flex-col items-center justify-center h-[66px]';
         const isOpen = status === false;
         const paddingBottonCss = isOpen ? 'pb-2' : '';
         return (
           <div
             key={data.id}
-            className={`flex flex-col border-b-[1px] border-grey-300 ${paddingBottonCss}`}
+            className={`flex flex-col border-b-[1px] border-grey-300 ${paddingBottonCss} ${backgroundColor}`}
             onClick={() => _dispatch && isToggleOpen(_dispatch, false, data.id)}
           >
             <div className='flex min-h-[68px] items-center justify-between pl-5'>
@@ -89,7 +91,11 @@ export const MRecommendationChart = (props: IMRecommendationChart) => {
                       );
                   }}
                 >
-                  <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
+                  <ReactSVG
+                    className=''
+                    src='/assets/icons/outlined/Linkout.svg'
+                    beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-900')}
+                  />
                 </button>
                 <div className='flex h-5 w-5'>
                   <ReactSVG

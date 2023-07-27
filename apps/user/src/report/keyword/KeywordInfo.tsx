@@ -60,10 +60,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
   return (
     <section>
       <div className='flex justify-between border-t-2 border-b-2 border-grey-200 xs:mt-[44px] xs:items-center xs:border-white'>
-        <div className='basis-full py-8 pl-2 xs:flex xs:flex-col xs:items-center xs:justify-center'>
+        <div className='basis-full py-5 pl-2 xs:flex xs:flex-col xs:items-center xs:justify-center'>
           <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
 
-          <div className='xs:flex xs:hidden xs:flex-col xs:items-center'>
+          <div className=' xs:hidden xs:flex-col xs:items-center'>
             <div className='pt-4 text-S/Medium'>
               <span className='keywordInfo-divide-by-single-dot'>
                 <span className='text-grey-600'>국가</span>
@@ -97,7 +97,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
           </div>
 
-          <div className='mt-[14px] hidden flex-col items-center justify-center gap-y-[6px] text-S/Medium xs:flex'>
+          <div className='mt-[14px] hidden flex-col items-center justify-center gap-y-[6px] text-M/Medium xs:flex'>
             <div className='flex gap-x-1'>
               <div className='flex'>
                 <p className='text-grey-600'>국가</p>
@@ -139,7 +139,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
             >
               <span>키워드 검색결과</span>
-              <ReactSVG src='/assets/icons/outlined/Linkout.svg' />
+              <ReactSVG
+                src='/assets/icons/outlined/Linkout.svg'
+                beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-900')}
+              />
             </button>
             <button
               className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'

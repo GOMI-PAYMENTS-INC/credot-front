@@ -208,7 +208,7 @@ export const MarketSize = (props: IMarketSize) => {
             <p className='text-S/Regular text-grey-800'>가장 적게 팔려요</p>
           </div>
         </div>
-        <div className='border-grey-30 flex w-full border-t-[1px] border-b-[1px] xs:flex-col'>
+        <div className='border-grey-30 flex w-full border-t-[2px] border-b-[1px] xs:flex-col'>
           <div className='w-1/2 xs:w-full xs:border-b-[1px]'>
             <div className='h-10 w-full bg-grey-100 pl-5 text-left xs:border-b-[1px]'>
               <h1 className='pt-2.5 text-S/Medium text-grey-900'>매출</h1>
@@ -231,7 +231,7 @@ export const MarketSize = (props: IMarketSize) => {
             </div>
           </div>
 
-          <div className='w-1/2 border-l-[1px] xs:mt-[30px] xs:w-full xs:border-l-0 xs:border-t-[1px]'>
+          <div className='w-1/2 border-l-[1px] xs:mt-[30px] xs:w-full xs:border-l-0 xs:border-t-[2px]'>
             <div className='h-10 w-full bg-grey-100 text-left  xs:border-b-[1px]'>
               <h1 className='pt-2.5 pl-5 text-S/Medium text-grey-900'>판매량</h1>
             </div>

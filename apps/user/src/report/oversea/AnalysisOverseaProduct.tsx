@@ -48,8 +48,8 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
     <section className='col-span-full'>
       <DetailReportSectionHeader id={TITLE.OVERSEA_PRODUCT} />
       <div className='pt-4'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
-          <div className='relative col-span-10 flex w-full bg-grey-100'>
+        <div className='grid grid-cols-10 border-t-[2px]  border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
+          <div className='relative col-span-10 flex w-full border-b-[1px] bg-grey-100'>
             <div className='py-2.5 pl-5 '>
               <p className='text-S/Medium text-grey-900'>해외 배송 상품 비율</p>
             </div>
@@ -125,9 +125,9 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
               </div>
             </div>
           </div>
-          <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300 xs:mt-[30px] xs:flex xs:flex-col xs:border-l-0 '>
-            <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto xs:h-[160px] xs:overflow-x-visible'>
-              <div className='h-full  w-full max-w-[710px] overflow-y-hidden xs:overflow-auto'>
+          <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300 xs:mt-[30px] xs:flex xs:flex-col  xs:items-center xs:border-l-0'>
+            <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto xs:mx-0 xs:justify-between xs:overflow-x-visible'>
+              <div className='h-full w-full max-w-[710px] overflow-y-hidden'>
                 {isFalsy(overseaCountryCount) ? (
                   <div className='flex h-full flex-col items-center justify-center'>
                     <ReactSVG src='/assets/icons/outlined/File.svg' />
@@ -139,7 +139,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                     </div>
                   </div>
                 ) : (
-                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:h-[140px] xs:text-S/Medium'>
+                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:gap-x-[14px] xs:gap-y-[14px] xs:text-S/Medium'>
                     {overseaCountryCount.map((country) => {
                       const countryCode = COUNTRY_CODE[
                         country.itemShopCountry as keyof typeof COUNTRY_CODE
@@ -147,7 +147,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
 
                       return (
                         <div
-                          className={`rounded-[4px] bg-grey-100 px-1 py-1 xs:flex xs:w-[140px] xs:justify-center xs:px-2 xs:py-2`}
+                          className={`rounded-[4px] bg-grey-100 px-1 py-1 xs:flex xs:h-20 xs:w-[153px] xs:justify-center `}
                           key={country.itemShopCountry}
                         >
                           <div className='flex items-center xs:flex-col xs:items-center xs:justify-center'>

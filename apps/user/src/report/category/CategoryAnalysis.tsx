@@ -67,8 +67,8 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
       <DetailReportSectionHeader id={TITLE.CATEGORY_ANALYSIS} />
 
       <div className='pt-6'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
-          <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px]  bg-grey-100'>
+        <div className='grid grid-cols-10 border-t-[2px] border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
+          <div className='border-grey-30 relative col-span-10 flex w-full items-center border-b-[1px]  bg-grey-100'>
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               카테고리 등록순
             </h1>
@@ -81,7 +81,7 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
             </div>
           </div>
           <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300 xs:border-l-0 xs:pt-[30px]'>
-            <ul className='space-y-3 p-5 xs:space-y-5'>{CategoryList}</ul>
+            <ul className='space-y-3 p-5 xs:space-y-5 xs:px-0'>{CategoryList}</ul>
           </div>
         </div>
       </div>

@@ -284,7 +284,7 @@ const SearchKeywords = () => {
                 id='dropDownAndSearch'
                 className='relative m-auto w-full max-w-[580px] xs:flex xs:h-[144px] xs:max-w-[430px] xs:items-start xs:justify-around xs:overflow-visible'
               >
-                <div className='sticky top-[118px] mt-6 px-8 xs:block xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
+                <div className='sticky top-[118px] mt-6 xs:block xs:px-8 xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
                   <div className='flex items-center justify-center gap-4'>
                     <DropDown
                       setIsOpenDropdown={setIsOpenDropdown}
@@ -386,7 +386,7 @@ const SearchKeywords = () => {
 
             <div
               id='reportRequestButton'
-              className={`mt-10 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5`}
+              className={`mt-7 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5`}
             >
               <button
                 className={`w-full rounded-md bg-orange-500 py-4 ${
