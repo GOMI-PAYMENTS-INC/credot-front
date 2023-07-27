@@ -1,38 +1,28 @@
-import { Dispatch, useMemo } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
+import { BrandAnalysisProductTable } from '@/preview/elements/brand/BrandAnalysisTable';
 
-import { convertExchangeRate, roundNumber } from '@/report/container';
-import { TReportAction } from '@/report/reducer';
-import { formatNumber } from '@/utils/formatNumber';
-import { isFalsy } from '@/utils/isFalsy';
+import { formatNumber, convertExchangeRate, roundNumber } from '@/preview/container';
+import { BRAND_DATA } from '@/preview/elements/brand/constant';
+import { DetailReportSectionHeader } from '@/preview/elements';
+import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 interface IMBrandInformation {
-  brandAnalysis: {
-    focus: number;
-    data: TBrandAnalysis | null;
-  };
-  forceBrandIndex: number;
-  _dispatch: Dispatch<TReportAction>;
-  currencyUnit: number;
-  basePrice: number;
-  amplitudeData: TAmplitudeDetailData;
+  focusItem: number;
 }
-
-export const MBrandInformation = (props: IMBrandInformation) => {
-  const { brandAnalysis, forceBrandIndex, basePrice, currencyUnit } = props;
-
-  const { data: brandAnalysisData } = brandAnalysis;
+export const MBrandInformation = ({ focusItem }: IMBrandInformation) => {
+  const { basePrice, currencyUnit } = BRAND_DATA;
 
   const {
     totalSalesAmount: totalAmount,
     avgSalesAmount: avgAmount,
     avgPrice: avg,
-    rank,
+
     productCount,
     totalSalesCount,
     avgSalesCount,
     name,
-  } = brandAnalysisData!.brands[forceBrandIndex];
+  } = BRAND_DATA.brands[focusItem];
 
   const [totalSalesAmount, avgSalesAmount, avgPrice] = [totalAmount, avgAmount, avg].map(
     (price) =>
@@ -42,17 +32,18 @@ export const MBrandInformation = (props: IMBrandInformation) => {
   const rankLabelStyleClass = useMemo(() => {
     let style = 'fill-transparent text-black';
 
-    if (rank === 1) {
+    if (focusItem === 0) {
       style = 'fill-orange-500 text-white';
     }
-    if (rank === 2) {
+    if (focusItem === 1) {
       style = 'fill-[#B1B1B1] text-white';
     }
-    if (rank === 3) {
+    if (focusItem === 2) {
       style = 'fill-grey-800 text-white';
     }
+
     return style;
-  }, [rank]);
+  }, [focusItem]);
 
   const rowCommonCss =
     'mx-2 flex h-[66px] items-center text-center text-S/Regular text-grey-800 border-b-[1px] border-grey-300';
@@ -61,9 +52,7 @@ export const MBrandInformation = (props: IMBrandInformation) => {
     <div className='border-t-[1px] border-grey-300'>
       <div className='border-b-[1px] bg-grey-100'>
         <div className='py-2.5 pl-5 '>
-          <span className='text-S/Medium text-grey-900'>
-            {isFalsy(name) ? 'No brand' : name}
-          </span>
+          <span className='text-S/Medium text-grey-900'>{name}</span>
         </div>
       </div>
       <div className='flex flex-col border-grey-300'>
@@ -73,7 +62,7 @@ export const MBrandInformation = (props: IMBrandInformation) => {
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted pb-2'>
                 <div className={cellCommonCss}>
                   <ReactSVG
-                    src='/assets/icons/filled/RateLabel.svg'
+                    src='/assets/icons/RateLabel.svg'
                     beforeInjection={(svg) => {
                       svg.setAttribute('class', `${rankLabelStyleClass} h-[45px]`);
                     }}
@@ -81,7 +70,7 @@ export const MBrandInformation = (props: IMBrandInformation) => {
                   <div
                     className={`absolute mb-6 w-full text-center text-M/Bold leading-[40px] ${rankLabelStyleClass}`}
                   >
-                    {rank}위
+                    {focusItem + 1}위
                   </div>
                   <div className='pt-1'>
                     <p>순위</p>
