@@ -22,7 +22,7 @@ export const RecommendationChart = () => {
   const [openToggle, setOpenToggle] = useState<number[]>([0]);
 
   return (
-    <section className='pt-10'>
+    <section className='pt-10 xs:hidden'>
       <table className='relative z-[2] col-span-full h-full w-full  table-auto bg-white'>
         <thead className='h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
           <tr>
@@ -171,7 +171,13 @@ export const RecommendationChart = () => {
                           );
                         }}
                       >
-                        <ReactSVG className='' src='/assets/icons/Linkout.svg' />
+                        <ReactSVG
+                          className=''
+                          src='/assets/icons/Linkout.svg'
+                          beforeInjection={(svg) =>
+                            svg.setAttribute('class', 'fill-grey-900')
+                          }
+                        />
                       </button>
                     </div>
                   </td>

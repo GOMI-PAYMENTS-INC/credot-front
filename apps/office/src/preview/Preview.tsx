@@ -1,9 +1,11 @@
 import { ReactSVG } from 'react-svg';
 import { Report } from '@/preview/elements/Resport';
 
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef, Fragment } from 'react';
 import { REPORT_CONTENT, REPORT_INFO } from '@/preview/constants/reportData';
 import { useScroll } from '@/common/useScroll';
+import { PreviewHeader } from '@/preview/elements/common/PreviewHeader';
+
 import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 
@@ -38,11 +40,21 @@ const Preview = () => {
     () =>
       REPORT_INFO.map((data, index) => {
         const [key, value] = Object.entries(data)[0];
+        const isMobile = window.innerWidth < 431;
+        if (isMobile && index === 1) return <Fragment />;
         return (
-          <div className='flex items-center' key={`keyword_info_${index}`}>
+          <div className={`flex items-center`} key={`keyword_info_${index}`}>
             <p className='text-S/Medium text-grey-600'>{key}</p>
             <p className='ml-1 text-S/Medium text-grey-800'>{value}</p>
-            {REPORT_INFO.length !== index + 1 && <p className='mx-2 text-grey-700'>•</p>}
+            {isMobile && index === 0 && (
+              <p className='ml-1 text-S/Medium text-grey-600'>
+                리포트 생성일
+                <span className='ml-1 text-S/Medium text-grey-800'>2023.07.13</span>
+              </p>
+            )}
+            {isMobile === false && REPORT_INFO.length !== index + 1 && (
+              <p className='mx-2 text-grey-700'>•</p>
+            )}
           </div>
         );
       }),
@@ -51,18 +63,18 @@ const Preview = () => {
 
   return (
     <main className='container'>
-      <section className='my-[50px] rounded-lg bg-white'>
+      <section className='my-[50px] rounded-lg bg-white xs:my-0 xs:mt-[50px]'>
         <div className='flex flex-col items-center'>
-          <p className='text-XL/Medium'>분석 키워드</p>
-          <p className='mt-[7px] mb-4 text-3XL/Bold'>foundation</p>
-          <div className='flex'>{ReportSummary}</div>
+          <p className='text-XL/Medium xs:text-S/Bold'>분석 키워드</p>
+          <p className='mt-[7px] text-3XL/Bold xs:mt-1'>foundation</p>
+          <div className='mt-4 flex xs:flex-col xs:items-center xs:gap-y-[6px]'>
+            {ReportSummary}
+          </div>
         </div>
       </section>
 
-      {/* 
-      모바일에서 활성화 ??? 
-      <PreviewHeader setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} /> 
-      */}
+      {/* <PreviewHeader setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} /> */}
+
       <section ref={contentSection}>
         <Report setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} />
       </section>
