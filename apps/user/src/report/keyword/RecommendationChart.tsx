@@ -54,7 +54,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
   return (
     <section className='pt-10'>
       <table className='col-span-full h-full w-full  table-auto bg-white'>
-        <thead className='h-[54px] border-t-[1px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
+        <thead className='h-[54px] border-t-[2px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
           <tr>
             <th className='w-[302px] text-left' colSpan={1}>
               <p className=' pl-3 text-XS/Medium'>추천 키워드</p>
@@ -217,6 +217,9 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                           <ReactSVG
                             className=''
                             src='/assets/icons/outlined/Linkout.svg'
+                            beforeInjection={(svg) =>
+                              svg.setAttribute('class', 'fill-grey-900')
+                            }
                           />
                         </button>
                       </div>

@@ -25,7 +25,7 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
 
   //FIXME: 모든 계산로직은 데이터를 서버에서 받아온 후, reducer에 가공한 데이터를 넣자
   return (
-    <table className='col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white'>
+    <table className='col-span-full mt-[27px] block max-h-[436px] w-full overflow-hidden rounded-xl border-[1px] bg-white xs:hidden'>
       <thead className='h-[40px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
         <tr>
           <th className='w-[500px] text-left' colSpan={2}>
@@ -191,7 +191,13 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
                           );
                         }}
                       >
-                        <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
+                        <ReactSVG
+                          className=''
+                          src='/assets/icons/outlined/Linkout.svg'
+                          beforeInjection={(svg) =>
+                            svg.setAttribute('class', 'fill-grey-900')
+                          }
+                        />
                       </button>
                     </div>
                   </td>
