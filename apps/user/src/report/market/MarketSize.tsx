@@ -197,10 +197,7 @@ export const MarketSize = (props: IMarketSize) => {
           <div className='flex w-1/2 flex-col justify-center'>
             <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
               {minTurnoverMonth.map((month, key) => (
-                <p
-                  key={`min_turn_over_${key}`}
-                  className='pt-2 text-L/Bold text-grey-900'
-                >
+                <p key={`min_turn_over_${key}`} className='text-L/Bold text-grey-900'>
                   {`${month}월`}
                 </p>
               ))}

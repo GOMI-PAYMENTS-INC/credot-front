@@ -40,7 +40,7 @@ export const MarketSize = () => {
   return (
     <section className='mt-[30px]'>
       <DetailReportSectionHeader id={REPORT_CONTENT.MARKET} />
-      <div className='grid grid-cols-10'>
+      <div className='grid grid-cols-10 border-t-[2px] border-b-[1px] border-grey-300 xs:mt-6 xs:flex xs:flex-col'>
         <div className='border-grey-30 relative col-span-10 flex w-full items-center border-b-[1px] bg-grey-100'>
           <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
             검색트렌드
@@ -50,12 +50,12 @@ export const MarketSize = () => {
           </h1>
         </div>
 
-        <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800'>
+        <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium  text-grey-800 xs:hidden'>
           <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
             <p>가장 많이 팔려요</p>
             <p className='pt-2 text-2XL/Bold text-[#FF5100]'>05월</p>
           </div>
-          <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
+          <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed '>
             <p>가장 적게 팔려요</p>
             <ul className='flex flex-wrap'>
               <li className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'>06월</li>
@@ -69,10 +69,32 @@ export const MarketSize = () => {
           </div>
         </div>
       </div>
+      <div className='col-span-12 hidden min-h-[50px] justify-around px-5 py-[14px] pl-5 text-center text-L/Bold xs:flex'>
+        <div className=' flex w-1/2 flex-col justify-center'>
+          <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
+            {[6].map((month, key) => (
+              <p key={`max_turn_over_${key}`} className='text-L/Bold text-[#FF5100]'>
+                {`${month}월`}
+              </p>
+            ))}
+          </div>
+          <p className='text-S/Regular text-grey-800'>가장 많이 팔려요</p>
+        </div>
 
-      <div className='border-grey-30 flex w-full border-t-[1px] border-b-[1px] '>
-        <div className='w-1/2'>
-          <div className='h-10 w-full bg-grey-100 pl-5 text-left '>
+        <div className='flex w-1/2 flex-col justify-center'>
+          <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
+            {[6, 12].map((month, key) => (
+              <p key={`min_turn_over_${key}`} className=' text-L/Bold text-grey-900'>
+                {`${month}월`}
+              </p>
+            ))}
+          </div>
+          <p className='text-S/Regular text-grey-800'>가장 적게 팔려요</p>
+        </div>
+      </div>
+      <div className='border-grey-30 flex w-full border-t-[2px] border-b-[1px] xs:flex-col'>
+        <div className='w-1/2 xs:w-full xs:border-b-[1px]'>
+          <div className='h-10 w-full bg-grey-100 pl-5 text-left xs:border-b-[1px]'>
             <h1 className='pt-2.5 text-S/Medium text-grey-900'>매출</h1>
           </div>
           <div className='my-7 flex'>
@@ -92,8 +114,8 @@ export const MarketSize = () => {
             </div>
           </div>
         </div>
-        <div className='w-1/2 border-l-[1px]'>
-          <div className='h-10 w-full bg-grey-100 text-left'>
+        <div className='w-1/2 border-l-[1px] xs:mt-[30px] xs:w-full xs:border-l-0 xs:border-t-[2px]'>
+          <div className='h-10 w-full bg-grey-100 text-left  xs:border-b-[1px]'>
             <h1 className='pt-2.5 pl-5 text-S/Medium text-grey-900'>판매량</h1>
           </div>
           <div className='my-7 flex'>

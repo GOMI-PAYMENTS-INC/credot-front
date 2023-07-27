@@ -31,7 +31,7 @@ export const AnalysisKeyword = () => {
   return (
     <section>
       <DetailReportSectionHeader id={REPORT_CONTENT.KEYWORD} />
-      <div className='pt-6 xs:pt-5'>
+      <div className='pt-6'>
         <div className='flex divide-grey-300 border-t-[2px] border-grey-300 xs:flex xs:flex-col'>
           <div className='basis-[390px] xs:basis-0 xs:border-b-[1px]'>
             <div className='keywordInfo-span-subtitle border-b-[1px]'>
