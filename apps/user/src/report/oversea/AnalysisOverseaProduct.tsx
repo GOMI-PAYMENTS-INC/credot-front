@@ -139,7 +139,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                     </div>
                   </div>
                 ) : (
-                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:gap-x-[14px] xs:gap-y-[14px] xs:text-S/Medium'>
+                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:justify-center xs:gap-x-[14px] xs:gap-y-[14px] xs:text-S/Medium'>
                     {overseaCountryCount.map((country) => {
                       const countryCode = COUNTRY_CODE[
                         country.itemShopCountry as keyof typeof COUNTRY_CODE

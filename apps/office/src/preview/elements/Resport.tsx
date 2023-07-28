@@ -43,9 +43,7 @@ export const Report = (props: IReport) => {
         <div className='w-full'>
           <div className='mt-8 flex items-start justify-around  gap-3'>
             <div className='h-fit w-full overflow-visible rounded-lg border border-grey-300 xs:border-0'>
-              <div className='mx-[44px] space-y-[72px] xs:mx-0 xs:space-y-5'>
-                {ReportComponents}
-              </div>
+              <div className='mx-[44px] space-y-[72px] xs:mx-0'>{ReportComponents}</div>
             </div>
             <Dictionary current={current as REPORT_CONTENT} />
           </div>

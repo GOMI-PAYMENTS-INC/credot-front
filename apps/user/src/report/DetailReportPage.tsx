@@ -31,7 +31,7 @@ const DetailReportPage = () => {
   const { main, relation, oversea, salePrice, brand, category } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
-
+  const scrollController = useRef<HTMLTableSectionElement>(null);
   useEffect(() => {
     if (params.id && _state.main === null) _getReportInfo(params.id, _dispatch);
     if (main) {
@@ -121,6 +121,7 @@ const DetailReportPage = () => {
                 title={main?.text}
                 scrollEvent={scrollEvent}
                 contentSection={contentSection}
+                scrollController={scrollController}
                 setScrollEvent={setScrollEvent}
               />
             </div>
