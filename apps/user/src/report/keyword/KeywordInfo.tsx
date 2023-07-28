@@ -59,7 +59,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
 
   return (
     <section>
-      <div className='flex justify-between border-t-2 border-b-2 border-grey-200 xs:mt-[44px] xs:items-center xs:border-white'>
+      <div className='flex justify-between border-t-2 border-b-2 border-grey-200 xs:mt-[30px] xs:items-center xs:border-white'>
         <div className='basis-full py-5 pl-2 xs:flex xs:flex-col xs:items-center xs:justify-center'>
           <h1 className='break-all text-3XL/Bold text-grey-900'>{text}</h1>
 
