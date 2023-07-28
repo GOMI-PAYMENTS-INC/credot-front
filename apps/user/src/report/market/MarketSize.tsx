@@ -208,46 +208,69 @@ export const MarketSize = (props: IMarketSize) => {
         <div className='border-grey-30 flex w-full border-t-[2px] border-b-[1px] xs:flex-col'>
           <div className='w-1/2 xs:w-full xs:border-b-[1px]'>
             <div className='h-10 w-full bg-grey-100 pl-5 text-left xs:border-b-[1px]'>
-              <h1 className='pt-2.5 text-S/Medium text-grey-900'>매출</h1>
+              <h1 className='pt-2.5 text-S/Medium text-grey-900 xs:text-S/Regular'>
+                매출
+              </h1>
             </div>
-            <div className='my-7 flex'>
-              <div className='ml-5 w-1/2'>
-                <p className='text-S/Medium text-grey-800'>매출 합계</p>
-                <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Bold text-grey-900'>{totalAmount}</span>
+            <div className='my-7 flex xs:text-center'>
+              <div className='ml-5 w-1/2 xs:ml-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>매출 합계</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Bold text-grey-900 xs:text-L/Bold'>
+                    {totalAmount}
+                  </span>
                   <span className='text-L/Medium text-grey-800'>원</span>
                 </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  매출 합계
+                </p>
               </div>
-              <div className='w-1/2 border-l-[1px] border-dashed pl-5'>
-                <p className='text-S/Medium text-grey-800'>평균 매출</p>
-                <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>{avgAmount}</span>
+
+              <div className='w-1/2 border-l-[1px] border-dashed pl-5 xs:pl-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>평균 매출</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
+                    {avgAmount}
+                  </span>
                   <span className='text-L/Medium text-grey-800'>원</span>
                 </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  평균 매출
+                </p>
               </div>
             </div>
           </div>
 
           <div className='w-1/2 border-l-[1px] xs:mt-[30px] xs:w-full xs:border-l-0 xs:border-t-[2px]'>
             <div className='h-10 w-full bg-grey-100 text-left  xs:border-b-[1px]'>
-              <h1 className='pt-2.5 pl-5 text-S/Medium text-grey-900'>판매량</h1>
+              <h1 className='pt-2.5 pl-5 text-S/Medium text-grey-900 xs:text-S/Regular'>
+                판매량
+              </h1>
             </div>
-            <div className='my-7 flex'>
-              <div className='ml-5 w-1/2'>
-                <p className='text-S/Medium text-grey-800'>판매량 합계</p>
-                <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>
+            <div className='my-7 flex xs:text-center'>
+              <div className='ml-5 w-1/2 xs:ml-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>판매량 합계</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
                     {totalCount}
                   </span>
                   <span className='text-L/Medium text-grey-800'>개</span>
                 </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  판매량 합계
+                </p>
               </div>
-              <div className='w-1/2 border-l-[1px] border-dashed pl-5'>
-                <p className='text-S/Medium text-grey-800'>평균 판매량</p>
-                <div className='mt-2 flex items-center '>
-                  <span className='mr-1 text-2XL/Regular text-grey-900'>{avgCount}</span>
+              <div className='w-1/2 border-l-[1px] border-dashed pl-5 xs:pl-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>평균 판매량</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
+                    {avgCount}
+                  </span>
                   <span className='text-L/Medium text-grey-800'>개</span>
                 </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  평균 판매량
+                </p>
               </div>
             </div>
           </div>

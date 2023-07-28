@@ -47,7 +47,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
   return (
     <section className='col-span-full'>
       <DetailReportSectionHeader id={TITLE.OVERSEA_PRODUCT} />
-      <div className='pt-4'>
+      <div className='pt-4 xs:pt-6'>
         <div className='grid grid-cols-10 border-t-[2px]  border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
           <div className='relative col-span-10 flex w-full border-b-[1px] bg-grey-100'>
             <div className='py-2.5 pl-5 '>

@@ -72,7 +72,7 @@ export const BrandAnalysis = () => {
         </ul>
       </div>
       {/*브랜드 정보*/}
-      <div className='pt-4'>
+      <div className='pt-4 xs:pt-6'>
         <div className='border-t-[1px] border-b-[1px] border-grey-300 xs:hidden'>
           <div className='bg-grey-100'>
             <div className='py-2.5 pl-5 '>
