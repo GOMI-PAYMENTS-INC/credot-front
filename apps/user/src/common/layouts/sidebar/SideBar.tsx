@@ -34,21 +34,21 @@ const SideBar = (props: TSideBarProps) => {
   const modalEl = useRef<HTMLDivElement>(null);
   const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
 
-  useEffect(() => {
-    const clickOutside = (event: any) => {
-      if (
-        _state.openedUserMenu &&
-        modalEl.current &&
-        !modalEl.current?.contains(event.target)
-      ) {
-        onClickUserMenu(_dispatch);
-      }
-    };
-    document.addEventListener('mousedown', clickOutside);
-    return () => {
-      document.removeEventListener('mousedown', clickOutside);
-    };
-  }, [_state.openedUserMenu]);
+  // useEffect(() => {
+  //   const clickOutside = (event: any) => {
+  //     if (
+  //       _state.openedUserMenu &&
+  //       modalEl.current &&
+  //       !modalEl.current?.contains(event.target)
+  //     ) {
+  //       onClickUserMenu(_dispatch);
+  //     }
+  //   };
+  //   document.addEventListener('mousedown', clickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', clickOutside);
+  //   };
+  // }, [_state.openedUserMenu]);
 
   const userAtom = useRecoilValue(UserAtom);
   useEffect(() => {
@@ -232,7 +232,7 @@ const SideBar = (props: TSideBarProps) => {
                       svg.setAttribute('class', 'h-4 w-4 ');
                     }}
                   />
-                  <span className='ml-2 flex items-center text-S/Medium text-grey-800 xs:text-M/Medium'>
+                  <div className='ml-2 flex flex items-center text-S/Medium text-grey-800 xs:text-M/Medium'>
                     {userInfo ? replaceOverLength(userInfo.me.email, 14) : ''}
                     <ReactSVG
                       src='/assets/icons/outlined/ArrowRightSmall.svg'
@@ -240,19 +240,21 @@ const SideBar = (props: TSideBarProps) => {
                         svg.setAttribute('class', 'h-4 w-4 ml-[30px] xs:hidden');
                       }}
                     />
-                  </span>
+                  </div>
                 </div>
               </a>
               {_state.openedUserMenu && (
                 <ul className='hidden xs:flex'>
                   <li className='px-4 py-3'>
-                    <a
-                      href='#'
-                      onClick={() => void onLogout()}
+                    <button
+                      onClick={() => {
+                        console.log('hi');
+                        void onLogout();
+                      }}
                       className='text-S/Regular text-red-700'
                     >
                       로그아웃
-                    </a>
+                    </button>
                   </li>
                 </ul>
               )}
@@ -395,13 +397,14 @@ const SideBar = (props: TSideBarProps) => {
         >
           <ul className=''>
             <li className='px-4 py-3'>
-              <a
-                href='#'
-                onClick={() => void onLogout()}
+              <button
+                onClick={() => {
+                  onLogout();
+                }}
                 className='text-S/Regular text-red-700'
               >
                 로그아웃
-              </a>
+              </button>
             </li>
           </ul>
         </div>
