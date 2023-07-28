@@ -8,14 +8,14 @@ html {
 
 @layer base {
   .container {
-    @apply max-w-[1440px] px-[60px] sm:max-w-[540px] sm:px-[24px]
-        md:max-w-[768px] md:px-[24px] lg:max-w-[992px] lg:px-[12px];
+    @apply max-w-[1440px] px-[60px] lg:max-w-[992px] lg:px-[12px]
+        md:max-w-[768px] md:px-[24px] sm:max-w-[540px] sm:px-[24px] xs:px-5;
   }
 }
 
 @layer components {
   .container-tab {
-    @apply sm:px-[24px] md:px-[24px] lg:px-[12px];
+    @apply lg:px-[12px] md:px-[24px] sm:px-[24px];
   }
 }
 

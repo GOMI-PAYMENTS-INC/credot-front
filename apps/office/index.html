@@ -85,48 +85,6 @@
     <link rel="shortcut icon" href="https://<{ VITE_APP_DOMAIN }>/assets/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 
-    <!--채널톡-->
-    <script>
-      (function () {
-        var w = window;
-        if (w.ChannelIO) {
-          return w.console.error('ChannelIO script included twice.');
-        }
-        var ch = function () {
-          ch.c(arguments);
-        };
-        ch.q = [];
-        ch.c = function (args) {
-          ch.q.push(args);
-        };
-        w.ChannelIO = ch;
-        function l() {
-          if (w.ChannelIOInitialized) {
-            return;
-          }
-          w.ChannelIOInitialized = true;
-          var s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.async = true;
-          s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-          var x = document.getElementsByTagName('script')[0];
-          if (x.parentNode) {
-            x.parentNode.insertBefore(s, x);
-          }
-        }
-        if (document.readyState === 'complete') {
-          l();
-        } else {
-          w.addEventListener('DOMContentLoaded', l);
-          w.addEventListener('load', l);
-        }
-      })();
-
-      ChannelIO('boot', {
-        pluginKey: 'a44e48a1-a1ab-45b8-bc51-0f89240365cc',
-      });
-    </script>
-
     <!--앰플리튜드-->
     <script type="text/javascript">
       !(function () {

@@ -41,28 +41,32 @@ export const DetailReportHeader = (props: TDetailReport) => {
           style={headerHeightStyle}
           className='flex items-center xs:h-[64px] xs:justify-between xs:p-5'
         >
-          <div className='flex w-full items-center'>
-            <button
-              className='h-5 w-5 cursor-pointer pl-[7px]'
-              onClick={() => navigation(listUrlMake())}
-            >
-              <ReactSVG src='/assets/icons/outlined/LeftArrow.svg' />
-            </button>
-            <div className='ml-[19px] text-2XL/Bold text-grey-900 xs:flex xs:w-full xs:items-end xs:text-XL/Medium'>
-              <ReactSVG
-                className='hidden pr-2 xs:block xs:self-center xs:pl-0'
-                src={`/assets/icons/country/${main?.country}.svg`}
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', `xs:w-5 xs:h-5`);
-                }}
-              />
-              {innerWidth < 431
-                ? replaceOverLength(main?.text!, 17)
-                : replaceOverLength(convertTitle(scrollEvent.title), 17)}
+          <div className='flex w-full'>
+            <div className='flex items-center'>
+              <button
+                className='h-5 w-5 cursor-pointer pl-[7px]'
+                onClick={() => navigation(listUrlMake())}
+              >
+                <ReactSVG src='/assets/icons/outlined/LeftArrow.svg' />
+              </button>
+              <div className='ml-[19px] text-2XL/Bold text-grey-900 xs:flex xs:w-full xs:items-end xs:text-XL/Medium'>
+                <ReactSVG
+                  className='hidden pr-2 xs:block xs:self-center xs:pl-0'
+                  src={`/assets/icons/country/${main?.country}.svg`}
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', `xs:w-5 xs:h-5`);
+                  }}
+                />
+                <p className='w-max xs:mb-[3px]'>
+                  {innerWidth < 431
+                    ? replaceOverLength(main?.text!, 17)
+                    : replaceOverLength(convertTitle(scrollEvent.title), 17)}
+                </p>
+              </div>
             </div>
 
             <button
-              className='hidden h-5 w-5 cursor-pointer items-center pl-3 xs:flex xs:w-full xs:justify-end'
+              className='hidden h-5 w-5 cursor-pointer items-center pl-3 xs:flex xs:w-full xs:justify-end xs:self-center'
               onClick={() => {
                 openBrowser(
                   `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,

@@ -8,6 +8,7 @@ interface TDetailReportSectionHeaderProps {
 export const DetailReportSectionHeader = ({ id }: TDetailReportSectionHeaderProps) => {
   const headerSpaceStyle = useMemo(() => {
     const space = 150;
+    if (innerWidth < 431) return;
     return { marginTop: -space, paddingTop: space + 30 };
   }, []);
   const title = REPORT_CONTENTS.find((content) => content.key === id)?.text;
@@ -15,7 +16,7 @@ export const DetailReportSectionHeader = ({ id }: TDetailReportSectionHeaderProp
     <div
       id={id}
       style={headerSpaceStyle}
-      className='detailReport-h1-header relative mb-6 flex items-center text-2XL/Bold text-black'
+      className='detailReport-h1-header relative mb-6 flex items-center text-2XL/Bold text-black xs:mb-0 xs:mt-[30px]'
     >
       <h1>{title}</h1>
     </div>

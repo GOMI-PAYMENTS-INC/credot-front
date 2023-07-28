@@ -25,7 +25,7 @@ export const Header = () => {
 
   return (
     <header className='fixed top-0 left-0 z-50 h-20 w-full bg-white'>
-      <div className='container flex h-full items-center  justify-between px-6'>
+      <div className='container flex h-full items-center  justify-between'>
         <div className='flex items-center'>
           <Link to={PATH.HOME}>
             <ReactSVG
