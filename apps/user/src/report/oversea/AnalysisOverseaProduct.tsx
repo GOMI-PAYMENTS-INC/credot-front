@@ -47,7 +47,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
   return (
     <section className='col-span-full'>
       <DetailReportSectionHeader id={TITLE.OVERSEA_PRODUCT} />
-      <div className='pt-4'>
+      <div className='pt-4 xs:pt-6'>
         <div className='grid grid-cols-10 border-t-[2px]  border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
           <div className='relative col-span-10 flex w-full border-b-[1px] bg-grey-100'>
             <div className='py-2.5 pl-5 '>
@@ -139,7 +139,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
                     </div>
                   </div>
                 ) : (
-                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:gap-x-[14px] xs:gap-y-[14px] xs:text-S/Medium'>
+                  <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:justify-center xs:gap-x-[14px] xs:gap-y-[14px] xs:text-S/Medium'>
                     {overseaCountryCount.map((country) => {
                       const countryCode = COUNTRY_CODE[
                         country.itemShopCountry as keyof typeof COUNTRY_CODE

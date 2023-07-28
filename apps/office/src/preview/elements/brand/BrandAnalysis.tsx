@@ -6,6 +6,7 @@ import { formatNumber, convertExchangeRate, roundNumber } from '@/preview/contai
 import { BRAND_DATA } from '@/preview/elements/brand/constant';
 import { DetailReportSectionHeader } from '@/preview/elements';
 import { REPORT_CONTENT } from '@/preview/constants/reportData';
+import { MBrandInformation } from '@/preview/elements/brand/MBrandInformation';
 
 export const BrandAnalysis = () => {
   const { basePrice, currencyUnit } = BRAND_DATA;
@@ -71,8 +72,8 @@ export const BrandAnalysis = () => {
         </ul>
       </div>
       {/*브랜드 정보*/}
-      <div className='pt-4'>
-        <div className='border-t-[1px] border-b-[1px] border-grey-300'>
+      <div className='pt-4 xs:pt-6'>
+        <div className='border-t-[1px] border-b-[1px] border-grey-300 xs:hidden'>
           <div className='bg-grey-100'>
             <div className='py-2.5 pl-5 '>
               <span className='text-S/Medium text-grey-900'>브랜드 정보</span>
@@ -171,6 +172,9 @@ export const BrandAnalysis = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className='hidden xs:block'>
+          <MBrandInformation focusItem={focusItem} />
         </div>
       </div>
 

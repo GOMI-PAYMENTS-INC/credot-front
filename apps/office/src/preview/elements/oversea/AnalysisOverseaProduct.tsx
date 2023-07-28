@@ -37,8 +37,8 @@ export const AnalysisOverseaProduct = () => {
   return (
     <section className='col-span-full'>
       <DetailReportSectionHeader id={REPORT_CONTENT.OVERSEA} />
-      <div className='pt-4'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
+      <div className='pt-4 xs:pt-6'>
+        <div className='grid grid-cols-10 border-t-[2px]  border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
           <div className='relative col-span-10 flex w-full bg-grey-100'>
             <div className='py-2.5 pl-5 '>
               <p className='text-S/Medium text-grey-900'>해외 배송 상품 비율</p>
@@ -58,7 +58,7 @@ export const AnalysisOverseaProduct = () => {
                   </div>
                 </section>
 
-                <section className='flex items-center justify-center pt-5 pb-[43px] text-S/Medium text-grey-600'>
+                <section className='flex items-center justify-center pt-5 pb-[43px] text-S/Medium text-grey-600 xs:border-b-[1px]'>
                   <div className='flex flex-col items-center'>
                     <div className={`${overseaProductRatioCommonStyle}  border-grey-600`}>
                       <p className={`text-grey-600`}>{aFewProduct.text}</p>
@@ -115,10 +115,10 @@ export const AnalysisOverseaProduct = () => {
               </div>
             </div>
           </div>
-          <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300'>
-            <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto'>
-              <div className='h-full  w-full max-w-[710px] overflow-y-hidden'>
-                <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900'>
+          <div className='col-span-7 col-start-4 flex h-full flex-col border-l-[1px] border-grey-300 xs:mt-[30px] xs:flex xs:flex-col  xs:items-center xs:border-l-0'>
+            <div className='my-[12px] mx-5 flex h-full items-center justify-center overflow-x-auto xs:mx-0 xs:justify-between xs:overflow-x-visible'>
+              <div className='h-full w-full max-w-[710px] overflow-y-hidden'>
+                <div className='flex flex-wrap gap-x-1 gap-y-3 text-S/Regular text-grey-900 xs:justify-center xs:gap-x-[14px] xs:gap-y-[14px] xs:text-S/Medium'>
                   {overseaCountryCount.map((country) => {
                     const countryCode = COUNTRY_CODE[
                       country.itemShopCountry as keyof typeof COUNTRY_CODE
@@ -126,17 +126,20 @@ export const AnalysisOverseaProduct = () => {
 
                     return (
                       <div
-                        className={`rounded-[4px] bg-grey-100 px-1 py-1`}
+                        className={`rounded-[4px] bg-grey-100 px-1 py-1 xs:flex xs:h-20 xs:w-[153px] xs:justify-center `}
                         key={country.itemShopCountry}
                       >
-                        <div className='flex items-center'>
+                        <div className='flex items-center xs:flex-col xs:items-center xs:justify-center'>
                           <ReactSVG
-                            className='pl-[5px]'
+                            className='pl-[5px] xs:pl-0'
                             src={`/assets/country/${countryCode.flag}.svg`}
+                            beforeInjection={(svg) => {
+                              svg.setAttribute('class', `xs:w-5 xs:h-5`);
+                            }}
                           />
-                          <div className='flex pl-[6px]'>
+                          <div className='flex pl-[6px] xs:mx-3  xs:items-center xs:pl-0'>
                             <p>{replaceOverLength(countryCode.name, 5)}</p>
-                            <p className='pl-1'>{`${country.count}개`}</p>
+                            <p className='pl-1 '>{`${country.count}개`}</p>
                           </div>
                         </div>
                       </div>
@@ -148,12 +151,13 @@ export const AnalysisOverseaProduct = () => {
           </div>
         </div>
       </div>
-
-      <AnalysisOverseaProductTable
-        currencyUnit={currencyUnit}
-        overseaItems={overseaItems}
-        basePrice={basePrice}
-      />
+      <div className='xs:hidden'>
+        <AnalysisOverseaProductTable
+          currencyUnit={currencyUnit}
+          overseaItems={overseaItems}
+          basePrice={basePrice}
+        />
+      </div>
     </section>
   );
 };

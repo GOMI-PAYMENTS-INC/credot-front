@@ -104,50 +104,42 @@ export const SalePrice = (props: ISalePrice) => {
           </p>
         </div>
       </div>
-      <div className='pt-4'>
+      <div className='pt-4 xs:pt-6'>
         <div className='grid grid-cols-10 border-t-[1px] border-grey-300 xs:flex xs:flex-col'>
           <div className='col-span-2 flex flex-col xs:border-b-[1px]'>
             <div className='relative flex items-center border-b-[1px] border-t-[2px] bg-grey-100 xs:border-b-[1px]'>
               <div className='py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
               </div>
-              <div className='tooltip-container'>
-                <a data-tooltip-id='anchor-market-salesInfo'>
-                  <ReactSVG
-                    src='/assets/icons/outlined/QuestionCircle.svg'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                    }}
-                    className='flex self-center pl-[5px]'
-                  />
-                </a>
-                <Tooltip
-                  id='anchor-market-salesInfo'
-                  place='right'
-                  variant='light'
-                  render={() => salesInfoTooltipContent}
-                ></Tooltip>
-              </div>
             </div>
-
             <div className='flex-grow-1 flex h-full w-full flex-col justify-center xs:flex-row xs:justify-evenly xs:divide-x-[1px] xs:divide-dotted xs:py-2 xs:text-center'>
               <div className='flex h-[186px] flex-col justify-center xs:my-4 xs:h-[52px]'>
                 <div className='flex flex-col pl-5 xs:pl-0'>
-                  <p className='text-S/Medium text-grey-800'>최저가</p>
+                  <p className='text-S/Medium text-grey-800 xs:hidden'>최저가</p>
                   <div className='flex items-center pt-[11px] xs:pt-0'>
-                    <p className='text-2XL/Bold text-orange-500'>{minPrice}</p>
+                    <p className='text-2XL/Bold text-orange-500 xs:text-L/Bold'>
+                      {minPrice}
+                    </p>
                     <span className='pl-1 text-L/Medium text-grey-800'>원</span>
                   </div>
+                  <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                    최저가
+                  </p>
                 </div>
               </div>
 
-              <div className='mx-5 flex flex-col border-t-[1px] xs:mx-0 xs:border-t-0 xs:pl-[30px]'>
+              <div className='mx-5 flex flex-col border-t-[1px] xs:mx-0 xs:border-t-0 xs:pl-[50px]'>
                 <div className='flex h-[186px] flex-col justify-center xs:my-4 xs:h-[52px]'>
-                  <p className='text-S/Medium text-grey-800'>평균 판매가</p>
-                  <div className='flex items-center pt-[11px] xs:pt-1'>
-                    <p className='text-2XL/Bold text-grey-900'>{avgPrice}</p>
+                  <p className='text-S/Medium text-grey-800 xs:hidden'>평균 판매가</p>
+                  <div className='flex items-center pt-[11px] xs:pt-0'>
+                    <p className='text-2XL/Bold text-grey-900 xs:text-L/Bold'>
+                      {avgPrice}
+                    </p>
                     <span className='pl-1 text-L/Medium text-grey-800'>원</span>
                   </div>
+                  <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                    평균 판매가
+                  </p>
                 </div>
               </div>
             </div>
