@@ -90,7 +90,9 @@ export const FindPassword = () => {
 
           <div className='space-y-2'>
             <input
-              className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
+              className={`inputCustom-textbox w-full xs:text-S/Medium ${
+                errors?.email ? 'error' : ''
+              }`}
               type='email'
               placeholder='이메일'
               disabled={phoneNumberInput || isVerification.isExceeded}
@@ -145,7 +147,7 @@ export const FindPassword = () => {
                   )}
                 />
               </div>
-              <div className='basis-[102px]'>
+              <div className='basis-[102px] xs:basis-0'>
                 <button
                   className={className}
                   onClick={() => clickVerifyButton()}

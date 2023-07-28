@@ -8,6 +8,7 @@ export const CategoryRankChart = ({ data }: ICategoryRankChart) => {
     tooltip: {
       trigger: 'item',
       formatter: '{a} <br/>{b} : {c} ({d}%)',
+      position: 'bottom',
     },
     series: [
       {

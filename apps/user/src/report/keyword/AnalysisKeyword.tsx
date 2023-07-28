@@ -6,6 +6,7 @@ import { convertExchangeRate } from '@/report/container';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/Score';
 import { TITLE } from '@/types/enum.code';
+import { MRecommendationChart } from '@/report/keyword/MRecommendationChart';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { DetailReportSectionHeader } from '@/report/elements/DetailReportSectionHeader';
 import { RecommendationChart } from '@/report/keyword/RecommendationChart';
@@ -153,9 +154,9 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     <section>
       <DetailReportSectionHeader id={TITLE.KEYWORD_INFO} />
       <div className='pt-6'>
-        <div className='flex divide-grey-300 border-t-[1px] border-b-[1px] border-grey-300'>
-          <div className='basis-[390px]'>
-            <div className='keywordInfo-span-subtitle'>
+        <div className='flex divide-grey-300 border-t-[2px] border-grey-300 xs:flex xs:flex-col'>
+          <div className='basis-[390px] xs:basis-0 xs:border-b-[1px]'>
+            <div className='keywordInfo-span-subtitle border-b-[1px]'>
               <span>종합 평가</span>
               <div className='tooltip-container'>
                 <a data-tooltip-id='anchor-market-evaluation'>
@@ -176,15 +177,15 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 ></Tooltip>
               </div>
             </div>
-            <div className='flex h-[163px] items-center  text-center'>
+            <div className='flex h-[163px] items-center text-center  xs:my-4 xs:mx-2 xs:h-[66px]'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
-                <div className='flex h-[123px] flex-1 flex-col items-center justify-center '>
+                <div className='flex h-[123px] flex-1 flex-col items-center justify-center xs:h-[66px] '>
                   {search}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>검색량</p>
                   </div>
                 </div>
-                <div className='flex h-[123px] flex-1 flex-col items-center justify-center border-dashed'>
+                <div className='flex h-[123px] flex-1 flex-col items-center justify-center border-dashed xs:h-[66px]'>
                   <div className=''>
                     {competition}
                     <div className='pt-2'>
@@ -192,7 +193,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                   </div>
                 </div>
-                <div className='flex h-[123px] flex-1 flex-col items-center justify-center'>
+                <div className='flex h-[123px] flex-1 flex-col items-center justify-center xs:h-[66px]'>
                   {cpc}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>CPC 경쟁</p>
@@ -201,8 +202,26 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
               </div>
             </div>
           </div>
+
+          <div className='mt-5 mb-[30px] hidden xs:block'>
+            <div className='bordered flex  border-[1px]  border-grey-300 '>
+              <div className='flex pl-3 pr-3 pb-3 pt-3'>
+                <ReactSVG
+                  className='pt-[5px] pl-px'
+                  src='/assets/icons/filled/ExclamationCircle.14px.svg'
+                />
+                <div className='pl-[11px]'>
+                  <h1 className='text-M/Bold text-grey-900'>요약</h1>
+                  <div className='pt-1'>
+                    <div className='break-all text-S/Regular text-grey-800'>{top}</div>
+                    <div className='break-all text-S/Regular text-grey-800'>{bottom}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className='flex-1'>
-            <div className='keywordInfo-span-subtitle'>
+            <div className='keywordInfo-span-subtitle border-b-[1px] xs:border-b-[1px] xs:border-t-[2px]'>
               <span>상세 데이터</span>
               <div className='tooltip-container'>
                 <a data-tooltip-id='anchor-market-detail'>
@@ -223,8 +242,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 ></Tooltip>
               </div>
             </div>
-            <div className='flex divide-x-[1px] divide-dotted'>
-              <div className='flex flex-col'>
+            <div className='flex divide-x-[1px] divide-dotted xs:flex-col xs:items-center xs:divide-x-0'>
+              <div className='flex flex-col  xs:border-b-[1px]'>
                 <div className='flex h-[96px] w-[295px] items-center justify-center'>
                   <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
@@ -243,7 +262,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>검색량</div>
                   </div>
-                  <div className='flex w-1/2 flex-col items-center border-l-[1px] '>
+                  <div className='flex w-1/2 flex-col items-center border-l-[1px]'>
                     <div className='flex items-center '>
                       <span className='text-L/Regular text-grey-900'>
                         {competitionProductCount}
@@ -273,7 +292,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>CPC</div>
                   </div>
-                  <div className='flex w-1/2 flex-col items-center border-l-[1px] '>
+                  <div className='flex w-1/2 flex-col items-center border-l-[1px]'>
                     <div className='flex items-center '>
                       <span className='text-L/Regular text-grey-900'>{avgPrice}</span>
                       <span className='pl-1 text-S/Bold text-grey-800'>원</span>
@@ -286,14 +305,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
-      <div className='pt-6'>
+      <div className='pt-6 xs:hidden'>
         <div className='bordered flex h-[92px] border-[1px]  border-grey-300 '>
           <div className='flex pl-3 pr-3 pb-3 pt-3'>
             <ReactSVG
               className='pt-[5px] pl-px'
               src='/assets/icons/filled/ExclamationCircle.14px.svg'
             />
-
             <div className='pl-[11px]'>
               <h1 className='text-M/Bold text-grey-900'>요약</h1>
               <div className='pt-1'>
@@ -304,8 +322,30 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
-      {isUser ? (
-        <RecommendationChart
+      <div className='xs:hidden'>
+        {isUser ? (
+          <RecommendationChart
+            relations={relations}
+            _dispatch={_dispatch}
+            toggleEvent={_state.toggleEvent}
+            country={analysisInfo!.country}
+            basePrice={analysisInfo!.basePrice}
+            currencyUnit={analysisInfo!.currencyUnit}
+            amplitudeData={amplitudeData}
+          />
+        ) : (
+          <RecommendationChart
+            relations={null}
+            _dispatch={null}
+            toggleEvent={[{ id: 168, isOpen: true }]}
+            country={null}
+            basePrice={968.92}
+            currencyUnit={1}
+          />
+        )}
+      </div>
+      <div className='hidden xs:block'>
+        <MRecommendationChart
           relations={relations}
           _dispatch={_dispatch}
           toggleEvent={_state.toggleEvent}
@@ -314,16 +354,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           currencyUnit={analysisInfo!.currencyUnit}
           amplitudeData={amplitudeData}
         />
-      ) : (
-        <RecommendationChart
-          relations={null}
-          _dispatch={null}
-          toggleEvent={[{ id: 168, isOpen: true }]}
-          country={null}
-          basePrice={968.92}
-          currencyUnit={1}
-        />
-      )}
+      </div>
     </section>
   );
 };

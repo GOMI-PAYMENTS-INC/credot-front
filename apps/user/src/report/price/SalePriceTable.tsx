@@ -171,7 +171,12 @@ export const SalePriceTable = (props: ISalePriceTable) => {
                       );
                     }}
                   >
-                    <ReactSVG className='' src='/assets/icons/outlined/Linkout.svg' />
+                    <ReactSVG
+                      src='/assets/icons/outlined/Linkout.svg'
+                      beforeInjection={(svg) =>
+                        svg.setAttribute('class', 'fill-grey-900')
+                      }
+                    />
                   </button>
                 </div>
               </td>

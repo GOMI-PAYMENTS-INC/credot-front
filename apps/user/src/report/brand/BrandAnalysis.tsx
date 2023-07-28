@@ -8,7 +8,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { convertExchangeRate, roundNumber, selectBrandIndex } from '@/report/container';
 import { TReportAction } from '@/report/reducer';
 import { formatNumber } from '@/utils/formatNumber';
-
+import { MBrandInformation } from '@/report/brand/MBrandInformation';
 interface IBrandAnalysis {
   brandAnalysis: {
     focus: number;
@@ -93,15 +93,15 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
         </ul>
       </div>
       {/*브랜드 정보*/}
-      <div className='pt-4'>
-        <div className='border-t-[1px] border-b-[1px] border-grey-300'>
+      <div className='pt-4 xs:pt-6'>
+        <div className='border-t-[2px]  border-grey-300 xs:hidden'>
           <div className='bg-grey-100'>
-            <div className='py-2.5 pl-5 '>
+            <div className='border-b-[1px] py-2.5 pl-5'>
               <span className='text-S/Medium text-grey-900'>브랜드 정보</span>
             </div>
           </div>
 
-          <div className='flex items-center divide-x-[1px] divide-dotted'>
+          <div className='flex items-center divide-x-[1px] divide-dotted '>
             <div className='my-3 flex-1'>
               <div className='py-[5px] text-center'>
                 <div className='flex items-center justify-center'>
@@ -289,9 +289,11 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
             </div>
           </div>
         </div>
+        <div className='hidden xs:block'>
+          <MBrandInformation {...props} />
+        </div>
       </div>
 
-      {/*브랜드 상품 리스트*/}
       {isFalsy(brandAnalysis) === false && (
         <BrandAnalysisProductTable
           brandAnalysisProduct={products}

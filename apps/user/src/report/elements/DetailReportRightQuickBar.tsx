@@ -81,10 +81,15 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
       </div>
 
       <button
-        className='fixed right-[60px] bottom-[100px] flex h-11 w-11 items-center justify-center rounded-md border-[1px] bg-white'
+        className='fixed right-[60px] bottom-[100px] flex h-11 w-11 items-center justify-center rounded-[40px] border-[1px] border-grey-300 bg-white shadow-[0px_2px_6px_rgba(0,0,0,0.08)]'
         onClick={() => {
-          scrollToTop(setScrollEvent, contentSection!);
-          scrollToTop(setScrollEvent, scrollController!);
+          // scrollToTop(setScrollEvent, contentSection!);
+          // scrollToTop(setScrollEvent, scrollController!);
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+          });
         }}
       >
         <ReactSVG src='/assets/icons/outlined/ToTop.svg' />

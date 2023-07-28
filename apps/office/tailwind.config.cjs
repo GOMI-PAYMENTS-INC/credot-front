@@ -6,15 +6,6 @@ module.exports = {
   theme: {
     ...tailwindConfig.theme,
 
-    // default breakpoints but with 40px removed
-    screens: {
-      xl: { max: '1440px' },
-      lg: { max: '992px' },
-      md: { max: '768px' },
-      sm: { max: '576px' },
-      xs: { max: '430px' },
-    },
-
     container: {
       center: true,
     },
@@ -29,7 +20,6 @@ module.exports = {
       gridTemplateColumns: {
         //선택한 키워드 아이템 내부 grid
         'select-keyword': '0.23fr 1fr 0.38fr',
-
         tab: 'repeat(5, minmax(140px, 1fr))',
       },
 

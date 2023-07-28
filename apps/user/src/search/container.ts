@@ -1,11 +1,12 @@
 import { SEARCH_ACTION, searchInitialState } from '@/search/reducer';
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction, RefObject } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY, MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
 import { getReportExisted, postCreateReport } from '@/search/api';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { scrollController } from '@/utils/scrollController';
 import {
   _amplitudeKeywordReportRequested,
   _amplitudeKeywordSearched,

@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { ReactSVG } from 'react-svg';
 import { Link } from 'react-router-dom';
 import { PATH } from '@/types/enum.code';
@@ -8,10 +7,10 @@ export interface ICommon1SectionProps {
   children?: ReactNode;
 }
 export const Common1Section = ({ children }: ICommon1SectionProps) => (
-  <div className='bg-orange-100 pb-5 pt-10'>
+  <div className='bg-orange-100 pb-5 pt-10 xs:bg-white xs:pt-0'>
     <div className='container-common h-full w-full '>
       <div className='flex h-full w-full flex-col items-center'>
-        <div className=''>
+        <div className='xs:hidden'>
           <Link to={PATH.SEARCH_PRODUCTS}>
             <ReactSVG
               src='/assets/icons/Logo.svg'
@@ -22,7 +21,7 @@ export const Common1Section = ({ children }: ICommon1SectionProps) => (
             />
           </Link>
         </div>
-        <div className='mt-10 box-border w-full max-w-[536px] basis-[calc(100vh-112px-20px)] rounded-3xl bg-white px-[60px] py-[48px] pb-[32px] shadow-[0_0_16px_8px_rgba(0,0,0,0.02)]'>
+        <div className='mt-10 box-border w-full max-w-[536px] basis-[calc(100vh-112px-20px)] rounded-3xl bg-white px-[60px] py-[48px] pb-[32px] shadow-[0_0_16px_8px_rgba(0,0,0,0.02)] xs:mt-0 xs:px-5 xs:py-8 xs:pb-[80px]'>
           {children}
         </div>
       </div>

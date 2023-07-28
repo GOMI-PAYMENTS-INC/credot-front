@@ -16,8 +16,6 @@ import { DetailReportHeader, DetailReportBody } from '@/report/elements';
 import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 
-import { camelize } from 'casing';
-
 const DetailReportPage = () => {
   const params = useParams();
 
@@ -33,7 +31,7 @@ const DetailReportPage = () => {
   const { main, relation, oversea, salePrice, brand, category } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
-
+  const scrollController = useRef<HTMLTableSectionElement>(null);
   useEffect(() => {
     if (params.id && _state.main === null) _getReportInfo(params.id, _dispatch);
     if (main) {
@@ -56,8 +54,8 @@ const DetailReportPage = () => {
     return isFalsy(main) ? (
       <Fragment />
     ) : (
-      <div className='col-span-10'>
-        <div className='space-y-[72px]'>
+      <div className='col-span-10 xs:col-span-12'>
+        <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
           <KeywordInfo
             _dispatch={_dispatch}
             keywordInfo={main!}
@@ -117,13 +115,16 @@ const DetailReportPage = () => {
             scrollEvent={scrollEvent}
           >
             {ReportComponents}
-            <DetailReportRightQuickBar
-              isUser={true}
-              title={main?.text}
-              scrollEvent={scrollEvent}
-              contentSection={contentSection}
-              setScrollEvent={setScrollEvent}
-            />
+            <div className='xs:hidden'>
+              <DetailReportRightQuickBar
+                isUser={true}
+                title={main?.text}
+                scrollEvent={scrollEvent}
+                contentSection={contentSection}
+                scrollController={scrollController}
+                setScrollEvent={setScrollEvent}
+              />
+            </div>
           </DetailReportBody>
         </Fragment>
       )}

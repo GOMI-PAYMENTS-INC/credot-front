@@ -1,5 +1,5 @@
 import { ReactSVG } from 'react-svg';
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, Dispatch, useEffect, useRef, useState } from 'react';
 
 export enum DROPDOWN_STATUS {
   NORMAL = 'Normal',
@@ -27,8 +27,10 @@ type TDropDown = {
   value: string;
   minWidth?: number;
   iconPath?: string;
+  setIsOpenDropdown?: Dispatch<SetStateAction<boolean>>;
   options: TDropDownOption[];
   onClickOption?: (value: any) => void;
+  borderLine?: boolean;
 };
 
 const statusStyle = (status: DROPDOWN_STATUS) => {
@@ -73,8 +75,14 @@ const DropDown = ({
   isUseIcon,
   options,
   onClickOption,
+  setIsOpenDropdown,
+  borderLine,
 }: TDropDown) => {
   const [isOpen, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsOpenDropdown && setIsOpenDropdown(isOpen);
+  }, [isOpen]);
 
   const handleOnClickOption = (optionValue: any) => {
     if (onClickOption) {
@@ -102,7 +110,9 @@ const DropDown = ({
   return (
     <div
       id={`select-group-${name}`}
-      className={`relative text-S/Regular text-grey-900`}
+      className={`relative rounded-lg ${
+        borderLine && 'border-[1px] bg-white'
+      } text-S/Regular text-grey-900`}
       ref={modalEl}
     >
       <button

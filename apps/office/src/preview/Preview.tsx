@@ -1,15 +1,13 @@
-import { ReactSVG } from 'react-svg';
 import { Report } from '@/preview/elements/Resport';
-
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useMemo, useState, useEffect, useRef, Fragment } from 'react';
 import { REPORT_CONTENT, REPORT_INFO } from '@/preview/constants/reportData';
+
 import { useScroll } from '@/common/useScroll';
-import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
+import { PreviewFooter, PreviewHeader } from '@/preview/elements';
+import { ReactSVG } from 'react-svg';
 import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 
-import { openAppWithTag } from '@/utils/openBrowser';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
-import { GlobalEnv } from '@/api/config';
 
 const Preview = () => {
   const scrollEventState: TScrollEvent = {
@@ -38,11 +36,21 @@ const Preview = () => {
     () =>
       REPORT_INFO.map((data, index) => {
         const [key, value] = Object.entries(data)[0];
+        const isMobile = window.innerWidth < 431;
+        if (isMobile && index === 1) return <Fragment key={`keyword_info_1`} />;
         return (
-          <div className='flex items-center' key={`keyword_info_${index}`}>
+          <div className={`flex items-center`} key={`keyword_info_${index}`}>
             <p className='text-S/Medium text-grey-600'>{key}</p>
             <p className='ml-1 text-S/Medium text-grey-800'>{value}</p>
-            {REPORT_INFO.length !== index + 1 && <p className='mx-2 text-grey-700'>•</p>}
+            {isMobile && index === 0 && (
+              <p className='ml-1 text-S/Medium text-grey-600'>
+                리포트 생성일
+                <span className='ml-1 text-S/Medium text-grey-800'>2023.07.13</span>
+              </p>
+            )}
+            {isMobile === false && REPORT_INFO.length !== index + 1 && (
+              <p className='mx-2 text-grey-700'>•</p>
+            )}
           </div>
         );
       }),
@@ -50,51 +58,37 @@ const Preview = () => {
   );
 
   return (
-    <main className='container'>
-      <section className='my-[50px] rounded-lg bg-white'>
-        <div className='flex flex-col items-center'>
-          <p className='text-XL/Medium'>분석 키워드</p>
-          <p className='mt-[7px] mb-4 text-3XL/Bold'>foundation</p>
-          <div className='flex'>{ReportSummary}</div>
-        </div>
-      </section>
-
-      {/* 
-      모바일에서 활성화 ??? 
-      <PreviewHeader setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} /> 
-      */}
-      <section ref={contentSection}>
-        <Report setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} />
-      </section>
-      <section className='mt-[120px]'>
-        <div className='flex h-[340px] justify-center'>
-          <div className='relative flex w-full justify-around overflow-hidden'>
-            <div className='absolute ml-[500px] mt-[50px] h-[1000px] w-[1000px] rounded-[1000px] bg-orange-500 opacity-20 blur-[132px]' />
-            <div className='flex h-full flex-col justify-center text-XL/Bold'>
-              <p>고미인사이트의 키워드 리포트는 Shopee 키워드 검색결과 화면에서</p>
-              <p className='mt-1'>
-                광고 상품을 제외한 상위 50개의 상품 데이터를 기반으로 제공되어요.
-              </p>
-              <button
-                className='button-filled-xLarge-primary-false-false-false mt-[26px] w-fit text-L/Bold'
-                onClick={(event) => {
-                  openAppWithTag({
-                    url: GlobalEnv.serviceUrl,
-                    path: PAGE_CATEGORY.KEYWORD_REPORT_PREVIEWED,
-                    type: CTA_TYPE.BUTTON,
-                    location: CTA_LOCATION.BOTTOM,
-                    event: event,
-                  });
-                }}
-              >
-                내가 원하는 키워드 분석하러 가기
-              </button>
+    <Fragment>
+      <PreviewHeader />
+      <main className='container'>
+        <section className='my-[50px] rounded-lg bg-white xs:my-0 xs:mt-[50px]'>
+          <div className='flex flex-col items-center'>
+            <p className='text-XL/Medium xs:text-S/Bold'>분석 키워드</p>
+            <p className='mt-[7px] text-3XL/Bold xs:mt-1'>foundation</p>
+            <div className='mt-4 flex xs:flex-col xs:items-center xs:gap-y-[6px]'>
+              {ReportSummary}
             </div>
-            <ReactSVG className='z-10 self-end' src='/assets/icons/ReportL.svg' />
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        <section ref={contentSection}>
+          <Report setScrollEvent={setScrollEvent} scrollEvent={scrollEvent} />
+        </section>
+        <PreviewFooter />
+      </main>
+      <button
+        className='z-100 fixed right-[60px] bottom-[50px] z-50 flex h-11 w-11 items-center justify-center rounded-[40px] border-[1px] border-grey-300 bg-white shadow-[0px_2px_6px_rgba(0,0,0,0.08)] xs:right-[20px]'
+        onClick={() => {
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+          });
+        }}
+      >
+        <ReactSVG src='/assets/icons/ToTop.svg' />
+      </button>
+    </Fragment>
   );
 };
 

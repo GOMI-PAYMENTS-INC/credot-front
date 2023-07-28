@@ -18,6 +18,7 @@ import {
   queryKeywordByClick,
   switchModal,
 } from '@/search/container';
+import { mobileScrollToTop } from '@/utils/scrollController';
 import { SEARCH_ACTION } from '@/search/reducer';
 import { searchInitialState, searchReducer } from '@/search/reducer';
 import { getQueryResult } from '@/search/api';
@@ -50,8 +51,8 @@ import { CountryType } from '@/generated/graphql';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
-
   const [requestReport, setRequestReport] = useState(false);
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
@@ -80,7 +81,7 @@ const SearchKeywords = () => {
     const preKeyword: TSearchState = useSessionStorage.getItem(
       CACHING_KEY.STORED_KEYWORD,
     );
-
+    mobileScrollToTop(window.innerWidth);
     if (isFalsy(preKeyword) === false) initializeState(preKeyword, _dispatch, setValue);
   }, []);
 
@@ -260,119 +261,138 @@ const SearchKeywords = () => {
           _setTrigger={setRequestReport}
         />
       </ModalComponent>
-      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px]'>
-        <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%]'>
+      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px] xs:pt-[65px]'>
+        <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%] xs:hidden'>
           <img src='/assets/images/Background.png' />
         </div>
-        <div className='flex justify-between'>
-          <div className='w-[525px]'>
+
+        <div
+          className='xs: flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5'
+          style={_state.keyword ? {} : { marginTop: '25px' }}
+        >
+          <div className='w-[525px] xs:w-full'>
             <div>
-              <div>
-                <h1 className='break-keep text-center text-3XL/Bold'>
+              <div className={`xs:${_state.keyword ? 'hidden' : 'mt-5'}`}>
+                <h1 className='break-keep text-center text-3XL/Bold xs:text-XL/Bold'>
                   <span className='text-orange-500'>키워드 검색 </span> 후
                   <br />
                   <span className='text-orange-500'>리포트를 생성</span>해 주세요.
                 </h1>
               </div>
-              <div className='m-auto w-full max-w-[580px] '>
-                <div className='mt-6 flex items-center justify-center'>
-                  <DropDown
-                    name='country'
-                    minWidth={120}
-                    value={convertCountry(countryWatcher)}
-                    iconPath={convertCountryIconPath(countryWatcher)}
-                    isUseIcon={true}
-                    options={countryOptions()}
-                    status={DROPDOWN_STATUS.FILLED}
-                    variants={DROPDOWN_VARIANTS.CLEAR}
-                    onClickOption={onClickCountryOption}
-                  />
-                  <DropDown
-                    name='filterOption'
-                    minWidth={120}
-                    value={convertSortedType(sortByWatcher)}
-                    isUseIcon={true}
-                    iconPath={convertSortByIconPath(sortByWatcher)}
-                    options={sortByOptions()}
-                    status={DROPDOWN_STATUS.FILLED}
-                    variants={DROPDOWN_VARIANTS.CLEAR}
-                    onClickOption={onClickSortOption}
-                  />
-                  <div className='tooltip-container'>
-                    <a data-tooltip-id='anchor-keyword-search-volum'>
-                      <ReactSVG
-                        src='assets/icons/outlined/QuestionCircle.svg'
-                        className='ml-[7px] inline-block'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      render={() => KeywordSearchToolTip}
-                      id='anchor-keyword-search-volum'
-                      place='right'
-                      variant='light'
+
+              <div
+                id='dropDownAndSearch'
+                className='relative m-auto w-full max-w-[580px] xs:flex xs:h-[144px] xs:max-w-[430px] xs:items-start xs:justify-around xs:overflow-visible'
+              >
+                <div className='sticky top-[118px] mt-6 xs:block xs:px-8 xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
+                  <div className='flex items-center justify-center gap-4'>
+                    <DropDown
+                      setIsOpenDropdown={setIsOpenDropdown}
+                      borderLine={true}
+                      name='country'
+                      minWidth={152}
+                      value={convertCountry(countryWatcher)}
+                      iconPath={convertCountryIconPath(countryWatcher)}
+                      isUseIcon={true}
+                      options={countryOptions()}
+                      status={DROPDOWN_STATUS.FILLED}
+                      variants={DROPDOWN_VARIANTS.CLEAR}
+                      onClickOption={onClickCountryOption}
                     />
-                  </div>
-                </div>
-                <div>
-                  <div className='form-control mt-2'>
-                    <div className='input-group'>
-                      <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
-                        <input
-                          type='text'
-                          placeholder={convertSearchPlaceholder(countryWatcher)}
-                          {...register('keyword')}
-                          onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
-                            if (event.key === 'Enter') {
-                              queryKeyword(
-                                countryWatcher,
-                                sortByWatcher,
-                                getValues('keyword'),
-                                _dispatch,
-                              );
-                            }
+                    <DropDown
+                      setIsOpenDropdown={setIsOpenDropdown}
+                      borderLine={true}
+                      name='filterOption'
+                      minWidth={152}
+                      value={convertSortedType(sortByWatcher)}
+                      isUseIcon={true}
+                      iconPath={convertSortByIconPath(sortByWatcher)}
+                      options={sortByOptions()}
+                      status={DROPDOWN_STATUS.FILLED}
+                      variants={DROPDOWN_VARIANTS.CLEAR}
+                      onClickOption={onClickSortOption}
+                    />
+                    <div className='tooltip-container ml-0'>
+                      <a data-tooltip-id='anchor-keyword-search-volum'>
+                        <ReactSVG
+                          src='assets/icons/outlined/QuestionCircle.svg'
+                          className=''
+                          beforeInjection={(svg) => {
+                            svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                           }}
-                          className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                         />
-                      </div>
-                      <button
-                        onClick={() =>
-                          queryKeyword(
-                            countryWatcher,
-                            sortByWatcher,
-                            getValues('keyword'),
-                            _dispatch,
-                          )
-                        }
-                        className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
-                      >
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          className='h-6 w-6'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          stroke='currentColor'
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                      </a>
+                      <Tooltip
+                        render={() => KeywordSearchToolTip}
+                        id='anchor-keyword-search-volum'
+                        place='right'
+                        variant='light'
+                      />
+                    </div>
+                  </div>
+                  <div id='keywordSearchInput'>
+                    <div className='form-control mt-4'>
+                      <div className='input-group'>
+                        <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
+                          <input
+                            type='text'
+                            placeholder={convertSearchPlaceholder(countryWatcher)}
+                            {...register('keyword')}
+                            onKeyUp={(event: KeyboardEvent<HTMLInputElement>) => {
+                              if (event.key === 'Enter') {
+                                queryKeyword(
+                                  countryWatcher,
+                                  sortByWatcher,
+                                  getValues('keyword'),
+                                  _dispatch,
+                                );
+                              }
+                            }}
+                            className='input-bordered input h-full w-full rounded-r-none border-0 bg-white'
                           />
-                        </svg>
-                      </button>
+                        </div>
+                        <button
+                          onClick={() =>
+                            queryKeyword(
+                              countryWatcher,
+                              sortByWatcher,
+                              getValues('keyword'),
+                              _dispatch,
+                            )
+                          }
+                          className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'
+                        >
+                          <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='h-6 w-6'
+                            fill='none'
+                            viewBox='0 0 24 24'
+                            stroke='currentColor'
+                          >
+                            <path
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              strokeWidth='2'
+                              d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='mt-10 flex'>
+
+            <div
+              id='reportRequestButton'
+              className={`mt-7 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5`}
+            >
               <button
                 className={`w-full rounded-md bg-orange-500 py-4 ${
-                  (_state.keyword === '' || isMonthlyCountZero) && 'opacity-30'
-                }`}
+                  (_state.keyword === '' || isMonthlyCountZero) &&
+                  'opacity-30 xs:hidden xs:bg-orange-200'
+                } ${isOpenDropdown && 'z-[-1]'}`}
                 disabled={_state.keyword === '' || isMonthlyCountZero}
                 onClick={() => setRequestReport(true)}
               >
@@ -388,15 +408,17 @@ const SearchKeywords = () => {
               </button>
             </div>
           </div>
-          <HotKeyword
-            country={getValues('country') as TSearchCountry}
-            searchSortBy={getValues('sortBy')}
-            _dispatch={_dispatch}
-            setValue={setValue}
-          />
+          <div className='xs:hidden'>
+            <HotKeyword
+              country={getValues('country') as TSearchCountry}
+              searchSortBy={getValues('sortBy')}
+              _dispatch={_dispatch}
+              setValue={setValue}
+            />
+          </div>
         </div>
 
-        <div className='mt-12'>
+        <div className={`mt-12 xs:${isFalsy(_state.keyword) && 'hidden'}`}>
           {isFalsy(monthlySearchVolume) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
               <div className='flex flex-col items-center text-center'>
@@ -417,7 +439,7 @@ const SearchKeywords = () => {
             </div>
           ) : (
             <Fragment>
-              <div className='mb-6 border border-grey-300 bg-white text-S/Regular text-grey-800 '>
+              <div className='mb-6 border border-grey-300 bg-white text-S/Regular text-grey-800 xs:hidden'>
                 <p className='p-3'>
                   아래는 키워드에 대한 간략한 정보에요. 보다 상세한 분석을 위해 상단의
                   <span className='ml-1 text-orange-500'>
@@ -425,7 +447,9 @@ const SearchKeywords = () => {
                   </span>
                 </p>
               </div>
-              <div className='flex gap-x-[18px] pb-[100px]'>
+              <div
+                className={`flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex xs:flex-col xs:gap-x-0 xs:pb-0`}
+              >
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className=''>
@@ -437,7 +461,7 @@ const SearchKeywords = () => {
                         >
                           <ReactSVG
                             src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block'
+                            className='ml-[7px] inline-block xs:hidden'
                             beforeInjection={(svg) => {
                               svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                             }}
@@ -459,7 +483,8 @@ const SearchKeywords = () => {
                     keyword={_state.keyword}
                   />
                 </div>
-                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+
+                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5 xs:mt-[30px] xs:px-3 xs:py-2.5'>
                   <div className='flex justify-between'>
                     <div>
                       <h3 className='text-L/Medium'>
@@ -470,7 +495,7 @@ const SearchKeywords = () => {
                         >
                           <ReactSVG
                             src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block'
+                            className='ml-[7px] inline-block xs:hidden'
                             beforeInjection={(svg) => {
                               svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
                             }}
@@ -488,7 +513,7 @@ const SearchKeywords = () => {
 
                   <div
                     id='scrollbar'
-                    className='mt-5 h-full max-h-[324px] overflow-x-auto'
+                    className='mt-5 h-full max-h-[324px] overflow-x-auto xs:mt-2.5'
                   >
                     {Array.isArray(relativeKeyword) ? (
                       <ul className='overflow-y-hidden text-center'>
@@ -501,7 +526,7 @@ const SearchKeywords = () => {
                               >
                                 <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
                                   <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
-                                  <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
+                                  {/* <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div> */}
                                 </div>
 
                                 <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
@@ -513,6 +538,8 @@ const SearchKeywords = () => {
                               <li
                                 className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
                                 onClick={() => {
+                                  mobileScrollToTop(window.innerWidth);
+
                                   queryKeywordByClick(
                                     _state.country,
                                     keyword.text,
@@ -530,9 +557,6 @@ const SearchKeywords = () => {
                                 <div className='flex h-full w-full items-center gap-x-1'>
                                   <div className='flex h-full items-center justify-center rounded-[50px] border border-grey-300 bg-white px-[19px] py-[6px] text-L/Medium'>
                                     {keyword.text}
-                                  </div>
-                                  <div className='text-M/Medium text-orange-400'>
-                                    {/*케이스*/}
                                   </div>
                                 </div>
 
@@ -552,6 +576,14 @@ const SearchKeywords = () => {
               </div>
             </Fragment>
           )}
+        </div>
+        <div className='mt-[60px] hidden pb-[100px] xs:mt-[30px] xs:flex'>
+          <HotKeyword
+            country={getValues('country') as TSearchCountry}
+            searchSortBy={getValues('sortBy')}
+            _dispatch={_dispatch}
+            setValue={setValue}
+          />
         </div>
       </div>
 

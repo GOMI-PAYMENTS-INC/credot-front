@@ -5,6 +5,7 @@ export enum SIDE_BAR_ACTION {
   TOGGLE_DEPTH_MENU = 'TOGGLE_DEPTH_MENU',
   //마이 메뉴 토글
   TOGGLE_USER_MENU = 'TOGGLE_USER_MENU',
+  CHANGE_SIDE_BAR_STATE = 'CHANGE_SIDE_BAR_STATE',
 }
 
 export type TSidebarAction = {
@@ -13,11 +14,12 @@ export type TSidebarAction = {
 };
 
 const sidebarInitialState: TSidebarState = {
-  openedSidebar: true,
+  openedSidebar: window.innerWidth < 432 ? false : true,
   //lnb 내 메뉴 열림 여부
   openedDepthList: [Object.values(menuData)[0].key],
   //마이 메뉴 열림 여부
   openedUserMenu: false,
+  sideBarWidth: 200,
 };
 
 const sidebarReducer = (_state: TSidebarState, action: TSidebarAction) => {
@@ -25,7 +27,9 @@ const sidebarReducer = (_state: TSidebarState, action: TSidebarAction) => {
 
   switch (action.type) {
     case SIDE_BAR_ACTION.TOGGLE_SIDE_BAR: {
-      state.openedSidebar = !state.openedSidebar;
+      const switchState = !state.openedSidebar;
+      state.openedSidebar = switchState;
+      state.sideBarWidth = switchState === true ? 200 : 64;
       return state;
     }
 
