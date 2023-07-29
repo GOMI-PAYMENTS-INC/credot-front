@@ -154,7 +154,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     <section>
       <DetailReportSectionHeader id={TITLE.KEYWORD_INFO} />
       <div className='pt-6'>
-        <div className='flex divide-grey-300 border-t-[2px] border-grey-300 xs:flex xs:flex-col'>
+        <div className='flex divide-grey-300 border-t-[2px] border-b-[1px] border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
           <div className='basis-[390px] xs:basis-0 xs:border-b-[1px]'>
             <div className='keywordInfo-span-subtitle border-b-[1px]'>
               <span>종합 평가</span>
@@ -274,7 +274,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 </div>
               </div>
               <div className='flex flex-col'>
-                <div className='flex h-[96px] w-[295px] items-center justify-center'>
+                <div className='flex h-[96px] w-[295px] items-center justify-center  border-b-[1px] border-dashed'>
                   <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
                       <p className='text-XL/Bold text-grey-900'>{cpcRate}%</p>
@@ -284,7 +284,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                   </div>
                 </div>
-                <div className='flex h-[72px] items-center border-t-[1px] border-dashed'>
+                <div className='flex h-[72px] items-center xs:border-b-[1px]'>
                   <div className='flex w-1/2 flex-col items-center'>
                     <div className='flex items-center '>
                       <span className='text-L/Regular text-grey-900'>{cpcPrice}</span>
