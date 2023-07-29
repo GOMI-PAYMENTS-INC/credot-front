@@ -133,3 +133,18 @@ html {
 }
 
 /*메인 홈 끝*/
+
+#scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #ffa378;
+}
+
+/* Works on Chrome, Edge, and Safari */
+#scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+#scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ffa378;
+  border-radius: 10px;
+}

@@ -19,22 +19,22 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
 
   return (
     <section>
-      <div className='pt-[100px]  sm:pt-[60px]  md:mx-auto'>
+      <div className='pt-[100px]  md:mx-auto  sm:pt-[60px]'>
         <div className='container'>
-          <div className='mb-[70px] sm:mb-10 lg:mb-[72px]'>
+          <div className='mb-[70px] lg:mb-[72px] sm:mb-10'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-orange-500 md:text-XL/Bold'>
                 베스트 글로벌 셀러가 되기 위한
               </div>
-              <div className='xs:mt-2 mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold'>
+              <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold xs:mt-2'>
                 <p>10여가지 종합 인사이트!</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className='container-tab mx-auto mb-[100px] max-w-[870px] overflow-x-auto pb-8 sm:mb-10 sm:block sm:pb-0 md:max-w-[720px]  lg:mb-[72px] lg:pb-0'>
-          <ul className='swiper-pagination mx-auto grid  grid-cols-[repeat(5,_minmax(160px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 sm:gap-y-2 md:grid-cols-[repeat(5,_minmax(140px,_1fr))] '>
+        <div className='container-tab mx-auto mb-[100px] max-w-[870px] overflow-x-auto pb-8 lg:mb-[72px] lg:pb-0 md:max-w-[720px] sm:mb-10  sm:block sm:pb-0'>
+          <ul className='swiper-pagination mx-auto grid  grid-cols-[repeat(5,_minmax(160px,_1fr))] grid-rows-1 gap-y-4 gap-x-2 md:grid-cols-[repeat(5,_minmax(140px,_1fr))] sm:gap-y-2 '>
             {TAB_DATA.map((tab, index) => (
               <li
                 key={index}
@@ -73,7 +73,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
           </ul>
         </div>
         <div className='container'>
-          <div className='relative mx-auto max-w-[870px] pb-[98px] sm:pb-[115px] md:max-w-[720px]'>
+          <div className='relative mx-auto max-w-[870px] pb-[98px] md:max-w-[720px] sm:pb-[115px]'>
             <Swiper
               className='banner cursor-grab sm:max-w-[382px]'
               slidesPerView={1}
@@ -83,10 +83,10 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
               {TAB_DATA.map((tab, index) => (
                 <SwiperSlide key={index} className=''>
                   <div className=''>
-                    <div className='mx-auto flex justify-between sm:flex-wrap sm:justify-center md:items-start'>
+                    <div className='mx-auto flex justify-between md:items-start sm:flex-wrap sm:justify-center'>
                       <div className='mr-6 sm:mb-8 sm:text-center'>
                         <div>
-                          <div className='text-2XL/Bold text-orange-500 md:text-L/Bold lg:text-XL/Bold'>
+                          <div className='text-2XL/Bold text-orange-500 lg:text-XL/Bold md:text-L/Bold'>
                             Insight {tab.data.insightNum}
                           </div>
                           {tab.launching || (
@@ -96,16 +96,16 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                               </div>
                             </div>
                           )}
-                          <div className='mt-4 text-4XL/Bold  text-grey-900 sm:mt-2 md:text-2XL/Bold lg:text-3XL/Bold'>
+                          <div className='mt-4 text-4XL/Bold  text-grey-900 lg:text-3XL/Bold md:text-2XL/Bold sm:mt-2'>
                             {tab.name}
                           </div>
                         </div>
-                        <div className='mt-6 break-keep text-L/Medium text-grey-900 sm:mt-4 sm:w-full md:text-M/Medium'>
+                        <div className='mt-6 break-keep text-L/Medium text-grey-900 md:text-M/Medium sm:mt-4 sm:w-full'>
                           {tab.data.content}
                         </div>
                       </div>
                       <div className='flex basis-full justify-center'>
-                        <div className='w-[424px] sm:w-[280px] md:w-[345px]'>
+                        <div className='w-[424px] md:w-[345px] sm:w-[280px]'>
                           <img src={`${imagePath}/Section5/${tab.data.img}`} alt='' />
                         </div>
                       </div>
@@ -114,23 +114,26 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className='absolute top-1/2 z-10 hidden w-full translate-y-[-50%] justify-between sm:flex '>
+            <div className='absolute top-1/2 z-10 flex w-full translate-y-[-50%] justify-between'>
               <ReactSVG
                 src={`/assets/icons/Tab.svg`}
                 beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'w-[38px] h-[38px]');
+                  svg.setAttribute('class', 'w-[38px] h-[38px] cursor-pointer');
                 }}
                 onClick={() =>
-                  dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'NEXT' })
+                  dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'PREV' })
                 }
               />
               <ReactSVG
                 src={`/assets/icons/Tab.svg`}
                 beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'w-[38px] h-[38px] rotate-180');
+                  svg.setAttribute(
+                    'class',
+                    'w-[38px] h-[38px] cursor-pointer rotate-180',
+                  );
                 }}
                 onClick={() =>
-                  dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'PREV' })
+                  dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'NEXT' })
                 }
               />
             </div>
