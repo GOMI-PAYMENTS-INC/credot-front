@@ -2,7 +2,7 @@ import { Dispatch, Fragment, useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { BATCH_STATUS } from '@/types/enum.code';
-import { EmptyRecommendation } from '@/report/keyword/EmptyRecommendation';
+
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 import { isToggleOpen, roundNumber } from '@/report/container';
@@ -97,7 +97,6 @@ export const RecommendationChart = (props: IRecommendationChart) => {
           {isFalsy(relations) || isFalsy(recomendationItems) ? (
             <Fragment>
               <tr className='mt-3 flex' />
-              <EmptyRecommendation />
             </Fragment>
           ) : (
             recomendationItems.map((data) => {
