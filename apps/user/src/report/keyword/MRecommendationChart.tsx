@@ -49,7 +49,7 @@ export const MRecommendationChart = (props: IMRecommendationChart) => {
           ),
     [],
   );
-
+  if (isFalsy(relations) || isFalsy(recomendationItems)) return <></>;
   return (
     <section className='relative z-20 pt-10'>
       <div className='keywordInfo-span-subtitle border-t-[2px] border-b-[1px] border-grey-300'>

@@ -41,7 +41,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
           style={headerHeightStyle}
           className='flex items-center xs:h-[64px] xs:justify-between xs:p-5'
         >
-          <div className='flex w-full'>
+          <div className='flex w-full items-center'>
             <div className='flex items-center'>
               <button
                 className='h-5 w-5 cursor-pointer pl-[7px]'

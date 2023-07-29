@@ -8,7 +8,8 @@ import { PATH } from '@/types/enum.code';
 import { menuData } from '@/common/layouts/sidebar/constants';
 import { TSidebarAction } from '@/common/layouts/sidebar/reducer';
 import {
-  onClickUserMenu,
+  switchUserToggle,
+  switchFunctionToggle,
   toggleDepth2Menu,
   toggleSidebar,
 } from '@/common/layouts/sidebar/container';
@@ -203,7 +204,7 @@ const SideBar = (props: TSideBarProps) => {
             <div className='px-2.5'>
               <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800 xs:text-M/Medium'>
                 <button
-                  className='flex items-center'
+                  className='flex w-full justify-between '
                   onClick={() => {
                     openBrowser(
                       'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
@@ -211,36 +212,58 @@ const SideBar = (props: TSideBarProps) => {
                     _amplitudeMovedToUserGuide('lnb');
                   }}
                 >
+                  <div className='flex items-center'>
+                    <ReactSVG
+                      src='/assets/icons/outlined/QuestionCircle.svg'
+                      className='cursor-pointer '
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', `w-5 fill-grey-800`);
+                      }}
+                    />
+                    <span className='ml-2 cursor-pointer text-start xs:min-w-[270px]'>
+                      사용자 가이드
+                    </span>
+                  </div>
                   <ReactSVG
-                    src='/assets/icons/outlined/QuestionCircle.svg'
-                    className='cursor-pointer '
+                    src='/assets/icons/outlined/ArrowRightSmall.svg'
                     beforeInjection={(svg) => {
-                      svg.setAttribute('class', `w-5 fill-grey-800`);
+                      svg.setAttribute('class', 'w-6');
                     }}
                   />
-                  <span className='ml-2 cursor-pointer'>사용자 가이드</span>
                 </button>
               </div>
             </div>
 
             <div className='px-2.5'>
-              <a href='#' onClick={() => onClickUserMenu(_dispatch)}>
-                <div className='flex cursor-pointer items-center justify-start p-3'>
-                  <ReactSVG
-                    src='/assets/icons/outlined/User.svg'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'h-4 w-4 ');
-                    }}
-                  />
-                  <div className='ml-2 flex flex items-center text-S/Medium text-grey-800 xs:text-M/Medium'>
-                    {userInfo ? replaceOverLength(userInfo.me.email, 14) : ''}
+              <a href='#' onClick={() => switchFunctionToggle(_dispatch)}>
+                <div className='flex cursor-pointer items-center justify-between p-3'>
+                  <div className='flex items-center'>
                     <ReactSVG
-                      src='/assets/icons/outlined/ArrowRightSmall.svg'
+                      src='/assets/icons/outlined/User.svg'
                       beforeInjection={(svg) => {
-                        svg.setAttribute('class', 'h-4 w-4 ml-[30px] xs:hidden');
+                        svg.setAttribute('class', 'h-4 w-4 ');
                       }}
                     />
+                    <div className='ml-2 flex min-w-[130px] items-center text-S/Medium text-grey-800 xs:min-w-[270px] xs:text-M/Medium'>
+                      {userInfo ? replaceOverLength(userInfo.me.email, 18) : ''}
+                    </div>
                   </div>
+
+                  <ReactSVG
+                    src='/assets/icons/outlined/ArrowRightSmall.svg'
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'w-5 xs:hidden');
+                    }}
+                  />
+                  <ReactSVG
+                    src='/assets/icons/outlined/Chevronup.svg'
+                    className={`cursor-pointer ${
+                      _state.openedUserMenu ? `` : `rotate-180`
+                    } hidden xs:block`}
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'w-3 fill-grey-800');
+                    }}
+                  />
                 </div>
               </a>
               {_state.openedUserMenu && (
@@ -337,7 +360,7 @@ const SideBar = (props: TSideBarProps) => {
               <li className='text-center'>
                 <button
                   className='iconButton-medium-normal-ghost-grey'
-                  onClick={() => onClickUserMenu(_dispatch)}
+                  onClick={() => switchUserToggle(_dispatch)}
                 >
                   <ReactSVG
                     src='/assets/icons/outlined/User.svg'

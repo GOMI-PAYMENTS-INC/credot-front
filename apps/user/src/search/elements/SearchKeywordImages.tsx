@@ -97,7 +97,7 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
                 </div>
               ) : (
                 <ul
-                  className={`grid h-full grid-cols-3 grid-rows-[repeat(auto-fill,_126px)] gap-4 gap-x-6 xs:flex xs:${
+                  className={`grid grid-cols-3 grid-rows-[repeat(auto-fill,_126px)] gap-4 gap-x-6 xs:flex xs:h-full xs:${
                     typeof list[0] === 'number' ? 'w-[500px]' : 'h-fit'
                   } xs:w-fit`}
                 >
