@@ -2,18 +2,21 @@
 <html lang="kr">
   <head>
     <meta charset="utf-8" />
-
+    <!-- Event snippet for go to solution conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
     <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', '<{ VITE_APP_GTM_API_KEY }>');
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof url != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          send_to: 'AW-870972133/lQJ9CL7E6MoYEOX1p58D',
+          event_callback: callback,
+        });
+        return false;
+      }
     </script>
 
     <meta
@@ -260,15 +263,6 @@
     </script>
   </head>
   <body>
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=<{ VITE_APP_GTM_API_KEY }>"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
