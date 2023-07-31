@@ -38,13 +38,13 @@ export const Efficient = ({ imagePath }: IEfficient) => {
         </div>
       </section>
       <section>
-        <div className='container pt-[100px] pb-[126px] sm:py-[60px] md:mx-auto  md:pb-[40px] lg:pb-[100px]'>
+        <div className='container pt-[100px] pb-[126px] lg:pb-[100px] md:mx-auto  md:pb-[40px] sm:py-[60px]'>
           <div className='mb-20 sm:mb-[56px]'>
             <div className='text-center'>
               <div className='text-2XL/Bold text-orange-500 md:text-L/Bold'>
                 전략적으로 상품을 소싱하고 판매하고 싶은
               </div>
-              <div className='xs:mt-2 mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold'>
+              <div className='mt-6 break-keep text-3XL/Bold text-grey-900 md:text-2XL/Bold xs:mt-2'>
                 <p>Shopee 셀러 누구나!</p>
               </div>
             </div>
@@ -54,7 +54,7 @@ export const Efficient = ({ imagePath }: IEfficient) => {
               {USER_TARGET_DATA.map((userTarget, index) => (
                 <li
                   key={index}
-                  className='w-[calc(100%/4)] p-2.5 sm:mb-5 sm:w-full sm:last:mb-0 md:mb-[50px] md:w-[calc(100%/2)]'
+                  className='w-[calc(100%/4)] p-2.5 md:mb-[50px] md:w-[calc(100%/2)] sm:mb-5 sm:w-full sm:last:mb-0'
                 >
                   <div className='mb-6 lg:mb-4 '>
                     <img
@@ -75,16 +75,17 @@ export const Efficient = ({ imagePath }: IEfficient) => {
           </div>
         </div>
       </section>
-      <section className='bg-main xs:bg-[40%] bg-cover bg-center py-[130px] sm:bg-[20%] sm:py-[70px]  lg:py-[105px]'>
+      <section className='bg-main bg-cover bg-center py-[130px] lg:py-[105px] sm:bg-[20%] sm:py-[70px]  xs:bg-[40%]'>
         <div className='container'>
           <div className='mx-auto max-w-[1096px]'>
             <div className='flex items-center justify-between sm:flex-wrap'>
-              <div className='break-keep text-4XL/Bold text-white sm:w-full lg:text-3XL/Bold'>
+              <div className='break-keep text-4XL/Bold text-white lg:text-3XL/Bold sm:w-full'>
                 잘 팔릴 상품을 <br />잘 파는 방법
               </div>
               <div className='text-right sm:mt-12  sm:w-full'>
                 <button
-                  className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 sm:max-w-[306px] md:max-w-[286px] lg:max-w-[306px]'
+                  id='movedToSolution'
+                  className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 lg:max-w-[306px] md:max-w-[286px] sm:max-w-[306px]'
                   onClick={(event) => {
                     openAppWithTag({
                       url: GlobalEnv.serviceUrl,

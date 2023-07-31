@@ -60,6 +60,7 @@ export const Header = () => {
 
         <div className='space-x-4 md:flex md:items-center sm:space-x-0'>
           <button
+            id='movedToSolution'
             className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800 sm:hidden'
             onClick={(event) => {
               openAppWithTag({
@@ -74,6 +75,7 @@ export const Header = () => {
             로그인
           </button>
           <button
+            id='movedToSolution'
             className='rounded-md bg-orange-500 p-3 text-M/Bold text-white xs:text-S/Bold'
             onClick={(event) => {
               openAppWithTag({

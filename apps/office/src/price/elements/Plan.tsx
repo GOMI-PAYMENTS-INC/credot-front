@@ -80,6 +80,7 @@ export const Plan = () => {
               <div id='cardBottom' className='my-6 flex w-[240px] justify-center'>
                 <button
                   className={`${btnStyle} w-full px-3 py-3`}
+                  id='movedToSolution'
                   onClick={(event) =>
                     openAppWithTag({
                       url: GlobalEnv.serviceUrl,
@@ -102,7 +103,7 @@ export const Plan = () => {
 
   return (
     <section className='flex flex-col items-center justify-center bg-grey-50'>
-      <div className='flex flex-col items-center justify-center sm:w-[277px] lg:w-[580px]'>
+      <div className='flex flex-col items-center justify-center lg:w-[580px] sm:w-[277px]'>
         <p className='mt-10 text-3XL/Bold'>Plan(VAT 포함)</p>
         <ul className='mt-[33px] flex rounded-lg bg-grey-200 p-1 text-center text-L/Medium text-grey-700'>
           <li

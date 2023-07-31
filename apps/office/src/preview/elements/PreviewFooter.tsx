@@ -23,6 +23,7 @@ export const PreviewFooter = () => {
               </div>
               <button
                 className='button-filled-xLarge-primary-false-false-false mt-[26px] w-fit text-L/Bold'
+                id='movedToSolution'
                 onClick={(event) => {
                   openAppWithTag({
                     url: GlobalEnv.serviceUrl,
@@ -57,6 +58,7 @@ export const PreviewFooter = () => {
               </p>
               <button
                 className='button-filled-xLarge-primary-false-false-false mt-[26px] w-fit text-L/Bold'
+                id='movedToSolution'
                 onClick={(event) => {
                   openAppWithTag({
                     url: GlobalEnv.serviceUrl,
