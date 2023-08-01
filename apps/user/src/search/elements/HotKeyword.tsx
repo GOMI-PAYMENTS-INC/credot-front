@@ -39,7 +39,7 @@ export const HotKeyword = (props: IHotKeyword) => {
             </span>
             에서 가장 핫한 키워드
           </p>
-          <ul className='mt-5'>
+          <ul id='scrollbar' className='mt-5 h-[230px] overflow-y-scroll'>
             {HOT_KEYWORD[country].map((keyword, index) => {
               const isHover =
                 hoverIndex === index ? 'text-M/Bold text-orange-400' : 'text-grey-900';
@@ -47,7 +47,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                 <li
                   key={keyword.text}
                   className={`flex ${
-                    index === 6 ? '' : 'mb-[10px] xs:mb-[15px]'
+                    index === HOT_KEYWORD.SG.length - 1 ? '' : 'mb-[10px] xs:mb-[15px]'
                   } cursor-pointer`}
                   onMouseOver={() => {
                     setHoverIndex(index);
@@ -67,7 +67,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                   <div className='ml-3 flex w-full justify-between text-M/Regular'>
                     <p className={isHover}>{replaceOverLength(keyword.text, 13)}</p>
 
-                    <p className='text-grey-700'>
+                    <p className='pr-2.5 text-grey-700'>
                       {replaceOverLength(TRANSLATED_KEYWORD[country][index], 14)}
                     </p>
                   </div>
