@@ -24,7 +24,11 @@ export const Header = () => {
   }, [pathname]);
 
   return (
-    <header className='fixed top-0 left-0 z-50 h-20 w-full bg-white'>
+    <header
+      className={`fixed top-0 left-0 z-50  w-full bg-white  ${
+        isOpenMenu ? 'h-full' : 'h-20'
+      }`}
+    >
       {isOpenMenu ? (
         <HeaderMenu
           setIsOpenMenu={setIsOpenMenu}
