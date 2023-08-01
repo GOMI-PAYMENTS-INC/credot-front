@@ -65,7 +65,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                 >
                   <span className='text-M/Medium text-orange-400'>{`${index + 1}.`}</span>
                   <div className='ml-3 flex w-full justify-between text-M/Regular'>
-                    <p className={isHover}>{replaceOverLength(keyword.text, 13)}</p>
+                    <p className={isHover}>{replaceOverLength(keyword.text, 10)}</p>
 
                     <p className='pr-2.5 text-grey-700'>
                       {replaceOverLength(TRANSLATED_KEYWORD[country][index], 14)}
