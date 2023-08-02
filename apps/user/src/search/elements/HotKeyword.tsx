@@ -45,7 +45,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                 hoverIndex === index ? 'text-M/Bold text-orange-400' : 'text-grey-900';
               return (
                 <li
-                  key={keyword.text}
+                  key={keyword}
                   className={`flex ${
                     index === HOT_KEYWORD.SG.length - 1 ? '' : 'mb-[10px] xs:mb-[15px]'
                   } cursor-pointer`}
@@ -56,8 +56,8 @@ export const HotKeyword = (props: IHotKeyword) => {
                     setHoverIndex(null);
                   }}
                   onClick={() => {
-                    queryKeywordByClick(country, keyword.text, _dispatch, setValue);
-                    _clientHotKeywordSearched(country, searchSortBy, keyword.text);
+                    queryKeywordByClick(country, keyword, _dispatch, setValue);
+                    _clientHotKeywordSearched(country, searchSortBy, keyword);
                     if (window.innerWidth < 431) {
                       window.scroll({ top: 0, left: 0, behavior: 'smooth' });
                     }
@@ -65,7 +65,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                 >
                   <span className='text-M/Medium text-orange-400'>{`${index + 1}.`}</span>
                   <div className='ml-3 flex w-full justify-between text-M/Regular'>
-                    <p className={isHover}>{replaceOverLength(keyword.text, 10)}</p>
+                    <p className={isHover}>{replaceOverLength(keyword, 13)}</p>
 
                     <p className='pr-2.5 text-grey-700'>
                       {replaceOverLength(TRANSLATED_KEYWORD[country][index], 14)}
