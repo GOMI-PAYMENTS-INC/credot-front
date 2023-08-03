@@ -1,21 +1,18 @@
 import { ReactSVG } from 'react-svg';
-import { Dispatch, RefObject, SetStateAction, useEffect, useMemo } from 'react';
-import { onScrollDetail, scrollToTop, switchContents } from '@/report/container';
+import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
+import { onScrollDetail, switchContents } from '@/report/container';
 import { STYLE_ENUM, TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
 
 interface IDetailReportRightQuickBarProps {
   isUser: boolean;
-  contentSection?: RefObject<HTMLDivElement>;
-  scrollController?: RefObject<HTMLTableSectionElement>;
   scrollEvent: TScrollEvent;
   setScrollEvent: Dispatch<SetStateAction<TScrollEvent>>;
   title: string | undefined;
 }
 
 export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps) => {
-  const { isUser, contentSection, scrollController, scrollEvent, setScrollEvent, title } =
-    props;
+  const { isUser, scrollEvent, setScrollEvent, title } = props;
   const { scrollY, isOpen, current } = scrollEvent;
 
   useEffect(() => {
