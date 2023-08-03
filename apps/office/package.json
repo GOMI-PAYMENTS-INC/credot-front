@@ -13,6 +13,7 @@
     "serve:prod": "yarn build:prod && vite preview"
   },
   "dependencies": {
+    "@hackler/react-sdk": "^11.18.1",
     "@tanstack/react-query": "^4.13.0",
     "dayjs": "^1.11.9",
     "echarts": "^5.4.2",
