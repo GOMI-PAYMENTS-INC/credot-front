@@ -130,9 +130,8 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             <button
               onClick={() => {
                 openBrowser(
-                  `${convertShopeeSiteUrl(country)}/search?keyword=${text}${
-                    sorted === 'S' ? '&page=0&sortBy=sales' : ''
-                  }`,
+                  `${convertShopeeSiteUrl(country)}/search?keyword=${text}`,
+                  sorted,
                 );
                 _amplitudeMovedToSERP(reportIdOrShareToken, text, null);
               }}
