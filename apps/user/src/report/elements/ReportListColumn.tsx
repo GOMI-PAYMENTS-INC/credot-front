@@ -12,7 +12,6 @@ type TReportListColumn = {
 };
 export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
   const navigate = useNavigate();
-
   const ListColumn = () => {
     return (
       <Fragment>
@@ -31,7 +30,8 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                 }`}
                 key={`table_row_${idx}`}
                 onClick={(event) => {
-                  event.clientX > 532 &&
+                  report.status === 'DONE' &&
+                    event.clientX > 532 &&
                     navigate(
                       `${PATH.REPORT_LIST}/${report.id}?limit=${_state.limit}&page=${_state.page}`,
                     );
