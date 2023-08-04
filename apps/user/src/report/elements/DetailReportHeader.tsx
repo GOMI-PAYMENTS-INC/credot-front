@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Params, useNavigate, useParams } from 'react-router-dom';
+import { Params, useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
@@ -70,6 +70,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
               onClick={() => {
                 openBrowser(
                   `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,
+                  main?.sorted,
                 );
                 _amplitudeMovedToSERP(params.id, main!.text, null);
               }}
@@ -91,6 +92,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
                 onClick={() => {
                   openBrowser(
                     `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,
+                    main?.sorted,
                   );
                   _amplitudeMovedToSERP(params.id, main!.text, null);
                 }}

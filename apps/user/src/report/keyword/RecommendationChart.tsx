@@ -25,6 +25,7 @@ interface IRecommendationChart {
   country: CountryType | null;
   _dispatch: Dispatch<TReportAction> | null;
   toggleEvent: { id: number; isOpen: boolean }[];
+  sorted: TSortBy;
   currencyUnit: number;
   basePrice: number;
   amplitudeData?: TAmplitudeDetailData;
@@ -39,6 +40,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
     toggleEvent,
     currencyUnit,
     basePrice,
+    sorted,
   } = props;
 
   const recomendationItems = useMemo(
@@ -191,6 +193,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                             `${convertShopeeSiteUrl(country!)}/search?keyword=${
                               data.text
                             }`,
+                            sorted,
                           );
                           amplitudeData &&
                             _amplitudeMovedToSERP(
