@@ -219,7 +219,7 @@ export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
 export const reportListConverter = (item: TReportItem) => {
   const result = {
     status: {
-      text: convertBatchStatus(item.status),
+      text: convertBatchStatus(item.status, item.itemCount),
       sentiment: TAG_SENTIMENT_STATUS.ATTENTIVE,
     },
     countryCode: {
@@ -233,9 +233,15 @@ export const reportListConverter = (item: TReportItem) => {
     },
   };
 
-  if (item.status === BATCH_STATUS.DONE || item.status === BATCH_STATUS.REPLICATE) {
+  if (item.status === BATCH_STATUS.DONE && item.itemCount < 9) {
+    result.status.sentiment = TAG_SENTIMENT_STATUS.NEGATIVE;
+  } else if (
+    item.status === BATCH_STATUS.DONE ||
+    item.status === BATCH_STATUS.REPLICATE
+  ) {
     result.status.sentiment = TAG_SENTIMENT_STATUS.POSITIVE;
   }
+
   return result;
 };
 
