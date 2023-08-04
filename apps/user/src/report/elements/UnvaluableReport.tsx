@@ -17,17 +17,20 @@ export const UnvaluableReport = ({
   params,
 }: IUnvaluableReport) => {
   return (
-    <div className='flex h-screen flex-col items-center justify-center text-center'>
+    <div className='flex h-screen flex-col items-center justify-center text-center xs:pt-[65px]'>
       <div>
         <img src='/assets/images/UnvaluableReport.png' />
       </div>
       <div className='mt-7'>
-        <h1 className='text-2XL/Bold'>리포트 생성이 불가능한 키워드에요.</h1>
-        <p className='mt-6 text-M/Regular'>
-          키워드 검색 시 노출되는 상품 수가 적어 리포트를 생성하지 못했어요.
+        <h1 className='text-2XL/Bold xs:text-L/Bold'>
+          리포트 생성이 불가능한 키워드에요.
+        </h1>
+        <p className='mt-6 text-M/Regular xs:mt-4'>
+          키워드 검색 시 노출되는 상품 수가 적어
+          <br className='hidden xs:block' /> 리포트를 생성하지 못했어요.
         </p>
       </div>
-      <div className='mt-14 '>
+      <div className='mt-14 xs:mt-[38px]'>
         <button
           className='button-filled-normal-large-primary-false-false-true h-12 w-[260px]'
           onClick={async () => {
