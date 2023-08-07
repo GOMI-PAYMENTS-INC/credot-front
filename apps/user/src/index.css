@@ -44,6 +44,19 @@ input[type='number'] {
   transform-origin: top;
 }
 
+#moving-letter {
+  animation: marquee 4s linear infinite;
+}
+
+@keyframes marquee {
+  50% {
+    transform: translateX(80px) rotateY(10deg);
+  }
+  800% {
+    transform: translateX(90px) rotateY(10deg);
+  }
+}
+
 @layer base {
   .container {
     @apply mx-auto my-0 min-w-[360px] max-w-[1180px];

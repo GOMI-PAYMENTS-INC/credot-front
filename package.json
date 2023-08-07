@@ -18,13 +18,14 @@
     "user:prod-build": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run build:prod",
     "user:prod-preview": "yarn prepare:user && yarn workspace kr-core-gomi-keyword-front-user run serve:prod",
     "user:gen": "yarn workspace kr-core-gomi-keyword-front-user run gen",
-    "office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev --host 172.16.120.2",
+    "office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev",
     "office:dev-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:dev",
     "office:prod-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:prod",
     "office:dev-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:dev",
     "office:prod-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:prod"
   },
   "dependencies": {
+    "@hackler/react-sdk": "^11.18.1",
     "@tanstack/react-query": "^4.13.0",
     "dayjs": "^1.11.7",
     "react": "^18.2.0",

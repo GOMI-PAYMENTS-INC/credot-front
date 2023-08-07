@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@commitlint/cli", "npm:17.4.2"],\
             ["@commitlint/config-conventional", "npm:17.4.2"],\
+            ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
             ["@types/node", "npm:18.11.18"],\
@@ -2724,6 +2725,39 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/graphql",\
             "graphql"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@hackler/javascript-sdk", [\
+        ["npm:11.18.1", {\
+          "packageLocation": "./.yarn/cache/@hackler-javascript-sdk-npm-11.18.1-30d7405ece-1b71d13e81.zip/node_modules/@hackler/javascript-sdk/",\
+          "packageDependencies": [\
+            ["@hackler/javascript-sdk", "npm:11.18.1"],\
+            ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@hackler/react-sdk", [\
+        ["npm:11.18.1", {\
+          "packageLocation": "./.yarn/cache/@hackler-react-sdk-npm-11.18.1-16e4aa7782-d89bed6f02.zip/node_modules/@hackler/react-sdk/",\
+          "packageDependencies": [\
+            ["@hackler/react-sdk", "npm:11.18.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1", {\
+          "packageLocation": "./.yarn/__virtual__/@hackler-react-sdk-virtual-6d336ce87e/0/cache/@hackler-react-sdk-npm-11.18.1-16e4aa7782-d89bed6f02.zip/node_modules/@hackler/react-sdk/",\
+          "packageDependencies": [\
+            ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
+            ["@hackler/javascript-sdk", "npm:11.18.1"],\
+            ["@types/react", "npm:18.0.27"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8381,6 +8415,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["kr-core-gomi-keyword-front", "workspace:."],\
             ["@commitlint/cli", "npm:17.4.2"],\
             ["@commitlint/config-conventional", "npm:17.4.2"],\
+            ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
             ["@types/node", "npm:18.11.18"],\
@@ -8432,6 +8467,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./apps/office/",\
           "packageDependencies": [\
             ["kr-core-gomi-keyword-front-office", "workspace:apps/office"],\
+            ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
             ["@types/node", "npm:18.11.18"],\
@@ -8472,6 +8508,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@graphql-codegen/typescript", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.8.7"],\
             ["@graphql-codegen/typescript-operations", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.5.12"],\
             ["@graphql-codegen/typescript-react-query", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.1.0"],\
+            ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
             ["@hookform/error-message", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:2.0.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
@@ -11823,6 +11860,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/util-deprecate-npm-1.0.2-e3fe1a219c-474acf1146.zip/node_modules/util-deprecate/",\
           "packageDependencies": [\
             ["util-deprecate", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uuid", [\
+        ["npm:8.3.2", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:8.3.2"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -34,7 +34,7 @@ export const DetailReportSwitch = ({
   const { saveReturnUrl } = authReturnUrl();
 
   return (
-    <div className='col-span-10'>
+    <div className='col-span-10 xs:col-span-12 xs:mx-5'>
       <div className='space-y-[72px]'>
         <KeywordInfo
           _dispatch={_dispatch}
@@ -96,7 +96,7 @@ export const DetailReportSwitch = ({
               </div>
               <div className='mt-[44px]'>
                 <button
-                  className='button-filled-normal-xLarge-red-false-false-true min-w-[600px]'
+                  className='button-filled-normal-xLarge-red-false-false-true min-w-[600px] xs:my-[10px] xs:min-w-0 xs:rounded-lg xs:px-[15px]'
                   onClick={() => saveReturnUrl(window.location.href, PATH.SIGN_IN)}
                 >
                   회원가입 하고 리포트 전체 내용 열람하기

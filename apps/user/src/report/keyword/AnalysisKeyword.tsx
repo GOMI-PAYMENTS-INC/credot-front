@@ -11,13 +11,13 @@ import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { DetailReportSectionHeader } from '@/report/elements/DetailReportSectionHeader';
 import { RecommendationChart } from '@/report/keyword/RecommendationChart';
 import { TReportAction } from '@/report/reducer';
-
+import { getConversionRate } from '@/report/keyword/container';
 interface IAnalysisKeyword {
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
   isUser?: boolean;
-  sorted: TSortBy;
-  analysisInfo: TRecommendKeyword;
+
+  analysisInfo: TRecommendKeyword & { totalSalesCount: number; sorted: TSortBy };
   relations: TRelationReport[] | null;
   amplitudeData?: TAmplitudeDetailData;
 }
@@ -30,15 +30,22 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     analysisInfo,
     relations,
     amplitudeData,
-    sorted,
   } = props;
 
-  const [cpcPrice, avgPrice, searchCount, competitionProductCount, cpcRate] = [
+  const [
+    cpcPrice,
+    avgPrice,
+    searchCount,
+    competitionProductCount,
+    cpcRate,
+    totalSalesCount,
+  ] = [
     analysisInfo.cpcPrice,
     analysisInfo.avgPrice,
     analysisInfo.searchCount,
     analysisInfo.competitionProductCount,
     analysisInfo.cpcRate,
+    analysisInfo.totalSalesCount,
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
@@ -49,13 +56,13 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
       );
     })
     .map((number) => formatNumber(number));
+  const conversionRate = analysisInfo.totalSalesCount / analysisInfo.searchCount;
 
   const keywordReport = useMemo(() => {
-    return analysisInfo.evaluateStatus
-      .split('')
-      .map((score) => convertScoreToText(score));
+    const rateGrade = analysisInfo.evaluateStatus + getConversionRate(conversionRate);
+    return rateGrade.split('').map((score) => convertScoreToText(score));
   }, [analysisInfo.evaluateStatus]);
-  const [search, competition, cpc] = keywordReport;
+  const [search, competition, cpc, conversion] = keywordReport;
 
   const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
 
@@ -181,13 +188,19 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             </div>
             <div className='flex h-[163px] items-center text-center  xs:my-4 xs:mx-2 xs:h-[66px]'>
               <div className='flex flex-1 items-center divide-x-[1px] divide-dotted'>
-                <div className='flex h-[123px] flex-1 flex-col items-center justify-center xs:h-[66px] '>
+                <div className='flex h-[98px] flex-1 flex-col items-center justify-center xs:h-[66px] '>
                   {search}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>검색량</p>
                   </div>
                 </div>
-                <div className='flex h-[123px] flex-1 flex-col items-center justify-center border-dashed xs:h-[66px]'>
+                <div className='flex h-[98px] flex-1 flex-col items-center justify-center xs:h-[66px] '>
+                  {conversion}
+                  <div className='pt-2'>
+                    <p className='text-XS/Regular text-grey-800'>구매 전환</p>
+                  </div>
+                </div>
+                <div className='flex h-[98px] flex-1 flex-col items-center justify-center border-dashed xs:h-[66px]'>
                   <div className=''>
                     {competition}
                     <div className='pt-2'>
@@ -195,7 +208,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                   </div>
                 </div>
-                <div className='flex h-[123px] flex-1 flex-col items-center justify-center xs:h-[66px]'>
+                <div className='flex h-[98px] flex-1 flex-col items-center justify-center xs:h-[66px]'>
                   {cpc}
                   <div className='pt-2'>
                     <p className='text-XS/Regular text-grey-800'>CPC 경쟁</p>
@@ -245,9 +258,44 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
               </div>
             </div>
             <div className='flex divide-x-[1px] divide-dotted xs:flex-col xs:items-center xs:divide-x-0'>
-              <div className='flex flex-col  xs:border-b-[1px]'>
-                <div className='flex h-[96px] w-[295px] items-center justify-center'>
-                  <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
+              <div
+                id='keyword_analysis_first'
+                className='flex flex-col  xs:border-b-[1px]'
+              >
+                <div className='flex h-[96px] items-center justify-center'>
+                  <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-full'>
+                    <div className='flex h-12 w-[236px] flex-col items-center justify-center text-center'>
+                      <p className='text-XL/Bold text-grey-900'>{`1 : ${formatNumber(
+                        conversionRate,
+                      )}`}</p>
+                      <div className='pt-1'>
+                        <p className='text-XS/Medium text-grey-800 '>구매 전환</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='flex h-[72px] items-center border-t-[1px] border-dashed'>
+                  <div className='flex w-1/2 flex-col items-center'>
+                    <div className='flex items-center '>
+                      <span className='text-S/Regular text-grey-900'>{searchCount}</span>
+                      <span className='pl-1 text-XS/Bold text-grey-800'>건</span>
+                    </div>
+                    <div className='pt-2 text-XS/Medium text-grey-800'>검색량</div>
+                  </div>
+                  <div className='flex w-1/2 flex-col items-center border-l-[1px]'>
+                    <div className='flex items-center '>
+                      <span className='text-S/Regular text-grey-900'>
+                        {totalSalesCount}
+                      </span>
+                      <span className='pl-1 text-XS/Bold text-grey-800'>건</span>
+                    </div>
+                    <div className='pt-2 text-XS/Medium text-grey-800'>판매량 합계</div>
+                  </div>
+                </div>
+              </div>
+              <div id='keyword_analysis_second' className='flex flex-col'>
+                <div className='flex h-[96px] items-center justify-center'>
+                  <div className='mx-6  flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-full'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
                       <p className='text-XL/Bold text-grey-900'>{`1 : ${analysisInfo.competitionRate}`}</p>
                       <div className='pt-1'>
@@ -259,26 +307,26 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 <div className='flex h-[72px] items-center border-t-[1px] border-dashed'>
                   <div className='flex w-1/2 flex-col items-center'>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>{searchCount}</span>
-                      <span className='pl-1 text-S/Bold text-grey-800'>건</span>
+                      <span className='text-S/Regular text-grey-900'>{searchCount}</span>
+                      <span className='pl-1 text-XS/Bold text-grey-800'>건</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>검색량</div>
                   </div>
                   <div className='flex w-1/2 flex-col items-center border-l-[1px]'>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>
+                      <span className='text-S/Regular text-grey-900'>
                         {competitionProductCount}
                       </span>
-                      <span className='pl-1 text-S/Bold text-grey-800'>건</span>
+                      <span className='pl-1 text-XS/Bold text-grey-800'>건</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>경쟁상품 수</div>
                   </div>
                 </div>
               </div>
-              <div className='flex flex-col'>
-                <div className='flex h-[96px] w-[295px] items-center justify-center  border-b-[1px] border-dashed'>
-                  <div className='flex h-[72px] w-[252px] items-center justify-center rounded-[7px] bg-grey-100'>
-                    <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
+              <div id='keyword_analysis_third' className='flex flex-col'>
+                <div className='flex h-[96px] items-center justify-center  border-b-[1px] border-dashed'>
+                  <div className='mx-6  flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-full'>
+                    <div className='flex h-12 w-[236px] flex-col items-center justify-center text-center'>
                       <p className='text-XL/Bold text-grey-900'>{cpcRate}%</p>
                       <div className='pt-1'>
                         <p className='text-XS/Medium text-grey-800 '>CPC 비율</p>
@@ -286,18 +334,19 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                     </div>
                   </div>
                 </div>
+
                 <div className='flex h-[72px] items-center xs:border-b-[1px]'>
                   <div className='flex w-1/2 flex-col items-center'>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>{cpcPrice}</span>
-                      <span className='pl-1 text-S/Bold text-grey-800'>원</span>
+                      <span className='text-S/Regular text-grey-900'>{cpcPrice}</span>
+                      <span className='pl-1 text-XS/Bold text-grey-800'>원</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>CPC</div>
                   </div>
                   <div className='flex w-1/2 flex-col items-center border-l-[1px]'>
                     <div className='flex items-center '>
-                      <span className='text-L/Regular text-grey-900'>{avgPrice}</span>
-                      <span className='pl-1 text-S/Bold text-grey-800'>원</span>
+                      <span className='text-S/Regular text-grey-900'>{avgPrice}</span>
+                      <span className='pl-1 text-XS/Bold text-grey-800'>원</span>
                     </div>
                     <div className='pt-2 text-XS/Medium text-grey-800'>평균 판매가</div>
                   </div>
@@ -329,7 +378,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           <RecommendationChart
             relations={relations}
             _dispatch={_dispatch}
-            sorted={sorted}
+            sorted={analysisInfo!.sorted}
             toggleEvent={_state.toggleEvent}
             country={analysisInfo!.country}
             basePrice={analysisInfo!.basePrice}
@@ -343,7 +392,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             toggleEvent={[{ id: 168, isOpen: true }]}
             country={null}
             basePrice={968.92}
-            sorted={sorted}
+            sorted={analysisInfo!.sorted}
             currencyUnit={1}
           />
         )}
@@ -356,7 +405,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           country={analysisInfo!.country}
           basePrice={analysisInfo!.basePrice}
           currencyUnit={analysisInfo!.currencyUnit}
-          sorted={sorted}
+          sorted={analysisInfo!.sorted}
           amplitudeData={amplitudeData}
         />
       </div>

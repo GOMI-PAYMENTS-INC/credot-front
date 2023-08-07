@@ -688,9 +688,7 @@ export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
     maxTurnoverMonth: string[] = [];
 
   if (trend.length === 0) {
-    minTurnoverMonth.push('-');
-    maxTurnoverMonth.push('-');
-    return { interest: [], date: [], minTurnoverMonth, maxTurnoverMonth };
+    return { interest: [], date: [], minMonth: ['-'], maxMonth: ['-'] };
   }
 
   const originInterest = trend.map((data) => data.interest);
@@ -711,8 +709,9 @@ export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
     }
     return convertTime(data.trendDate, 'YY.MM');
   });
-
-  return { interest, date, minTurnoverMonth, maxTurnoverMonth };
+  const minMonth = [minTurnoverMonth[minTurnoverMonth.length - 1]];
+  const maxMonth = [maxTurnoverMonth[maxTurnoverMonth.length - 1]];
+  return { interest, date, minMonth, maxMonth };
 };
 
 export const convertedCategoryAnalysisData = (data: TCategoryAnalysis) => {

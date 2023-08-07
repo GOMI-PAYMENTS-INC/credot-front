@@ -63,7 +63,6 @@ const DetailReportPage = () => {
           />
           <MarketSize marketSize={main!} />
           <AnalysisKeyword
-            sorted={main!.sorted}
             _dispatch={_dispatch}
             _state={_state}
             analysisInfo={main!}

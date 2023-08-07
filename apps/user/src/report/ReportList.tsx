@@ -37,9 +37,7 @@ const ReportList = () => {
     }
   };
 
-  //페이지 목록 불러오기
   useEffect(() => {
-    // Get a specific query parameter
     const limit = searchParams.get('limit');
     const page = searchParams.get('page');
     mobileScrollToTop(window.innerWidth);

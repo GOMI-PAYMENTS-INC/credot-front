@@ -43,8 +43,7 @@ export const MarketSize = (props: IMarketSize) => {
     })
     .map((number) => formatNumber(number));
 
-  const { interest, date, minTurnoverMonth, maxTurnoverMonth } =
-    convertedGoogleTrendData(trend);
+  const { interest, date, minMonth, maxMonth } = convertedGoogleTrendData(trend);
 
   const created = convertTime(createdAt, 'YYYY');
   const lastYearToCreated = Number(created) - 1;
@@ -133,7 +132,7 @@ export const MarketSize = (props: IMarketSize) => {
             <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium text-grey-800  xs:hidden'>
               <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
                 <p>가장 많이 팔려요</p>
-                {maxTurnoverMonth.map((month, key) => (
+                {maxMonth.map((month, key) => (
                   <p
                     key={`max_turn_over_${key}`}
                     className='pt-2 text-2XL/Bold text-[#FF5100]'
@@ -146,7 +145,7 @@ export const MarketSize = (props: IMarketSize) => {
               <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
                 <p>가장 적게 팔려요</p>
                 <ul className='flex flex-wrap'>
-                  {minTurnoverMonth.map((month, key) => (
+                  {minMonth.map((month, key) => (
                     <li
                       key={`min_turn_over_${key}`}
                       className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'
@@ -167,7 +166,7 @@ export const MarketSize = (props: IMarketSize) => {
         <div className='col-span-12 hidden min-h-[50px] justify-around px-5 py-[14px] pl-5 text-center text-L/Bold xs:flex'>
           <div className=' flex w-1/2 flex-col justify-center'>
             <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
-              {maxTurnoverMonth.map((month, key) => (
+              {maxMonth.map((month, key) => (
                 <p key={`max_turn_over_${key}`} className='text-L/Bold text-[#FF5100]'>
                   {`${month}월`}
                 </p>
@@ -178,7 +177,7 @@ export const MarketSize = (props: IMarketSize) => {
 
           <div className='flex w-1/2 flex-col justify-center'>
             <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
-              {minTurnoverMonth.map((month, key) => (
+              {minMonth.map((month, key) => (
                 <p key={`min_turn_over_${key}`} className='text-L/Bold text-grey-900'>
                   {`${month}월`}
                 </p>

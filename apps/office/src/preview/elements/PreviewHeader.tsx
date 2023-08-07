@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl } from '@/preview/container';
@@ -5,6 +6,7 @@ import { CountryType } from '@/preview/elements/keyword/constant';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 
 export const PreviewHeader = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   return (
     <header className='sticky top-20 z-40 hidden border-b-[1px] border-b-grey-200 bg-white xs:block'>
       <div className='container'>
@@ -44,6 +46,29 @@ export const PreviewHeader = () => {
           </div>
         </div>
       </div>
+      {isOpen && (
+        <div className='hidden items-center justify-between bg-orange-400 text-start xs:flex '>
+          <div className='z-10 flex h-[44px] w-[80px] items-center bg-orange-400 text-center'>
+            <p className='ml-5 text-M/Bold  text-white'>PC 환경</p>
+          </div>
+
+          <p
+            id='moving-letter'
+            className='absolute w-[400px] pl-1 text-M/Medium text-white'
+          >
+            으로 접속 시 더욱 자세한 내용을 확인할 수 있어요!
+          </p>
+
+          <ReactSVG
+            onClick={() => setIsOpen(false)}
+            src='/assets/icons/Close.svg'
+            className='z-10 bg-orange-400'
+            beforeInjection={(svg) =>
+              svg.setAttribute('class', 'fill-white w-7 h-7 ml-1 pr-[2px] cursor-pointer')
+            }
+          />
+        </div>
+      )}
     </header>
   );
 };

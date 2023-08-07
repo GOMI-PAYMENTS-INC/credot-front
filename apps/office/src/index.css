@@ -148,3 +148,16 @@ html {
   background-color: #ffa378;
   border-radius: 10px;
 }
+
+#moving-letter {
+  animation: marquee 4s linear infinite;
+}
+
+@keyframes marquee {
+  50% {
+    transform: translateX(80px) rotateY(10deg);
+  }
+  800% {
+    transform: translateX(90px) rotateY(10deg);
+  }
+}

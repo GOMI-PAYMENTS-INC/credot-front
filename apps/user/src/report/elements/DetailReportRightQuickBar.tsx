@@ -27,7 +27,10 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
   }, [isUser]);
 
   return (
-    <aside style={quickBarTopStyle} className={`sticky col-span-2 h-fit w-[180px]`}>
+    <aside
+      style={quickBarTopStyle}
+      className={`sticky col-span-2 h-fit w-[180px] xs:hidden`}
+    >
       <div>
         <div>
           <p

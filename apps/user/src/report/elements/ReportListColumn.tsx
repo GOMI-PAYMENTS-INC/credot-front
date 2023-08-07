@@ -12,7 +12,6 @@ type TReportListColumn = {
 };
 export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
   const navigate = useNavigate();
-
   const ListColumn = () => {
     return (
       <Fragment>
@@ -26,12 +25,15 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
 
             return (
               <tr
-                className={`h-[56px] cursor-pointer border border-l-0 border-r-0 border-t-0 border-grey-200 last:border-b-0 hover:bg-grey-200 ${
-                  report.status !== 'DONE' ? 'bg-grey-100 opacity-50' : 'text-grey-800 '
+                className={`h-[56px] border border-l-0 border-r-0 border-t-0 border-grey-200 last:border-b-0 hover:bg-grey-200 ${
+                  report.status !== 'DONE'
+                    ? 'bg-grey-100 opacity-50'
+                    : 'cursor-pointer text-grey-800'
                 }`}
                 key={`table_row_${idx}`}
                 onClick={(event) => {
-                  event.clientX > 532 &&
+                  report.status === 'DONE' &&
+                    event.clientX > 532 &&
                     navigate(
                       `${PATH.REPORT_LIST}/${report.id}?limit=${_state.limit}&page=${_state.page}`,
                     );
