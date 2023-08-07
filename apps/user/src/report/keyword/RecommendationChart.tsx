@@ -19,6 +19,7 @@ import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
 import { openBrowser } from '@/utils/openBrowser';
+import { getConversionRate } from '@/report/keyword/container';
 
 interface IRecommendationChart {
   relations: TRelationReport[] | null;
@@ -58,46 +59,52 @@ export const RecommendationChart = (props: IRecommendationChart) => {
       <table className='col-span-full h-full w-full  table-auto bg-white'>
         <thead className='h-[54px] border-t-[2px] border-b-[1px] border-grey-300 bg-grey-100 text-center'>
           <tr>
-            <th className='w-[302px] text-left' colSpan={1}>
+            <th className='w-[250px] text-left'>
               <p className=' pl-3 text-XS/Medium'>추천 키워드</p>
             </th>
-            <th className='w-[82px]' colSpan={1}>
+            <th className='w-[82px]'>
               <p className='px-4  text-XS/Medium'>검색량</p>
             </th>
-            <th className='w-[82px]' colSpan={1}>
+            <th className='w-[82px]'>
+              <p className='px-4  text-XS/Medium'>구매 전환</p>
+            </th>
+            <th className='w-[82px]'>
               <p className='px-4  text-XS/Medium'>노출 경쟁</p>
             </th>
-            <th className='w-[82px]' colSpan={1}>
+            <th className='w-[82px]'>
               <p className='px-[13px] text-XS/Medium'>CPC 경쟁</p>
             </th>
-            <th className='w-[72px]' colSpan={1}>
+            <th className='w-[72px]'>
               <p className='px-1 text-XS/Medium'>노출 경쟁률</p>
             </th>
-            <th className='w-[104px]' colSpan={1}>
+            <th className='w-[104px]'>
               <div className='px-3 text-right text-XS/Medium'>
                 <p>검색량</p>
                 <hr className='ml-[62px] border-grey-300' />
                 <p>경쟁상품 수</p>
               </div>
             </th>
-            <th className='w-[72px]' colSpan={1}>
+            <th className='w-[72px]'>
               <p className='px-[10px] text-XS/Medium'>CPC 비율</p>
             </th>
-            <th className='w-[104px]' colSpan={1}>
+            <th className='w-[104px]'>
               <div className='px-3 text-right text-XS/Medium'>
                 <p>CPC</p>
                 <hr className='ml-[62px] border-grey-300' />
                 <p>평균 판매가</p>
               </div>
             </th>
-            <th className='w-[40px]' colSpan={1}></th>
-            <th className='w-[40px]' colSpan={1}></th>
+            <th className='w-[40px]'></th>
+            <th className='w-[40px]'></th>
           </tr>
         </thead>
 
         <tbody>
           {recomendationItems.map((data) => {
-            const [search, competiton, cpc] = data.evaluateStatus;
+            const conversionRate = data.totalSalesCount / data.searchCount;
+            const rateGrade = data.evaluateStatus + getConversionRate(conversionRate);
+            const [search, competiton, cpc, conversion] = rateGrade;
+
             const status = isFalsy(toggleEvent.find((event) => event.id === data.id));
             const backgroundColor = status ? 'border-grey-300' : 'border-orange-200';
             const { top, bottom } = convertEvaluateStatus(data.evaluateStatus);
@@ -116,6 +123,11 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                   <td>
                     <div className='flex justify-center'>
                       {convertRecommendationScoreToText(search)}
+                    </div>
+                  </td>
+                  <td>
+                    <div className='flex justify-center'>
+                      {convertRecommendationScoreToText(conversion)}
                     </div>
                   </td>
                   <td>
