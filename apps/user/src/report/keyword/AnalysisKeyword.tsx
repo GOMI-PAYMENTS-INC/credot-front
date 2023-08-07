@@ -16,8 +16,8 @@ interface IAnalysisKeyword {
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
   isUser?: boolean;
-  sorted: TSortBy;
-  analysisInfo: TRecommendKeyword & { totalSalesCount: number };
+
+  analysisInfo: TRecommendKeyword & { totalSalesCount: number; sorted: TSortBy };
   relations: TRelationReport[] | null;
   amplitudeData?: TAmplitudeDetailData;
 }
@@ -30,7 +30,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     analysisInfo,
     relations,
     amplitudeData,
-    sorted,
   } = props;
 
   const [
@@ -379,7 +378,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           <RecommendationChart
             relations={relations}
             _dispatch={_dispatch}
-            sorted={sorted}
+            sorted={analysisInfo!.sorted}
             toggleEvent={_state.toggleEvent}
             country={analysisInfo!.country}
             basePrice={analysisInfo!.basePrice}
@@ -393,7 +392,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             toggleEvent={[{ id: 168, isOpen: true }]}
             country={null}
             basePrice={968.92}
-            sorted={sorted}
+            sorted={analysisInfo!.sorted}
             currencyUnit={1}
           />
         )}
@@ -406,7 +405,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           country={analysisInfo!.country}
           basePrice={analysisInfo!.basePrice}
           currencyUnit={analysisInfo!.currencyUnit}
-          sorted={sorted}
+          sorted={analysisInfo!.sorted}
           amplitudeData={amplitudeData}
         />
       </div>

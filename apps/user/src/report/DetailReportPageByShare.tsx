@@ -92,8 +92,6 @@ const DetailReportPageByShare = () => {
                 isUser={isUser}
                 title={main?.text}
                 scrollEvent={scrollEvent}
-                contentSection={contentSection}
-                scrollController={scrollController}
                 setScrollEvent={setScrollEvent}
               />
             </DetailReportBody>
@@ -117,8 +115,6 @@ const DetailReportPageByShare = () => {
             isUser={isUser}
             title={main?.text}
             scrollEvent={scrollEvent}
-            contentSection={contentSection}
-            scrollController={scrollController}
             setScrollEvent={setScrollEvent}
           />
         </DetailReportBody>
