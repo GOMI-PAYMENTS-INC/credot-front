@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Params, useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
@@ -17,6 +17,7 @@ interface TDetailReport {
 
 export const DetailReportHeader = (props: TDetailReport) => {
   const { params, main, scrollEvent } = props;
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const navigation = useNavigate();
 
   const listUrlMake = () => {
@@ -106,6 +107,29 @@ export const DetailReportHeader = (props: TDetailReport) => {
           </div>
         </div>
       </div>
+      {isOpen && (
+        <div className='hidden items-center justify-between bg-orange-400 text-start xs:flex '>
+          <div className='z-10 flex h-[44px] w-[80px] items-center bg-orange-400 text-center'>
+            <p className='ml-5 text-M/Bold  text-white'>PC 환경</p>
+          </div>
+
+          <p
+            id='moving-letter'
+            className='absolute w-[400px] pl-1 text-M/Medium text-white'
+          >
+            으로 접속 시 더욱 자세한 내용을 확인할 수 있어요!
+          </p>
+
+          <ReactSVG
+            onClick={() => setIsOpen(false)}
+            src='/assets/icons/outlined/Close.svg'
+            className='z-10 bg-orange-400'
+            beforeInjection={(svg) =>
+              svg.setAttribute('class', 'fill-white w-7 h-7 ml-1 pr-[2px] cursor-pointer')
+            }
+          />
+        </div>
+      )}
     </header>
   );
 };
