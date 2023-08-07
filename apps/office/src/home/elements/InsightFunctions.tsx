@@ -75,7 +75,7 @@ export const InsightFunctions = ({ imagePath, varidation }: IInsightFunctions) =
           </ul>
         </div>
         <div className='container'>
-          <div className='relative mx-auto max-w-[870px] md:max-w-[720px] sm:pb-[115px]'>
+          <div className='relative mx-auto max-w-[870px] lg:max-w-[720px] sm:pb-[115px]'>
             <Swiper
               className='banner cursor-grab sm:max-w-[382px]'
               slidesPerView={1}
@@ -85,8 +85,8 @@ export const InsightFunctions = ({ imagePath, varidation }: IInsightFunctions) =
               {TAB_DATA.map((tab, index) => (
                 <SwiperSlide key={index}>
                   <div>
-                    <div className='mx-auto flex justify-between md:items-start sm:flex-wrap sm:justify-center'>
-                      <div className='mr-6 lg:mr-0 sm:mb-8 sm:text-center'>
+                    <div className='mx-auto flex justify-between lg:items-start md:flex-wrap md:justify-center'>
+                      <div className='mr-6 lg:mr-0 md:text-center sm:mb-8'>
                         <div>
                           <div className='text-2XL/Bold text-orange-500 lg:text-XL/Bold md:text-L/Bold'>
                             Insight {tab.data.insightNum}
@@ -98,17 +98,17 @@ export const InsightFunctions = ({ imagePath, varidation }: IInsightFunctions) =
                               </div>
                             </div>
                           )}
-                          <div className='mt-4 text-4XL/Bold  text-grey-900 lg:text-3XL/Bold md:text-2XL/Bold sm:mt-2'>
+                          <div className='mt-4 text-4XL/Bold  text-grey-900 lg:text-3XL/Bold md:mt-2 md:text-2XL/Bold'>
                             {tab.name}
                           </div>
                         </div>
-                        <div className='mt-6 break-keep text-L/Medium text-grey-900 md:text-M/Medium sm:mt-4 sm:w-full'>
+                        <div className='mt-6 break-keep text-L/Medium text-grey-900 md:mt-4 md:w-[560px] md:text-XL/Medium sm:w-full'>
                           {tab.data.content}
                         </div>
                         <InduceButton
                           varidation={varidation}
                           text='더욱 자세히 알고싶다면'
-                          className='md:item mt-[30px] justify-start lg:ml-[80px] lg:justify-center md:ml-0 md:flex md:flex-col md:items-center'
+                          className='md:item mt-[30px] justify-start lg:ml-[80px] lg:justify-center md:ml-0 md:mb-8 md:flex md:flex-col md:items-center'
                         />
                       </div>
                       <div className='flex basis-full justify-center'>
