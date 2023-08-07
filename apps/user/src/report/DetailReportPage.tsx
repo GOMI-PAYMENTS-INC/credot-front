@@ -12,7 +12,7 @@ import { AnalysisKeyword } from '@/report/keyword/AnalysisKeyword';
 import { SalePrice } from '@/report/price/SalePrice';
 import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
 import { DetailReportHeader, DetailReportBody } from '@/report/elements';
-
+import { UnvaluableReport } from '@/report/elements/UnvaluableReport';
 import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 
@@ -31,7 +31,7 @@ const DetailReportPage = () => {
   const { main, relation, oversea, salePrice, brand, category } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
-  const scrollController = useRef<HTMLTableSectionElement>(null);
+  // const scrollController = useRef<HTMLTableSectionElement>(null);
   useEffect(() => {
     if (params.id && _state.main === null) _getReportInfo(params.id, _dispatch);
     if (main) {
@@ -51,7 +51,7 @@ const DetailReportPage = () => {
   };
 
   const ReportComponents = useMemo(() => {
-    return isFalsy(main) ? (
+    return isFalsy(main) || main!.itemCount < 9 ? (
       <Fragment />
     ) : (
       <div className='col-span-10 xs:col-span-12'>
@@ -63,6 +63,7 @@ const DetailReportPage = () => {
           />
           <MarketSize marketSize={main!} />
           <AnalysisKeyword
+            sorted={main!.sorted}
             _dispatch={_dispatch}
             _state={_state}
             analysisInfo={main!}
@@ -98,14 +99,25 @@ const DetailReportPage = () => {
     );
   }, [main?.id, brand, salePrice]);
 
+  if (isFalsy(main)) {
+    return (
+      <div className='flex h-screen flex-col items-center justify-center self-center'>
+        <div className='scale-[0.3]'>
+          <div id='loader' />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Default>
-      {isFalsy(main) ? (
-        <div className='flex h-screen flex-col items-center justify-center self-center'>
-          <div className='scale-[0.3]'>
-            <div id='loader' />
-          </div>
-        </div>
+      {main!.itemCount < 9 ? (
+        <UnvaluableReport
+          sorted={main!.sorted}
+          params={params}
+          itemName={main!.text}
+          country={main!.country}
+        />
       ) : (
         <Fragment>
           <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
@@ -120,8 +132,6 @@ const DetailReportPage = () => {
                 isUser={true}
                 title={main?.text}
                 scrollEvent={scrollEvent}
-                contentSection={contentSection}
-                scrollController={scrollController}
                 setScrollEvent={setScrollEvent}
               />
             </div>

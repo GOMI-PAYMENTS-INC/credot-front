@@ -22,9 +22,13 @@ export const convertTitle = (id: string) => {
   }
 };
 
-export const convertBatchStatus = (status: string) => {
+export const convertBatchStatus = (status: string, itemCount: number) => {
   switch (status) {
-    case BATCH_STATUS.DONE:
+    case BATCH_STATUS.DONE: {
+      if (itemCount < 9) {
+        return '상품부족';
+      }
+    }
     case BATCH_STATUS.REPLICATE:
       return '완료';
     default:

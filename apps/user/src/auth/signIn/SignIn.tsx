@@ -72,6 +72,12 @@ export const SignIn = () => {
                 message: '존재하지 않는 이메일 주소에요.',
               });
               break;
+            case STATUS_CODE.NOT_EXIST_PASSWORD:
+              setError('password', {
+                type: 'custom',
+                message:
+                  'Google 계정으로 가입한 메일 주소에요. 구글 계정으로 로그인 해주세요.',
+              });
           }
         }
       },

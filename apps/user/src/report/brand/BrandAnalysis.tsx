@@ -253,7 +253,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
-                    {formatNumber(avgSalesCount)}원
+                    {formatNumber(avgSalesCount)}개
                   </p>
                 </div>
               </div>
