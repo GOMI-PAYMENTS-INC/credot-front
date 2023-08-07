@@ -43,6 +43,22 @@ const KEYWORD = [
     ),
   },
   {
+    title: '종합 평가-구매 전환',
+    description: (
+      <div>
+        최근 30일간 키워드 검색량 대비 상품이 판매된 판매량을 5개 등급으로 나누어
+        평가해요.
+        <ul className='ml-5 list-disc'>
+          <li>매우 좋음 : 1.5 이상</li>
+          <li>좋음 : 1이상 1.5 미만</li>
+          <li>보통 : 0.5이상 1 미만</li>
+          <li>나쁨 : 0.3 이상 0.5 미만</li>
+          <li>매우 나쁨 : 0.3 미만</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
     title: '종합 평가-노출 경쟁',
     description: (
       <div>

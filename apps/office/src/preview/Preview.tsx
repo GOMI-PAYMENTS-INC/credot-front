@@ -62,7 +62,7 @@ const Preview = () => {
       <PreviewHeader />
       <main className='container'>
         <section className='my-[50px] rounded-lg bg-white xs:my-0 xs:mt-[50px]'>
-          <div className='flex flex-col items-center'>
+          <div className='flex flex-col items-center pt-10'>
             <p className='text-XL/Medium xs:text-S/Bold'>분석 키워드</p>
             <p className='mt-[7px] text-3XL/Bold xs:mt-1'>foundation</p>
             <div className='mt-4 flex xs:flex-col xs:items-center xs:gap-y-[6px]'>
