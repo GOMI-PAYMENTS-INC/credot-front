@@ -35,22 +35,6 @@ const SideBar = (props: TSideBarProps) => {
   const modalEl = useRef<HTMLDivElement>(null);
   const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
 
-  // useEffect(() => {
-  //   const clickOutside = (event: any) => {
-  //     if (
-  //       _state.openedUserMenu &&
-  //       modalEl.current &&
-  //       !modalEl.current?.contains(event.target)
-  //     ) {
-  //       onClickUserMenu(_dispatch);
-  //     }
-  //   };
-  //   document.addEventListener('mousedown', clickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', clickOutside);
-  //   };
-  // }, [_state.openedUserMenu]);
-
   const userAtom = useRecoilValue(UserAtom);
   useEffect(() => {
     if (userAtom) {

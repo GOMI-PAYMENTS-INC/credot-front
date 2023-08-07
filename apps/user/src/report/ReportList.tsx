@@ -37,9 +37,7 @@ const ReportList = () => {
     }
   };
 
-  //페이지 목록 불러오기
   useEffect(() => {
-    // Get a specific query parameter
     const limit = searchParams.get('limit');
     const page = searchParams.get('page');
     mobileScrollToTop(window.innerWidth);
@@ -89,7 +87,7 @@ const ReportList = () => {
             {/*하단 페이지 별로 변경해야하는 부분*/}
             <div>
               {/* 테이블 */}
-              <div className='mt-[24px] flex min-h-[693px] flex-col rounded border border-grey-300 bg-white'>
+              <div className='mt-[24px] flex flex-col rounded border border-grey-300 bg-white'>
                 <div className='flex h-[68px] items-center justify-between p-4'>
                   <h1 className='text-M/Regular text-grey-800'>
                     총 {formatNumber(_state.data.totalCount)}개
@@ -125,25 +123,29 @@ const ReportList = () => {
                 <table>
                   <thead className='h-[40px] border-t border-b border-grey-300 bg-grey-100 text-left'>
                     <tr>
-                      <th className='w-[56px] text-center text-XS/Medium'>
-                        <input
-                          type='checkbox'
-                          id='allCheck'
-                          className='checkboxCustom peer'
-                          checked={_state.isCheckedAll}
-                          onChange={(evnet) =>
-                            onCheckAllReportList(_state, _dispatch, evnet.target.checked)
-                          }
-                        />
-                        <label
-                          htmlFor='allCheck'
-                          className='checkboxCustom-label  bg-[length:20px_20px] bg-[left_50%_top_50%] text-transparent'
-                        >
-                          전체 선택
-                        </label>
-                      </th>
-                      <th className='w-[556px]'>
-                        <div className='px-4 py-3 text-XS/Medium'>검색어</div>
+                      <th className='w-[558px] text-start text-XS/Medium'>
+                        <div className='flex'>
+                          <input
+                            type='checkbox'
+                            id='allCheck'
+                            className='checkboxCustom peer'
+                            checked={_state.isCheckedAll}
+                            onChange={(evnet) =>
+                              onCheckAllReportList(
+                                _state,
+                                _dispatch,
+                                evnet.target.checked,
+                              )
+                            }
+                          />
+                          <label
+                            htmlFor='allCheck'
+                            className='checkboxCustom-label bg-[length:20px_20px] bg-[left_50%_top_50%] px-5 text-transparent'
+                          >
+                            선택
+                          </label>
+                          <p className='text-XS/Medium'>검색어</p>
+                        </div>
                       </th>
                       <th className='w-[128px]'>
                         <div className='px-4 py-3 text-XS/Medium'>수집 상태</div>

@@ -101,35 +101,35 @@ export const MarketSize = (props: IMarketSize) => {
       />
 
       <div className='pt-6'>
-        <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
-          <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px] bg-grey-100'>
-            <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
-              검색트렌드
-              <span className='pl-[4px] text-XS/Medium text-grey-700'>
-                {lastYearToCreated}_google {convertCountry(country)}
-              </span>
-            </h1>
-            <div className='tooltip-container'>
-              <a data-tooltip-id='anchor-market-google-trend'>
-                <ReactSVG
-                  src='/assets/icons/outlined/QuestionCircle.svg'
-                  className='inline-block self-center pl-[7px]'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-                  }}
-                />
-              </a>
-              <Tooltip
-                id='anchor-market-google-trend'
-                place='right'
-                variant='light'
-                clickable={true}
-                render={() => googleTrendTooltipContent}
-              ></Tooltip>
+        {isFalsy(trend) === false && (
+          <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
+            <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px] bg-grey-100'>
+              <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
+                검색트렌드
+                <span className='pl-[4px] text-XS/Medium text-grey-700'>
+                  {lastYearToCreated}_google {convertCountry(country)}
+                </span>
+              </h1>
+              <div className='tooltip-container'>
+                <a data-tooltip-id='anchor-market-google-trend'>
+                  <ReactSVG
+                    src='/assets/icons/outlined/QuestionCircle.svg'
+                    className='inline-block self-center pl-[7px]'
+                    beforeInjection={(svg) => {
+                      svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
+                    }}
+                  />
+                </a>
+                <Tooltip
+                  id='anchor-market-google-trend'
+                  place='right'
+                  variant='light'
+                  clickable={true}
+                  render={() => googleTrendTooltipContent}
+                ></Tooltip>
+              </div>
             </div>
-          </div>
 
-          <Fragment>
             <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium text-grey-800  xs:hidden'>
               <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
                 <p>가장 많이 팔려요</p>
@@ -159,29 +159,11 @@ export const MarketSize = (props: IMarketSize) => {
             </div>
             <div className='col-span-8 flex h-[320px] w-full flex-col items-center text-S/Medium text-grey-800 xs:col-span-12'>
               <div className='h-full w-full max-w-[710px] py-5'>
-                {isFalsy(interest) ? (
-                  <div className='flex h-full flex-col'>
-                    <div className='flex h-full flex-col items-center justify-center'>
-                      <ReactSVG
-                        src='/assets/icons/outlined/ExclamationCircle.svg'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', `w-[35px] h-[35px] fill-grey-400`);
-                        }}
-                      />
-                      <div className='flex flex-col items-center pt-[11px] text-center'>
-                        <p className='text-L/Medium text-grey-800'>
-                          검색 트랜드 정보가 존재하지 않아요.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <MarketSizeTrendChart trendData={{ interest, date }} />
-                )}
+                <MarketSizeTrendChart trendData={{ interest, date }} />
               </div>
             </div>
-          </Fragment>
-        </div>
+          </div>
+        )}
         <div className='col-span-12 hidden min-h-[50px] justify-around px-5 py-[14px] pl-5 text-center text-L/Bold xs:flex'>
           <div className=' flex w-1/2 flex-col justify-center'>
             <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
