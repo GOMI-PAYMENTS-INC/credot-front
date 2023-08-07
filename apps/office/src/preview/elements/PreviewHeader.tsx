@@ -49,7 +49,7 @@ export const PreviewHeader = () => {
       {isOpen && (
         <div className='hidden items-center justify-between bg-orange-400 text-start xs:flex '>
           <div className='z-10 flex h-[44px] w-[80px] items-center bg-orange-400 text-center'>
-            <p className='ml-5 text-M/Bold  text-white'>PC 환경</p>
+            <p className='ml-5 bg-orange-400 text-M/Bold text-white'>PC 환경</p>
           </div>
 
           <p
