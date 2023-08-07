@@ -45,15 +45,15 @@ input[type='number'] {
 }
 
 #moving-letter {
-  animation: marquee 10s linear infinite;
+  animation: marquee 4s linear infinite;
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(100%);
+  50% {
+    transform: translateX(80px) rotateY(10deg);
   }
-  to {
-    transform: translateX(-100%);
+  800% {
+    transform: translateX(90px) rotateY(10deg);
   }
 }
 
