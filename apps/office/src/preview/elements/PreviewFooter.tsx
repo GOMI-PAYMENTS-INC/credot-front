@@ -48,7 +48,7 @@ export const PreviewFooter = () => {
       <section className='mt-[120px] xs:hidden'>
         <div className='flex h-[340px] justify-center'>
           <div className='relative flex w-full justify-around overflow-hidden'>
-            <div className='absolute ml-[500px] mt-[50px] h-[1000px] w-[1000px] rounded-[1000px] bg-orange-500 opacity-20 blur-[132px]' />
+            <div className='absolute ml-[550px] mt-[200px] h-[600px] w-[600px] rounded-[600px] bg-orange-500 opacity-20 blur-[132px]' />
             <div className='flex h-full flex-col justify-center text-3XL/Medium'>
               <p>회원가입 시 원하는 키워드를</p>
               <p className='mt-1'>
