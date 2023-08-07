@@ -243,7 +243,7 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                 {status === false && (
                   <tr>
                     <td
-                      colSpan={10}
+                      colSpan={12}
                       className='border-[1px] border-orange-200 bg-orange-100'
                     >
                       <div className='bg-orange-100'>

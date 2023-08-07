@@ -25,7 +25,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 z-50  w-full bg-white  ${
+      className={`fixed top-0 left-0 z-50 w-full border-b-[1px] border-grey-400 bg-white  ${
         isOpenMenu ? 'h-full' : 'h-20'
       }`}
     >
