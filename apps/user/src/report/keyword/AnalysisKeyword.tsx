@@ -263,8 +263,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 className='flex flex-col  xs:border-b-[1px]'
               >
                 <div className='flex h-[96px] items-center justify-center'>
-                  <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100'>
-                    <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
+                  <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-full'>
+                    <div className='flex h-12 w-[236px] flex-col items-center justify-center text-center'>
                       <p className='text-XL/Bold text-grey-900'>{`1 : ${formatNumber(
                         conversionRate,
                       )}`}</p>
@@ -295,7 +295,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
               </div>
               <div id='keyword_analysis_second' className='flex flex-col'>
                 <div className='flex h-[96px] items-center justify-center'>
-                  <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100'>
+                  <div className='mx-6  flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-full'>
                     <div className='flex h-12 w-[236px]  flex-col items-center justify-center text-center'>
                       <p className='text-XL/Bold text-grey-900'>{`1 : ${analysisInfo.competitionRate}`}</p>
                       <div className='pt-1'>
@@ -325,7 +325,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
               </div>
               <div id='keyword_analysis_third' className='flex flex-col'>
                 <div className='flex h-[96px] items-center justify-center  border-b-[1px] border-dashed'>
-                  <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100'>
+                  <div className='mx-6  flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-full'>
                     <div className='flex h-12 w-[236px] flex-col items-center justify-center text-center'>
                       <p className='text-XL/Bold text-grey-900'>{cpcRate}%</p>
                       <div className='pt-1'>
