@@ -6,14 +6,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { TAB_DATA } from '@/home/HomeConstant';
 import { ReactSVG } from 'react-svg';
 import { Swiper as SwiperClass } from 'swiper/types';
+import { InduceButton } from '@/home/elements/InduceButton';
 
 import { onChangeTab, dragTab } from '@/home/container';
 
 interface IInsightFunctions {
   imagePath: string;
+  varidation: string;
 }
 
-export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
+export const InsightFunctions = ({ imagePath, varidation }: IInsightFunctions) => {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
   const [swiper, setSwiper] = useState<SwiperClass>();
 
@@ -73,7 +75,7 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
           </ul>
         </div>
         <div className='container'>
-          <div className='relative mx-auto max-w-[870px] pb-[98px] md:max-w-[720px] sm:pb-[115px]'>
+          <div className='relative mx-auto max-w-[870px] lg:max-w-[720px] sm:pb-[115px]'>
             <Swiper
               className='banner cursor-grab sm:max-w-[382px]'
               slidesPerView={1}
@@ -81,10 +83,10 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
               onSwiper={(swiper) => setSwiper(swiper)}
             >
               {TAB_DATA.map((tab, index) => (
-                <SwiperSlide key={index} className=''>
-                  <div className=''>
-                    <div className='mx-auto flex justify-between md:items-start sm:flex-wrap sm:justify-center'>
-                      <div className='mr-6 sm:mb-8 sm:text-center'>
+                <SwiperSlide key={index}>
+                  <div>
+                    <div className='mx-auto flex justify-between lg:items-start md:flex-wrap md:justify-center'>
+                      <div className='mr-6 lg:mr-0 md:text-center sm:mb-8'>
                         <div>
                           <div className='text-2XL/Bold text-orange-500 lg:text-XL/Bold md:text-L/Bold'>
                             Insight {tab.data.insightNum}
@@ -96,13 +98,18 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                               </div>
                             </div>
                           )}
-                          <div className='mt-4 text-4XL/Bold  text-grey-900 lg:text-3XL/Bold md:text-2XL/Bold sm:mt-2'>
+                          <div className='mt-4 text-4XL/Bold  text-grey-900 lg:text-3XL/Bold md:mt-2 md:text-2XL/Bold'>
                             {tab.name}
                           </div>
                         </div>
-                        <div className='mt-6 break-keep text-L/Medium text-grey-900 md:text-M/Medium sm:mt-4 sm:w-full'>
+                        <div className='mt-6 break-keep text-L/Medium text-grey-900 md:mt-4 md:w-[560px] md:text-XL/Medium sm:w-full'>
                           {tab.data.content}
                         </div>
+                        <InduceButton
+                          varidation={varidation}
+                          text='더욱 자세히 알고싶다면'
+                          className='md:item mt-[30px] justify-start lg:ml-[80px] lg:justify-center md:ml-0 md:mb-8 md:flex md:flex-col md:items-center'
+                        />
                       </div>
                       <div className='flex basis-full justify-center'>
                         <div className='w-[424px] md:w-[345px] sm:w-[280px]'>
@@ -114,29 +121,32 @@ export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <div className='absolute top-1/2 z-10 flex w-full translate-y-[-50%] justify-between'>
-              <ReactSVG
-                src={`/assets/icons/Tab.svg`}
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', 'w-[38px] h-[38px] cursor-pointer');
-                }}
-                onClick={() =>
-                  dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'PREV' })
-                }
-              />
-              <ReactSVG
-                src={`/assets/icons/Tab.svg`}
-                beforeInjection={(svg) => {
-                  svg.setAttribute(
-                    'class',
-                    'w-[38px] h-[38px] cursor-pointer rotate-180',
-                  );
-                }}
-                onClick={() =>
-                  dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'NEXT' })
-                }
-              />
-            </div>
+          </div>
+          <div className='relative bottom-[300px] z-10 flex w-full translate-y-[-50%] justify-between'>
+            <ReactSVG
+              src={`/assets/icons/Tab.svg`}
+              beforeInjection={(svg) => {
+                svg.setAttribute(
+                  'class',
+                  'xs:w-[38px] xs:h-[38px] w-[58px] h-[58px] cursor-pointer',
+                );
+              }}
+              onClick={() =>
+                dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'PREV' })
+              }
+            />
+            <ReactSVG
+              src={`/assets/icons/Tab.svg`}
+              beforeInjection={(svg) => {
+                svg.setAttribute(
+                  'class',
+                  'xs:w-[38px] xs:h-[38px] w-[58px] h-[58px] cursor-pointer rotate-180',
+                );
+              }}
+              onClick={() =>
+                dragTab({ activeTabIndex, changeActiveTab, swiper, type: 'NEXT' })
+              }
+            />
           </div>
         </div>
       </div>
