@@ -1,4 +1,6 @@
 import { openAppWithTag } from '@/utils/openBrowser';
+import { useNavigate } from 'react-router-dom';
+import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 import { GlobalEnv } from '@/api/config';
 import {
   CTA_LOCATION,
@@ -16,6 +18,7 @@ interface IInduceButton {
 
 export const InduceButton = ({ className, text, varidation }: IInduceButton) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   if (varidation === 'A') return <Fragment />;
   const EVENT_KEY = 'sample__click_search_api_latency';
   const { deviceId } = window.hackleClient.getUser();
@@ -44,15 +47,10 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
         <button
           id='movedToSolution'
           className='rounded-md border border-grey-400 bg-white p-3 text-M/Bold text-grey-800 shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'
-          onClick={(event) => {
+          onClick={() => {
             window.hackleClient.track(EVENT_KEY, { deviceId: _deviceId });
-            openAppWithTag({
-              url: GlobalEnv.serviceUrl,
-              path: pageCategoryConvertor(PATH.PREVIEW),
-              type: CTA_TYPE.BUTTON,
-              location: CTA_LOCATION.HEADER,
-              event: event,
-            });
+            _keywordReportPreviewed();
+            navigate(PATH.PREVIEW);
           }}
         >
           리포트 미리보기

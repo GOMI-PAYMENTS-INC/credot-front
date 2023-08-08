@@ -6,7 +6,6 @@ import { useScroll } from '@/common/useScroll';
 import { PreviewFooter, PreviewHeader } from '@/preview/elements';
 import { ReactSVG } from 'react-svg';
 import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
-
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 
 const Preview = () => {

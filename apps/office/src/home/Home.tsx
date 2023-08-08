@@ -22,12 +22,10 @@ const Intro = () => {
     _introPageIntroPageViewed(PAGE_CATEGORY.MAIN, window.location.href);
   }, []);
 
-  // const varidation = useVariation(5);
-
   const varidation = Math.floor(Math.random() * 1000) % 2 === 0 ? 'A' : 'B';
 
   return (
-    <HackleExperiment experimentKey={5}>
+    <HackleExperiment experimentKey={7}>
       <HackleVariation variation={'A'}>
         <main>
           <Header varidation={varidation} />
