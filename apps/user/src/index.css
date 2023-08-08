@@ -50,9 +50,9 @@ input[type='number'] {
 
 @keyframes marquee {
   50% {
-    transform: translateX(80px) rotateY(10deg);
+    transform: translateX(100px) rotateY(0deg);
   }
-  800% {
+  150% {
     transform: translateX(90px) rotateY(10deg);
   }
 }
