@@ -7,7 +7,7 @@ import {
 } from '@/amplitude/amplitude.enum';
 import { useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
-
+import { PATH } from '@/router/paths';
 interface IInduceButton {
   className?: string;
   text?: string;
@@ -48,7 +48,7 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
             window.hackleClient.track(EVENT_KEY, { deviceId: _deviceId });
             openAppWithTag({
               url: GlobalEnv.serviceUrl,
-              path: pageCategoryConvertor(pathname),
+              path: pageCategoryConvertor(PATH.PREVIEW),
               type: CTA_TYPE.BUTTON,
               location: CTA_LOCATION.HEADER,
               event: event,
