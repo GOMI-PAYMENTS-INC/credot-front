@@ -25,7 +25,7 @@ const Intro = () => {
   const varidation = Math.floor(Math.random() * 1000) % 2 === 0 ? 'A' : 'B';
 
   return (
-    <HackleExperiment experimentKey={7}>
+    <HackleExperiment experimentKey={5}>
       <HackleVariation variation={'A'}>
         <main>
           <Header varidation={varidation} />
