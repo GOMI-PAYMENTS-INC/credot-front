@@ -16,8 +16,11 @@ interface IInduceButton {
 
 export const InduceButton = ({ className, text, varidation }: IInduceButton) => {
   const { pathname } = useLocation();
-
   if (varidation === 'A') return <Fragment />;
+  const EVENT_KEY = 'sample__click_search_api_latency';
+  const { deviceId } = window.hackleClient.getUser();
+  const _deviceId = deviceId ? deviceId : 'Unuknown';
+
   return (
     <div className={className}>
       {text && <p className='text-grey-700'>{text}</p>}
@@ -42,6 +45,7 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
           id='movedToSolution'
           className='rounded-md border border-grey-400 bg-white p-3 text-M/Bold text-grey-800 shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'
           onClick={(event) => {
+            window.hackleClient.track(EVENT_KEY, { deviceId: _deviceId });
             openAppWithTag({
               url: GlobalEnv.serviceUrl,
               path: pageCategoryConvertor(pathname),

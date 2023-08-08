@@ -22,11 +22,25 @@ const Intro = () => {
     _introPageIntroPageViewed(PAGE_CATEGORY.MAIN, window.location.href);
   }, []);
 
-  const varidation = useVariation(5);
+  // const varidation = useVariation(5);
+
+  const varidation = Math.floor(Math.random() * 1000) % 2 === 0 ? 'A' : 'B';
 
   return (
     <HackleExperiment experimentKey={5}>
-      <HackleVariation variation={varidation}>
+      <HackleVariation variation={'A'}>
+        <main>
+          <Header varidation={varidation} />
+          <EcommerceMargin imagePath={IMG_PATH} />
+          <InsightFunctions varidation={varidation} imagePath={IMG_PATH} />
+          <Partner imagePath={IMG_PATH} />
+          <Efficient imagePath={IMG_PATH} />
+          <Promotion imagePath={IMG_PATH} />
+          <FAQ list={HOME_QNA} />
+        </main>
+      </HackleVariation>
+
+      <HackleVariation variation={'B'}>
         <main>
           <Header varidation={varidation} />
           <EcommerceMargin imagePath={IMG_PATH} />
