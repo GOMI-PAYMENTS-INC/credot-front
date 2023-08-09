@@ -24,7 +24,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
   return (
     <div
       id='keyword_card'
-      className='flex w-[205px] flex-col divide-y-[1px] divide-dotted rounded-lg bg-white shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'
+      className='flex w-[205px] flex-col divide-y-[1px] divide-dotted rounded-lg bg-white shadow-[0_2px_6px_0_rgba(0,0,0,0.08)] xs:w-[305px]'
     >
       <div
         id='keyword_condition'
@@ -40,7 +40,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
         {subRate ? (
           <>
             <div className='flex h-[96px] items-center justify-center'>
-              <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100'>
+              <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-[273px]'>
                 <div className='flex h-12 w-[236px] flex-col items-center justify-center text-center'>
                   <p className='text-XL/Bold text-grey-900'>{`1 : ${rate}`}</p>
                   <div className='pt-1'>
@@ -49,7 +49,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                 </div>
               </div>
             </div>
-            <div className='flex h-[72px] items-center border-t-[1px] border-dashed'>
+            <div className='flex h-[72px] items-center border-t-[1px] border-dashed xs:h-[96px]'>
               <div className='flex w-1/2 flex-col items-center'>
                 <div className='flex items-center '>
                   <span className='text-S/Regular text-grey-900'>{subRate}</span>
@@ -68,7 +68,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
           </>
         ) : (
           <div className='flex min-h-[170px] items-center justify-center'>
-            <div className='mx-6 my-3 flex h-full min-h-[146px] w-[148px] flex-col items-center justify-center rounded-[7px] bg-grey-100'>
+            <div className='mx-6 my-3 flex h-full min-h-[146px] w-[148px] flex-col items-center justify-center rounded-[7px] bg-grey-100 xs:w-[273px]'>
               <p className='text-XL/Bold text-grey-900'>{`${rate}`}</p>
               <div className='pt-1'>
                 <p className='text-XS/Medium text-grey-800 '>{rateText}</p>

@@ -61,7 +61,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
         <div className='keywordInfo-span-subtitle  border-b-[1px]'>
           <span>연관 키워드</span>
         </div>
-        <ul className='my-[18px] space-y-[18px]'>
+
+        <ul className='z-20 my-[18px] space-y-[18px]'>
           {recomendationItems.map((item, index) => {
             const conversionRate = item.totalSalesCount / item.searchCount;
             const rateGrade = item.evaluateStatus + getConversionRate(conversionRate);
@@ -97,11 +98,13 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                 onClick={(event) => {
                   const { offsetLeft, offsetWidth } =
                     getElementLocation('relative_linkout');
+
                   if (
                     event.clientX >= offsetLeft &&
                     event.clientX <= offsetLeft + offsetWidth
                   )
                     return;
+
                   _dispatch && isToggleOpen(_dispatch, false, item.id);
                 }}
               >
@@ -152,8 +155,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                 {status === false && (
                   <Fragment>
                     <main>
-                      <div className='flex items-center bg-grey-50 text-center xs:flex-col'>
-                        <div className='m-5 flex w-full justify-around gap-10'>
+                      <div className='flex items-center bg-grey-50 text-center'>
+                        <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
                           <KeywordAnalysisCard
                             title='검색량'
                             grade={search}
