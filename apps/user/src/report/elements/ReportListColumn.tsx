@@ -5,6 +5,7 @@ import { ReactSVG } from 'react-svg';
 import { useNavigate } from 'react-router-dom';
 import { onCheckReportList, reportListConverter } from '@/report/container';
 import { Dispatch, Fragment } from 'react';
+import { getElementLocation } from '@/utils/getElementLocation';
 
 type TReportListColumn = {
   _state: TReportListState;
@@ -32,8 +33,15 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                 }`}
                 key={`table_row_${idx}`}
                 onClick={(event) => {
+                  const { offsetLeft, offsetWidth } = getElementLocation(
+                    `check-label-${report.id}`,
+                  );
+                  const isCheckboxArea =
+                    event.clientX >= offsetLeft &&
+                    event.clientX <= offsetLeft + offsetWidth;
+
                   report.status === 'DONE' &&
-                    event.clientX > 532 &&
+                    isCheckboxArea === false &&
                     navigate(
                       `${PATH.REPORT_LIST}/${report.id}?limit=${_state.limit}&page=${_state.page}`,
                     );
@@ -59,6 +67,7 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
                       checked={isChecked}
                     />
                     <label
+                      id={`check-label-${report.id}`}
                       htmlFor={`Check-${report.id}`}
                       className='checkboxCustom-label relative z-50 bg-[length:20px_20px] bg-[left_50%_top_50%] px-[18px] text-transparent'
                     >
