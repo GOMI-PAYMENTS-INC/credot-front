@@ -1,6 +1,5 @@
 import { ReactSVG } from 'react-svg';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useMatch } from 'react-router-dom';
 
 import { openBrowser } from '@/utils/openBrowser';
 import { GNB_ROUTE } from '@/layouts/constants';

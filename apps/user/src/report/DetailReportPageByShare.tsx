@@ -6,7 +6,6 @@ import { isFalsy } from '@/utils/isFalsy';
 
 import {
   DetailReportBody,
-  DetailReportHeader,
   DetailReportSwitch,
   DetailReportRightQuickBar,
 } from '@/report/elements';
@@ -81,7 +80,6 @@ const DetailReportPageByShare = () => {
           LoadingSpinner
         ) : (
           <Fragment>
-            <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
             <DetailReportBody
               contentSection={contentSection}
               setScrollEvent={setScrollEvent}

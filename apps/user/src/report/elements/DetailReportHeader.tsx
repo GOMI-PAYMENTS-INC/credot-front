@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Params, useNavigate } from 'react-router-dom';
+import { useMemo, useState, Dispatch } from 'react';
+import { Params, useNavigate, useMatch } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl, convertTitle } from '@/utils/convertEnum';
@@ -8,17 +8,24 @@ import { TITLE } from '@/types/enum.code';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { getParameter } from '@/utils/getParameter';
+import { makeShareLink } from '@/report/container';
+import type { TReportAction } from '@/report/reducer';
 
 interface TDetailReport {
   params: Params<string>;
   main: (TGetMainReportDataType & TKeywordInfo & TMarketSize & TRecommendKeyword) | null;
   scrollEvent: scrollEventState;
+  _dispatch: Dispatch<TReportAction>;
+  reportIdOrShareToken: string;
 }
 
 export const DetailReportHeader = (props: TDetailReport) => {
-  const { params, main, scrollEvent } = props;
+  const { params, main, scrollEvent, _dispatch, reportIdOrShareToken } = props;
+  const { country, text, sorted } = main!;
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const navigation = useNavigate();
+
+  const isMatchSharePath = useMatch('/share/:id');
 
   const listUrlMake = () => {
     const limit = getParameter('limit');
@@ -42,7 +49,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
           style={headerHeightStyle}
           className='flex items-center xs:h-[64px] xs:justify-between xs:p-5'
         >
-          <div className='flex w-full items-center'>
+          <div className='flex w-full items-center justify-between'>
             <div className='flex items-center'>
               <button
                 className='h-5 w-5 cursor-pointer pl-[7px]'
@@ -66,27 +73,51 @@ export const DetailReportHeader = (props: TDetailReport) => {
               </div>
             </div>
 
-            <button
-              className='hidden h-5 w-5 cursor-pointer items-center pl-3 xs:flex xs:w-full xs:justify-end xs:self-center'
-              onClick={() => {
-                openBrowser(
-                  `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,
-                  main?.sorted,
-                );
-                _amplitudeMovedToSERP(params.id, main!.text, null);
-              }}
-            >
-              <ReactSVG
-                src='/assets/icons/outlined/Linkout.svg'
-                beforeInjection={(svg) =>
-                  svg.setAttribute(
-                    'class',
-                    'xs:w-[18px] xs:h-[18px] xs:fill-grey-700 fill-grey-900',
-                  )
-                }
-              />
-            </button>
-
+            <div className='flex'>
+              <button
+                className='hidden h-5 w-5 cursor-pointer items-center pl-3 xs:flex xs:w-full xs:justify-end xs:self-center'
+                onClick={() => {
+                  makeShareLink(
+                    isMatchSharePath,
+                    reportIdOrShareToken,
+                    country,
+                    sorted,
+                    text,
+                    _dispatch,
+                  );
+                }}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/ShareAlt.svg'
+                  beforeInjection={(svg) =>
+                    svg.setAttribute(
+                      'class',
+                      'xs:w-6 xs:h-6 xs:fill-grey-700 fill-grey-900',
+                    )
+                  }
+                />
+              </button>
+              <button
+                className='hidden h-5 w-5 cursor-pointer items-center pl-3 xs:flex xs:w-full xs:justify-end xs:self-center'
+                onClick={() => {
+                  openBrowser(
+                    `${convertShopeeSiteUrl(main!.country)}/search?keyword=${main!.text}`,
+                    main?.sorted,
+                  );
+                  _amplitudeMovedToSERP(params.id, main!.text, null);
+                }}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/Linkout.svg'
+                  beforeInjection={(svg) =>
+                    svg.setAttribute(
+                      'class',
+                      'xs:w-6 xs:h-6 xs:fill-grey-700 fill-grey-900',
+                    )
+                  }
+                />
+              </button>
+            </div>
             {scrollEvent.title !== TITLE.REPORT && (
               <button
                 className='flex h-5 w-5 cursor-pointer items-center pl-3 xs:hidden'
