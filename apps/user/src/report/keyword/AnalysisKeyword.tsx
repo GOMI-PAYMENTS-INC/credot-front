@@ -125,8 +125,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
-      <div className='pt-6 xs:hidden'>
-        <div className='bordered flex h-[92px] border-[1px]  border-grey-300 '>
+      <div className='pt-6'>
+        <div className='flex h-[92px] border-[1px] border-grey-300  xs:h-full '>
           <div className='flex pl-3 pr-3 pb-3 pt-3'>
             <ReactSVG
               className='pt-[5px] pl-px'

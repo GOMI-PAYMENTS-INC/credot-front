@@ -154,7 +154,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
           <ReactSVG
             onClick={() => setIsOpen(false)}
             src='/assets/icons/outlined/Close.svg'
-            className='z-10 bg-orange-400'
+            className='z-10 bg-orange-400 pr-4'
             beforeInjection={(svg) =>
               svg.setAttribute('class', 'fill-white w-7 h-7 ml-1 pr-[2px] cursor-pointer')
             }
