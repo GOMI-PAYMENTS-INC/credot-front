@@ -1,3 +1,6 @@
+import { formatNumber } from '@/utils/formatNumber';
+import { convertExchangeRate } from '@/report/container';
+import { roundNumber } from '@/report/container';
 export const getConversionRate = (rate: number) => {
   if (rate < 0.3) {
     return 'E';
@@ -13,4 +16,8 @@ export const getConversionRate = (rate: number) => {
   }
 
   return 'A';
+};
+
+export const convertToWon = (currencyUnit: number, price: number, basePrice: number) => {
+  return formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice)));
 };

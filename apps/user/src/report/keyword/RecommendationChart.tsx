@@ -113,7 +113,10 @@ export const RecommendationChart = (props: IRecommendationChart) => {
                 <tr className='mt-3 flex' />
                 <tr
                   className={`border-[1px] ${backgroundColor} cursor-pointer hover:bg-grey-200`}
-                  onClick={() => _dispatch && isToggleOpen(_dispatch, false, data.id)}
+                  onClick={(event) => {
+                    console.log(event.clientX, 'X');
+                    // _dispatch && isToggleOpen(_dispatch, false, data.id)
+                  }}
                 >
                   <td>
                     <div className='ml-3 flex'>
