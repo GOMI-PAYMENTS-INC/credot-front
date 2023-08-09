@@ -14,7 +14,7 @@ import {
   convertGrade,
   selectSalePriceCompetitionType,
 } from '@/report/container';
-import { TReportAction } from '@/report/reducer';
+import type { TReportAction } from '@/report/reducer';
 import { DetailReportSectionHeader } from '@/report/elements';
 
 interface ISalePrice {

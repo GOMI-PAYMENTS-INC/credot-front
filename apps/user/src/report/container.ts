@@ -1,3 +1,6 @@
+import { CountryType } from '@/generated/graphql';
+import { PATH } from '@/types/enum.code';
+import { copyToClipboard } from '@/utils/copyToClipboard';
 import {
   deleteReportList,
   getBrandAnalysis,
@@ -13,6 +16,7 @@ import {
   postReportShareToken,
 } from '@/report/api';
 import { Dispatch, RefObject, SetStateAction } from 'react';
+import type { PathMatch } from 'react-router-dom';
 
 import {
   REPORT_ACTION,
@@ -44,7 +48,12 @@ import {
 import { toast } from 'react-toastify';
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
-import { _amplitudeKeywordReportDeleted } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeKeywordReportDeleted,
+  _amplitudeKeywordReportShared,
+  _amplitudeMovedToSERP,
+  _amplitudeSharedKeywordReportShared,
+} from '@/amplitude/amplitude.service';
 
 export const _postReportShareToken = async (
   id: string,
@@ -778,4 +787,33 @@ export const convertedCategoryAnalysisData = (data: TCategoryAnalysis) => {
   chartData.labels.push('그외');
 
   return { chartData, frontData };
+};
+
+export const makeShareLink = async (
+  isMatchSharePath: PathMatch<'id'> | null,
+  reportIdOrShareToken: string,
+  country: CountryType,
+  sorted: TSortBy,
+  text: string,
+  _dispatch: Dispatch<TReportAction>,
+) => {
+  let url = '';
+  const domain = window.location.origin;
+  const href = window.location.href;
+  if (isMatchSharePath) {
+    url = `${href}`;
+
+    _amplitudeSharedKeywordReportShared(reportIdOrShareToken, country, sorted, text);
+  } else {
+    const shareToken = await _postReportShareToken(reportIdOrShareToken, _dispatch);
+
+    const utmLink =
+      'utm_source=gomiinsight&utm_medium=share&utm_campaign=keywordreport&utm_content=' +
+      reportIdOrShareToken;
+    url = `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
+
+    _amplitudeKeywordReportShared(reportIdOrShareToken, country, sorted, text);
+  }
+
+  copyToClipboard('주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.', url);
 };

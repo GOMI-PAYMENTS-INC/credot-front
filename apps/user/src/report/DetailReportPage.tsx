@@ -53,7 +53,7 @@ const DetailReportPage = () => {
     param: params.id ? params.id : '',
     keyword: main?.text ? main.text : '',
   };
-
+  const { param: reportIdOrShareToken } = amplitudeData;
   const ReportComponents = useMemo(() => {
     return isFalsy(main) || main!.itemCount < 9 ? (
       <Fragment />
@@ -123,7 +123,13 @@ const DetailReportPage = () => {
         />
       ) : (
         <Fragment>
-          <DetailReportHeader main={main} params={params} scrollEvent={scrollEvent} />
+          <DetailReportHeader
+            reportIdOrShareToken={reportIdOrShareToken}
+            _dispatch={_dispatch}
+            main={main}
+            params={params}
+            scrollEvent={scrollEvent}
+          />
           <DetailReportBody
             contentSection={contentSection}
             setScrollEvent={setScrollEvent}
