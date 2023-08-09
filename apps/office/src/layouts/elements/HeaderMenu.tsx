@@ -26,7 +26,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
   return (
     <div className='h-full w-full bg-white md:flex md:flex-col'>
       <div className='bg-white'>
-        <div className='flex items-center justify-between p-6 xs:px-5'>
+        <div className='flex items-center justify-between border-b-[1px] p-6 xs:px-5'>
           <ReactSVG
             src='/assets/favicon.svg'
             onClick={() => {
@@ -42,7 +42,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             src='/assets/icons/Close.svg'
             className='cursor-pointer'
             beforeInjection={(svg) => {
-              svg.setAttribute('class', 'h-8');
+              svg.setAttribute('class', 'h-8 fill-grey-900');
             }}
             onClick={() => setIsOpenMenu(false)}
           />
@@ -56,7 +56,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             return (
               <li
                 key={route.path}
-                className={`marker:${textColor.text} ${textColor.text} flex cursor-pointer py-5 px-6`}
+                className={`marker:${textColor.text} ${textColor.text} flex cursor-pointer border-b-[1px] py-5 px-6`}
                 onClick={() => {
                   setIsOpenMenu(false);
                   navigate(route.path);
@@ -74,10 +74,10 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             );
           })}
         </ul>
-        <div className='mt-[54px] flex w-full justify-center gap-5 xs:mt-[46px]'>
+        <div className='mt-[54px] flex w-full justify-center gap-5 xs:mt-[50px]'>
           <button
             id='movedToSolution'
-            className='w-[207px] rounded-md bg-orange-500 p-3 text-M/Bold text-white xs:w-fit xs:text-S/Bold'
+            className='h-12 rounded-md border border-grey-400 px-3 text-M/Bold text-grey-800'
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
@@ -89,12 +89,11 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
               setIsOpenMenu(false);
             }}
           >
-            무료 시작하기
+            <p className='w-[87px]'>로그인</p>
           </button>
-
           <button
             id='movedToSolution'
-            className='rounded-md border border-grey-400 p-3 text-M/Bold text-grey-800'
+            className='rounded-md bg-orange-500 px-3 text-M/Bold text-white'
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
@@ -106,7 +105,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
               setIsOpenMenu(false);
             }}
           >
-            로그인
+            <p className='w-[87px]'>무료 시작하기</p>
           </button>
         </div>
       </div>
