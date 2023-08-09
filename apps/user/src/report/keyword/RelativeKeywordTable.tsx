@@ -19,6 +19,7 @@ import { CountryType } from '@/generated/graphql';
 import { openBrowser } from '@/utils/openBrowser';
 import { getConversionRate } from '@/report/keyword/container';
 import { convertToWon } from '@/report/keyword/container';
+import { getElementLocation } from '@/utils/getElementLocation';
 
 interface IRecommendationChart {
   relations: TRelationReport[] | null;
@@ -60,7 +61,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
         <div className='keywordInfo-span-subtitle  border-b-[1px]'>
           <span>연관 키워드</span>
         </div>
-        <ul className='my-[18px] space-y-[18px]'>
+
+        <ul className='z-20 my-[18px] space-y-[18px]'>
           {recomendationItems.map((item, index) => {
             const conversionRate = item.totalSalesCount / item.searchCount;
             const rateGrade = item.evaluateStatus + getConversionRate(conversionRate);
@@ -94,7 +96,15 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
               <li
                 key={`relative_keyword_${index}`}
                 onClick={(event) => {
-                  if (event.clientX > 1369 && event.clientX < 1405) return;
+                  const { offsetLeft, offsetWidth } =
+                    getElementLocation('relative_linkout');
+
+                  if (
+                    event.clientX >= offsetLeft &&
+                    event.clientX <= offsetLeft + offsetWidth
+                  )
+                    return;
+
                   _dispatch && isToggleOpen(_dispatch, false, item.id);
                 }}
               >
@@ -106,7 +116,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
                     <div className='flex items-center'>
                       <button
-                        className='flex h-5 w-5 cursor-pointer items-center'
+                        id='relative_linkout'
+                        className='z-20 flex h-5 w-5 cursor-pointer items-center'
                         onClick={() => {
                           openBrowser(
                             `${convertShopeeSiteUrl(country!)}/search?keyword=${
@@ -144,12 +155,12 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                 {status === false && (
                   <Fragment>
                     <main>
-                      <div className='flex items-center bg-grey-50 text-center xs:flex-col'>
-                        <div className='m-5 flex w-full justify-around gap-10'>
+                      <div className='flex items-center bg-grey-50 text-center'>
+                        <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
                           <KeywordAnalysisCard
                             title='검색량'
                             grade={search}
-                            rate={searchCount}
+                            rate={_searchCount}
                             rateText='월 검색량'
                           />
                           {totalSalesCount && (
@@ -169,7 +180,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                             grade={competition}
                             rate={competitionRate}
                             rateText='노출 경쟁률'
-                            subRate={`${searchCount} 건`}
+                            subRate={`${_searchCount} 건`}
                             subRateText='검색량'
                             secondSubRate={`${_competitionProductCount} 건`}
                             secondSubRateText='경쟁상품 수'
@@ -188,7 +199,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                       </div>
                     </main>
                     <footer>
-                      <div className=' p-2.5'>
+                      <div className='p-2.5'>
                         <div className=' border-[1px] border-grey-300 bg-white'>
                           <div className='py-3 px-3'>
                             <h1 className='text-M/Bold text-grey-900'>요약</h1>
