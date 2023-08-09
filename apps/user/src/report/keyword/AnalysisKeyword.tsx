@@ -9,7 +9,7 @@ import { TITLE } from '@/types/enum.code';
 import { MRecommendationChart } from '@/report/keyword/MRecommendationChart';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { DetailReportSectionHeader } from '@/report/elements/DetailReportSectionHeader';
-import { RecommendationChart } from '@/report/keyword/RecommendationChart';
+
 import { TReportAction } from '@/report/reducer';
 import { getConversionRate } from '@/report/keyword/container';
 import { KeywordAnalysisCard } from '@/report/keyword/elements';

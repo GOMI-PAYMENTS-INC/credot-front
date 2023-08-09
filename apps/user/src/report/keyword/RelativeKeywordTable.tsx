@@ -19,6 +19,7 @@ import { CountryType } from '@/generated/graphql';
 import { openBrowser } from '@/utils/openBrowser';
 import { getConversionRate } from '@/report/keyword/container';
 import { convertToWon } from '@/report/keyword/container';
+import { getElementLocation } from '@/utils/getElementLocation';
 
 interface IRecommendationChart {
   relations: TRelationReport[] | null;
@@ -94,7 +95,13 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
               <li
                 key={`relative_keyword_${index}`}
                 onClick={(event) => {
-                  if (event.clientX > 1369 && event.clientX < 1405) return;
+                  const { offsetLeft, offsetWidth } =
+                    getElementLocation('relative_linkout');
+                  if (
+                    event.clientX >= offsetLeft &&
+                    event.clientX <= offsetLeft + offsetWidth
+                  )
+                    return;
                   _dispatch && isToggleOpen(_dispatch, false, item.id);
                 }}
               >
@@ -106,7 +113,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
                     <div className='flex items-center'>
                       <button
-                        className='flex h-5 w-5 cursor-pointer items-center'
+                        id='relative_linkout'
+                        className='z-20 flex h-5 w-5 cursor-pointer items-center'
                         onClick={() => {
                           openBrowser(
                             `${convertShopeeSiteUrl(country!)}/search?keyword=${
@@ -149,7 +157,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                           <KeywordAnalysisCard
                             title='검색량'
                             grade={search}
-                            rate={searchCount}
+                            rate={_searchCount}
                             rateText='월 검색량'
                           />
                           {totalSalesCount && (
@@ -169,7 +177,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                             grade={competition}
                             rate={competitionRate}
                             rateText='노출 경쟁률'
-                            subRate={`${searchCount} 건`}
+                            subRate={`${_searchCount} 건`}
                             subRateText='검색량'
                             secondSubRate={`${_competitionProductCount} 건`}
                             secondSubRateText='경쟁상품 수'
@@ -188,7 +196,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                       </div>
                     </main>
                     <footer>
-                      <div className=' p-2.5'>
+                      <div className='p-2.5'>
                         <div className=' border-[1px] border-grey-300 bg-white'>
                           <div className='py-3 px-3'>
                             <h1 className='text-M/Bold text-grey-900'>요약</h1>
