@@ -11,8 +11,8 @@ import { CategoryAnalysis } from '@/report/category/CategoryAnalysis';
 import { KeywordInfo } from '@/report/keyword/KeywordInfo';
 import { MarketSize } from '@/report/market/MarketSize';
 import { SalePrice } from '@/report/price/SalePrice';
+
 import { AnalysisKeyword } from '@/report/keyword/AnalysisKeyword';
-import { NewKeyword } from '@/report/keyword/NewKeyword';
 
 import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
 import { DetailReportHeader, DetailReportBody } from '@/report/elements';
@@ -66,7 +66,7 @@ const DetailReportPage = () => {
             amplitudeData={amplitudeData}
           />
           <MarketSize marketSize={main!} />
-          <NewKeyword
+          <AnalysisKeyword
             _dispatch={_dispatch}
             _state={_state}
             analysisInfo={main!}
