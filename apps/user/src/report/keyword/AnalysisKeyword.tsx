@@ -143,7 +143,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
         </div>
       </div>
 
-      {isUser ? (
+      {isUser && (
         <RelativeKeywordTable
           relations={relations}
           _dispatch={_dispatch}
@@ -153,16 +153,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           basePrice={analysisInfo!.basePrice}
           currencyUnit={analysisInfo!.currencyUnit}
           amplitudeData={amplitudeData}
-        />
-      ) : (
-        <RelativeKeywordTable
-          relations={null}
-          _dispatch={null}
-          toggleEvent={[{ id: 168, isOpen: true }]}
-          country={null}
-          basePrice={968.92}
-          sorted={analysisInfo!.sorted}
-          currencyUnit={1}
         />
       )}
     </section>
