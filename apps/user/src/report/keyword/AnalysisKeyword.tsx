@@ -9,7 +9,7 @@ import { TITLE } from '@/types/enum.code';
 import { MRecommendationChart } from '@/report/keyword/MRecommendationChart';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { DetailReportSectionHeader } from '@/report/elements/DetailReportSectionHeader';
-import { RecommendationChart } from '@/report/keyword/RecommendationChart';
+
 import { TReportAction } from '@/report/reducer';
 import { getConversionRate } from '@/report/keyword/container';
 import { KeywordAnalysisCard } from '@/report/keyword/elements';
@@ -82,8 +82,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             <div className='keywordInfo-span-subtitle border-b-[1px]'>
               <span>{analysisInfo.text}</span>
             </div>
-            <div className='flex items-center bg-grey-50 text-center xs:flex-col'>
-              <div className='m-5 flex w-full justify-around gap-10'>
+            <div className='flex items-center bg-grey-50 text-center'>
+              <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
                 <KeywordAnalysisCard
                   title='검색량'
                   grade={search}
@@ -142,42 +142,19 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
           </div>
         </div>
       </div>
-      <div className='xs:hidden'>
-        {isUser ? (
-          <RelativeKeywordTable
-            relations={relations}
-            _dispatch={_dispatch}
-            sorted={analysisInfo!.sorted}
-            toggleEvent={_state.toggleEvent}
-            country={analysisInfo!.country}
-            basePrice={analysisInfo!.basePrice}
-            currencyUnit={analysisInfo!.currencyUnit}
-            amplitudeData={amplitudeData}
-          />
-        ) : (
-          <RelativeKeywordTable
-            relations={null}
-            _dispatch={null}
-            toggleEvent={[{ id: 168, isOpen: true }]}
-            country={null}
-            basePrice={968.92}
-            sorted={analysisInfo!.sorted}
-            currencyUnit={1}
-          />
-        )}
-      </div>
-      <div className='hidden xs:block'>
-        <MRecommendationChart
+
+      {isUser && (
+        <RelativeKeywordTable
           relations={relations}
           _dispatch={_dispatch}
+          sorted={analysisInfo!.sorted}
           toggleEvent={_state.toggleEvent}
           country={analysisInfo!.country}
           basePrice={analysisInfo!.basePrice}
           currencyUnit={analysisInfo!.currencyUnit}
-          sorted={analysisInfo!.sorted}
           amplitudeData={amplitudeData}
         />
-      </div>
+      )}
     </section>
   );
 };
