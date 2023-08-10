@@ -199,7 +199,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                       </div>
                     </main>
                     <footer>
-                      <div className='p-2.5'>
+                      <div className='bg-grey-200 p-2.5'>
                         <div className=' border-[1px] border-grey-300 bg-white'>
                           <div className='py-3 px-3'>
                             <h1 className='text-M/Bold text-grey-900'>요약</h1>
