@@ -110,7 +110,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   secondSubRateText='경쟁상품 수'
                 />
                 <KeywordAnalysisCard
-                  title='CPC 비율'
+                  title='광고 경쟁'
                   grade={cpc}
                   rate={cpcRate}
                   rateText='CPC 비율'
