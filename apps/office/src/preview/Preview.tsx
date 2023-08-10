@@ -25,9 +25,7 @@ const Preview = ({ varidation }: IPreview) => {
   const { scrollY: windowScrollY } = useScroll();
 
   const EVENT_KEY =
-    varidation === 'A'
-      ? 'sample__click_search_api_latency'
-      : 'sample__membership_subscription';
+    varidation === 'A' ? 'sample__purchase_complete' : 'sample__membership_subscription';
   const { deviceId } = window.hackleClient.getUser();
   const _deviceId = deviceId ? deviceId : 'Unuknown';
 
