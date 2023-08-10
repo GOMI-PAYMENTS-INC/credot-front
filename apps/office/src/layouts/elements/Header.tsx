@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HeaderMenu } from '@/layouts/elements/HeaderMenu';
-import { PATH } from '@/router/paths';
+import { PATH } from '@/router';
 import {
   CTA_LOCATION,
   CTA_TYPE,
@@ -59,7 +59,7 @@ export const Header = () => {
                   >
                     <p
                       key={route.path}
-                      className={`w-[110px] cursor-pointer border-b-[2px] pt-[14px] pb-3 ${underLine}`}
+                      className={`w-[140px] cursor-pointer border-b-[2px] pt-[14px] pb-3 ${underLine}`}
                     >
                       {route.text}
                     </p>

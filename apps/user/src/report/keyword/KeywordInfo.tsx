@@ -11,13 +11,13 @@ import {
   _amplitudeMovedToSERP,
   _amplitudeSharedKeywordReportShared,
 } from '@/amplitude/amplitude.service';
-import { copyToClipboard } from '@/utils/copyToClipboard';
+
 import { useMatch } from 'react-router-dom';
-import { PATH } from '@/types/enum.code';
 import { openBrowser } from '@/utils/openBrowser';
 import { _postReportShareToken } from '@/report/container';
 import { TReportAction } from '@/report/reducer';
 import type { Dispatch } from 'react';
+import { makeShareLink } from '@/report/container';
 
 interface IKeywordInfoProps {
   _dispatch: Dispatch<TReportAction>;
@@ -26,36 +26,11 @@ interface IKeywordInfoProps {
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
+  const { _dispatch, keywordInfo, amplitudeData } = props;
   const { text, country, createdAt, basePrice, currencyUnit, sorted, itemCount } =
-    props.keywordInfo;
-  const { param: reportIdOrShareToken } = props.amplitudeData;
+    keywordInfo;
+  const { param: reportIdOrShareToken } = amplitudeData;
   const isMatchSharePath = useMatch('/share/:id');
-
-  const domain = window.location.origin;
-  const href = window.location.href;
-
-  const makeShareLink = async () => {
-    let url = '';
-    if (isMatchSharePath) {
-      url = `${href}`;
-
-      _amplitudeSharedKeywordReportShared(reportIdOrShareToken, country, sorted, text);
-    } else {
-      const shareToken = await _postReportShareToken(
-        reportIdOrShareToken,
-        props._dispatch,
-      );
-
-      const utmLink =
-        'utm_source=gomiinsight&utm_medium=share&utm_campaign=keywordreport&utm_content=' +
-        reportIdOrShareToken;
-      url = `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
-
-      _amplitudeKeywordReportShared(reportIdOrShareToken, country, sorted, text);
-    }
-
-    copyToClipboard('주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.', url);
-  };
 
   return (
     <section>
@@ -145,7 +120,16 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </button>
             <button
               className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'
-              onClick={() => makeShareLink()}
+              onClick={() =>
+                makeShareLink(
+                  isMatchSharePath,
+                  reportIdOrShareToken,
+                  country,
+                  sorted,
+                  text,
+                  _dispatch,
+                )
+              }
             >
               <span>공유하기</span>
               <ReactSVG src='/assets/icons/outlined/ShareAlt.svg' />

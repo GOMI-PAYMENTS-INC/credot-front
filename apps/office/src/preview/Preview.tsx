@@ -8,18 +8,29 @@ import { ReactSVG } from 'react-svg';
 import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 
-const Preview = () => {
+interface IPreview {
+  varidation: TVaridationType;
+}
+
+const Preview = ({ varidation }: IPreview) => {
   const scrollEventState: TScrollEvent = {
     scrollY: 0,
     isOpen: true,
     current: REPORT_CONTENT.MARKET,
   };
+
   const contentSection = useRef<HTMLDivElement>(null);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
   const { scrollY: windowScrollY } = useScroll();
 
+  const EVENT_KEY =
+    varidation === 'A' ? 'sample__purchase_complete' : 'sample__membership_subscription';
+  const { deviceId } = window.hackleClient.getUser();
+  const _deviceId = deviceId ? deviceId : 'Unuknown';
+
   useEffect(() => {
+    window.hackleClient.track(EVENT_KEY, { deviceId: _deviceId });
     _keywordReportPreviewed();
   }, []);
 

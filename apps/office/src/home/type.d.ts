@@ -8,3 +8,5 @@ type TFunctions = {
     img: string;
   };
 };
+
+type TVaridationType = 'A' | 'B';

@@ -9,7 +9,7 @@ import {
 } from '@/amplitude/amplitude.enum';
 import { useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
-import { PATH } from '@/router/paths';
+import { PATH } from '@/router';
 interface IInduceButton {
   className?: string;
   text?: string;
@@ -20,9 +20,6 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
   const { pathname } = useLocation();
   const navigate = useNavigate();
   if (varidation === 'A') return <Fragment />;
-  const EVENT_KEY = 'sample__click_search_api_latency';
-  const { deviceId } = window.hackleClient.getUser();
-  const _deviceId = deviceId ? deviceId : 'Unuknown';
 
   return (
     <div className={className}>
@@ -48,7 +45,6 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
           id='movedToSolution'
           className='rounded-md border border-grey-400 bg-white p-3 text-M/Bold text-grey-800 shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'
           onClick={() => {
-            window.hackleClient.track(EVENT_KEY, { deviceId: _deviceId });
             _keywordReportPreviewed();
             navigate(PATH.PREVIEW);
           }}
