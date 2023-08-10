@@ -8,7 +8,7 @@ export const MarketSizeTrendChart = ({ trendData }: IMarketSizeTrendChart) => {
   const { date, interest } = trendData;
 
   const option = {
-    grid: { top: 50, right: 8, bottom: 50, left: 50 },
+    grid: { top: 30, right: 8, bottom: 30, left: 50 },
     xAxis: {
       type: 'category',
       data: date,
