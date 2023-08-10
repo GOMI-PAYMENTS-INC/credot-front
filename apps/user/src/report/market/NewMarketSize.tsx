@@ -1,0 +1,197 @@
+import { Fragment, useMemo, useState } from 'react';
+import { ReactSVG } from 'react-svg';
+import { Tooltip } from 'react-tooltip';
+
+import { formatNumber } from '@/utils/formatNumber';
+import { convertedGoogleTrendData, convertExchangeRate } from '@/report/container';
+import { TITLE } from '@/types/enum.code';
+import { MarketSizeTrendChart } from '@/report/market/MarketSizeTrendChart';
+import { isFalsy } from '@/utils/isFalsy';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { convertCountry } from '@/utils/convertEnum';
+import { convertTime } from '@/utils/parsingTimezone';
+import { openBrowser } from '@/utils/openBrowser';
+import { DetailReportSectionHeader } from '@/report/elements';
+import { dateConvertor } from '@/report/market/container';
+interface IMarketSize {
+  marketSize: TMarketSize;
+}
+
+export const NewMarketSize = (props: IMarketSize) => {
+  const {
+    totalSalesAmount,
+    avgSalesAmount,
+    totalSalesCount,
+    avgSalesCount,
+    basePrice,
+    currencyUnit,
+    country,
+    createdAt,
+    trend,
+    itemCount,
+  } = props.marketSize;
+
+  const [totalAmount, avgAmount, totalCount, avgCount] = [
+    totalSalesAmount,
+    avgSalesAmount,
+    totalSalesCount,
+    avgSalesCount,
+  ]
+    .map((number, idx) => {
+      if (idx > 1) return number;
+      return convertExchangeRate(currencyUnit, number, basePrice);
+    })
+    .map((number) => formatNumber(number));
+  const [isSelected, setIsSelected] = useState<number>(2023);
+  const isDateAll = isSelected === 0;
+
+  const _trend = isDateAll
+    ? trend
+    : trend.filter((data) => data.trendDate.toString().includes(`${isSelected}`));
+  const {
+    interest,
+    date,
+    minMonth: [minMonth],
+    maxMonth: [maxMonth],
+  } = convertedGoogleTrendData(_trend, isSelected);
+
+  return (
+    <section>
+      <DetailReportSectionHeader id={TITLE.MARKET_SIZE} />
+
+      <div className='pt-6'>
+        {isFalsy(trend) === false && (
+          <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
+            <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px] bg-grey-100'>
+              <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
+                검색트렌드
+              </h1>
+            </div>
+            <header className='col-span-10 flex w-full py-5 px-[83px]'>
+              <div
+                id='google_trend_header'
+                className='flex w-full items-center justify-between'
+              >
+                <div className=''>
+                  <ul className='flex divide-x-[1px] border-[1px]'>
+                    {[0, 2021, 2022, 2023].map((year, index) => {
+                      const borderCss =
+                        isSelected === year
+                          ? 'border-orange-400 bg-orange-100 text-orange-400'
+                          : 'border-grey-300 text-grey-900';
+                      const text = year === 0 ? '전체' : year;
+                      return (
+                        <li
+                          key={`google_trend_${index}`}
+                          onClick={() => {
+                            setIsSelected(year);
+                          }}
+                        >
+                          <div
+                            className={`${borderCss} flex h-11 w-[86px] cursor-pointer items-center justify-center text-M/Medium`}
+                          >
+                            {text}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+                <div className='flex divide-x-[1px] divide-dotted border-[1px] border-grey-300 text-S/Medium text-grey-800 '>
+                  <div className='flex w-full min-w-[160px] flex-col py-3 pl-5'>
+                    <p>가장 많이 팔려요</p>
+                    <p className='pt-2 text-2XL/Bold text-orange-500'>
+                      {dateConvertor(maxMonth)}
+                    </p>
+                  </div>
+                  <div className='flex w-full min-w-[160px] flex-col py-3 pl-5'>
+                    <p>가장 적게 팔려요</p>
+                    <p className='pt-2 text-2XL/Bold text-grey-900'>
+                      {dateConvertor(minMonth)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </header>
+            <main className='col-span-10 h-[320px] w-full'>
+              <div className='h-full w-full'>
+                <MarketSizeTrendChart trendData={{ interest, date }} />
+              </div>
+            </main>
+          </div>
+        )}
+
+        <div className='border-grey-30 flex w-full border-t-[2px] border-b-[1px] xs:flex-col'>
+          <div className='w-1/2 xs:w-full xs:border-b-[1px]'>
+            <div className='h-10 w-full bg-grey-100 pl-5 text-left xs:border-b-[1px]'>
+              <h1 className='pt-2.5 text-S/Medium text-grey-900 xs:text-S/Regular'>
+                매출
+              </h1>
+            </div>
+            <div className='my-7 flex xs:text-center'>
+              <div className='ml-5 w-1/2 xs:ml-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>매출 합계</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Bold text-grey-900 xs:text-L/Bold'>
+                    {totalAmount}
+                  </span>
+                  <span className='text-L/Medium text-grey-800'>원</span>
+                </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  매출 합계
+                </p>
+              </div>
+
+              <div className='w-1/2 border-l-[1px] border-dashed pl-5 xs:pl-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>평균 매출</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
+                    {avgAmount}
+                  </span>
+                  <span className='text-L/Medium text-grey-800'>원</span>
+                </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  평균 매출
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className='w-1/2 border-l-[1px] xs:mt-[30px] xs:w-full xs:border-l-0 xs:border-t-[2px]'>
+            <div className='h-10 w-full bg-grey-100 text-left  xs:border-b-[1px]'>
+              <h1 className='pt-2.5 pl-5 text-S/Medium text-grey-900 xs:text-S/Regular'>
+                판매량
+              </h1>
+            </div>
+            <div className='my-7 flex xs:text-center'>
+              <div className='ml-5 w-1/2 xs:ml-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>판매량 합계</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
+                    {totalCount}
+                  </span>
+                  <span className='text-L/Medium text-grey-800'>개</span>
+                </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  판매량 합계
+                </p>
+              </div>
+              <div className='w-1/2 border-l-[1px] border-dashed pl-5 xs:pl-0'>
+                <p className='text-S/Medium text-grey-800 xs:hidden'>평균 판매량</p>
+                <div className='mt-2 flex items-center xs:justify-center'>
+                  <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
+                    {avgCount}
+                  </span>
+                  <span className='text-L/Medium text-grey-800'>개</span>
+                </div>
+                <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>
+                  평균 판매량
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};

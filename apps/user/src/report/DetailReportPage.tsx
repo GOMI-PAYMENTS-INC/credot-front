@@ -13,6 +13,7 @@ import { MarketSize } from '@/report/market/MarketSize';
 import { SalePrice } from '@/report/price/SalePrice';
 
 import { AnalysisKeyword } from '@/report/keyword/AnalysisKeyword';
+import { NewMarketSize } from '@/report/market/NewMarketSize';
 
 import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
 import { DetailReportHeader, DetailReportBody } from '@/report/elements';
@@ -65,7 +66,7 @@ const DetailReportPage = () => {
             keywordInfo={main!}
             amplitudeData={amplitudeData}
           />
-          <MarketSize marketSize={main!} />
+          <NewMarketSize marketSize={main!} />
           <AnalysisKeyword
             _dispatch={_dispatch}
             _state={_state}

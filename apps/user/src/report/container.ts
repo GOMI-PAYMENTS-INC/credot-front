@@ -692,9 +692,10 @@ export const setChartLabels = (
   }, init);
 };
 
-export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
+export const convertedGoogleTrendData = (trend: TGoogleTrendDataType, key?: number) => {
   const minTurnoverMonth: string[] = [],
     maxTurnoverMonth: string[] = [];
+  const DATE_KEY = key === 0 ? 'YY.MM' : 'MM';
 
   if (trend.length === 0) {
     return { interest: [], date: [], minMonth: ['-'], maxMonth: ['-'] };
@@ -711,10 +712,10 @@ export const convertedGoogleTrendData = (trend: TGoogleTrendDataType) => {
 
   const date = trend.map((data) => {
     if (data.interest === min) {
-      minTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
+      minTurnoverMonth.push(convertTime(data.trendDate, DATE_KEY));
     }
     if (data.interest === max) {
-      maxTurnoverMonth.push(convertTime(data.trendDate, 'MM'));
+      maxTurnoverMonth.push(convertTime(data.trendDate, DATE_KEY));
     }
     return convertTime(data.trendDate, 'YY.MM');
   });
