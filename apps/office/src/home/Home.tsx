@@ -1,6 +1,5 @@
 import 'swiper/swiper.min.css';
 import { FAQ } from '@/common';
-import { HackleExperiment, useVariation, HackleVariation } from '@hackler/react-sdk';
 
 import {
   Header,
@@ -27,31 +26,15 @@ const Intro = ({ varidation }: IIntro) => {
   }, []);
 
   return (
-    <HackleExperiment experimentKey={8}>
-      <HackleVariation variation={'A'}>
-        <main>
-          <Header varidation={varidation} />
-          <EcommerceMargin imagePath={IMG_PATH} />
-          <InsightFunctions varidation={varidation} imagePath={IMG_PATH} />
-          <Partner imagePath={IMG_PATH} />
-          <Efficient imagePath={IMG_PATH} />
-          <Promotion imagePath={IMG_PATH} />
-          <FAQ list={HOME_QNA} />
-        </main>
-      </HackleVariation>
-
-      <HackleVariation variation={'B'}>
-        <main>
-          <Header varidation={varidation} />
-          <EcommerceMargin imagePath={IMG_PATH} />
-          <InsightFunctions varidation={varidation} imagePath={IMG_PATH} />
-          <Partner imagePath={IMG_PATH} />
-          <Efficient imagePath={IMG_PATH} />
-          <Promotion imagePath={IMG_PATH} />
-          <FAQ list={HOME_QNA} />
-        </main>
-      </HackleVariation>
-    </HackleExperiment>
+    <main>
+      <Header varidation={varidation} />
+      <EcommerceMargin imagePath={IMG_PATH} />
+      <InsightFunctions varidation={varidation} imagePath={IMG_PATH} />
+      <Partner imagePath={IMG_PATH} />
+      <Efficient imagePath={IMG_PATH} />
+      <Promotion imagePath={IMG_PATH} />
+      <FAQ list={HOME_QNA} />
+    </main>
   );
 };
 export default Intro;

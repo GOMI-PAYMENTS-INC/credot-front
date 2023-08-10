@@ -1,6 +1,6 @@
-import { useEffect, ReactElement } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
+import { HackleExperiment, HackleVariation } from '@hackler/react-sdk';
 import Layout from '@/layouts/Layout';
 import Intro from '@/home/Home';
 import Price from '@/price/Price';
@@ -47,12 +47,25 @@ export const Router = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return (
-    <Layout>
-      <Routes>
-        {routeList.map((route, index) => (
-          <Route key={index} path={route.path} element={route.component} />
-        ))}
-      </Routes>
-    </Layout>
+    <HackleExperiment experimentKey={8}>
+      <HackleVariation variation={'A'}>
+        <Layout>
+          <Routes>
+            {routeList.map((route, index) => (
+              <Route key={index} path={route.path} element={route.component} />
+            ))}
+          </Routes>
+        </Layout>
+      </HackleVariation>
+      <HackleVariation variation={'B'}>
+        <Layout>
+          <Routes>
+            {routeList.map((route, index) => (
+              <Route key={index} path={route.path} element={route.component} />
+            ))}
+          </Routes>
+        </Layout>
+      </HackleVariation>
+    </HackleExperiment>
   );
 };
