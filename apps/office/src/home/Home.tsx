@@ -15,17 +15,19 @@ import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 import { HOME_QNA } from '@/common/constants';
 import { useEffect } from 'react';
 
-const Intro = () => {
+interface IIntro {
+  varidation: TVaridationType;
+}
+
+const Intro = ({ varidation }: IIntro) => {
   const IMG_PATH = '/assets/images';
 
   useEffect(() => {
     _introPageIntroPageViewed(PAGE_CATEGORY.MAIN, window.location.href);
   }, []);
 
-  const varidation = Math.floor(Math.random() * 1000) % 2 === 0 ? 'A' : 'B';
-
   return (
-    <HackleExperiment experimentKey={7}>
+    <HackleExperiment experimentKey={8}>
       <HackleVariation variation={'A'}>
         <main>
           <Header varidation={varidation} />
