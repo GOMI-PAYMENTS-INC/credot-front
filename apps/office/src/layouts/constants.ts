@@ -1,4 +1,8 @@
-import { PATH } from '@/router/paths';
+const PATH = {
+  HOME: '/',
+  PRICE: '/price',
+  PREVIEW: '/preview',
+};
 
 export const GNB_ROUTE = [
   { text: '리포트 미리보기', path: PATH.PREVIEW, icon: 'Preview' },

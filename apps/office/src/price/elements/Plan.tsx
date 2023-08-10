@@ -3,7 +3,7 @@ import { GRADE, PLANS } from '@/price/constans';
 import { openAppWithTag } from '@/utils/openBrowser';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
-import { PATH } from '@/router/paths';
+import { PATH } from '@/router';
 
 export const Plan = () => {
   const [activeToggle, setActiveToggle] = useState<'MONTH' | 'YEAR'>('YEAR');
