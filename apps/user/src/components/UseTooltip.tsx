@@ -4,6 +4,21 @@ import { Tooltip } from 'react-tooltip';
 interface IUseTooltip {
   content: ReactNode;
 }
+
+interface IContentPack {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}
+export const ContentPack = ({ title, children, className }: IContentPack) => {
+  return (
+    <>
+      <p className={`text-M/Bold text-orange-500 ${className}`}>{title}</p>
+      <div className='text-M/Medium text-white'>{children}</div>
+    </>
+  );
+};
+
 const UseTooltip = ({ content }: IUseTooltip) => {
   const randomKey = Math.random() * 100;
   return (
@@ -22,7 +37,7 @@ const UseTooltip = ({ content }: IUseTooltip) => {
         render={() => {
           return (
             <div className='rounded-lg bg-grey-800 p-[15px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.15)]'>
-              <div className='flex flex-col justify-start'>{content}</div>
+              <div className='flex flex-col justify-start text-start'>{content}</div>
             </div>
           );
         }}

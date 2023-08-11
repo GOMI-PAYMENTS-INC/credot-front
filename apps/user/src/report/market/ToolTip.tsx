@@ -1,25 +1,12 @@
 import { CountryType } from '@/generated/graphql';
-import { ReactNode } from 'react';
 import { convertCountry } from '@/utils/convertEnum';
+import { ContentPack } from '@/components/UseTooltip';
 
 interface ISearchTrend {
   country: CountryType;
   text: string;
 }
 
-interface IContentPack {
-  title: string;
-  children: ReactNode;
-  className?: string;
-}
-const ContentPack = ({ title, children, className }: IContentPack) => {
-  return (
-    <>
-      <p className={`text-M/Bold text-orange-500 ${className}`}>{title}</p>
-      <p className='text-M/Medium text-white'>{children}</p>
-    </>
-  );
-};
 export const SearchTrend = ({ country, text }: ISearchTrend) => {
   const listCss = 'ml-8';
   const _country = convertCountry(country);
@@ -32,7 +19,7 @@ export const SearchTrend = ({ country, text }: ISearchTrend) => {
 
       <ContentPack
         title='활용Tip'
-        className='pt-8'
+        className='pt-5'
         children={
           <ul className='list-disc text-M/Medium text-white'>
             <li className={listCss}>
@@ -62,7 +49,7 @@ export const TotalSales = ({ itemCount }: ITotalSales) => {
       />
 
       <ContentPack
-        className='pt-8'
+        className='pt-5'
         title='활용Tip'
         children={'키워드의 월 시장규모를 파악할 수 있어요.'}
       />
@@ -82,7 +69,7 @@ export const TotalSalesAvg = ({ itemCount }: ITotalSalesAvg) => {
       />
 
       <ContentPack
-        className='pt-8'
+        className='pt-5'
         title='활용Tip'
         children={
           '키워드 검색결과 첫 페이지에 상품이 노출되었을 시 월 매출을 예상해볼 수 있어요.'
@@ -105,7 +92,7 @@ export const TotalAmount = ({ text, itemCount }: ITotalAmount) => {
       />
 
       <ContentPack
-        className='pt-8'
+        className='pt-5'
         title='활용Tip'
         children={`월간 ${text} 키워드를 통해 얼마나 많은 구매가 발생하는지 알 수 있어요.`}
       />
@@ -126,7 +113,7 @@ export const TotalAmountAvg = ({ text, itemCount }: ITotalAmountAvg) => {
       />
 
       <ContentPack
-        className='pt-8'
+        className='pt-5'
         title='활용Tip'
         children={`키워드 검색결과 첫 페이지에 상품이 노출되었을 시 월 판매량을 예상해볼 수 있어요.`}
       />
