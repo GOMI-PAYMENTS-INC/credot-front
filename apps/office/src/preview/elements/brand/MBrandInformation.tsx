@@ -1,11 +1,8 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
-import { BrandAnalysisProductTable } from '@/preview/elements/brand/BrandAnalysisTable';
 
 import { formatNumber, convertExchangeRate, roundNumber } from '@/preview/container';
 import { BRAND_DATA } from '@/preview/elements/brand/constant';
-import { DetailReportSectionHeader } from '@/preview/elements';
-import { REPORT_CONTENT } from '@/preview/constants/reportData';
 
 interface IMBrandInformation {
   focusItem: number;

@@ -93,11 +93,7 @@ export const MarketSize = (props: IMarketSize) => {
 
   return (
     <section>
-      <DetailReportSectionHeader
-        id={TITLE.MARKET_SIZE}
-        isTooltip={true}
-        tooltipInfo={headerTooltipInfo}
-      />
+      <DetailReportSectionHeader id={TITLE.MARKET_SIZE} />
 
       <div className='pt-6'>
         {isFalsy(trend) === false && (
