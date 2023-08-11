@@ -54,12 +54,12 @@ export const NewMarketSize = (props: IMarketSize) => {
   const _trend = isDateAll
     ? trend
     : trend.filter((data) => data.trendDate.toString().includes(`${isSelected}`));
-  const {
-    interest,
-    date,
-    minMonth: [minMonth],
-    maxMonth: [maxMonth],
-  } = convertedGoogleTrendData(_trend, isSelected);
+  const { interest, date, minMonth, maxMonth } = convertedGoogleTrendData(
+    _trend,
+    isSelected,
+  );
+  const [_minMonth, minCount] = minMonth;
+  const [_maxMonth, maxCount] = maxMonth;
 
   return (
     <section>
@@ -73,12 +73,12 @@ export const NewMarketSize = (props: IMarketSize) => {
                 검색량 추이
               </h1>
             </div>
-            <header className='col-span-10 flex w-full py-5 px-[83px]'>
+            <header className='col-span-10 flex w-full py-5'>
               <div
                 id='google_trend_header'
                 className='xs:justify-cetner flex w-full items-center justify-between xs:flex-col'
               >
-                <div className=''>
+                <div className='pl-[48px] xs:pl-0 '>
                   <ul className='flex divide-x-[1px] border-[1px]'>
                     {[0, 2021, 2022, 2023].map((year, index) => {
                       const borderCss =
@@ -110,17 +110,23 @@ export const NewMarketSize = (props: IMarketSize) => {
                     })}
                   </ul>
                 </div>
-                <div className='flex divide-x-[1px] divide-dotted border-[1px] border-grey-300 text-S/Medium text-grey-800 xs:mt-5'>
-                  <div className='xs: flex w-full min-w-[160px] flex-col py-3 pl-5'>
-                    <p>가장 많이 팔려요</p>
-                    <p className='pt-2 text-2XL/Bold text-orange-500'>
-                      {dateConvertor(maxMonth)}
+                <div className='mr-2.5 flex divide-x-[1px] divide-dotted border-[1px] border-grey-300 text-S/Medium text-grey-800 xs:mt-5 xs:mr-0 '>
+                  <div className='flex w-full min-w-[180px] flex-col py-3 pl-5 xs:min-w-[160px]'>
+                    <p>가장 많이 팔렸어요</p>
+                    <p className='pt-2 text-2XL/Bold text-orange-500 xs:text-XL/Bold'>
+                      {dateConvertor(_maxMonth as string)}
+                      {maxCount > 0 && (
+                        <span className='text-XL/Medium text-grey-800 xs:text-L/Medium'>{` + ${maxCount}`}</span>
+                      )}
                     </p>
                   </div>
-                  <div className='flex w-full min-w-[160px] flex-col py-3 pl-5'>
-                    <p>가장 적게 팔려요</p>
-                    <p className='pt-2 text-2XL/Bold text-grey-900'>
-                      {dateConvertor(minMonth)}
+                  <div className='flex w-full min-w-[180px] flex-col py-3 pl-5 xs:min-w-[160px]'>
+                    <p>가장 적게 팔렸어요</p>
+                    <p className='pt-2 text-2XL/Bold text-grey-900 xs:text-XL/Bold'>
+                      {dateConvertor(_minMonth as string)}
+                      {minCount > 0 && (
+                        <span className='text-XL/Medium text-grey-800 xs:text-L/Medium'>{` + ${minCount}`}</span>
+                      )}
                     </p>
                   </div>
                 </div>

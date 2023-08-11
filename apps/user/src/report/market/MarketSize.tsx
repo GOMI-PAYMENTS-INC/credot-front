@@ -101,91 +101,97 @@ export const MarketSize = (props: IMarketSize) => {
 
       <div className='pt-6'>
         {isFalsy(trend) === false && (
-          <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
-            <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px] bg-grey-100'>
-              <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
-                검색트렌드
-                <span className='pl-[4px] text-XS/Medium text-grey-700'>
-                  {lastYearToCreated}_google {convertCountry(country)}
-                </span>
-              </h1>
-              <div className='tooltip-container'>
-                <a data-tooltip-id='anchor-market-google-trend'>
-                  <ReactSVG
-                    src='/assets/icons/outlined/QuestionCircle.svg'
-                    className='inline-block self-center pl-[7px]'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
-                    }}
-                  />
-                </a>
-                <Tooltip
-                  id='anchor-market-google-trend'
-                  place='right'
-                  variant='light'
-                  clickable={true}
-                  render={() => googleTrendTooltipContent}
-                ></Tooltip>
-              </div>
-            </div>
-
-            <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium text-grey-800  xs:hidden'>
-              <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
-                <p>가장 많이 팔려요</p>
-                {maxMonth.map((month, key) => (
-                  <p
-                    key={`max_turn_over_${key}`}
-                    className='pt-2 text-2XL/Bold text-[#FF5100]'
-                  >
-                    {`${month}월`}
-                  </p>
-                ))}
+          <Fragment>
+            <div className='grid grid-cols-10 border-t-[1px] border-b-[1px] border-grey-300'>
+              <div className='border-grey-30 relative col-span-10 flex w-full items-center border-t-[1px] border-b-[1px] bg-grey-100'>
+                <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
+                  검색트렌드
+                  <span className='pl-[4px] text-XS/Medium text-grey-700'>
+                    {lastYearToCreated}_google {convertCountry(country)}
+                  </span>
+                </h1>
+                <div className='tooltip-container'>
+                  <a data-tooltip-id='anchor-market-google-trend'>
+                    <ReactSVG
+                      src='/assets/icons/outlined/QuestionCircle.svg'
+                      className='inline-block self-center pl-[7px]'
+                      beforeInjection={(svg) => {
+                        svg.setAttribute('class', 'fill-grey-500 w-[14px] h-[14px]');
+                      }}
+                    />
+                  </a>
+                  <Tooltip
+                    id='anchor-market-google-trend'
+                    place='right'
+                    variant='light'
+                    clickable={true}
+                    render={() => googleTrendTooltipContent}
+                  ></Tooltip>
+                </div>
               </div>
 
-              <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
-                <p>가장 적게 팔려요</p>
-                <ul className='flex flex-wrap'>
-                  {minMonth.map((month, key) => (
-                    <li
-                      key={`min_turn_over_${key}`}
-                      className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'
+              <div className='col-span-2 flex min-h-[320px] flex-col justify-center pl-5 text-S/Medium text-grey-800  xs:hidden'>
+                <div className='mt-5 flex min-h-[140px] flex-col justify-center border-r-[1px] border-dashed pb-3'>
+                  <p>가장 많이 팔려요</p>
+                  {maxMonth.map((month, key) => (
+                    <p
+                      key={`max_turn_over_${key}`}
+                      className='pt-2 text-2XL/Bold text-[#FF5100]'
                     >
                       {`${month}월`}
-                    </li>
+                    </p>
                   ))}
-                </ul>
-              </div>
-            </div>
-            <div className='col-span-8 flex h-[320px] w-full flex-col items-center text-S/Medium text-grey-800 xs:col-span-12'>
-              <div className='h-full w-full max-w-[710px] py-5'>
-                <MarketSizeTrendChart trendData={{ interest, date }} />
-              </div>
-            </div>
-          </div>
-        )}
-        <div className='col-span-12 hidden min-h-[50px] justify-around px-5 py-[14px] pl-5 text-center text-L/Bold xs:flex'>
-          <div className=' flex w-1/2 flex-col justify-center'>
-            <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
-              {maxMonth.map((month, key) => (
-                <p key={`max_turn_over_${key}`} className='text-L/Bold text-[#FF5100]'>
-                  {`${month}월`}
-                </p>
-              ))}
-            </div>
-            <p className='text-S/Regular text-grey-800'>가장 많이 팔려요</p>
-          </div>
+                </div>
 
-          <div className='flex w-1/2 flex-col justify-center'>
-            <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
-              {minMonth.map((month, key) => (
-                <p key={`min_turn_over_${key}`} className='text-L/Bold text-grey-900'>
-                  {`${month}월`}
-                </p>
-              ))}
+                <div className='mb-5 flex min-h-[140px] flex-col justify-center border-t-[1px] border-r-[1px] border-dashed pt-5 '>
+                  <p>가장 적게 팔려요</p>
+                  <ul className='flex flex-wrap'>
+                    {minMonth.map((month, key) => (
+                      <li
+                        key={`min_turn_over_${key}`}
+                        className='basis-1/2 pt-2 text-2XL/Bold text-grey-900'
+                      >
+                        {`${month}월`}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className='col-span-8 flex h-[320px] w-full flex-col items-center text-S/Medium text-grey-800 xs:col-span-12'>
+                <div className='h-full w-full max-w-[710px] py-5'>
+                  <MarketSizeTrendChart trendData={{ interest, date }} />
+                </div>
+              </div>
             </div>
-            <p className='text-S/Regular text-grey-800'>가장 적게 팔려요</p>
-          </div>
-        </div>
+            <div className='col-span-12 hidden min-h-[50px] justify-around px-5 py-[14px] pl-5 text-center text-L/Bold xs:flex'>
+              <div className=' flex w-1/2 flex-col justify-center'>
+                <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
+                  {maxMonth.map((month, key) => (
+                    <p
+                      key={`max_turn_over_${key}`}
+                      className='text-L/Bold text-[#FF5100]'
+                    >
+                      {`${month}월`}
+                    </p>
+                  ))}
+                </div>
+                <p className='text-S/Regular text-grey-800'>가장 많이 팔려요</p>
+              </div>
+
+              <div className='flex w-1/2 flex-col justify-center'>
+                <div className='flex w-[144px] flex-wrap justify-center gap-x-1 self-center'>
+                  {minMonth.map((month, key) => (
+                    <p key={`min_turn_over_${key}`} className='text-L/Bold text-grey-900'>
+                      {`${month}월`}
+                    </p>
+                  ))}
+                </div>
+                <p className='text-S/Regular text-grey-800'>가장 적게 팔려요</p>
+              </div>
+            </div>
+          </Fragment>
+        )}
+
         <div className='border-grey-30 flex w-full border-t-[2px] border-b-[1px] xs:flex-col'>
           <div className='w-1/2 xs:w-full xs:border-b-[1px]'>
             <div className='h-10 w-full bg-grey-100 pl-5 text-left xs:border-b-[1px]'>

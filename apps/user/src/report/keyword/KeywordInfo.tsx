@@ -119,7 +119,7 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               />
             </button>
             <button
-              className='button-filled-normal-medium-grey-false-true-true flex  gap-1 bg-orange-400 px-4 py-2.5 text-white'
+              className='button-filled-normal-medium-grey-false-true-true flex  items-center gap-1 bg-orange-400 px-4 py-2.5 text-white'
               onClick={() =>
                 makeShareLink(
                   isMatchSharePath,
@@ -132,7 +132,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
               }
             >
               <span>공유하기</span>
-              <ReactSVG src='/assets/icons/outlined/ShareAlt.svg' />
+              <ReactSVG
+                src='/assets/icons/outlined/ShareAlt.svg'
+                beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-50')}
+              />
             </button>
           </div>
         </div>

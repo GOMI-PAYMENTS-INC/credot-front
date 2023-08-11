@@ -718,8 +718,13 @@ export const convertedGoogleTrendData = (trend: TGoogleTrendDataType, key?: numb
     }
     return convertTime(data.trendDate, 'YY.MM');
   });
-  const minMonth = [minTurnoverMonth[minTurnoverMonth.length - 1]];
-  const maxMonth = [maxTurnoverMonth[maxTurnoverMonth.length - 1]];
+  const [lastMinIndex, lastMaxIndex] = [
+    minTurnoverMonth.length - 1,
+    maxTurnoverMonth.length - 1,
+  ];
+  const minMonth = [minTurnoverMonth[lastMinIndex], lastMinIndex];
+  const maxMonth = [maxTurnoverMonth[lastMaxIndex], lastMaxIndex];
+
   return { interest, date, minMonth, maxMonth };
 };
 
