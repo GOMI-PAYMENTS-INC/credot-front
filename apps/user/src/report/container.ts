@@ -192,7 +192,6 @@ export const isToggleOpen = (
   }
 };
 
-// #### 리포트 목록 시작 ####
 export const _getReportList = async ({ _state, _dispatch }: TGetReportList) => {
   try {
     //isLoading 준비중
