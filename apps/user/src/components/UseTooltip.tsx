@@ -7,7 +7,7 @@ interface IUseTooltip {
 const UseTooltip = ({ content }: IUseTooltip) => {
   const randomKey = Math.random() * 100;
   return (
-    <div className='tooltip-container ml-4 xs:hidden'>
+    <div className='tooltip-container ml-1 xs:hidden'>
       <a data-tooltip-id={`anchor-keyword-search-volum_${randomKey}`}>
         <ReactSVG
           src='/assets/icons/outlined/QuestionCircle.svg'
