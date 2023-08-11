@@ -144,10 +144,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
             <p className='ml-5 bg-orange-400 text-M/Bold text-white'>PC 환경</p>
           </div>
 
-          <p
-            id='moving-letter'
-            className='absolute w-[400px] pl-1 text-M/Medium text-white'
-          >
+          <p id='moving-letter' className='absolute pl-1 text-M/Medium text-white'>
             으로 접속 시 더욱 자세한 내용을 확인할 수 있어요!
           </p>
 

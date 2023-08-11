@@ -139,7 +139,7 @@ export const MBrandInformation = (props: IMBrandInformation) => {
                 <div className={cellCommonCss}>
                   <p className='text-L/Regular'>
                     {formatNumber(avgSalesCount)}
-                    <span className='pl-0.5 text-XS/Medium text-grey-700'>원</span>
+                    <span className='pl-0.5 text-XS/Medium text-grey-700'>개</span>
                   </p>
                   <div className='pt-1'>
                     <p>평균 판매량</p>
