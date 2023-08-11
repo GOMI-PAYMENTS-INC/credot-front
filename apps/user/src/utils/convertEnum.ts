@@ -146,9 +146,9 @@ export const convertSortByIconPath = (sortBy: TSortBy) => {
 export const convertSortedType = (sortedType: TSortBy) => {
   switch (sortedType) {
     case SORT_BY_TYPE.S:
-      return `판매량순`;
+      return `판매량`;
     case SORT_BY_TYPE.R:
-      return `연관도순`;
+      return `연관도`;
     default:
       throw new Error();
   }

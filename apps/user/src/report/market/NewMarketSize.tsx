@@ -13,8 +13,16 @@ import { convertTime } from '@/utils/parsingTimezone';
 import { openBrowser } from '@/utils/openBrowser';
 import { DetailReportSectionHeader } from '@/report/elements';
 import { dateConvertor } from '@/report/market/container';
+import UseTooltip from '@/components/UseTooltip';
+import {
+  SearchTrend,
+  TotalSales,
+  TotalSalesAvg,
+  TotalAmount,
+  TotalAmountAvg,
+} from '@/report/market/ToolTip';
 interface IMarketSize {
-  marketSize: TMarketSize;
+  marketSize: TMarketSize & { text: string; itemCount: number };
 }
 
 export const NewMarketSize = (props: IMarketSize) => {
@@ -29,6 +37,7 @@ export const NewMarketSize = (props: IMarketSize) => {
     createdAt,
     trend,
     itemCount,
+    text,
   } = props.marketSize;
 
   const [totalAmount, avgAmount, totalCount, avgCount] = [
@@ -72,6 +81,7 @@ export const NewMarketSize = (props: IMarketSize) => {
               <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
                 검색량 추이
               </h1>
+              <UseTooltip content={SearchTrend({ country, text })} />
             </div>
             <header className='col-span-10 flex w-full py-5'>
               <div
@@ -149,7 +159,10 @@ export const NewMarketSize = (props: IMarketSize) => {
             </div>
             <div className='my-7 flex xs:text-center'>
               <div className='ml-5 w-1/2 xs:ml-0'>
-                <p className='text-S/Medium text-grey-800 xs:hidden'>합계</p>
+                <div className='flex items-center'>
+                  <p className='text-S/Medium text-grey-800 xs:hidden'>합계</p>
+                  <UseTooltip content={TotalSales({ itemCount })} />
+                </div>
                 <div className='mt-2 flex items-center xs:justify-center'>
                   <span className='mr-1 text-2XL/Bold text-grey-900 xs:text-L/Bold'>
                     {totalAmount}
@@ -160,7 +173,10 @@ export const NewMarketSize = (props: IMarketSize) => {
               </div>
 
               <div className='w-1/2 border-l-[1px] border-dashed pl-5 xs:pl-0'>
-                <p className='text-S/Medium text-grey-800 xs:hidden'>평균</p>
+                <div className='flex items-center'>
+                  <p className='text-S/Medium text-grey-800 xs:hidden'>평균</p>
+                  <UseTooltip content={TotalSalesAvg({ itemCount })} />
+                </div>
                 <div className='mt-2 flex items-center xs:justify-center'>
                   <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
                     {avgAmount}
@@ -180,7 +196,10 @@ export const NewMarketSize = (props: IMarketSize) => {
             </div>
             <div className='my-7 flex xs:text-center'>
               <div className='ml-5 w-1/2 xs:ml-0'>
-                <p className='text-S/Medium text-grey-800 xs:hidden'>합계</p>
+                <div className='flex items-center'>
+                  <p className='text-S/Medium text-grey-800 xs:hidden'>합계</p>
+                  <UseTooltip content={TotalAmount({ text, itemCount })} />
+                </div>
                 <div className='mt-2 flex items-center xs:justify-center'>
                   <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
                     {totalCount}
@@ -190,7 +209,10 @@ export const NewMarketSize = (props: IMarketSize) => {
                 <p className='mt-1 hidden text-S/Regular text-grey-800 xs:block'>합계</p>
               </div>
               <div className='w-1/2 border-l-[1px] border-dashed pl-5 xs:pl-0'>
-                <p className='text-S/Medium text-grey-800 xs:hidden'>평균</p>
+                <div className='flex items-center'>
+                  <p className='text-S/Medium text-grey-800 xs:hidden'>평균</p>
+                  <UseTooltip content={TotalAmountAvg({ text, itemCount })} />
+                </div>
                 <div className='mt-2 flex items-center xs:justify-center'>
                   <span className='mr-1 text-2XL/Regular text-grey-900 xs:text-L/Regular'>
                     {avgCount}

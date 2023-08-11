@@ -25,6 +25,7 @@ import { replaceOverLength } from '@/utils/replaceOverLength';
 interface IRecommendationChart {
   relations: TRelationReport[] | null;
   country: CountryType | null;
+  itemCount: number;
   _dispatch: Dispatch<TReportAction> | null;
   toggleEvent: { id: number; isOpen: boolean }[];
   sorted: TSortBy;
@@ -43,6 +44,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
     currencyUnit,
     basePrice,
     sorted,
+    itemCount,
   } = props;
 
   const recomendationItems = useMemo(
@@ -82,6 +84,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
               cpcPrice,
               avgPrice,
               id,
+              text,
             } = item;
             const [_cpcPrice, _avgPrice] = [cpcPrice, avgPrice].map((price) =>
               convertToWon(currencyUnit, price, basePrice),
@@ -193,6 +196,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                             grade={search}
                             rate={_searchCount}
                             rateText='월 검색량'
+                            id='Search'
+                            tooltipItem={{ text, itemCount }}
                           />
                           {totalSalesCount && (
                             <KeywordAnalysisCard
@@ -204,6 +209,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                               subRateText='검색량'
                               secondSubRate={`${totalSalesCount} 건`}
                               secondSubRateText='판매량 합계'
+                              id='Conversion'
+                              tooltipItem={{ text, itemCount }}
                             />
                           )}
                           <KeywordAnalysisCard
@@ -215,6 +222,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                             subRateText='검색량'
                             secondSubRate={`${_competitionProductCount} 건`}
                             secondSubRateText='경쟁상품 수'
+                            id='Competition'
+                            tooltipItem={{ text, itemCount }}
                           />
                           <KeywordAnalysisCard
                             title='CPC 비율'
@@ -225,6 +234,8 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                             subRateText='CPC'
                             secondSubRate={`${_avgPrice} 원`}
                             secondSubRateText='평균 판매가'
+                            id='CPC'
+                            tooltipItem={{ text, itemCount }}
                           />
                         </div>
                       </div>

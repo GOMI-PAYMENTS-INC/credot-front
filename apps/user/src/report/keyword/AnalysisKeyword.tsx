@@ -23,6 +23,7 @@ interface IAnalysisKeyword {
     totalSalesCount: number;
     sorted: TSortBy;
     text: string;
+    itemCount: number;
   };
   relations: TRelationReport[] | null;
   amplitudeData?: TAmplitudeDetailData;
@@ -37,6 +38,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     relations,
     amplitudeData,
   } = props;
+  const { text, itemCount } = analysisInfo;
 
   const [
     cpcPrice,
@@ -88,6 +90,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   grade={search}
                   rate={searchCount}
                   rateText='월 검색량'
+                  id='Search'
+                  tooltipItem={{ text, itemCount }}
                 />
                 <KeywordAnalysisCard
                   title='구매 전환'
@@ -98,6 +102,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   subRateText='검색량'
                   secondSubRate={`${totalSalesCount} 건`}
                   secondSubRateText='판매량 합계'
+                  id='Conversion'
+                  tooltipItem={{ text, itemCount }}
                 />
                 <KeywordAnalysisCard
                   title='노출 경쟁'
@@ -108,6 +114,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   subRateText='검색량'
                   secondSubRate={`${competitionProductCount} 건`}
                   secondSubRateText='경쟁상품 수'
+                  id='Competition'
+                  tooltipItem={{ text, itemCount }}
                 />
                 <KeywordAnalysisCard
                   title='광고 경쟁'
@@ -118,6 +126,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                   subRateText='CPC'
                   secondSubRate={`${avgPrice} 원`}
                   secondSubRateText='평균 판매가'
+                  id='CPC'
+                  tooltipItem={{ text, itemCount }}
                 />
               </div>
             </div>
@@ -144,6 +154,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
 
       {isUser && (
         <RelativeKeywordTable
+          itemCount={itemCount}
           relations={relations}
           _dispatch={_dispatch}
           sorted={analysisInfo!.sorted}

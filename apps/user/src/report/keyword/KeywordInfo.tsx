@@ -54,10 +54,8 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
 
             <div className='pt-2 text-S/Medium'>
               <span className='keywordInfo-divide-by-single-dot'>
-                <span className='text-grey-600'>데이터 수집 기준</span>
-                <span className='ml-1 text-grey-800'>
-                  {convertSortedType(sorted)} 상위 {itemCount}개
-                </span>
+                <span className='text-grey-600'>기준</span>
+                <span className='ml-1 text-grey-800'>{convertSortedType(sorted)}</span>
               </span>
               <span className='keywordInfo-divide-by-single-dot xs:flex xs:items-center'>
                 <span className='text-grey-600'>적용 환율</span>
@@ -85,10 +83,8 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
 
             <div className='flex'>
-              <p className='text-grey-600'>데이터 수집 기준</p>
-              <p className='ml-1 text-grey-800'>
-                {convertSortedType(sorted)} 상위 {itemCount}개
-              </p>
+              <p className='text-grey-600'>기준</p>
+              <p className='ml-1 text-grey-800'>{convertSortedType(sorted)}</p>
             </div>
             <div className='flex gap-x-1'>
               <span className='text-grey-600'>적용 환율</span>
