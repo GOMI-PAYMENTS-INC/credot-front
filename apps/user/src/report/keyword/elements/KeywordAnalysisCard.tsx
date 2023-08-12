@@ -1,16 +1,13 @@
 import type { ReactNode } from 'react';
 import { CallbackToolTip } from '@/report/keyword/elements/Tooltip';
+import { cardTextParser } from '@/report/keyword/container';
 import UseTooltip from '@/components/UseTooltip';
 
 interface IKeywordAnalysisCard {
   grade: ReactNode;
   rate: string | number;
-  title: string;
-  rateText: string;
   subRate?: string;
-  subRateText?: string;
   secondSubRate?: string;
-  secondSubRateText?: string;
   id: TToolTipKey;
   tooltipItem: { itemCount: number; text: string };
 }
@@ -18,18 +15,14 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
   const {
     grade,
     rate,
-    rateText,
     subRate,
     secondSubRate,
-    title,
-    subRateText,
-    secondSubRateText,
     tooltipItem: { itemCount, text },
     id,
   } = props;
 
   const [_title, _rateText, _subRate, _secondSubRate] = CallbackToolTip(id);
-
+  const { title, rateText, subRateText, secondSubRateText } = cardTextParser(id);
   return (
     <div
       id='keyword_card'
