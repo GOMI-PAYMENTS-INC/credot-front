@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
+import { Tooltip, PlacesType } from 'react-tooltip';
 interface IUseTooltip {
   content: ReactNode;
+  place?: PlacesType;
 }
 
 interface IContentPack {
@@ -24,7 +25,7 @@ export const ToolTipCombiner = (props: { children: ReactNode }) => {
   return <div className='flex flex-col gap-5'>{children}</div>;
 };
 
-const UseTooltip = ({ content }: IUseTooltip) => {
+const UseTooltip = ({ content, place = 'right' }: IUseTooltip) => {
   const randomKey = Math.random() * 100;
   return (
     <div className='tooltip-container ml-1 xs:hidden'>
@@ -47,7 +48,7 @@ const UseTooltip = ({ content }: IUseTooltip) => {
           );
         }}
         id={`anchor-keyword-search-volum_${randomKey}`}
-        place='right'
+        place={place}
         variant='light'
       />
     </div>
