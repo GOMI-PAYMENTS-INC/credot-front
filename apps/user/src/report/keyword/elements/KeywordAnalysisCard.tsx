@@ -21,7 +21,8 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
     id,
   } = props;
 
-  const [_title, _rateText, _subRate, _secondSubRate] = CallbackToolTip(id);
+  const { titleTooltip, rateTooltip, subRateTooltip, secondSubRateTooltip } =
+    CallbackToolTip(id);
   const { title, rateText, subRateText, secondSubRateText } = cardTextParser(id);
   return (
     <div
@@ -34,7 +35,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
       >
         <div className='flex items-center pb-2.5'>
           <p className='text-S/Bold text-grey-800 xs:text-M/Bold'>{title}</p>
-          <UseTooltip content={_title({ itemCount, text })} />
+          <UseTooltip content={titleTooltip()} />
         </div>
         {grade}
       </div>
@@ -50,7 +51,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                     <p className='flex items-center text-XS/Medium text-grey-800 xs:text-S/Medium'>
                       {rateText}
                     </p>
-                    <UseTooltip content={_rateText({ itemCount, text })} />
+                    <UseTooltip content={rateTooltip({ itemCount, text })} />
                   </div>
                 </div>
               </div>
@@ -64,7 +65,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                 </div>
                 <div className='flex items-center pt-2 text-XS/Medium text-grey-800 xs:text-S/Medium'>
                   {subRateText}
-                  <UseTooltip content={_subRate({ itemCount, text })} />
+                  {subRateTooltip && <UseTooltip content={subRateTooltip()} />}
                 </div>
               </div>
               <div className='flex w-1/2 flex-col items-center border-l-[1px]'>
@@ -75,8 +76,8 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                 </div>
                 <div className='flex items-center pt-2 text-XS/Medium text-grey-800 xs:text-S/Medium'>
                   {secondSubRateText}
-                  {_secondSubRate && (
-                    <UseTooltip content={_secondSubRate({ itemCount, text })} />
+                  {secondSubRateTooltip && (
+                    <UseTooltip content={secondSubRateTooltip({ itemCount, text })} />
                   )}
                 </div>
               </div>
@@ -90,7 +91,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                 <p className='text-XS/Medium text-grey-800 xs:text-S/Medium '>
                   {rateText}
                 </p>
-                <UseTooltip content={_rateText({ itemCount, text })} />
+                <UseTooltip content={rateTooltip({ itemCount, text })} />
               </div>
             </div>
           </div>

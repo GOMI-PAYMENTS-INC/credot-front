@@ -3,13 +3,13 @@ import { ContentPack, ToolTipCombiner } from '@/components/UseTooltip';
 export const CallbackToolTip = (id: TToolTipKey) => {
   switch (id) {
     case 'Search':
-      return [Search, ExplanSearch];
+      return {titleTooltip:Search, rateTooltip:ExplanSearch};
     case 'Conversion':
-      return [Conversion, ConversionCount, TotalSalesCount];
+      return {titleTooltip:Conversion, rateTooltip:ConversionCount, secondSubRateTooltip:TotalSalesCount};
     case 'Competition':
-      return [Competition, CompetitionRate, CompetitionAmount];
+      return {titleTooltip:Competition, rateTooltip:CompetitionRate, secondSubRateTooltip:CompetitionAmount};
     default:
-      return [CPC, CPCRate, CPCPrice, CPCAvg];
+      return {titleTooltip:CPC, rateTooltip:CPCRate,subRateTooltip: CPCPrice, secondSubRateTooltip:CPCAvg};
   }
 };
 
