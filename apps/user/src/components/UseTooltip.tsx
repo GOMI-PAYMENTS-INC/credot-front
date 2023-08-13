@@ -6,11 +6,11 @@ interface IUseTooltip {
 }
 
 interface IContentPack {
-  title: string;
+  title?: string;
   children: ReactNode;
   className?: string;
 }
-export const ContentPack = ({ title, children, className }: IContentPack) => {
+export const ContentPack = ({ title = '데이터', children, className }: IContentPack) => {
   return (
     <div className='flex flex-col'>
       <p className={`text-M/Bold text-orange-500 ${className}`}>{title}</p>

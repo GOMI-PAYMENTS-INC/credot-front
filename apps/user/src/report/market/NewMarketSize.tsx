@@ -1,16 +1,12 @@
-import { Fragment, useMemo, useState } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
+import { useState } from 'react';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertedGoogleTrendData, convertExchangeRate } from '@/report/container';
 import { TITLE } from '@/types/enum.code';
+
 import { MarketSizeTrendChart } from '@/report/market/MarketSizeTrendChart';
 import { isFalsy } from '@/utils/isFalsy';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { convertCountry } from '@/utils/convertEnum';
-import { convertTime } from '@/utils/parsingTimezone';
-import { openBrowser } from '@/utils/openBrowser';
+
 import { DetailReportSectionHeader } from '@/report/elements';
 import { dateConvertor } from '@/report/market/container';
 import UseTooltip from '@/components/UseTooltip';
@@ -34,7 +30,6 @@ export const NewMarketSize = (props: IMarketSize) => {
     basePrice,
     currencyUnit,
     country,
-    createdAt,
     trend,
     itemCount,
     text,
