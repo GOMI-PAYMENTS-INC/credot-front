@@ -1,7 +1,4 @@
-import { Dispatch, useMemo, useRef } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
+import { Dispatch, useRef } from 'react';
 import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/report/container';
@@ -32,14 +29,14 @@ export const SalePrice = (props: ISalePrice) => {
   const { _dispatch, salePriceInfo, list, focus, currencyUnit, amplitudeData } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
   const [SalesPriceTooltip, SalesTableTooltip] = PriceTooltips();
-  const { id, text, gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
+  const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
   const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(
     items,
     basePrice,
   );
-  const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
+  const [minPrice, _, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice))),
   );
 
