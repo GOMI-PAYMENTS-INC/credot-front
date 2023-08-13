@@ -48,11 +48,14 @@ import DropDown, {
   TDropDownOption,
 } from '@/components/dropDown';
 import { CountryType } from '@/generated/graphql';
+import UseTooltip from '@/components/UseTooltip';
+import { SearchTooltips } from '@/search/elements/Tooltip';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+  const { Search, Monthly, RelativeKeyword } = SearchTooltips();
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
@@ -234,22 +237,6 @@ const SearchKeywords = () => {
     }
   };
 
-  const KeywordSearchToolTip = useMemo(() => {
-    return (
-      <div className='flex flex-col p-3 text-S/Regular'>
-        <p className='text-S/Bold'>국가</p>
-        <p>키워드를 분석할 Shopee 국가 </p>
-        <br />
-        <p className='text-S/Bold'>수집기준</p>
-        <p>데이터를 수집할 키워드 검색결과의 상품 정렬 기준</p>
-        <ul className='ml-5 list-disc'>
-          <li>연관도순: 키워드 검색 시 기본값으로 노출되는 상품순</li>
-          <li>판매량순: 키워드 검색 후 판매량순으로 정렬 시 노출되는 상품순</li>
-        </ul>
-      </div>
-    );
-  }, []);
-
   return (
     <Default>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -312,23 +299,7 @@ const SearchKeywords = () => {
                       variants={DROPDOWN_VARIANTS.CLEAR}
                       onClickOption={onClickSortOption}
                     />
-                    <div className='tooltip-container ml-0'>
-                      <a data-tooltip-id='anchor-keyword-search-volum'>
-                        <ReactSVG
-                          src='assets/icons/outlined/QuestionCircle.svg'
-                          className=''
-                          beforeInjection={(svg) => {
-                            svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                          }}
-                        />
-                      </a>
-                      <Tooltip
-                        render={() => KeywordSearchToolTip}
-                        id='anchor-keyword-search-volum'
-                        place='right'
-                        variant='light'
-                      />
-                    </div>
+                    <UseTooltip content={Search} />
                   </div>
                   <div id='keywordSearchInput'>
                     <div className='form-control mt-4'>
@@ -452,27 +423,9 @@ const SearchKeywords = () => {
               >
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
-                    <div className=''>
-                      <h3 className='text-L/Medium'>
-                        월간 검색량
-                        <a
-                          data-tooltip-id='anchor-montly-search-volum'
-                          data-tooltip-html='키워드의 최근 30일간 검색량을 나타내요. <br/> 키워드에 대한 수요를 정량적으로 알 수 있어요.'
-                        >
-                          <ReactSVG
-                            src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block xs:hidden'
-                            beforeInjection={(svg) => {
-                              svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                            }}
-                          />
-                        </a>
-                        <Tooltip
-                          id='anchor-montly-search-volum'
-                          place='right'
-                          variant='light'
-                        />
-                      </h3>
+                    <div className='flex items-center'>
+                      <h3 className='text-L/Medium'>월간 검색량</h3>
+                      <UseTooltip content={Monthly} />
                     </div>
                     <div className='mt-5'>
                       <span className={monthlySearchColor}>{monthlySearchVolume}</span>
@@ -486,27 +439,9 @@ const SearchKeywords = () => {
 
                 <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5 xs:mt-[30px] xs:px-3 xs:py-2.5'>
                   <div className='flex justify-between'>
-                    <div>
-                      <h3 className='text-L/Medium'>
-                        연관 키워드
-                        <a
-                          data-tooltip-id='relation-keyword-tip'
-                          data-tooltip-html='키워드와 함께 가장 많이 검색되는 연관성이 높은 키워드들이에요.'
-                        >
-                          <ReactSVG
-                            src='assets/icons/outlined/QuestionCircle.svg'
-                            className='ml-[7px] inline-block xs:hidden'
-                            beforeInjection={(svg) => {
-                              svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                            }}
-                          />
-                        </a>
-                        <Tooltip
-                          id='relation-keyword-tip'
-                          place='right'
-                          variant='light'
-                        />
-                      </h3>
+                    <div className='flex items-center'>
+                      <h3 className='text-L/Medium'>연관 키워드</h3>
+                      <UseTooltip content={RelativeKeyword} />
                     </div>
                     <div className='text-L/Medium'>검색량</div>
                   </div>

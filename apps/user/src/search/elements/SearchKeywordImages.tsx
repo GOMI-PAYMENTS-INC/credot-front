@@ -1,10 +1,11 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { STATUS_CODE } from '@/types/enum.code';
 import { Tooltip } from 'react-tooltip';
-
+import UseTooltip from '@/components/UseTooltip';
+import { SearchTooltips } from '@/search/elements/Tooltip';
 interface ISearchKeywordsImageBox {
   images: TGetProductImageResponse | null;
   keyword: string;
@@ -12,7 +13,7 @@ interface ISearchKeywordsImageBox {
 
 export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
   const { images, keyword } = props;
-
+  const { Images } = SearchTooltips();
   const imageData = images?.data[0].imageUrl;
 
   const list = imageData === undefined ? [1, 2, 3] : imageData;
@@ -66,23 +67,9 @@ export const SearchKeywordImages = (props: ISearchKeywordsImageBox) => {
           </div>
         ) : (
           <Fragment>
-            <header className='pb-5 pt-[25px] pl-6 xs:pb-[10px]'>
-              <h3 className='text-L/Medium'>
-                관련 이미지
-                <a
-                  data-tooltip-id='anchor-keyword-tip'
-                  data-tooltip-html='쇼피에서 키워드 검색 시 노출되는 상품들의 이미지에요.'
-                >
-                  <ReactSVG
-                    src='assets/icons/outlined/QuestionCircle.svg'
-                    className='ml-[7px] inline-block xs:hidden'
-                    beforeInjection={(svg) => {
-                      svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                    }}
-                  />
-                </a>
-                <Tooltip id='anchor-keyword-tip' place='right' variant='light' />
-              </h3>
+            <header className='flex items-center pb-5 pt-[25px] pl-6 xs:pb-[10px]'>
+              <h3 className='text-L/Medium'>관련 이미지</h3>
+              <UseTooltip place='bottom' content={Images} />
             </header>
 
             <section
