@@ -1,6 +1,6 @@
 import { Dispatch, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
+
 import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
 import { BrandAnalysisProductTable } from '@/report/brand/BrandAnalysisTable';

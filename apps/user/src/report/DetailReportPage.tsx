@@ -9,11 +9,10 @@ import { BrandAnalysis } from '@/report/brand/BrandAnalysis';
 import { CategoryAnalysis } from '@/report/category/CategoryAnalysis';
 
 import { KeywordInfo } from '@/report/keyword/KeywordInfo';
-import { MarketSize } from '@/report/market/MarketSize';
 import { SalePrice } from '@/report/price/SalePrice';
 
 import { AnalysisKeyword } from '@/report/keyword/AnalysisKeyword';
-import { NewMarketSize } from '@/report/market/NewMarketSize';
+import { MarketSize } from '@/report/market/MarketSize';
 
 import { AnalysisOverseaProduct } from '@/report/oversea/AnalysisOverseaProduct';
 import { DetailReportHeader, DetailReportBody } from '@/report/elements';
@@ -66,7 +65,7 @@ const DetailReportPage = () => {
             keywordInfo={main!}
             amplitudeData={amplitudeData}
           />
-          <NewMarketSize marketSize={main!} />
+          <MarketSize marketSize={main!} />
           <AnalysisKeyword
             _dispatch={_dispatch}
             _state={_state}
