@@ -217,7 +217,7 @@ const SideBar = (props: TSideBarProps) => {
                       }}
                     />
                     <div className='ml-2 flex w-[120px] items-center text-S/Medium text-grey-800'>
-                      {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
+                      {userInfo ? replaceOverLength(userInfo.me.email, 15) : ''}
                     </div>
                   </div>
                   <ReactSVG
