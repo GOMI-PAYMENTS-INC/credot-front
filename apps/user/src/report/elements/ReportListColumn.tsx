@@ -130,7 +130,7 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
         ) : (
           <tr>
             <td colSpan={8}>
-              <div className='grid justify-items-center pt-[104px] text-center'>
+              <div className='grid h-[558px] justify-items-center pt-[104px] text-center'>
                 <img src={`/assets/images/EmptyBox.png`} alt='검색 결과 없음 아이콘' />
                 <div className='mt-4 text-L/Medium'>
                   <p>조회 가능한 리포트가 없어요.</p>
@@ -157,7 +157,7 @@ export const ReportListColumn = ({ _state, _dispatch }: TReportListColumn) => {
       {_state.spinnerEvent === false ? (
         <tr>
           <td colSpan={8}>
-            <div className='grid justify-items-center pt-[255px] text-center'>
+            <div className='grid h-[558px] items-center'>
               <div className='scale-[0.3]'>
                 <div id='loader' />
               </div>
