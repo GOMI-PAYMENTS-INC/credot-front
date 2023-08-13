@@ -47,6 +47,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     competitionProductCount,
     cpcRate,
     totalSalesCount,
+    competitionRate,
   ] = [
     analysisInfo.cpcPrice,
     analysisInfo.avgPrice,
@@ -54,6 +55,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     analysisInfo.competitionProductCount,
     analysisInfo.cpcRate,
     analysisInfo.totalSalesCount,
+    analysisInfo.competitionRate,
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
@@ -101,7 +103,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <KeywordAnalysisCard
                   grade={competition}
-                  rate={analysisInfo.competitionRate}
+                  rate={competitionRate}
                   subRate={`${searchCount} 건`}
                   secondSubRate={`${competitionProductCount} 건`}
                   id='Competition'
@@ -109,7 +111,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <KeywordAnalysisCard
                   grade={cpc}
-                  rate={cpcRate}
+                  rate={`${cpcRate}%`}
                   subRate={`${cpcPrice} 원`}
                   secondSubRate={`${avgPrice} 원`}
                   id='CPC'

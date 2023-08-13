@@ -189,7 +189,7 @@ const SideBar = (props: TSideBarProps) => {
                         svg.setAttribute('class', `w-5 fill-grey-800`);
                       }}
                     />
-                    <span className='ml-2 flex min-w-[130px] items-center text-S/Medium text-grey-800'>
+                    <span className='ml-2 flex w-[120px] items-center text-S/Medium text-grey-800'>
                       사용자 가이드
                     </span>
                     <ReactSVG
@@ -216,7 +216,7 @@ const SideBar = (props: TSideBarProps) => {
                         svg.setAttribute('class', 'w-5 ');
                       }}
                     />
-                    <div className='ml-2 flex min-w-[130px] items-center text-S/Medium text-grey-800'>
+                    <div className='ml-2 flex w-[120px] items-center text-S/Medium text-grey-800'>
                       {userInfo ? replaceOverLength(userInfo.me.email, 17) : ''}
                     </div>
                   </div>
