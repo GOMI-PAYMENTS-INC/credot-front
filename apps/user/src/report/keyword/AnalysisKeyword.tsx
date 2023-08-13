@@ -39,7 +39,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     amplitudeData,
   } = props;
   const { text, itemCount } = analysisInfo;
-
+  const conversionRate = analysisInfo.totalSalesCount / analysisInfo.searchCount;
   const [
     cpcPrice,
     avgPrice,
@@ -48,6 +48,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     cpcRate,
     totalSalesCount,
     competitionRate,
+    _conversionRate,
   ] = [
     analysisInfo.cpcPrice,
     analysisInfo.avgPrice,
@@ -56,6 +57,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     analysisInfo.cpcRate,
     analysisInfo.totalSalesCount,
     analysisInfo.competitionRate,
+    conversionRate,
   ]
     .map((number, idx) => {
       if (idx > 1) return number;
@@ -66,7 +68,6 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
       );
     })
     .map((number) => formatNumber(number));
-  const conversionRate = analysisInfo.totalSalesCount / analysisInfo.searchCount;
 
   const keywordReport = useMemo(() => {
     const rateGrade = analysisInfo.evaluateStatus + getConversionRate(conversionRate);
@@ -75,7 +76,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
   const [search, competition, cpc, conversion] = keywordReport;
 
   const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
-
+  console.log(cpcRate, 'rate', analysisInfo.cpcRate, 'analysisInfo.cpcRate');
   return (
     <section>
       <DetailReportSectionHeader id={TITLE.KEYWORD_INFO} />
@@ -95,7 +96,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <KeywordAnalysisCard
                   grade={conversion}
-                  rate={formatNumber(conversionRate)}
+                  rate={_conversionRate}
                   subRate={`${searchCount} 건`}
                   secondSubRate={`${totalSalesCount} 건`}
                   id='Conversion'
