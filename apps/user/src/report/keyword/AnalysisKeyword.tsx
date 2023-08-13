@@ -86,46 +86,32 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             <div className='flex items-center bg-grey-50 text-center'>
               <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
                 <KeywordAnalysisCard
-                  title='검색량'
                   grade={search}
                   rate={searchCount}
-                  rateText='월 검색량'
                   id='Search'
                   tooltipItem={{ text, itemCount }}
                 />
                 <KeywordAnalysisCard
-                  title='구매 전환'
                   grade={conversion}
                   rate={formatNumber(conversionRate)}
-                  rateText='구매 전환율'
                   subRate={`${searchCount} 건`}
-                  subRateText='검색량'
                   secondSubRate={`${totalSalesCount} 건`}
-                  secondSubRateText='판매량 합계'
                   id='Conversion'
                   tooltipItem={{ text, itemCount }}
                 />
                 <KeywordAnalysisCard
-                  title='노출 경쟁'
                   grade={competition}
                   rate={analysisInfo.competitionRate}
-                  rateText='노출 경쟁률'
                   subRate={`${searchCount} 건`}
-                  subRateText='검색량'
                   secondSubRate={`${competitionProductCount} 건`}
-                  secondSubRateText='경쟁상품 수'
                   id='Competition'
                   tooltipItem={{ text, itemCount }}
                 />
                 <KeywordAnalysisCard
-                  title='광고 경쟁'
                   grade={cpc}
                   rate={cpcRate}
-                  rateText='CPC 비율'
                   subRate={`${cpcPrice} 원`}
-                  subRateText='CPC'
                   secondSubRate={`${avgPrice} 원`}
-                  secondSubRateText='평균 판매가'
                   id='CPC'
                   tooltipItem={{ text, itemCount }}
                 />

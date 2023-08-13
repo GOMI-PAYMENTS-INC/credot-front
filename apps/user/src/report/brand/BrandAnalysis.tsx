@@ -1,6 +1,6 @@
-import { Dispatch, useMemo, useRef } from 'react';
+import { Dispatch, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
+
 import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
 import { BrandAnalysisProductTable } from '@/report/brand/BrandAnalysisTable';
@@ -9,6 +9,10 @@ import { convertExchangeRate, roundNumber, selectBrandIndex } from '@/report/con
 import { TReportAction } from '@/report/reducer';
 import { formatNumber } from '@/utils/formatNumber';
 import { MBrandInformation } from '@/report/brand/MBrandInformation';
+import { rankLabelStyleClass } from '@/report/brand/container';
+import { Tooltips } from '@/report/brand/Tooltip';
+import UseTooltip from '@/components/UseTooltip';
+
 interface IBrandAnalysis {
   brandAnalysis: {
     focus: number;
@@ -32,6 +36,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
   } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
   const { focus, data: brandAnalysisData } = brandAnalysis;
+  const [TotalSales, TotalAmount, AvgSales, AvgAmount, AvgSalesPrice] = Tooltips();
 
   const {
     totalSalesAmount: totalAmount,
@@ -48,22 +53,6 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
     (price) =>
       formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice))),
   );
-
-  const rankLabelStyleClass = useMemo(() => {
-    let style = 'fill-transparent text-black';
-
-    if (rank === 1) {
-      style = 'fill-orange-500 text-white';
-    }
-    if (rank === 2) {
-      style = 'fill-[#B1B1B1] text-white';
-    }
-    if (rank === 3) {
-      style = 'fill-grey-800 text-white';
-    }
-
-    return style;
-  }, [rank]);
 
   return (
     <section className='col-span-full'>
@@ -113,12 +102,14 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
                       src='/assets/icons/filled/RateLabel.svg'
                       className='absolute top-0 left-0'
                       beforeInjection={(svg) => {
-                        svg.setAttribute('class', `${rankLabelStyleClass}`);
+                        svg.setAttribute('class', `${rankLabelStyleClass(rank)}`);
                       }}
                     />
 
                     <div
-                      className={`absolute w-full text-center text-M/Regular leading-[40px] ${rankLabelStyleClass}`}
+                      className={`absolute w-full text-center text-M/Regular leading-[40px] ${rankLabelStyleClass(
+                        rank,
+                      )}`}
                     >
                       {rank}위
                     </div>
@@ -142,25 +133,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
                   <span className='text-S/Regular text-grey-800'>매출 합계</span>
-                  <div className='tooltip-container'>
-                    <a
-                      data-tooltip-id='anchor-brand-sale'
-                      data-tooltip-content='선택된 브랜드 상품들의 최근 30일간 매출 합계에요.'
-                    >
-                      <ReactSVG
-                        src='/assets/icons/outlined/QuestionCircle.svg'
-                        className='fill-grey-500'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      id='anchor-brand-sale'
-                      place='right'
-                      variant='light'
-                    ></Tooltip>
-                  </div>
+                  <UseTooltip content={TotalSales} />
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-orange-400'>{totalSalesAmount}원</p>
@@ -171,25 +144,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
                   <span className='text-S/Regular text-grey-800'>판매량 합계</span>
-                  <div className='tooltip-container'>
-                    <a
-                      data-tooltip-id='anchor-brand-sales-rate'
-                      data-tooltip-content='선택된 브랜드 상품들의 최근 30일간 판매량 합계에요.'
-                    >
-                      <ReactSVG
-                        src='/assets/icons/outlined/QuestionCircle.svg'
-                        className='fill-grey-500'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      id='anchor-brand-sales-rate'
-                      place='right'
-                      variant='light'
-                    ></Tooltip>
-                  </div>
+                  <UseTooltip content={TotalAmount} />
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
@@ -202,25 +157,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
                   <span className='text-S/Regular text-grey-800'>평균 매출</span>
-                  <div className='tooltip-container'>
-                    <a
-                      data-tooltip-id='anchor-brand-average-sales'
-                      data-tooltip-content='선택된 브랜드 상품들이 최근 30일간 판매된 평균 매출이에요.'
-                    >
-                      <ReactSVG
-                        src='/assets/icons/outlined/QuestionCircle.svg'
-                        className='fill-grey-500'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      id='anchor-brand-average-sales'
-                      place='right'
-                      variant='light'
-                    ></Tooltip>
-                  </div>
+                  <UseTooltip content={AvgSales} />
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>{avgSalesAmount}원</p>
@@ -231,25 +168,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
                   <span className='text-S/Regular text-grey-800'>평균 판매량</span>
-                  <div className='tooltip-container'>
-                    <a
-                      data-tooltip-id='anchor-brand-average-sales'
-                      data-tooltip-content='선택된 브랜드 상품들이 최근 30일간 판매된 평균 판매량이에요.'
-                    >
-                      <ReactSVG
-                        src='/assets/icons/outlined/QuestionCircle.svg'
-                        className='fill-grey-500'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      id='anchor-brand-average-sales'
-                      place='right'
-                      variant='light'
-                    ></Tooltip>
-                  </div>
+                  <UseTooltip content={AvgAmount} />
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>
@@ -262,25 +181,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
               <div className='py-[5px] text-center'>
                 <div className='ml-[10px] flex items-center justify-center'>
                   <span className='text-S/Regular text-grey-800'>평균 판매가</span>
-                  <div className='tooltip-container'>
-                    <a
-                      data-tooltip-id='anchor-brand-average-selling-price'
-                      data-tooltip-content='선택된 브랜드 상품들이 판매되고 있는 평균 가격이에요.'
-                    >
-                      <ReactSVG
-                        src='/assets/icons/outlined/QuestionCircle.svg'
-                        className='fill-grey-500'
-                        beforeInjection={(svg) => {
-                          svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                        }}
-                      />
-                    </a>
-                    <Tooltip
-                      id='anchor-brand-average-selling-price'
-                      place='right'
-                      variant='light'
-                    ></Tooltip>
-                  </div>
+                  <UseTooltip content={AvgSalesPrice} />
                 </div>
                 <div className='mt-2 py-[15px]'>
                   <p className='text-M/Bold text-grey-900'>{avgPrice}원</p>

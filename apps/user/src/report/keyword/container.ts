@@ -21,3 +21,36 @@ export const getConversionRate = (rate: number) => {
 export const convertToWon = (currencyUnit: number, price: number, basePrice: number) => {
   return formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice)));
 };
+
+export const cardTextParser = (id: TToolTipKey) => {
+  switch (id) {
+    case 'Search':
+      return {
+        title: '검색량',
+        rateText: '월 검색량',
+        subRateText: '',
+        secondSubRateText: '',
+      };
+    case 'Conversion':
+      return {
+        title: '구매 전환',
+        rateText: '구매 전환율',
+        subRateText: '검색량',
+        secondSubRateText: '판매량 합계',
+      };
+    case 'Competition':
+      return {
+        title: '노출 경쟁',
+        rateText: '노출 경쟁률',
+        subRateText: '검색량',
+        secondSubRateText: '경쟁상품 수',
+      };
+    default:
+      return {
+        title: '광고 경쟁',
+        rateText: 'CPC 비율',
+        subRateText: 'CPC',
+        secondSubRateText: '평균 판매가',
+      };
+  }
+};

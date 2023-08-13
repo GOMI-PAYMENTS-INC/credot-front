@@ -1,7 +1,4 @@
-import { Dispatch, useMemo, useRef } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
+import { Dispatch, useRef } from 'react';
 import { GRADE_ITEMS, TITLE } from '@/types/enum.code';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate, roundNumber } from '@/report/container';
@@ -16,6 +13,8 @@ import {
 } from '@/report/container';
 import type { TReportAction } from '@/report/reducer';
 import { DetailReportSectionHeader } from '@/report/elements';
+import UseTooltip from '@/components/UseTooltip';
+import { PriceTooltips } from '@/report/price/Tooltip';
 
 interface ISalePrice {
   salePriceInfo: TSalePriceData;
@@ -29,68 +28,19 @@ interface ISalePrice {
 export const SalePrice = (props: ISalePrice) => {
   const { _dispatch, salePriceInfo, list, focus, currencyUnit, amplitudeData } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
-
-  const { id, text, gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
+  const [SalesPriceTooltip, SalesTableTooltip] = PriceTooltips();
+  const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
   const { min, max, levelBound, avg, removedOutlinerItmes } = changeSalePriceData(
     items,
     basePrice,
   );
-  const [minPrice, maxPrice, avgPrice] = [min, max, avg].map((price) =>
+  const [minPrice, _, avgPrice] = [min, max, avg].map((price) =>
     formatNumber(roundNumber(convertExchangeRate(currencyUnit, price, basePrice))),
   );
 
   const [highLength, mediumLength, lowLength] = gradeItems.map((item) => item.length);
-
-  const salesInfoTooltipContent = useMemo(
-    () => (
-      <div className='flex justify-between '>
-        <div>
-          <h1 className='text-XS/Medium'>최저가</h1>
-          <p className='pt-0.5 text-XS/Regular text-grey-800'>
-            가장 저렴한 상품의 판매가격이에요.
-          </p>
-        </div>
-        <div className='px-3'>
-          <h1 className='text-XS/Medium'>평균 판매가</h1>
-          <p className='pt-0.5 text-XS/Regular text-grey-800'>
-            상품들이 판매되는 가격의 평균값이에요.
-          </p>
-        </div>
-      </div>
-    ),
-    [],
-  );
-
-  const salesChartTooltipContent = useMemo(
-    () => (
-      <div className='flex space-x-3'>
-        <div className='flex flex-col'>
-          <p className='pt-2 text-XS/Bold'>가격 높음 상품</p>
-          <span>최저가순 상위 1~10위 상품들이에요.</span>
-          <p className='pt-2 text-XS/Bold'>가격 보통 상품</p>
-          <span>최저가순 상위 11~30위 상품들이에요.</span>
-          <p className='pt-2 text-XS/Bold'>가격 낮음 상품</p>
-          <span>최저가순 상위 31~50위 상품들이에요.</span>
-        </div>
-        <div className='flex flex-col'>
-          <p className='pt-2 text-XS/Bold'>판매가</p>
-          <span>키워드 검색결과 내 상품들이 판매되는 평균 판매가</span>
-          <p className='pt-2 text-XS/Bold'>월 추정 매출</p>
-          <span>
-            상품 판매가를 월 판매량과 곱하여 추정한 월 매출이에요 (옵션
-            <br /> 상품인 경우 옵션가의 중앙값을 적용하여 계산)
-          </span>
-          <p className='pt-2 text-XS/Bold'>월 판매량</p>
-          <span>최근 30일간 상품이 판매된 건수에요.</span>
-          <p className='pt-2 text-XS/Bold'>노출 순위</p>
-          <span>키워드 검색 시 상품이 노출되고 있는 순위에요.</span>
-        </div>
-      </div>
-    ),
-    [],
-  );
 
   return (
     <section className='col-span-full'>
@@ -108,8 +58,9 @@ export const SalePrice = (props: ISalePrice) => {
         <div className='grid grid-cols-10 border-t-[1px] border-grey-300 xs:flex xs:flex-col'>
           <div className='col-span-2 flex flex-col xs:border-b-[1px]'>
             <div className='relative flex items-center border-b-[1px] border-t-[2px] bg-grey-100 xs:border-b-[1px]'>
-              <div className='py-2.5 pl-5'>
+              <div className='flex items-center py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
+                <UseTooltip content={SalesPriceTooltip} />
               </div>
             </div>
             <div className='flex-grow-1 flex h-full w-full flex-col justify-center xs:flex-row xs:justify-evenly xs:divide-x-[1px] xs:divide-dotted xs:py-2 xs:text-center'>
@@ -209,23 +160,7 @@ export const SalePrice = (props: ISalePrice) => {
                 })}
               </div>
             </div>
-            <div className='tooltip-container ml-[11px]'>
-              <a data-tooltip-id='anchor-market-salesChart'>
-                <ReactSVG
-                  src='/assets/icons/outlined/QuestionCircle.svg'
-                  className='flex self-center pl-[5px]'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute('class', 'fill-grey-500 h-4 w-4 ');
-                  }}
-                />
-              </a>
-              <Tooltip
-                id='anchor-market-salesChart'
-                place='right'
-                variant='light'
-                render={() => salesChartTooltipContent}
-              ></Tooltip>
-            </div>
+            <UseTooltip content={SalesTableTooltip} />
           </div>
           <SalePriceTable
             scrollerRef={scrollerRef}

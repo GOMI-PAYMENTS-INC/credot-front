@@ -6,17 +6,22 @@ interface IUseTooltip {
 }
 
 interface IContentPack {
-  title: string;
+  title?: string;
   children: ReactNode;
   className?: string;
 }
-export const ContentPack = ({ title, children, className }: IContentPack) => {
+export const ContentPack = ({ title = '데이터', children, className }: IContentPack) => {
   return (
-    <>
+    <div className='flex flex-col'>
       <p className={`text-M/Bold text-orange-500 ${className}`}>{title}</p>
       <div className='text-M/Medium text-white'>{children}</div>
-    </>
+    </div>
   );
+};
+
+export const ToolTipCombiner = (props: { children: ReactNode }) => {
+  const { children } = props;
+  return <div className='flex flex-col gap-5'>{children}</div>;
 };
 
 const UseTooltip = ({ content }: IUseTooltip) => {
