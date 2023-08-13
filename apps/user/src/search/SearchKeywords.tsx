@@ -90,7 +90,7 @@ const SearchKeywords = () => {
 
   useEffect(() => {
     if (requestReport === false) return;
-    void switchModal({
+    switchModal({
       _dispatch,
       _state,
       data: response,

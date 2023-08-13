@@ -21,6 +21,7 @@ export const SearchModal = ({
 }: ISearchModalPrpos) => {
   const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
   const [eventTrigger, setEventTrigger] = useState(false);
+  const [isDisalbed, setIsDisalbed] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -169,7 +170,9 @@ export const SearchModal = ({
                 <button
                   type='button'
                   className='button-filled-normal-large-primary-false-false-true w-full'
+                  disabled={isDisalbed}
                   onClick={() => {
+                    setIsDisalbed(true);
                     modal.onConfirm?.confirmEvent() || setEventTrigger(true);
                   }}
                 >
