@@ -3,13 +3,26 @@ import { ContentPack, ToolTipCombiner } from '@/components/UseTooltip';
 export const CallbackToolTip = (id: TToolTipKey) => {
   switch (id) {
     case 'Search':
-      return {titleTooltip:Search, rateTooltip:ExplanSearch};
+      return { titleTooltip: Search, rateTooltip: ExplanSearch };
     case 'Conversion':
-      return {titleTooltip:Conversion, rateTooltip:ConversionCount, secondSubRateTooltip:TotalSalesCount};
+      return {
+        titleTooltip: Conversion,
+        rateTooltip: ConversionCount,
+        secondSubRateTooltip: TotalSalesCount,
+      };
     case 'Competition':
-      return {titleTooltip:Competition, rateTooltip:CompetitionRate, secondSubRateTooltip:CompetitionAmount};
+      return {
+        titleTooltip: Competition,
+        rateTooltip: CompetitionRate,
+        secondSubRateTooltip: CompetitionAmount,
+      };
     default:
-      return {titleTooltip:CPC, rateTooltip:CPCRate,subRateTooltip: CPCPrice, secondSubRateTooltip:CPCAvg};
+      return {
+        titleTooltip: CPC,
+        rateTooltip: CPCRate,
+        subRateTooltip: CPCPrice,
+        secondSubRateTooltip: CPCAvg,
+      };
   }
 };
 
@@ -19,7 +32,7 @@ const Search = () => {
     <ToolTipCombiner>
       <ContentPack
         title='데이터'
-        children={`키워드의 최근 30일 검색량을 5개 등급으로 나누어 평가해요.`}
+        children={`키워드의 최근 30일간 검색량을 평가한 등급이에요.`}
       />
 
       <ContentPack
@@ -39,7 +52,9 @@ const Search = () => {
 };
 
 const ExplanSearch = () => {
-  return <ContentPack title='데이터' children={`최근 30일간 키워드의 검색량이에요.`} />;
+  return (
+    <ContentPack children={`Shopee에서 최근 30일간 발생한 키워드의 검색량이에요.`} />
+  );
 };
 
 const Conversion = () => {
@@ -48,7 +63,7 @@ const Conversion = () => {
     <ToolTipCombiner>
       <ContentPack
         title='데이터'
-        children={`키워드의 구매 전환율을 5개 등급으로 나누어 평가해요.`}
+        children={`키워드의 구매전환 빈도를 평가한 등급이에요.`}
       />
 
       <ContentPack
@@ -75,16 +90,16 @@ const ConversionCount = () => {
         title='데이터'
         children={`키워드가 1회 검색될 때마다 구매가 발생하는 빈도에요.`}
       />
-      <ContentPack title='계산식' children={`최근 30일  판매량 ÷ 최근 30일 검색량`} />
+      <ContentPack title='계산식' children={`판매량 합계 ÷ 검색량`} />
       <ContentPack
         title='활용Tip'
         children={
           <ul className='list-disc text-M/Medium text-white'>
             <li className={listCss}>
-              구매 전환수가 낮을수록 구매 보다는 탐색 목적의 키워드일 가능성이 높아요.
+              구매전환 빈도가 높을 수록 소비자의 검색 의도가 ‘구매’일 가능성이 커요.
             </li>
             <li className={listCss}>
-              구매 전환수가 높을수록 탐색 보다는 구매 목적의 키워드일 가능성이 높아요.
+              구매전환 빈도가 낮을 수록 소비자의 검색 의도가 ‘탐색'일 가능성이 커요.
             </li>
           </ul>
         }
@@ -95,13 +110,16 @@ const ConversionCount = () => {
 
 interface ITotalSalesCount {
   itemCount: number;
-  text: string;
 }
-const TotalSalesCount = ({ itemCount, text }: ITotalSalesCount) => {
+const TotalSalesCount = ({ itemCount }: ITotalSalesCount) => {
   return (
     <ContentPack
-      title='데이터'
-      children={`최근 30일간 ${text} 검색결과 내 상위 ${itemCount}개 상품들의 판매량 합계에요`}
+      children={
+        <>
+          키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 판매량
+          합계에요.
+        </>
+      }
     />
   );
 };
@@ -112,7 +130,7 @@ const Competition = () => {
     <ToolTipCombiner>
       <ContentPack
         title='데이터'
-        children={`키워드의 노출 경쟁률을 5개 등급으로 나누어 평가해요.`}
+        children={`키워드의 노출 경쟁률을 평가한 등급이에요.`}
       />
 
       <ContentPack
@@ -135,26 +153,18 @@ const CompetitionRate = () => {
   const listCss = 'ml-8';
   return (
     <ToolTipCombiner>
-      <ContentPack
-        title='데이터'
-        children={`키워드 검색량 대비 경쟁상품의 수를 의미해요.`}
-      />
-      <ContentPack title='계산식' children={`경쟁상품 수 ÷ 최근 30일 검색량`} />
+      <ContentPack title='데이터' children={`키워드의 검색량 대비 경쟁상품 수에요.`} />
+      <ContentPack title='계산식' children={`검색량 : 경쟁상품 수`} />
       <ContentPack
         title='활용Tip'
         children={
           <ul className='list-disc text-M/Medium text-white'>
+            <li className={listCss}>키워드에 대한 수요 대비 공급을 알 수 있어요.</li>
             <li className={listCss}>
-              노출 경쟁률이 높을 수록 수요 보다는 공급이 많은 시장이에요.
+              노출 경쟁률이 높고 경쟁 상품 수가 많을수록 상위 노출이 어려운 키워드에요.
             </li>
             <li className={listCss}>
-              노출 경쟁률이 낮을 수록 공급 보다는 수요가 많은 시장이에요.
-            </li>
-            <li className={listCss}>
-              노출 경쟁률이 높고 경쟁상품 수가 많을수록 상위 노출이 어려워요.
-            </li>
-            <li className={listCss}>
-              노출 경쟁률이 낮고 경쟁상품 수가 적을수록 상위 노출이 쉬워요.
+              노출 경쟁률이 낮고 경쟁 상품 수가 적을수록 상위 노출이 쉬운 키워드에요.
             </li>
           </ul>
         }
@@ -164,22 +174,14 @@ const CompetitionRate = () => {
 };
 
 const CompetitionAmount = () => {
-  return (
-    <ContentPack
-      title='데아터'
-      children={`키워드 검색 시 노출되는 경쟁 상품들의 수에요.`}
-    />
-  );
+  return <ContentPack children={`키워드 검색 시 노출되는 경쟁 상품들의 수에요.`} />;
 };
 
 const CPC = () => {
   const listCss = 'ml-8';
   return (
     <ToolTipCombiner>
-      <ContentPack
-        title='데이터'
-        children={`키워드의 CPC 비율을 5개 등급으로 나누어 평가해요.`}
-      />
+      <ContentPack title='데이터' children={`키워드의 CPC 비율을 평가한 등급이에요.`} />
 
       <ContentPack
         title='계산식'
@@ -199,15 +201,19 @@ const CPC = () => {
 
 interface ICPCRate {
   itemCount: number;
-  text: string;
 }
-const CPCRate = ({ itemCount, text }: ICPCRate) => {
+const CPCRate = ({ itemCount }: ICPCRate) => {
   const listCss = 'ml-8';
   return (
     <ToolTipCombiner>
       <ContentPack
         title='데이터'
-        children={`${text} 검색결과 상위 ${itemCount}개 상품들의 평균 판매가 대비 키워드의 CPC 광고 단가에요.`}
+        children={
+          <>
+            키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 평균
+            판매가 대비 키워드 광고의 클릭당 비용이에요.
+          </>
+        }
       />
 
       <ContentPack title='계산식' children={`CPC 단가 ÷ 평균 판매가 (%)`} />
@@ -215,8 +221,8 @@ const CPCRate = ({ itemCount, text }: ICPCRate) => {
         title='활용Tip'
         children={
           <ul className='list-disc text-M/Medium text-white'>
-            <li className={listCss}>CPC 비율이 높을수록 광고 수익률이 낮을 수 있어요.</li>
-            <li className={listCss}>CPC 비율이 낮을수록 광고 수익률이 높을 수 있어요.</li>
+            <li className={listCss}>CPC 비율이 높을수록 광고 수익률이 낮아져요.</li>
+            <li className={listCss}>CPC 비율이 낮을수록 광고 수익률이 높아져요.</li>
           </ul>
         }
       />
@@ -225,23 +231,22 @@ const CPCRate = ({ itemCount, text }: ICPCRate) => {
 };
 
 const CPCPrice = () => {
-  return (
-    <ContentPack
-      title='데아터'
-      children={`키워드로 CPC 광고 시 클릭당 발생하는 비용이에요.`}
-    />
-  );
+  return <ContentPack children={`키워드 광고 시 클릭당 발생하는 비용이에요.`} />;
 };
 
 interface ICPCAvg {
   itemCount: number;
-  text: string;
 }
-const CPCAvg = ({ itemCount, text }: ICPCAvg) => {
+const CPCAvg = ({ itemCount }: ICPCAvg) => {
   return (
     <ContentPack
       title='데아터'
-      children={`${text} 검색결과 상위 ${itemCount}개 상품들이 판매되고 있는 평균 가격이에요.`}
+      children={
+        <>
+          키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 평균
+          판매가에요.
+        </>
+      }
     />
   );
 };

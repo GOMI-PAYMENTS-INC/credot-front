@@ -11,7 +11,7 @@ interface IContentPack {
   children: ReactNode;
   className?: string;
 }
-export const ContentPack = ({ title = '데이터', children, className }: IContentPack) => {
+export const ContentPack = ({ title = '', children, className }: IContentPack) => {
   return (
     <div className='flex flex-col'>
       <p className={`text-M/Bold text-orange-500 ${className}`}>{title}</p>
@@ -34,7 +34,7 @@ const UseTooltip = ({ content, place = 'right' }: IUseTooltip) => {
           src='/assets/icons/outlined/QuestionCircle.svg'
           className=''
           beforeInjection={(svg) => {
-            svg.setAttribute('class', 'fill-grey-800 h-[18px] w-[18px]');
+            svg.setAttribute('class', 'fill-grey-600 h-[14px] w-[14px]');
           }}
         />
       </a>
