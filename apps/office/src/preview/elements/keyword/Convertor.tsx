@@ -64,20 +64,22 @@ export const convertScoreToText = (status: string) => {
       return;
   }
 };
-
+const SCORE_SPAN_CLASS = 'text-S/Bold pl-1';
 const SCORE = {
   AAA: {
     top: (
       <p>
         검색량이 많으면서 경쟁상품 수는 적은 키워드에요!
-        <span className='text-S/Bold'> 상품 등록 시 적극적으로 활용하는 것을 추천</span>
+        <span className={SCORE_SPAN_CLASS}>
+          상품 등록 시 적극적으로 활용하는 것을 추천
+        </span>
         해요.
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가도 낮은 편이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           CPC광고 효율과 매출이 모두 잘 나올 수 있는 키워드
         </span>
         에요.
@@ -88,13 +90,15 @@ const SCORE = {
     top: (
       <p>
         검색량이 많지는 않지만 경쟁이 수월하여,
-        <span className='text-S/Bold'>신규 상품 등록 시 공략하기 좋은 키워드에요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          신규 상품 등록 시 공략하기 좋은 키워드에요.
+        </span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가도 낮은 편이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           CPC광고 효율과 매출이 모두 잘 나올 수 있는 키워드
         </span>
         에요.
@@ -105,7 +109,7 @@ const SCORE = {
     top: (
       <p>
         검색량은 적지만,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           그만큼 경쟁이 수월한 키워드에요. 신규 상품 등록 시 공략하기 좋을 수 있어요.
         </span>
       </p>
@@ -113,7 +117,7 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가도 낮은 편이라,
-        <span className='text-S/Bold'>CPC광고를 집행해도 나쁘지 않을 키워드</span>
+        <span className={SCORE_SPAN_CLASS}>CPC광고를 집행해도 나쁘지 않을 키워드</span>
         에요.
       </p>
     ),
@@ -123,14 +127,17 @@ const SCORE = {
     top: (
       <p>
         검색량이 많으면서 경쟁상품 수는 적은 키워드에요!
-        <span className='text-S/Bold'> 상품 등록 시 적극적으로 활용하는 것을 추천</span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          상품 등록 시 적극적으로 활용하는 것을 추천
+        </span>
         해요.
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -140,13 +147,15 @@ const SCORE = {
     top: (
       <p>
         검색량이 많지는 않지만 경쟁이 수월하여,
-        <span className='text-S/Bold'>신규 상품 등록 시 공략하기 좋은 키워드에요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          신규 상품 등록 시 공략하기 좋은 키워드에요.
+        </span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장
         </span>
         드려요.
@@ -158,7 +167,7 @@ const SCORE = {
     top: (
       <p>
         검색량은 적지만,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           그만큼 경쟁이 수월한 키워드에요. 신규 상품 등록 시 공략하기 좋을 수 있어요.
         </span>
       </p>
@@ -166,7 +175,7 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -177,14 +186,17 @@ const SCORE = {
     top: (
       <p>
         검색량이 많으면서 경쟁상품 수는 적은 키워드에요!
-        <span className='text-S/Bold'> 상품 등록 시 적극적으로 활용하는 것을 추천</span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          상품 등록 시 적극적으로 활용하는 것을 추천
+        </span>
         해요.
       </p>
     ),
     bottom: (
       <p>
         CPC광고는 입찰가가 높은 편이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           이익보다는 초기 시장 진입을 위한 공격적인 마케팅에 적합
         </span>
         해요.
@@ -196,13 +208,18 @@ const SCORE = {
     top: (
       <p>
         검색량이 많지는 않지만 경쟁이 수월하여,
-        <span className='text-S/Bold'> 신규 상품 등록 시 공략하기 좋은 키워드에요. </span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          신규 상품 등록 시 공략하기 좋은 키워드에요.{' '}
+        </span>
       </p>
     ),
     bottom: (
       <p>
         CPC광고는 입찰가는 높은 편이라,
-        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          광고 효율이 잘 나오지 않을 가능성이 높아요.
+        </span>
       </p>
     ),
   },
@@ -211,13 +228,18 @@ const SCORE = {
     top: (
       <p>
         검색량은 적지만, 그만큼 경쟁이 수월한 키워드에요.
-        <span className='text-S/Bold'>신규 상품 등록 시 공략하기 좋은 키워드에요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          신규 상품 등록 시 공략하기 좋은 키워드에요.
+        </span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가는 높은 편이라,
-        <span className='text-S/Bold'> 광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          광고 효율이 잘 나오지 않을 가능성이 높아요.
+        </span>
       </p>
     ),
   },
@@ -226,13 +248,16 @@ const SCORE = {
     top: (
       <p>
         검색량은 적지만, 그만큼 경쟁이 수월한 키워드에요.
-        <span className='text-S/Bold'> 신규 상품 등록 시 공략하기 좋을 수 있어요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          신규 상품 등록 시 공략하기 좋을 수 있어요.
+        </span>
       </p>
     ),
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           CPC광고를 통해 매출을 노려볼 수 있는 키워드에요.
         </span>
       </p>
@@ -242,7 +267,7 @@ const SCORE = {
     top: (
       <p>
         검색량과 경쟁수준이 모두 보통인 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           상품 등록에 사용 시 큰 효과를 기대하기는 어려워요.
         </span>
       </p>
@@ -250,7 +275,7 @@ const SCORE = {
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           CPC광고를 통해 매출을 노려볼 수 있는 키워드에요.
         </span>
       </p>
@@ -260,13 +285,16 @@ const SCORE = {
     top: (
       <p>
         검색량이 적고 경쟁이 수월하지도 않아요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'> CPC광고를 집행해도 나쁘지 않을 키워드에요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          CPC광고를 집행해도 나쁘지 않을 키워드에요.
+        </span>
       </p>
     ),
   },
@@ -275,7 +303,7 @@ const SCORE = {
     top: (
       <p>
         검색량만큼 경쟁상품도 많은 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -283,7 +311,7 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -293,7 +321,7 @@ const SCORE = {
     top: (
       <p>
         검색량과 경쟁수준이 모두 보통인 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           상품 등록에 사용 시 큰 효과를 기대하기는 어려워요.
         </span>
       </p>
@@ -301,7 +329,7 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -311,13 +339,13 @@ const SCORE = {
     top: (
       <p>
         검색량이 적고 경쟁이 수월하지도 않아요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -328,7 +356,7 @@ const SCORE = {
     top: (
       <p>
         검색량만큼 경쟁상품도 많은 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -336,7 +364,9 @@ const SCORE = {
     bottom: (
       <p>
         CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
+        <span className={SCORE_SPAN_CLASS}>
+          초기 시장 진입을 위한 공격적인 마케팅에 적합
+        </span>
         해요.
       </p>
     ),
@@ -345,7 +375,7 @@ const SCORE = {
     top: (
       <p>
         검색량과 경쟁수준이 모두 보통인 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           상품 등록에 사용 시 큰 효과를 기대하기는 어려워요.
         </span>
       </p>
@@ -353,7 +383,9 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가도 높은 편이라,
-        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          광고 효율이 잘 나오지 않을 가능성이 높아요.
+        </span>
       </p>
     ),
   },
@@ -362,13 +394,15 @@ const SCORE = {
     top: (
       <p>
         검색량이 적고 경쟁이 수월하지도 않아요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가도 높은 편이라,
-        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          광고 효율이 잘 나오지 않을 가능성이 높아요.
+        </span>
       </p>
     ),
   },
@@ -377,7 +411,7 @@ const SCORE = {
     top: (
       <p>
         검색량만큼 경쟁상품도 많은 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -385,7 +419,7 @@ const SCORE = {
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           CPC광고를 통해 매출을 노려볼 수 있는 키워드에요.
         </span>
       </p>
@@ -395,13 +429,15 @@ const SCORE = {
     top: (
       <p>
         검색량 대비 경쟁이 치열한 키워드에요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'>CPC광고를 통해 매출을 노려볼 수 있는 키워드</span>
+        <span className={SCORE_SPAN_CLASS}>
+          CPC광고를 통해 매출을 노려볼 수 있는 키워드
+        </span>
         에요.
       </p>
     ),
@@ -410,13 +446,16 @@ const SCORE = {
     top: (
       <p>
         검색량은 적은데 경쟁이 치열한 키워드에요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         다행히 CPC 입찰가는 낮은 편이라,
-        <span className='text-S/Bold'> CPC광고를 집행해도 나쁘지 않을 키워드에요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          {' '}
+          CPC광고를 집행해도 나쁘지 않을 키워드에요.
+        </span>
       </p>
     ),
   },
@@ -425,7 +464,7 @@ const SCORE = {
     top: (
       <p>
         검색량은 많지만, 경쟁이 아주 심한 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -433,7 +472,7 @@ const SCORE = {
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -443,13 +482,13 @@ const SCORE = {
     top: (
       <p>
         검색량 대비 경쟁이 치열한 키워드에요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -459,13 +498,13 @@ const SCORE = {
     top: (
       <p>
         검색량은 적은데 경쟁이 치열한 키워드에요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가는 보통 수준이라,
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           광고 집행 시 효율을 주기적으로 체크하는걸 권장드려요.
         </span>
       </p>
@@ -475,7 +514,7 @@ const SCORE = {
     top: (
       <p>
         검색량은 많지만, 경쟁이 아주 심한 키워드에요.
-        <span className='text-S/Bold'>
+        <span className={SCORE_SPAN_CLASS}>
           신규 상품인 경우 상품등록 시 사용을 추천하지 않아요.
         </span>
       </p>
@@ -483,7 +522,9 @@ const SCORE = {
     bottom: (
       <p>
         CPC광고는 입찰가가 높은 편이라, 이익보다는
-        <span className='text-S/Bold'>초기 시장 진입을 위한 공격적인 마케팅에 적합</span>
+        <span className={SCORE_SPAN_CLASS}>
+          초기 시장 진입을 위한 공격적인 마케팅에 적합
+        </span>
         해요.
       </p>
     ),
@@ -492,13 +533,15 @@ const SCORE = {
     top: (
       <p>
         검색량 대비 경쟁이 치열한 키워드에요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         CPC광고는 입찰가가 높은 편이라,
-        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          광고 효율이 잘 나오지 않을 가능성이 높아요.
+        </span>
       </p>
     ),
   },
@@ -506,13 +549,15 @@ const SCORE = {
     top: (
       <p>
         검색량은 적은데 경쟁이 치열한 키워드에요.
-        <span className='text-S/Bold'> 상품 등록 시 사용을 추천하지 않아요.</span>
+        <span className={SCORE_SPAN_CLASS}> 상품 등록 시 사용을 추천하지 않아요.</span>
       </p>
     ),
     bottom: (
       <p>
         CPC 입찰가도 높은 편이라,
-        <span className='text-S/Bold'>광고 효율이 잘 나오지 않을 가능성이 높아요.</span>
+        <span className={SCORE_SPAN_CLASS}>
+          광고 효율이 잘 나오지 않을 가능성이 높아요.
+        </span>
       </p>
     ),
   },
