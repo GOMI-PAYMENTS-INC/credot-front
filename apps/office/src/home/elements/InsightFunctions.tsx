@@ -12,10 +12,9 @@ import { onChangeTab, dragTab } from '@/home/container';
 
 interface IInsightFunctions {
   imagePath: string;
-  varidation: string;
 }
 
-export const InsightFunctions = ({ imagePath, varidation }: IInsightFunctions) => {
+export const InsightFunctions = ({ imagePath }: IInsightFunctions) => {
   const [activeTabIndex, changeActiveTab] = useState<number>(0);
   const [swiper, setSwiper] = useState<SwiperClass>();
 
@@ -105,11 +104,6 @@ export const InsightFunctions = ({ imagePath, varidation }: IInsightFunctions) =
                         <div className='mt-6 break-keep text-L/Medium text-grey-900 md:mt-4 md:w-[560px] md:text-XL/Medium sm:w-full'>
                           {tab.data.content}
                         </div>
-                        <InduceButton
-                          varidation={varidation}
-                          text='더욱 자세히 알고싶다면'
-                          className='md:item mt-[30px] justify-start lg:ml-[80px] lg:justify-center md:ml-0 md:mb-8 md:flex md:flex-col md:items-center'
-                        />
                       </div>
                       <div className='flex basis-full justify-center'>
                         <div className='w-[424px] md:w-[345px] sm:w-[280px]'>
