@@ -5,22 +5,19 @@ import { BATCH_STATUS } from '@/types/enum.code';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
+import { openBrowser } from '@/utils/openBrowser';
+import { convertShopeeSiteUrl } from '@/utils/convertEnum';
+import { getElementLocation } from '@/utils/getElementLocation';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+
 import { isToggleOpen } from '@/report/container';
 import { KeywordAnalysisCard } from '@/report/keyword/elements';
-
-import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/Score';
-import { formatNumber } from '@/utils/formatNumber';
+import { convertEvaluateStatus } from '@/report/constants/Score';
 
 import { TReportAction } from '@/report/reducer';
 import { _getRelationReport } from '@/report/container';
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { CountryType } from '@/generated/graphql';
-import { openBrowser } from '@/utils/openBrowser';
-import { getConversionRate } from '@/report/keyword/container';
-import { convertToWon } from '@/report/keyword/container';
-import { getElementLocation } from '@/utils/getElementLocation';
-import { replaceOverLength } from '@/utils/replaceOverLength';
 
 interface IRecommendationChart {
   relations: TRelationReport[] | null;
@@ -67,33 +64,9 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
         <ul className='z-20 my-[18px] space-y-[18px]'>
           {recomendationItems.map((item, index) => {
-            const conversionRate = item.totalSalesCount / item.searchCount;
-            const rateGrade = item.evaluateStatus + getConversionRate(conversionRate);
-            const [search, competition, cpc, conversion] = rateGrade
-              .split('')
-              .map((grade) => convertScoreToText(grade));
-
             const status = isFalsy(toggleEvent.find((event) => event.id === item.id));
             const backgroundColor = status ? 'border-grey-300' : 'bg-grey-100';
-            const {
-              searchCount,
-              totalSalesCount,
-              competitionRate,
-              competitionProductCount,
-              cpcRate,
-              cpcPrice,
-              avgPrice,
-              id,
-              text,
-            } = item;
-            const [_cpcPrice, _avgPrice] = [cpcPrice, avgPrice].map((price) =>
-              convertToWon(currencyUnit, price, basePrice),
-            );
-            const [_searchCount, _competitionProductCount, _cpcRate] = [
-              searchCount,
-              competitionProductCount,
-              cpcRate,
-            ].map((target) => formatNumber(target));
+            const { id } = item;
 
             const { top, bottom } = convertEvaluateStatus(item.evaluateStatus);
             return (
@@ -189,42 +162,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                 {status === false && (
                   <Fragment>
                     <main>
-                      <div className='flex items-center bg-grey-50 text-center'>
-                        <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
-                          <KeywordAnalysisCard
-                            grade={search}
-                            rate={_searchCount}
-                            id='Search'
-                            tooltipItem={{ text, itemCount }}
-                          />
-                          {totalSalesCount && (
-                            <KeywordAnalysisCard
-                              grade={conversion}
-                              rate={formatNumber(conversionRate)}
-                              subRate={`${_searchCount} 건`}
-                              secondSubRate={`${totalSalesCount} 건`}
-                              id='Conversion'
-                              tooltipItem={{ text, itemCount }}
-                            />
-                          )}
-                          <KeywordAnalysisCard
-                            grade={competition}
-                            rate={competitionRate}
-                            subRate={`${_searchCount} 건`}
-                            secondSubRate={`${_competitionProductCount} 건`}
-                            id='Competition'
-                            tooltipItem={{ text, itemCount }}
-                          />
-                          <KeywordAnalysisCard
-                            grade={cpc}
-                            rate={_cpcRate}
-                            subRate={`${_cpcPrice} 원`}
-                            secondSubRate={`${_avgPrice} 원`}
-                            id='CPC'
-                            tooltipItem={{ text, itemCount }}
-                          />
-                        </div>
-                      </div>
+                      <KeywordAnalysisCard analysisInfo={item} />
                     </main>
                     <footer>
                       <div className='bg-grey-200 p-2.5'>
