@@ -4,6 +4,9 @@ import { TITLE } from '@/types/enum.code';
 import { useMemo } from 'react';
 import { setCategoryData } from '@/report/category/container';
 import { CategoryRankChart } from '@/report/category/CategoryRankChart';
+import UseTooltip from '@/components/UseTooltip';
+import { CategoryToolTip } from '@/report/category/Tooltip';
+
 interface ICategoryAnalysis {
   categoryAnalysis: null | TCategoryAnalysis;
   itemCount: number;
@@ -72,6 +75,7 @@ export const CategoryAnalysis = (props: ICategoryAnalysis) => {
             <h1 className='flex items-center py-2.5 pl-5 text-S/Medium text-grey-900'>
               카테고리 등록순
             </h1>
+            <UseTooltip content={CategoryToolTip()} />
           </div>
           <div className='col-span-3 flex flex-col items-center justify-center xs:border-b-[1px] xs:pb-[45px]'>
             <CategoryRankChart data={formatedData} />
