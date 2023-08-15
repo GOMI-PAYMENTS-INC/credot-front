@@ -18,6 +18,7 @@ import { PriceTooltips } from '@/report/price/Tooltip';
 
 interface ISalePrice {
   salePriceInfo: TSalePriceData;
+  itemCount: number;
   _dispatch: Dispatch<TReportAction>;
   list: TSalePriceItems[];
   focus: GRADE_TYPE;
@@ -26,9 +27,17 @@ interface ISalePrice {
 }
 
 export const SalePrice = (props: ISalePrice) => {
-  const { _dispatch, salePriceInfo, list, focus, currencyUnit, amplitudeData } = props;
+  const {
+    _dispatch,
+    salePriceInfo,
+    list,
+    focus,
+    currencyUnit,
+    amplitudeData,
+    itemCount,
+  } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
-  const [SalesPriceTooltip, SalesTableTooltip] = PriceTooltips();
+  const [SalesTableTooltip] = PriceTooltips({ itemCount });
   const { gradeItems, priceAnalysisInfo, items } = salePriceInfo!;
   const { basePrice } = priceAnalysisInfo;
 
@@ -60,7 +69,6 @@ export const SalePrice = (props: ISalePrice) => {
             <div className='relative flex items-center border-b-[1px] border-t-[2px] bg-grey-100 xs:border-b-[1px]'>
               <div className='flex items-center py-2.5 pl-5'>
                 <p className='text-S/Medium text-grey-900'>판매가 정보</p>
-                <UseTooltip content={SalesPriceTooltip} />
               </div>
             </div>
             <div className='flex-grow-1 flex h-full w-full flex-col justify-center xs:flex-row xs:justify-evenly xs:divide-x-[1px] xs:divide-dotted xs:py-2 xs:text-center'>

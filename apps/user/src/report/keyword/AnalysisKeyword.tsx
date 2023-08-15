@@ -96,7 +96,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <KeywordAnalysisCard
                   grade={conversion}
-                  rate={_conversionRate}
+                  rate={`${_conversionRate} 회`}
                   subRate={`${searchCount} 건`}
                   secondSubRate={`${totalSalesCount} 건`}
                   id='Conversion'
@@ -104,7 +104,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
                 />
                 <KeywordAnalysisCard
                   grade={competition}
-                  rate={competitionRate}
+                  rate={`1 : ${competitionRate}`}
                   subRate={`${searchCount} 건`}
                   secondSubRate={`${competitionProductCount} 건`}
                   id='Competition'

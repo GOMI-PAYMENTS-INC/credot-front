@@ -32,10 +32,10 @@ export const SalePriceTable = (props: ISalePriceTable) => {
             <p className='px-4  text-XS/Medium'>판매가</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
-            <p className='px-4  text-XS/Medium'>월 추정 매출</p>
+            <p className='px-4  text-XS/Medium'>최근 30일 매출</p>
           </th>
           <th className='w-[120px] text-right' colSpan={1}>
-            <p className='px-[13px] text-XS/Medium'>월 판매량</p>
+            <p className='px-[13px] text-XS/Medium'>최근 30일 판매량</p>
           </th>
           <th className='w-[100px] text-center' colSpan={1}>
             <p className='px-1 text-XS/Medium'>노출 순위</p>
