@@ -63,6 +63,7 @@ export const DetailReportSwitch = ({
             />
             <SalePrice
               _dispatch={_dispatch}
+              itemCount={main!.itemCount}
               currencyUnit={main!.currencyUnit}
               salePriceInfo={salePrice?.data!}
               list={salePrice.list}
