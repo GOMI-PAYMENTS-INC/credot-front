@@ -122,7 +122,7 @@ export const MarketTooltips = ({ itemCount }: IMarketTooltips) => {
 
           <ContentPack
             title='활용Tip'
-            children={`내 상품이 키워드에 상위 노출되었을 시 발생되는 월 판매량을 예상해볼 수 있어요.`}
+            children={`내 상품이 키워드에 상위 노출되었을 시 발생되는 최근 30일 판매량을 예상해볼 수 있어요.`}
           />
         </ToolTipCombiner>
       );

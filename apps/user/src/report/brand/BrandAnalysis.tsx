@@ -36,7 +36,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
   } = props;
   const scrollerRef = useRef<HTMLTableSectionElement>(null);
   const { focus, data: brandAnalysisData } = brandAnalysis;
-  const [TotalSales, TotalAmount, AvgSales, AvgAmount, AvgSalesPrice] = Tooltips();
+  const [TotalSales, TotalAmount, AvgSales, AvgAmount, AvgSalesPrice, Place] = Tooltips();
 
   const {
     totalSalesAmount: totalAmount,
@@ -95,6 +95,7 @@ export const BrandAnalysis = (props: IBrandAnalysis) => {
               <div className='py-[5px] text-center'>
                 <div className='flex items-center justify-center'>
                   <span className='text-S/Regular text-grey-800'>순위</span>
+                  <UseTooltip content={Place} />
                 </div>
                 <div className='mt-2 flex items-center justify-center'>
                   <div className='relative h-[46px] w-[38px]'>
