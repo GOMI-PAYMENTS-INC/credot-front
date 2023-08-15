@@ -28,10 +28,10 @@ export const BrandAnalysisProductTable = (props: IBrandAnalysisProductTable) => 
             <p className='pr-3 text-XS/Medium'>판매가</p>
           </th>
           <th className='w-[128px] text-right' colSpan={1}>
-            <p className='pr-3 text-XS/Medium'>월 추정 매출</p>
+            <p className='pr-3 text-XS/Medium'>최근 30일 매출</p>
           </th>
           <th className='w-[80px] text-right' colSpan={1}>
-            <p className='pr-3 text-XS/Medium'>월 판매량</p>
+            <p className='pr-3 text-XS/Medium'>최근 30일 판매량</p>
           </th>
           <th className='w-[64px] text-center' colSpan={1}>
             <p className='pr-[9.5px] text-XS/Medium'>노출 순위</p>

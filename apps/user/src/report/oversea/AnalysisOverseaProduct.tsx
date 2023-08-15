@@ -10,6 +10,8 @@ import { isFalsy } from '@/utils/isFalsy';
 import { COUNTRY_CODE } from '@/report/constants/country';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { DetailReportSectionHeader } from '@/report/elements';
+import UseTooltip from '@/components/UseTooltip';
+import { OverseaProductRate } from '@/report/oversea/Tooltip';
 
 interface IAnalysisOverseaProduct {
   overseaProduct: TOverseaProductData | null;
@@ -50,8 +52,9 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
       <div className='pt-4 xs:pt-6'>
         <div className='grid grid-cols-10 border-t-[2px]  border-grey-300 xs:flex xs:flex-col xs:border-b-0'>
           <div className='relative col-span-10 flex w-full border-b-[1px] bg-grey-100'>
-            <div className='py-2.5 pl-5 '>
+            <div className='flex items-center py-2.5 pl-5'>
               <p className='text-S/Medium text-grey-900'>해외 배송 상품 비율</p>
+              <UseTooltip content={OverseaProductRate()} />
             </div>
           </div>
 

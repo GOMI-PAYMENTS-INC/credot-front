@@ -17,7 +17,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
     rate,
     subRate,
     secondSubRate,
-    tooltipItem: { itemCount, text },
+    tooltipItem: { itemCount },
     id,
   } = props;
 
@@ -46,14 +46,12 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
             <div className='flex h-[96px] items-center justify-center'>
               <div className='mx-6 flex h-[72px] w-[148px] items-center justify-center rounded-[7px] bg-grey-100 xs:w-[273px]'>
                 <div className='flex h-12 w-[236px] flex-col items-center justify-center text-center'>
-                  <p className='text-XL/Medium text-grey-900'>
-                    {id === 'CPC' ? rate : `1 : ${rate}`}
-                  </p>
+                  <p className='text-XL/Medium text-grey-900'>{rate}</p>
                   <div className='flex items-center pt-1'>
                     <p className='flex items-center text-XS/Medium text-grey-800 xs:text-S/Medium'>
                       {rateText}
                     </p>
-                    <UseTooltip content={rateTooltip({ itemCount, text })} />
+                    <UseTooltip content={rateTooltip({ itemCount })} />
                   </div>
                 </div>
               </div>
@@ -79,7 +77,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                 <div className='flex items-center pt-2 text-XS/Medium text-grey-800 xs:text-S/Medium'>
                   {secondSubRateText}
                   {secondSubRateTooltip && (
-                    <UseTooltip content={secondSubRateTooltip({ itemCount, text })} />
+                    <UseTooltip content={secondSubRateTooltip({ itemCount })} />
                   )}
                 </div>
               </div>
@@ -93,7 +91,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
                 <p className='text-XS/Medium text-grey-800 xs:text-S/Medium '>
                   {rateText}
                 </p>
-                <UseTooltip content={rateTooltip({ itemCount, text })} />
+                <UseTooltip content={rateTooltip({ itemCount })} />
               </div>
             </div>
           </div>

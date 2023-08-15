@@ -27,14 +27,14 @@ export const cardTextParser = (id: TToolTipKey) => {
     case 'Search':
       return {
         title: '검색량',
-        rateText: '월 검색량',
+        rateText: '최근 30일 검색량',
         subRateText: '',
         secondSubRateText: '',
       };
     case 'Conversion':
       return {
         title: '구매 전환',
-        rateText: '구매 전환율',
+        rateText: '구매전환 빈도',
         subRateText: '검색량',
         secondSubRateText: '판매량 합계',
       };
@@ -49,7 +49,7 @@ export const cardTextParser = (id: TToolTipKey) => {
       return {
         title: '광고 경쟁',
         rateText: 'CPC 비율',
-        subRateText: 'CPC',
+        subRateText: 'CPC 비용',
         secondSubRateText: '평균 판매가',
       };
   }
