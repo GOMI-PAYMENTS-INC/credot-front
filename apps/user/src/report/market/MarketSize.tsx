@@ -39,11 +39,20 @@ export const MarketSize = (props: IMarketSize) => {
       return convertExchangeRate(currencyUnit, number, basePrice);
     })
     .map((number) => formatNumber(number));
-  const YEARS = [0, 2021, 2022, 2023];
+
+  let _YEARS: Array<number> = [0];
   const trendDate = trend.map((el) => el.trendDate.toString());
-  const haveAllTrend = YEARS.filter((year) => year !== 0).every((year) =>
-    trendDate.some((date) => date.includes(`${year}`)),
-  );
+  const haveAllTrend = [0, 2021, 2022, 2023]
+    .filter((year) => year !== 0)
+    .every((year) => {
+      const response = trendDate.some((date) => date.includes(`${year}`));
+      if (response) {
+        _YEARS.push(year);
+      } else {
+        _YEARS = [2022];
+      }
+      return response;
+    });
 
   const [isSelected, setIsSelected] = useState<number>(haveAllTrend ? 2023 : 2022);
   const isDateAll = isSelected === 0;
@@ -81,7 +90,7 @@ export const MarketSize = (props: IMarketSize) => {
               >
                 <div className='pl-[48px] xs:pl-0 '>
                   <ul className='flex divide-x-[1px] border-[1px]'>
-                    {[0, 2021, 2022, 2023].map((year, index) => {
+                    {_YEARS.map((year, index) => {
                       const borderCss =
                         isSelected === year
                           ? 'border-orange-400 bg-orange-100 text-orange-400'
