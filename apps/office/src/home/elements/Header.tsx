@@ -1,11 +1,6 @@
 import { ReactSVG } from 'react-svg';
-import { InduceButton } from '@/home/elements/InduceButton';
 
-interface IHeader {
-  varidation: string;
-}
-
-export const Header = ({ varidation }: IHeader) => {
+export const Header = () => {
   return (
     <section className='h-[560px] w-full bg-[#FAFAF9]'>
       <div className='container relative h-full'>
@@ -21,11 +16,6 @@ export const Header = ({ varidation }: IHeader) => {
             <br />
             상품의 시장 정보와 최고의 판매 전략을 제공해요!
           </p>
-
-          <InduceButton
-            varidation={varidation}
-            className='mt-10 flex w-full justify-center gap-4 xs:mt-[46px]'
-          />
         </div>
 
         <div className='absolute left-0  top-0 h-full w-full'>

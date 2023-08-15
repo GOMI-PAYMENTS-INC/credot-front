@@ -8,11 +8,7 @@ import { ReactSVG } from 'react-svg';
 import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 
-interface IPreview {
-  varidation: TVaridationType;
-}
-
-const Preview = ({ varidation }: IPreview) => {
+const Preview = () => {
   const scrollEventState: TScrollEvent = {
     scrollY: 0,
     isOpen: true,
@@ -24,13 +20,7 @@ const Preview = ({ varidation }: IPreview) => {
 
   const { scrollY: windowScrollY } = useScroll();
 
-  const EVENT_KEY =
-    varidation === 'A' ? 'sample__purchase_complete' : 'sample__membership_subscription';
-  const { deviceId } = window.hackleClient.getUser();
-  const _deviceId = deviceId ? deviceId : 'Unuknown';
-
   useEffect(() => {
-    window.hackleClient.track(EVENT_KEY, { deviceId: _deviceId });
     _keywordReportPreviewed();
   }, []);
 
