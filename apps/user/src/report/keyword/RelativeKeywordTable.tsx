@@ -59,11 +59,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
               <li
                 key={`relative_keyword_${index}`}
                 onClick={(event) => {
-                  const linkoutKey =
-                    window.innerWidth > 432
-                      ? 'relative_linkout'
-                      : 'relative_linkout_mobile';
-                  const linkout = getElementLocation(linkoutKey);
+                  const linkout = getElementLocation('relative_linkout');
                   const report = getElementLocation('relative_report_generator');
 
                   if (
@@ -79,31 +75,16 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                   <div
                     className={`flex justify-between border-[1px] border-grey-300 bg-grey-50 py-[18px] px-[15px] text-M/Medium ${backgroundColor} h-[60px] cursor-pointer hover:bg-grey-300`}
                   >
-                    <p className='xs:hidden'>{item.text}</p>
+                    <p>
+                      {window.innerWidth > 432
+                        ? item.text
+                        : replaceOverLength(item.text, 22)}
+                    </p>
 
-                    <div className='hidden items-center xs:flex'>
-                      {replaceOverLength(item.text, 30)}
-                      <button
-                        id='relative_linkout_mobile'
-                        className='z-20 ml-2 h-5 w-5 cursor-pointer items-center'
-                        onClick={() =>
-                          moveToShopee(country!, item.text, sorted, amplitudeData)
-                        }
-                      >
-                        <ReactSVG
-                          className=''
-                          src='/assets/icons/outlined/Linkout.svg'
-                          beforeInjection={(svg) =>
-                            svg.setAttribute('class', 'fill-grey-900')
-                          }
-                        />
-                      </button>
-                    </div>
-
-                    <div className='flex items-center'>
+                    <div className='flex items-center gap-5 xs:gap-2.5'>
                       <button
                         id='relative_report_generator'
-                        className='mr-[30px] rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
+                        className='rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
                         onClick={() => {
                           console.log(item, ':item');
                         }}
@@ -119,7 +100,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
                       <button
                         id='relative_linkout'
-                        className='z-20 flex h-5 w-5 cursor-pointer items-center xs:hidden'
+                        className='z-20 flex h-5 w-5 cursor-pointer items-center'
                         onClick={() =>
                           moveToShopee(country!, item.text, sorted, amplitudeData)
                         }
@@ -137,7 +118,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                           isFalsy(toggleEvent.find((event) => event.id === id))
                             ? 'z-0 -rotate-90'
                             : 'z-0 rotate-90'
-                        } ml-[14px]`}
+                        } `}
                         src='/assets/icons/outlined/LeftArrow.svg'
                       />
                     </div>
