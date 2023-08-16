@@ -56,22 +56,21 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
             const { top, bottom } = convertEvaluateStatus(item.evaluateStatus);
             return (
-              <li
-                key={`relative_keyword_${index}`}
-                onClick={(event) => {
-                  const linkout = getElementLocation('relative_linkout');
-                  const report = getElementLocation('relative_report_generator');
+              <li key={`relative_keyword_${index}`}>
+                <header
+                  onClick={(event) => {
+                    const linkout = getElementLocation('relative_linkout');
+                    const report = getElementLocation('relative_report_generator');
 
-                  if (
-                    isOverArea(event.clientX, linkout) ||
-                    isOverArea(event.clientX, report)
-                  )
-                    return;
+                    if (
+                      isOverArea(event.clientX, linkout) ||
+                      isOverArea(event.clientX, report)
+                    )
+                      return;
 
-                  _dispatch && isToggleOpen(_dispatch, false, item.id);
-                }}
-              >
-                <header>
+                    _dispatch && isToggleOpen(_dispatch, false, item.id);
+                  }}
+                >
                   <div
                     className={`flex justify-between border-[1px] border-grey-300 bg-grey-50 py-[18px] px-[15px] text-M/Medium ${backgroundColor} h-[60px] cursor-pointer hover:bg-grey-300`}
                   >
@@ -81,7 +80,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                         : replaceOverLength(item.text, 22)}
                     </p>
 
-                    <div className='flex items-center gap-5 xs:gap-2.5'>
+                    <div className='flex items-center gap-5 xs:gap-[14px]'>
                       <button
                         id='relative_report_generator'
                         className='rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
@@ -145,6 +144,16 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                           </div>
                         </div>
                       </div>
+
+                      <button
+                        className='button-filled-xLarge-primary-false-false-false my-[30px] hidden w-full xs:block'
+                        onClick={(event) => {
+                          event.preventDefault();
+                          console.log(item, 'item');
+                        }}
+                      >
+                        이 키워드로 리포트 생성하기
+                      </button>
                     </footer>
                   </Fragment>
                 )}

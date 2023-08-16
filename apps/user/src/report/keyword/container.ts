@@ -60,9 +60,10 @@ export const cardTextParser = (id: TToolTipKey) => {
   }
 };
 
-export const isOverArea = (xAxis: number, tag: HTMLElement) => {
+export const isOverArea = (xAxis: number, tag: HTMLElement | null) => {
+  if (tag === null) return false;
   const { offsetLeft, offsetWidth } = tag;
-  console.log();
+
   if (xAxis > offsetLeft - 1 && xAxis <= offsetLeft + offsetWidth) return true;
 
   return false;
