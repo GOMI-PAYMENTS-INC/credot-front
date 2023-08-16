@@ -240,7 +240,6 @@ interface ICPCAvg {
 const CPCAvg = ({ itemCount }: ICPCAvg) => {
   return (
     <ContentPack
-      title='데아터'
       children={
         <>
           키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 평균
