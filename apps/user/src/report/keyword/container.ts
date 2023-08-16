@@ -1,6 +1,11 @@
+import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
+import { openBrowser } from '@/utils/openBrowser';
+import { convertShopeeSiteUrl } from '@/utils/convertEnum';
+
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate } from '@/report/container';
 import { roundNumber } from '@/report/container';
+import { CountryType } from '@/generated/graphql';
 export const getConversionRate = (rate: number) => {
   if (rate < 0.3) {
     return 'E';
@@ -53,4 +58,23 @@ export const cardTextParser = (id: TToolTipKey) => {
         secondSubRateText: '평균 판매가',
       };
   }
+};
+
+export const isOverArea = (xAxis: number, tag: HTMLElement) => {
+  const { offsetLeft, offsetWidth } = tag;
+  console.log();
+  if (xAxis > offsetLeft - 1 && xAxis <= offsetLeft + offsetWidth) return true;
+
+  return false;
+};
+
+export const moveToShopee = (
+  country: CountryType,
+  text: string,
+  sorted: TSortBy,
+  amplitudeData?: TAmplitudeDetailData,
+) => {
+  openBrowser(`${convertShopeeSiteUrl(country!)}/search?keyword=${text}`, sorted);
+  amplitudeData &&
+    _amplitudeMovedToSERP(amplitudeData.param, amplitudeData.keyword, text);
 };

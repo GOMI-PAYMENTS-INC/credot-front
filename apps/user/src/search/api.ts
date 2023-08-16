@@ -69,10 +69,11 @@ const REPORT_URL = {
 
 export const postCreateReport = async (params: TCreateReportParams) => {
   try {
-    return await HTTP.post<TCreateReportParams, TPostCreateReportResponse>(
+    const response = await HTTP.post<TCreateReportParams, TPostCreateReportResponse>(
       REPORT_URL.postCreateReport,
       params,
     );
+    return response.data;
   } catch (error) {
     console.error(error);
   }

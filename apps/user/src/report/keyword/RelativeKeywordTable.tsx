@@ -1,22 +1,18 @@
 import { Dispatch, Fragment, useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
-
 import { BATCH_STATUS } from '@/types/enum.code';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
-import { openBrowser } from '@/utils/openBrowser';
-import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { getElementLocation } from '@/utils/getElementLocation';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 
-import { isToggleOpen } from '@/report/container';
+import { _getRelationReport, isToggleOpen } from '@/report/container';
+import { isOverArea, moveToShopee } from '@/report/keyword/container';
 import { KeywordAnalysisCard } from '@/report/keyword/elements';
 import { convertEvaluateStatus } from '@/report/constants/Score';
 
 import { TReportAction } from '@/report/reducer';
-import { _getRelationReport } from '@/report/container';
-import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { CountryType } from '@/generated/graphql';
 
 interface IRecommendationChart {
@@ -32,17 +28,7 @@ interface IRecommendationChart {
 }
 
 export const RelativeKeywordTable = (props: IRecommendationChart) => {
-  const {
-    amplitudeData,
-    relations,
-    country,
-    _dispatch,
-    toggleEvent,
-    currencyUnit,
-    basePrice,
-    sorted,
-    itemCount,
-  } = props;
+  const { amplitudeData, relations, country, _dispatch, toggleEvent, sorted } = props;
 
   const recomendationItems = useMemo(
     () =>
@@ -73,12 +59,16 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
               <li
                 key={`relative_keyword_${index}`}
                 onClick={(event) => {
-                  const { offsetLeft, offsetWidth } =
-                    getElementLocation('relative_linkout');
+                  const linkoutKey =
+                    window.innerWidth > 432
+                      ? 'relative_linkout'
+                      : 'relative_linkout_mobile';
+                  const linkout = getElementLocation(linkoutKey);
+                  const report = getElementLocation('relative_report_generator');
 
                   if (
-                    event.clientX >= offsetLeft &&
-                    event.clientX <= offsetLeft + offsetWidth
+                    isOverArea(event.clientX, linkout) ||
+                    isOverArea(event.clientX, report)
                   )
                     return;
 
@@ -87,29 +77,18 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
               >
                 <header>
                   <div
-                    className={`flex justify-between border-[1px] border-grey-300 bg-grey-50 py-[18px] px-[15px] text-M/Medium ${backgroundColor} cursor-pointer hover:bg-grey-300`}
+                    className={`flex justify-between border-[1px] border-grey-300 bg-grey-50 py-[18px] px-[15px] text-M/Medium ${backgroundColor} h-[60px] cursor-pointer hover:bg-grey-300`}
                   >
                     <p className='xs:hidden'>{item.text}</p>
 
                     <div className='hidden items-center xs:flex'>
                       {replaceOverLength(item.text, 30)}
                       <button
-                        id='relative_linkout'
+                        id='relative_linkout_mobile'
                         className='z-20 ml-2 h-5 w-5 cursor-pointer items-center'
-                        onClick={() => {
-                          openBrowser(
-                            `${convertShopeeSiteUrl(country!)}/search?keyword=${
-                              item.text
-                            }`,
-                            sorted,
-                          );
-                          amplitudeData &&
-                            _amplitudeMovedToSERP(
-                              amplitudeData.param,
-                              amplitudeData.keyword,
-                              item.text,
-                            );
-                        }}
+                        onClick={() =>
+                          moveToShopee(country!, item.text, sorted, amplitudeData)
+                        }
                       >
                         <ReactSVG
                           className=''
@@ -123,22 +102,27 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
                     <div className='flex items-center'>
                       <button
+                        id='relative_report_generator'
+                        className='mr-[30px] rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
+                        onClick={() => {
+                          console.log(item, ':item');
+                        }}
+                      >
+                        <ReactSVG
+                          className=''
+                          src='/assets/icons/outlined/CarbonReport.svg'
+                          beforeInjection={(svg) =>
+                            svg.setAttribute('class', 'fill-orange-400')
+                          }
+                        />
+                      </button>
+
+                      <button
                         id='relative_linkout'
                         className='z-20 flex h-5 w-5 cursor-pointer items-center xs:hidden'
-                        onClick={() => {
-                          openBrowser(
-                            `${convertShopeeSiteUrl(country!)}/search?keyword=${
-                              item.text
-                            }`,
-                            sorted,
-                          );
-                          amplitudeData &&
-                            _amplitudeMovedToSERP(
-                              amplitudeData.param,
-                              amplitudeData.keyword,
-                              item.text,
-                            );
-                        }}
+                        onClick={() =>
+                          moveToShopee(country!, item.text, sorted, amplitudeData)
+                        }
                       >
                         <ReactSVG
                           className=''
