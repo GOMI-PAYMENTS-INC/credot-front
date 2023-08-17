@@ -1,7 +1,4 @@
 import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } from 'react';
-import { ReactSVG } from 'react-svg';
-import { Tooltip } from 'react-tooltip';
-
 import { Default } from '@/common/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { SearchModal, SearchKeywordTranslator, HotKeyword } from '@/search/elements';
@@ -16,7 +13,7 @@ import {
   initializeState,
   queryKeyword,
   queryKeywordByClick,
-  switchModal,
+  convertSearchPlaceholder,
 } from '@/search/container';
 import { mobileScrollToTop } from '@/utils/scrollController';
 import { SEARCH_ACTION } from '@/search/reducer';
@@ -50,6 +47,7 @@ import DropDown, {
 import { CountryType } from '@/generated/graphql';
 import UseTooltip from '@/components/UseTooltip';
 import { SearchTooltips } from '@/search/elements/Tooltip';
+import { switchModal, searchRequestHandler } from '@/common/report/container';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
@@ -90,10 +88,19 @@ const SearchKeywords = () => {
 
   useEffect(() => {
     if (requestReport === false) return;
+
+    searchRequestHandler({
+      _state,
+      _dispatch,
+      parameter: {
+        count: response?.main.count,
+        reportInvokeId: response?.reportInvokeId,
+      },
+      _setTrigger: setRequestReport,
+    });
+
     switchModal({
       _dispatch,
-      _state,
-      data: response,
       _setTrigger: setRequestReport,
     });
   }, [requestReport]);
@@ -217,24 +224,6 @@ const SearchKeywords = () => {
 
     const SortTypeEnum: TSortBy = sortBy;
     _amplitudeSortByChanged(sortByWatcher, SortTypeEnum);
-  };
-
-  const convertSearchPlaceholder = (country: CountryType) => {
-    switch (country) {
-      case CountryType.SG:
-        return 'shampoo';
-      case CountryType.MY:
-        return 'phone charger';
-      case CountryType.TW:
-        return '馬克杯收納';
-      case CountryType.VN:
-        return 'gấu bông';
-      case CountryType.TH:
-        return 'มะม่วงอบแห้ง';
-      default:
-        console.error('enum 코드를 확인해주세요.');
-        return '';
-    }
   };
 
   return (
