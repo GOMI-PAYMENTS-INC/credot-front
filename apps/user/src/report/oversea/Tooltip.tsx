@@ -15,8 +15,7 @@ export const OverseaProductRate = ({ country }: IOoverseaProductRate) => {
           title='데이터'
           children={
             <>
-              출고지가 <span className='text-red-600'>{_country}</span>이(가) 아닌
-              상품들의 정보에요.
+              출고지가 <span className=''>{_country}</span>이(가) 아닌 상품들의 정보에요.
             </>
           }
         />

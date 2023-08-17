@@ -116,8 +116,8 @@ const TotalSalesCount = ({ itemCount }: ITotalSalesCount) => {
     <ContentPack
       children={
         <>
-          키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 판매량
-          합계에요.
+          키워드 상위 <span className=''>{itemCount ? `${itemCount}개 ` : '노출 '}</span>
+          상품들의 판매량 합계에요.
         </>
       }
     />
@@ -210,8 +210,8 @@ const CPCRate = ({ itemCount }: ICPCRate) => {
         title='데이터'
         children={
           <>
-            키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 평균
-            판매가 대비 키워드 광고의 클릭당 비용이에요.
+            키워드 상위 <span className=''>{itemCount}</span>개 상품들의 평균 판매가 대비
+            키워드 광고의 클릭당 비용이에요.
           </>
         }
       />
@@ -242,8 +242,8 @@ const CPCAvg = ({ itemCount }: ICPCAvg) => {
     <ContentPack
       children={
         <>
-          키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의 평균
-          판매가에요.
+          키워드 상위 <span className=''>{itemCount ? `${itemCount}개` : '노출'}</span>{' '}
+          상품들의 평균 판매가에요.
         </>
       }
     />

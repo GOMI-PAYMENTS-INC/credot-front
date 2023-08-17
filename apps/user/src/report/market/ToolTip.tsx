@@ -52,8 +52,8 @@ export const MarketTooltips = ({ itemCount }: IMarketTooltips) => {
             title='데이터'
             children={
               <>
-                키워드 상위 <span className=' text-red-600'>{itemCount}</span>개 상품들의
-                최근 30일간 매출 합계에요.
+                키워드 상위 <span className=' '>{itemCount}</span>개 상품들의 최근 30일간
+                매출 합계에요.
               </>
             }
           />
@@ -70,8 +70,8 @@ export const MarketTooltips = ({ itemCount }: IMarketTooltips) => {
             title='데이터'
             children={
               <>
-                키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들의
-                최근 30일간 평균 매출이에요.
+                키워드 상위 <span className=''>{itemCount}</span>개 상품들의 최근 30일간
+                평균 매출이에요.
               </>
             }
           />
@@ -93,8 +93,8 @@ export const MarketTooltips = ({ itemCount }: IMarketTooltips) => {
             title='데이터'
             children={
               <>
-                키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들이
-                최근 30일간 판매된 판매량 합계에요.
+                키워드 상위 <span className=''>{itemCount}</span>개 상품들이 최근 30일간
+                판매된 판매량 합계에요.
               </>
             }
           />
@@ -114,8 +114,8 @@ export const MarketTooltips = ({ itemCount }: IMarketTooltips) => {
             title='데이터'
             children={
               <>
-                키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들이
-                최근 30일간 판매된 평균 판매량이에요.
+                키워드 상위 <span className=''>{itemCount}</span>개 상품들이 최근 30일간
+                판매된 평균 판매량이에요.
               </>
             }
           />
