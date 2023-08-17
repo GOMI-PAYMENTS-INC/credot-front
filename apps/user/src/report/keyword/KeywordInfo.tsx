@@ -34,7 +34,9 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
   const isMatchSharePath = useMatch('/share/:id');
 
   useEffect(() => {
-    ChannelService.track('PageView');
+    if (import.meta.env.MODE === 'production' && window.ChannelIO) {
+      window.ChannelIO('track', 'PageView');
+    }
   }, []);
 
   return (
