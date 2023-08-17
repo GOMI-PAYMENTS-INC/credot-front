@@ -5,7 +5,7 @@ import { REPORT_CONTENT, REPORT_INFO } from '@/preview/constants/reportData';
 import { useScroll } from '@/common/useScroll';
 import { PreviewFooter, PreviewHeader } from '@/preview/elements';
 import { ReactSVG } from 'react-svg';
-import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
+// import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
 
 const Preview = () => {
@@ -20,9 +20,9 @@ const Preview = () => {
 
   const { scrollY: windowScrollY } = useScroll();
 
-  useEffect(() => {
-    _keywordReportPreviewed();
-  }, []);
+  // useEffect(() => {
+  // _keywordReportPreviewed();
+  // }, []);
 
   useEffect(() => {
     setScrollEvent(

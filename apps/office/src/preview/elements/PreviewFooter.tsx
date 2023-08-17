@@ -1,6 +1,6 @@
 import { ReactSVG } from 'react-svg';
 import { CTA_LOCATION, CTA_TYPE, PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
-import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
+// import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 
 import { openAppWithTag } from '@/utils/openBrowser';
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
