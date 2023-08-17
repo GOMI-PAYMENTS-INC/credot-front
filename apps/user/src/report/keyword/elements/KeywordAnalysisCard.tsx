@@ -63,14 +63,16 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
           id='Search'
           tooltipItem={{ text, itemCount }}
         />
-        <Card
-          grade={conversion}
-          rate={`${_conversionRate} 회`}
-          subRate={`${searchCount} 건`}
-          secondSubRate={`${totalSalesCount} 건`}
-          id='Conversion'
-          tooltipItem={{ text, itemCount }}
-        />
+        {analysisInfo.totalSalesCount && (
+          <Card
+            grade={conversion}
+            rate={`${_conversionRate} 회`}
+            subRate={`${searchCount} 건`}
+            secondSubRate={`${totalSalesCount} 건`}
+            id='Conversion'
+            tooltipItem={{ text, itemCount }}
+          />
+        )}
         <Card
           grade={competition}
           rate={`1 : ${competitionRate}`}

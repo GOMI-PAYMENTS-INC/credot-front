@@ -30,7 +30,16 @@ interface IRecommendationChart {
 }
 
 export const RelativeKeywordTable = (props: IRecommendationChart) => {
-  const { amplitudeData, relations, country, _dispatch, toggleEvent, sorted } = props;
+  const {
+    amplitudeData,
+    relations,
+    country,
+    _dispatch,
+    toggleEvent,
+    sorted,
+    currencyUnit,
+    basePrice,
+  } = props;
   const [reportTrigger, setReportTrigger] = useState<TSearchTrigger>({
     isOpen: false,
     text: '',
@@ -142,7 +151,9 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                 {status === false && (
                   <Fragment>
                     <main>
-                      <KeywordAnalysisCard analysisInfo={item} />
+                      <KeywordAnalysisCard
+                        analysisInfo={{ ...item, currencyUnit, basePrice }}
+                      />
                     </main>
                     <footer>
                       <div className='bg-grey-200 p-2.5'>
