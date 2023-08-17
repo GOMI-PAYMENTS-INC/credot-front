@@ -7,6 +7,18 @@ import { convertExchangeRate } from '@/report/container';
 import { roundNumber } from '@/report/container';
 import { CountryType } from '@/generated/graphql';
 import { Dispatch, SetStateAction } from 'react';
+import { SEARCH_ACTION } from '@/search/reducer';
+
+import { createJobId } from '@/utils/createJobId';
+import { isFalsy } from '@/utils/isFalsy';
+import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import { getReportExisted, postCreateReport } from '@/search/api';
+
+import {
+  _amplitudeKeywordReportRequested,
+  _amplitudeKeywordSearched,
+} from '@/amplitude/amplitude.service';
+
 export const getConversionRate = (rate: number) => {
   if (rate < 0.3) {
     return 'E';
@@ -96,4 +108,119 @@ export const initializeModal = (
 ) => {
   const INIT_VALUE = Object.assign({}, _state, { isOpen: false, text: '' });
   _dispatch(INIT_VALUE);
+};
+
+const updateModalType =
+  (_dispatch: Dispatch<SetStateAction<TModalStatus>>) => (type: TModalStatus) => {
+    _dispatch(type);
+  };
+
+const requestReport = async ({
+  _state,
+  parameter,
+  _dispatch,
+  _setTrigger,
+}: TRequestReportModa) => {
+  const { keyword, country, sortBy } = _state;
+  const { count } = parameter;
+
+  try {
+    if (_state.modalType === '') {
+      const res = await getReportExisted({
+        country: country,
+        sortBy: sortBy,
+        text: keyword,
+      });
+
+      const reportInfo = res?.data;
+      const updateModal = updateModalType(
+        _dispatch as Dispatch<SetStateAction<TModalStatus>>,
+      );
+
+      if (isFalsy(reportInfo?.data) === false) {
+        const { isDaily, createdAt } = reportInfo!.data!;
+        if (isDaily) {
+          updateModal({ modalType: MODAL_TYPE_ENUM.NotBeOverDayReport });
+        } else {
+          updateModal({
+            modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
+            response: createdAt,
+          });
+        }
+        return _setTrigger(false);
+      }
+
+      if (isFalsy(count) || count! < 300) {
+        updateModal({
+          modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolume,
+        });
+
+        return _setTrigger(false);
+      }
+
+      return await createReport({
+        _dispatch: updateModal,
+        _state,
+        parameter,
+        _setTrigger,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createReport = async (props: TRequestReportModa) => {
+  const {
+    parameter: { reportInvokeId },
+    _state,
+    _dispatch,
+    _setTrigger,
+  } = props;
+
+  const { keyword, country, sortBy } = _state;
+  const jobId = createJobId();
+  if (isFalsy(reportInvokeId)) throw new Error('리포트 생성 로직에 문제가 있습니다.');
+  try {
+    const postReport = await postCreateReport({
+      reportInvokeId: reportInvokeId!,
+      country: country,
+      sortBy: sortBy,
+      jobId: jobId,
+    });
+
+    if (postReport?.code === STATUS_CODE.SUCCESS) {
+      const { isSendSms, reportId } = postReport?.data;
+      if (isSendSms) {
+        _dispatch({
+          modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
+          data: reportId,
+        });
+      } else {
+        _dispatch({
+          modalType: MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses,
+          data: reportId,
+        });
+      }
+
+      _setTrigger(false);
+      _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
+    }
+
+    return postReport;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const searchRequestHandler = (props: TRequestReportModa) => {
+  requestReport({ ...props });
+};
+
+export const switchModal = ({ _dispatch, _setTrigger }: TSwitchModal) => {
+  _setTrigger ?? _setTrigger(false);
+  _dispatch({
+    type: SEARCH_ACTION.SWITCH_MODAL,
+    payload: { isModalOpen: false },
+  });
 };

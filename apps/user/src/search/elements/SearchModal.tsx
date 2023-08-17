@@ -1,8 +1,8 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
-import { switchModal } from '@/common/report/container';
+import { switchModal } from '@/search/elements/container';
 
 import { MODAL_SIZE_ENUM } from '@/types/enum.code';
-import { ReportModalType } from '@/common/report/ReportModalType';
+import { ReportModalType } from '@/search/elements/ReportModalType';
 interface ISearchModalPrpos {
   data?: any;
   _state: TSearchState;
