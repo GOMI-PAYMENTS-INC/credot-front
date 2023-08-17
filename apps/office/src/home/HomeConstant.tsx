@@ -134,7 +134,7 @@ export const PARTENER_DATA = [
   },
   {
     imgName: 'YoungJoo.png',
-    name: '이영주 대표',
+    name: '이영주 대표(스테비)',
     brand: (
       <>
         <li>'나는 쇼피로 통했다' 저자</li>
@@ -149,7 +149,7 @@ export const PARTENER_DATA = [
   },
   {
     imgName: 'ChaHyun.png',
-    name: '손체현 대표',
+    name: '손채현 대표(레아)',
     brand: (
       <>
         <li>글로벌 라이징 대표</li>
