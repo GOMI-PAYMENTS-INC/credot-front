@@ -69,9 +69,8 @@ const requestReport = async ({
         });
         return _setTrigger(false);
       }
-
-      return await createReport({ _dispatch, _state, parameter, _setTrigger });
     }
+    return await createReport({ _dispatch, _state, parameter, _setTrigger });
   } catch (error) {
     console.error(error);
   }
