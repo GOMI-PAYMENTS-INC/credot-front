@@ -78,11 +78,11 @@ export const ReportModalType = ({
           <Fragment>
             생성일 : {`${_createdAt}`}
             <br />
-            다른 키워드로 다시 검색해주세요.
+            해당 키워드 리포트는 내일부터 생성 가능해요.
           </Fragment>
         ),
         onCancel: {
-          name: '다른 키워드 검색',
+          name: '닫기',
           cancelEvent: async () => {
             switchModal({ _setTrigger, _dispatch });
           },
@@ -100,7 +100,7 @@ export const ReportModalType = ({
           </Fragment>
         ),
         onCancel: {
-          name: '다른 키워드 검색',
+          name: '닫기',
           cancelEvent: async () => {
             switchModal({ _setTrigger, _dispatch });
           },

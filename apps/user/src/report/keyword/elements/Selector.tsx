@@ -120,7 +120,6 @@ export const Selector = ({
                         option.text === value && 'text-orange-500'
                       }`}
                       onClick={() => {
-                        console.log(option.value, 'option.value');
                         handleOnClickOption(option.value);
                       }}
                     >

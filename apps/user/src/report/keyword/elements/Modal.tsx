@@ -15,16 +15,16 @@ export const Modal = (props: IRequestReportModalType) => {
     <Fragment>
       <div className=''>
         <div className='relative rounded-[10px] bg-white p-6'>
-          <header className='pb-2'>
-            <h3>{title}</h3>
+          <header className='w-[352px]'>
+            <p className='text-2XL/Bold'>{title}</p>
           </header>
 
-          <main>{content}</main>
+          <main className='mt-6 text-L/Medium text-grey-800'>{content}</main>
 
-          <footer className='flex justify-between pt-4'>
+          <footer className='mt-8 flex h-12 justify-between'>
             <button
               type='button'
-              className='button-filled-normal-large-grey-false-false-true w-full'
+              className='button-filled-normal-large-grey-false-false-true w-full py-3 '
               onClick={() => onCancel.cancelEvent()}
               disabled={isDisalbed}
             >
@@ -33,10 +33,9 @@ export const Modal = (props: IRequestReportModalType) => {
 
             {onConfirm && (
               <Fragment>
-                <div className='w-4' />
                 <button
                   type='button'
-                  className='button-filled-normal-large-primary-false-false-true w-full'
+                  className='button-filled-normal-large-primary-false-false-true w-full py-3'
                   disabled={isDisalbed}
                   onClick={() => {
                     setIsDisalbed(true);

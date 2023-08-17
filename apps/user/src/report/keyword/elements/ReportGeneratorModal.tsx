@@ -1,6 +1,6 @@
 import { SetStateAction, useState, Dispatch, useEffect } from 'react';
 import { ModalComponent } from '@/components/modals/ModalComponent';
-
+import { useNavigate } from 'react-router-dom';
 import {
   updateSortingType,
   initializeModal,
@@ -14,6 +14,7 @@ import { getQueryResult } from '@/report/keyword/api';
 import { CountryType } from '@/generated/graphql';
 import { Modal } from '@/report/keyword/elements/Modal';
 import { SORTING_TYPE } from '@/report/keyword/elements/constants';
+import { MODAL_TYPE_ENUM } from '@/types/enum.code';
 
 interface IReportGeneratorModal {
   reportTrigger: TSearchTrigger;
@@ -24,7 +25,7 @@ export const ReportGeneratorModal = ({
   setReportTrigger,
 }: IReportGeneratorModal) => {
   const { isOpen, text, country } = reportTrigger;
-
+  const navigate = useNavigate();
   const [sortingType, setSortingType] = useState<TReportGeneratorType>(SORTING_TYPE[0]);
   const [isRequested, setIsRequested] = useState<boolean>(false);
   const [modal, setModal] = useState<TModalStatus>({
@@ -40,18 +41,19 @@ export const ReportGeneratorModal = ({
     setTrigger: setIsRequested,
   });
 
+  const _state = {
+    keyword: text,
+    country: country!,
+    sortBy: sortingType.value,
+    modalType: modal.modalType,
+  };
+  const parameter = {
+    reportInvokeId: response?.reportInvokeId,
+    count: response?.main.count,
+  };
+
   useEffect(() => {
-    if (response) {
-      const _state = {
-        keyword: text,
-        country: country!,
-        sortBy: sortingType.value,
-        modalType: modal.modalType,
-      };
-      const parameter = {
-        reportInvokeId: response.reportInvokeId,
-        count: response.main.count,
-      };
+    if (isRequested && response) {
       searchRequestHandler({
         _setTrigger: setIsRequested,
         _dispatch: setModal,
@@ -59,9 +61,13 @@ export const ReportGeneratorModal = ({
         parameter,
       });
     }
+
+    return () => {
+      setSortingType(SORTING_TYPE[0]);
+      setIsRequested(false);
+    };
   }, [response]);
-  console.log(response, 'response');
-  console.log(modal, 'modal');
+
   return (
     <ModalComponent isOpen={isOpen}>
       {modal.modalType ? (
@@ -70,8 +76,12 @@ export const ReportGeneratorModal = ({
           createdAt={modal.response}
           successCallback={() => {
             initializeModal(reportTrigger, setReportTrigger);
+            if (modal.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
+              navigate(`/report/${modal.response}`);
+            }
           }}
           failedCallback={() => {
+            setModal({ modalType: '', response: '' });
             initializeModal(reportTrigger, setReportTrigger);
           }}
         />
@@ -104,6 +114,14 @@ export const ReportGeneratorModal = ({
               className='button-filled-normal-large-primary-false-false-true w-full'
               onClick={() => {
                 setIsRequested(true);
+                if (response?.main.text === text) {
+                  searchRequestHandler({
+                    _setTrigger: setIsRequested,
+                    _dispatch: setModal,
+                    _state,
+                    parameter,
+                  });
+                }
               }}
             >
               {isLoading && isRequested ? (

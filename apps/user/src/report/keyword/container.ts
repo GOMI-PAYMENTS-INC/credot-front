@@ -123,7 +123,7 @@ const requestReport = async ({
 }: TRequestReportModa) => {
   const { keyword, country, sortBy } = _state;
   const { count } = parameter;
-  console.log(parameter, 'parameter');
+
   try {
     if (_state.modalType === '') {
       const res = await getReportExisted({
@@ -177,7 +177,7 @@ const createReport = async (props: TRequestReportModa) => {
     _dispatch,
     _setTrigger,
   } = props;
-  console.log(reportInvokeId, 'reportInvokeId');
+
   const { keyword, country, sortBy } = _state;
   const jobId = createJobId();
   if (isFalsy(reportInvokeId)) throw new Error('리포트 생성 로직에 문제가 있습니다.');

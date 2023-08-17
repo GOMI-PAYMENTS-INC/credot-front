@@ -59,7 +59,13 @@ export const ReportModalType = ({
 
     case MODAL_TYPE_ENUM.NotBeOverDayReport:
       return {
-        title: '24시간 이내로 발행한 동일한 키워드 리포트가 있어요.',
+        title: (
+          <>
+            24시간 이내로 발행한
+            <br />
+            동일한 키워드 리포트가 있어요.
+          </>
+        ),
         content: (
           <Fragment>
             생성일 : {`${_createdAt}`}
@@ -68,7 +74,7 @@ export const ReportModalType = ({
           </Fragment>
         ),
         onCancel: {
-          name: '다른 키워드 검색',
+          name: '닫기',
           cancelEvent: async () => {
             failedCallback();
           },
