@@ -93,7 +93,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                     </p>
 
                     <div className='flex items-center gap-5 xs:gap-[14px]'>
-                      <button
+                      {/* <button
                         id='relative_report_generator'
                         className='rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
                         onClick={() =>
@@ -111,7 +111,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                             svg.setAttribute('class', 'fill-orange-400')
                           }
                         />
-                      </button>
+                      </button> */}
 
                       <button
                         id='relative_linkout'
@@ -161,7 +161,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                         </div>
                       </div>
 
-                      <button
+                      {/* <button
                         className='button-filled-xLarge-primary-false-false-false my-[30px] hidden w-full xs:block'
                         onClick={() =>
                           setReportTrigger({
@@ -172,7 +172,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                         }
                       >
                         이 키워드로 리포트 생성하기
-                      </button>
+                      </button> */}
                     </footer>
                   </Fragment>
                 )}
