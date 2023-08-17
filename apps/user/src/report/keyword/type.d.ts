@@ -6,3 +6,22 @@ type TReportGeneratorType = {
 };
 
 type TSearchTrigger = { isOpen: boolean; text: string; country: TSearchCountry | null };
+
+type TRequestReportModa = {
+  _setTrigger: Function;
+  _dispatch: Function;
+  parameter: TReportParams;
+  _state: {
+    keyword: string;
+    country: TSearchCountry;
+    sortBy: TSortBy;
+    modalType: MODAL_TYPE_ENUM;
+  };
+};
+
+type TReportParams = {
+  reportInvokeId?: string | undefined;
+  count?: number | null | undefined;
+};
+
+type TModalStatus = { modalType: MODAL_TYPE_ENUM | ''; response?: any };

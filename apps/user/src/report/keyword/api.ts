@@ -1,40 +1,40 @@
 import { CountryType, useSearchQuery } from '@/generated/graphql';
-import { isFalsy } from '@/utils/isFalsy';
 import { _getProductImages } from '@/search/container';
 import {
   _amplitudeKeywordSearchedFailed,
   _amplitudeKeywordSearchedSucceeded,
 } from '@/amplitude/amplitude.service';
+import type { SetStateAction, Dispatch } from 'react';
 
-export const getQueryResult = (
-  country: CountryType,
-  sortBy: TSortBy,
-  keyword: string,
-) => {
+interface IGetQueryType {
+  country: CountryType;
+  sortBy: TSortBy;
+  text: string;
+  trigger: boolean;
+  setTrigger: Dispatch<SetStateAction<boolean>>;
+}
+
+export const getQueryResult = (props: IGetQueryType) => {
+  const { country, text, trigger, setTrigger, sortBy } = props;
+
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     {
       country: country,
-      text: keyword,
+      text,
     },
     {
-      enabled: isFalsy(keyword) === false,
+      enabled: trigger,
       refetchOnWindowFocus: false,
       onSuccess: async (res) => {
         try {
-          //   const images = await getProductImages({
-          //     keyword: keyword,
-          //   });
-
-          //   if (images && images.data.data !== null) {
-          //     _getProductImages(images.data, _dispatch);
-          //   }
           _amplitudeKeywordSearchedSucceeded(
             country,
             sortBy,
-            keyword,
+            text,
             res.search.relations,
             res.search.main.count,
           );
+          setTrigger(false);
           return;
         } catch (error) {
           console.error(error, 'error');
@@ -44,7 +44,7 @@ export const getQueryResult = (
         _amplitudeKeywordSearchedFailed(
           country,
           sortBy,
-          keyword,
+          text,
           error.response.errors[0].message,
         );
       },

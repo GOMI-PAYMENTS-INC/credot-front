@@ -21,11 +21,11 @@ type TSearchState = {
   sortBy: TSortBy;
   text: string;
   isSearched: boolean;
-  keyword: string;
   isModalOpen: boolean;
   modalType: TSearchModalType;
-  createdAt: string;
   productImages: TGetProductImageResponse | null;
+  createdAt: string;
+  keyword: string;
   newReportId: number;
 };
 

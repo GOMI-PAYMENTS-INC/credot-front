@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { MODAL_TYPE_ENUM } from '@/types/enum.code';
 import { useNavigate } from 'react-router-dom';
 import { convertTime } from '@/utils/parsingTimezone';
-import { switchModal, searchRequestHandler } from '@/common/report/container';
+import { switchModal, searchRequestHandler } from '@/search/elements/container';
 
 interface IReportModalType {
   modalType: TSearchModalType;

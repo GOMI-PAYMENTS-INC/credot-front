@@ -47,7 +47,7 @@ import DropDown, {
 import { CountryType } from '@/generated/graphql';
 import UseTooltip from '@/components/UseTooltip';
 import { SearchTooltips } from '@/search/elements/Tooltip';
-import { switchModal, searchRequestHandler } from '@/common/report/container';
+import { switchModal, searchRequestHandler } from '@/search/elements/container';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
