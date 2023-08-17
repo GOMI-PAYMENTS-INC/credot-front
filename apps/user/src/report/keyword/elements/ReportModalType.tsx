@@ -17,7 +17,7 @@ export const ReportModalType = ({
         title: '리포트 요청 완료!',
         content: <Fragment>리포트 생성이 완료되면, 문자로 알려드릴께요!</Fragment>,
         onCancel: {
-          name: '다음 키워드 검색하기',
+          name: '확인',
           cancelEvent: async () => {
             failedCallback();
           },
@@ -44,7 +44,7 @@ export const ReportModalType = ({
         title: '키워드 수요가 많지 않아요!',
         content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
         onCancel: {
-          name: '다른 키워드 검색',
+          name: '닫기',
           cancelEvent: async () => {
             failedCallback();
           },
@@ -92,7 +92,7 @@ export const ReportModalType = ({
           </Fragment>
         ),
         onCancel: {
-          name: '다른 키워드 검색',
+          name: '닫기',
           cancelEvent: async () => {
             failedCallback();
           },
