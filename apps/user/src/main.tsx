@@ -15,7 +15,6 @@ const queryClient = new QueryClient({
   },
 });
 
-ChannelService.loadScript();
 ChannelService.boot({ pluginKey: import.meta.env.VITE_CHANNELTALK_PLUGIN });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
