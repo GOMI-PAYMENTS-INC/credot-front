@@ -19,7 +19,7 @@ export type TDropDownOption = {
   text: string;
 };
 
-type TDropDown = {
+interface IDropDown {
   name: string;
   status: DROPDOWN_STATUS;
   variants: DROPDOWN_VARIANTS;
@@ -31,7 +31,7 @@ type TDropDown = {
   options: TDropDownOption[];
   onClickOption?: (value: any) => void;
   borderLine?: boolean;
-};
+}
 
 const statusStyle = (status: DROPDOWN_STATUS) => {
   let style: string = '';
@@ -77,7 +77,7 @@ const DropDown = ({
   onClickOption,
   setIsOpenDropdown,
   borderLine,
-}: TDropDown) => {
+}: IDropDown) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   useEffect(() => {

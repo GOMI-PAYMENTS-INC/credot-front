@@ -1,4 +1,4 @@
-import { Dispatch, Fragment, useMemo } from 'react';
+import { Dispatch, Fragment, useMemo, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { BATCH_STATUS } from '@/types/enum.code';
 
@@ -6,6 +6,8 @@ import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
 import { getElementLocation } from '@/utils/getElementLocation';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+
+import { ReportGeneratorModal } from '@/report/keyword/elements/ReportGeneratorModal';
 
 import { _getRelationReport, isToggleOpen } from '@/report/container';
 import { isOverArea, moveToShopee } from '@/report/keyword/container';
@@ -29,6 +31,11 @@ interface IRecommendationChart {
 
 export const RelativeKeywordTable = (props: IRecommendationChart) => {
   const { amplitudeData, relations, country, _dispatch, toggleEvent, sorted } = props;
+  const [reportTrigger, setReportTrigger] = useState<TSearchTrigger>({
+    isOpen: false,
+    text: '',
+    country: country as TSearchCountry,
+  });
 
   const recomendationItems = useMemo(
     () =>
@@ -39,10 +46,15 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
           ),
     [],
   );
-  if (isFalsy(relations) || isFalsy(recomendationItems)) return <Fragment />;
+  const isEmpty = [relations, recomendationItems].every((data) => isFalsy(data));
+  if (isEmpty) return <Fragment />;
 
   return (
     <section className='pt-10'>
+      <ReportGeneratorModal
+        setReportTrigger={setReportTrigger}
+        reportTrigger={reportTrigger}
+      />
       <div className='flex flex-col border-t-[2px] border-grey-300'>
         <div className='keywordInfo-span-subtitle  border-b-[1px]'>
           <span>연관 키워드</span>
@@ -84,9 +96,13 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                       <button
                         id='relative_report_generator'
                         className='rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
-                        onClick={() => {
-                          console.log(item, ':item');
-                        }}
+                        onClick={() =>
+                          setReportTrigger({
+                            isOpen: true,
+                            text: item.text,
+                            country: country as TSearchCountry,
+                          })
+                        }
                       >
                         <ReactSVG
                           className=''
@@ -147,10 +163,13 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
                       <button
                         className='button-filled-xLarge-primary-false-false-false my-[30px] hidden w-full xs:block'
-                        onClick={(event) => {
-                          event.preventDefault();
-                          console.log(item, 'item');
-                        }}
+                        onClick={() =>
+                          setReportTrigger({
+                            isOpen: true,
+                            text: item.text,
+                            country: country as TSearchCountry,
+                          })
+                        }
                       >
                         이 키워드로 리포트 생성하기
                       </button>

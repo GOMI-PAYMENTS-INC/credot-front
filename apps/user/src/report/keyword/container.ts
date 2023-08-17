@@ -6,6 +6,7 @@ import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate } from '@/report/container';
 import { roundNumber } from '@/report/container';
 import { CountryType } from '@/generated/graphql';
+import { Dispatch, SetStateAction } from 'react';
 export const getConversionRate = (rate: number) => {
   if (rate < 0.3) {
     return 'E';
@@ -78,4 +79,21 @@ export const moveToShopee = (
   openBrowser(`${convertShopeeSiteUrl(country!)}/search?keyword=${text}`, sorted);
   amplitudeData &&
     _amplitudeMovedToSERP(amplitudeData.param, amplitudeData.keyword, text);
+};
+
+export const updateSortingType = (
+  id: string,
+  init: TReportGeneratorType[],
+  _dispatch: Dispatch<SetStateAction<TReportGeneratorType>>,
+) => {
+  const [_state] = init.filter((option) => option.value === id);
+  _dispatch(_state);
+};
+
+export const initializeModal = (
+  _state: TSearchTrigger,
+  _dispatch: Dispatch<SetStateAction<TSearchTrigger>>,
+) => {
+  const INIT_VALUE = Object.assign({}, _state, { isOpen: false, text: '' });
+  _dispatch(INIT_VALUE);
 };
