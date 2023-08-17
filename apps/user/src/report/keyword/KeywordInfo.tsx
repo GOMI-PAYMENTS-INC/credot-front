@@ -1,5 +1,6 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
+import ChannelService from '@/config/channelTalk';
 import {
   convertCountry,
   convertExchangeRate,
@@ -16,7 +17,7 @@ import { useMatch } from 'react-router-dom';
 import { openBrowser } from '@/utils/openBrowser';
 import { _postReportShareToken } from '@/report/container';
 import { TReportAction } from '@/report/reducer';
-import type { Dispatch } from 'react';
+import { Dispatch, useEffect } from 'react';
 import { makeShareLink } from '@/report/container';
 
 interface IKeywordInfoProps {
@@ -31,6 +32,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
     keywordInfo;
   const { param: reportIdOrShareToken } = amplitudeData;
   const isMatchSharePath = useMatch('/share/:id');
+
+  useEffect(() => {
+    ChannelService.track('PageView');
+  }, []);
 
   return (
     <section>
