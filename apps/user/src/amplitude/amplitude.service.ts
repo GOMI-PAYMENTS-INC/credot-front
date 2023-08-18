@@ -411,3 +411,16 @@ export const _clientHotKeywordSearched = (
     sort_by: sortBy,
     keyword,
   });
+
+export const _clientRecKeywordReportRequested = (
+  jobId: string,
+  country: TSearchCountry,
+  sortBy: TSortBy,
+  keyword: string,
+) =>
+  _setAmplitudeEvents(amplitudeConstant.recKeywordReportRequested, {
+    jobId,
+    country,
+    sort_by: sortBy,
+    keyword,
+  });
