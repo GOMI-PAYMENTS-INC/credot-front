@@ -1,5 +1,6 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
 import { ReportModalType } from '@/report/keyword/elements/ReportModalType';
+import { SORTING_TYPE } from '@/report/keyword/elements/constants';
 
 export interface IRequestReportModalType {
   modalType: TSearchModalType;
@@ -7,13 +8,17 @@ export interface IRequestReportModalType {
   successCallback: Function;
   failedCallback: Function;
   setIsRequested: Dispatch<SetStateAction<boolean>>;
+  setSortingType: Dispatch<SetStateAction<TReportGeneratorType>>;
 }
 export const Modal = (props: IRequestReportModalType) => {
   const [isDisalbed, setIsDisalbed] = useState(false);
 
   const { title, content, onCancel, onConfirm } = ReportModalType({ ...props });
   useEffect(() => {
-    return () => props.setIsRequested(false);
+    return () => {
+      props.setSortingType(SORTING_TYPE[0]);
+      props.setIsRequested(false);
+    };
   }, []);
   return (
     <Fragment>

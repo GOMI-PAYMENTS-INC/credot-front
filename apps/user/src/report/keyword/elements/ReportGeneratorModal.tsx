@@ -59,16 +59,13 @@ export const ReportGeneratorModal = ({
         parameter,
       });
     }
-
-    return () => {
-      setSortingType(SORTING_TYPE[0]);
-    };
   }, [response]);
 
   return (
     <ModalComponent isOpen={isOpen}>
       {modal.modalType ? (
         <Modal
+          setSortingType={setSortingType}
           setIsRequested={setIsRequested}
           modalType={modal.modalType}
           createdAt={modal.response}
