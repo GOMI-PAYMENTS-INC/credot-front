@@ -8,7 +8,6 @@ type TReportGeneratorType = {
 type TSearchTrigger = { isOpen: boolean; text: string; country: TSearchCountry | null };
 
 type TRequestReportModa = {
-  _setTrigger: Function;
   _dispatch: Function;
   parameter: TReportParams;
   _state: {

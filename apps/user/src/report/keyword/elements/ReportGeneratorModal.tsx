@@ -55,7 +55,6 @@ export const ReportGeneratorModal = ({
   useEffect(() => {
     if (isRequested && response) {
       searchRequestHandler({
-        _setTrigger: setIsRequested,
         _dispatch: setModal,
         _state,
         parameter,
@@ -68,6 +67,12 @@ export const ReportGeneratorModal = ({
     };
   }, [response]);
 
+  useEffect(() => {
+    // if (isRequested && modal.modalType !== '') {
+    //   setIsRequested(false);
+    // }
+  }, [modal.modalType]);
+
   return (
     <ModalComponent isOpen={isOpen}>
       {modal.modalType ? (
@@ -75,9 +80,17 @@ export const ReportGeneratorModal = ({
           modalType={modal.modalType}
           createdAt={modal.response}
           successCallback={() => {
-            initializeModal(reportTrigger, setReportTrigger);
             if (modal.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
               navigate(`/report/${modal.response}`);
+            }
+            if (modal.modalType === MODAL_TYPE_ENUM.LessMonthlyKeywordVolume) {
+              searchRequestHandler({
+                _dispatch: setModal,
+                _state,
+                parameter,
+              });
+            } else {
+              initializeModal(reportTrigger, setReportTrigger);
             }
           }}
           failedCallback={() => {
@@ -112,11 +125,11 @@ export const ReportGeneratorModal = ({
             </button>
             <button
               className='button-filled-normal-large-primary-false-false-true w-full'
+              disabled={isRequested}
               onClick={() => {
                 setIsRequested(true);
                 if (response?.main.text === text) {
                   searchRequestHandler({
-                    _setTrigger: setIsRequested,
                     _dispatch: setModal,
                     _state,
                     parameter,
@@ -124,7 +137,7 @@ export const ReportGeneratorModal = ({
                 }
               }}
             >
-              {isLoading && isRequested ? (
+              {isRequested ? (
                 <div className='scale-[0.2]'>
                   <div id='loader-white' />
                 </div>

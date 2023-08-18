@@ -115,15 +115,12 @@ const updateModalType =
     _dispatch(type);
   };
 
-const requestReport = async ({
-  _state,
-  parameter,
-  _dispatch,
-  _setTrigger,
-}: TRequestReportModa) => {
+const requestReport = async ({ _state, parameter, _dispatch }: TRequestReportModa) => {
   const { keyword, country, sortBy } = _state;
   const { count } = parameter;
-
+  const updateModal = updateModalType(
+    _dispatch as Dispatch<SetStateAction<TModalStatus>>,
+  );
   try {
     if (_state.modalType === '') {
       const res = await getReportExisted({
@@ -133,9 +130,6 @@ const requestReport = async ({
       });
 
       const reportInfo = res?.data;
-      const updateModal = updateModalType(
-        _dispatch as Dispatch<SetStateAction<TModalStatus>>,
-      );
 
       if (isFalsy(reportInfo?.data) === false) {
         const { isDaily, createdAt } = reportInfo!.data!;
@@ -147,7 +141,7 @@ const requestReport = async ({
             response: createdAt,
           });
         }
-        return _setTrigger(false);
+        return;
       }
 
       if (isFalsy(count) || count! < 300) {
@@ -155,16 +149,14 @@ const requestReport = async ({
           modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolume,
         });
 
-        return _setTrigger(false);
+        return;
       }
-
-      return await createReport({
-        _dispatch: updateModal,
-        _state,
-        parameter,
-        _setTrigger,
-      });
     }
+    return await createReport({
+      _dispatch: updateModal,
+      _state,
+      parameter,
+    });
   } catch (error) {
     console.error(error);
   }
@@ -175,7 +167,6 @@ const createReport = async (props: TRequestReportModa) => {
     parameter: { reportInvokeId },
     _state,
     _dispatch,
-    _setTrigger,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -203,7 +194,6 @@ const createReport = async (props: TRequestReportModa) => {
         });
       }
 
-      _setTrigger(false);
       _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
     }
 

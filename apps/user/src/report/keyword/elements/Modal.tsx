@@ -21,12 +21,13 @@ export const Modal = (props: IRequestReportModalType) => {
 
           <main className='mt-6 text-L/Medium text-grey-800'>{content}</main>
 
-          <footer className='mt-8 flex h-12 justify-between'>
+          <footer
+            className={`mt-8 flex h-12 justify-between ${onConfirm ? 'gap-4' : ''}`}
+          >
             <button
               type='button'
               className='button-filled-normal-large-grey-false-false-true w-full py-3 '
               onClick={() => onCancel.cancelEvent()}
-              disabled={isDisalbed}
             >
               {onCancel.name}
             </button>
