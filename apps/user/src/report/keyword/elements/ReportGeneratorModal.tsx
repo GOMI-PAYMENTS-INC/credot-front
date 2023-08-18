@@ -75,7 +75,12 @@ export const ReportGeneratorModal = ({
             if (modal.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
               navigate(`/report/${modal.response}`);
             }
-            if (modal.modalType === MODAL_TYPE_ENUM.LessMonthlyKeywordVolume) {
+            if (
+              [
+                MODAL_TYPE_ENUM.LessMonthlyKeywordVolume,
+                MODAL_TYPE_ENUM.SameKeywordReportExisted,
+              ].includes(modal.modalType)
+            ) {
               searchRequestHandler({
                 _dispatch: setModal,
                 _state,
