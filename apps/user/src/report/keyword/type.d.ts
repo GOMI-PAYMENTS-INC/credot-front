@@ -16,6 +16,7 @@ type TRequestReportModa = {
     sortBy: TSortBy;
     modalType: MODAL_TYPE_ENUM;
   };
+  isOpen: boolean;
 };
 
 type TReportParams = {

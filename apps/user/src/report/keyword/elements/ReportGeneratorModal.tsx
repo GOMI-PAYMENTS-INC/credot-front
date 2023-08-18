@@ -57,6 +57,7 @@ export const ReportGeneratorModal = ({
         _dispatch: setModal,
         _state,
         parameter,
+        isOpen,
       });
     }
   }, [response]);
@@ -79,6 +80,7 @@ export const ReportGeneratorModal = ({
                 _dispatch: setModal,
                 _state,
                 parameter,
+                isOpen,
               });
             } else {
               initializeModal(reportTrigger, setReportTrigger);
@@ -123,6 +125,7 @@ export const ReportGeneratorModal = ({
                     _dispatch: setModal,
                     _state,
                     parameter,
+                    isOpen,
                   });
                 }
               }}

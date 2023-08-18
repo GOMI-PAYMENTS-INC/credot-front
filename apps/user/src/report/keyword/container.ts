@@ -156,6 +156,7 @@ const requestReport = async ({ _state, parameter, _dispatch }: TRequestReportMod
       _dispatch: updateModal,
       _state,
       parameter,
+      isOpen: true,
     });
   } catch (error) {
     console.error(error);
@@ -196,15 +197,13 @@ const createReport = async (props: TRequestReportModa) => {
 
       _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
     }
-
-    return postReport;
   } catch (error) {
     console.error(error);
   }
 };
 
 export const searchRequestHandler = (props: TRequestReportModa) => {
-  requestReport({ ...props });
+  if (props.isOpen) requestReport({ ...props });
 };
 
 export const switchModal = ({ _dispatch }: TSwitchModal) => {
