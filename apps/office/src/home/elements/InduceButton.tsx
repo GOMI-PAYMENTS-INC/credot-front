@@ -1,6 +1,6 @@
 import { openAppWithTag } from '@/utils/openBrowser';
 import { useNavigate } from 'react-router-dom';
-import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
+// import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 import { GlobalEnv } from '@/api/config';
 import {
   CTA_LOCATION,
@@ -45,7 +45,7 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
           id='movedToSolution'
           className='rounded-md border border-grey-400 bg-white p-3 text-M/Bold text-grey-800 shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'
           onClick={() => {
-            _keywordReportPreviewed();
+            // _keywordReportPreviewed();
             navigate(PATH.PREVIEW);
           }}
         >

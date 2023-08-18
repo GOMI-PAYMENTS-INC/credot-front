@@ -47,6 +47,6 @@ export const _introPageMovedToSolution = (
   });
 };
 
-export const _keywordReportPreviewed = () => {
-  void _setAmplitudeEvents(amplitudeConstant.keywordReportPreviewed);
-};
+// export const _keywordReportPreviewed = () => {
+//   void _setAmplitudeEvents(amplitudeConstant.keywordReportPreviewed);
+// };
