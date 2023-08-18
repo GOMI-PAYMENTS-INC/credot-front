@@ -21,11 +21,11 @@ type TSearchState = {
   sortBy: TSortBy;
   text: string;
   isSearched: boolean;
-  keyword: string;
   isModalOpen: boolean;
   modalType: TSearchModalType;
-  createdAt: string;
   productImages: TGetProductImageResponse | null;
+  createdAt: string;
+  keyword: string;
   newReportId: number;
 };
 
@@ -92,3 +92,20 @@ type TGetTranslationOfKeywordParams = {
 };
 
 type TSearchCountry = 'SG' | 'MY' | 'VN' | 'TW' | 'TH';
+
+type TSwitchModal = {
+  _dispatch: Dispatch<TSearchActionType>;
+  _setTrigger?: Dispatch<SetStateAction<boolean>>;
+};
+
+type TRequestReport = {
+  _setTrigger: Dispatch<SetStateAction<boolean>>;
+  _dispatch: Dispatch<TSearchActionType>;
+  parameter: TReportParams;
+  _state: TSearchState;
+};
+
+type TReportParams = {
+  reportInvokeId: string | undefined;
+  count: number | null | undefined;
+};

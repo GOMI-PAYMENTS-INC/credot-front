@@ -1,9 +1,8 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
-import { switchModal } from '@/search/container';
-import { convertTime } from '@/utils/parsingTimezone';
-import { MODAL_SIZE_ENUM, MODAL_TYPE_ENUM } from '@/types/enum.code';
-import { useNavigate } from 'react-router-dom';
+import { switchModal } from '@/search/elements/container';
 
+import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { ReportModalType } from '@/search/elements/ReportModalType';
 interface ISearchModalPrpos {
   data?: any;
   _state: TSearchState;
@@ -19,112 +18,27 @@ export const SearchModal = ({
   size,
   _setTrigger,
 }: ISearchModalPrpos) => {
-  const createdAt = convertTime(_state.createdAt, 'YYYY.MM.DD');
   const [eventTrigger, setEventTrigger] = useState(false);
   const [isDisalbed, setIsDisalbed] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (eventTrigger === false) return;
     const switchModalAsync = async () => {
-      await switchModal({ _setTrigger, _dispatch, _state, data });
+      switchModal({ _setTrigger, _dispatch });
       setEventTrigger(false);
     };
     switchModalAsync();
   }, [eventTrigger]);
 
-  const modalType = () => {
-    switch (_state.modalType) {
-      case MODAL_TYPE_ENUM.MakeReportSuccesses:
-        return {
-          title: '리포트 요청 완료!',
-          content: <Fragment>리포트 생성이 완료되면, 문자로 알려드릴께요!</Fragment>,
-          onCancel: {
-            name: '다음 키워드 검색하기',
-            cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch });
-            },
-          },
-        };
-      case MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses:
-        return {
-          title: '리포트 생성 완료!',
-          content: <Fragment>생성된 리포트를 확인해주세요.</Fragment>,
-          onCancel: {
-            name: '닫기',
-            cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch });
-            },
-          },
-          onConfirm: {
-            name: '바로 확인하기',
-            confirmEvent: () => navigate(`/report/${_state.newReportId}`),
-          },
-        };
-
-      case MODAL_TYPE_ENUM.LessMonthlyKeywordVolume:
-        return {
-          title: '키워드 수요가 많지 않아요!',
-          content: <Fragment>다른 키워드로 리포트를 생성하는걸 권장드려요. </Fragment>,
-          onCancel: {
-            name: '다른 키워드 검색',
-            cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch });
-            },
-          },
-          onConfirm: {
-            name: '그래도 생성하기',
-            confirmEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch, _state, data });
-            },
-          },
-        };
-
-      case MODAL_TYPE_ENUM.NotBeOverDayReport:
-        return {
-          title: '24시간 이내로 발행한 동일한 키워드 리포트가 있어요.',
-          content: (
-            <Fragment>
-              생성일 : {`${createdAt}`}
-              <br />
-              다른 키워드로 다시 검색해주세요.
-            </Fragment>
-          ),
-          onCancel: {
-            name: '다른 키워드 검색',
-            cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch });
-            },
-          },
-        };
-
-      default:
-        return {
-          title: '동일한 키워드 리포트가 있어요.',
-          content: (
-            <Fragment>
-              최근 생성일 : {`${createdAt}`}
-              <br />
-              리포트를 새로 생성할까요?
-            </Fragment>
-          ),
-          onCancel: {
-            name: '다른 키워드 검색',
-            cancelEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch });
-            },
-          },
-          onConfirm: {
-            name: '새로 생성하기',
-            confirmEvent: async () => {
-              await switchModal({ _setTrigger, _dispatch, _state, data });
-            },
-          },
-        };
-    }
-  };
-
-  const modal: IModalType = modalType();
+  const { modalType, newReportId } = _state;
+  const modal: IModalType = ReportModalType({
+    modalType,
+    createdAt: _state.createdAt,
+    newReportId,
+    switchModalProps: { _setTrigger, _dispatch },
+    parameter: data,
+    _state,
+  });
 
   return (
     <Fragment>

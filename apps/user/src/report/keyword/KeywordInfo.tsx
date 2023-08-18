@@ -1,5 +1,6 @@
 import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
+import ChannelService from '@/config/channelTalk';
 import {
   convertCountry,
   convertExchangeRate,
@@ -16,7 +17,7 @@ import { useMatch } from 'react-router-dom';
 import { openBrowser } from '@/utils/openBrowser';
 import { _postReportShareToken } from '@/report/container';
 import { TReportAction } from '@/report/reducer';
-import type { Dispatch } from 'react';
+import { Dispatch, useEffect } from 'react';
 import { makeShareLink } from '@/report/container';
 
 interface IKeywordInfoProps {
@@ -31,6 +32,10 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
     keywordInfo;
   const { param: reportIdOrShareToken } = amplitudeData;
   const isMatchSharePath = useMatch('/share/:id');
+
+  useEffect(() => {
+    ChannelService.track('PageView');
+  }, []);
 
   return (
     <section>
@@ -85,8 +90,12 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
 
             <div className='flex'>
-              <p className='text-grey-600'>기준</p>
-              <p className='ml-1 text-grey-800'>{convertSortedType(sorted)}</p>
+              <span className='keywordInfo-divide-by-single-dot text-grey-600'>
+                데이터 수집 기준
+                <span className='ml-1 text-grey-800'>
+                  {convertSortedType(sorted)} 상위 {itemCount}개
+                </span>
+              </span>
             </div>
             <div className='flex gap-x-1'>
               <span className='text-grey-600'>적용 환율</span>

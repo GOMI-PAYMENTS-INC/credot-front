@@ -3,6 +3,7 @@ import '@/index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import ChannelService from '@/config/channelTalk';
 
 import ErrorBoundary from './ErrorBoundary';
 import HackleConfig from '@/config/HackleConfig';
@@ -13,6 +14,8 @@ const queryClient = new QueryClient({
     queries: {},
   },
 });
+
+ChannelService.boot({ pluginKey: import.meta.env.VITE_CHANNELTALK_PLUGIN });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <HackleConfig>

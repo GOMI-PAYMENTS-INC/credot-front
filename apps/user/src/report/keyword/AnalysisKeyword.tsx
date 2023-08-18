@@ -1,8 +1,4 @@
-import { useMemo } from 'react';
 import { ReactSVG } from 'react-svg';
-
-import { formatNumber } from '@/utils/formatNumber';
-import { convertExchangeRate } from '@/report/container';
 
 import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/Score';
 import { TITLE } from '@/types/enum.code';
@@ -38,45 +34,8 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
     relations,
     amplitudeData,
   } = props;
-  const { text, itemCount } = analysisInfo;
-  const conversionRate = analysisInfo.totalSalesCount / analysisInfo.searchCount;
-  const [
-    cpcPrice,
-    avgPrice,
-    searchCount,
-    competitionProductCount,
-    cpcRate,
-    totalSalesCount,
-    competitionRate,
-    _conversionRate,
-  ] = [
-    analysisInfo.cpcPrice,
-    analysisInfo.avgPrice,
-    analysisInfo.searchCount,
-    analysisInfo.competitionProductCount,
-    analysisInfo.cpcRate,
-    analysisInfo.totalSalesCount,
-    analysisInfo.competitionRate,
-    conversionRate,
-  ]
-    .map((number, idx) => {
-      if (idx > 1) return number;
-      return convertExchangeRate(
-        analysisInfo.currencyUnit,
-        number,
-        analysisInfo.basePrice,
-      );
-    })
-    .map((number) => formatNumber(number));
-
-  const keywordReport = useMemo(() => {
-    const rateGrade = analysisInfo.evaluateStatus + getConversionRate(conversionRate);
-    return rateGrade.split('').map((score) => convertScoreToText(score));
-  }, [analysisInfo.evaluateStatus]);
-  const [search, competition, cpc, conversion] = keywordReport;
-
   const { top, bottom } = convertEvaluateStatus(analysisInfo.evaluateStatus);
-  console.log(cpcRate, 'rate', analysisInfo.cpcRate, 'analysisInfo.cpcRate');
+
   return (
     <section>
       <DetailReportSectionHeader id={TITLE.KEYWORD_INFO} />
@@ -86,40 +45,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
             <div className='keywordInfo-span-subtitle border-b-[1px] text-M/Medium xs:text-L/Bold'>
               <span>{analysisInfo.text}</span>
             </div>
-            <div className='flex items-center bg-grey-50 text-center'>
-              <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
-                <KeywordAnalysisCard
-                  grade={search}
-                  rate={searchCount}
-                  id='Search'
-                  tooltipItem={{ text, itemCount }}
-                />
-                <KeywordAnalysisCard
-                  grade={conversion}
-                  rate={`${_conversionRate} 회`}
-                  subRate={`${searchCount} 건`}
-                  secondSubRate={`${totalSalesCount} 건`}
-                  id='Conversion'
-                  tooltipItem={{ text, itemCount }}
-                />
-                <KeywordAnalysisCard
-                  grade={competition}
-                  rate={`1 : ${competitionRate}`}
-                  subRate={`${searchCount} 건`}
-                  secondSubRate={`${competitionProductCount} 건`}
-                  id='Competition'
-                  tooltipItem={{ text, itemCount }}
-                />
-                <KeywordAnalysisCard
-                  grade={cpc}
-                  rate={`${cpcRate}%`}
-                  subRate={`${cpcPrice} 원`}
-                  secondSubRate={`${avgPrice} 원`}
-                  id='CPC'
-                  tooltipItem={{ text, itemCount }}
-                />
-              </div>
-            </div>
+            <KeywordAnalysisCard analysisInfo={analysisInfo} />
           </div>
         </div>
       </div>
@@ -143,7 +69,7 @@ export const AnalysisKeyword = (props: IAnalysisKeyword) => {
 
       {isUser && (
         <RelativeKeywordTable
-          itemCount={itemCount}
+          itemCount={analysisInfo.itemCount}
           relations={relations}
           _dispatch={_dispatch}
           sorted={analysisInfo!.sorted}

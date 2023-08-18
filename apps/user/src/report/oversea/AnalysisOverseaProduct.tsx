@@ -24,14 +24,8 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
   const { overseaProduct, basePrice, amplitudeData, currencyUnit } = props;
   const [aFewProduct, fewProducts, manyProducts] = OVERSEA_PRODUCT_RATIO;
 
-  const {
-    id,
-    text,
-    itemOverseaCount,
-    totalItemCount,
-    overseaCountryCount,
-    overseaItems,
-  } = overseaProduct!;
+  const { country, itemOverseaCount, totalItemCount, overseaCountryCount, overseaItems } =
+    overseaProduct!;
 
   const locationOfPointer = useMemo(() => {
     if (itemOverseaCount < 4) {
@@ -54,7 +48,7 @@ export const AnalysisOverseaProduct = (props: IAnalysisOverseaProduct) => {
           <div className='relative col-span-10 flex w-full border-b-[1px] bg-grey-100'>
             <div className='flex items-center py-2.5 pl-5'>
               <p className='text-S/Medium text-grey-900'>해외 배송 상품 비율</p>
-              <UseTooltip content={OverseaProductRate()} />
+              <UseTooltip content={OverseaProductRate({ country })} />
             </div>
           </div>
 

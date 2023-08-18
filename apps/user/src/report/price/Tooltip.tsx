@@ -13,8 +13,8 @@ export const PriceTooltips = ({ itemCount }: IPirceToolTips) => {
           title='데이터'
           children={
             <>
-              키워드 상위 <span className='text-red-600'>{itemCount}</span>개 상품들을
-              가격 구간별로 나누었어요.
+              키워드 상위 <span className=''>{itemCount}</span>개 상품들을 가격 구간별로
+              나누었어요.
             </>
           }
         />

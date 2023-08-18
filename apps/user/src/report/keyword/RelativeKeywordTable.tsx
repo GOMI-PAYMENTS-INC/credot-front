@@ -1,26 +1,21 @@
-import { Dispatch, Fragment, useMemo } from 'react';
+import { Dispatch, Fragment, useMemo, useState } from 'react';
 import { ReactSVG } from 'react-svg';
-
 import { BATCH_STATUS } from '@/types/enum.code';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isIncluded } from '@/utils/isIncluded';
-import { isToggleOpen } from '@/report/container';
-import { KeywordAnalysisCard } from '@/report/keyword/elements';
-
-import { convertEvaluateStatus, convertScoreToText } from '@/report/constants/Score';
-import { formatNumber } from '@/utils/formatNumber';
-
-import { TReportAction } from '@/report/reducer';
-import { _getRelationReport } from '@/report/container';
-import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
-import { convertShopeeSiteUrl } from '@/utils/convertEnum';
-import { CountryType } from '@/generated/graphql';
-import { openBrowser } from '@/utils/openBrowser';
-import { getConversionRate } from '@/report/keyword/container';
-import { convertToWon } from '@/report/keyword/container';
 import { getElementLocation } from '@/utils/getElementLocation';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+
+import { ReportGeneratorModal } from '@/report/keyword/elements/ReportGeneratorModal';
+
+import { _getRelationReport, isToggleOpen } from '@/report/container';
+import { isOverArea, moveToShopee } from '@/report/keyword/container';
+import { KeywordAnalysisCard } from '@/report/keyword/elements';
+import { convertEvaluateStatus } from '@/report/constants/Score';
+
+import { TReportAction } from '@/report/reducer';
+import { CountryType } from '@/generated/graphql';
 
 interface IRecommendationChart {
   relations: TRelationReport[] | null;
@@ -41,11 +36,15 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
     country,
     _dispatch,
     toggleEvent,
+    sorted,
     currencyUnit,
     basePrice,
-    sorted,
-    itemCount,
   } = props;
+  const [reportTrigger, setReportTrigger] = useState<TSearchTrigger>({
+    isOpen: false,
+    text: '',
+    country: country as TSearchCountry,
+  });
 
   const recomendationItems = useMemo(
     () =>
@@ -56,10 +55,15 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
           ),
     [],
   );
-  if (isFalsy(relations) || isFalsy(recomendationItems)) return <Fragment />;
+  const isEmpty = [relations, recomendationItems].every((data) => isFalsy(data));
+  if (isEmpty) return <Fragment />;
 
   return (
     <section className='pt-10'>
+      <ReportGeneratorModal
+        setReportTrigger={setReportTrigger}
+        reportTrigger={reportTrigger}
+      />
       <div className='flex flex-col border-t-[2px] border-grey-300'>
         <div className='keywordInfo-span-subtitle  border-b-[1px]'>
           <span>연관 키워드</span>
@@ -67,105 +71,63 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
 
         <ul className='z-20 my-[18px] space-y-[18px]'>
           {recomendationItems.map((item, index) => {
-            const conversionRate = item.totalSalesCount / item.searchCount;
-            const rateGrade = item.evaluateStatus + getConversionRate(conversionRate);
-            const [search, competition, cpc, conversion] = rateGrade
-              .split('')
-              .map((grade) => convertScoreToText(grade));
-
             const status = isFalsy(toggleEvent.find((event) => event.id === item.id));
             const backgroundColor = status ? 'border-grey-300' : 'bg-grey-100';
-            const {
-              searchCount,
-              totalSalesCount,
-              competitionRate,
-              competitionProductCount,
-              cpcRate,
-              cpcPrice,
-              avgPrice,
-              id,
-              text,
-            } = item;
-            const [_cpcPrice, _avgPrice] = [cpcPrice, avgPrice].map((price) =>
-              convertToWon(currencyUnit, price, basePrice),
-            );
-            const [_searchCount, _competitionProductCount, _cpcRate] = [
-              searchCount,
-              competitionProductCount,
-              cpcRate,
-            ].map((target) => formatNumber(target));
+            const { id } = item;
 
             const { top, bottom } = convertEvaluateStatus(item.evaluateStatus);
             return (
-              <li
-                key={`relative_keyword_${index}`}
-                onClick={(event) => {
-                  const { offsetLeft, offsetWidth } =
-                    getElementLocation('relative_linkout');
+              <li key={`relative_keyword_${index}`}>
+                <header
+                  onClick={(event) => {
+                    const linkout = getElementLocation('relative_linkout');
+                    const report = getElementLocation('relative_report_generator');
 
-                  if (
-                    event.clientX >= offsetLeft &&
-                    event.clientX <= offsetLeft + offsetWidth
-                  )
-                    return;
+                    if (
+                      isOverArea(event.clientX, linkout) ||
+                      isOverArea(event.clientX, report)
+                    )
+                      return;
 
-                  _dispatch && isToggleOpen(_dispatch, false, item.id);
-                }}
-              >
-                <header>
+                    _dispatch && isToggleOpen(_dispatch, false, item.id);
+                  }}
+                >
                   <div
-                    className={`flex justify-between border-[1px] border-grey-300 bg-grey-50 py-[18px] px-[15px] text-M/Medium ${backgroundColor} cursor-pointer hover:bg-grey-300`}
+                    className={`flex justify-between border-[1px] border-grey-300 bg-grey-50 py-[18px] px-[15px] text-M/Medium ${backgroundColor} h-[60px] cursor-pointer hover:bg-grey-300`}
                   >
-                    <p className='xs:hidden'>{item.text}</p>
+                    <p>
+                      {window.innerWidth > 432
+                        ? item.text
+                        : replaceOverLength(item.text, 22)}
+                    </p>
 
-                    <div className='hidden items-center xs:flex'>
-                      {replaceOverLength(item.text, 30)}
+                    <div className='flex items-center gap-5 xs:gap-[14px]'>
                       <button
-                        id='relative_linkout'
-                        className='z-20 ml-2 h-5 w-5 cursor-pointer items-center'
-                        onClick={() => {
-                          openBrowser(
-                            `${convertShopeeSiteUrl(country!)}/search?keyword=${
-                              item.text
-                            }`,
-                            sorted,
-                          );
-                          amplitudeData &&
-                            _amplitudeMovedToSERP(
-                              amplitudeData.param,
-                              amplitudeData.keyword,
-                              item.text,
-                            );
-                        }}
+                        id='relative_report_generator'
+                        className='rounded-md border-[1px] border-orange-600 bg-orange-100 p-2.5'
+                        onClick={() =>
+                          setReportTrigger({
+                            isOpen: true,
+                            text: item.text,
+                            country: country as TSearchCountry,
+                          })
+                        }
                       >
                         <ReactSVG
                           className=''
-                          src='/assets/icons/outlined/Linkout.svg'
+                          src='/assets/icons/outlined/CarbonReport.svg'
                           beforeInjection={(svg) =>
-                            svg.setAttribute('class', 'fill-grey-900')
+                            svg.setAttribute('class', 'fill-orange-400')
                           }
                         />
                       </button>
-                    </div>
 
-                    <div className='flex items-center'>
                       <button
                         id='relative_linkout'
-                        className='z-20 flex h-5 w-5 cursor-pointer items-center xs:hidden'
-                        onClick={() => {
-                          openBrowser(
-                            `${convertShopeeSiteUrl(country!)}/search?keyword=${
-                              item.text
-                            }`,
-                            sorted,
-                          );
-                          amplitudeData &&
-                            _amplitudeMovedToSERP(
-                              amplitudeData.param,
-                              amplitudeData.keyword,
-                              item.text,
-                            );
-                        }}
+                        className='z-20 flex h-5 w-5 cursor-pointer items-center'
+                        onClick={() =>
+                          moveToShopee(country!, item.text, sorted, amplitudeData)
+                        }
                       >
                         <ReactSVG
                           className=''
@@ -180,7 +142,7 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                           isFalsy(toggleEvent.find((event) => event.id === id))
                             ? 'z-0 -rotate-90'
                             : 'z-0 rotate-90'
-                        } ml-[14px]`}
+                        } `}
                         src='/assets/icons/outlined/LeftArrow.svg'
                       />
                     </div>
@@ -189,42 +151,9 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                 {status === false && (
                   <Fragment>
                     <main>
-                      <div className='flex items-center bg-grey-50 text-center'>
-                        <div className='m-5 flex w-full justify-around gap-10 xs:flex-col xs:items-center'>
-                          <KeywordAnalysisCard
-                            grade={search}
-                            rate={_searchCount}
-                            id='Search'
-                            tooltipItem={{ text, itemCount }}
-                          />
-                          {totalSalesCount && (
-                            <KeywordAnalysisCard
-                              grade={conversion}
-                              rate={formatNumber(conversionRate)}
-                              subRate={`${_searchCount} 건`}
-                              secondSubRate={`${totalSalesCount} 건`}
-                              id='Conversion'
-                              tooltipItem={{ text, itemCount }}
-                            />
-                          )}
-                          <KeywordAnalysisCard
-                            grade={competition}
-                            rate={competitionRate}
-                            subRate={`${_searchCount} 건`}
-                            secondSubRate={`${_competitionProductCount} 건`}
-                            id='Competition'
-                            tooltipItem={{ text, itemCount }}
-                          />
-                          <KeywordAnalysisCard
-                            grade={cpc}
-                            rate={_cpcRate}
-                            subRate={`${_cpcPrice} 원`}
-                            secondSubRate={`${_avgPrice} 원`}
-                            id='CPC'
-                            tooltipItem={{ text, itemCount }}
-                          />
-                        </div>
-                      </div>
+                      <KeywordAnalysisCard
+                        analysisInfo={{ ...item, currencyUnit, basePrice }}
+                      />
                     </main>
                     <footer>
                       <div className='bg-grey-200 p-2.5'>
@@ -242,6 +171,19 @@ export const RelativeKeywordTable = (props: IRecommendationChart) => {
                           </div>
                         </div>
                       </div>
+
+                      <button
+                        className='button-filled-xLarge-primary-false-false-false my-[30px] hidden w-full xs:block'
+                        onClick={() =>
+                          setReportTrigger({
+                            isOpen: true,
+                            text: item.text,
+                            country: country as TSearchCountry,
+                          })
+                        }
+                      >
+                        이 키워드로 리포트 생성하기
+                      </button>
                     </footer>
                   </Fragment>
                 )}

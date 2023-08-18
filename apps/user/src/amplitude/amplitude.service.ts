@@ -249,7 +249,7 @@ export const _amplitudeRecKeywordSearched = (
 export const _amplitudeKeywordReportRequested = (
   reportId: number,
   // platform: TChannel,
-  country: CountryType,
+  country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
   jobId: string,

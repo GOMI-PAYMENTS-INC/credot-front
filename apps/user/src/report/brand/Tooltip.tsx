@@ -1,4 +1,4 @@
-import { ContentPack, ToolTipCombiner } from '@/components/UseTooltip';
+import { ContentPack } from '@/components/UseTooltip';
 import { useMemo } from 'react';
 export const Tooltips = () => {
   const TotalSales = () => {
