@@ -9,6 +9,7 @@ export interface IRequestReportModalType {
   failedCallback: Function;
   setIsRequested: Dispatch<SetStateAction<boolean>>;
   setSortingType: Dispatch<SetStateAction<TReportGeneratorType>>;
+  setModal: Dispatch<SetStateAction<TModalStatus>>;
 }
 export const Modal = (props: IRequestReportModalType) => {
   const [isDisalbed, setIsDisalbed] = useState(false);
@@ -18,6 +19,7 @@ export const Modal = (props: IRequestReportModalType) => {
     return () => {
       props.setSortingType(SORTING_TYPE[0]);
       props.setIsRequested(false);
+      props.setModal({ modalType: '', response: '' });
     };
   }, []);
   return (

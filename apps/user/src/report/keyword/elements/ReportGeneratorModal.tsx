@@ -65,6 +65,7 @@ export const ReportGeneratorModal = ({
     <ModalComponent isOpen={isOpen}>
       {modal.modalType ? (
         <Modal
+          setModal={setModal}
           setSortingType={setSortingType}
           setIsRequested={setIsRequested}
           modalType={modal.modalType}
@@ -84,7 +85,6 @@ export const ReportGeneratorModal = ({
             }
           }}
           failedCallback={() => {
-            setModal({ modalType: '', response: '' });
             initializeModal(reportTrigger, setReportTrigger);
           }}
         />
