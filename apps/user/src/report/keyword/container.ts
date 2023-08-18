@@ -207,8 +207,7 @@ export const searchRequestHandler = (props: TRequestReportModa) => {
   requestReport({ ...props });
 };
 
-export const switchModal = ({ _dispatch, _setTrigger }: TSwitchModal) => {
-  _setTrigger ?? _setTrigger(false);
+export const switchModal = ({ _dispatch }: TSwitchModal) => {
   _dispatch({
     type: SEARCH_ACTION.SWITCH_MODAL,
     payload: { isModalOpen: false },

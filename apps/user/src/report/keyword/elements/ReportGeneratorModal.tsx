@@ -38,7 +38,6 @@ export const ReportGeneratorModal = ({
     sortBy: sortingType.value,
     text: text,
     trigger: isRequested,
-    setTrigger: setIsRequested,
   });
 
   const _state = {
@@ -63,20 +62,14 @@ export const ReportGeneratorModal = ({
 
     return () => {
       setSortingType(SORTING_TYPE[0]);
-      setIsRequested(false);
     };
   }, [response]);
-
-  useEffect(() => {
-    // if (isRequested && modal.modalType !== '') {
-    //   setIsRequested(false);
-    // }
-  }, [modal.modalType]);
 
   return (
     <ModalComponent isOpen={isOpen}>
       {modal.modalType ? (
         <Modal
+          setIsRequested={setIsRequested}
           modalType={modal.modalType}
           createdAt={modal.response}
           successCallback={() => {

@@ -11,11 +11,11 @@ interface IGetQueryType {
   sortBy: TSortBy;
   text: string;
   trigger: boolean;
-  setTrigger: Dispatch<SetStateAction<boolean>>;
+  // setTrigger: Dispatch<SetStateAction<boolean>>;
 }
 
 export const getQueryResult = (props: IGetQueryType) => {
-  const { country, text, trigger, setTrigger, sortBy } = props;
+  const { country, text, trigger, sortBy } = props;
 
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     {
@@ -34,7 +34,7 @@ export const getQueryResult = (props: IGetQueryType) => {
             res.search.relations,
             res.search.main.count,
           );
-          setTrigger(false);
+
           return;
         } catch (error) {
           console.error(error, 'error');

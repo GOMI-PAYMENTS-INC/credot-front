@@ -6,11 +6,15 @@ export interface IRequestReportModalType {
   createdAt: string;
   successCallback: Function;
   failedCallback: Function;
+  setIsRequested: Dispatch<SetStateAction<boolean>>;
 }
 export const Modal = (props: IRequestReportModalType) => {
   const [isDisalbed, setIsDisalbed] = useState(false);
-  const { title, content, onCancel, onConfirm } = ReportModalType({ ...props });
 
+  const { title, content, onCancel, onConfirm } = ReportModalType({ ...props });
+  useEffect(() => {
+    return () => props.setIsRequested(false);
+  }, []);
   return (
     <Fragment>
       <div className=''>
