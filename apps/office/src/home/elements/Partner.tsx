@@ -26,26 +26,26 @@ export const Partner = ({ imagePath }: IPartner) => {
             return (
               <div
                 key={index}
-                className='flex h-[533px] w-[311px] flex-col gap-[30px] rounded-[16px] border-[1px] border-grey-300 bg-white px-[22px] py-[30px]'
+                className='flex h-[533px] w-[311px] flex-col gap-[30px] rounded-[16px] border-[1px] border-grey-300 bg-white px-[22px] py-[30px] xs:h-full xs:w-[390px] xs:gap-0'
               >
                 <header className='flex flex-col'>
-                  <div className='border-b-[1px] pb-2.5 text-XL/Bold text-grey-900 xs:text-S/Bold'>
+                  <div className='border-b-[1px] pb-2.5 text-XL/Bold text-grey-900 xs:text-2XL/Bold '>
                     {partener.subject}
                   </div>
 
-                  <div className='mt-2.5 h-[150px] w-[267px] text-M/Regular leading-[30px] text-grey-800 xs:text-S/Medium'>
+                  <div className='mt-2.5 h-[150px] w-[267px] text-M/Regular leading-[30px] text-grey-800 xs:h-fit xs:w-full xs:text-L/Medium'>
                     {partener.content}
                   </div>
                 </header>
 
-                <main>
+                <main className='xs:mt-[30px]'>
                   <div className='flex h-[64px] xs:h-[115px]'>
-                    <div className='flex w-full items-center  self-center'>
+                    <div className='flex w-full items-center self-center'>
                       <img
                         src={`${imagePath}/Partner/${partener.imgName}`}
                         alt='{partener.name}'
                       />
-                      <div className='ml-3 text-L/Medium text-grey-900 lg:mb-[3px]  xs:text-M/Medium'>
+                      <div className='ml-3 text-L/Medium text-grey-900 lg:mb-[3px]  xs:text-L/Medium '>
                         {partener.name}
                       </div>
                     </div>
@@ -53,7 +53,7 @@ export const Partner = ({ imagePath }: IPartner) => {
                 </main>
 
                 <footer>
-                  <ul className='w-full space-y-2 text-M/Regular text-grey-800 xs:text-S/Regular'>
+                  <ul className='w-full space-y-2 text-M/Regular text-grey-800 xs:text-L/Regular'>
                     {partener.brand}
                   </ul>
                 </footer>
