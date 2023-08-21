@@ -1,7 +1,13 @@
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { ReactSVG } from 'react-svg';
+import { convertCountry, convertSortedType } from '@/utils/convertEnum';
 
-export const SearchResult = () => {
+interface ISearchResult {
+  _state: TSearchProps;
+}
+
+export const SearchResult = ({ _state }: ISearchResult) => {
+  const { keyword, sortBy, country } = _state;
   return (
     <div className='flex h-[848px] w-[508px] flex-col items-center'>
       <div id='result' className='z-[3] w-full'>
@@ -17,11 +23,11 @@ export const SearchResult = () => {
           </button>
         </div>
         <div className='mt-[237px] text-3XL/Bold'>
-          <p className='text-L/Medium text-grey-700'>베트남/연관도순</p>
+          <p className='text-L/Medium text-grey-700'>{`${convertCountry(
+            country,
+          )} / ${convertSortedType(sortBy)}`}</p>
           <p className='text-3XL/Bold leading-[53px]'>
-            <span className='text-orange-400'>
-              {replaceOverLength('가나다라마바사아자차카타파하', 31)}
-            </span>
+            <span className='text-orange-400'>{replaceOverLength(keyword, 31)}</span>
             의<br />
             키워드 리포트를 생성할까요?
           </p>

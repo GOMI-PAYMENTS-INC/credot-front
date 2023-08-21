@@ -20,7 +20,7 @@ const GNB = () => {
   const [{ route }] = matchRoutes(routeList, pathname) || [];
 
   return (
-    <header className='fixed top-0 z-30 flex w-full justify-between bg-white px-6 py-[18px]'>
+    <header className='fixed top-0 z-30 flex w-full justify-between border-[1px] border-grey-300 bg-white px-6 py-[18px]'>
       <div className='flex items-center'>
         <Link to={PATH.SEARCH_PRODUCTS}>
           <ReactSVG

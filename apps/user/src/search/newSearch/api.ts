@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { CountryType, useSearchQuery } from '@/generated/graphql';
-import { updateSearchPayload } from '@/search/container';
+import { updateSearchPayload, initailizeSearchProps } from '@/search/container';
 import { getProductImages } from '@/search/api';
 import { isFalsy } from '@/utils/isFalsy';
 import { _getProductImages } from '@/search/container';
@@ -22,6 +22,12 @@ export const getQueryResult = (
       refetchOnWindowFocus: false,
       onSuccess: async (res) => {
         try {
+          updateSearchPayload({
+            _state: payload,
+            _dispatch,
+            key: 'images',
+            params: null,
+          });
           const images = await getProductImages({ keyword });
 
           if (images && images.data.data !== null) {

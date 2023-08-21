@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
-
+import { SEARCH_STATE_INIT_VALUE } from '@/search/newSearch/constants';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
@@ -126,7 +126,7 @@ export const updateSearchPayload = (props: {
   _state: TSearchProps;
   _dispatch: Dispatch<SetStateAction<TSearchProps>>;
   key: keyof TSearchProps;
-  params: TSearchCountry | TSortBy | string | TProductImageType;
+  params: TSearchCountry | TSortBy | string | TProductImageType | null;
 }) => {
   const { _state, _dispatch, params, key } = props;
 
@@ -136,3 +136,7 @@ export const updateSearchPayload = (props: {
   }
   _dispatch(updatedState);
 };
+
+export const initailizeSearchProps = (
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>,
+) => _dispatch(SEARCH_STATE_INIT_VALUE);

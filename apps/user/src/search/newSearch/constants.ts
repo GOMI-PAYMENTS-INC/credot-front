@@ -27,4 +27,11 @@ const SORTING_TYPE: TReportGeneratorType[] = Object.keys(SORT_BY_TYPE).map((sort
   };
 });
 
-export { CountryType, COUNTRY, SORTING_TYPE, SORT_BY_TYPE };
+const SEARCH_STATE_INIT_VALUE = {
+  country: 'SG' as TSearchCountry,
+  sortBy: SORTING_TYPE[0].value,
+  keyword: '',
+  images: null,
+};
+
+export { CountryType, COUNTRY, SORTING_TYPE, SORT_BY_TYPE, SEARCH_STATE_INIT_VALUE };
