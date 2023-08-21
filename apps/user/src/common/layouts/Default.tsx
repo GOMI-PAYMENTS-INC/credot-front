@@ -16,12 +16,16 @@ export const Default = ({ children }: IDefaultProps) => {
     <Fragment>
       <div className='h-screen'>
         {/* <SideBar _state={_state} _dispatch={_dispatch} />
-        <MSidebar _state={_state} _dispatch={_dispatch} /> */}
-        <GNB />
-        {/* <div className={`${_state.openedSidebar ? 'ml-[200px]' : 'ml-[64px]'} xs:ml-0 `}>
+        <MSidebar _state={_state} _dispatch={_dispatch} />
+        <div
+          className={`${
+            _state.openedSidebar ? 'ml-[200px]' : 'ml-[64px]'
+          } h-full xs:ml-0`}
+        >
           {children}
         </div> */}
-        {children}
+        <GNB />
+        <div className=''>{children}</div>
       </div>
     </Fragment>
   );
