@@ -106,8 +106,6 @@ export const ReportGeneratorModal = ({
             isUseIcon={true}
             iconPath={convertSortByIconPath(sortingType.value)}
             options={SORTING_TYPE}
-            status={DROPDOWN_STATUS.FILLED}
-            variants={DROPDOWN_VARIANTS.CLEAR}
             onClickOption={(item) => {
               updateSortingType(item as string, SORTING_TYPE, setSortingType);
             }}

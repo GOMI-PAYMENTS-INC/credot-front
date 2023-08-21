@@ -8,6 +8,7 @@ import {
   TemporaryPassword,
 } from '@/auth';
 import SearchKeywords from '@/search/SearchKeywords';
+import { NSearchKeywords } from '@/search/NSearchKeywords';
 import * as ReportRoutes from '@/report';
 
 export const PATH = {
@@ -21,6 +22,7 @@ export const PATH = {
   REPORT_LIST: '/report',
   REPORT_DETAIL: '/report/:id',
   REPORT_DETAIL_BY_SHARE: '/share/:id',
+  SEARCH_PRODUCTS_TEST: '/test',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -88,6 +90,13 @@ export const routeList: IRoute[] = [
     description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
     component: SearchKeywords,
+  },
+  {
+    //검색
+    isPrivate: true,
+    description: 'SearchProductsTest',
+    path: PATH.SEARCH_PRODUCTS_TEST,
+    component: NSearchKeywords,
   },
   {
     //리포트 목록

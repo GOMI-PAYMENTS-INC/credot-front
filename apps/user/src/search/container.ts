@@ -1,5 +1,5 @@
 import { SEARCH_ACTION, searchInitialState } from '@/search/reducer';
-import type { Dispatch } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
@@ -120,4 +120,19 @@ export const convertSearchPlaceholder = (country: CountryType) => {
       console.error('enum 코드를 확인해주세요.');
       return '';
   }
+};
+
+export const updateSearchPayload = (props: {
+  _state: TSearchProps;
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>;
+  key: keyof TSearchProps;
+  params: TSearchCountry | TSortBy | string | TProductImageType;
+}) => {
+  const { _state, _dispatch, params, key } = props;
+
+  const updatedState = Object.assign({}, _state, { [key]: params });
+  if (key === 'keyword') {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
+  }
+  _dispatch(updatedState);
 };

@@ -193,7 +193,7 @@ export const _amplitudeKeywordSearched = (
 // ##### KEYWORD REPORT - 키워드 검색 성공 시 ##### //
 export const _amplitudeKeywordSearchedSucceeded = (
   // platform: TChannel,
-  country: CountryType,
+  country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
   relations: SearchDto[],
@@ -216,7 +216,7 @@ export const _amplitudeKeywordSearchedSucceeded = (
 // ##### KEYWORD REPORT - 키워드 검색 실패 시 ##### //
 export const _amplitudeKeywordSearchedFailed = (
   // platform: TChannel,
-  country: CountryType,
+  country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
   reason: string,

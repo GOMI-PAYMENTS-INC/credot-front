@@ -81,7 +81,7 @@ const ReportList = () => {
         </div>
       </header>
       {/*컨텐츠*/}
-      <section className='grow overflow-y-auto xs:hidden'>
+      <section className='h-full grow overflow-y-auto xs:hidden'>
         <div className='min-h-full bg-grey-50'>
           <div className='container pt-[24px]'>
             {/*하단 페이지 별로 변경해야하는 부분*/}

@@ -19,9 +19,9 @@ export type TDropDownOption = {
 };
 
 type TDropDown = {
-  name: string;
-  status: DROPDOWN_STATUS;
-  variants: DROPDOWN_VARIANTS;
+  name?: string;
+  status?: DROPDOWN_STATUS;
+  variants?: DROPDOWN_VARIANTS;
   isUseIcon?: boolean;
   value: ReactNode;
   minWidth?: number;
@@ -54,19 +54,19 @@ const variantsStyle = (variants: DROPDOWN_VARIANTS) => {
     case DROPDOWN_VARIANTS.DEFAULT:
       style =
         'bg-white border border-grey-400 bg-svg-filled/CaretDown-black hover:border-orange-300 hover:shadow-[0px_0px_4px_rgba(255,163,120,0.5)];';
-      return style;
+
     case DROPDOWN_VARIANTS.CLEAR:
       style = 'bg-transparent bg-svg-filled/CaretDown-grey-700';
-      return style;
+
     default:
       return style;
   }
 };
 
 export const Selector = ({
-  name,
-  status,
-  variants,
+  name = Math.floor(Math.random() * 1000).toString(),
+  status = DROPDOWN_STATUS.FILLED,
+  variants = DROPDOWN_VARIANTS.CLEAR,
   value,
   minWidth,
   iconPath,
