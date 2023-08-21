@@ -1,21 +1,15 @@
-import { Fragment } from 'react';
+import { Fragment, SetStateAction, Dispatch } from 'react';
 import { HotKeyword } from '@/search/elements';
 import { useForm } from 'react-hook-form';
 import { CountryType } from '@/generated/graphql';
 import { ReactSVG } from 'react-svg';
 
-export const NoneKeyword = () => {
-  const { register, getValues, setValue, watch } = useForm<{
-    country: CountryType;
-    sortBy: TSortBy;
-    keyword: string;
-  }>({
-    mode: 'onChange',
-    defaultValues: {
-      country: CountryType.VN,
-      sortBy: 'R',
-    },
-  });
+interface INoneKeyword {
+  _state: TSearchPayload;
+  _dispatch: Dispatch<SetStateAction<TSearchPayload>>;
+}
+
+export const NoneKeyword = ({ _state, _dispatch }: INoneKeyword) => {
   return (
     <div className='flex h-full w-full items-center justify-between gap-[30px]'>
       <div
@@ -70,10 +64,10 @@ export const NoneKeyword = () => {
       <div id='result' className='z-[3] w-full max-w-[508px] '>
         <HotKeyword
           hackleKey='B'
-          country={'VN'}
-          searchSortBy={'R'}
-          _dispatch={() => {}}
-          setValue={setValue}
+          country={_state.country}
+          searchSortBy={_state.sortBy}
+          _state={_state}
+          _dispatch={_dispatch}
         />
       </div>
     </div>

@@ -1,8 +1,8 @@
-import { Fragment, ReactNode, useReducer } from 'react';
+import { Fragment, ReactNode, useEffect, useReducer, useState } from 'react';
 import SideBar from '@/common/layouts/sidebar/SideBar';
 import MSidebar from '@/common/layouts/sidebar/MSidebar';
 import GNB from '@/common/layouts/NewGNB';
-
+import { useMatch } from 'react-router-dom';
 import { sidebarInitialState, sidebarReducer } from '@/common/layouts/sidebar/reducer';
 
 interface IDefaultProps {
@@ -11,7 +11,12 @@ interface IDefaultProps {
 
 export const Default = ({ children }: IDefaultProps) => {
   const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
+  const [handleCss, setHandleCss] = useState('');
+  const pattern = useMatch('report/:id')?.pattern;
 
+  useEffect(() => {
+    pattern?.path ? setHandleCss('') : setHandleCss('h-full');
+  }, [pattern]);
   return (
     <Fragment>
       <div className='h-screen'>
@@ -25,7 +30,7 @@ export const Default = ({ children }: IDefaultProps) => {
           {children}
         </div> */}
         <GNB />
-        <div className=''>{children}</div>
+        <div className={handleCss}>{children}</div>
       </div>
     </Fragment>
   );

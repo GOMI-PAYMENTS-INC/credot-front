@@ -36,7 +36,6 @@ export const NSearchKeywords = () => {
   });
 
   const { response } = getQueryResult(payload, setPayload);
-  console.log(response, 'reponse');
 
   return (
     <Layout>
@@ -44,7 +43,7 @@ export const NSearchKeywords = () => {
         <div className='absolute right-0 bottom-0 block '>
           <img src='/assets/images/NBackground.png' />
         </div>
-        <section className='mx-[192px] h-full max-w-[1060px] overflow-hidden pt-[128px]'>
+        <section className='mx-[192px] h-full w-[1060px] overflow-hidden pt-[128px]'>
           <div
             id='searchBox'
             className='flex flex-col rounded-[20px] border-[1px] bg-white py-4 px-[30px]'
@@ -133,7 +132,11 @@ export const NSearchKeywords = () => {
           </div>
 
           <div id='result' className='mt-[30px] flex w-full'>
-            <NoneKeyword />
+            {payload.keyword ? (
+              <Keyword />
+            ) : (
+              <NoneKeyword _state={payload} _dispatch={setPayload} />
+            )}
           </div>
         </section>
       </div>

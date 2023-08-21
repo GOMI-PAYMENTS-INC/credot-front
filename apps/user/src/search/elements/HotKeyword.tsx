@@ -1,6 +1,6 @@
-import { useState, type Dispatch } from 'react';
+import { SetStateAction, useState, type Dispatch } from 'react';
 
-import { queryKeywordByClick } from '@/search/container';
+import { queryKeywordByClick, updateSearchPayload } from '@/search/container';
 import { HOT_KEYWORD, TRANSLATED_KEYWORD } from '@/search/elements/hotKeywords';
 
 import { convertCountry } from '@/utils/convertEnum';
@@ -8,10 +8,12 @@ import { CountryType } from '@/generated/graphql';
 import type { UseFormSetValue } from 'react-hook-form';
 import { _clientHotKeywordSearched } from '@/amplitude/amplitude.service';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+
 interface IHotKeyword {
   country: TSearchCountry;
-  _dispatch: Dispatch<TSearchActionType>;
-  setValue: UseFormSetValue<{
+  _dispatch: Dispatch<TSearchActionType> | Dispatch<SetStateAction<TSearchPayload>>;
+  _state?: TSearchPayload;
+  setValue?: UseFormSetValue<{
     country: CountryType;
     sortBy: TSortBy;
     keyword: string;
@@ -22,7 +24,7 @@ interface IHotKeyword {
 export const HotKeyword = (props: IHotKeyword) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
-  const { country, _dispatch, setValue, searchSortBy, hackleKey } = props;
+  const { country, _dispatch, setValue, searchSortBy, hackleKey, _state } = props;
 
   return (
     <section className={`flex-grow xs:mx-5 `}>
@@ -72,7 +74,21 @@ export const HotKeyword = (props: IHotKeyword) => {
                     setHoverIndex(null);
                   }}
                   onClick={() => {
-                    queryKeywordByClick(country, keyword, _dispatch, setValue);
+                    if (setValue) {
+                      queryKeywordByClick(
+                        country,
+                        keyword,
+                        _dispatch as Dispatch<TSearchActionType>,
+                        setValue,
+                      );
+                    } else {
+                      updateSearchPayload({
+                        _state: _state!,
+                        _dispatch: _dispatch as Dispatch<SetStateAction<TSearchPayload>>,
+                        key: 'keyword',
+                        params: keyword,
+                      });
+                    }
                     _clientHotKeywordSearched(country, searchSortBy, keyword);
                     if (window.innerWidth < 431) {
                       window.scroll({ top: 0, left: 0, behavior: 'smooth' });

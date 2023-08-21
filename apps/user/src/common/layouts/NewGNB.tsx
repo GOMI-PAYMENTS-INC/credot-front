@@ -1,18 +1,23 @@
-import { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
-import { replaceOverLength } from '@/utils/replaceOverLength';
+
+import { routeList } from '@/router/routeList';
 
 import { menuData } from '@/common/layouts/sidebar/constants';
 import { PATH } from '@/router/routeList';
 import { openBrowser } from '@/utils/openBrowser';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { MeQuery } from '@/generated/graphql';
+
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '@/atom/auth/auth-atom';
 
 const GNB = () => {
-  const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
+  const userAccount = useRecoilValue(UserAtom)?.me.email;
   const [MENU] = menuData;
-  const [current, setCurrent] = useState(MENU.children[0].key);
+
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [{ route }] = matchRoutes(routeList, pathname) || [];
 
   return (
     <header className='fixed top-0 z-30 flex w-full justify-between bg-white px-6 py-[18px]'>
@@ -29,15 +34,18 @@ const GNB = () => {
         <ul className='ml-[58px] flex gap-2.5'>
           {MENU.children.map((menu) => {
             const highLightEffect =
-              current === menu.key
+              route.path === menu.path
                 ? 'text-orange-500 bg-orange-100'
                 : 'text-S/Regular text-grey-800';
             return (
               <li
                 key={menu.key}
-                className={`py-3 px-5 text-S/Medium ${highLightEffect} rounded-lg`}
+                className={`py-3 px-5 text-S/Medium ${highLightEffect} cursor-pointer rounded-lg`}
+                onClick={() => {
+                  navigate(menu.path);
+                }}
               >
-                <Link to={menu.path}>{menu.title}</Link>
+                {menu.title}
               </li>
             );
           })}
@@ -62,12 +70,11 @@ const GNB = () => {
         </button>
 
         <div className='ml-2.5 flex items-center'>
-          <div className='my-3 mx-5 flex w-[120px] items-center text-S/Medium text-grey-800'>
-            www.naver.com
-            {/* {userInfo ? userInfo.me.email : ''} */}
+          <div className='my-3 mx-5 flex w-[120px] cursor-pointer items-center text-S/Medium text-grey-800'>
+            {userAccount}
             <ReactSVG
               src='/assets/icons/outlined/Chevronup.svg'
-              className={`ml-3 block cursor-pointer`}
+              className={`ml-3 block`}
               beforeInjection={(svg) => {
                 svg.setAttribute('class', 'w-3 fill-grey-800');
               }}
