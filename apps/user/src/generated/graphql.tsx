@@ -541,7 +541,7 @@ export type SmsVerifyCodeConfirmQuery = {
 };
 
 export type SearchQueryVariables = Exact<{
-  country: CountryType;
+  country: CountryType | TSearchCountry;
   text: Scalars['String'];
 }>;
 
