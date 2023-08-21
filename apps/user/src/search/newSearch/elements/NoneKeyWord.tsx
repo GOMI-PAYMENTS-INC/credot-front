@@ -5,8 +5,8 @@ import { CountryType } from '@/generated/graphql';
 import { ReactSVG } from 'react-svg';
 
 interface INoneKeyword {
-  _state: TSearchPayload;
-  _dispatch: Dispatch<SetStateAction<TSearchPayload>>;
+  _state: TSearchProps;
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>;
 }
 
 export const NoneKeyword = ({ _state, _dispatch }: INoneKeyword) => {

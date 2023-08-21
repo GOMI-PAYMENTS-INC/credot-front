@@ -11,8 +11,8 @@ import { replaceOverLength } from '@/utils/replaceOverLength';
 
 interface IHotKeyword {
   country: TSearchCountry;
-  _dispatch: Dispatch<TSearchActionType> | Dispatch<SetStateAction<TSearchPayload>>;
-  _state?: TSearchPayload;
+  _dispatch: Dispatch<TSearchActionType> | Dispatch<SetStateAction<TSearchProps>>;
+  _state?: TSearchProps;
   setValue?: UseFormSetValue<{
     country: CountryType;
     sortBy: TSortBy;
@@ -84,7 +84,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                     } else {
                       updateSearchPayload({
                         _state: _state!,
-                        _dispatch: _dispatch as Dispatch<SetStateAction<TSearchPayload>>,
+                        _dispatch: _dispatch as Dispatch<SetStateAction<TSearchProps>>,
                         key: 'keyword',
                         params: keyword,
                       });

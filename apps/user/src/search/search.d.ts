@@ -1,12 +1,12 @@
-type TSearchPayload = {
+type TSearchProps = {
   [key: 'country' | 'sortBy' | 'keyword' | 'images']:
     | TSearchCountry
     | TSortBy
     | string
-    | TGetProductImageResponse
+    | TProductImageType
     | null;
   country: TSearchCountry;
   sortBy: TSortBy;
   keyword: string;
-  images: TGetProductImageResponse | null;
+  images: TProductImageType | null;
 };

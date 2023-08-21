@@ -123,13 +123,16 @@ export const convertSearchPlaceholder = (country: CountryType) => {
 };
 
 export const updateSearchPayload = (props: {
-  _state: TSearchPayload;
-  _dispatch: Dispatch<SetStateAction<TSearchPayload>>;
-  key: keyof TSearchPayload;
-  params: TSearchCountry | TSortBy | string | TGetProductImageResponse;
+  _state: TSearchProps;
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>;
+  key: keyof TSearchProps;
+  params: TSearchCountry | TSortBy | string | TProductImageType;
 }) => {
   const { _state, _dispatch, params, key } = props;
 
   const updatedState = Object.assign({}, _state, { [key]: params });
+  if (key === 'keyword') {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
+  }
   _dispatch(updatedState);
 };

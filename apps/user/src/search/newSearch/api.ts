@@ -11,8 +11,8 @@ import {
 } from '@/amplitude/amplitude.service';
 
 export const getQueryResult = (
-  payload: TSearchPayload,
-  _dispatch: Dispatch<SetStateAction<TSearchPayload>>,
+  payload: TSearchProps,
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>,
 ) => {
   const { country, sortBy, keyword } = payload;
   const { data, isLoading, isFetching, isError } = useSearchQuery(
@@ -25,11 +25,12 @@ export const getQueryResult = (
           const images = await getProductImages({ keyword });
 
           if (images && images.data.data !== null) {
+            const [productImgs] = images.data.data;
             updateSearchPayload({
               _state: payload,
               _dispatch,
               key: 'images',
-              params: images.data,
+              params: productImgs,
             });
           }
           _amplitudeKeywordSearchedSucceeded(
