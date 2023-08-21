@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { Default as Layout } from '@/common/layouts';
-import { Keyword, NoneKeyword } from '@/search/newSearch/elements';
+import { SearchResult, NoneKeyword } from '@/search/newSearch/elements';
 import { Selector } from '@/report/keyword/elements/Selector';
 import {
   convertSortByIconPath,
@@ -48,20 +48,27 @@ export const NSearchKeywords = () => {
       setValue('keyword', searchState.keyword || cachingData.keyword);
     }
   }, [searchState.keyword]);
-
+  const searchCss = searchState.keyword ? 'flex-col items-start' : 'items-center';
+  const searchInputCss = searchState.keyword ? 'mb-5' : '';
   return (
     <Layout>
       <div className='flex h-full w-full flex-col items-center bg-grey-50'>
         <div className='absolute right-0 bottom-0 block '>
           <img src='/assets/images/NBackground.png' />
         </div>
-        <section className='mx-[192px] h-full w-[1060px] overflow-hidden pt-[128px]'>
+        <section
+          className={`w-[1075px] overflow-hidden pt-[128px] ${
+            searchState.keyword ? 'mx-[192px] flex gap-[58px]' : 'mx-[180px] h-full'
+          }`}
+        >
           <div
             id='searchBox'
-            className='flex flex-col rounded-[20px] border-[1px] bg-white py-4 px-[30px]'
+            className={`flex flex-col rounded-[20px] border-[1px] bg-white py-4 px-[30px] ${
+              searchState.keyword ? 'w-[507px]' : ''
+            }`}
           >
-            <div className='flex w-full items-center justify-between'>
-              <div className='flex items-center gap-4'>
+            <div className={`flex w-full  justify-between ${searchCss}`}>
+              <div className={`${searchInputCss} flex items-center gap-4`}>
                 <Selector
                   minWidth={133}
                   value={convertCountry(searchState.country)}
@@ -143,9 +150,12 @@ export const NSearchKeywords = () => {
             </div>
           </div>
 
-          <div id='result' className='mt-[30px] flex w-full'>
+          <div
+            id='result'
+            className={`${searchState.keyword ? 'self-start' : 'mt-[30px]'} flex w-full`}
+          >
             {searchState.keyword ? (
-              <Keyword />
+              <SearchResult />
             ) : (
               <NoneKeyword _state={searchState} _dispatch={setSearchState} />
             )}
