@@ -8,6 +8,7 @@ import {
   TemporaryPassword,
 } from '@/auth';
 import SearchKeywords from '@/search/SearchKeywords';
+import { NSearchKeywords } from '@/search/NSearchKeywords';
 import * as ReportRoutes from '@/report';
 
 export const PATH = {
@@ -87,7 +88,8 @@ export const routeList: IRoute[] = [
     isPrivate: true,
     description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
-    component: SearchKeywords,
+    // component: SearchKeywords,
+    component: NSearchKeywords,
   },
   {
     //리포트 목록
