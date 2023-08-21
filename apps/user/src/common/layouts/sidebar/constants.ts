@@ -15,6 +15,13 @@ export const menuData = [
         activePath: [],
       },
       {
+        key: 'keywordAnalyze-4',
+        title: '리포트 생성 베타',
+        iconPath: '/assets/icons/outlined/Search.svg',
+        path: PATH.SEARCH_PRODUCTS_TEST,
+        activePath: [],
+      },
+      {
         key: 'keywordAnalyze-2',
         title: '리포트 조회',
         iconPath: '/assets/icons/outlined/FileText.svg',

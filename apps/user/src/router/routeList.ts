@@ -22,6 +22,7 @@ export const PATH = {
   REPORT_LIST: '/report',
   REPORT_DETAIL: '/report/:id',
   REPORT_DETAIL_BY_SHARE: '/share/:id',
+  SEARCH_PRODUCTS_TEST: '/test',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -88,7 +89,13 @@ export const routeList: IRoute[] = [
     isPrivate: true,
     description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
-    // component: SearchKeywords,
+    component: SearchKeywords,
+  },
+  {
+    //검색
+    isPrivate: true,
+    description: 'SearchProductsTest',
+    path: PATH.SEARCH_PRODUCTS_TEST,
     component: NSearchKeywords,
   },
   {

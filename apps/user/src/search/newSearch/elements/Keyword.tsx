@@ -1,1 +1,3 @@
-export const Keyword = () => {};
+export const Keyword = () => {
+  return <></>;
+};
