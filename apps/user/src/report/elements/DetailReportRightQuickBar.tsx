@@ -28,8 +28,9 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
   }, [scrollY]);
 
   const quickBarTopStyle = useMemo(() => {
+    const testCss = test ? 6 : 0;
     const paddingTop = STYLE_ENUM.REPORT_DETAIL_BODY_PADDING_TOP;
-    const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
+    const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT + testCss;
     return isUser ? { top: paddingTop + headerHeight } : { top: paddingTop };
   }, [isUser]);
 
@@ -38,10 +39,12 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
       style={quickBarTopStyle}
       className={`sticky col-span-2 h-fit w-[180px] xs:hidden`}
     >
-      <div id='keywordInfoTest' className={''}>
-        <DetailReportTest />
-      </div>
-      <div>
+      {test && (
+        <div id='keywordInfoTest'>
+          <DetailReportTest test={test} />
+        </div>
+      )}
+      <div className={test ? 'mt-[30px]' : ''}>
         <div>
           <p
             className='flex cursor-pointer items-center text-S/Medium text-grey-700'

@@ -14,21 +14,25 @@ import { Default } from '@/common/layouts';
 
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 
-const DetailReportPageByShare = () => {
+interface IDetailReportPageByShare {
+  hackleId?: string;
+}
+
+const DetailReportPageByShare = ({ hackleId = 'A' }: IDetailReportPageByShare) => {
   const params = useParams();
 
   const scrollEventState: scrollEventState = {
     scrollY: 0,
-    title: 'Report',
+    title: 'MarketSize',
     isOpen: true,
-    current: 'Report',
+    current: 'MarketSize',
   };
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
 
   const { main } = _state;
   const contentSection = useRef<HTMLDivElement>(null);
-  const scrollController = useRef<HTMLTableSectionElement>(null);
+  // const scrollController = useRef<HTMLTableSectionElement>(null);
 
   const [isUser, setIsUser] = useState<boolean>(false);
 
@@ -51,6 +55,11 @@ const DetailReportPageByShare = () => {
     }
   }, [main?.id]);
 
+  const amplitudeData: TAmplitudeDetailData = {
+    param: params.id ? params.id : '',
+    keyword: main?.text ? main.text : '',
+  };
+
   const combinedComponent = useMemo(() => {
     return (
       <DetailReportSwitch
@@ -58,6 +67,7 @@ const DetailReportPageByShare = () => {
         _state={_state}
         _dispatch={_dispatch}
         params={params}
+        hackleId={hackleId}
       ></DetailReportSwitch>
     );
   }, [main]);
@@ -91,6 +101,11 @@ const DetailReportPageByShare = () => {
                 title={main?.text}
                 scrollEvent={scrollEvent}
                 setScrollEvent={setScrollEvent}
+                test={
+                  hackleId
+                    ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
+                    : undefined
+                }
               />
             </DetailReportBody>
           </Fragment>
@@ -98,6 +113,7 @@ const DetailReportPageByShare = () => {
       </Default>
     );
   }
+
   return (
     <Fragment>
       {isFalsy(main) ? (
@@ -114,6 +130,11 @@ const DetailReportPageByShare = () => {
             title={main?.text}
             scrollEvent={scrollEvent}
             setScrollEvent={setScrollEvent}
+            test={
+              hackleId
+                ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
+                : undefined
+            }
           />
         </DetailReportBody>
       )}

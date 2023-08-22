@@ -7,6 +7,7 @@ import { menuData } from '@/common/layouts/sidebar/constants';
 import { PATH } from '@/router/routeList';
 import { openBrowser } from '@/utils/openBrowser';
 import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { isIncluded } from '@/utils/isIncluded';
 
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '@/atom/auth/auth-atom';
@@ -36,10 +37,11 @@ const GNB = () => {
         </Link>
         <ul className='ml-[58px] flex gap-2.5'>
           {MENU.children.map((menu) => {
-            const highLightEffect =
-              route.path === menu.path
-                ? 'text-orange-500 bg-orange-100'
-                : 'text-S/Regular text-grey-800';
+            const isFit =
+              isIncluded(route.path, ...menu.activePath) || route.path === menu.path;
+            const highLightEffect = isFit
+              ? 'text-orange-500 bg-orange-100'
+              : 'text-S/Regular text-grey-800';
             return (
               <li
                 key={menu.key}

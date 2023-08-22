@@ -11,7 +11,7 @@ const reportInitialState: TReportState = {
     data: null,
   },
   category: null,
-  scrollEvent: { title: 'Report', isOpen: true, current: 'Report' },
+  scrollEvent: { title: 'MarketSize', isOpen: true, current: 'MarketSize' },
   toggleEvent: [],
   spinnerEvent: false,
   shareToken: null,

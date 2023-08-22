@@ -29,9 +29,9 @@ const DetailReportPage = ({ hackleId = 'A' }: IDetailReportPage) => {
 
   const scrollEventState: scrollEventState = {
     scrollY: 0,
-    title: 'Report',
+    title: 'MarketSize',
     isOpen: true,
-    current: 'Report',
+    current: 'MarketSize',
   };
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
