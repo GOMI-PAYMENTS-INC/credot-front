@@ -17,11 +17,11 @@ export const SearchResult = ({ _state, setModal, modal, _dispatch }: ISearchResu
   const { keyword, sortBy, country } = _state;
 
   return (
-    <div className='flex h-[848px] w-[508px] flex-col items-center'>
+    <div className='flex h-[806px] w-[508px] flex-col items-center'>
       <div id='result' className='z-[3] w-full'>
         <div className='relative flex flex-col justify-end'>
           <button
-            className='button-outlined-normal-xLarge-grey-true-false-true flex items-center gap-2 self-end rounded-lg p-3 text-L/Bold text-orange-400'
+            className='button-outlined-normal-xLarge-grey-true-false-true flex h-[42px] items-center gap-2 self-end rounded-lg border-grey-300 p-3 text-S/Bold text-orange-400'
             onClick={() => setIsOpen(!isOpen)}
           >
             <ReactSVG src='/assets/icons/filled/Star.svg' /> 오늘의 HOT 키워드
@@ -30,12 +30,12 @@ export const SearchResult = ({ _state, setModal, modal, _dispatch }: ISearchResu
               beforeInjection={(svg) =>
                 svg.setAttribute(
                   'class',
-                  `${isOpen ? 'rotate-90' : 'rotate-[270deg]'} fill-orange-500`,
+                  `${isOpen ? 'rotate-[270deg]' : 'rotate-90'} fill-grey-800`,
                 )
               }
             />
           </button>
-          <div className='absolute right-1 top-[60px] flex w-[370px] justify-start'>
+          <div className='absolute right-1 top-[50px] flex w-[370px] justify-start'>
             {isOpen && (
               <HotKeyword
                 country={_state.country}

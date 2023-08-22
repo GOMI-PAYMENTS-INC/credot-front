@@ -36,7 +36,7 @@ export const SearchResultDetail = ({
       </div>
     </div>
   ) : (
-    <div className='mt-[30px] flex w-[420px] flex-col gap-[30px] opacity-90'>
+    <div className='my-10 flex w-[420px] flex-col gap-5 opacity-90'>
       <header id='imgs'>
         <div className='flex h-[90px] w-[420px] gap-5'>
           {isFalsy(productImgs) ? (
@@ -66,7 +66,7 @@ export const SearchResultDetail = ({
       </header>
 
       <main id='monthly'>
-        <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
+        <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-[14px]'>
           <div className='flex items-center'>
             <h3 className='text-L/Medium'>월간 검색량</h3>
             <UseTooltip content={monthly} />

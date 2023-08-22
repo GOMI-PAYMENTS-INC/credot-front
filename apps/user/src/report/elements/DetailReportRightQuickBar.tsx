@@ -3,16 +3,23 @@ import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 import { onScrollDetail, switchContents } from '@/report/container';
 import { STYLE_ENUM, TITLE } from '@/types/enum.code';
 import { convertTitle } from '@/utils/convertEnum';
+import { TReportAction } from '@/report/reducer';
+import { DetailReportTest } from '@/report/elements/DetailReportTest';
 
 interface IDetailReportRightQuickBarProps {
   isUser: boolean;
   scrollEvent: TScrollEvent;
   setScrollEvent: Dispatch<SetStateAction<TScrollEvent>>;
   title: string | undefined;
+  test?: {
+    _dispatch: Dispatch<TReportAction>;
+    keywordInfo: TKeywordInfo;
+    amplitudeData: TAmplitudeDetailData;
+  };
 }
 
 export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps) => {
-  const { isUser, scrollEvent, setScrollEvent, title } = props;
+  const { isUser, scrollEvent, setScrollEvent, title, test } = props;
   const { scrollY, isOpen, current } = scrollEvent;
 
   useEffect(() => {
@@ -21,8 +28,9 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
   }, [scrollY]);
 
   const quickBarTopStyle = useMemo(() => {
+    const testCss = test ? 6 : 0;
     const paddingTop = STYLE_ENUM.REPORT_DETAIL_BODY_PADDING_TOP;
-    const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT;
+    const headerHeight = STYLE_ENUM.REPORT_DETAIL_HEADER_HEIGHT + testCss;
     return isUser ? { top: paddingTop + headerHeight } : { top: paddingTop };
   }, [isUser]);
 
@@ -31,7 +39,12 @@ export const DetailReportRightQuickBar = (props: IDetailReportRightQuickBarProps
       style={quickBarTopStyle}
       className={`sticky col-span-2 h-fit w-[180px] xs:hidden`}
     >
-      <div>
+      {test && (
+        <div id='keywordInfoTest'>
+          <DetailReportTest test={test} />
+        </div>
+      )}
+      <div className={test ? 'mt-[30px]' : ''}>
         <div>
           <p
             className='flex cursor-pointer items-center text-S/Medium text-grey-700'
