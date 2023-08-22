@@ -91,7 +91,7 @@ export const NSearchKeywords = () => {
           <img src='/assets/images/NBackground.png' />
         </div>
         <section
-          className={`w-[1075px] overflow-hidden pt-[128px] ${
+          className={`w-[1075px] overflow-hidden pt-[102px] ${
             searchState.keyword
               ? 'mx-[192px] flex  gap-[58px] border-grey-300'
               : 'mx-[180px] h-full'
