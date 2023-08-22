@@ -205,7 +205,12 @@ export const NSearchKeywords = () => {
             className={`${searchState.keyword ? 'self-start' : 'mt-[30px]'} flex w-full`}
           >
             {searchState.keyword ? (
-              <SearchResult setModal={setModal} modal={modal} _state={searchState} />
+              <SearchResult
+                _dispatch={setSearchState}
+                setModal={setModal}
+                modal={modal}
+                _state={searchState}
+              />
             ) : (
               <NoneKeyword _state={searchState} _dispatch={setSearchState} />
             )}
