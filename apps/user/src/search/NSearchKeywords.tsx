@@ -44,7 +44,7 @@ export const NSearchKeywords = () => {
     defaultValues: { keyword: '' },
   });
 
-  const { response } = getQueryResult(searchState, setSearchState);
+  const { response, isLoading } = getQueryResult(searchState, setSearchState);
 
   useEffect(() => {
     const cachingData = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
@@ -189,8 +189,9 @@ export const NSearchKeywords = () => {
                 </div>
               </div>
             </div>
-            {searchState.images && (
+            {searchState.keyword && (
               <SearchResultDetail
+                isLoading={isLoading}
                 _state={searchState}
                 _dispatch={setSearchState}
                 tooltips={{ monthly: Monthly, relativeKeywords: RelativeKeyword }}

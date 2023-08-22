@@ -9,15 +9,19 @@ interface ISearchDetailResult {
   tooltips: { monthly: JSX.Element; relativeKeywords: JSX.Element };
   _state: TSearchProps;
   _dispatch: Dispatch<SetStateAction<TSearchProps>>;
+  isLoading: boolean;
 }
 export const SearchResultDetail = ({
   images,
   response,
   tooltips: { monthly, relativeKeywords },
   _state,
+  isLoading,
   _dispatch,
 }: ISearchDetailResult) => {
-  if (response === undefined) {
+  const productImgs = images?.imageUrl.filter((_, idx) => idx < 4);
+  const isGottenData = response === undefined || isLoading || isFalsy(images);
+  if (isGottenData) {
     return (
       <div className='flex h-full w-full items-center justify-center'>
         <div className='scale-[0.3]'>
@@ -26,16 +30,7 @@ export const SearchResultDetail = ({
       </div>
     );
   }
-
-  const productImgs = images?.imageUrl.filter((_, idx) => idx < 4);
-
-  return response === undefined ? (
-    <div className='flex h-full w-full items-center justify-center'>
-      <div className='scale-[0.3]'>
-        <div id='loader' />
-      </div>
-    </div>
-  ) : (
+  return (
     <div className='my-10 flex w-[420px] flex-col gap-5 opacity-90'>
       <header id='imgs'>
         <div className='flex h-[90px] w-[420px] gap-5'>
