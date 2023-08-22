@@ -1,12 +1,15 @@
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { ReactSVG } from 'react-svg';
 import { convertCountry, convertSortedType } from '@/utils/convertEnum';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ISearchResult {
   _state: TSearchProps;
+  setModal: Dispatch<SetStateAction<TNSearchModalStatus>>;
+  modal: TNSearchModalStatus;
 }
 
-export const SearchResult = ({ _state }: ISearchResult) => {
+export const SearchResult = ({ _state, setModal, modal }: ISearchResult) => {
   const { keyword, sortBy, country } = _state;
   return (
     <div className='flex h-[848px] w-[508px] flex-col items-center'>
@@ -37,8 +40,18 @@ export const SearchResult = ({ _state }: ISearchResult) => {
               <span className='pl-[14px] text-L/Medium text-grey-900'>최대</span>
               <span className='pl-1 text-XL/Medium text-orange-500'>4분</span>
             </p>
-            <button className='button-filled-xLarge-primary-false-false-false w-[160px]'>
-              리포트 생성하기
+            <button
+              className='button-filled-xLarge-primary-false-false-false w-[193px]'
+              disabled={modal.isOpen}
+              onClick={() => setModal({ ...modal, ...{ isOpen: true } })}
+            >
+              {modal.isOpen ? (
+                <div className='scale-[0.2]'>
+                  <div id='loader-white' />
+                </div>
+              ) : (
+                '리포트 생성하기'
+              )}
             </button>
           </div>
         </div>

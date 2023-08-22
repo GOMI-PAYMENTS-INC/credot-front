@@ -29,3 +29,16 @@ type TSearchResponse = {
     relevance?: number | null;
   }>;
 };
+
+type TNSearchModalStatus = {
+  modalType: TSearchModalType | '';
+  response?: any;
+  isOpen: boolean;
+};
+
+type TSearchPayload = {
+  _modalState: TNSearchModalStatus;
+  _modalDispatch: Function;
+  _state: TSearProps;
+  parameter: TReportParams;
+};

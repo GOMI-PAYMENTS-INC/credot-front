@@ -1,14 +1,22 @@
+import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
-
+import { updateSearchPayload } from '@/search/container';
 import UseTooltip from '@/components/UseTooltip';
 
 interface IRelativeKeyowrds {
   tooltip: JSX.Element;
   response: TSearchResponse | undefined;
+  _state: TSearchProps;
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>;
 }
 
-export const RelativeKeywords = ({ tooltip, response }: IRelativeKeyowrds) => {
+export const RelativeKeywords = ({
+  tooltip,
+  response,
+  _state,
+  _dispatch,
+}: IRelativeKeyowrds) => {
   const relativeKeywords = response?.relations;
 
   return (
@@ -30,7 +38,12 @@ export const RelativeKeywords = ({ tooltip, response }: IRelativeKeyowrds) => {
                   key={`${keyword.id}`}
                   className='flex h-[54px] cursor-pointer items-center justify-between rounded-md bg-white p-2 odd:bg-grey-200 hover:bg-orange-100'
                   onClick={() => {
-                    console.log(keyword, 'keyword');
+                    updateSearchPayload({
+                      _state,
+                      _dispatch,
+                      key: 'keyword',
+                      params: keyword.text,
+                    });
                   }}
                 >
                   <div className='flex h-full w-full items-center gap-x-1'>

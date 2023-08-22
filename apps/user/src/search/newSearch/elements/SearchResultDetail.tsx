@@ -1,40 +1,67 @@
 import UseTooltip from '@/components/UseTooltip';
 import { formatNumber } from '@/utils/formatNumber';
 import { RelativeKeywords } from '@/search/newSearch/elements/RelativeKeywords';
-
+import type { Dispatch, SetStateAction } from 'react';
+import { isFalsy } from '@/utils/isFalsy';
 interface ISearchDetailResult {
   images: TProductImageType | null;
   response: TSearchResponse | undefined;
   tooltips: { monthly: JSX.Element; relativeKeywords: JSX.Element };
+  _state: TSearchProps;
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>;
 }
 export const SearchResultDetail = ({
   images,
   response,
   tooltips: { monthly, relativeKeywords },
+  _state,
+  _dispatch,
 }: ISearchDetailResult) => {
   if (response === undefined) {
     return (
-      <div className='scale-[0.3]'>
-        <div id='loader' />
+      <div className='flex h-full w-full items-center justify-center'>
+        <div className='scale-[0.3]'>
+          <div id='loader' />
+        </div>
       </div>
     );
   }
 
   const productImgs = images?.imageUrl.filter((_, idx) => idx < 4);
 
-  return (
+  return response === undefined ? (
+    <div className='flex h-full w-full items-center justify-center'>
+      <div className='scale-[0.3]'>
+        <div id='loader' />
+      </div>
+    </div>
+  ) : (
     <div className='mt-[30px] flex w-[420px] flex-col gap-[30px] opacity-90'>
       <header id='imgs'>
-        <div className='flex gap-5'>
-          {productImgs?.map((img, index) => {
-            return (
-              <img
-                className='h-[90px] w-[90px] rounded-[10px] border-[1px] border-grey-300'
-                key={`product_img_${index}`}
-                src={img}
-              />
-            );
-          })}
+        <div className='flex h-[90px] w-[420px] gap-5'>
+          {isFalsy(productImgs) ? (
+            <div className='flex h-full w-full flex-col items-center justify-center rounded-2xl border border-grey-300 bg-white'>
+              {/* <img src='/assets/images/ErrorPage.png' className='w-[100px]' /> */}
+              <div className='text-center'>
+                <p className='text-L/Medium text-grey-800'>
+                  키워드에 대한 이미지가 존재하지 않아요.
+                </p>
+                <p className='pt-[3px] text-M/Medium text-grey-700'>
+                  다른 키워드를 검색해주세요.
+                </p>
+              </div>
+            </div>
+          ) : (
+            productImgs?.map((img, index) => {
+              return (
+                <img
+                  className='h-[90px] w-[90px] rounded-[10px] border-[1px] border-grey-300'
+                  key={`product_img_${index}`}
+                  src={img}
+                />
+              );
+            })
+          )}
         </div>
       </header>
 
@@ -53,7 +80,12 @@ export const SearchResultDetail = ({
       </main>
 
       <footer id='relativeKeyword'>
-        <RelativeKeywords tooltip={relativeKeywords} response={response} />
+        <RelativeKeywords
+          _state={_state}
+          _dispatch={_dispatch}
+          tooltip={relativeKeywords}
+          response={response}
+        />
       </footer>
     </div>
   );

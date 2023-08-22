@@ -34,4 +34,17 @@ const SEARCH_STATE_INIT_VALUE = {
   images: null,
 };
 
-export { CountryType, COUNTRY, SORTING_TYPE, SORT_BY_TYPE, SEARCH_STATE_INIT_VALUE };
+const SEARCH_MODAL_INIT_VALUE = {
+  modalType: '' as const,
+  response: '',
+  isOpen: false,
+};
+
+export {
+  CountryType,
+  COUNTRY,
+  SORTING_TYPE,
+  SORT_BY_TYPE,
+  SEARCH_STATE_INIT_VALUE,
+  SEARCH_MODAL_INIT_VALUE,
+};

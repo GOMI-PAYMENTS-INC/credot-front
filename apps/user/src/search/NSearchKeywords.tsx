@@ -7,7 +7,11 @@ import {
   convertCountryIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import { convertSearchPlaceholder, updateSearchPayload } from '@/search/container';
+import {
+  convertSearchPlaceholder,
+  updateSearchPayload,
+  searchRequestHandler,
+} from '@/search/container';
 
 import { SearchResultDetail } from '@/search/newSearch/elements';
 import { convertCountry } from '@/utils/convertEnum';
@@ -21,16 +25,18 @@ import {
   SORTING_TYPE,
   COUNTRY,
   SEARCH_STATE_INIT_VALUE,
+  SEARCH_MODAL_INIT_VALUE,
 } from '@/search/newSearch/constants';
 import { SearchTooltips } from '@/search/elements/Tooltip';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
+import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGeneratorModal';
 
 export const NSearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
-
+  const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
@@ -51,12 +57,35 @@ export const NSearchKeywords = () => {
     }
   }, [searchState.keyword]);
 
+  useEffect(() => {
+    if (modal.isOpen === false) return;
+
+    searchRequestHandler({
+      _modalState: modal,
+      _state: searchState,
+      _modalDispatch: setModal,
+      parameter: {
+        reportInvokeId: response?.reportInvokeId,
+        count: response?.main.count,
+      },
+    });
+  }, [modal.isOpen]);
+
   const searchCss = searchState.keyword
     ? 'flex-col items-start border-b-[1px] w-full pb-[30px] border-grey-300 py-[30px] px-[41px] shadow-[0_2px_20px_0_rgba(0,0,0,0.04)]'
     : 'items-center';
-  const searchInputCss = searchState.keyword ? 'mb-5' : '';
+
   return (
     <Layout>
+      <ReportGeneratorModal
+        parameter={{
+          reportInvokeId: response?.reportInvokeId,
+          count: response?.main.count,
+        }}
+        _modalState={modal}
+        _modalDispatch={setModal}
+        _state={searchState}
+      />
       <div className='flex h-full flex-col items-center bg-grey-50 px-[41px]'>
         <div className='absolute right-0 bottom-0 block'>
           <img src='/assets/images/NBackground.png' />
@@ -75,7 +104,9 @@ export const NSearchKeywords = () => {
             }`}
           >
             <div className={`flex w-full justify-between ${searchCss}`}>
-              <div className={`${searchInputCss} flex items-center gap-4`}>
+              <div
+                className={`${searchState.keyword ? 'mb-5' : ''} flex items-center gap-4`}
+              >
                 <Selector
                   minWidth={133}
                   value={convertCountry(searchState.country)}
@@ -158,8 +189,10 @@ export const NSearchKeywords = () => {
                 </div>
               </div>
             </div>
-            {response && (
+            {searchState.images && (
               <SearchResultDetail
+                _state={searchState}
+                _dispatch={setSearchState}
                 tooltips={{ monthly: Monthly, relativeKeywords: RelativeKeyword }}
                 images={searchState.images}
                 response={response}
@@ -172,7 +205,7 @@ export const NSearchKeywords = () => {
             className={`${searchState.keyword ? 'self-start' : 'mt-[30px]'} flex w-full`}
           >
             {searchState.keyword ? (
-              <SearchResult _state={searchState} />
+              <SearchResult setModal={setModal} modal={modal} _state={searchState} />
             ) : (
               <NoneKeyword _state={searchState} _dispatch={setSearchState} />
             )}

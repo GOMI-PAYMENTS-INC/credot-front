@@ -10,8 +10,14 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import {
   _amplitudeKeywordReportRequested,
   _amplitudeKeywordSearched,
+  _clientRecKeywordReportRequested,
+  _amplitudeMovedToSERP,
 } from '@/amplitude/amplitude.service';
 import { CountryType } from '@/generated/graphql';
+
+import { createJobId } from '@/utils/createJobId';
+import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import { getReportExisted, postCreateReport } from '@/search/api';
 
 export const queryKeywordByClick = (
   country: keyof typeof CountryType,
@@ -140,3 +146,106 @@ export const updateSearchPayload = (props: {
 export const initailizeSearchProps = (
   _dispatch: Dispatch<SetStateAction<TSearchProps>>,
 ) => _dispatch(SEARCH_STATE_INIT_VALUE);
+
+const updateModalType =
+  (_dispatch: Dispatch<SetStateAction<TNSearchModalStatus>>) =>
+  (type: TNSearchModalStatus) => {
+    _dispatch(type);
+  };
+
+const requestReport = async (props: TSearchPayload) => {
+  const {
+    _modalState: { modalType },
+    parameter,
+    _modalDispatch,
+    _state,
+  } = props;
+  const { keyword, country, sortBy } = _state;
+  const { count } = parameter;
+  const updateModal = updateModalType(
+    _modalDispatch as Dispatch<SetStateAction<TNSearchModalStatus>>,
+  );
+  try {
+    if (modalType === '') {
+      const res = await getReportExisted({
+        country: country,
+        sortBy: sortBy,
+        text: keyword,
+      });
+
+      const reportInfo = res?.data;
+
+      if (isFalsy(reportInfo?.data) === false) {
+        const { isDaily, createdAt } = reportInfo!.data!;
+        if (isDaily) {
+          updateModal({ modalType: MODAL_TYPE_ENUM.NotBeOverDayReport, isOpen: true });
+        } else {
+          updateModal({
+            modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
+            response: createdAt,
+            isOpen: true,
+          });
+        }
+        return;
+      }
+
+      if (isFalsy(count) || count! < 300) {
+        updateModal({
+          modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolume,
+          isOpen: true,
+        });
+
+        return;
+      }
+    }
+    return await createReport({ ...props });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createReport = async (props: TSearchPayload) => {
+  const {
+    parameter: { reportInvokeId },
+    _modalState,
+    _modalDispatch,
+    _state,
+  } = props;
+
+  const { keyword, country, sortBy } = _state;
+  const jobId = createJobId();
+  if (isFalsy(reportInvokeId)) throw new Error('리포트 생성 로직에 문제가 있습니다.');
+  try {
+    const postReport = await postCreateReport({
+      reportInvokeId: reportInvokeId!,
+      country: country,
+      sortBy: sortBy,
+      jobId: jobId,
+    });
+
+    if (postReport?.code === STATUS_CODE.SUCCESS) {
+      const { isSendSms, reportId } = postReport?.data;
+      if (isSendSms) {
+        _modalDispatch({
+          modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
+          data: reportId,
+          isOpen: true,
+        });
+      } else {
+        _modalDispatch({
+          modalType: MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses,
+          data: reportId,
+          isOpen: true,
+        });
+      }
+
+      _clientRecKeywordReportRequested(jobId, country, sortBy, keyword);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const searchRequestHandler = (props: TSearchPayload) => {
+  if (props._modalState.isOpen) requestReport({ ...props });
+};
