@@ -1,35 +1,43 @@
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { Default as Layout } from '@/common/layouts';
-import { Keyword, NoneKeyword } from '@/search/newSearch/elements';
+import { SearchResult, NoneKeyword } from '@/search/newSearch/elements';
 import { Selector } from '@/report/keyword/elements/Selector';
 import {
   convertSortByIconPath,
   convertCountryIconPath,
   convertSortedType,
 } from '@/utils/convertEnum';
-import { convertSearchPlaceholder, updateSearchPayload } from '@/search/container';
+import {
+  convertSearchPlaceholder,
+  updateSearchPayload,
+  searchRequestHandler,
+} from '@/search/container';
+
+import { SearchResultDetail } from '@/search/newSearch/elements';
 import { convertCountry } from '@/utils/convertEnum';
 import UseTooltip from '@/components/UseTooltip';
-
 import { ReactSVG } from 'react-svg';
+
 import { getQueryResult } from '@/search/newSearch/api';
 import { useForm } from 'react-hook-form';
-import { CountryType, SORTING_TYPE, COUNTRY } from '@/search/newSearch/constants';
+import {
+  CountryType,
+  SORTING_TYPE,
+  COUNTRY,
+  SEARCH_STATE_INIT_VALUE,
+  SEARCH_MODAL_INIT_VALUE,
+} from '@/search/newSearch/constants';
 import { SearchTooltips } from '@/search/elements/Tooltip';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
+import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGeneratorModal';
 
 export const NSearchKeywords = () => {
-  const { Search } = SearchTooltips();
-
-  const [searchState, setSearchState] = useState<TSearchProps>({
-    country: CountryType.SG,
-    sortBy: SORTING_TYPE[0].value,
-    keyword: '',
-    images: null,
-  });
+  const { Search, Monthly, RelativeKeyword } = SearchTooltips();
+  const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
+  const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
@@ -49,19 +57,56 @@ export const NSearchKeywords = () => {
     }
   }, [searchState.keyword]);
 
+  useEffect(() => {
+    if (modal.isOpen === false) return;
+
+    searchRequestHandler({
+      _modalState: modal,
+      _state: searchState,
+      _modalDispatch: setModal,
+      parameter: {
+        reportInvokeId: response?.reportInvokeId,
+        count: response?.main.count,
+      },
+    });
+  }, [modal.isOpen]);
+
+  const searchCss = searchState.keyword
+    ? 'flex-col items-start border-b-[1px] w-full pb-[30px] border-grey-300 py-[30px] px-[41px] shadow-[0_2px_20px_0_rgba(0,0,0,0.04)]'
+    : 'items-center';
+
   return (
     <Layout>
-      <div className='flex h-full w-full flex-col items-center bg-grey-50'>
-        <div className='absolute right-0 bottom-0 block '>
+      <ReportGeneratorModal
+        parameter={{
+          reportInvokeId: response?.reportInvokeId,
+          count: response?.main.count,
+        }}
+        _modalState={modal}
+        _modalDispatch={setModal}
+        _state={searchState}
+      />
+      <div className='flex h-full flex-col items-center bg-grey-50 px-[41px]'>
+        <div className='absolute right-0 bottom-0 block'>
           <img src='/assets/images/NBackground.png' />
         </div>
-        <section className='mx-[192px] h-full w-[1060px] overflow-hidden pt-[128px]'>
+        <section
+          className={`w-[1075px] overflow-hidden pt-[128px] ${
+            searchState.keyword
+              ? 'mx-[192px] flex  gap-[58px] border-grey-300'
+              : 'mx-[180px] h-full'
+          }`}
+        >
           <div
             id='searchBox'
-            className='flex flex-col rounded-[20px] border-[1px] bg-white py-4 px-[30px]'
+            className={`flex flex-col rounded-[20px] border-[1px] bg-white ${
+              searchState.keyword ? 'h-full w-[507px] items-center' : 'py-4 px-[30px]'
+            }`}
           >
-            <div className='flex w-full items-center justify-between'>
-              <div className='flex items-center gap-4'>
+            <div className={`flex w-full justify-between ${searchCss}`}>
+              <div
+                className={`${searchState.keyword ? 'mb-5' : ''} flex items-center gap-4`}
+              >
                 <Selector
                   minWidth={133}
                   value={convertCountry(searchState.country)}
@@ -96,7 +141,10 @@ export const NSearchKeywords = () => {
                 <UseTooltip content={Search} />
               </div>
 
-              <div id='keywordSearchInput' className='w-[476px]'>
+              <div
+                id='keywordSearchInput'
+                className={`${searchState.keyword ? 'w-[425px]' : 'w-[476px]'}`}
+              >
                 <div className='form-control'>
                   <div className='input-group'>
                     <div className='w-full rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
@@ -141,11 +189,28 @@ export const NSearchKeywords = () => {
                 </div>
               </div>
             </div>
+            {searchState.images && (
+              <SearchResultDetail
+                _state={searchState}
+                _dispatch={setSearchState}
+                tooltips={{ monthly: Monthly, relativeKeywords: RelativeKeyword }}
+                images={searchState.images}
+                response={response}
+              />
+            )}
           </div>
 
-          <div id='result' className='mt-[30px] flex w-full'>
+          <div
+            id='result'
+            className={`${searchState.keyword ? 'self-start' : 'mt-[30px]'} flex w-full`}
+          >
             {searchState.keyword ? (
-              <Keyword />
+              <SearchResult
+                _dispatch={setSearchState}
+                setModal={setModal}
+                modal={modal}
+                _state={searchState}
+              />
             ) : (
               <NoneKeyword _state={searchState} _dispatch={setSearchState} />
             )}
