@@ -340,15 +340,13 @@ const SideBar = (props: TSideBarProps) => {
           ref={modalEl}
         >
           <ul className=''>
-            <li className='px-4 py-3'>
-              <button
-                onClick={() => {
-                  onLogout();
-                }}
-                className='text-S/Regular text-red-700'
-              >
-                로그아웃
-              </button>
+            <li
+              className='cursor-pointer px-4 py-3 text-S/Regular text-red-700'
+              onClick={() => {
+                onLogout();
+              }}
+            >
+              로그아웃
             </li>
           </ul>
         </div>

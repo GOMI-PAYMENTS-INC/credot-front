@@ -29,9 +29,9 @@ const DetailReportPage = ({ hackleId = 'A' }: IDetailReportPage) => {
 
   const scrollEventState: scrollEventState = {
     scrollY: 0,
-    title: 'MarketSize',
+    title: 'Report',
     isOpen: true,
-    current: 'MarketSize',
+    current: 'Report',
   };
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
@@ -58,21 +58,22 @@ const DetailReportPage = ({ hackleId = 'A' }: IDetailReportPage) => {
     keyword: main?.text ? main.text : '',
   };
   const { param: reportIdOrShareToken } = amplitudeData;
+
   const ReportComponents = useMemo(() => {
     return isFalsy(main) || main!.itemCount < 9 ? (
       <Fragment />
     ) : (
       <div
-        className={`col-span-10 ${isTest === false ? '' : 'mt-[62px]'} xs:col-span-12`}
+        className={`col-span-10 ${isTest === false ? '' : 'mt-[42px]'} xs:col-span-12`}
       >
         <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
-          {isTest === false && (
-            <KeywordInfo
-              _dispatch={_dispatch}
-              keywordInfo={main!}
-              amplitudeData={amplitudeData}
-            />
-          )}
+          <KeywordInfo
+            isTest={isTest}
+            _dispatch={_dispatch}
+            keywordInfo={main!}
+            amplitudeData={amplitudeData}
+          />
+
           <MarketSize marketSize={main!} />
           <AnalysisKeyword
             _dispatch={_dispatch}

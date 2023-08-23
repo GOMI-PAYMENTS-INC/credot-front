@@ -38,15 +38,14 @@ export const DetailReportSwitch = ({
   const { saveReturnUrl } = authReturnUrl();
 
   return (
-    <div className={`col-span-10 ${isTest === false ? '' : 'mt-[62px]'} xs:col-span-12`}>
+    <div className={`col-span-10 ${isTest === false ? '' : 'mt-[42px]'} xs:col-span-12`}>
       <div className='space-y-[72px]'>
-        {isTest === false && (
-          <KeywordInfo
-            _dispatch={_dispatch}
-            keywordInfo={main!}
-            amplitudeData={amplitudeData}
-          />
-        )}
+        <KeywordInfo
+          isTest={isTest}
+          _dispatch={_dispatch}
+          keywordInfo={main!}
+          amplitudeData={amplitudeData}
+        />
 
         <MarketSize marketSize={main!} />
         <AnalysisKeyword

@@ -24,10 +24,11 @@ interface IKeywordInfoProps {
   _dispatch: Dispatch<TReportAction>;
   keywordInfo: TKeywordInfo;
   amplitudeData: TAmplitudeDetailData;
+  isTest: boolean;
 }
 
 export const KeywordInfo = (props: IKeywordInfoProps) => {
-  const { _dispatch, keywordInfo, amplitudeData } = props;
+  const { _dispatch, keywordInfo, amplitudeData, isTest } = props;
   const { text, country, createdAt, basePrice, currencyUnit, sorted, itemCount } =
     keywordInfo;
   const { param: reportIdOrShareToken } = amplitudeData;
@@ -107,45 +108,47 @@ export const KeywordInfo = (props: IKeywordInfoProps) => {
             </div>
           </div>
         </div>
-        <div className='mt-[30px] xs:hidden'>
-          <div className='flex grow-0 flex-col items-end gap-y-4'>
-            <button
-              onClick={() => {
-                openBrowser(
-                  `${convertShopeeSiteUrl(country)}/search?keyword=${text}`,
-                  sorted,
-                );
-                _amplitudeMovedToSERP(reportIdOrShareToken, text, null);
-              }}
-              className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
-            >
-              <span>키워드 검색결과</span>
-              <ReactSVG
-                src='/assets/icons/outlined/Linkout.svg'
-                beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-900')}
-              />
-            </button>
-            <button
-              className='button-filled-normal-medium-grey-false-true-true flex  items-center gap-1 bg-orange-400 px-4 py-2.5 text-white'
-              onClick={() =>
-                makeShareLink(
-                  isMatchSharePath,
-                  reportIdOrShareToken,
-                  country,
-                  sorted,
-                  text,
-                  _dispatch,
-                )
-              }
-            >
-              <span>공유하기</span>
-              <ReactSVG
-                src='/assets/icons/outlined/ShareAlt.svg'
-                beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-50')}
-              />
-            </button>
+        {isTest === false && (
+          <div className='mt-[30px] xs:hidden'>
+            <div className='flex grow-0 flex-col items-end gap-y-4'>
+              <button
+                onClick={() => {
+                  openBrowser(
+                    `${convertShopeeSiteUrl(country)}/search?keyword=${text}`,
+                    sorted,
+                  );
+                  _amplitudeMovedToSERP(reportIdOrShareToken, text, null);
+                }}
+                className='button-filled-normal-medium-grey-false-true-true flex min-w-[205px] items-center justify-center gap-1 p-2.5'
+              >
+                <span>키워드 검색결과</span>
+                <ReactSVG
+                  src='/assets/icons/outlined/Linkout.svg'
+                  beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-900')}
+                />
+              </button>
+              <button
+                className='button-filled-normal-medium-grey-false-true-true flex  items-center gap-1 bg-orange-400 px-4 py-2.5 text-white'
+                onClick={() =>
+                  makeShareLink(
+                    isMatchSharePath,
+                    reportIdOrShareToken,
+                    country,
+                    sorted,
+                    text,
+                    _dispatch,
+                  )
+                }
+              >
+                <span>공유하기</span>
+                <ReactSVG
+                  src='/assets/icons/outlined/ShareAlt.svg'
+                  beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-50')}
+                />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

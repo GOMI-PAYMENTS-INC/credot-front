@@ -1,20 +1,38 @@
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { ReactSVG } from 'react-svg';
 import { convertCountry, convertSortedType } from '@/utils/convertEnum';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, Fragment, SetStateAction } from 'react';
 import { HotKeyword } from '@/search/elements';
 import { useState } from 'react';
+import { isFalsy } from '@/utils/isFalsy';
 
 interface ISearchResult {
   _state: TSearchProps;
   setModal: Dispatch<SetStateAction<TNSearchModalStatus>>;
   modal: TNSearchModalStatus;
   _dispatch: Dispatch<SetStateAction<TSearchProps>>;
+  count: number | undefined | null;
 }
 
-export const SearchResult = ({ _state, setModal, modal, _dispatch }: ISearchResult) => {
+export const SearchResult = ({
+  _state,
+  setModal,
+  modal,
+  _dispatch,
+  count,
+}: ISearchResult) => {
   const [isOpen, setIsOpen] = useState(false);
   const { keyword, sortBy, country } = _state;
+
+  if (count === null || count === undefined) {
+    return (
+      <div className='flex h-[806px] w-[508px] flex-col items-center justify-center'>
+        <div className='scale-[0.3]'>
+          <div id='loader' />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='flex h-[806px] w-[508px] flex-col items-center'>
@@ -51,31 +69,49 @@ export const SearchResult = ({ _state, setModal, modal, _dispatch }: ISearchResu
           <p className='text-L/Medium text-grey-700'>{`${convertCountry(
             country,
           )} / ${convertSortedType(sortBy)}`}</p>
-          <p className='text-3XL/Bold leading-[53px]'>
-            <span className='text-orange-400'>{replaceOverLength(keyword, 31)}</span>
-            의<br />
-            키워드 리포트를 생성할까요?
-          </p>
-          <div className='mt-[30px] flex gap-20'>
-            <p className='self-end text-L/Medium text-grey-700'>
-              데이터 수집 소요시간
-              <span className='pl-[14px] text-L/Medium text-grey-900'>최대</span>
-              <span className='pl-1 text-XL/Medium text-orange-500'>4분</span>
-            </p>
-            <button
-              className='button-filled-xLarge-primary-false-false-false w-[193px]'
-              disabled={modal.isOpen}
-              onClick={() => setModal({ ...modal, ...{ isOpen: true } })}
-            >
-              {modal.isOpen ? (
-                <div className='scale-[0.2]'>
-                  <div id='loader-white' />
-                </div>
-              ) : (
-                '리포트 생성하기'
-              )}
-            </button>
-          </div>
+          {count === 0 ? (
+            <Fragment>
+              <p className='text-3XL/Bold leading-[53px]'>
+                <span className='text-orange-400'>{replaceOverLength(keyword, 29)}</span>
+                는<br />
+                검색량이 적어 리포트 생성이
+                <br /> 불가능한 키워드에요.
+              </p>
+              <div className='mt-[30px] flex gap-20'>
+                <p className='self-end text-L/Medium text-grey-700'>
+                  다른 키워드를 검색해주세요.
+                </p>
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p className='text-3XL/Bold leading-[53px]'>
+                <span className='text-orange-400'>{replaceOverLength(keyword, 29)}</span>
+                의<br />
+                키워드 리포트를 생성할까요?
+              </p>
+              <div className='mt-[30px] flex gap-20'>
+                <p className='self-end text-L/Medium text-grey-700'>
+                  데이터 수집 소요시간
+                  <span className='pl-[14px] text-L/Medium text-grey-900'>최대</span>
+                  <span className='pl-1 text-XL/Medium text-orange-500'>4분</span>
+                </p>
+                <button
+                  className='button-filled-xLarge-primary-false-false-false w-[193px]'
+                  disabled={modal.isOpen}
+                  onClick={() => setModal({ ...modal, ...{ isOpen: true } })}
+                >
+                  {modal.isOpen ? (
+                    <div className='scale-[0.2]'>
+                      <div id='loader-white' />
+                    </div>
+                  ) : (
+                    '리포트 생성하기'
+                  )}
+                </button>
+              </div>
+            </Fragment>
+          )}
         </div>
       </div>
     </div>

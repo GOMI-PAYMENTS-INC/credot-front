@@ -1,5 +1,9 @@
-import React, { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useScroll } from '@/components/useScroll';
+import { BackforwardButton } from '@/components/BackForwardButton';
+import { PATH } from '@/router/routeList';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
 interface TDetailReportContent {
   scrollEvent: scrollEventState;
@@ -9,8 +13,11 @@ interface TDetailReportContent {
 }
 
 export const DetailReportBody = (props: TDetailReportContent) => {
+  const [width, setWidth] = useState(0);
   const { children, contentSection, setScrollEvent, scrollEvent } = props;
   const { scrollY: windowScrollY } = useScroll();
+  const navigate = useNavigate();
+  const { search } = useLocation();
 
   useEffect(() => {
     setScrollEvent(
@@ -18,13 +25,27 @@ export const DetailReportBody = (props: TDetailReportContent) => {
         scrollY: windowScrollY,
       }),
     );
+    if (width === 0) {
+      setWidth(document.getElementById('report_grid')?.offsetLeft! - 70);
+    }
   }, [scrollY]);
 
   return (
     <section ref={contentSection}>
       <div className='min-h-full bg-white'>
+        {width !== 0 && (
+          <BackforwardButton
+            originStyle={{ left: `${width}px` }}
+            style={`top-[124px] sticky`}
+            callback={() => {
+              navigate(PATH.REPORT_LIST + (search ? search : ''));
+            }}
+          />
+        )}
         <div className='container pt-8 pb-[200px]'>
-          <div className='grid grid-cols-12 gap-x-6'>{children}</div>
+          <div id='report_grid' className={`grid grid-cols-12 gap-x-6`}>
+            {children}
+          </div>
         </div>
       </div>
     </section>
