@@ -95,18 +95,18 @@ export const HotKeyword = (props: IHotKeyword) => {
                     }
                   }}
                 >
-                  <span className={`${fontHeight} text-orange-400`}>{`${
+                  <span className={`${fontHeight} w-5 text-orange-400`}>{`${
                     index + 1
                   }.`}</span>
                   <div className={`ml-3 flex w-full justify-between ${fontHeight}`}>
                     <p className={isHover}>
-                      {replaceOverLength(keyword, hackleKey ? 23 : 13)}
+                      {replaceOverLength(keyword, hackleKey ? 17 : 13)}
                     </p>
 
                     <p className='pr-2.5 text-grey-700'>
                       {replaceOverLength(
                         TRANSLATED_KEYWORD[country][index],
-                        hackleKey ? 23 : 14,
+                        hackleKey ? 20 : 14,
                       )}
                     </p>
                   </div>
