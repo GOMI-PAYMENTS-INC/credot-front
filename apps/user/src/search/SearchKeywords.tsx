@@ -105,11 +105,12 @@ const SearchKeywords = () => {
     });
   }, [requestReport]);
 
+  const isFetching = isFalsy(_state.keyword) === false && isLoading === true;
   const monthlySearchVolume = useMemo(() => {
     if (isFalsy(_state.keyword) && isLoading === true) {
       return '???';
     }
-    if (isFalsy(_state.keyword) === false && isLoading === true) {
+    if (isFetching) {
       return (
         <div className='scale-[0.3]'>
           <div id='loader' />
@@ -126,7 +127,7 @@ const SearchKeywords = () => {
     if (isFalsy(_state.keyword) && isLoading === true) {
       return [1, 2, 3, 4, 5, 6];
     }
-    if (isFalsy(_state.keyword) === false && isLoading === true) {
+    if (isFetching) {
       return (
         <div className='flex h-full items-center justify-center'>
           <div className='scale-[0.3]'>
@@ -353,7 +354,7 @@ const SearchKeywords = () => {
                   (_state.keyword === '' || isMonthlyCountZero) &&
                   'opacity-30 xs:hidden xs:bg-orange-200'
                 } ${isOpenDropdown && 'z-[-1]'}`}
-                disabled={_state.keyword === '' || isMonthlyCountZero}
+                disabled={_state.keyword === '' || isMonthlyCountZero || isFetching}
                 onClick={() => setRequestReport(true)}
               >
                 {requestReport || (isTruthy(_state.keyword) && isLoading) ? (

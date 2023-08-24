@@ -100,7 +100,7 @@ export const SearchResult = ({
                   </p>
                   <button
                     className='button-filled-xLarge-primary-false-false-false w-[193px]'
-                    disabled={modal.isOpen}
+                    disabled={modal.isOpen || isLoading}
                     onClick={() => setModal({ ...modal, ...{ isOpen: true } })}
                   >
                     {modal.isOpen ? (
