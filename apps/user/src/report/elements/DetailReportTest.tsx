@@ -70,7 +70,7 @@ export const DetailReportTest = ({
           }}
           className='button-filled-normal-medium-grey-false-true-true flex items-center justify-center px-[14px] py-2.5'
         >
-          <span className='text-S/Bold'>키워드 검색결과</span>
+          <span className='text-S/Bold text-grey-800'>키워드 검색결과</span>
           <ReactSVG
             src='/assets/icons/outlined/Linkout.svg'
             beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-900 pl-1')}

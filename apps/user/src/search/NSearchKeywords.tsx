@@ -33,11 +33,15 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGeneratorModal';
+import { BackforwardButton } from '@/components/BackForwardButton';
+import { HackleId } from '@/atom/common/hackle.atom';
+import { useRecoilValue } from 'recoil';
 
 export const NSearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
   const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
+  const hackleId = useRecoilValue(HackleId);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
@@ -68,6 +72,7 @@ export const NSearchKeywords = () => {
         reportInvokeId: response?.reportInvokeId,
         count: response?.main.count,
       },
+      hackleId,
     });
   }, [modal.isOpen]);
 
@@ -86,12 +91,13 @@ export const NSearchKeywords = () => {
         _modalDispatch={setModal}
         _state={searchState}
       />
+
       <div className='flex h-full flex-col items-center bg-grey-50 px-[41px]'>
         <div className='absolute right-0 bottom-0 block'>
           <img src='/assets/images/NBackground.png' />
         </div>
         <section
-          className={`w-[1075px] overflow-hidden pt-[102px] ${
+          className={`w-[1075px] pt-[102px] ${
             searchState.keyword
               ? 'mx-[192px] flex  gap-[58px] border-grey-300'
               : 'mx-[180px] h-full'
@@ -100,9 +106,25 @@ export const NSearchKeywords = () => {
           <div
             id='searchBox'
             className={`flex flex-col rounded-[20px] border-[1px] bg-white ${
-              searchState.keyword ? 'h-full w-[507px] items-center' : 'py-4 px-[30px]'
+              searchState.keyword
+                ? 'relative h-full w-[507px] items-center'
+                : 'py-4 px-[30px]'
             }`}
           >
+            <BackforwardButton
+              style='left-[-90px] top-0'
+              hidden={false}
+              callback={() => {
+                useSessionStorage.removeItem(CACHING_KEY.STORED_KEYWORD);
+                setValue('keyword', '');
+                updateSearchPayload({
+                  _state: searchState,
+                  _dispatch: setSearchState,
+                  key: 'keyword',
+                  params: '',
+                });
+              }}
+            />
             <div className={`flex w-full justify-between ${searchCss}`}>
               <div
                 className={`${searchState.keyword ? 'mb-5' : ''} flex items-center gap-4`}
@@ -207,6 +229,7 @@ export const NSearchKeywords = () => {
           >
             {searchState.keyword ? (
               <SearchResult
+                count={response?.main.count}
                 _dispatch={setSearchState}
                 setModal={setModal}
                 modal={modal}

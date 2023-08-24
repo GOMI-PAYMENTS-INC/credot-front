@@ -617,9 +617,7 @@ export const onScrollDetail = (
   const threshold = 20;
   // 스크롤이 처음일 때
   if (scrollY < threshold) {
-    _setState(
-      Object.assign({}, _state, { current: TITLE.MARKET_SIZE, title: TITLE.MARKET_SIZE }),
-    );
+    _setState(Object.assign({}, _state, { current: TITLE.REPORT, title: TITLE.REPORT }));
   }
 
   [...header].map((element, index) => {
@@ -669,9 +667,9 @@ export const scrollToTop = (
   if (scrollInfo.current?.tagName === 'TBODY') return;
   _setState({
     scrollY: 0,
-    title: 'MarketSize',
+    title: 'Report',
     isOpen: true,
-    current: 'MarketSize',
+    current: 'Report',
   });
 };
 

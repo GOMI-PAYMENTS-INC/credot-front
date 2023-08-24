@@ -11,14 +11,15 @@ import { BrandAnalysis } from '@/report/brand/BrandAnalysis';
 import { CategoryAnalysis } from '@/report/category/CategoryAnalysis';
 import { authReturnUrl } from '@/auth/container';
 import { PATH } from '@/types/enum.code';
-import { isFalsy } from '@/utils/isFalsy';
+
+import { useRecoilValue } from 'recoil';
+import { HackleId } from '@/atom/common/hackle.atom';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
   _state: TReportState;
   _dispatch: React.Dispatch<TReportAction>;
   params: Params<string>;
-  hackleId?: string;
 }
 
 export const DetailReportSwitch = ({
@@ -26,10 +27,10 @@ export const DetailReportSwitch = ({
   _state,
   _dispatch,
   params,
-  hackleId,
 }: IDetailReportSwitchProps) => {
   const { main, oversea, salePrice, relation, brand, category } = _state;
-  const isTest = isFalsy(hackleId) === false;
+  const hackleId = useRecoilValue(HackleId);
+  const isTest = hackleId === 'B';
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
@@ -38,15 +39,14 @@ export const DetailReportSwitch = ({
   const { saveReturnUrl } = authReturnUrl();
 
   return (
-    <div className={`col-span-10 ${isTest === false ? '' : 'mt-[62px]'} xs:col-span-12`}>
+    <div className={`col-span-10 ${isTest === false ? '' : 'mt-[42px]'} xs:col-span-12`}>
       <div className='space-y-[72px]'>
-        {isTest === false && (
-          <KeywordInfo
-            _dispatch={_dispatch}
-            keywordInfo={main!}
-            amplitudeData={amplitudeData}
-          />
-        )}
+        <KeywordInfo
+          isTest={isTest}
+          _dispatch={_dispatch}
+          keywordInfo={main!}
+          amplitudeData={amplitudeData}
+        />
 
         <MarketSize marketSize={main!} />
         <AnalysisKeyword
