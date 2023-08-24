@@ -53,7 +53,8 @@ export const Router = () => {
 
   useEffect(() => {
     if (isFalsy(_hackleId)) {
-      _setHackleId(hackleId as THackleId);
+      // _setHackleId(hackleId as THackleId);
+      _setHackleId('A');
     }
 
     if (isFalsy(userInfo)) {

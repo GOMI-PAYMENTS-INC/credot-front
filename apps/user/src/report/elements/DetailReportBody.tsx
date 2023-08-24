@@ -3,7 +3,7 @@ import { useScroll } from '@/components/useScroll';
 import { BackforwardButton } from '@/components/BackForwardButton';
 import { PATH } from '@/router/routeList';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
+
 import { useRecoilValue } from 'recoil';
 import { HackleId } from '@/atom/common/hackle.atom';
 
@@ -29,7 +29,7 @@ export const DetailReportBody = (props: TDetailReportContent) => {
       }),
     );
     if (width === 0) {
-      setWidth(document.getElementById('report_grid')?.offsetLeft! - 70);
+      setWidth(document.getElementById('report_grid')?.offsetLeft! - 100);
     }
   }, [scrollY]);
 

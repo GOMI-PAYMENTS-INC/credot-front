@@ -47,6 +47,7 @@ const DetailReportPage = () => {
         main.channel,
         main.sorted,
         main.text,
+        hackleId,
       );
     }
   }, [main?.id]);

@@ -109,7 +109,7 @@ export const ReportModalType = ({
           name: '새로 생성하기',
           confirmEvent: async () => {
             searchRequestHandler({ _dispatch, _state, parameter, _setTrigger });
-            switchModal({ _dispatch });
+            switchModal({ _dispatch, _setTrigger });
           },
         },
       };
