@@ -18,12 +18,16 @@ import { isTruthy } from '@/utils/isTruthy';
 import { useVariation } from '@hackler/react-sdk';
 import { HackleId } from '@/atom/common/hackle.atom';
 
+declare const amplitude: any;
+
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [token, setToken] = useRecoilState(LoginTokenAtom);
   const [_hackleId, _setHackleId] = useRecoilState(HackleId);
   const hackleId = useVariation(9);
+  const { hackleClient } = window;
+  const { userId, deviceId } = hackleClient.getUser();
 
   const storageToken = authTokenStorage.getToken();
 
@@ -52,13 +56,25 @@ export const Router = () => {
   );
 
   useEffect(() => {
-    if (isFalsy(_hackleId)) {
-      _setHackleId(hackleId as THackleId);
-    }
-
     if (isFalsy(userInfo)) {
       setToken(storageToken);
       setUserInfo(userQueryData);
+    }
+
+    if (userId === undefined) {
+      const NEW_MEMBER = 805;
+      const isNewMember = NEW_MEMBER < amplitude.getUserId();
+
+      const user = {
+        deviceId: deviceId,
+        userId: amplitude.getUserId(),
+        properties: { newMember: isNewMember },
+      };
+      hackleClient.setUser(user);
+    }
+
+    if (storageToken && isFalsy(_hackleId)) {
+      _setHackleId(hackleId as THackleId);
     }
   }, [userQueryData?.me.id]);
 
