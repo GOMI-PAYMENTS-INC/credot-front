@@ -52,13 +52,13 @@ export const Router = () => {
   );
 
   useEffect(() => {
-    if (isFalsy(_hackleId)) {
-      _setHackleId(hackleId as THackleId);
-    }
-
     if (isFalsy(userInfo)) {
       setToken(storageToken);
       setUserInfo(userQueryData);
+    }
+
+    if (storageToken && isFalsy(_hackleId)) {
+      _setHackleId(hackleId as THackleId);
     }
   }, [userQueryData?.me.id]);
 
