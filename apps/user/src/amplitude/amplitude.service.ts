@@ -5,7 +5,7 @@ import {
   convertAmplitudeSortedType,
 } from '@/amplitude/amplitude.enum';
 import { CHANNEL_TYPE } from '@/types/enum.code';
-
+import { PropertyOperationsBuilder } from '@hackler/react-sdk';
 declare var amplitude: any;
 
 //TODO:axios.config 보면 casing에 snakelize 함수 있으니 참고해서 별도로 카멜/스네이크 신경쓰지 않아도 자동화 되도록 할 것 (casey 3/28)
