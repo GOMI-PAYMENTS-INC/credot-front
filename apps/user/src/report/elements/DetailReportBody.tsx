@@ -4,6 +4,8 @@ import { BackforwardButton } from '@/components/BackForwardButton';
 import { PATH } from '@/router/routeList';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
+import { useRecoilValue } from 'recoil';
+import { HackleId } from '@/atom/common/hackle.atom';
 
 interface TDetailReportContent {
   scrollEvent: scrollEventState;
@@ -14,6 +16,7 @@ interface TDetailReportContent {
 
 export const DetailReportBody = (props: TDetailReportContent) => {
   const [width, setWidth] = useState(0);
+  const hackleId = useRecoilValue(HackleId);
   const { children, contentSection, setScrollEvent, scrollEvent } = props;
   const { scrollY: windowScrollY } = useScroll();
   const navigate = useNavigate();
@@ -35,6 +38,7 @@ export const DetailReportBody = (props: TDetailReportContent) => {
       <div className='min-h-full bg-white'>
         {width !== 0 && (
           <BackforwardButton
+            hidden={hackleId === 'A'}
             originStyle={{ left: `${width}px` }}
             style={`top-[124px] sticky`}
             callback={() => {

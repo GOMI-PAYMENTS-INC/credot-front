@@ -109,6 +109,7 @@ export const NSearchKeywords = () => {
           >
             <BackforwardButton
               style='left-[-90px] top-0'
+              hidden={false}
               callback={() => {
                 useSessionStorage.removeItem(CACHING_KEY.STORED_KEYWORD);
                 setValue('keyword', '');
