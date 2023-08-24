@@ -11,7 +11,6 @@ const App = () => {
     <RecoilRoot>
       <Router />
       <CustomToastContainer />
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </RecoilRoot>
   );
 };

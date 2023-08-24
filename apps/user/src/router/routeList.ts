@@ -7,8 +7,9 @@ import {
   SignIn,
   TemporaryPassword,
 } from '@/auth';
-import SearchKeywords from '@/search/SearchKeywords';
-import { NSearchKeywords } from '@/search/NSearchKeywords';
+// import SearchKeywords from '@/search/SearchKeywords';
+import Keyword from '@/search/Keyword';
+// import { NSearchKeywords } from '@/search/NSearchKeywords';
 import * as ReportRoutes from '@/report';
 
 export const PATH = {
@@ -89,15 +90,9 @@ export const routeList: IRoute[] = [
     isPrivate: true,
     description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
-    component: SearchKeywords,
+    component: Keyword,
   },
-  {
-    //검색
-    isPrivate: true,
-    description: 'SearchProductsTest',
-    path: PATH.SEARCH_PRODUCTS_TEST,
-    component: NSearchKeywords,
-  },
+
   {
     //리포트 목록
     isPrivate: true,
