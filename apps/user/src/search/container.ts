@@ -8,9 +8,8 @@ import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
 import {
-  _amplitudeKeywordReportRequested,
   _amplitudeKeywordSearched,
-  _clientRecKeywordReportRequested,
+  _amplitudeKeywordReportRequested,
   _amplitudeMovedToSERP,
 } from '@/amplitude/amplitude.service';
 import { CountryType } from '@/generated/graphql';
@@ -207,9 +206,9 @@ const requestReport = async (props: TSearchPayload) => {
 const createReport = async (props: TSearchPayload) => {
   const {
     parameter: { reportInvokeId },
-    _modalState,
     _modalDispatch,
     _state,
+    hackleId,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -239,7 +238,14 @@ const createReport = async (props: TSearchPayload) => {
         });
       }
 
-      _clientRecKeywordReportRequested(jobId, country, sortBy, keyword);
+      _amplitudeKeywordReportRequested(
+        reportId,
+        country,
+        sortBy,
+        keyword,
+        jobId,
+        hackleId,
+      );
     }
   } catch (error) {
     console.error(error);

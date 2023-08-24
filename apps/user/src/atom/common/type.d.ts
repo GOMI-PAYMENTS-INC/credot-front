@@ -1,0 +1,1 @@
+type THackleId = 'A' | 'B';

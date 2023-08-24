@@ -18,13 +18,13 @@ const queryClient = new QueryClient({
 ChannelService.boot({ pluginKey: import.meta.env.VITE_CHANNELTALK_PLUGIN });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <HackleConfig>
-  <ErrorBoundary>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </BrowserRouter>
-  </ErrorBoundary>,
-  // </HackleConfig>,
+  <HackleConfig>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
+  </HackleConfig>,
 );

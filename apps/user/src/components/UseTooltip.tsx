@@ -39,7 +39,7 @@ const UseTooltip = ({ content, place = 'right' }: IUseTooltip) => {
         />
       </a>
       <Tooltip
-        style={{ opacity: 1, background: 'content-box', border: 'none' }}
+        style={{ opacity: 1, background: 'content-box', border: 'none', zIndex: '100' }}
         render={() => {
           return (
             <div className='rounded-lg bg-grey-800 p-[15px] shadow-[0px_4px_8px_0px_rgba(0,0,0,0.15)]'>

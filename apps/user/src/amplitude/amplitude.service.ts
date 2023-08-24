@@ -5,7 +5,7 @@ import {
   convertAmplitudeSortedType,
 } from '@/amplitude/amplitude.enum';
 import { CHANNEL_TYPE } from '@/types/enum.code';
-
+import { PropertyOperationsBuilder } from '@hackler/react-sdk';
 declare var amplitude: any;
 
 //TODO:axios.config 보면 casing에 snakelize 함수 있으니 참고해서 별도로 카멜/스네이크 신경쓰지 않아도 자동화 되도록 할 것 (casey 3/28)
@@ -177,7 +177,6 @@ export const _amplitudeSortByChanged = (sortByBefore: TSortBy, sortByAfter: TSor
 
 // ##### KEYWORD REPORT - 사용자가 키워드 검색 요청 시 ##### //
 export const _amplitudeKeywordSearched = (
-  // platform: TChannel,
   country: CountryType,
   sortBy: TSortBy,
   keyword: string,
@@ -192,12 +191,12 @@ export const _amplitudeKeywordSearched = (
 
 // ##### KEYWORD REPORT - 키워드 검색 성공 시 ##### //
 export const _amplitudeKeywordSearchedSucceeded = (
-  // platform: TChannel,
   country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
   relations: SearchDto[],
   searchVolume?: number | null,
+  hackleId?: THackleId | null,
 ) => {
   const recKeywords = [...relations].map((value) => {
     return value.text;
@@ -211,11 +210,26 @@ export const _amplitudeKeywordSearchedSucceeded = (
     num_of_rec_keywords: recKeywords.length,
     search_volume: searchVolume || 0,
   });
+
+  if (hackleId && hackleId === 'B') {
+    const event = {
+      key: 'keyword_search_succeeded',
+      properties: {
+        keyword, // 키워드명
+        country, // 키워드의 국가
+        sortBy, // 리포트의 리스팅순
+        searchVolume: searchVolume || 0, // 검색된 키워드의 최근30일 검색량
+        recKeywords, // 추천 키워드들(array)
+        numOfRecKeywords: recKeywords.length, // 추천 키워드의 수
+      },
+    };
+
+    window.hackleClient.track(event);
+  }
 };
 
 // ##### KEYWORD REPORT - 키워드 검색 실패 시 ##### //
 export const _amplitudeKeywordSearchedFailed = (
-  // platform: TChannel,
   country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
@@ -232,7 +246,6 @@ export const _amplitudeKeywordSearchedFailed = (
 
 // ##### KEYWORD REPORT - 검색어로 추천된 키워드를 클릭해서 검색 시도 시 ##### //
 export const _amplitudeRecKeywordSearched = (
-  // platform: TChannel,
   country: CountryType,
   sortBy: TSortBy,
   keyword: string,
@@ -248,11 +261,11 @@ export const _amplitudeRecKeywordSearched = (
 // ##### KEYWORD REPORT - 키워드 리포트 생성 요청 시 ##### //
 export const _amplitudeKeywordReportRequested = (
   reportId: number,
-  // platform: TChannel,
   country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
   jobId: string,
+  hackleId?: THackleId | null,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
     report_id: reportId,
@@ -262,6 +275,20 @@ export const _amplitudeKeywordReportRequested = (
     keyword,
     job_id: jobId,
   });
+
+  if (hackleId && hackleId === 'B') {
+    const event = {
+      key: 'keyword_report_requested',
+      properties: {
+        keyword, // 키워드명
+        country, // 키워드의 국가
+        sortBy,
+        jobId,
+      },
+    };
+
+    window.hackleClient.track(event);
+  }
 };
 
 // ##### KEYWORD REPORT - 키워드 리포트 상세 조회 시 ##### //
@@ -271,6 +298,7 @@ export const _amplitudeKeywordReportViewed = (
   platform: TChannel,
   sortBy: TSortBy,
   keyword: string,
+  hackleId?: THackleId | null,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
     report_id: reportId,
@@ -279,6 +307,20 @@ export const _amplitudeKeywordReportViewed = (
     sort_by: sortBy,
     keyword: keyword,
   });
+
+  if (hackleId && hackleId === 'B') {
+    const event = {
+      key: 'keyword_report_viewed',
+      properties: {
+        keyword, // 키워드명
+        country, // 키워드의 국가
+        reportId, // 리포트 uid
+        sortBy, // 리포트의 리스팅순
+      },
+    };
+
+    window.hackleClient.track(event);
+  }
 };
 // ##### KEYWORD REPORT - 키워드 리포트 삭제 완료 시 ##### //
 export const _amplitudeKeywordReportDeleted = (checkedItems: TReportItem[]) => {
@@ -341,7 +383,6 @@ export const _amplitudeKeywordTranslated = (
 
 // ##### KEYWORD TRANSLATION - 번역된 키워드를 검색 요청 시 ##### //
 export const _amplitudeTranslatedSearched = (
-  // platform: TChannel,
   country: CountryType,
   sortBy: TSortBy,
   keyword: string,

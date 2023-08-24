@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
 import { switchModal } from '@/search/elements/container';
 
-import { MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { MODAL_SIZE_ENUM, MODAL_TYPE_ENUM } from '@/types/enum.code';
 import { ReportModalType } from '@/search/elements/ReportModalType';
 interface ISearchModalPrpos {
   data?: any;
@@ -29,6 +29,12 @@ export const SearchModal = ({
     };
     switchModalAsync();
   }, [eventTrigger]);
+
+  useEffect(() => {
+    if (_state.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
+      setIsDisalbed(false);
+    }
+  }, [_state.modalType]);
 
   const { modalType, newReportId } = _state;
   const modal: IModalType = ReportModalType({

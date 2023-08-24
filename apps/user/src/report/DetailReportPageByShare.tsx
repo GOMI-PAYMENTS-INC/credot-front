@@ -13,19 +13,17 @@ import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/common/layouts';
 
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
+import { useRecoilValue } from 'recoil';
+import { HackleId } from '@/atom/common/hackle.atom';
 
-interface IDetailReportPageByShare {
-  hackleId?: string;
-}
-
-const DetailReportPageByShare = ({ hackleId = 'A' }: IDetailReportPageByShare) => {
+const DetailReportPageByShare = () => {
   const params = useParams();
-
+  const hackleId = useRecoilValue(HackleId);
   const scrollEventState: scrollEventState = {
     scrollY: 0,
-    title: 'MarketSize',
+    title: 'Report',
     isOpen: true,
-    current: 'MarketSize',
+    current: 'Report',
   };
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
@@ -67,7 +65,6 @@ const DetailReportPageByShare = ({ hackleId = 'A' }: IDetailReportPageByShare) =
         _state={_state}
         _dispatch={_dispatch}
         params={params}
-        hackleId={hackleId}
       ></DetailReportSwitch>
     );
   }, [main]);
@@ -102,7 +99,7 @@ const DetailReportPageByShare = ({ hackleId = 'A' }: IDetailReportPageByShare) =
                 scrollEvent={scrollEvent}
                 setScrollEvent={setScrollEvent}
                 test={
-                  hackleId
+                  hackleId === 'B'
                     ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
                     : undefined
                 }
