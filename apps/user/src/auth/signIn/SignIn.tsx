@@ -91,7 +91,7 @@ export const SignIn = () => {
       </div>
       <div className='mt-10 space-y-12 md:mt-[56px] md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
-          <div className='space-y-6'>
+          <div className='space-y-4'>
             <div className='space-y-8'>
               <div className='inputCustom-group'>
                 <label className='inputCustom-label'>이메일</label>
@@ -149,7 +149,6 @@ export const SignIn = () => {
                 </div>
               </div>
             </div>
-
             <div className='flex items-center justify-between'>
               <div className='flex items-center'>
                 <input
@@ -182,6 +181,12 @@ export const SignIn = () => {
                   비밀번호 찾기
                 </button>
               </div>
+            </div>
+            <div className=''>
+              <p className='text-M/Bold'>
+                <span className='mr-1 text-red-600'>서버 점검시간:</span>
+                2023.08.28(월요일) 오전 2시 ~ 7시까지
+              </p>
             </div>
             <div className='space-y-3'>
               <div>
