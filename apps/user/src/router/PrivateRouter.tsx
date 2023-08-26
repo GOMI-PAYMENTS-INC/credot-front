@@ -5,9 +5,9 @@ import { isFalsy } from '@/utils/isFalsy';
 import { authReturnUrl } from '@/auth/container';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { HackleId } from '@/atom/common/hackle.atom';
-import { useVariation } from '@hackler/react-sdk';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
-import { useMemo } from 'react';
+
+import { UserAtom } from '@/atom/auth/auth-atom';
+
 import { postVariation } from './api';
 export default function PrivateRoute() {
   const storageToken = authTokenStorage.getToken();
@@ -31,11 +31,9 @@ export default function PrivateRoute() {
       </div>
     );
 
-  if (window.hackleClient.getUser().properties?.newMember && isFalsy(_hackleId)) {
-    postVariation({ experimentKey: 9, user: window.hackleClient.getUser() });
-  }
+  // if (window.hackleClient.getUser().properties?.newMember && isFalsy(_hackleId)) {
+  //   postVariation({ experimentKey: 9, user: window.hackleClient.getUser() });
+  // }
 
-  console.log(_hackleId, '_hackleId');
-  // console.log(hackleId, 'hackleId');
   return <Outlet />;
 }
