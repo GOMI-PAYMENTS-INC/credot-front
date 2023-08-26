@@ -16,22 +16,22 @@ Axios.interceptors.request.use((config) => {
     'Content-Type': 'application/json;charset=UTF-8',
     Authorization: authorization,
   };
-
   config.headers = Object.assign({}, config.headers, headers);
-  if (config.params) {
-    config.params = snakeize(config.params);
+  if (config.data?.noSnake) {
+    delete config.data.noSnake;
+    console.log(config, 'console.log(config)');
+    return config;
   }
 
-  if (config.data) {
-    config.data = snakeize(config.data);
-  }
+  config.data = snakeize(config.data);
+
   return config;
 });
 
 Axios.interceptors.response.use((response) => {
   if (isIncluded(response.data.code, STATUS_CODE.INVALID_TOKEN)) {
-    // authTokenStorage.clearToken();
-    // location.replace(PATH.SIGN_IN);
+    authTokenStorage.clearToken();
+    location.replace(PATH.SIGN_IN);
   }
 
   if (response.data.code === STATUS_CODE.ERROR) {
