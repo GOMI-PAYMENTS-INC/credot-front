@@ -19,7 +19,8 @@ export const Common2Section = ({ children }: ICommon2SectionProps) => (
     <div className='h-screen md:h-full'>
       <div className='h-full'>
         <div className='container-common h-full'>
-          <div className='flex h-full w-full items-center justify-center md:items-baseline'>
+          {/* TODO: md:items-baseline 으로 변경하기 */}
+          <div className='flex h-full w-full items-center justify-center md:items-baseline xs:items-center'>
             <div className='grid grid-cols-12 gap-x-6 md:flex'>
               <div className='col-span-5 col-start-2 md:hidden'>
                 <img src='/assets/images/LoginInfoImg1.png' alt='' />
