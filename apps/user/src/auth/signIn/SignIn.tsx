@@ -14,7 +14,7 @@ import {
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import GoogleLogin from '@/auth/signIn/GoogleLogin';
 import { signInApi } from '@/auth/signIn/api';
-
+import { SystemOverhaul } from '@/common/SystemOverhaul';
 interface ISignInForm {
   email: string;
   password: string;
@@ -182,12 +182,7 @@ export const SignIn = () => {
                 </button>
               </div>
             </div>
-            <div className=''>
-              <p className='text-M/Bold'>
-                <span className='mr-1 text-red-600'>서버 점검시간:</span>
-                2023.08.28(월요일) 오전 2시 ~ 7시까지
-              </p>
-            </div>
+
             <div className='space-y-3'>
               <div>
                 <button
