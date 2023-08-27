@@ -86,9 +86,7 @@ export const SignIn = () => {
 
   return (
     <Layout>
-      <SystemOverhaul />
-
-      {/* <div>
+      <div>
         <h3 className='text-center text-3XL/Medium md:hidden'>로그인</h3>
       </div>
       <div className='mt-10 space-y-12 md:mt-[56px] md:space-y-8'>
@@ -184,12 +182,7 @@ export const SignIn = () => {
                 </button>
               </div>
             </div>
-            <div className=''>
-              <p className='text-M/Bold'>
-                <span className='mr-1 text-red-600'>서버 점검시간:</span>
-                2023.08.28(월요일) 오전 2시 ~ 7시까지
-              </p>
-            </div>
+
             <div className='space-y-3'>
               <div>
                 <button
@@ -218,7 +211,7 @@ export const SignIn = () => {
             </Link>
           </div>
         </div>
-      </div> */}
+      </div>
     </Layout>
   );
 };

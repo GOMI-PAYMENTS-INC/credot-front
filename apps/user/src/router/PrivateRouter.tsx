@@ -19,13 +19,11 @@ export default function PrivateRoute() {
 
   // 인증을 안했을 경우 로그인 페이지로, 했을 경우 해당 페이지로
 
-  // TODO: 주석해제
+  if (isFalsy(storageToken)) {
+    saveReturnUrl(window.location.href);
 
-  // if (isFalsy(storageToken)) {
-  // saveReturnUrl(window.location.href);
-
-  return <Navigate to={PATH.SIGN_IN} />;
-  // }
+    return <Navigate to={PATH.SIGN_IN} />;
+  }
 
   // if (userInfo?.me.id === null || HackleId === null)
   //   return (
