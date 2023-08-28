@@ -36,7 +36,7 @@ export const convertBatchStatus = (status: string, itemCount: number) => {
   }
 };
 
-export const convertCountry = (countryCode: CountryType) => {
+export const convertCountry = (countryCode: CountryType | TSearchCountry) => {
   switch (countryCode) {
     case CountryType.KR:
       return '한국';
@@ -109,7 +109,7 @@ export const convertShopeeSiteUrl = (country: CountryType) => {
   }
 };
 
-export const convertCountryIconPath = (countryCode: CountryType) => {
+export const convertCountryIconPath = (countryCode: CountryType | TSearchCountry) => {
   const url = '/assets/icons/flag';
   switch (countryCode) {
     case CountryType.KR:

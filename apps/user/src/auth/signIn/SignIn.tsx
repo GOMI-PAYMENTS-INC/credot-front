@@ -14,7 +14,7 @@ import {
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import GoogleLogin from '@/auth/signIn/GoogleLogin';
 import { signInApi } from '@/auth/signIn/api';
-
+import { SystemOverhaul } from '@/common/SystemOverhaul';
 interface ISignInForm {
   email: string;
   password: string;
@@ -91,7 +91,7 @@ export const SignIn = () => {
       </div>
       <div className='mt-10 space-y-12 md:mt-[56px] md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
-          <div className='space-y-6'>
+          <div className='space-y-4'>
             <div className='space-y-8'>
               <div className='inputCustom-group'>
                 <label className='inputCustom-label'>이메일</label>
@@ -149,7 +149,6 @@ export const SignIn = () => {
                 </div>
               </div>
             </div>
-
             <div className='flex items-center justify-between'>
               <div className='flex items-center'>
                 <input
@@ -183,6 +182,7 @@ export const SignIn = () => {
                 </button>
               </div>
             </div>
+
             <div className='space-y-3'>
               <div>
                 <button

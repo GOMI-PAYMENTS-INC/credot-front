@@ -68,7 +68,7 @@ const ReportList = () => {
       {/*헤더*/}
       <header className='border-b-[1px] border-b-grey-200 bg-white xs:hidden'>
         <div className='container'>
-          <div className='flex h-[84px] items-center'>
+          <div className='flex h-[72px] items-center'>
             <div className='shrink-0'>
               <h1 className='text-XL/Medium text-grey-900'>리포트 조회</h1>
             </div>
@@ -81,7 +81,7 @@ const ReportList = () => {
         </div>
       </header>
       {/*컨텐츠*/}
-      <section className='grow overflow-y-auto xs:hidden'>
+      <section className='h-full grow overflow-y-auto xs:hidden'>
         <div className='min-h-full bg-grey-50'>
           <div className='container pt-[24px]'>
             {/*하단 페이지 별로 변경해야하는 부분*/}

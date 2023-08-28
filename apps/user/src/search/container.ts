@@ -1,17 +1,22 @@
 import { SEARCH_ACTION, searchInitialState } from '@/search/reducer';
-import type { Dispatch } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
-
+import { SEARCH_STATE_INIT_VALUE } from '@/search/newSearch/constants';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 
 import {
-  _amplitudeKeywordReportRequested,
   _amplitudeKeywordSearched,
+  _amplitudeKeywordReportRequested,
+  _amplitudeMovedToSERP,
 } from '@/amplitude/amplitude.service';
 import { CountryType } from '@/generated/graphql';
+
+import { createJobId } from '@/utils/createJobId';
+import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import { getReportExisted, postCreateReport } from '@/search/api';
 
 export const queryKeywordByClick = (
   country: keyof typeof CountryType,
@@ -120,4 +125,133 @@ export const convertSearchPlaceholder = (country: CountryType) => {
       console.error('enum 코드를 확인해주세요.');
       return '';
   }
+};
+
+export const updateSearchPayload = (props: {
+  _state: TSearchProps;
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>;
+  key: keyof TSearchProps;
+  params: TSearchCountry | TSortBy | string | TProductImageType | null;
+}) => {
+  const { _state, _dispatch, params, key } = props;
+
+  const updatedState = Object.assign({}, _state, { [key]: params });
+  if (key === 'keyword') {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
+  }
+  _dispatch(updatedState);
+};
+
+export const initailizeSearchProps = (
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>,
+) => _dispatch(SEARCH_STATE_INIT_VALUE);
+
+const updateModalType =
+  (_dispatch: Dispatch<SetStateAction<TNSearchModalStatus>>) =>
+  (type: TNSearchModalStatus) => {
+    _dispatch(type);
+  };
+
+const requestReport = async (props: TSearchPayload) => {
+  const {
+    _modalState: { modalType },
+    parameter,
+    _modalDispatch,
+    _state,
+  } = props;
+  const { keyword, country, sortBy } = _state;
+  const { count } = parameter;
+  const updateModal = updateModalType(
+    _modalDispatch as Dispatch<SetStateAction<TNSearchModalStatus>>,
+  );
+  try {
+    if (modalType === '') {
+      const res = await getReportExisted({
+        country: country,
+        sortBy: sortBy,
+        text: keyword,
+      });
+
+      const reportInfo = res?.data;
+
+      if (isFalsy(reportInfo?.data) === false) {
+        const { isDaily, createdAt } = reportInfo!.data!;
+        if (isDaily) {
+          updateModal({ modalType: MODAL_TYPE_ENUM.NotBeOverDayReport, isOpen: true });
+        } else {
+          updateModal({
+            modalType: MODAL_TYPE_ENUM.SameKeywordReportExisted,
+            response: createdAt,
+            isOpen: true,
+          });
+        }
+        return;
+      }
+
+      if (isFalsy(count) || count! < 300) {
+        updateModal({
+          modalType: MODAL_TYPE_ENUM.LessMonthlyKeywordVolume,
+          isOpen: true,
+        });
+
+        return;
+      }
+    }
+    return await createReport({ ...props });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const createReport = async (props: TSearchPayload) => {
+  const {
+    parameter: { reportInvokeId },
+    _modalDispatch,
+    _state,
+    hackleId,
+  } = props;
+
+  const { keyword, country, sortBy } = _state;
+  const jobId = createJobId();
+  if (isFalsy(reportInvokeId)) throw new Error('리포트 생성 로직에 문제가 있습니다.');
+  try {
+    const postReport = await postCreateReport({
+      reportInvokeId: reportInvokeId!,
+      country: country,
+      sortBy: sortBy,
+      jobId: jobId,
+    });
+
+    if (postReport?.code === STATUS_CODE.SUCCESS) {
+      const { isSendSms, reportId } = postReport?.data;
+      if (isSendSms) {
+        _modalDispatch({
+          modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
+          data: reportId,
+          isOpen: true,
+        });
+      } else {
+        _modalDispatch({
+          modalType: MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses,
+          data: reportId,
+          isOpen: true,
+        });
+      }
+
+      _amplitudeKeywordReportRequested(
+        reportId,
+        country,
+        sortBy,
+        keyword,
+        jobId,
+        hackleId,
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const searchRequestHandler = (props: TSearchPayload) => {
+  if (props._modalState.isOpen) requestReport({ ...props });
 };

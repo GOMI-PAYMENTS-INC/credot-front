@@ -12,6 +12,9 @@ import { CategoryAnalysis } from '@/report/category/CategoryAnalysis';
 import { authReturnUrl } from '@/auth/container';
 import { PATH } from '@/types/enum.code';
 
+import { useRecoilValue } from 'recoil';
+import { HackleId } from '@/atom/common/hackle.atom';
+
 interface IDetailReportSwitchProps {
   isUser: boolean;
   _state: TReportState;
@@ -26,6 +29,8 @@ export const DetailReportSwitch = ({
   params,
 }: IDetailReportSwitchProps) => {
   const { main, oversea, salePrice, relation, brand, category } = _state;
+  const hackleId = useRecoilValue(HackleId);
+  const isTest = hackleId === 'B';
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
@@ -34,13 +39,15 @@ export const DetailReportSwitch = ({
   const { saveReturnUrl } = authReturnUrl();
 
   return (
-    <div className='col-span-10 xs:col-span-12 xs:mx-5'>
+    <div className={`col-span-10 ${isTest === false ? '' : 'mt-[42px]'} xs:col-span-12`}>
       <div className='space-y-[72px]'>
         <KeywordInfo
+          isTest={isTest}
           _dispatch={_dispatch}
           keywordInfo={main!}
           amplitudeData={amplitudeData}
         />
+
         <MarketSize marketSize={main!} />
         <AnalysisKeyword
           _dispatch={_dispatch}

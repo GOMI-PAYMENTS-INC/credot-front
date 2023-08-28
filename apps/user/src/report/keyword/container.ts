@@ -15,7 +15,7 @@ import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { getReportExisted, postCreateReport } from '@/search/api';
 
 import {
-  _amplitudeKeywordReportRequested,
+  _clientRecKeywordReportRequested,
   _amplitudeKeywordSearched,
 } from '@/amplitude/amplitude.service';
 
@@ -195,7 +195,7 @@ const createReport = async (props: TRequestReportModa) => {
         });
       }
 
-      _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
+      _clientRecKeywordReportRequested(jobId, country, sortBy, keyword);
     }
   } catch (error) {
     console.error(error);

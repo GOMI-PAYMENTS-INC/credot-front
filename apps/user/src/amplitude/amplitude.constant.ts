@@ -39,4 +39,5 @@ export const amplitudeConstant = {
   sharedKeywordReportViewed: 'shared keyword report viewed',
 
   hotKeywordSearched: 'hot keyword searched',
+  recKeywordReportRequested: 'rec keyword report requested',
 };

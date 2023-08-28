@@ -9,8 +9,8 @@ import {
 
 import { Selector } from '@/report/keyword/elements/Selector';
 import { convertSortByIconPath } from '@/utils/convertEnum';
-import { DROPDOWN_STATUS, DROPDOWN_VARIANTS } from '@/components/dropDown';
 import { getQueryResult } from '@/report/keyword/api';
+
 import { CountryType } from '@/generated/graphql';
 import { Modal } from '@/report/keyword/elements/Modal';
 import { SORTING_TYPE } from '@/report/keyword/elements/constants';
@@ -66,9 +66,11 @@ export const ReportGeneratorModal = ({
     <ModalComponent isOpen={isOpen}>
       {modal.modalType ? (
         <Modal
-          setModal={setModal}
-          setSortingType={setSortingType}
-          setIsRequested={setIsRequested}
+          cleanUpFunction={() => {
+            setSortingType(SORTING_TYPE[0]);
+            setIsRequested(false);
+            setModal({ modalType: '', response: '' });
+          }}
           modalType={modal.modalType}
           createdAt={modal.response}
           successCallback={() => {
@@ -106,8 +108,6 @@ export const ReportGeneratorModal = ({
             isUseIcon={true}
             iconPath={convertSortByIconPath(sortingType.value)}
             options={SORTING_TYPE}
-            status={DROPDOWN_STATUS.FILLED}
-            variants={DROPDOWN_VARIANTS.CLEAR}
             onClickOption={(item) => {
               updateSortingType(item as string, SORTING_TYPE, setSortingType);
             }}

@@ -1,27 +1,26 @@
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ReportModalType } from '@/report/keyword/elements/ReportModalType';
-import { SORTING_TYPE } from '@/report/keyword/elements/constants';
+
+import { MODAL_TYPE_ENUM } from '@/types/enum.code';
 
 export interface IRequestReportModalType {
-  modalType: TSearchModalType;
+  modalType: TSearchModalType | '';
   createdAt: string;
   successCallback: Function;
   failedCallback: Function;
-  setIsRequested: Dispatch<SetStateAction<boolean>>;
-  setSortingType: Dispatch<SetStateAction<TReportGeneratorType>>;
-  setModal: Dispatch<SetStateAction<TModalStatus>>;
+  cleanUpFunction: Function;
 }
 export const Modal = (props: IRequestReportModalType) => {
   const [isDisalbed, setIsDisalbed] = useState(false);
-
   const { title, content, onCancel, onConfirm } = ReportModalType({ ...props });
+
   useEffect(() => {
-    return () => {
-      props.setSortingType(SORTING_TYPE[0]);
-      props.setIsRequested(false);
-      props.setModal({ modalType: '', response: '' });
-    };
-  }, []);
+    if (props.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses && isDisalbed) {
+      setIsDisalbed(false);
+    }
+    return () => props.cleanUpFunction();
+  }, [props.modalType]);
+
   return (
     <Fragment>
       <div className=''>

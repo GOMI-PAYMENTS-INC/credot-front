@@ -13,10 +13,12 @@ import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/common/layouts';
 
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
+import { useRecoilValue } from 'recoil';
+import { HackleId } from '@/atom/common/hackle.atom';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
-
+  const hackleId = useRecoilValue(HackleId);
   const scrollEventState: scrollEventState = {
     scrollY: 0,
     title: 'Report',
@@ -28,7 +30,7 @@ const DetailReportPageByShare = () => {
 
   const { main } = _state;
   const contentSection = useRef<HTMLDivElement>(null);
-  const scrollController = useRef<HTMLTableSectionElement>(null);
+  // const scrollController = useRef<HTMLTableSectionElement>(null);
 
   const [isUser, setIsUser] = useState<boolean>(false);
 
@@ -50,6 +52,11 @@ const DetailReportPageByShare = () => {
       _amplitudeSharedKeywordReportViewed(main.id, main.country, main.sorted, main.text);
     }
   }, [main?.id]);
+
+  const amplitudeData: TAmplitudeDetailData = {
+    param: params.id ? params.id : '',
+    keyword: main?.text ? main.text : '',
+  };
 
   const combinedComponent = useMemo(() => {
     return (
@@ -91,6 +98,11 @@ const DetailReportPageByShare = () => {
                 title={main?.text}
                 scrollEvent={scrollEvent}
                 setScrollEvent={setScrollEvent}
+                test={
+                  hackleId === 'B'
+                    ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
+                    : undefined
+                }
               />
             </DetailReportBody>
           </Fragment>
@@ -98,6 +110,7 @@ const DetailReportPageByShare = () => {
       </Default>
     );
   }
+
   return (
     <Fragment>
       {isFalsy(main) ? (
@@ -114,6 +127,11 @@ const DetailReportPageByShare = () => {
             title={main?.text}
             scrollEvent={scrollEvent}
             setScrollEvent={setScrollEvent}
+            test={
+              hackleId
+                ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
+                : undefined
+            }
           />
         </DetailReportBody>
       )}
