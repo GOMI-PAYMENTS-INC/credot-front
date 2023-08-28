@@ -47,6 +47,7 @@ export const Router = () => {
         if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
           //앰플리튜드에서 사용할 회원 정보 셋팅
           _setUserId(res.me.id);
+          _setHackleId('A');
           useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
         }
       },
@@ -62,22 +63,22 @@ export const Router = () => {
     if (isFalsy(userInfo)) {
       setToken(storageToken);
       setUserInfo(userQueryData);
-      const NEW_MEMBER = 25;
-      const isNewMember = NEW_MEMBER < userQueryData?.me.id!;
+      // const NEW_MEMBER = 25;
+      // const isNewMember = NEW_MEMBER < userQueryData?.me.id!;
 
-      const user = {
-        deviceId: deviceId,
-        userId: userQueryData?.me.id!.toString(),
-        properties: { newMember: isNewMember },
-      };
-      hackleClient.setUser(user);
+      // const user = {
+      //   deviceId: deviceId,
+      //   userId: userQueryData?.me.id!.toString(),
+      //   properties: { newMember: isNewMember },
+      // };
+      // hackleClient.setUser(user);
     }
 
-    if (userId === undefined) {
-    }
+    // if (userId === undefined) {
+    // }
 
     // if (storageToken && isFalsy(_hackleId)) {
-    _setHackleId('A');
+
     // }
   }, [userQueryData?.me.id]);
 
