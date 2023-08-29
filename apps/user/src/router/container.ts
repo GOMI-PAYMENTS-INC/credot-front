@@ -12,7 +12,7 @@ const getTestKey = (compareKey: number, userId: number) => {
 };
 
 export const generateHackleConfig = (userId: number, callback: Function) => {
-  const COMPARE_KEY = 15;
+  const COMPARE_KEY = 1260;
   const varidation = getTestKey(COMPARE_KEY, userId);
 
   const { deviceId } = window.hackleClient.getUser();
