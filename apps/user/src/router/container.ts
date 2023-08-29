@@ -12,28 +12,33 @@ const getTestKey = (compareKey: number, userId: number) => {
 };
 
 export const generateHackleConfig = (userId: number, callback: Function) => {
+  const config = useSessionStorage.getItem(CACHING_KEY.HACKLE);
+
+  if (config) {
+    return updateHackleConfig(callback);
+  }
   const COMPARE_KEY = 1260;
-  const varidation = getTestKey(COMPARE_KEY, userId);
+  const variation = getTestKey(COMPARE_KEY, userId);
 
   const { deviceId } = window.hackleClient.getUser();
   const user = {
     deviceId: deviceId,
     userId: userId.toString(),
-    properties: { varidation },
+    properties: { variation },
   };
-  callback(varidation);
+  callback(variation);
   useSessionStorage.setItem(CACHING_KEY.HACKLE, user);
   return user;
 };
 
-export const updateHackleConfig = (callback: Function) => {
+const updateHackleConfig = (callback: Function) => {
   const { properties } = window.hackleClient.getUser();
 
   if (properties) return;
   const config = useSessionStorage.getItem(CACHING_KEY.HACKLE);
 
   if (config && isFalsy(properties)) {
-    callback(config.properties.varidation);
+    callback(config.properties.variation);
     return window.hackleClient.setUser(config);
   }
 };

@@ -16,7 +16,7 @@ import { useCookieStorage } from '@/utils/useCookieStorage';
 
 import { isTruthy } from '@/utils/isTruthy';
 import { HackleId } from '@/atom/common/hackle.atom';
-import { generateHackleConfig, updateHackleConfig } from '@/router/container';
+import { generateHackleConfig } from '@/router/container';
 
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
@@ -46,8 +46,7 @@ export const Router = () => {
           const user = generateHackleConfig(userId, (config: THackleId | null) =>
             _setHackleId(config),
           );
-          console.log();
-          hackleClient.setUser(user);
+          if (user) hackleClient.setUser(user);
         }
       },
       onError: () => {
@@ -62,10 +61,6 @@ export const Router = () => {
     if (isFalsy(userInfo)) {
       setToken(storageToken);
       setUserInfo(userQueryData);
-    }
-
-    if (storageToken && window.hackleClient.getUser().properties === undefined) {
-      updateHackleConfig((config: THackleId | null) => _setHackleId(config));
     }
   }, [userQueryData?.me.id]);
 

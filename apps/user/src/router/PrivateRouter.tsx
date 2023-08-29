@@ -24,13 +24,14 @@ export default function PrivateRoute() {
 
   useEffect(() => {
     if (userInfo?.me.id && window.hackleClient.getUser().properties === undefined) {
-      generateHackleConfig(userInfo?.me.id!, (config: THackleId | null) =>
+      const user = generateHackleConfig(userInfo?.me.id!, (config: THackleId | null) =>
         _setHackleId(config),
       );
+      if (user) window.hackleClient.setUser(user);
     }
   }, [userInfo?.me.id]);
   if (_hackleId === null) return <Fragment />;
-  console.log(_hackleId, 'hackle');
+
   return (
     <HackleExperiment experimentKey={10}>
       <HackleVariation variation={'A'}>
