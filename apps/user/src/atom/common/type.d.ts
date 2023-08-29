@@ -1,1 +1,1 @@
-type THackleId = 'A' | 'B';
+type THackleId = 'A' | 'B' | 'C';
