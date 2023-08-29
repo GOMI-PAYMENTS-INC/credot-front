@@ -44,9 +44,9 @@ export const Router = () => {
           useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
 
           const user = generateHackleConfig(userId, (config: THackleId | null) =>
-            //_setHackleId(config)
-            _setHackleId('C'),
+            _setHackleId(config),
           );
+          console.log();
           hackleClient.setUser(user);
         }
       },
@@ -65,11 +65,7 @@ export const Router = () => {
     }
 
     if (storageToken && window.hackleClient.getUser().properties === undefined) {
-      updateHackleConfig(
-        (
-          config: THackleId | null, //_setHackleId(config)
-        ) => _setHackleId('C'),
-      );
+      updateHackleConfig((config: THackleId | null) => _setHackleId(config));
     }
   }, [userQueryData?.me.id]);
 
