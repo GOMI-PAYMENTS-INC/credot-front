@@ -25,6 +25,7 @@ const requestReport = async ({
   parameter,
   _dispatch,
   _setTrigger,
+  hackleId,
 }: TRequestReport) => {
   const { keyword, country, sortBy } = _state;
   const { count } = parameter;
@@ -70,7 +71,7 @@ const requestReport = async ({
         return _setTrigger(false);
       }
     }
-    return await createReport({ _dispatch, _state, parameter, _setTrigger });
+    return await createReport({ _dispatch, _state, parameter, _setTrigger, hackleId });
   } catch (error) {
     console.error(error);
   }
@@ -117,6 +118,7 @@ const createReport = async (props: TRequestReport) => {
       }
       _dispatch({ type: SEARCH_ACTION.SET_NEW_REPORT_ID, payload: reportId });
       _setTrigger(false);
+
       _amplitudeKeywordReportRequested(
         reportId,
         country,

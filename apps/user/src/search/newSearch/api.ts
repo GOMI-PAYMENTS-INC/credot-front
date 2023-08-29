@@ -18,6 +18,7 @@ export const getQueryResult = (
 ) => {
   const { country, sortBy, keyword } = payload;
   const hackleId = useRecoilValue(HackleId);
+
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     { country, text: keyword },
     {
@@ -42,6 +43,7 @@ export const getQueryResult = (
               params: productImgs,
             });
           }
+
           _amplitudeKeywordSearchedSucceeded(
             country,
             sortBy,

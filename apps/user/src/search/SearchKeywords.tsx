@@ -48,11 +48,14 @@ import { CountryType } from '@/generated/graphql';
 import UseTooltip from '@/components/UseTooltip';
 import { SearchTooltips } from '@/search/elements/Tooltip';
 import { switchModal, searchRequestHandler } from '@/search/elements/container';
+import { useRecoilValue } from 'recoil';
+import { HackleId } from '@/atom/common/hackle.atom';
 
 const SearchKeywords = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+  const hackleId = useRecoilValue(HackleId);
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
 
   const { register, getValues, setValue, watch } = useForm<{
@@ -76,6 +79,7 @@ const SearchKeywords = () => {
     _state.sortBy,
     _state.keyword,
     _dispatch,
+    hackleId,
   );
 
   useEffect(() => {
@@ -96,6 +100,7 @@ const SearchKeywords = () => {
         count: response?.main.count,
         reportInvokeId: response?.reportInvokeId,
       },
+      hackleId,
       _setTrigger: setRequestReport,
     });
 
