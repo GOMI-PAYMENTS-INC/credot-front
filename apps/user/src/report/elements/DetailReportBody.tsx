@@ -36,7 +36,7 @@ export const DetailReportBody = (props: TDetailReportContent) => {
   return (
     <section ref={contentSection}>
       <div className='min-h-full bg-white'>
-        {width !== 0 && (
+        {/* {width !== 0 && (
           <BackforwardButton
             hidden={hackleId === 'A'}
             originStyle={{ left: `${width}px` }}
@@ -45,7 +45,7 @@ export const DetailReportBody = (props: TDetailReportContent) => {
               navigate(PATH.REPORT_LIST + (search ? search : ''));
             }}
           />
-        )}
+        )} */}
         <div className='container pt-8 pb-[200px]'>
           <div id='report_grid' className={`grid grid-cols-12 gap-x-6`}>
             {children}
