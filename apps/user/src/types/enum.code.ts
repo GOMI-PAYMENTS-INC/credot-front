@@ -157,6 +157,7 @@ export enum CACHING_KEY {
   TEMPORARY_PASSWORD_LOGIN = 'temporary_password_login',
   STORED_KEYWORD = 'keyword',
   STORED_TRANSLATION = 'translation_keyword',
+  HACKLE = 'hackle',
 }
 
 export enum STYLE_ENUM {

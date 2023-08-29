@@ -201,7 +201,7 @@ export const PARTENER_DATA = [
     ),
     brand: (
       <>
-        <li>Shopee 라이징 대표</li>
+        <li>Shopee 셀러 강사</li>
         <li>youtube ‘노마드 데이빗' 운영</li>
       </>
     ),

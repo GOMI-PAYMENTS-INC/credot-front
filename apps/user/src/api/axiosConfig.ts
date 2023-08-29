@@ -17,14 +17,11 @@ Axios.interceptors.request.use((config) => {
     Authorization: authorization,
   };
   config.headers = Object.assign({}, config.headers, headers);
-  if (config.data?.noSnake) {
-    delete config.data.noSnake;
-    console.log(config, 'console.log(config)');
-    return config;
-  }
 
   config.data = snakeize(config.data);
-
+  if (config.params) {
+    config.params = snakeize(config.params);
+  }
   return config;
 });
 

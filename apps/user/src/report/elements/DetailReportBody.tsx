@@ -38,7 +38,7 @@ export const DetailReportBody = (props: TDetailReportContent) => {
       <div className='min-h-full bg-white'>
         {width !== 0 && (
           <BackforwardButton
-            hidden={hackleId === 'A'}
+            hidden={['A', 'C'].includes(hackleId as THackleId)}
             originStyle={{ left: `${width}px` }}
             style={`top-[124px] sticky`}
             callback={() => {

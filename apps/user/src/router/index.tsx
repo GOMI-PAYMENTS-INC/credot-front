@@ -1,6 +1,6 @@
 import { createElement, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { _setUserId } from '@/amplitude/amplitude.service';
 import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
@@ -16,22 +16,15 @@ import { useCookieStorage } from '@/utils/useCookieStorage';
 
 import { isTruthy } from '@/utils/isTruthy';
 import { HackleId } from '@/atom/common/hackle.atom';
-import { useVariation } from '@hackler/react-sdk';
-import { UseHackleVariation } from '@/common/UseHackleVariation';
-import type { User } from '@hackler/react-sdk';
-
-declare const amplitude: any;
+import { generateHackleConfig, updateHackleConfig } from '@/router/container';
 
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
-  const [token, setToken] = useRecoilState(LoginTokenAtom);
-  const [_hackleId, _setHackleId] = useRecoilState(HackleId);
+  const setToken = useSetRecoilState(LoginTokenAtom);
+  const _setHackleId = useSetRecoilState(HackleId);
 
-  // const hackleId = useVariation(9);
   const { hackleClient } = window;
-  const { userId, deviceId } = hackleClient.getUser();
-
   const storageToken = authTokenStorage.getToken();
 
   //FIXME: signInAPI 분리하기
@@ -44,11 +37,17 @@ export const Router = () => {
       enabled: isTruthy(storageToken),
       refetchOnWindowFocus: false,
       onSuccess: (res) => {
+        const userId = res.me.id;
         if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
           //앰플리튜드에서 사용할 회원 정보 셋팅
-          _setUserId(res.me.id);
-          _setHackleId('A');
+          _setUserId(userId);
           useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
+
+          const user = generateHackleConfig(userId, (config: THackleId | null) =>
+            //_setHackleId(config)
+            _setHackleId('C'),
+          );
+          hackleClient.setUser(user);
         }
       },
       onError: () => {
@@ -63,29 +62,16 @@ export const Router = () => {
     if (isFalsy(userInfo)) {
       setToken(storageToken);
       setUserInfo(userQueryData);
-      // const NEW_MEMBER = 25;
-      // const isNewMember = NEW_MEMBER < userQueryData?.me.id!;
-
-      // const user = {
-      //   deviceId: deviceId,
-      //   userId: userQueryData?.me.id!.toString(),
-      //   properties: { newMember: isNewMember },
-      // };
-      // hackleClient.setUser(user);
     }
 
-    // if (userId === undefined) {
-    // }
-
-    // if (storageToken && isFalsy(_hackleId)) {
-
-    // }
+    if (storageToken && window.hackleClient.getUser().properties === undefined) {
+      updateHackleConfig(
+        (
+          config: THackleId | null, //_setHackleId(config)
+        ) => _setHackleId('C'),
+      );
+    }
   }, [userQueryData?.me.id]);
-
-  // if (userInfo?.me.id) {
-  //   const { variation } = UseHackleVariation({ key: 9 });
-  //   console.log(variation, 'variation');
-  // }
 
   return (
     <Routes>

@@ -20,10 +20,21 @@ export const Default = ({ children }: IDefaultProps) => {
   useEffect(() => {
     pattern?.path ? setHandleCss('') : setHandleCss('h-full');
   }, [pattern]);
+
   return (
     <Fragment>
       <div className='h-screen'>
-        {hackleId === 'A' ? (
+        {/* <SideBar _state={_state} _dispatch={_dispatch} />
+        <MSidebar _state={_state} _dispatch={_dispatch} />
+        <div
+          className={`${handleCss} ${
+            _state.openedSidebar ? 'ml-[200px]' : 'ml-[64px]'
+          } xs:ml-0`}
+        >
+          {children}
+        </div> */}
+
+        {hackleId && ['A', 'C'].includes(hackleId) ? (
           <Fragment>
             <SideBar _state={_state} _dispatch={_dispatch} />
             <MSidebar _state={_state} _dispatch={_dispatch} />
