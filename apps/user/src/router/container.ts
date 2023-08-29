@@ -4,10 +4,10 @@ import { isFalsy } from '@/utils/isFalsy';
 
 const getTestKey = (compareKey: number, userId: number) => {
   if (compareKey <= userId) {
-    return userId % 2 === 0 ? 'A' : 'B';
+    return userId % 2 === 0 ? 'C' : 'B';
   }
   if (compareKey > userId) {
-    return 'C';
+    return 'A';
   }
 };
 

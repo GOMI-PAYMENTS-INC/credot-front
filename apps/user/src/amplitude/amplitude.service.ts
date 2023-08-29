@@ -211,7 +211,7 @@ export const _amplitudeKeywordSearchedSucceeded = (
     search_volume: searchVolume || 0,
   });
 
-  if (hackleId && ['A', 'B'].includes(hackleId)) {
+  if (hackleId && ['B', 'C'].includes(hackleId)) {
     const event = {
       key: 'keyword_search_succeeded',
       properties: {
@@ -276,7 +276,7 @@ export const _amplitudeKeywordReportRequested = (
     job_id: jobId,
   });
 
-  if (hackleId && ['A', 'B'].includes(hackleId)) {
+  if (hackleId && ['B', 'C'].includes(hackleId)) {
     const event = {
       key: 'keyword_report_requested',
       properties: {
@@ -308,7 +308,7 @@ export const _amplitudeKeywordReportViewed = (
     keyword: keyword,
   });
 
-  if (hackleId && ['A', 'B'].includes(hackleId)) {
+  if (hackleId && ['B', 'C'].includes(hackleId)) {
     const event = {
       key: 'keyword_report_viewed',
       properties: {
