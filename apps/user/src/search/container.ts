@@ -208,7 +208,7 @@ const createReport = async (props: TSearchPayload) => {
     parameter: { reportInvokeId },
     _modalDispatch,
     _state,
-    hackleId,
+    hackleState,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -244,7 +244,7 @@ const createReport = async (props: TSearchPayload) => {
         sortBy,
         keyword,
         jobId,
-        hackleId,
+        hackleState,
       );
     }
   } catch (error) {

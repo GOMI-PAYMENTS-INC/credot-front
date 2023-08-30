@@ -14,11 +14,11 @@ import { Default } from '@/common/layouts';
 
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
 import { useRecoilValue } from 'recoil';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
-  const hackleId = useRecoilValue(HackleId);
+  const hackleState = useRecoilValue(HackleAtom);
   const scrollEventState: scrollEventState = {
     scrollY: 0,
     title: 'Report',
@@ -99,7 +99,7 @@ const DetailReportPageByShare = () => {
                 scrollEvent={scrollEvent}
                 setScrollEvent={setScrollEvent}
                 test={
-                  hackleId === 'B'
+                  hackleState.hackleId === 'B'
                     ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
                     : undefined
                 }
@@ -128,7 +128,7 @@ const DetailReportPageByShare = () => {
             scrollEvent={scrollEvent}
             setScrollEvent={setScrollEvent}
             test={
-              hackleId
+              hackleState.reason === 'TRAFFIC_ALLOCATED'
                 ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
                 : undefined
             }

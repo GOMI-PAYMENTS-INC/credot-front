@@ -4,7 +4,7 @@ import {
   _amplitudeKeywordSearchedFailed,
   _amplitudeKeywordSearchedSucceeded,
 } from '@/amplitude/amplitude.service';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 import { useRecoilValue } from 'recoil';
 
 interface IGetQueryType {
@@ -26,7 +26,7 @@ export const getQueryResult = (props: IGetQueryType) => {
       enabled: trigger,
       refetchOnWindowFocus: false,
       onSuccess: async (res) => {
-        const hackleId = useRecoilValue(HackleId);
+        const hackleState = useRecoilValue(HackleAtom);
         try {
           _amplitudeKeywordSearchedSucceeded(
             country,
@@ -34,7 +34,6 @@ export const getQueryResult = (props: IGetQueryType) => {
             text,
             res.search.relations,
             res.search.main.count,
-            hackleId,
           );
 
           return;

@@ -20,11 +20,11 @@ import { UnvaluableReport } from '@/report/elements/UnvaluableReport';
 import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
 import { useRecoilValue } from 'recoil';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 
 const DetailReportPage = () => {
   const params = useParams();
-  const hackleId = useRecoilValue(HackleId);
+  const hackleState = useRecoilValue(HackleAtom);
   const scrollEventState: scrollEventState = {
     scrollY: 0,
     title: 'Report',
@@ -33,7 +33,7 @@ const DetailReportPage = () => {
   };
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
-  const isTest = hackleId === 'B';
+  const isTest = hackleState.hackleId === 'B';
   const { main, relation, oversea, salePrice, brand, category } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ const DetailReportPage = () => {
         main.channel,
         main.sorted,
         main.text,
-        hackleId,
+        hackleState,
       );
     }
   }, [main?.id]);

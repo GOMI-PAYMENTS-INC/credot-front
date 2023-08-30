@@ -4,7 +4,7 @@ import { updateSearchPayload, initailizeSearchProps } from '@/search/container';
 import { getProductImages } from '@/search/api';
 import { isFalsy } from '@/utils/isFalsy';
 import { _getProductImages } from '@/search/container';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -17,7 +17,7 @@ export const getQueryResult = (
   _dispatch: Dispatch<SetStateAction<TSearchProps>>,
 ) => {
   const { country, sortBy, keyword } = payload;
-  const hackleId = useRecoilValue(HackleId);
+  const hackleState = useRecoilValue(HackleAtom);
 
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     { country, text: keyword },
@@ -50,7 +50,7 @@ export const getQueryResult = (
             keyword,
             res.search.relations,
             res.search.main.count,
-            hackleId,
+            hackleState,
           );
           return;
         } catch (error) {

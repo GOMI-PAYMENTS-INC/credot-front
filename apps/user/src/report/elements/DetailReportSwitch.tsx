@@ -13,7 +13,7 @@ import { authReturnUrl } from '@/auth/container';
 import { PATH } from '@/types/enum.code';
 
 import { useRecoilValue } from 'recoil';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;
@@ -29,8 +29,8 @@ export const DetailReportSwitch = ({
   params,
 }: IDetailReportSwitchProps) => {
   const { main, oversea, salePrice, relation, brand, category } = _state;
-  const hackleId = useRecoilValue(HackleId);
-  const isTest = hackleId === 'B';
+  const hackleState = useRecoilValue(HackleAtom);
+  const isTest = hackleState.hackleId === 'B';
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',

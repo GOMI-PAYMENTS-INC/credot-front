@@ -27,13 +27,13 @@ import { PATH } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { authReturnUrl } from '@/auth/container';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 //TODO: 분리시키기
 export const signInApi = () => {
   const navigation = useNavigate();
   const queryClient = useQueryClient();
   const clearUserAtom = useResetRecoilState(UserAtom);
-  const clearHackleId = useResetRecoilState(HackleId);
+  const clearHackleId = useResetRecoilState(HackleAtom);
 
   const clearLoginTokenAtom = useResetRecoilState(LoginTokenAtom);
   const userInfo = useRecoilValue(UserAtom);

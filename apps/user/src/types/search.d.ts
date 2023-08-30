@@ -103,7 +103,7 @@ type TRequestReport = {
   _dispatch: Dispatch<TSearchActionType>;
   parameter: TReportParams;
   _state: TSearchState;
-  hackleId?: THackleId | null;
+  hackleState?: THackleState | null;
 };
 
 type TReportParams = {

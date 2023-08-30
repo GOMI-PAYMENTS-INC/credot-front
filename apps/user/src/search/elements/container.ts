@@ -25,7 +25,7 @@ const requestReport = async ({
   parameter,
   _dispatch,
   _setTrigger,
-  hackleId,
+  hackleState,
 }: TRequestReport) => {
   const { keyword, country, sortBy } = _state;
   const { count } = parameter;
@@ -71,7 +71,7 @@ const requestReport = async ({
         return _setTrigger(false);
       }
     }
-    return await createReport({ _dispatch, _state, parameter, _setTrigger, hackleId });
+    return await createReport({ _dispatch, _state, parameter, _setTrigger, hackleState });
   } catch (error) {
     console.error(error);
   }
@@ -83,7 +83,7 @@ const createReport = async (props: TRequestReport) => {
     _state,
     _dispatch,
     _setTrigger,
-    hackleId,
+    hackleState,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -125,7 +125,7 @@ const createReport = async (props: TRequestReport) => {
         sortBy,
         keyword,
         jobId,
-        hackleId,
+        hackleState,
       );
     }
 

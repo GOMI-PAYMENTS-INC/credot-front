@@ -14,7 +14,7 @@ export const getQueryResult = (
   sortBy: TSortBy,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
-  hackleId?: THackleId | null,
+  hackleState?: THackleState | null,
 ) => {
   const { data, isLoading, isFetching, isError } = useSearchQuery(
     {
@@ -40,7 +40,7 @@ export const getQueryResult = (
             keyword,
             res.search.relations,
             res.search.main.count,
-            hackleId,
+            hackleState,
           );
           return;
         } catch (error) {

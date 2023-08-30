@@ -1,12 +1,12 @@
 import { NSearchKeywords } from './NSearchKeywords';
 import SearchKeywords from '@/search/SearchKeywords';
 import { useRecoilValue } from 'recoil';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 
 const Keyword = () => {
-  const hackleId = useRecoilValue(HackleId);
+  const hackleState = useRecoilValue(HackleAtom);
 
-  return ['A', 'C'].includes(hackleId!) ? <SearchKeywords /> : <NSearchKeywords />;
+  return hackleState.hackleId === 'A' ? <SearchKeywords /> : <NSearchKeywords />;
   // return <SearchKeywords />;
 };
 export default Keyword;

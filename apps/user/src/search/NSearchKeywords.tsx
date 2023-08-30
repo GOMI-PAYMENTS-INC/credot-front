@@ -34,14 +34,14 @@ import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGeneratorModal';
 import { BackforwardButton } from '@/components/BackForwardButton';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 import { useRecoilValue } from 'recoil';
 
 export const NSearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
   const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
-  const hackleId = useRecoilValue(HackleId);
+  const hackleState = useRecoilValue(HackleAtom);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
@@ -72,7 +72,7 @@ export const NSearchKeywords = () => {
         reportInvokeId: response?.reportInvokeId,
         count: response?.main.count,
       },
-      hackleId,
+      hackleState,
     });
   }, [modal.isOpen]);
 

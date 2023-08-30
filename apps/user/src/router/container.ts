@@ -2,43 +2,42 @@ import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isFalsy } from '@/utils/isFalsy';
 
-const getTestKey = (compareKey: number, userId: number) => {
+const isNewMember = (compareKey: number, userId: number) => {
   if (compareKey <= userId) {
-    return userId % 2 === 0 ? 'C' : 'B';
+    return true;
   }
   if (compareKey > userId) {
-    return 'A';
+    return false;
   }
 };
 
-export const generateHackleConfig = (userId: number, callback: Function) => {
+export const generateHackleConfig = (userId: number) => {
   const config = useSessionStorage.getItem(CACHING_KEY.HACKLE);
 
   if (config) {
-    return updateHackleConfig(callback);
+    return updateHackleConfig();
   }
   const COMPARE_KEY = 1260;
-  const variation = getTestKey(COMPARE_KEY, userId);
+  const variation = isNewMember(COMPARE_KEY, userId);
 
   const { deviceId } = window.hackleClient.getUser();
   const user = {
     deviceId: deviceId,
     userId: userId.toString(),
-    properties: { variation },
+    properties: { newMember: variation },
   };
-  callback(variation);
+
   useSessionStorage.setItem(CACHING_KEY.HACKLE, user);
   return user;
 };
 
-const updateHackleConfig = (callback: Function) => {
+const updateHackleConfig = () => {
   const { properties } = window.hackleClient.getUser();
 
   if (properties) return;
   const config = useSessionStorage.getItem(CACHING_KEY.HACKLE);
 
   if (config && isFalsy(properties)) {
-    callback(config.properties.variation);
     return window.hackleClient.setUser(config);
   }
 };

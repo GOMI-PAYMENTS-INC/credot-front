@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const HackleId = atom<THackleId | null>({
+export const HackleAtom = atom<THackleState>({
   key: 'hackleId',
-  default: null,
+  default: { hackleId: null, reason: 'SDK_NOT_READY' },
 });

@@ -196,7 +196,7 @@ export const _amplitudeKeywordSearchedSucceeded = (
   keyword: string,
   relations: SearchDto[],
   searchVolume?: number | null,
-  hackleId?: THackleId | null,
+  hackleState?: THackleState | null,
 ) => {
   const recKeywords = [...relations].map((value) => {
     return value.text;
@@ -211,7 +211,7 @@ export const _amplitudeKeywordSearchedSucceeded = (
     search_volume: searchVolume || 0,
   });
 
-  if (hackleId && ['B', 'C'].includes(hackleId)) {
+  if (hackleState && hackleState.reason === 'TRAFFIC_ALLOCATED') {
     const event = {
       key: 'keyword_search_succeeded',
       properties: {
@@ -265,7 +265,7 @@ export const _amplitudeKeywordReportRequested = (
   sortBy: TSortBy,
   keyword: string,
   jobId: string,
-  hackleId?: THackleId | null,
+  hackleState?: THackleState | null,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
     report_id: reportId,
@@ -276,7 +276,7 @@ export const _amplitudeKeywordReportRequested = (
     job_id: jobId,
   });
 
-  if (hackleId && ['B', 'C'].includes(hackleId)) {
+  if (hackleState && hackleState.reason === 'TRAFFIC_ALLOCATED') {
     const event = {
       key: 'keyword_report_requested',
       properties: {
@@ -298,7 +298,7 @@ export const _amplitudeKeywordReportViewed = (
   platform: TChannel,
   sortBy: TSortBy,
   keyword: string,
-  hackleId?: THackleId | null,
+  hackleState?: THackleState,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
     report_id: reportId,
@@ -308,7 +308,7 @@ export const _amplitudeKeywordReportViewed = (
     keyword: keyword,
   });
 
-  if (hackleId && ['B', 'C'].includes(hackleId)) {
+  if (hackleState && hackleState.reason === 'TRAFFIC_ALLOCATED') {
     const event = {
       key: 'keyword_report_viewed',
       properties: {

@@ -6,7 +6,7 @@ import { SEARCH_MODAL_INIT_VALUE } from '@/search/newSearch/constants';
 
 import { Modal } from '@/report/keyword/elements/Modal';
 import { MODAL_TYPE_ENUM } from '@/types/enum.code';
-import { HackleId } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/common/hackle.atom';
 import { useRecoilValue } from 'recoil';
 
 interface IReportGeneratorModal {
@@ -19,7 +19,7 @@ interface IReportGeneratorModal {
 export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
   const { _modalState, _modalDispatch, _state, parameter } = props;
   const { modalType, response } = _modalState;
-  const hackleId = useRecoilValue(HackleId);
+  const hackleState = useRecoilValue(HackleAtom);
   const navigate = useNavigate();
   return (
     <ModalComponent isOpen={modalType !== ''}>
@@ -42,7 +42,7 @@ export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
               _state,
               _modalDispatch,
               parameter,
-              hackleId,
+              hackleState,
             });
           } else {
             _modalDispatch(SEARCH_MODAL_INIT_VALUE);
