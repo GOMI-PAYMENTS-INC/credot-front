@@ -17,7 +17,7 @@ export const generateHackleConfig = (userId: number) => {
   if (config) {
     return updateHackleConfig();
   }
-  const COMPARE_KEY = 1260;
+  const COMPARE_KEY = 1330;
   const variation = isNewMember(COMPARE_KEY, userId);
 
   const { deviceId } = window.hackleClient.getUser();
