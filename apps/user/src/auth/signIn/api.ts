@@ -33,7 +33,7 @@ export const signInApi = () => {
   const navigation = useNavigate();
   const queryClient = useQueryClient();
   const clearUserAtom = useResetRecoilState(UserAtom);
-  const clearHackleId = useResetRecoilState(HackleAtom);
+  const clearHackleState = useResetRecoilState(HackleAtom);
 
   const clearLoginTokenAtom = useResetRecoilState(LoginTokenAtom);
   const userInfo = useRecoilValue(UserAtom);
@@ -122,7 +122,7 @@ export const signInApi = () => {
 
   const onLogout = async () => {
     clearUserInfo();
-    clearHackleId();
+    clearHackleState();
     navigation(PATH.SIGN_IN);
 
     // ##### 로그아웃 이벤트 시작 ##### //
