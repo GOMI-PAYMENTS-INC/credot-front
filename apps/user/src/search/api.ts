@@ -29,6 +29,7 @@ export const getQueryResult = (
         try {
           const images = await getProductImages({
             keyword: keyword,
+            country: country as TSearchCountry,
           });
 
           if (images && images.data.data !== null) {
@@ -91,9 +92,16 @@ export const getReportExisted = async (params: TGetReportExistedParamsType) => {
   }
 };
 
-export const getProductImages = async (queryString: { keyword: string }) => {
+export const getProductImages = async (queryString: {
+  keyword: string;
+  country: TSearchCountry;
+}) => {
   try {
-    const URL = REPORT_URL.getProductImage + queryString.keyword + '/image';
+    const URL =
+      REPORT_URL.getProductImage +
+      queryString.keyword +
+      `/${queryString.country}` +
+      '/image';
     return await HTTP.get<TGetProductImageResponse>(URL);
   } catch (error) {
     console.error(error);
