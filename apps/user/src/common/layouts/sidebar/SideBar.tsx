@@ -208,7 +208,7 @@ const SideBar = (props: TSideBarProps) => {
                 <button
                   className='flex w-full justify-between'
                   onClick={() => {
-                    console.log('작업하자');
+                    navigation(PATH.SUBSCRIBE);
                   }}
                 >
                   <div className='flex cursor-pointer items-center'>

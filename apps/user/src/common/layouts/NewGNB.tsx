@@ -79,7 +79,9 @@ const GNB = () => {
 
           <button
             className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
-            onClick={() => {}}
+            onClick={() => {
+              navigate(PATH.SUBSCRIBE);
+            }}
           >
             <ReactSVG
               src='/assets/icons/outlined/CreditCard.svg'
