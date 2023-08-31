@@ -24,7 +24,8 @@ export const Default = ({ children }: IDefaultProps) => {
   return (
     <Fragment>
       <div className='h-screen'>
-        {hackleState.hackleId === 'A' ? (
+        {/* <-- TODO: 삭제 해야함 --> */}
+        {/* {hackleState.hackleId === 'A' ? (
           <Fragment>
             <SideBar _state={_state} _dispatch={_dispatch} />
             <MSidebar _state={_state} _dispatch={_dispatch} />
@@ -36,12 +37,12 @@ export const Default = ({ children }: IDefaultProps) => {
               {children}
             </div>
           </Fragment>
-        ) : (
-          <Fragment>
-            <GNB />
-            <div className={handleCss}>{children}</div>
-          </Fragment>
-        )}
+        ) : ( */}
+        <Fragment>
+          <GNB />
+          <div className={handleCss}>{children}</div>
+        </Fragment>
+        {/* )} */}
       </div>
     </Fragment>
   );

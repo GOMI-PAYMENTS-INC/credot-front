@@ -45,7 +45,7 @@ const GNB = () => {
             return (
               <li
                 key={menu.key}
-                className={`py-2.5 px-5 text-M/Medium ${highLightEffect} cursor-pointer rounded-lg`}
+                className={`py-2.5 px-5  text-S/Medium ${highLightEffect} cursor-pointer rounded-lg`}
                 onClick={() => {
                   navigate(menu.path);
                 }}
@@ -58,25 +58,42 @@ const GNB = () => {
       </div>
 
       <div className='flex h-[44px]'>
-        <button
-          className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
-          onClick={() => {
-            openBrowser('https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739');
-            _amplitudeMovedToUserGuide('lnb');
-          }}
-        >
-          <ReactSVG
-            src='/assets/icons/outlined/QuestionCircle.svg'
-            beforeInjection={(svg) => {
-              svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
+        <div className='flex gap-2.5'>
+          <button
+            className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
+            onClick={() => {
+              openBrowser(
+                'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+              );
+              _amplitudeMovedToUserGuide('lnb');
             }}
-          />
-          <p className='ml-2 text-M/Medium text-grey-800'>사용자 가이드</p>
-        </button>
+          >
+            <ReactSVG
+              src='/assets/icons/outlined/QuestionCircle.svg'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
+              }}
+            />
+            <p className='ml-2 text-S/Medium text-grey-800'>사용자 가이드</p>
+          </button>
 
-        <div className='relative ml-2.5 flex items-center'>
+          <button
+            className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
+            onClick={() => {}}
+          >
+            <ReactSVG
+              src='/assets/icons/outlined/CreditCard.svg'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
+              }}
+            />
+            <p className='ml-2 text-S/Medium text-grey-800'>MY PLAN</p>
+          </button>
+        </div>
+
+        <div className='relative ml-2 flex items-center'>
           <div
-            className='flex w-[208px] cursor-pointer items-center justify-end py-2.5 px-5 text-M/Medium text-grey-800'
+            className='flex w-[208px] cursor-pointer items-center justify-end py-2.5 px-5  text-S/Medium text-grey-800'
             onClick={() => setIsToggleOpen(!isToggleOpen)}
           >
             {replaceOverLength(userAccount || '', 18)}
