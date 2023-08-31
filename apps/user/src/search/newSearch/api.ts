@@ -32,7 +32,7 @@ export const getQueryResult = (
             key: 'images',
             params: null,
           });
-          const images = await getProductImages({ keyword });
+          const images = await getProductImages({ keyword, country: payload.country });
 
           if (images && images.data.data !== null) {
             const [productImgs] = images.data.data;
