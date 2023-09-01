@@ -11,6 +11,14 @@ const isNewMember = (compareKey: number, userId: number) => {
   }
 };
 
+const checkUserDevice = () => {
+  var UA = navigator.userAgent;
+  return (
+    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+  );
+};
+
 export const generateHackleConfig = (userId: number) => {
   const config = useSessionStorage.getItem(CACHING_KEY.HACKLE);
 
@@ -20,11 +28,13 @@ export const generateHackleConfig = (userId: number) => {
   const COMPARE_KEY = 1330;
   const variation = isNewMember(COMPARE_KEY, userId);
 
+  const isMobile = checkUserDevice();
+
   const { deviceId } = window.hackleClient.getUser();
   const user = {
     deviceId: deviceId,
     userId: userId.toString(),
-    properties: { newMember: variation },
+    properties: { newMember: variation, isMobile: isMobile },
   };
 
   useSessionStorage.setItem(CACHING_KEY.HACKLE, user);
