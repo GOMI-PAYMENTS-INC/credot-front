@@ -9,9 +9,10 @@ import { HackleAtom } from '@/atom/common/hackle.atom';
 
 interface IDefaultProps {
   children?: ReactNode;
+  useGap?: boolean;
 }
 
-export const Default = ({ children }: IDefaultProps) => {
+export const Default = ({ children, useGap = false }: IDefaultProps) => {
   const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
   const [handleCss, setHandleCss] = useState('');
   const hackleState = useRecoilValue(HackleAtom);
@@ -40,7 +41,7 @@ export const Default = ({ children }: IDefaultProps) => {
         ) : ( */}
         <Fragment>
           <GNB />
-          <div className={handleCss}>{children}</div>
+          <div className={`handleCss ${useGap ? 'mt-[72px]' : ''}`}>{children}</div>
         </Fragment>
         {/* )} */}
       </div>

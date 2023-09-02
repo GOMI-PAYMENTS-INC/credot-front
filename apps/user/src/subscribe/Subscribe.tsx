@@ -2,11 +2,18 @@ import { Default as Layout } from '@/common/layouts';
 import { TransactionHistory } from '@/subscribe/elements';
 import { FAQ } from './elements/FAQ';
 import { SUBSCRIBE_QNA } from '@/subscribe/constant';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/router/routeList';
+import { useEffect } from 'react';
 
-const Subscribe = () => {
+export const Subscribe = () => {
+  const navigator = useNavigate();
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
-    <Layout>
-      <section className='mt-[72px] space-y-[60px]'>
+    <Layout useGap={true}>
+      <section className='space-y-[60px]'>
         <header className='relative bg-grey-50'>
           <div className='absolute left-0 top-0 h-[130px] w-[348px] rounded-[348px] bg-orange-500 opacity-[0.2] blur-[100px]' />
           <div className='absolute right-0 bottom-0 h-[130px] w-[348px] rounded-[348px] bg-orange-500 opacity-[0.2] blur-[100px]' />
@@ -14,9 +21,6 @@ const Subscribe = () => {
           <div className='flex w-full justify-center'>
             <div className='flex w-[1148px] flex-col gap-10 py-[60px]'>
               <p className='text-4XL/Bold'>구독 및 결제</p>
-              <div className='w-[141px] rounded-[58px] bg-orange-300 px-[27px] py-2.5'>
-                <p className='text-M/Bold text-white'>키워드 리포트</p>
-              </div>
             </div>
           </div>
         </header>
@@ -63,7 +67,10 @@ const Subscribe = () => {
                       <p className='text-L/Regular text-grey-800'>
                         다음 결제일 : <span>-</span>
                       </p>
-                      <button className='button-filled-normal-large-primary-false-false-true w-[188px] bg-gradient-to-r from-orange-500 to-[#FF8C04]'>
+                      <button
+                        className='button-filled-normal-large-primary-false-false-true w-[188px] bg-gradient-to-r from-orange-500 to-[#FF8C04]'
+                        onClick={() => navigator(PATH.UPGRADE_PLAN)}
+                      >
                         플랜 변경하기
                       </button>
                     </div>
@@ -87,10 +94,9 @@ const Subscribe = () => {
         </main>
 
         <footer>
-          <FAQ title='결제 관련' list={SUBSCRIBE_QNA} />
+          <FAQ list={SUBSCRIBE_QNA} />
         </footer>
       </section>
     </Layout>
   );
 };
-export default Subscribe;
