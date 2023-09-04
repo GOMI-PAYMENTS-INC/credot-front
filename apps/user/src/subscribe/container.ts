@@ -77,13 +77,16 @@ export const openPaymentWidget = async (
     // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
     // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
     // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-    const path = import.meta.url;
+    const path = {
+      success: window.location.host + PATH.SUBSCRIBE,
+      failed: window.location.host + PATH.UPGRADE_PLAN,
+    };
     await paymentWidget?.requestPayment({
       orderId: uuid,
       orderName: `${selectedPaln.name} 플랜`,
       customerEmail: userEmail,
-      successUrl: path + PATH.SUBSCRIBE,
-      failUrl: path + PATH.UPGRADE_PLAN,
+      successUrl: path.success,
+      failUrl: path.failed,
     });
   } catch (error) {
     // 에러 처리하기
