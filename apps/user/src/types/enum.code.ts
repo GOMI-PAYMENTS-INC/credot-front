@@ -131,6 +131,7 @@ export enum PATH {
   REPORT_DETAIL = '/report/:id',
   REPORT_DETAIL_BY_SHARE = '/share/:id',
   _REPORT_DETAIL_BY_SHARE = '/share',
+  SUBSCRIBE = '/subscribe',
 }
 
 export enum AUTH_RESPONSE_TYPE {

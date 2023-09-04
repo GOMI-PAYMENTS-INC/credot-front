@@ -95,7 +95,7 @@ export const DetailReportSwitch = ({
                 ></div>
               </div>
             </div>
-            <div className='relative !-mt-[72px] text-center'>
+            <div className='!- relative text-center'>
               <div>
                 <p className='text-XL/Medium'>리포트의 다음 내용이 궁금하신가요?</p>
                 <p className='mt-[9px] text-XL/Bold'>

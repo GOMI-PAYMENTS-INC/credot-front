@@ -18,7 +18,7 @@ import { useRecoilValue } from 'recoil';
 export default function PrivateRoute() {
   const storageToken = authTokenStorage.getToken();
   const userInfo = useRecoilValue(UserAtom);
-  const [_hackleId, _setHackleId] = useRecoilState(HackleAtom);
+  const [hackleState, _setHackleState] = useRecoilState(HackleAtom);
   const { saveReturnUrl } = authReturnUrl();
 
   if (isFalsy(storageToken)) {
@@ -29,7 +29,7 @@ export default function PrivateRoute() {
   const variation = useVariationDetail(12);
 
   useEffect(() => {
-    _setHackleId({
+    _setHackleState({
       hackleId: variation.variation as THackleId,
       reason: variation.reason as THackleVariationReason,
     });
@@ -41,7 +41,8 @@ export default function PrivateRoute() {
       if (user) window.hackleClient.setUser(user);
     }
   }, [userInfo?.me.id]);
-  if (_hackleId === null) return <Fragment />;
+
+  if (hackleState.hackleId === null) return <Fragment />;
 
   return (
     <HackleExperiment experimentKey={12}>

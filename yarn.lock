@@ -2122,6 +2122,68 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tosspayments/brandpay-types@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "@tosspayments/brandpay-types@npm:0.2.5"
+  peerDependencies:
+    typescript: ^4.1.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 44964837539cfc5ae34ac7f5f5d373ad63e158c2081bfedf8b309a3093d5b677f0c6d17e8471423ee8c26ecdc1c706ab4f9bf338c85bda2db1d0f019a514666a
+  languageName: node
+  linkType: hard
+
+"@tosspayments/payment-widget-sdk@npm:^0.9.3":
+  version: 0.9.3
+  resolution: "@tosspayments/payment-widget-sdk@npm:0.9.3"
+  dependencies:
+    "@tosspayments/payment-widget__types": ^0.2.4
+  checksum: d3520f7a040e35eab37c3c15eba3e5537fa6bf0524b9b89b8be7a19ff1513b4c99e0350f9a87a4ee7065f67c9673cdd391e8c58836ddcfb2349b6fbcc5725b93
+  languageName: node
+  linkType: hard
+
+"@tosspayments/payment-widget-types@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@tosspayments/payment-widget-types@npm:0.0.5"
+  peerDependencies:
+    typescript: ^4.7.4
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 0ede3a3cecb226e70cb30958e52c9ffe9005a88ee5512d181b4cb0bfb13442ad2e03c8b5a11599b23e788510327bac1fbead9ffb2ff06623df31df4e186e1594
+  languageName: node
+  linkType: hard
+
+"@tosspayments/payment-widget__types@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "@tosspayments/payment-widget__types@npm:0.2.4"
+  dependencies:
+    "@tosspayments/brandpay-types": ^0.2.5
+    "@tosspayments/payment-widget-types": ^0.0.5
+    "@tosspayments/payment__types": ^1.66.2
+  checksum: 83f88e435a8a07c9388ca45d880fc15422a2288c07771e1b61bc878e2b2c492f0e79e62575fd213625efa7ce54f488aa4f7b517eda677d1ca7665aeda754f4a3
+  languageName: node
+  linkType: hard
+
+"@tosspayments/payment__types@npm:^1.66.2":
+  version: 1.66.2
+  resolution: "@tosspayments/payment__types@npm:1.66.2"
+  dependencies:
+    "@tosspayments/sdk-constants": ^0.2.2
+  checksum: ac14b975743b73f6d0998c7002d4f011856db19cb5ea225f1e589bb1964271309c48bf2292fc403258a4aa7ed20bac02edfa5d4d28033a180d025867dcd7c4a5
+  languageName: node
+  linkType: hard
+
+"@tosspayments/sdk-constants@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@tosspayments/sdk-constants@npm:0.2.2"
+  dependencies:
+    type-fest: ^2.11.2
+  checksum: 6169315e59881f60d6203896d24f952cc754f33907d4426a445ec689a02fc12e220b2f158c09593f02bbe41194391dcb6c5353176962918d671884d0a7d5966c
+  languageName: node
+  linkType: hard
+
 "@tsconfig/node10@npm:^1.0.7":
   version: 1.0.9
   resolution: "@tsconfig/node10@npm:1.0.9"
@@ -2260,6 +2322,13 @@ __metadata:
   version: 7.3.13
   resolution: "@types/semver@npm:7.3.13"
   checksum: 00c0724d54757c2f4bc60b5032fe91cda6410e48689633d5f35ece8a0a66445e3e57fa1d6e07eb780f792e82ac542948ec4d0b76eb3484297b79bd18b8cf1cb0
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9.0.3":
+  version: 9.0.3
+  resolution: "@types/uuid@npm:9.0.3"
+  checksum: 3dde198defd71c067dd14b3050a8fe6d1ead5fe94ec318472e2c30a399d13f18941fe66cffabdcac7267177c9de2f975fdee6f0cc87cde610a2578e1ce4cc3af
   languageName: node
   linkType: hard
 
@@ -6193,9 +6262,11 @@ __metadata:
     "@tailwindcss/line-clamp": ^0.4.2
     "@tanstack/react-query": ^4.13.0
     "@tanstack/react-query-devtools": ^4.14.5
+    "@tosspayments/payment-widget-sdk": ^0.9.3
     "@types/node": ^18.11.7
     "@types/react": ^18.0.22
     "@types/react-dom": ^18.0.7
+    "@types/uuid": ^9.0.3
     "@vitejs/plugin-react": ^2.2.0
     autoprefixer: ^10.4.13
     axios: ^0.27.2
@@ -6220,6 +6291,7 @@ __metadata:
     react-tooltip: ^5.13.2
     recoil: ^0.7.6
     tailwindcss: ^3.2.1
+    uuid: ^9.0.0
     vite: 3.1.8
     vite-plugin-html-env: ^1.2.7
     vite-plugin-svgr: ^2.2.2
@@ -6235,9 +6307,11 @@ __metadata:
     "@hackler/react-sdk": ^11.18.1
     "@tailwindcss/line-clamp": ^0.4.2
     "@tanstack/react-query": ^4.13.0
+    "@tosspayments/payment-widget-sdk": ^0.9.3
     "@types/node": ^18.11.18
     "@types/react": ^18.0.22
     "@types/react-dom": ^18.0.7
+    "@types/uuid": ^9.0.3
     "@typescript-eslint/eslint-plugin": ^5.41.0
     "@typescript-eslint/parser": ^5.41.0
     "@vitejs/plugin-react": ^2.2.0
@@ -6272,6 +6346,7 @@ __metadata:
     ts-node: ^10.9.1
     tslib: ^1
     typescript: ^4.8.4
+    uuid: ^9.0.0
     vite: 3.1.8
     vite-plugin-html-env: ^1.2.7
     vite-plugin-svgr: ^2.2.2
@@ -8799,6 +8874,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^2.11.2":
+  version: 2.19.0
+  resolution: "type-fest@npm:2.19.0"
+  checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
+  languageName: node
+  linkType: hard
+
 "typed-array-length@npm:^1.0.4":
   version: 1.0.4
   resolution: "typed-array-length@npm:1.0.4"
@@ -8991,6 +9073,15 @@ __metadata:
   bin:
     uuid: dist/bin/uuid
   checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "uuid@npm:9.0.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 8dd2c83c43ddc7e1c71e36b60aea40030a6505139af6bee0f382ebcd1a56f6cd3028f7f06ffb07f8cf6ced320b76aea275284b224b002b289f89fe89c389b028
   languageName: node
   linkType: hard
 
