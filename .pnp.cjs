@@ -43,9 +43,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
+            ["@tosspayments/payment-widget-sdk", "npm:0.9.3"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
+            ["@types/uuid", "npm:9.0.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:5.48.2"],\
             ["@typescript-eslint/parser", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:5.48.2"],\
             ["@vitejs/plugin-react", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.2.0"],\
@@ -80,6 +82,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.9.1"],\
             ["tslib", "npm:1.14.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=289587"],\
+            ["uuid", "npm:9.0.0"],\
             ["vite", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.1.8"],\
             ["vite-plugin-html-env", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:1.2.7"],\
             ["vite-plugin-svgr", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.4.0"]\
@@ -3421,6 +3424,92 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@tosspayments/brandpay-types", [\
+        ["npm:0.2.5", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-brandpay-types-npm-0.2.5-71a2d4f812-4496483753.zip/node_modules/@tosspayments/brandpay-types/",\
+          "packageDependencies": [\
+            ["@tosspayments/brandpay-types", "npm:0.2.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:b1588d07e642008cdf7f62c71ebcfa66ff39a3e9eb9c409e0ec9f757d74db181cdeba82fb84be3b7ef22bca45db5a1c0c751dc5606aefdece7abf7787793f6f4#npm:0.2.5", {\
+          "packageLocation": "./.yarn/__virtual__/@tosspayments-brandpay-types-virtual-0648d777f2/0/cache/@tosspayments-brandpay-types-npm-0.2.5-71a2d4f812-4496483753.zip/node_modules/@tosspayments/brandpay-types/",\
+          "packageDependencies": [\
+            ["@tosspayments/brandpay-types", "virtual:b1588d07e642008cdf7f62c71ebcfa66ff39a3e9eb9c409e0ec9f757d74db181cdeba82fb84be3b7ef22bca45db5a1c0c751dc5606aefdece7abf7787793f6f4#npm:0.2.5"],\
+            ["@types/typescript", null],\
+            ["typescript", null]\
+          ],\
+          "packagePeers": [\
+            "@types/typescript",\
+            "typescript"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/payment-widget-sdk", [\
+        ["npm:0.9.3", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-payment-widget-sdk-npm-0.9.3-9ef32c85ed-d3520f7a04.zip/node_modules/@tosspayments/payment-widget-sdk/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment-widget-sdk", "npm:0.9.3"],\
+            ["@tosspayments/payment-widget__types", "npm:0.2.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/payment-widget-types", [\
+        ["npm:0.0.5", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-payment-widget-types-npm-0.0.5-9d68c14c83-0ede3a3cec.zip/node_modules/@tosspayments/payment-widget-types/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment-widget-types", "npm:0.0.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:b1588d07e642008cdf7f62c71ebcfa66ff39a3e9eb9c409e0ec9f757d74db181cdeba82fb84be3b7ef22bca45db5a1c0c751dc5606aefdece7abf7787793f6f4#npm:0.0.5", {\
+          "packageLocation": "./.yarn/__virtual__/@tosspayments-payment-widget-types-virtual-b1c4d85acd/0/cache/@tosspayments-payment-widget-types-npm-0.0.5-9d68c14c83-0ede3a3cec.zip/node_modules/@tosspayments/payment-widget-types/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment-widget-types", "virtual:b1588d07e642008cdf7f62c71ebcfa66ff39a3e9eb9c409e0ec9f757d74db181cdeba82fb84be3b7ef22bca45db5a1c0c751dc5606aefdece7abf7787793f6f4#npm:0.0.5"],\
+            ["@types/typescript", null],\
+            ["typescript", null]\
+          ],\
+          "packagePeers": [\
+            "@types/typescript",\
+            "typescript"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/payment-widget__types", [\
+        ["npm:0.2.4", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-payment-widget__types-npm-0.2.4-b1588d07e6-83f88e435a.zip/node_modules/@tosspayments/payment-widget__types/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment-widget__types", "npm:0.2.4"],\
+            ["@tosspayments/brandpay-types", "virtual:b1588d07e642008cdf7f62c71ebcfa66ff39a3e9eb9c409e0ec9f757d74db181cdeba82fb84be3b7ef22bca45db5a1c0c751dc5606aefdece7abf7787793f6f4#npm:0.2.5"],\
+            ["@tosspayments/payment-widget-types", "virtual:b1588d07e642008cdf7f62c71ebcfa66ff39a3e9eb9c409e0ec9f757d74db181cdeba82fb84be3b7ef22bca45db5a1c0c751dc5606aefdece7abf7787793f6f4#npm:0.0.5"],\
+            ["@tosspayments/payment__types", "npm:1.66.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/payment__types", [\
+        ["npm:1.66.2", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-payment__types-npm-1.66.2-1eeb5744b5-ac14b97574.zip/node_modules/@tosspayments/payment__types/",\
+          "packageDependencies": [\
+            ["@tosspayments/payment__types", "npm:1.66.2"],\
+            ["@tosspayments/sdk-constants", "npm:0.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tosspayments/sdk-constants", [\
+        ["npm:0.2.2", {\
+          "packageLocation": "./.yarn/cache/@tosspayments-sdk-constants-npm-0.2.2-89678e20e8-6169315e59.zip/node_modules/@tosspayments/sdk-constants/",\
+          "packageDependencies": [\
+            ["@tosspayments/sdk-constants", "npm:0.2.2"],\
+            ["type-fest", "npm:2.19.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@tsconfig/node10", [\
         ["npm:1.0.9", {\
           "packageLocation": "./.yarn/cache/@tsconfig-node10-npm-1.0.9-f2e2d20feb-a33ae4dc2a.zip/node_modules/@tsconfig/node10/",\
@@ -3593,6 +3682,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.13-56212b60da-00c0724d54.zip/node_modules/@types/semver/",\
           "packageDependencies": [\
             ["@types/semver", "npm:7.3.13"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/uuid", [\
+        ["npm:9.0.3", {\
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-9.0.3-988861045e-3dde198def.zip/node_modules/@types/uuid/",\
+          "packageDependencies": [\
+            ["@types/uuid", "npm:9.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8418,9 +8516,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@hackler/react-sdk", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:11.18.1"],\
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
+            ["@tosspayments/payment-widget-sdk", "npm:0.9.3"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
+            ["@types/uuid", "npm:9.0.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:5.48.2"],\
             ["@typescript-eslint/parser", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:5.48.2"],\
             ["@vitejs/plugin-react", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.2.0"],\
@@ -8455,6 +8555,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.9.1"],\
             ["tslib", "npm:1.14.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=289587"],\
+            ["uuid", "npm:9.0.0"],\
             ["vite", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.1.8"],\
             ["vite-plugin-html-env", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:1.2.7"],\
             ["vite-plugin-svgr", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.4.0"]\
@@ -8513,9 +8614,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tailwindcss/line-clamp", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.4.2"],\
             ["@tanstack/react-query", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:4.22.0"],\
             ["@tanstack/react-query-devtools", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:4.22.0"],\
+            ["@tosspayments/payment-widget-sdk", "npm:0.9.3"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
+            ["@types/uuid", "npm:9.0.3"],\
             ["@vitejs/plugin-react", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.2.0"],\
             ["autoprefixer", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:10.4.13"],\
             ["axios", "npm:0.27.2"],\
@@ -8540,6 +8643,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-tooltip", "virtual:eaa8f65711140fd4eb1db943c7858ceb4e09ec96300583ad573537af66cf04460bf5a923e4ba33780dd4eb971fe6ff5d7d70ecb9308d94a4466b345089bb8f7b#npm:5.13.2"],\
             ["recoil", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:0.7.6"],\
             ["tailwindcss", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.2.4"],\
+            ["uuid", "npm:9.0.0"],\
             ["vite", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:3.1.8"],\
             ["vite-plugin-html-env", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:1.2.7"],\
             ["vite-plugin-svgr", "virtual:494ac4fac2c5d751cbc27a7ab42b347b83e5441d0b20d87f9baa54c7f9b94c7df2a21a947d0f5f045c7a5c7e234c5912d8b388a0610c29a55b36987adde5740e#npm:2.4.0"]\
@@ -11659,6 +11763,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["type-fest", "npm:0.8.1"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:2.19.0", {\
+          "packageLocation": "./.yarn/cache/type-fest-npm-2.19.0-918b953248-a4ef07ece2.zip/node_modules/type-fest/",\
+          "packageDependencies": [\
+            ["type-fest", "npm:2.19.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["typed-array-length", [\
@@ -11869,6 +11980,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
           "packageDependencies": [\
             ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:9.0.0", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-9.0.0-46c41e3e43-8dd2c83c43.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\

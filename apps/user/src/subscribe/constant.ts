@@ -24,3 +24,18 @@ export const SUBSCRIBE_QNA = [
       '상위 플랜에서 하위 플랜으로 변경하시는 경우, 기존 플랜을 구독 취소 후 하위 플랜으로 재결제 할 수 있어요. 구독 취소 및 환불은 고미인사이트 서비스 내 채팅 문의를 통해 신청할 수 있어요.',
   },
 ];
+
+export const PLANS = [
+  {
+    name: 'Starter',
+    originPrice: 20000,
+    price: 10000,
+    count: 50,
+  },
+  {
+    name: 'Pro',
+    originPrice: 32000,
+    price: 16000,
+    count: 150,
+  },
+];

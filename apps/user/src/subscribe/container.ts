@@ -1,4 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react';
+import {
+  PaymentWidgetInstance,
+  loadPaymentWidget,
+} from '@tosspayments/payment-widget-sdk';
+import { v4 as uuidv4 } from 'uuid';
+import { PATH } from '@/router/routeList';
 export const DATA = [
   {
     createdAt: '2023.08.23 16:04:32',
@@ -48,4 +54,50 @@ export const openFAQ = (params: {
     const payload = openedFAQ.concat(faqIndex);
     setOpenedFAQ(payload);
   }
+};
+
+export const openPaymentWidget = async (
+  _dispatch: Dispatch<SetStateAction<boolean>>,
+  selectedPaln: TPlanType,
+  userEmail?: string,
+) => {
+  try {
+    const clientKey = import.meta.env.VITE_TOSS_KEY;
+    const customerKey = 'kBovVXSJLsTahwvFA5tr-';
+    const uuid = uuidv4();
+
+    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
+
+    paymentWidget.renderPaymentMethods(
+      '#payment-widget',
+      { value: selectedPaln.price },
+      { variantKey: 'widgetA' }, // 렌더링하고 싶은 결제 UI의 variantKey
+    );
+
+    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+    // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
+    // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+    const path = import.meta.url;
+    await paymentWidget?.requestPayment({
+      orderId: uuid,
+      orderName: `${selectedPaln.name} 플랜`,
+      customerEmail: userEmail,
+      successUrl: path + PATH.SUBSCRIBE,
+      failUrl: path + PATH.UPGRADE_PLAN,
+    });
+  } catch (error) {
+    // 에러 처리하기
+    _dispatch(false);
+
+    console.error(error);
+  }
+};
+
+export const cleanUpWidget = () => {};
+
+export const updateSelectedPlan = (
+  selectedPaln: TPlanType,
+  _dispatch: Dispatch<SetStateAction<TPlanType>>,
+) => {
+  _dispatch(selectedPaln);
 };

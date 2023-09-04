@@ -2,16 +2,44 @@ import { Default as Layout } from '@/common/layouts';
 import { BackforwardButton } from '@/components/BackForwardButton';
 import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
+
+import { openPaymentWidget, updateSelectedPlan } from '@/subscribe/container';
+import { UserAtom } from '@/atom/auth/auth-atom';
+import { useRecoilValue } from 'recoil';
+import {
+  PaymentWidgetInstance,
+  loadPaymentWidget,
+} from '@tosspayments/payment-widget-sdk';
+import { PLANS } from '@/subscribe/constant';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<TPlanType>(PLANS[0]);
+  const userEmail = useRecoilValue(UserAtom)?.me.email;
+  const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
+  const paymentMethodsWidgetRef = useRef<ReturnType<
+    PaymentWidgetInstance['renderPaymentMethods']
+  > | null>(null);
 
   useEffect(() => {
     window.scroll(0, 0);
+    const clientKey = import.meta.env.VITE_TOSS_KEY;
+    const customerKey = 'kBovVXSJLsTahwvFA5tr-';
+    (async () => {
+      const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
+
+      // ------  이용약관 렌더링 ------
+      // 이용약관 UI를 렌더링할 위치를 지정합니다. `#agreement`와 같은 CSS 선택자를 추가하세요.
+      // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+      paymentWidget.renderAgreement('#agreement');
+
+      paymentWidgetRef.current = paymentWidget;
+    })();
 
     if (width === 0) {
       setWidth(document.getElementById('plan_width')?.offsetLeft! - 100);
@@ -20,6 +48,12 @@ export const UpgradePlan = () => {
 
   return (
     <Layout useGap={true}>
+      {isOpen && (
+        <Fragment>
+          <div id='agreement' />
+          <div hidden id='payment-widget' />
+        </Fragment>
+      )}
       <section className='pb-[164px]'>
         <div className='absolute left-0 top-0 h-[130px] w-[348px] rounded-[348px] bg-orange-500 opacity-[0.2] blur-[100px]' />
         <div className='absolute right-0 bottom-0 h-[130px] w-[348px] rounded-[348px] bg-orange-500 opacity-[0.2] blur-[100px]' />
@@ -42,24 +76,37 @@ export const UpgradePlan = () => {
             <div className='flex w-[1148px] justify-between'>
               <div className='flex w-[608px] flex-col justify-around gap-12'>
                 <div className='space-y-5 text-2XL/Bold'>
-                  <p>플랜 선택</p>
+                  <p>결제 플랜</p>
                   <ul id='plan_list' className='flex flex-col gap-5'>
-                    {['Starter', 'Pro'].map((plan, index) => {
-                      const isSelected = plan === 'Starter';
+                    {PLANS.map((plan, index) => {
+                      const isSelected = plan.name === selectedPlan.name;
                       const selectedBorder = isSelected
                         ? 'border-orange-400 bg-orange-100'
                         : '';
                       return (
                         <li
                           key={`${plan}_${index}`}
-                          className={`flex justify-between rounded-lg border-[1px] px-5 py-[14px] ${selectedBorder}`}
+                          className={`flex cursor-pointer justify-between rounded-lg border-[1px] px-5 py-[14px] ${selectedBorder}`}
+                          onClick={() => updateSelectedPlan(plan, setSelectedPlan)}
                         >
                           <div className='flex'>
-                            {/* <div className='h-5 w-5 rounded-full border-[2px] border-orange-400'></div> */}
-                            <input type='radio' defaultChecked={isSelected} />
+                            <div className='flex h-full items-center'>
+                              <div
+                                className={`flex h-5 w-5 items-center justify-center rounded-full border-[2px] ${
+                                  isSelected ? 'border-orange-400' : ''
+                                }`}
+                              >
+                                <div
+                                  className={`h-3 w-3 rounded-full bg-orange-400 p-1 ${
+                                    isSelected ? '' : 'hidden'
+                                  }`}
+                                />
+                              </div>
+                            </div>
+                            {/* <input type='radio' defaultChecked={isSelected} /> */}
                             <div className='ml-5 flex flex-col gap-1'>
-                              <p className='text-2XL/Bold'>{plan}</p>
-                              <p className='text-M/Medium'>키워드 분석 최대 50회</p>
+                              <p className='text-2XL/Bold'>{plan.name}</p>
+                              <p className='text-M/Medium'>{`키워드 분석 최대 ${plan.count}회`}</p>
                             </div>
                           </div>
                           <div className='flex items-center'>
@@ -69,10 +116,10 @@ export const UpgradePlan = () => {
                               </p>
                             </div>
                             <p className='ml-[7px] text-M/Regular text-grey-500 line-through'>
-                              {formatNumber(14000)}
+                              {formatNumber(plan.originPrice)}
                             </p>
                             <p className='ml-2.5 text-2XL/Bold'>
-                              {formatNumber(10000)}
+                              {formatNumber(plan.price)}
                               <span className='text-M/Medium'> /월</span>
                             </p>
                           </div>
@@ -94,17 +141,17 @@ export const UpgradePlan = () => {
                         <p>할인 금액</p>
                       </div>
                       <div className='flex flex-col gap-5 text-end'>
-                        <p className='text-L/Bold'>키워드 분석 / Starter</p>
-                        <p className='text-L/Bold'>50회</p>
+                        <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
+                        <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
                         <p className='text-L/Bold'>매월 7일</p>
-                        <p>{formatNumber(10000)}</p>
-                        <p>{formatNumber(10000)}</p>
+                        <p>{formatNumber(selectedPlan.originPrice)}</p>
+                        <p>{formatNumber(selectedPlan.originPrice / 2)}</p>
                       </div>
                     </div>
                   </div>
                   <div className='mt-[18px] flex justify-between'>
                     <p className='text-2XL/Bold text-orange-400'>총 결제 금액</p>
-                    <p className='text-2XL/Regular'>{formatNumber(10000)}</p>
+                    <p className='text-2XL/Regular'>{formatNumber(selectedPlan.price)}</p>
                   </div>
                 </div>
               </div>
@@ -128,7 +175,13 @@ export const UpgradePlan = () => {
                   <p className='text-L/Regular text-grey-800'>
                     구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
                   </p>
-                  <button className='button-filled-normal-large-primary-false-false-true mt-3 w-full'>
+                  <button
+                    onClick={() => {
+                      setIsOpen(true);
+                      openPaymentWidget(setIsOpen, selectedPlan, userEmail);
+                    }}
+                    className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
+                  >
                     업그레이드 하기
                   </button>
                 </div>
