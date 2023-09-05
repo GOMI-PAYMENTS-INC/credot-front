@@ -8,17 +8,16 @@ import {
   DetailReportBody,
   DetailReportSwitch,
   DetailReportRightQuickBar,
+  DetailReportHeader,
 } from '@/report/elements';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/common/layouts';
 
 import { _amplitudeSharedKeywordReportViewed } from '@/amplitude/amplitude.service';
-import { useRecoilValue } from 'recoil';
-import { HackleAtom } from '@/atom/common/hackle.atom';
 
 const DetailReportPageByShare = () => {
   const params = useParams();
-  const hackleState = useRecoilValue(HackleAtom);
+
   const scrollEventState: scrollEventState = {
     scrollY: 0,
     title: 'Report',
@@ -81,12 +80,22 @@ const DetailReportPageByShare = () => {
   );
 
   if (isUser) {
+    const { param: reportIdOrShareToken } = amplitudeData;
     return (
       <Default>
         {isFalsy(main) ? (
           LoadingSpinner
         ) : (
           <Fragment>
+            {window.innerWidth < 432 && (
+              <DetailReportHeader
+                reportIdOrShareToken={reportIdOrShareToken}
+                _dispatch={_dispatch}
+                main={main}
+                params={params}
+                scrollEvent={scrollEvent}
+              />
+            )}
             <DetailReportBody
               contentSection={contentSection}
               setScrollEvent={setScrollEvent}

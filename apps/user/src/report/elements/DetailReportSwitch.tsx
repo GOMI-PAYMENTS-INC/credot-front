@@ -38,8 +38,8 @@ export const DetailReportSwitch = ({
   const { saveReturnUrl } = authReturnUrl();
 
   return (
-    <div className={`col-span-10 mt-[42px] xs:col-span-12`}>
-      <div className='space-y-[72px]'>
+    <div className={`col-span-10 mt-[42px] xs:col-span-12 xs:mt-0`}>
+      <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
         <KeywordInfo
           _dispatch={_dispatch}
           keywordInfo={main!}

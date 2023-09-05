@@ -37,7 +37,7 @@ const DetailReportPage = () => {
   const { main, relation, oversea, salePrice, brand, category } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
-  // const scrollController = useRef<HTMLTableSectionElement>(null);
+
   useEffect(() => {
     if (params.id && _state.main === null) _getReportInfo(params.id, _dispatch);
     if (main) {
@@ -62,7 +62,7 @@ const DetailReportPage = () => {
     return isFalsy(main) || main!.itemCount < 9 ? (
       <Fragment />
     ) : (
-      <div className={`col-span-10 mt-[42px] xs:col-span-12`}>
+      <div className={`col-span-10 mt-[42px] xs:col-span-12 xs:mt-0`}>
         <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
           <KeywordInfo
             _dispatch={_dispatch}
@@ -129,6 +129,15 @@ const DetailReportPage = () => {
         />
       ) : (
         <Fragment>
+          {window.innerWidth < 432 && (
+            <DetailReportHeader
+              reportIdOrShareToken={reportIdOrShareToken}
+              _dispatch={_dispatch}
+              main={main}
+              params={params}
+              scrollEvent={scrollEvent}
+            />
+          )}
           <DetailReportBody
             contentSection={contentSection}
             setScrollEvent={setScrollEvent}
