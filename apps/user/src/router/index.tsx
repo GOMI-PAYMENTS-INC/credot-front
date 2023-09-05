@@ -20,8 +20,6 @@ export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const setToken = useSetRecoilState(LoginTokenAtom);
-
-  const { hackleClient } = window;
   const storageToken = authTokenStorage.getToken();
 
   //FIXME: signInAPI 분리하기

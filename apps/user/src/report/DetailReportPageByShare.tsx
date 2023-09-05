@@ -94,15 +94,13 @@ const DetailReportPageByShare = () => {
             >
               {combinedComponent}
               <DetailReportRightQuickBar
-                isUser={isUser}
+                _dispatch={_dispatch}
+                keywordInfo={main!}
+                amplitudeData={amplitudeData}
+                isUser={true}
                 title={main?.text}
                 scrollEvent={scrollEvent}
                 setScrollEvent={setScrollEvent}
-                test={
-                  hackleState.hackleId === 'B'
-                    ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
-                    : undefined
-                }
               />
             </DetailReportBody>
           </Fragment>
@@ -123,15 +121,13 @@ const DetailReportPageByShare = () => {
         >
           {combinedComponent}
           <DetailReportRightQuickBar
-            isUser={isUser}
+            _dispatch={_dispatch}
+            keywordInfo={main!}
+            amplitudeData={amplitudeData}
+            isUser={true}
             title={main?.text}
             scrollEvent={scrollEvent}
             setScrollEvent={setScrollEvent}
-            test={
-              hackleState.reason === 'TRAFFIC_ALLOCATED'
-                ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
-                : undefined
-            }
           />
         </DetailReportBody>
       )}

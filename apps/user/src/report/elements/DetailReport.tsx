@@ -20,17 +20,17 @@ import {
 } from '@/utils/convertEnum';
 import { useMatch } from 'react-router-dom';
 
-interface IDetailReportTest {
-  test: {
-    _dispatch: Dispatch<TReportAction>;
-    keywordInfo: TKeywordInfo;
-    amplitudeData: TAmplitudeDetailData;
-  };
+interface IDetailReport {
+  _dispatch: Dispatch<TReportAction>;
+  keywordInfo: TKeywordInfo;
+  amplitudeData: TAmplitudeDetailData;
 }
 
-export const DetailReportTest = ({
-  test: { _dispatch, keywordInfo, amplitudeData },
-}: IDetailReportTest) => {
+export const DetailReport = ({
+  _dispatch,
+  keywordInfo,
+  amplitudeData,
+}: IDetailReport) => {
   const { param: reportIdOrShareToken } = amplitudeData;
   const { country, text, sorted, createdAt, itemCount, currencyUnit, basePrice } =
     keywordInfo;
