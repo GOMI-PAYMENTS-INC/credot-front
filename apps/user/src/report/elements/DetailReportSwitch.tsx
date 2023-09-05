@@ -30,7 +30,6 @@ export const DetailReportSwitch = ({
 }: IDetailReportSwitchProps) => {
   const { main, oversea, salePrice, relation, brand, category } = _state;
   const hackleState = useRecoilValue(HackleAtom);
-  const isTest = hackleState.hackleId === 'B';
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
@@ -39,10 +38,9 @@ export const DetailReportSwitch = ({
   const { saveReturnUrl } = authReturnUrl();
 
   return (
-    <div className={`col-span-10 ${isTest === false ? '' : 'mt-[42px]'} xs:col-span-12`}>
-      <div className='space-y-[72px]'>
+    <div className={`col-span-10 mt-[42px] xs:col-span-12 xs:mt-0`}>
+      <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
         <KeywordInfo
-          isTest={isTest}
           _dispatch={_dispatch}
           keywordInfo={main!}
           amplitudeData={amplitudeData}
@@ -95,7 +93,7 @@ export const DetailReportSwitch = ({
                 ></div>
               </div>
             </div>
-            <div className='relative !-mt-[72px] text-center'>
+            <div className='!- relative text-center'>
               <div>
                 <p className='text-XL/Medium'>리포트의 다음 내용이 궁금하신가요?</p>
                 <p className='mt-[9px] text-XL/Bold'>

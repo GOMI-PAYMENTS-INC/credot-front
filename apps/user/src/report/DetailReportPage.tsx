@@ -33,11 +33,11 @@ const DetailReportPage = () => {
   };
   const [_state, _dispatch] = useReducer(reportReducer, reportInitialState);
   const [scrollEvent, setScrollEvent] = useState(scrollEventState);
-  const isTest = hackleState.hackleId === 'B';
+
   const { main, relation, oversea, salePrice, brand, category } = _state;
 
   const contentSection = useRef<HTMLDivElement>(null);
-  // const scrollController = useRef<HTMLTableSectionElement>(null);
+
   useEffect(() => {
     if (params.id && _state.main === null) _getReportInfo(params.id, _dispatch);
     if (main) {
@@ -62,12 +62,9 @@ const DetailReportPage = () => {
     return isFalsy(main) || main!.itemCount < 9 ? (
       <Fragment />
     ) : (
-      <div
-        className={`col-span-10 ${isTest === false ? '' : 'mt-[42px]'} xs:col-span-12`}
-      >
+      <div className={`col-span-10 mt-[42px] xs:col-span-12 xs:mt-0`}>
         <div className='space-y-[72px] xs:space-y-5 xs:p-5'>
           <KeywordInfo
-            isTest={isTest}
             _dispatch={_dispatch}
             keywordInfo={main!}
             amplitudeData={amplitudeData}
@@ -132,7 +129,7 @@ const DetailReportPage = () => {
         />
       ) : (
         <Fragment>
-          {isTest === false && (
+          {window.innerWidth < 432 && (
             <DetailReportHeader
               reportIdOrShareToken={reportIdOrShareToken}
               _dispatch={_dispatch}
@@ -149,11 +146,9 @@ const DetailReportPage = () => {
             {ReportComponents}
             <div className='xs:hidden'>
               <DetailReportRightQuickBar
-                test={
-                  isTest
-                    ? { _dispatch, keywordInfo: main!, amplitudeData: amplitudeData }
-                    : undefined
-                }
+                _dispatch={_dispatch}
+                keywordInfo={main!}
+                amplitudeData={amplitudeData}
                 isUser={true}
                 title={main?.text}
                 scrollEvent={scrollEvent}

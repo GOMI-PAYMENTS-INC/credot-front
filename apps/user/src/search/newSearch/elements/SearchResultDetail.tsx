@@ -30,6 +30,7 @@ export const SearchResultDetail = ({
       </div>
     );
   }
+
   return (
     <div className='my-10 flex w-[420px] flex-col gap-5 opacity-90'>
       <header id='imgs'>

@@ -15,16 +15,11 @@ import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 
 import { isTruthy } from '@/utils/isTruthy';
-import { HackleAtom } from '@/atom/common/hackle.atom';
-import { generateHackleConfig } from '@/router/container';
 
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const setToken = useSetRecoilState(LoginTokenAtom);
-  const _setHackleId = useSetRecoilState(HackleAtom);
-
-  const { hackleClient } = window;
   const storageToken = authTokenStorage.getToken();
 
   //FIXME: signInAPI 분리하기
@@ -42,9 +37,6 @@ export const Router = () => {
           //앰플리튜드에서 사용할 회원 정보 셋팅
           _setUserId(userId);
           useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
-
-          const user = generateHackleConfig(userId);
-          if (user) hackleClient.setUser(user);
         }
       },
       onError: () => {

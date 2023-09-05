@@ -51,7 +51,7 @@ import { switchModal, searchRequestHandler } from '@/search/elements/container';
 import { useRecoilValue } from 'recoil';
 import { HackleAtom } from '@/atom/common/hackle.atom';
 
-const SearchKeywords = () => {
+const MSearchKeyword = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
@@ -154,20 +154,6 @@ const SearchKeywords = () => {
     }
   }, [response, isLoading, _state.keyword]);
 
-  const isMonthlyCountZero = typeof response !== 'boolean' && response?.main.count === 0;
-
-  const reportCreatorButtonText = useMemo(() => {
-    if (isMonthlyCountZero === true) {
-      return '수요가 없는 키워드에요. 다른 키워드를 검색해주세요';
-    }
-
-    if (isFalsy(_state.keyword)) {
-      return '리포트 생성하기';
-    }
-
-    return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
-  }, [_state.keyword, isMonthlyCountZero]);
-
   const monthlySearchColor =
     monthlySearchVolume === '???'
       ? 'text-3XL/Bold text-grey-300'
@@ -243,19 +229,15 @@ const SearchKeywords = () => {
           _setTrigger={setRequestReport}
         />
       </ModalComponent>
-      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[84px] xs:pt-[65px]'>
-        <div className='absolute left-1/2 top-0 z-[-1] block translate-x-[-50%] xs:hidden'>
-          <img src='/assets/images/Background.png' />
-        </div>
-
+      <div className='relative m-auto h-full w-full max-w-[978px] items-center pt-[65px]'>
         <div
-          className='xs: flex justify-between xs:flex-col xs:justify-center xs:bg-grey-50 xs:px-5'
+          className=' flex  flex-col justify-center bg-grey-50 px-5'
           style={_state.keyword ? {} : { marginTop: '25px' }}
         >
-          <div className='w-[525px] xs:w-full'>
+          <div className='w-full'>
             <div>
-              <div className={`xs:${_state.keyword ? 'hidden' : 'mt-5'}`}>
-                <h1 className='break-keep text-center text-3XL/Bold xs:text-XL/Bold'>
+              <div className={`${_state.keyword ? 'hidden' : 'mt-5'}`}>
+                <h1 className='break-keep text-center text-XL/Bold'>
                   <span className='text-orange-500'>키워드 검색 </span> 후
                   <br />
                   <span className='text-orange-500'>리포트를 생성</span>해 주세요.
@@ -264,9 +246,9 @@ const SearchKeywords = () => {
 
               <div
                 id='dropDownAndSearch'
-                className='relative m-auto w-full max-w-[580px] xs:flex xs:h-[144px] xs:max-w-[430px] xs:items-start xs:justify-around xs:overflow-visible'
+                className='relative m-auto flex h-[144px] max-w-[430px] items-start justify-around overflow-visible'
               >
-                <div className='sticky top-[118px] mt-6 xs:block xs:px-8 xs:pb-5 xs:shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
+                <div className='top-[118px] mt-6 block px-8 pb-5 shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
                   <div className='flex items-center justify-center gap-4'>
                     <DropDown
                       setIsOpenDropdown={setIsOpenDropdown}
@@ -299,7 +281,7 @@ const SearchKeywords = () => {
                   <div id='keywordSearchInput'>
                     <div className='form-control mt-4'>
                       <div className='input-group'>
-                        <div className=' w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
+                        <div className='w-full !rounded-l-[10px] bg-gradient-to-r from-orange-500 to-[#FF7500] p-0.5'>
                           <input
                             type='text'
                             placeholder={convertSearchPlaceholder(countryWatcher)}
@@ -352,9 +334,9 @@ const SearchKeywords = () => {
 
             <div
               id='reportRequestButton'
-              className={`mt-7 flex xs:fixed xs:bottom-0 xs:left-0 xs:mb-[35px] xs:w-full xs:px-5`}
+              className={`fixed bottom-0 left-0 mt-7 mb-[35px] flex w-full px-5`}
             >
-              <button
+              {/* <button
                 className={`w-full rounded-md bg-orange-500 py-4 ${
                   (_state.keyword === '' || isMonthlyCountZero) &&
                   'opacity-30 xs:hidden xs:bg-orange-200'
@@ -371,20 +353,12 @@ const SearchKeywords = () => {
                     {reportCreatorButtonText}
                   </span>
                 )}
-              </button>
+              </button> */}
             </div>
-          </div>
-          <div className='xs:hidden'>
-            <HotKeyword
-              country={getValues('country') as TSearchCountry}
-              searchSortBy={getValues('sortBy')}
-              _dispatch={_dispatch}
-              setValue={setValue}
-            />
           </div>
         </div>
 
-        <div className={`mt-12 xs:${isFalsy(_state.keyword) && 'hidden'}`}>
+        <div className={`mt-12 ${isFalsy(_state.keyword) && 'hidden'}`}>
           {isFalsy(monthlySearchVolume) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
               <div className='flex flex-col items-center text-center'>
@@ -405,17 +379,7 @@ const SearchKeywords = () => {
             </div>
           ) : (
             <Fragment>
-              <div className='mb-6 border border-grey-300 bg-white text-S/Regular text-grey-800 xs:hidden'>
-                <p className='p-3'>
-                  아래는 키워드에 대한 간략한 정보에요. 보다 상세한 분석을 위해 상단의
-                  <span className='ml-1 text-orange-500'>
-                    리포트 생성하기 버튼을 눌러주세요.
-                  </span>
-                </p>
-              </div>
-              <div
-                className={`flex gap-x-[18px] pb-[100px] xs:mx-5 xs:flex xs:flex-col xs:gap-x-0 xs:pb-0`}
-              >
+              <div className={`mx-5 flex flex-col gap-x-0 pb-0`}>
                 <div className='flex grow basis-1/2 flex-wrap gap-y-6'>
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className='flex items-center'>
@@ -432,7 +396,7 @@ const SearchKeywords = () => {
                   />
                 </div>
 
-                <div className='flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-6 py-5 xs:mt-[30px] xs:px-3 xs:py-2.5'>
+                <div className='mt-[30px] flex grow basis-1/2 flex-col rounded-2xl border border-grey-300 bg-white px-3 py-2.5'>
                   <div className='flex justify-between'>
                     <div className='flex items-center'>
                       <h3 className='text-L/Medium'>연관 키워드</h3>
@@ -441,10 +405,7 @@ const SearchKeywords = () => {
                     <div className='text-L/Medium'>검색량</div>
                   </div>
 
-                  <div
-                    id='scrollbar'
-                    className='mt-5 h-full max-h-[324px] overflow-x-auto xs:mt-2.5'
-                  >
+                  <div id='scrollbar' className='h-full max-h-[324px] overflow-x-auto'>
                     {Array.isArray(relativeKeyword) ? (
                       <ul className='overflow-y-hidden text-center'>
                         {relativeKeyword.map((keyword) => {
@@ -456,7 +417,6 @@ const SearchKeywords = () => {
                               >
                                 <div className='flex h-full w-full max-w-[227px] items-center gap-x-1'>
                                   <div className='h-full w-full max-w-[155px] rounded-[50px] border border-grey-300 bg-grey-300 '></div>
-                                  {/* <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div> */}
                                 </div>
 
                                 <div className='h-[26px] w-full max-w-[68px] rounded-[7px] bg-grey-400'></div>
@@ -507,7 +467,7 @@ const SearchKeywords = () => {
             </Fragment>
           )}
         </div>
-        <div className='mt-[60px] hidden pb-[100px] xs:mt-[30px] xs:flex'>
+        <div className='mt-[30px] flex'>
           <HotKeyword
             country={getValues('country') as TSearchCountry}
             searchSortBy={getValues('sortBy')}
@@ -526,4 +486,4 @@ const SearchKeywords = () => {
     </Default>
   );
 };
-export default SearchKeywords;
+export default MSearchKeyword;

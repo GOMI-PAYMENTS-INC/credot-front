@@ -1,5 +1,3 @@
-import { GlobalEnv } from '@/api/config';
-
 export const HOME_QNA = [
   {
     subject: '고미인사이트는 어떤 서비스인가요?',

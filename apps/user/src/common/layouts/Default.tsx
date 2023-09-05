@@ -1,45 +1,38 @@
 import { Fragment, ReactNode, useEffect, useReducer, useState } from 'react';
-import SideBar from '@/common/layouts/sidebar/SideBar';
-import MSidebar from '@/common/layouts/sidebar/MSidebar';
+import MSidebar from './sidebar/MSidebar';
 import GNB from '@/common/layouts/NewGNB';
 import { useMatch } from 'react-router-dom';
 import { sidebarInitialState, sidebarReducer } from '@/common/layouts/sidebar/reducer';
-import { useRecoilValue } from 'recoil';
-import { HackleAtom } from '@/atom/common/hackle.atom';
-
+import { PATH } from '@/types/enum.code';
 interface IDefaultProps {
   children?: ReactNode;
+  useGap?: boolean;
 }
 
-export const Default = ({ children }: IDefaultProps) => {
+export const Default = ({ children, useGap = false }: IDefaultProps) => {
   const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
   const [handleCss, setHandleCss] = useState('');
-  const hackleState = useRecoilValue(HackleAtom);
-  const pattern = useMatch('report/:id')?.pattern;
+
+  const pattern = [PATH.REPORT_DETAIL, PATH.REPORT_DETAIL_BY_SHARE].some(
+    (path) => useMatch(path)?.pattern,
+  );
 
   useEffect(() => {
-    pattern?.path ? setHandleCss('') : setHandleCss('h-full');
+    pattern ? setHandleCss('') : setHandleCss('h-full');
   }, [pattern]);
 
   return (
     <Fragment>
       <div className='h-screen'>
-        {hackleState.hackleId === 'A' ? (
+        {window.innerWidth < 432 ? (
           <Fragment>
-            <SideBar _state={_state} _dispatch={_dispatch} />
             <MSidebar _state={_state} _dispatch={_dispatch} />
-            <div
-              className={`${handleCss} ${
-                _state.openedSidebar ? 'ml-[200px]' : 'ml-[64px]'
-              } xs:ml-0`}
-            >
-              {children}
-            </div>
+            <div className={handleCss}>{children}</div>
           </Fragment>
         ) : (
           <Fragment>
             <GNB />
-            <div className={handleCss}>{children}</div>
+            <div className={`${handleCss} ${useGap ? 'mt-[72px]' : ''}`}>{children}</div>
           </Fragment>
         )}
       </div>

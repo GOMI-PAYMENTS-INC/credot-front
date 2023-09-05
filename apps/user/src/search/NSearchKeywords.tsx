@@ -36,6 +36,7 @@ import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGenerato
 import { BackforwardButton } from '@/components/BackForwardButton';
 import { HackleAtom } from '@/atom/common/hackle.atom';
 import { useRecoilValue } from 'recoil';
+import MSearchKeyword from './MSearchKeyword';
 
 export const NSearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
@@ -80,6 +81,10 @@ export const NSearchKeywords = () => {
     ? 'flex-col items-start border-b-[1px] w-full pb-[30px] border-grey-300 py-[30px] px-[41px] shadow-[0_2px_20px_0_rgba(0,0,0,0.04)]'
     : 'items-center';
 
+  if (window.innerWidth < 432) {
+    return <MSearchKeyword />;
+  }
+
   return (
     <Layout>
       <ReportGeneratorModal
@@ -105,7 +110,7 @@ export const NSearchKeywords = () => {
         >
           <div
             id='searchBox'
-            className={`flex flex-col rounded-[20px] border-[1px] bg-white ${
+            className={`flex h-auto flex-col rounded-[20px] border-[1px] bg-white ${
               searchState.keyword
                 ? 'relative h-full w-[507px] items-center'
                 : 'py-4 px-[30px]'
