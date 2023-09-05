@@ -105,7 +105,7 @@ export const NSearchKeywords = () => {
         >
           <div
             id='searchBox'
-            className={`flex flex-col rounded-[20px] border-[1px] bg-white ${
+            className={`flex h-auto flex-col rounded-[20px] border-[1px] bg-white ${
               searchState.keyword
                 ? 'relative h-full w-[507px] items-center'
                 : 'py-4 px-[30px]'

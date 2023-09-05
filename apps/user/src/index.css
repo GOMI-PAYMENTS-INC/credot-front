@@ -176,10 +176,9 @@ input[type='number'] {
   }
 }
 
-#table-header th,
-td {
+/* #table-header th,td {
   border: 1px solid #ebebeb;
-}
+} */
 
 /* Works on Firefox */
 #scrollbar {

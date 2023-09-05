@@ -203,34 +203,36 @@ const SideBar = (props: TSideBarProps) => {
               </div>
             </div>
 
-            <div className='px-2.5'>
-              <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
-                <button
-                  className='flex w-full justify-between'
-                  onClick={() => {
-                    navigation(PATH.SUBSCRIBE);
-                  }}
-                >
-                  <div className='flex cursor-pointer items-center'>
-                    <ReactSVG
-                      src='/assets/icons/outlined/CreditCard.svg'
-                      beforeInjection={(svg) => {
-                        svg.setAttribute('class', `w-5 fill-grey-800`);
-                      }}
-                    />
-                    <span className='ml-2 flex w-[120px] items-center text-S/Medium text-grey-800'>
-                      MY PLAN
-                    </span>
-                    <ReactSVG
-                      src='/assets/icons/outlined/ArrowRightSmall.svg'
-                      beforeInjection={(svg) => {
-                        svg.setAttribute('class', 'w-5');
-                      }}
-                    />
-                  </div>
-                </button>
+            {import.meta.env.PROD === false && (
+              <div className='px-2.5'>
+                <div className='flex justify-between rounded-lg p-3 text-S/Medium text-grey-800'>
+                  <button
+                    className='flex w-full justify-between'
+                    onClick={() => {
+                      navigation(PATH.SUBSCRIBE);
+                    }}
+                  >
+                    <div className='flex cursor-pointer items-center'>
+                      <ReactSVG
+                        src='/assets/icons/outlined/CreditCard.svg'
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', `w-5 fill-grey-800`);
+                        }}
+                      />
+                      <span className='ml-2 flex w-[120px] items-center text-S/Medium text-grey-800'>
+                        MY PLAN
+                      </span>
+                      <ReactSVG
+                        src='/assets/icons/outlined/ArrowRightSmall.svg'
+                        beforeInjection={(svg) => {
+                          svg.setAttribute('class', 'w-5');
+                        }}
+                      />
+                    </div>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className='px-2.5'>
               <button
