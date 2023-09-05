@@ -16,8 +16,6 @@ import { useCookieStorage } from '@/utils/useCookieStorage';
 
 import { isTruthy } from '@/utils/isTruthy';
 
-import { generateHackleConfig } from '@/router/container';
-
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
@@ -41,9 +39,6 @@ export const Router = () => {
           //앰플리튜드에서 사용할 회원 정보 셋팅
           _setUserId(userId);
           useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
-
-          const user = generateHackleConfig(userId);
-          if (user) hackleClient.setUser(user);
         }
       },
       onError: () => {
