@@ -3,8 +3,7 @@ import { MODAL_TYPE_ENUM } from '@/types/enum.code';
 import { useNavigate } from 'react-router-dom';
 import { convertTime } from '@/utils/parsingTimezone';
 import { switchModal, searchRequestHandler } from '@/search/elements/container';
-import { useRecoilValue } from 'recoil';
-import { HackleAtom } from '@/atom/common/hackle.atom';
+
 interface IReportModalType {
   modalType: TSearchModalType;
   createdAt: string;
@@ -23,7 +22,7 @@ export const ReportModalType = ({
 }: IReportModalType) => {
   const navigate = useNavigate();
   const { _setTrigger, _dispatch } = switchModalProps;
-  const hackleState = useRecoilValue(HackleAtom);
+
   const _createdAt = convertTime(createdAt, 'YYYY.MM.DD');
 
   switch (modalType) {
@@ -72,7 +71,6 @@ export const ReportModalType = ({
               _state,
               parameter,
               _setTrigger,
-              hackleState,
             });
             switchModal({ _dispatch });
           },

@@ -1,4 +1,4 @@
-import { SetStateAction, useState, Dispatch, useEffect } from 'react';
+import type { SetStateAction, Dispatch } from 'react';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { useNavigate } from 'react-router-dom';
 import { searchRequestHandler } from '@/search/container';
@@ -6,8 +6,6 @@ import { SEARCH_MODAL_INIT_VALUE } from '@/search/newSearch/constants';
 
 import { Modal } from '@/report/keyword/elements/Modal';
 import { MODAL_TYPE_ENUM } from '@/types/enum.code';
-import { HackleAtom } from '@/atom/common/hackle.atom';
-import { useRecoilValue } from 'recoil';
 
 interface IReportGeneratorModal {
   _modalState: TNSearchModalStatus;
@@ -19,7 +17,7 @@ interface IReportGeneratorModal {
 export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
   const { _modalState, _modalDispatch, _state, parameter } = props;
   const { modalType, response } = _modalState;
-  const hackleState = useRecoilValue(HackleAtom);
+
   const navigate = useNavigate();
   return (
     <ModalComponent isOpen={modalType !== ''}>
@@ -42,7 +40,6 @@ export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
               _state,
               _modalDispatch,
               parameter,
-              hackleState,
             });
           } else {
             _modalDispatch(SEARCH_MODAL_INIT_VALUE);

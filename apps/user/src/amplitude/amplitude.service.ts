@@ -196,7 +196,6 @@ export const _amplitudeKeywordSearchedSucceeded = (
   keyword: string,
   relations: SearchDto[],
   searchVolume?: number | null,
-  hackleState?: THackleState | null,
 ) => {
   const recKeywords = [...relations].map((value) => {
     return value.text;
@@ -210,22 +209,6 @@ export const _amplitudeKeywordSearchedSucceeded = (
     num_of_rec_keywords: recKeywords.length,
     search_volume: searchVolume || 0,
   });
-
-  if (hackleState && hackleState.reason === 'TRAFFIC_ALLOCATED') {
-    const event = {
-      key: 'keyword_search_succeeded',
-      properties: {
-        keyword, // 키워드명
-        country, // 키워드의 국가
-        sortBy, // 리포트의 리스팅순
-        searchVolume: searchVolume || 0, // 검색된 키워드의 최근30일 검색량
-        recKeywords, // 추천 키워드들(array)
-        numOfRecKeywords: recKeywords.length, // 추천 키워드의 수
-      },
-    };
-
-    window.hackleClient.track(event);
-  }
 };
 
 // ##### KEYWORD REPORT - 키워드 검색 실패 시 ##### //
@@ -265,7 +248,6 @@ export const _amplitudeKeywordReportRequested = (
   sortBy: TSortBy,
   keyword: string,
   jobId: string,
-  hackleState?: THackleState | null,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportRequested, {
     report_id: reportId,
@@ -275,20 +257,6 @@ export const _amplitudeKeywordReportRequested = (
     keyword,
     job_id: jobId,
   });
-
-  if (hackleState && hackleState.reason === 'TRAFFIC_ALLOCATED') {
-    const event = {
-      key: 'keyword_report_requested',
-      properties: {
-        keyword, // 키워드명
-        country, // 키워드의 국가
-        sortBy,
-        jobId,
-      },
-    };
-
-    window.hackleClient.track(event);
-  }
 };
 
 // ##### KEYWORD REPORT - 키워드 리포트 상세 조회 시 ##### //
@@ -298,7 +266,6 @@ export const _amplitudeKeywordReportViewed = (
   platform: TChannel,
   sortBy: TSortBy,
   keyword: string,
-  hackleState?: THackleState,
 ) => {
   void _setAmplitudeEvents(amplitudeConstant.keywordReportViewed, {
     report_id: reportId,
@@ -307,20 +274,6 @@ export const _amplitudeKeywordReportViewed = (
     sort_by: sortBy,
     keyword: keyword,
   });
-
-  if (hackleState && hackleState.reason === 'TRAFFIC_ALLOCATED') {
-    const event = {
-      key: 'keyword_report_viewed',
-      properties: {
-        keyword, // 키워드명
-        country, // 키워드의 국가
-        reportId, // 리포트 uid
-        sortBy, // 리포트의 리스팅순
-      },
-    };
-
-    window.hackleClient.track(event);
-  }
 };
 // ##### KEYWORD REPORT - 키워드 리포트 삭제 완료 시 ##### //
 export const _amplitudeKeywordReportDeleted = (checkedItems: TReportItem[]) => {

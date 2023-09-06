@@ -19,12 +19,10 @@ import { DetailReportHeader, DetailReportBody } from '@/report/elements';
 import { UnvaluableReport } from '@/report/elements/UnvaluableReport';
 import { Default } from '@/common/layouts';
 import { _amplitudeKeywordReportViewed } from '@/amplitude/amplitude.service';
-import { useRecoilValue } from 'recoil';
-import { HackleAtom } from '@/atom/common/hackle.atom';
 
 const DetailReportPage = () => {
   const params = useParams();
-  const hackleState = useRecoilValue(HackleAtom);
+
   const scrollEventState: scrollEventState = {
     scrollY: 0,
     title: 'Report',
@@ -47,7 +45,6 @@ const DetailReportPage = () => {
         main.channel,
         main.sorted,
         main.text,
-        hackleState,
       );
     }
   }, [main?.id]);

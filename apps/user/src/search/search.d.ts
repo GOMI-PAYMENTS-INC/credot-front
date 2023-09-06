@@ -41,5 +41,4 @@ type TSearchPayload = {
   _modalDispatch: Function;
   _state: TSearProps;
   parameter: TReportParams;
-  hackleState?: THackleState | null;
 };
