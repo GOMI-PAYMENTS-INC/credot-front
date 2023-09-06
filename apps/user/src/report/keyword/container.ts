@@ -187,11 +187,13 @@ const createReport = async (props: TRequestReportModa) => {
         _dispatch({
           modalType: MODAL_TYPE_ENUM.MakeReportSuccesses,
           data: reportId,
+          isOpen: true,
         });
       } else {
         _dispatch({
           modalType: MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses,
           data: reportId,
+          isOpen: true,
         });
       }
 
