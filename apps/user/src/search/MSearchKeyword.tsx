@@ -478,7 +478,7 @@ const MSearchKeyword = () => {
             </Fragment>
           )}
         </div>
-        <div className='mt-[30px] flex'>
+        <div className='mt-[30px] flex xs:pb-[100px]'>
           <HotKeyword
             country={getValues('country') as TSearchCountry}
             searchSortBy={getValues('sortBy')}
