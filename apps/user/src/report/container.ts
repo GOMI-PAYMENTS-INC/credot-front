@@ -824,7 +824,11 @@ export const makeShareLink = async (
   const isMobile = window.innerWidth < 432;
 
   if (isMobile) {
-    unsecuredCopyToClipboard(url);
+    if (isSecureContext && navigator.clipboard) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      unsecuredCopyToClipboard(url);
+    }
     console.log(url);
     setOpenModal && setOpenModal(true);
     return;
