@@ -10,6 +10,7 @@ import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { getParameter } from '@/utils/getParameter';
 import { makeShareLink } from '@/report/container';
 import type { TReportAction } from '@/report/reducer';
+import { ModalComponent } from '@/components/modals/ModalComponent';
 
 interface TDetailReport {
   params: Params<string>;
@@ -23,6 +24,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
   const { params, main, scrollEvent, _dispatch, reportIdOrShareToken } = props;
   const { country, text, sorted } = main!;
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const navigation = useNavigate();
 
   const isMatchSharePath = useMatch('/share/:id');
@@ -44,6 +46,20 @@ export const DetailReportHeader = (props: TDetailReport) => {
 
   return (
     <header className='sticky top-0 z-40 border-b-[1px] border-b-grey-200 bg-white xs:top-[65px]'>
+      <ModalComponent isOpen={openModal}>
+        <div
+          id='onlyMobileModal'
+          className='flex h-[200px] w-[300px] flex-col items-center justify-around overflow-hidden rounded-3xl bg-white'
+        >
+          <p className='mt-10 text-L/Bold'>링크가 복사되었습니다.</p>
+          <button
+            className='button-filled-normal-large-primary-false-false-true mb-[20px] w-[200px]'
+            onClick={() => setOpenModal(false)}
+          >
+            확인
+          </button>
+        </div>
+      </ModalComponent>
       <div className='container'>
         <div
           style={headerHeightStyle}
@@ -84,6 +100,7 @@ export const DetailReportHeader = (props: TDetailReport) => {
                     sorted,
                     text,
                     _dispatch,
+                    setOpenModal,
                   );
                 }}
               >
