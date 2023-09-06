@@ -116,7 +116,9 @@ export const ReportGeneratorModal = ({
             <button
               type='button'
               className='button-filled-normal-large-grey-false-false-true w-full self-center py-3'
-              onClick={() => initializeModal(reportTrigger, setReportTrigger)}
+              onClick={() => {
+                initializeModal(reportTrigger, setReportTrigger);
+              }}
             >
               닫기
             </button>
