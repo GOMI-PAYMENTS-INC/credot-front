@@ -116,7 +116,6 @@ const createReport = async (props: TRequestReport) => {
       }
       _dispatch({ type: SEARCH_ACTION.SET_NEW_REPORT_ID, payload: reportId });
       _setTrigger(false);
-
       _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
     }
 

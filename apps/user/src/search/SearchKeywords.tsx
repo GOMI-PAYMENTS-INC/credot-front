@@ -36,7 +36,7 @@ import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGenerato
 import { BackforwardButton } from '@/components/BackForwardButton';
 import MSearchKeyword from './MSearchKeyword';
 
-export const NSearchKeywords = () => {
+export const SearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
   const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
