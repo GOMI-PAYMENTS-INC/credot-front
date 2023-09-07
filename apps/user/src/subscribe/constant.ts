@@ -39,3 +39,18 @@ export const PLANS = [
     count: 150,
   },
 ];
+
+export const RESULT_OF_PAY_REQUEST = {
+  accepted: {
+    title: '결제가 정상적으로 처리되었어요.',
+    text: 'Accepted',
+    buttonText: '확인',
+    billText: '결제정보',
+  },
+  rejected: {
+    title: '결제를 실패했습니다.',
+    text: 'Rejected',
+    buttonText: '결제 재시도',
+    billText: '요청정보',
+  },
+};

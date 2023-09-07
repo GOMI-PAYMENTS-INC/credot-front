@@ -208,7 +208,6 @@ const createReport = async (props: TSearchPayload) => {
     parameter: { reportInvokeId },
     _modalDispatch,
     _state,
-    hackleState,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -238,14 +237,7 @@ const createReport = async (props: TSearchPayload) => {
         });
       }
 
-      _amplitudeKeywordReportRequested(
-        reportId,
-        country,
-        sortBy,
-        keyword,
-        jobId,
-        hackleState,
-      );
+      _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
     }
   } catch (error) {
     console.error(error);

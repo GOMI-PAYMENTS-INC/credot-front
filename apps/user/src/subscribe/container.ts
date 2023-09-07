@@ -1,8 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  PaymentWidgetInstance,
-  loadPaymentWidget,
-} from '@tosspayments/payment-widget-sdk';
+
 import { v4 as uuidv4 } from 'uuid';
 import { PATH } from '@/router/routeList';
 export const DATA = [
@@ -56,48 +53,41 @@ export const openFAQ = (params: {
   }
 };
 
-export const openPaymentWidget = async (
-  _dispatch: Dispatch<SetStateAction<boolean>>,
-  selectedPaln: TPlanType,
-  userEmail?: string,
-) => {
-  try {
-    const clientKey = import.meta.env.VITE_TOSS_KEY;
-    const customerKey = 'kBovVXSJLsTahwvFA5tr-';
-    const uuid = uuidv4();
-
-    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
-
-    paymentWidget.renderPaymentMethods(
-      '#payment-widget',
-      { value: selectedPaln.price },
-      { variantKey: 'widgetA' }, // 렌더링하고 싶은 결제 UI의 variantKey
-    );
-
-    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-    // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
-    // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-    const BASE_URL = window.location.origin;
-    await paymentWidget?.requestPayment({
-      orderId: uuid,
-      orderName: `${selectedPaln.name} 플랜`,
-      customerEmail: userEmail,
-      successUrl: BASE_URL + PATH.SUBSCRIBE,
-      failUrl: BASE_URL + PATH.UPGRADE_PLAN,
-    });
-  } catch (error) {
-    // 에러 처리하기
-    _dispatch(false);
-
-    console.error(error);
-  }
-};
-
-export const cleanUpWidget = () => {};
-
 export const updateSelectedPlan = (
   selectedPaln: TPlanType,
   _dispatch: Dispatch<SetStateAction<TPlanType>>,
 ) => {
   _dispatch(selectedPaln);
 };
+
+declare const IMP: any;
+export const registerCard = (userId: string, userEmail: number) => {
+  const userCode = import.meta.env.VITE_PORTONE_CODE;
+  const PG_MID = 'iamporttest_4';
+  const UUID = uuidv4();
+  IMP.init(userCode);
+  IMP.request_pay(
+    {
+      pg: `tosspayments.${PG_MID}`,
+      pay_method: 'card', // 'card'만 지원됩니다.
+      merchant_uid: UUID, // 상점에서 관리하는 주문 번호
+      name: '최초인증결제',
+      amount: 0, // 실제 승인은 발생되지 않고 오직 빌링키만 발급됩니다.
+      customer_uid: UUID, // 필수 입력.
+      buyer_email: userEmail,
+      customer_id: userId, //가맹점이 회원에게 부여한 고유 ID
+    },
+    function (rsp: any) {
+      // callback
+      if (rsp.success) {
+        // 빌링키 발급 성공
+        // jQuery로 HTTP 요청
+        console.log(rsp);
+      } else {
+        // 빌링키 발급 실패
+      }
+    },
+  );
+};
+
+export const paymentRequestResult = () => {};

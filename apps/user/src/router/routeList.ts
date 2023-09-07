@@ -10,7 +10,7 @@ import {
 
 import { SearchKeywords } from '@/search/SearchKeywords';
 import * as ReportRoutes from '@/report';
-import { Subscribe, UpgradePlan } from '@/subscribe';
+import { Subscribe, UpgradePlan, ResultPage } from '@/subscribe';
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',
@@ -25,6 +25,7 @@ export const PATH = {
   REPORT_DETAIL_BY_SHARE: '/share/:id',
   SUBSCRIBE: '/subscribe',
   UPGRADE_PLAN: '/subscribe/upgrade',
+  RESULT_OF_PAY_REQUEST: '/subscribe/:result',
 } as const;
 
 type TPathKey = keyof typeof PATH;
@@ -128,5 +129,12 @@ export const routeList: IRoute[] = [
     description: 'UpgradePlan',
     path: PATH.UPGRADE_PLAN,
     component: UpgradePlan,
+  },
+  {
+    //리포트 상세 - 공유하기
+    isPrivate: true,
+    description: 'ResultPage',
+    path: PATH.RESULT_OF_PAY_REQUEST,
+    component: ResultPage,
   },
 ];

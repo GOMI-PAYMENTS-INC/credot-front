@@ -29,7 +29,6 @@ export const DetailReportSwitch = ({
   params,
 }: IDetailReportSwitchProps) => {
   const { main, oversea, salePrice, relation, brand, category } = _state;
-  const hackleState = useRecoilValue(HackleAtom);
 
   const amplitudeData: TAmplitudeDetailData = {
     param: params.id ? params.id : '',
