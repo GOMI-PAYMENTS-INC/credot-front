@@ -215,6 +215,20 @@ const MSearchKeyword = () => {
     _amplitudeSortByChanged(sortByWatcher, SortTypeEnum);
   };
 
+  const isMonthlyCountZero = typeof response !== 'boolean' && response?.main.count === 0;
+
+  const reportCreatorButtonText = useMemo(() => {
+    if (isMonthlyCountZero === true) {
+      return '수요가 없는 키워드에요. 다른 키워드를 검색해주세요';
+    }
+
+    if (isFalsy(_state.keyword)) {
+      return '리포트 생성하기';
+    }
+
+    return `'${replaceOverLength(_state.keyword, 20)}'로 리포트 생성하기`;
+  }, [_state.keyword, isMonthlyCountZero]);
+
   return (
     <Default>
       <ModalComponent isOpen={_state.isModalOpen}>
@@ -333,7 +347,7 @@ const MSearchKeyword = () => {
               id='reportRequestButton'
               className={`fixed bottom-0 left-0 mt-7 mb-[35px] flex w-full px-5`}
             >
-              {/* <button
+              <button
                 className={`w-full rounded-md bg-orange-500 py-4 ${
                   (_state.keyword === '' || isMonthlyCountZero) &&
                   'opacity-30 xs:hidden xs:bg-orange-200'
@@ -350,7 +364,7 @@ const MSearchKeyword = () => {
                     {reportCreatorButtonText}
                   </span>
                 )}
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
@@ -464,7 +478,7 @@ const MSearchKeyword = () => {
             </Fragment>
           )}
         </div>
-        <div className='mt-[30px] flex'>
+        <div className='mt-[30px] flex xs:pb-[100px]'>
           <HotKeyword
             country={getValues('country') as TSearchCountry}
             searchSortBy={getValues('sortBy')}

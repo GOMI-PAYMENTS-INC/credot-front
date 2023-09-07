@@ -1,10 +1,8 @@
-import { ReactSVG } from 'react-svg';
 import { convertTime } from '@/utils/parsingTimezone';
 import ChannelService from '@/config/channelTalk';
 import {
   convertCountry,
   convertExchangeRate,
-  convertShopeeSiteUrl,
   convertSortedType,
 } from '@/utils/convertEnum';
 import {
@@ -14,11 +12,10 @@ import {
 } from '@/amplitude/amplitude.service';
 
 import { useMatch } from 'react-router-dom';
-import { openBrowser } from '@/utils/openBrowser';
+
 import { _postReportShareToken } from '@/report/container';
 import { TReportAction } from '@/report/reducer';
 import { Dispatch, useEffect } from 'react';
-import { makeShareLink } from '@/report/container';
 
 interface IKeywordInfoProps {
   _dispatch: Dispatch<TReportAction>;
