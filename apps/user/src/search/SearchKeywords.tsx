@@ -34,6 +34,7 @@ import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGeneratorModal';
 import { BackforwardButton } from '@/components/BackForwardButton';
+import { SubscriptionModal } from '@/search/newSearch/elements/SubscriptionModal';
 import MSearchKeyword from './MSearchKeyword';
 
 export const SearchKeywords = () => {
@@ -83,6 +84,7 @@ export const SearchKeywords = () => {
 
   return (
     <Layout>
+      <SubscriptionModal />
       <ReportGeneratorModal
         parameter={{
           reportInvokeId: response?.reportInvokeId,

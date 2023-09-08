@@ -19,7 +19,7 @@ export const Subscribe = () => {
           <div className='absolute right-0 bottom-0 h-[130px] w-[348px] rounded-[348px] bg-orange-500 opacity-[0.2] blur-[100px]' />
 
           <div className='flex w-full justify-center'>
-            <div className='flex w-[1148px] flex-col gap-10 py-[60px]'>
+            <div className='flex w-[1148px] flex-col gap-10 py-[92px]'>
               <p className='text-4XL/Bold'>구독 및 결제</p>
             </div>
           </div>

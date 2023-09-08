@@ -159,6 +159,7 @@ export enum CACHING_KEY {
   STORED_KEYWORD = 'keyword',
   STORED_TRANSLATION = 'translation_keyword',
   HACKLE = 'hackle',
+  IS_OPEN = 'isOpen',
 }
 
 export enum STYLE_ENUM {

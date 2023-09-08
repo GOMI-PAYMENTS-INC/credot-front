@@ -5,3 +5,5 @@ type TPlanType = {
   price: number;
   count: number;
 };
+
+type TRequestStatus = 'accepted' | 'rejected';
