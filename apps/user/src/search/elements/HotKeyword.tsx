@@ -49,7 +49,7 @@ export const HotKeyword = (props: IHotKeyword) => {
                   ? `text-orange-400 ${fontHighlight}`
                   : 'text-grey-900';
               const textGap = 'mb-5';
-              console.log(isHover);
+
               return (
                 <li
                   key={keyword}

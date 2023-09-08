@@ -49,7 +49,10 @@ export const ReportModalType = ({
         },
         onConfirm: {
           name: '바로 확인하기',
-          confirmEvent: () => navigate(`/report/${newReportId}`),
+          confirmEvent: () => {
+            const URL = newReportId ? `/report/${newReportId}` : '/report';
+            navigate(URL);
+          },
         },
       };
 

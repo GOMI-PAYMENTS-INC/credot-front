@@ -829,7 +829,7 @@ export const makeShareLink = async (
     } else {
       unsecuredCopyToClipboard(url);
     }
-    console.log(url);
+
     setOpenModal && setOpenModal(true);
     return;
   }
