@@ -27,7 +27,8 @@ export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
         createdAt={response}
         successCallback={() => {
           if (modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
-            navigate(`/report/${response}`);
+            navigate(`/report`);
+            // navigate(`/report/${response}`);
           }
           if (
             [
