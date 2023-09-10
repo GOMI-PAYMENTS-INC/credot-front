@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { useSearchQuery } from '@/generated/graphql';
+import { useSearchQuery, CountryType } from '@/generated/graphql';
 import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
 import { _getProductImages } from '@/search/container';
@@ -9,6 +9,59 @@ import {
 } from '@/amplitude/amplitude.service';
 
 import { updateSearchPayload } from '@/search/container';
+
+export const deprecatedGetQueryResult = (
+  country: CountryType,
+  sortBy: TSortBy,
+  keyword: string,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
+  const { data, isLoading, isFetching, isError } = useSearchQuery(
+    {
+      country: country,
+      text: keyword,
+    },
+    {
+      //FIXME: 검색어를 입력한 후 매 이벤트마다 함수가 실행됨
+      enabled: isFalsy(keyword) === false,
+      refetchOnWindowFocus: false,
+      onSuccess: async (res) => {
+        try {
+          const images = await getProductImages({
+            keyword: keyword,
+            country: country as TSearchCountry,
+          });
+
+          if (images && images.data.data !== null) {
+            _getProductImages(images.data, _dispatch);
+          }
+          _amplitudeKeywordSearchedSucceeded(
+            country,
+            sortBy,
+            keyword,
+            res.search.relations,
+            res.search.main.count,
+          );
+          return;
+        } catch (error) {
+          console.error(error, 'error');
+        }
+      },
+      onError: (error) => {
+        _amplitudeKeywordSearchedFailed(
+          country,
+          sortBy,
+          keyword,
+          error.response.errors[0].message,
+        );
+      },
+    },
+  );
+
+  const response = data?.search;
+
+  return { response, isLoading, isFetching, isError };
+};
 
 export const getQueryResult = (
   payload: TSearchProps,

@@ -18,7 +18,7 @@ import {
 import { mobileScrollToTop } from '@/utils/scrollController';
 import { SEARCH_ACTION } from '@/search/reducer';
 import { searchInitialState, searchReducer } from '@/search/reducer';
-import { getQueryResult } from '@/search/api';
+import { deprecatedGetQueryResult } from '@/search/api';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
@@ -72,7 +72,7 @@ const MSearchKeyword = () => {
   const sortByWatcher = watch('sortBy');
   const keywordWatcher = watch('keyword');
 
-  const { response, isLoading } = getQueryResult(
+  const { response, isLoading } = deprecatedGetQueryResult(
     _state.country,
     _state.sortBy,
     _state.keyword,
