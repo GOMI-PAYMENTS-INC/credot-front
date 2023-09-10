@@ -44,7 +44,11 @@ export const SearchResult = ({
               }
             />
           </button>
-          <div className='absolute right-1 top-[50px] flex w-[370px] justify-start'>
+          <div
+            className={`absolute right-1 top-[50px] flex ${
+              keyword ? '' : 'w-[370px]'
+            } justify-start`}
+          >
             {isOpen && (
               <HotKeyword
                 country={_state.country}

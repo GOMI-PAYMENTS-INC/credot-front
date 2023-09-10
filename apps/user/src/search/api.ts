@@ -73,6 +73,8 @@ const REPORT_URL = {
   postCreateReport: 'api/v1/report',
   getReportExisted: 'api/v1/report/exist',
   getProductImage: `api/v1/keyword/`,
+  hotKeyword: 'api/v1/hot-keyword',
+  getTranslate: 'api/v1/gpt/translate',
 };
 
 export const postCreateReport = async (params: TCreateReportParams) => {
@@ -118,12 +120,21 @@ export const getTranslationOfKeyword = async (
 ) => {
   try {
     const res = await HTTP.get<TGetTranslationOfKeywordResponse>(
-      `/api/v1/gpt/translate`,
+      REPORT_URL.getTranslate,
       {
         params: queryString,
       },
     );
     return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getHotKeywords = async () => {
+  try {
+    const { data } = await HTTP.get<{ data: TGetKeywordsReponse }>(REPORT_URL.hotKeyword);
+    return data.data;
   } catch (error) {
     console.error(error);
   }
