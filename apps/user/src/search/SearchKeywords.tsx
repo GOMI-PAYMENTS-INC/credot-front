@@ -1,6 +1,13 @@
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { Default as Layout } from '@/common/layouts';
-import { SearchResult, NoneKeyword } from '@/search/newSearch/elements';
+import {
+  SearchResult,
+  NoneKeyword,
+  SearchResultDetail,
+  ReportGeneratorModal,
+  SearchTooltips,
+  SubscriptionModal,
+} from '@/search/elements';
 import { Selector } from '@/report/keyword/elements/Selector';
 import {
   convertSortByIconPath,
@@ -13,12 +20,11 @@ import {
   searchRequestHandler,
 } from '@/search/container';
 
-import { SearchResultDetail } from '@/search/newSearch/elements';
 import { convertCountry } from '@/utils/convertEnum';
 import UseTooltip from '@/components/UseTooltip';
 import { ReactSVG } from 'react-svg';
 
-import { getQueryResult } from '@/search/newSearch/api';
+import { getQueryResult } from '@/search/api';
 import { useForm } from 'react-hook-form';
 import {
   CountryType,
@@ -26,15 +32,14 @@ import {
   COUNTRY,
   SEARCH_STATE_INIT_VALUE,
   SEARCH_MODAL_INIT_VALUE,
-} from '@/search/newSearch/constants';
-import { SearchTooltips } from '@/search/elements/Tooltip';
+} from '@/search/constants';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
-import { ReportGeneratorModal } from '@/search/newSearch/elements/ReportGeneratorModal';
+
 import { BackforwardButton } from '@/components/BackForwardButton';
-import { SubscriptionModal } from '@/search/newSearch/elements/SubscriptionModal';
+
 import MSearchKeyword from './MSearchKeyword';
 
 export const SearchKeywords = () => {

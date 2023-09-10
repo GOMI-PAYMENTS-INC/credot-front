@@ -42,3 +42,12 @@ type TSearchPayload = {
   _state: TSearProps;
   parameter: TReportParams;
 };
+
+type TGetKeywordsReponse = {
+  hotKeywords: { countryCode: TSearchCountry; value: THotKeywords[] }[];
+};
+
+type THotKeywords = {
+  keyword: string;
+  translation: string;
+};

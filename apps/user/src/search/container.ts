@@ -2,10 +2,12 @@ import { SEARCH_ACTION, searchInitialState } from '@/search/reducer';
 import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY } from '@/types/enum.code';
+
 import { UseFormSetValue } from 'react-hook-form';
-import { SEARCH_STATE_INIT_VALUE } from '@/search/newSearch/constants';
+import { SEARCH_STATE_INIT_VALUE } from '@/search/constants';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { getHotKeywords } from '@/search/api';
 
 import {
   _amplitudeKeywordSearched,
@@ -246,4 +248,33 @@ const createReport = async (props: TSearchPayload) => {
 
 export const searchRequestHandler = (props: TSearchPayload) => {
   if (props._modalState.isOpen) requestReport({ ...props });
+};
+
+export const storeHotKeyords = async (
+  setHotKeywords: Dispatch<SetStateAction<THotKeywords[]>>,
+) => {
+  try {
+    const response = await getHotKeywords();
+    if (response) {
+      sessionStorage.setItem(CACHING_KEY.HOT_KEYWORDS, JSON.stringify(response));
+      const _state = response.hotKeywords.find(
+        (country) => country.countryCode === 'VN',
+      )!.value;
+      setHotKeywords(_state);
+    }
+  } catch (error) {
+    throw new Error('인기검색어 저장 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const switchHotKeyword = (
+  country: TSearchCountry,
+  setHotKeywords: Dispatch<SetStateAction<THotKeywords[]>>,
+) => {
+  const ITEM = sessionStorage.getItem(CACHING_KEY.HOT_KEYWORDS);
+  if (isFalsy(ITEM)) throw new Error('인기 검색어에 문제가 있습니다.');
+
+  const response = JSON.parse(ITEM!) as TGetKeywordsReponse;
+  const _state = response.hotKeywords.find((item) => item.countryCode === country)!.value;
+  setHotKeywords(_state);
 };

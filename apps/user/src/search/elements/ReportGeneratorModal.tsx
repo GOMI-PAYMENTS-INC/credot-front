@@ -2,7 +2,7 @@ import type { SetStateAction, Dispatch } from 'react';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { useNavigate } from 'react-router-dom';
 import { searchRequestHandler } from '@/search/container';
-import { SEARCH_MODAL_INIT_VALUE } from '@/search/newSearch/constants';
+import { SEARCH_MODAL_INIT_VALUE } from '@/search/constants';
 
 import { Modal } from '@/report/keyword/elements/Modal';
 import { MODAL_TYPE_ENUM } from '@/types/enum.code';
@@ -27,7 +27,8 @@ export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
         createdAt={response}
         successCallback={() => {
           if (modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
-            navigate(`/report/${response}`);
+            navigate(`/report`);
+            // navigate(`/report/${response}`);
           }
           if (
             [

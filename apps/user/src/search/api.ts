@@ -1,6 +1,5 @@
-import { Dispatch } from 'react';
-import { CountryType, useSearchQuery } from '@/generated/graphql';
-
+import { Dispatch, SetStateAction } from 'react';
+import { useSearchQuery } from '@/generated/graphql';
 import { HTTP } from '@/api/axiosConfig';
 import { isFalsy } from '@/utils/isFalsy';
 import { _getProductImages } from '@/search/container';
@@ -9,31 +8,39 @@ import {
   _amplitudeKeywordSearchedSucceeded,
 } from '@/amplitude/amplitude.service';
 
+import { updateSearchPayload } from '@/search/container';
+
 export const getQueryResult = (
-  country: CountryType,
-  sortBy: TSortBy,
-  keyword: string,
-  _dispatch: Dispatch<TSearchActionType>,
+  payload: TSearchProps,
+  _dispatch: Dispatch<SetStateAction<TSearchProps>>,
 ) => {
+  const { country, sortBy, keyword } = payload;
+
   const { data, isLoading, isFetching, isError } = useSearchQuery(
+    { country, text: keyword },
     {
-      country: country,
-      text: keyword,
-    },
-    {
-      //FIXME: 검색어를 입력한 후 매 이벤트마다 함수가 실행됨
       enabled: isFalsy(keyword) === false,
       refetchOnWindowFocus: false,
       onSuccess: async (res) => {
         try {
-          const images = await getProductImages({
-            keyword: keyword,
-            country: country as TSearchCountry,
+          updateSearchPayload({
+            _state: payload,
+            _dispatch,
+            key: 'images',
+            params: null,
           });
+          const images = await getProductImages({ keyword, country: payload.country });
 
           if (images && images.data.data !== null) {
-            _getProductImages(images.data, _dispatch);
+            const [productImgs] = images.data.data;
+            updateSearchPayload({
+              _state: payload,
+              _dispatch,
+              key: 'images',
+              params: productImgs,
+            });
           }
+
           _amplitudeKeywordSearchedSucceeded(
             country,
             sortBy,
@@ -43,7 +50,7 @@ export const getQueryResult = (
           );
           return;
         } catch (error) {
-          console.error(error, 'error');
+          throw new Error('검색어 처리 중 문제가 발생하였습니다.');
         }
       },
       onError: (error) => {
@@ -66,6 +73,8 @@ const REPORT_URL = {
   postCreateReport: 'api/v1/report',
   getReportExisted: 'api/v1/report/exist',
   getProductImage: `api/v1/keyword/`,
+  hotKeyword: 'api/v1/hot-keyword',
+  getTranslate: 'api/v1/gpt/translate',
 };
 
 export const postCreateReport = async (params: TCreateReportParams) => {
@@ -111,12 +120,21 @@ export const getTranslationOfKeyword = async (
 ) => {
   try {
     const res = await HTTP.get<TGetTranslationOfKeywordResponse>(
-      `/api/v1/gpt/translate`,
+      REPORT_URL.getTranslate,
       {
         params: queryString,
       },
     );
     return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getHotKeywords = async () => {
+  try {
+    const { data } = await HTTP.get<{ data: TGetKeywordsReponse }>(REPORT_URL.hotKeyword);
+    return data.data;
   } catch (error) {
     console.error(error);
   }

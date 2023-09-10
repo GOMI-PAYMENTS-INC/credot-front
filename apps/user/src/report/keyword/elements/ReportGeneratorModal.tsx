@@ -75,7 +75,8 @@ export const ReportGeneratorModal = ({
           createdAt={modal.response}
           successCallback={() => {
             if (modal.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
-              navigate(`/report/${modal.response}`);
+              navigate(`/report`);
+              // navigate(`/report/${modal.response}`);
             }
             if (
               [

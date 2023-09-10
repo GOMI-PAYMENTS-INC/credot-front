@@ -1,6 +1,7 @@
 import { CountryType } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
-import { copyToClipboard } from '@/utils/copyToClipboard';
+import { copyToClipboard, unsecuredCopyToClipboard } from '@/utils/copyToClipboard';
+
 import {
   deleteReportList,
   getBrandAnalysis,
@@ -801,6 +802,7 @@ export const makeShareLink = async (
   sorted: TSortBy,
   text: string,
   _dispatch: Dispatch<TReportAction>,
+  setOpenModal?: Dispatch<SetStateAction<boolean>>,
 ) => {
   let url = '';
   const domain = window.location.origin;
@@ -818,6 +820,18 @@ export const makeShareLink = async (
     url = `${domain}${PATH._REPORT_DETAIL_BY_SHARE}/${shareToken}?${utmLink}`;
 
     _amplitudeKeywordReportShared(reportIdOrShareToken, country, sorted, text);
+  }
+  const isMobile = window.innerWidth < 432;
+
+  if (isMobile) {
+    if (isSecureContext && navigator.clipboard) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      unsecuredCopyToClipboard(url);
+    }
+
+    setOpenModal && setOpenModal(true);
+    return;
   }
 
   copyToClipboard('주소가 복사되었습니다.원하는 곳에 붙여넣기(Ctrl+V)해주세요.', url);
