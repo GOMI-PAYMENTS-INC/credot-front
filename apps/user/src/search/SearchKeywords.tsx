@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useState } from 'react';
+import { Fragment, KeyboardEvent, useEffect, useState } from 'react';
 import { Default as Layout } from '@/common/layouts';
 import {
   SearchResult,
@@ -84,7 +84,12 @@ export const SearchKeywords = () => {
     : 'items-center';
 
   if (window.innerWidth < 432) {
-    return <MSearchKeyword />;
+    return (
+      <Fragment>
+        <SubscriptionModal />
+        <MSearchKeyword />
+      </Fragment>
+    );
   }
 
   return (
