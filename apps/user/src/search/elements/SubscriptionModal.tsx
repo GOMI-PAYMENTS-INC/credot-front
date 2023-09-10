@@ -15,14 +15,16 @@ export const SubscriptionModal = () => {
   return (
     <ModalComponent isOpen={isOpen}>
       <div className='flex flex-col'>
-        <div className='h-[440px] w-[480px] bg-[url(/assets/images/Subscription.png)]'>
-          <div className='flex flex-col pt-[30px] pl-[30px] text-start text-3XL/Medium text-orange-400'>
+        <div className='h-[440px] w-[480px] bg-[url(/assets/images/Subscription.png)] bg-cover xs:h-[293px] xs:w-[320px]'>
+          <div className='flex flex-col pt-[30px] pl-[30px] text-start text-3XL/Medium text-orange-400 xs:pt-5 xs:pl-5 xs:text-2XL/Bold'>
             <p>키워드 분석 서비스</p>
             <p>부분 유료화 안내</p>
-            <p className='pt-[14px] text-2XL/Medium text-orange-900'>2023.09.18~</p>
+            <p className='pt-[14px] text-2XL/Medium text-orange-900 xs:pt-2.5 xs:text-L/Medium'>
+              2023.09.18~
+            </p>
           </div>
         </div>
-        <div className='flex h-[60px] justify-around rounded-b-lg bg-white'>
+        <div className='flex h-[60px] justify-around rounded-b-lg bg-white xs:h-[52px]'>
           <button
             className='w-1/2 border-r-[1px]'
             onClick={() => {
