@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY } from '@/types/enum.code';
 import { UseFormSetValue } from 'react-hook-form';
-import { SEARCH_STATE_INIT_VALUE } from '@/search/newSearch/constants';
+import { SEARCH_STATE_INIT_VALUE } from '@/search/constants';
 import { toast } from 'react-toastify';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 

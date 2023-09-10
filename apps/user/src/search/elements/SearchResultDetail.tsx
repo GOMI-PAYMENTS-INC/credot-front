@@ -1,6 +1,6 @@
 import UseTooltip from '@/components/UseTooltip';
 import { formatNumber } from '@/utils/formatNumber';
-import { RelativeKeywords } from '@/search/newSearch/elements/RelativeKeywords';
+import { RelativeKeywords } from '@/search/elements';
 import type { Dispatch, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 interface ISearchDetailResult {
