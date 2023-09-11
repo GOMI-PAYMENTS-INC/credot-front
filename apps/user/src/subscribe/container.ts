@@ -1,7 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { getPlans } from '@/subscribe/api';
+import { CACHING_KEY } from '@/types/enum.code';
 
 import { v4 as uuidv4 } from 'uuid';
 import { PATH } from '@/router/routeList';
+import { isFalsy } from '@/utils/isFalsy';
 export const DATA = [
   {
     createdAt: '2023.08.23 16:04:32',
@@ -90,4 +93,41 @@ export const registerCard = (userId: string, userEmail: number) => {
   );
 };
 
-export const paymentRequestResult = () => {};
+export const storePlans = async (
+  setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
+  setPlans: Dispatch<SetStateAction<TPlans[]>>,
+) => {
+  const item = sessionStorage.getItem(CACHING_KEY.PLANS);
+  if (item) {
+    const parsingItem = JSON.parse(item) as TPlans[];
+    setPlans(parsingItem);
+    const [_state] = parsingItem.filter((plans) => plans.name !== 'Free');
+    setSelectedPlan(_state);
+    return;
+  }
+
+  try {
+    const response = await getPlans();
+    if (response) {
+      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
+      const [_state] = response.filter((plan) => plan.name !== 'Free');
+
+      setPlans(response);
+      setSelectedPlan(_state);
+    }
+  } catch (error) {
+    throw new Error('플랜 저장 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const switchPlans = (
+  planName: TPlanNames,
+  setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
+) => {
+  const ITEM = sessionStorage.getItem(CACHING_KEY.PLANS);
+  if (isFalsy(ITEM)) throw new Error('인기 검색어에 문제가 있습니다.');
+
+  const response = JSON.parse(ITEM!) as TPlans[];
+  const [_state] = response.filter((plan) => plan.name === planName);
+  setSelectedPlan(_state);
+};
