@@ -10,7 +10,7 @@ import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { isIncluded } from '@/utils/isIncluded';
 
 import { useRecoilValue } from 'recoil';
-import { UserAtom } from '@/atom/auth/auth-atom';
+import { UserAtom } from '@/atom/auth.atom';
 import { signInApi } from '@/auth/signIn/api';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 

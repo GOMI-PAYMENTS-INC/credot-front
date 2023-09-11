@@ -157,7 +157,8 @@ export const switchPlans = (
   setSelectedPlan(_state);
 };
 
-export const insertDash = (str: string) => {
+export const insertDash = (str: string | undefined) => {
+  if (str === undefined) return '';
   return str.split('').reduce((pre, cur, idx) => {
     if (idx !== 0 && idx % 4 === 0) {
       return pre + '-' + cur;
