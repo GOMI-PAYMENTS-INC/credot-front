@@ -1,6 +1,6 @@
 import { insertDash, _getUserCards } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useState, useMemo, useEffect } from 'react';
 import { PATH } from '@/router/routeList';
@@ -15,7 +15,7 @@ export const RegisterCards = () => {
   const [userCards, setUserCards] = useState<TUserCard[]>([]);
 
   const userInfo = useRecoilValue(UserAtom)?.me;
-
+  const navigator = useNavigate();
   useEffect(() => {
     _getUserCards(setUserCards);
   }, []);
@@ -64,6 +64,7 @@ export const RegisterCards = () => {
         <button
           onClick={() => {
             // 결제 api 필요
+            navigator(PATH.SUBSCRIBE);
           }}
           className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
         >

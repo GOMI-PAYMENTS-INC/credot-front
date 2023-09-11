@@ -39,7 +39,7 @@ export const ResultPage = () => {
                     } border-grey-300 text-L/Regular`}
                   >
                     <div className='flex flex-col gap-5'>
-                      <p>결제일시</p>
+                      {isAccepted && <p>결제일시</p>}
                       <p>결제카드</p>
                       <p>카드번호</p>
                       <p>구독 서비스명</p>
@@ -53,7 +53,7 @@ export const ResultPage = () => {
                       )}
                     </div>
                     <div className='flex flex-col gap-5 text-end'>
-                      <p className='text-L/Bold'>2023.09.05</p>
+                      {isAccepted && <p className='text-L/Bold'>2023.09.05</p>}
                       <p className='text-L/Bold'>알 수 없음</p>
                       <p className='text-L/Bold'>62532082****684*</p>
                       <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
