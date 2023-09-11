@@ -1,10 +1,12 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { getPlans } from '@/subscribe/api';
+import { getPlans, postUserCard } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
 import { v4 as uuidv4 } from 'uuid';
 import { PATH } from '@/router/routeList';
+import { convertTime } from '@/utils/parsingTimezone';
 import { isFalsy } from '@/utils/isFalsy';
+
 export const DATA = [
   {
     createdAt: '2023.08.23 16:04:32',
@@ -68,24 +70,35 @@ export const registerCard = (userId: string, userEmail: number) => {
   const userCode = import.meta.env.VITE_PORTONE_CODE;
   const PG_MID = 'iamporttest_4';
   const UUID = uuidv4();
+  const time = convertTime(null, 'YYYY-MM-DDTHH:mm:ss');
+
   IMP.init(userCode);
   IMP.request_pay(
     {
       pg: `tosspayments.${PG_MID}`,
       pay_method: 'card', // 'card'만 지원됩니다.
-      merchant_uid: UUID, // 상점에서 관리하는 주문 번호
+      merchant_uid: time, // 상점에서 관리하는 주문 번호
       name: '최초인증결제',
       amount: 0, // 실제 승인은 발생되지 않고 오직 빌링키만 발급됩니다.
       customer_uid: UUID, // 필수 입력.
       buyer_email: userEmail,
       customer_id: userId, //가맹점이 회원에게 부여한 고유 ID
     },
-    function (rsp: any) {
+    function (rsp: TPortOneResponse) {
       // callback
       if (rsp.success) {
-        // 빌링키 발급 성공
-        // jQuery로 HTTP 요청
-        console.log(rsp);
+        const { customer_uid, currency, pg_provider, card_name, card_number, bank_name } =
+          rsp;
+        const payload = {
+          customer_uid,
+          currency,
+          pg_provider,
+          card_name,
+          card_number,
+          bank_name: bank_name ?? '',
+          is_main: true,
+        };
+        postUserCard(payload);
       } else {
         // 빌링키 발급 실패
       }

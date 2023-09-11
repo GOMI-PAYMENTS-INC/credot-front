@@ -6,17 +6,9 @@ import { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import {
-  updateSelectedPlan,
-  registerCard,
-  storePlans,
-  switchPlans,
-} from '@/subscribe/container';
+import { registerCard, storePlans, switchPlans } from '@/subscribe/container';
 import { UserAtom } from '@/atom/auth/auth-atom';
 import { useRecoilValue } from 'recoil';
-
-import { PLANS } from '@/subscribe/constant';
-import { CACHING_KEY } from '@/types/enum.code';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
@@ -24,7 +16,9 @@ export const UpgradePlan = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [plans, setPlans] = useState<TPlans[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
+
   const userInfo = useRecoilValue(UserAtom)?.me;
+  const date = new Date();
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -137,7 +131,7 @@ export const UpgradePlan = () => {
                       <div className='flex flex-col gap-5 text-end'>
                         <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
                         <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
-                        <p className='text-L/Bold'>매월 7일</p>
+                        <p className='text-L/Bold'>매월 {date.getDate()}일</p>
                         <p>{formatNumber(selectedPlan.originPrice)}</p>
                         <p>{formatNumber(selectedPlan.originPrice / 2)}</p>
                       </div>

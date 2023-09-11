@@ -1,16 +1,22 @@
 import { Default as Layout } from '@/common/layouts';
 import { TransactionHistory } from '@/subscribe/elements';
 import { FAQ } from './elements/FAQ';
+
 import { SUBSCRIBE_QNA } from '@/subscribe/constant';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
+
 import { useEffect } from 'react';
+import { getUserCards } from '@/subscribe/api';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
+
   useEffect(() => {
+    getUserCards();
     window.scroll(0, 0);
   }, []);
+
   return (
     <Layout useGap={true}>
       <section className='space-y-[60px]'>
