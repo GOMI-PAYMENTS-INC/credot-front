@@ -6,7 +6,7 @@ import { Common2Section as Layout } from '@/common/layouts/Common2Section';
 import { ChangePasswordInput } from '@/generated/graphql';
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useRecoilValue } from 'recoil';
-import { UserAtom } from '@/atom/auth/auth-atom';
+import { UserAtom } from '@/atom/auth.atom';
 import { signInApi } from '@/auth/signIn/api';
 import { useEffect } from 'react';
 import { useCookieStorage } from '@/utils/useCookieStorage';

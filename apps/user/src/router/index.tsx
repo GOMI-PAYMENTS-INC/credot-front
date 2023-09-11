@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { _setUserId } from '@/amplitude/amplitude.service';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
+import { LoginTokenAtom, UserAtom } from '@/atom/auth.atom';
 import { signInApi } from '@/auth/signIn/api';
 import { useMeQuery } from '@/generated/graphql';
 import PrivateRoute from '@/router/PrivateRouter';

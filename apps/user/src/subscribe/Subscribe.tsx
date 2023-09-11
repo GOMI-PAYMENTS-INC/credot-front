@@ -8,13 +8,11 @@ import { PATH } from '@/router/routeList';
 
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
-import { getUserCards } from '@/subscribe/api';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    getUserCards();
     window.scroll(0, 0);
   }, []);
 
@@ -78,21 +76,6 @@ export const Subscribe = () => {
                   </div>
                 </div>
 
-                {/* <div className='flex-grow space-y-5 text-2XL/Bold'>
-                  <p>
-                    결제 수단
-                    <span className='ml-[15px] text-M/Medium text-grey-500'>
-                      정기 결제일에 사용될 카드에요.
-                    </span>
-                  </p>
-                  <div id='registed_card'>
-                    <div className='flex justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'>
-                      <p className='py-[35px] text-L/Medium text-grey-500'>
-                        등록된 카드가 없어요
-                      </p>
-                    </div>
-                  </div>
-                </div> */}
                 <RegisterCards />
               </div>
               <TransactionHistory />

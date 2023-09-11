@@ -2,20 +2,22 @@ import { insertDash, _getUserCards } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { PATH } from '@/router/routeList';
 
 import { isTruthy } from '@/utils/isTruthy';
 import { registerCard } from '@/subscribe/container';
-import { UserAtom } from '@/atom/auth/auth-atom';
-import { useRecoilValue } from 'recoil';
+import { UserAtom } from '@/atom/auth.atom';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { UserCardsAtom } from '@/atom';
 
 export const RegisterCards = () => {
   const { pathname } = useLocation();
-  const [userCards, setUserCards] = useState<TUserCard[]>([]);
+  const [userCards, setUserCards] = useRecoilState(UserCardsAtom);
 
   const userInfo = useRecoilValue(UserAtom)?.me;
   const navigator = useNavigate();
+
   useEffect(() => {
     _getUserCards(setUserCards);
   }, []);
@@ -47,13 +49,14 @@ export const RegisterCards = () => {
   const FilledCard = useMemo(() => {
     if (pathname === PATH.SUBSCRIBE) {
       return (
-        <button className='mt-2 flex w-full items-center justify-end gap-[6px] pr-2 text-M/Medium'>
-          <ReactSVG
-            src='/assets/icons/filled/PlusCircle.svg'
-            beforeInjection={(src) => src.setAttribute('class', 'h-5 w-5 fill-grey-800')}
-          />
-          신규 카드등록
-        </button>
+        <></>
+        // <button className='mt-2 flex w-full items-center justify-end gap-[6px] pr-2 text-M/Medium'>
+        //   <ReactSVG
+        //     src='/assets/icons/filled/PlusCircle.svg'
+        //     beforeInjection={(src) => src.setAttribute('class', 'h-5 w-5 fill-grey-800')}
+        //   />
+        //   신규 카드등록
+        // </button>
       );
     }
     return (
@@ -64,7 +67,7 @@ export const RegisterCards = () => {
         <button
           onClick={() => {
             // 결제 api 필요
-            navigator(PATH.SUBSCRIBE);
+            navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'accepted'));
           }}
           className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
         >
@@ -85,7 +88,10 @@ export const RegisterCards = () => {
       <div id='registed_card' className='w-[448px]'>
         {isTruthy(userCards) ? (
           <>
-            <div id='scrollbar' className='max-h-[270px] overflow-auto pr-2'>
+            <div
+              id='scrollbar'
+              className='max-h-[270px] overflow-auto border-b-[1px] border-grey-200 pr-2 pb-5'
+            >
               {userCards.map((card) => {
                 const isMain = card.isMain
                   ? 'border-orange-400 bg-orange-100'

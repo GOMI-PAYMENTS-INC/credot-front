@@ -9,7 +9,7 @@ import {
   _resetAmplitude,
 } from '@/amplitude/amplitude.service';
 import { useResetRecoilState } from 'recoil';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
+import { LoginTokenAtom, UserAtom } from '@/atom/auth.atom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useSessionStorage } from '@/utils/useSessionStorage';
