@@ -1,16 +1,23 @@
 import { Default as Layout } from '@/common/layouts';
 import { TransactionHistory } from '@/subscribe/elements';
 import { FAQ } from './elements/FAQ';
+
 import { SUBSCRIBE_QNA } from '@/subscribe/constant';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
+
+import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
+import { getUserCards } from '@/subscribe/api';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
+
   useEffect(() => {
+    getUserCards();
     window.scroll(0, 0);
   }, []);
+
   return (
     <Layout useGap={true}>
       <section className='space-y-[60px]'>
@@ -28,57 +35,56 @@ export const Subscribe = () => {
         <main>
           <div id='subscribe_frame' className='flex justify-center'>
             <div className='w-[1148px]'>
-              <div className='flex justify-around gap-20'>
-                <div className='w-1/2 space-y-5 text-2XL/Bold'>
-                  <p>사용중인 플랜</p>
+              <div className='flex justify-around gap-[88px]'>
+                <div className='w-[608px] text-2XL/Bold'>
+                  <p className='pb-5'>사용중인 플랜</p>
                   <div
-                    id='subscribe_plan'
-                    className='flex flex-col rounded-lg border-[1px] border-grey-300 px-10 py-[38px]'
+                    id='subscription_plan'
+                    className='flex h-[270px] overflow-hidden rounded-lg border-[1px] border-grey-300'
                   >
-                    <div>
-                      <div className='flex items-center gap-2.5 text-XL/Bold'>
-                        <div className='flex h-[25px] w-[25px] items-center justify-center rounded-full bg-grey-300'>
-                          <p className='mt-[2px] text-M/Bold'>F</p>
-                        </div>
-                        <p>Free 플랜</p>
-                      </div>
-
-                      <p id='subscribe_date' className='mt-3 text-L/Medium text-grey-800'>
-                        사용 기간 : <span>2023.08.23 ~ 2023.09.23</span>
-                      </p>
-                    </div>
-
                     <div
-                      id='request_report_count'
-                      className='text-L/Medium text-grey-800 '
+                      id='subscription_plan_count'
+                      className='h-full w-[263px] border-r-[1px] bg-grey-50'
                     >
-                      <div className='mt-5'>
-                        <p>
-                          리포트 발행량 : <span>0/10</span>
+                      <div className='flex h-full flex-col items-center justify-center gap-2.5'>
+                        <img
+                          src='/assets/images/Free.png'
+                          className='h-[83px] w-[83px]'
+                        />
+                        <p className='w-[150px] border-b-[1px] border-grey-200 pb-2.5 text-center text-XL/Bold'>
+                          Free 플랜
                         </p>
-                        <div className='mt-3 h-[9px] w-full bg-orange-100' />
+                        <p className=' text-M/Medium text-grey-800'>
+                          리포트 발행 수 : <span className=''>0/5</span>
+                        </p>
+                        <div className='h-2 w-[187px] rounded bg-orange-200' />
                       </div>
                     </div>
-
                     <div
-                      id='upgrade_area'
-                      className='mt-[30px] flex items-center justify-between'
+                      id='subscription_plan_date'
+                      className='relative flex-grow px-6 py-[35px] text-M/Regular'
                     >
-                      <p className='text-L/Regular text-grey-800'>
-                        다음 결제일 : <span>-</span>
-                      </p>
-                      <button
-                        className='button-filled-normal-large-primary-false-false-true w-[188px] bg-gradient-to-r from-orange-500 to-[#FF8C04]'
-                        onClick={() => navigator(PATH.UPGRADE_PLAN)}
-                      >
-                        플랜 변경하기
-                      </button>
+                      <p className='text-M/Bold'>사용 기간</p>
+                      <p>2023.08.23 ~ 2023.09.23</p>
+                      <div className='flex w-full justify-end'>
+                        <button
+                          className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
+                          onClick={() => navigator(PATH.UPGRADE_PLAN)}
+                        >
+                          업그레이드 하기
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className='w-1/2 space-y-5 text-2XL/Bold'>
-                  <p>결제 수단</p>
+                {/* <div className='flex-grow space-y-5 text-2XL/Bold'>
+                  <p>
+                    결제 수단
+                    <span className='ml-[15px] text-M/Medium text-grey-500'>
+                      정기 결제일에 사용될 카드에요.
+                    </span>
+                  </p>
                   <div id='registed_card'>
                     <div className='flex justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'>
                       <p className='py-[35px] text-L/Medium text-grey-500'>
@@ -86,7 +92,8 @@ export const Subscribe = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <RegisterCards />
               </div>
               <TransactionHistory />
             </div>
