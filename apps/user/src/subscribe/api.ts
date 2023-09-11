@@ -30,7 +30,7 @@ export const postUserCard = async (params: TPostUserCardRequest) => {
 export const getUserCards = async () => {
   try {
     const { data } = await HTTP.get<{
-      data: { totalCount: number; userCards: TPostUserCardResponse[] };
+      data: { totalCount: number; userCards: TUserCard[] };
     }>(PLANS_API.getUserCards);
     return data.data.userCards;
   } catch (error) {

@@ -4,11 +4,9 @@ import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
 import { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
 
-import { registerCard, storePlans, switchPlans } from '@/subscribe/container';
-import { UserAtom } from '@/atom/auth/auth-atom';
-import { useRecoilValue } from 'recoil';
+import { storePlans, switchPlans } from '@/subscribe/container';
+import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
@@ -17,7 +15,6 @@ export const UpgradePlan = () => {
   const [plans, setPlans] = useState<TPlans[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
 
-  const userInfo = useRecoilValue(UserAtom)?.me;
   const date = new Date();
 
   useEffect(() => {
@@ -144,39 +141,9 @@ export const UpgradePlan = () => {
                 </div>
               </div>
             </div>
+
             <div className='w-[444px]'>
-              <div className='space-y-5 border-b-[1px] border-grey-200 pb-5 text-2XL/Bold'>
-                <p>결제 수단</p>
-                <button
-                  id='registed_card'
-                  className='flex w-full justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'
-                  onClick={() => {
-                    const { email, id } = userInfo!;
-                    registerCard(email, id);
-                  }}
-                >
-                  <div className='flex flex-col items-center justify-center py-[14px]'>
-                    <ReactSVG
-                      src='/assets/icons/outlined/PlusCircle.svg'
-                      className='mb-[6px]'
-                    />
-                    <p className='text-L/Medium text-grey-500'>신규 카드등록</p>
-                  </div>
-                </button>
-              </div>
-              <div className='mt-8'>
-                <p className='text-L/Regular text-grey-800'>
-                  구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
-                </p>
-                <button
-                  onClick={() => {
-                    // 결제 api 필요
-                  }}
-                  className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
-                >
-                  업그레이드 하기
-                </button>
-              </div>
+              <RegisterCards />
             </div>
           </div>
         </div>

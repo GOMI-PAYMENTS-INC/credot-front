@@ -6,6 +6,7 @@ import { SUBSCRIBE_QNA } from '@/subscribe/constant';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
 
+import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
 import { getUserCards } from '@/subscribe/api';
 
@@ -77,7 +78,7 @@ export const Subscribe = () => {
                   </div>
                 </div>
 
-                <div className='flex-grow space-y-5 text-2XL/Bold'>
+                {/* <div className='flex-grow space-y-5 text-2XL/Bold'>
                   <p>
                     결제 수단
                     <span className='ml-[15px] text-M/Medium text-grey-500'>
@@ -91,7 +92,8 @@ export const Subscribe = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <RegisterCards />
               </div>
               <TransactionHistory />
             </div>

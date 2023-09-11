@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { getPlans, postUserCard } from '@/subscribe/api';
+import { getPlans, postUserCard, getUserCards } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -66,7 +66,11 @@ export const updateSelectedPlan = (
 };
 
 declare const IMP: any;
-export const registerCard = (userId: string, userEmail: number) => {
+export const registerCard = (
+  userId: string,
+  userEmail: number,
+  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+) => {
   const userCode = import.meta.env.VITE_PORTONE_CODE;
   const PG_MID = 'iamporttest_4';
   const UUID = uuidv4();
@@ -99,6 +103,7 @@ export const registerCard = (userId: string, userEmail: number) => {
           is_main: true,
         };
         postUserCard(payload);
+        _getUserCards(setUserCards);
       } else {
         // 빌링키 발급 실패
       }
@@ -143,4 +148,24 @@ export const switchPlans = (
   const response = JSON.parse(ITEM!) as TPlans[];
   const [_state] = response.filter((plan) => plan.name === planName);
   setSelectedPlan(_state);
+};
+
+export const insertDash = (str: string) => {
+  return str.split('').reduce((pre, cur, idx) => {
+    if (idx !== 0 && idx % 4 === 0) {
+      return pre + '-' + cur;
+    }
+    return pre + cur;
+  }, '');
+};
+
+export const _getUserCards = async (
+  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+) => {
+  try {
+    const response = await getUserCards();
+    setUserCards(response);
+  } catch (error) {
+    throw new Error('유저 정보를 상태에 저장하는 과정에서 에러가 발생했습니다.');
+  }
 };

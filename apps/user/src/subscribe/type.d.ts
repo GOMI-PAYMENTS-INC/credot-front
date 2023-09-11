@@ -43,20 +43,22 @@ type TPostUserCardRequest = {
 };
 
 type TPostUserCardResponse = {
-  user_card: {
-    updatedAt: string;
-    id: number;
-    userId: number;
-    customerUid: string;
-    currency: string;
-    pgProvider: string;
-    cardName: string;
-    cardNumber: string;
-    bankName: string;
-    isMain: true;
-    createdAt: string;
-    deleted: true;
-  };
+  user_card: TUserCard[];
+};
+
+type TUserCard = {
+  updatedAt: string;
+  id: number;
+  userId: number;
+  customerUid: string;
+  currency: string;
+  pgProvider: string;
+  cardName: string;
+  cardNumber: string;
+  bankName: string;
+  isMain: true;
+  createdAt: string;
+  deleted: true;
 };
 
 type TPortOneResponse = {
