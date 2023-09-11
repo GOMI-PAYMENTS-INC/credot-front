@@ -177,7 +177,7 @@ const SideBar = (props: TSideBarProps) => {
                   className='flex w-full justify-between'
                   onClick={() => {
                     openBrowser(
-                      'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                      'https://capable-soy-f58.notion.site/6c820f6f0afe4b959b0bf307156dac5c?pvs=4',
                     );
                     _amplitudeMovedToUserGuide('lnb');
                   }}

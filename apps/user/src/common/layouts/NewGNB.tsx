@@ -63,7 +63,7 @@ const GNB = () => {
             className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
             onClick={() => {
               openBrowser(
-                'https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739',
+                'https://capable-soy-f58.notion.site/6c820f6f0afe4b959b0bf307156dac5c?pvs=4',
               );
               _amplitudeMovedToUserGuide('lnb');
             }}

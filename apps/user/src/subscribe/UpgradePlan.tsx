@@ -46,7 +46,7 @@ export const UpgradePlan = () => {
       <header className='pt-[22px]'>
         <div className='flex w-full justify-center'>
           <div id='plan_width' className='flex w-[1138px] justify-center'>
-            <p className='text-4XL/Bold'>플랜 변경하기</p>
+            <p className='text-4XL/Bold'>업그레이드 하기</p>
           </div>
         </div>
       </header>
