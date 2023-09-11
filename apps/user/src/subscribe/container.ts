@@ -74,25 +74,31 @@ export const registerCard = (
   const userCode = import.meta.env.VITE_PORTONE_CODE;
   const PG_MID = 'iamporttest_4';
   const UUID = uuidv4();
-  const time = convertTime(null, 'YYYY-MM-DDTHH:mm:ss');
 
   IMP.init(userCode);
   IMP.request_pay(
     {
       pg: `tosspayments.${PG_MID}`,
       pay_method: 'card', // 'card'만 지원됩니다.
-      merchant_uid: time, // 상점에서 관리하는 주문 번호
+      merchant_uid: UUID, // 상점에서 관리하는 주문 번호
       name: '최초인증결제',
       amount: 0, // 실제 승인은 발생되지 않고 오직 빌링키만 발급됩니다.
       customer_uid: UUID, // 필수 입력.
       buyer_email: userEmail,
       customer_id: userId, //가맹점이 회원에게 부여한 고유 ID
     },
-    function (rsp: TPortOneResponse) {
+    async (rsp: TPortOneResponse) => {
       // callback
       if (rsp.success) {
-        const { customer_uid, currency, pg_provider, card_name, card_number, bank_name } =
-          rsp;
+        const {
+          customer_uid,
+          currency,
+          pg_provider,
+          card_name,
+          card_number,
+          bank_name,
+          merchant_uid,
+        } = rsp;
         const payload = {
           customer_uid,
           currency,
@@ -101,9 +107,10 @@ export const registerCard = (
           card_number,
           bank_name: bank_name ?? '',
           is_main: true,
+          merchant_uid,
         };
-        postUserCard(payload);
-        _getUserCards(setUserCards);
+        await postUserCard(payload);
+        await _getUserCards(setUserCards);
       } else {
         // 빌링키 발급 실패
       }
