@@ -1,9 +1,10 @@
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { ReactSVG } from 'react-svg';
 import { convertCountry, convertSortedType } from '@/utils/convertEnum';
-import { Dispatch, Fragment, SetStateAction } from 'react';
+import { Dispatch, Fragment, SetStateAction, ForwardedRef } from 'react';
 import { HotKeyword } from '@/search/elements';
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { SwitchAtom } from '@/atom/common.atom';
 
 interface ISearchResult {
   _state: TSearchProps;
@@ -11,6 +12,7 @@ interface ISearchResult {
   modal: TNSearchModalStatus;
   _dispatch: Dispatch<SetStateAction<TSearchProps>>;
   count: number | undefined | null;
+  hotKeywordRef: ForwardedRef<HTMLDivElement>;
 }
 
 export const SearchResult = ({
@@ -19,10 +21,10 @@ export const SearchResult = ({
   modal,
   _dispatch,
   count,
+  hotKeywordRef,
 }: ISearchResult) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
   const { keyword, sortBy, country } = _state;
-
   const isLoading = count === null || count === undefined;
 
   return (
@@ -51,6 +53,7 @@ export const SearchResult = ({
           >
             {isOpen && (
               <HotKeyword
+                hotKeywordRef={hotKeywordRef}
                 country={_state.country}
                 searchSortBy={_state.sortBy}
                 _state={_state}

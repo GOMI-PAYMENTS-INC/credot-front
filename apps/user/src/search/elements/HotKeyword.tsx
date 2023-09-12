@@ -1,4 +1,11 @@
-import { SetStateAction, useEffect, useState, type Dispatch } from 'react';
+import {
+  ForwardedRef,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+} from 'react';
 
 import {
   queryKeywordByClick,
@@ -24,11 +31,11 @@ interface IHotKeyword {
     keyword: string;
   }>;
   searchSortBy: TSortBy;
+  hotKeywordRef: ForwardedRef<HTMLDivElement>;
 }
 export const HotKeyword = (props: IHotKeyword) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const { country, _dispatch, setValue, searchSortBy, _state } = props;
-
+  const { country, _dispatch, setValue, searchSortBy, _state, hotKeywordRef } = props;
   const [hotKeywords, setHotKeywords] = useState<THotKeywords[]>([]);
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export const HotKeyword = (props: IHotKeyword) => {
   const isMobileOrEmptyKeyword = _state?.keyword || innerWidth < 432;
 
   return (
-    <section className={`flex-grow xs:mx-5 `}>
+    <section id='hot_keyword' ref={hotKeywordRef} className={`flex-grow xs:mx-5 `}>
       <div
         id='hotKeywordContentLayout'
         className={`rounded-[20px] border-[1px] border-grey-300 bg-white  ${
