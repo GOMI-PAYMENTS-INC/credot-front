@@ -1,14 +1,22 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { formatNumber } from '@/utils/formatNumber';
 import { useEffect, useState } from 'react';
+
 import { PLANS, RESULT_OF_PAY_REQUEST } from '@/subscribe/constant';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
 import { PATH } from '@/router/routeList';
+import { useRecoilValue } from 'recoil';
+import { UserCardsAtom } from '@/atom';
+import { insertDash } from '@/subscribe/container';
 
 export const ResultPage = () => {
   const { result } = useParams();
   const [requestStatue, setRequestStatus] = useState<{}>('');
+  const userCardsInfo = useRecoilValue(UserCardsAtom);
+
+  const userMainCard = userCardsInfo.find((card) => card.isMain);
   const navigator = useNavigate();
   useEffect(() => {
     setRequestStatus(result as TRequestStatus);
@@ -18,6 +26,7 @@ export const ResultPage = () => {
   const { text, title, buttonText, billText } =
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
   const isAccepted = result === 'accepted';
+
   return (
     <Layout>
       <div id='frame' className='flex flex-col items-center justify-center pt-[60px]'>
@@ -39,7 +48,7 @@ export const ResultPage = () => {
                     } border-grey-300 text-L/Regular`}
                   >
                     <div className='flex flex-col gap-5'>
-                      <p>결제일시</p>
+                      {isAccepted && <p>결제일시</p>}
                       <p>결제카드</p>
                       <p>카드번호</p>
                       <p>구독 서비스명</p>
@@ -53,9 +62,11 @@ export const ResultPage = () => {
                       )}
                     </div>
                     <div className='flex flex-col gap-5 text-end'>
-                      <p className='text-L/Bold'>2023.09.05</p>
-                      <p className='text-L/Bold'>알 수 없음</p>
-                      <p className='text-L/Bold'>62532082****684*</p>
+                      {isAccepted && <p className='text-L/Bold'>2023.09.05</p>}
+                      <p className='text-L/Bold'>{userMainCard?.cardName}</p>
+                      <p className='text-L/Bold'>
+                        {insertDash(userMainCard?.cardNumber)}
+                      </p>
                       <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
                       {isAccepted ? (
                         <>

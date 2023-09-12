@@ -1,7 +1,12 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { getPlans, postUserCard, getUserCards } from '@/subscribe/api';
+import { CACHING_KEY } from '@/types/enum.code';
 
 import { v4 as uuidv4 } from 'uuid';
 import { PATH } from '@/router/routeList';
+import { convertTime } from '@/utils/parsingTimezone';
+import { isFalsy } from '@/utils/isFalsy';
+
 export const DATA = [
   {
     createdAt: '2023.08.23 16:04:32',
@@ -61,10 +66,15 @@ export const updateSelectedPlan = (
 };
 
 declare const IMP: any;
-export const registerCard = (userId: string, userEmail: number) => {
+export const registerCard = (
+  userId: string,
+  userEmail: number,
+  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+) => {
   const userCode = import.meta.env.VITE_PORTONE_CODE;
   const PG_MID = 'iamporttest_4';
   const UUID = uuidv4();
+
   IMP.init(userCode);
   IMP.request_pay(
     {
@@ -77,12 +87,30 @@ export const registerCard = (userId: string, userEmail: number) => {
       buyer_email: userEmail,
       customer_id: userId, //가맹점이 회원에게 부여한 고유 ID
     },
-    function (rsp: any) {
+    async (rsp: TPortOneResponse) => {
       // callback
       if (rsp.success) {
-        // 빌링키 발급 성공
-        // jQuery로 HTTP 요청
-        console.log(rsp);
+        const {
+          customer_uid,
+          currency,
+          pg_provider,
+          card_name,
+          card_number,
+          bank_name,
+          merchant_uid,
+        } = rsp;
+        const payload = {
+          customer_uid,
+          currency,
+          pg_provider,
+          card_name,
+          card_number,
+          bank_name: bank_name ?? '',
+          is_main: true,
+          merchant_uid,
+        };
+        await postUserCard(payload);
+        await _getUserCards(setUserCards);
       } else {
         // 빌링키 발급 실패
       }
@@ -90,4 +118,62 @@ export const registerCard = (userId: string, userEmail: number) => {
   );
 };
 
-export const paymentRequestResult = () => {};
+export const storePlans = async (
+  setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
+  setPlans: Dispatch<SetStateAction<TPlans[]>>,
+) => {
+  const item = sessionStorage.getItem(CACHING_KEY.PLANS);
+  if (item) {
+    const parsingItem = JSON.parse(item) as TPlans[];
+    setPlans(parsingItem);
+    const [_state] = parsingItem.filter((plans) => plans.name !== 'Free');
+    setSelectedPlan(_state);
+    return;
+  }
+
+  try {
+    const response = await getPlans();
+    if (response) {
+      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
+      const [_state] = response.filter((plan) => plan.name !== 'Free');
+
+      setPlans(response);
+      setSelectedPlan(_state);
+    }
+  } catch (error) {
+    throw new Error('플랜 저장 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const switchPlans = (
+  planName: TPlanNames,
+  setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
+) => {
+  const ITEM = sessionStorage.getItem(CACHING_KEY.PLANS);
+  if (isFalsy(ITEM)) throw new Error('인기 검색어에 문제가 있습니다.');
+
+  const response = JSON.parse(ITEM!) as TPlans[];
+  const [_state] = response.filter((plan) => plan.name === planName);
+  setSelectedPlan(_state);
+};
+
+export const insertDash = (str: string | undefined) => {
+  if (str === undefined) return '';
+  return str.split('').reduce((pre, cur, idx) => {
+    if (idx !== 0 && idx % 4 === 0) {
+      return pre + '-' + cur;
+    }
+    return pre + cur;
+  }, '');
+};
+
+export const _getUserCards = async (
+  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+) => {
+  try {
+    const response = await getUserCards();
+    setUserCards(response);
+  } catch (error) {
+    throw new Error('유저 정보를 상태에 저장하는 과정에서 에러가 발생했습니다.');
+  }
+};

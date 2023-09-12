@@ -161,6 +161,7 @@ export enum CACHING_KEY {
   HACKLE = 'hackle',
   IS_OPEN = 'isOpen',
   HOT_KEYWORDS = 'hot_keywords',
+  PLANS = 'plan',
 }
 
 export enum STYLE_ENUM {
