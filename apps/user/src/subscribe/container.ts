@@ -127,7 +127,9 @@ export const storePlans = async (
   if (isTruthy(item)) {
     const parsingItem = JSON.parse(item!) as TPlans[];
     setPlans(parsingItem);
-    const [_state] = parsingItem.filter((plans) => plans.name !== 'Free');
+    const [_state] = parsingItem.filter(
+      (plans) => plans.uniqueKey !== 'PRODUCT_PLAN_FREE',
+    );
     setSelectedPlan(_state);
     return;
   }
