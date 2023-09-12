@@ -2,33 +2,27 @@ export enum GRADE {
   FREE = 'Free',
   STARTER = 'Starter',
   PRO = 'Pro',
-  ENTERPRISE = 'Enterprise',
+  // ENTERPRISE = 'Enterprise',
 }
 
 export const PLANS = [
   {
     grade: GRADE.FREE,
     subscribe: '키워드 분석 최대 5회',
-    price: { MONTH: '무료', YEAR: '무료' },
+    price: { MONTH: '무료' },
     button: '무료로 사용하기',
   },
   {
     grade: GRADE.STARTER,
     subscribe: '키워드 분석 최대 50회',
-    price: { MONTH: '15,000원', YEAR: '12,000원' },
+    price: { MONTH: '10,000원', origin: '20,000원', sale: '50%' },
     button: '구독하기',
   },
   {
     grade: GRADE.PRO,
-    subscribe: '키워드 분석 최대 200회',
-    price: { MONTH: '24,000원', YEAR: '19,200원' },
+    subscribe: '키워드 분석 최대 120회',
+    price: { MONTH: '16,000원', origin: '32,000원', sale: '50%' },
     button: '구독하기',
-  },
-  {
-    grade: GRADE.ENTERPRISE,
-    subscribe: '키워드 분석 최대 150회 초과',
-    price: { MONTH: '50,000원~', YEAR: '40,000원~' },
-    button: '채팅 문의하기',
   },
 ];
 
