@@ -13,7 +13,7 @@ import { authReturnUrl } from '@/auth/container';
 import { PATH } from '@/types/enum.code';
 
 import { useRecoilValue } from 'recoil';
-import { HackleAtom } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/hackle.atom';
 
 interface IDetailReportSwitchProps {
   isUser: boolean;

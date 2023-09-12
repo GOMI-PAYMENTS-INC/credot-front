@@ -4,23 +4,23 @@ import { PATH } from '@/router/routeList';
 import { formatNumber } from '@/utils/formatNumber';
 import { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
 
-import { updateSelectedPlan, registerCard } from '@/subscribe/container';
-import { UserAtom } from '@/atom/auth/auth-atom';
-import { useRecoilValue } from 'recoil';
-
-import { PLANS } from '@/subscribe/constant';
+import { storePlans, switchPlans } from '@/subscribe/container';
+import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<TPlanType>(PLANS[0]);
-  const userInfo = useRecoilValue(UserAtom)?.me;
+  const [plans, setPlans] = useState<TPlans[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
+
+  const date = new Date();
 
   useEffect(() => {
     window.scroll(0, 0);
+
+    storePlans(setSelectedPlan, setPlans);
 
     if (width === 0) {
       setWidth(document.getElementById('plan_width')?.offsetLeft! - 100);
@@ -46,7 +46,7 @@ export const UpgradePlan = () => {
       <header className='pt-[22px]'>
         <div className='flex w-full justify-center'>
           <div id='plan_width' className='flex w-[1138px] justify-center'>
-            <p className='text-4XL/Bold'>플랜 변경하기</p>
+            <p className='text-4XL/Bold'>업그레이드 하기</p>
           </div>
         </div>
       </header>
@@ -57,54 +57,59 @@ export const UpgradePlan = () => {
               <div className='space-y-5 text-2XL/Bold'>
                 <p>결제 플랜</p>
                 <ul id='plan_list' className='flex flex-col gap-5'>
-                  {PLANS.map((plan, index) => {
-                    const isSelected = plan.name === selectedPlan.name;
-                    const selectedBorder = isSelected
-                      ? 'border-orange-400 bg-orange-100'
-                      : '';
-                    return (
-                      <li
-                        key={`${plan}_${index}`}
-                        className={`flex cursor-pointer justify-between rounded-lg border-[1px] px-5 py-[14px] ${selectedBorder}`}
-                        onClick={() => updateSelectedPlan(plan, setSelectedPlan)}
-                      >
-                        <div className='flex'>
-                          <div className='flex h-full items-center'>
-                            <div
-                              className={`flex h-5 w-5 items-center justify-center rounded-full border-[2px] ${
-                                isSelected ? 'border-orange-400' : ''
-                              }`}
-                            >
-                              <div
-                                className={`h-3 w-3 rounded-full bg-orange-400 p-1 ${
-                                  isSelected ? '' : 'hidden'
-                                }`}
-                              />
+                  {plans &&
+                    plans
+                      .filter((plan) => plan.name !== 'Free')
+                      .map((plan, index) => {
+                        const isSelected = plan.name === selectedPlan?.name;
+                        const selectedBorder = isSelected
+                          ? 'border-orange-400 bg-orange-100'
+                          : '';
+                        return (
+                          <li
+                            key={`${plan}_${index}`}
+                            className={`flex cursor-pointer justify-between rounded-lg border-[1px] px-5 py-[14px] ${selectedBorder}`}
+                            onClick={() => switchPlans(plan.name, setSelectedPlan)}
+                          >
+                            <div className='flex'>
+                              <div className='flex h-full items-center'>
+                                <div
+                                  className={`flex h-5 w-5 items-center justify-center rounded-full border-[2px] ${
+                                    isSelected ? 'border-orange-400' : ''
+                                  }`}
+                                >
+                                  <div
+                                    className={`h-3 w-3 rounded-full bg-orange-400 p-1 ${
+                                      isSelected ? '' : 'hidden'
+                                    }`}
+                                  />
+                                </div>
+                              </div>
+                              <div className='ml-5 flex flex-col gap-1'>
+                                <p className='text-2XL/Bold'>{plan.name}</p>
+                                <p className='text-M/Medium'>{plan.description}</p>
+                              </div>
                             </div>
-                          </div>
-                          {/* <input type='radio' defaultChecked={isSelected} /> */}
-                          <div className='ml-5 flex flex-col gap-1'>
-                            <p className='text-2XL/Bold'>{plan.name}</p>
-                            <p className='text-M/Medium'>{`키워드 분석 최대 ${plan.count}회`}</p>
-                          </div>
-                        </div>
-                        <div className='flex items-center'>
-                          <div className='flex h-6 rounded-[100px] bg-gradient-to-b from-[#FF7500] to-[#FC5000]'>
-                            <p className='self-center px-2.5 text-S/Bold text-white'>
-                              50%
-                            </p>
-                          </div>
-                          <p className='ml-[7px] text-M/Regular text-grey-500 line-through'>
-                            {formatNumber(plan.originPrice)}
-                          </p>
-                          <p className='ml-2.5 text-2XL/Bold'>
-                            {formatNumber(plan.price)}
-                            <span className='text-M/Medium'> /월</span>
-                          </p>
-                        </div>
-                      </li>
-                    );
-                  })}
+                            <div className='flex items-center'>
+                              <div className='flex h-6 rounded-[100px] bg-gradient-to-b from-[#FF7500] to-[#FC5000]'>
+                                <p className='self-center px-2.5 text-S/Bold text-white'>
+                                  {(plan.price / plan.originPrice) * 100}%
+                                </p>
+                              </div>
+                              <p className='ml-[7px] text-M/Regular text-grey-500 line-through'>
+                                {formatNumber(plan.originPrice)}
+                              </p>
+                              <p className='ml-2.5 text-2XL/Bold'>
+                                {formatNumber(plan.price)}
+                                <span className='text-M/Medium'>
+                                  {' '}
+                                  /{plan.subscribeCycle}일
+                                </span>
+                              </p>
+                            </div>
+                          </li>
+                        );
+                      })}
                 </ul>
               </div>
 
@@ -119,54 +124,26 @@ export const UpgradePlan = () => {
                       <p>서비스 금액</p>
                       <p>할인 금액</p>
                     </div>
-                    <div className='flex flex-col gap-5 text-end'>
-                      <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
-                      <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
-                      <p className='text-L/Bold'>매월 7일</p>
-                      <p>{formatNumber(selectedPlan.originPrice)}</p>
-                      <p>{formatNumber(selectedPlan.originPrice / 2)}</p>
-                    </div>
+                    {selectedPlan && (
+                      <div className='flex flex-col gap-5 text-end'>
+                        <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
+                        <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
+                        <p className='text-L/Bold'>매월 {date.getDate()}일</p>
+                        <p>{formatNumber(selectedPlan.originPrice)}</p>
+                        <p>{formatNumber(selectedPlan.originPrice / 2)}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className='mt-[18px] flex justify-between'>
                   <p className='text-2XL/Bold text-orange-400'>총 결제 금액</p>
-                  <p className='text-2XL/Regular'>{formatNumber(selectedPlan.price)}</p>
+                  <p className='text-2XL/Regular'>{formatNumber(selectedPlan?.price)}</p>
                 </div>
               </div>
             </div>
+
             <div className='w-[444px]'>
-              <div className='space-y-5 border-b-[1px] border-grey-200 pb-5 text-2XL/Bold'>
-                <p>결제 수단</p>
-                <button
-                  id='registed_card'
-                  className='flex w-full justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'
-                  onClick={() => {
-                    const { email, id } = userInfo!;
-                    registerCard(email, id);
-                  }}
-                >
-                  <div className='flex flex-col items-center justify-center py-[14px]'>
-                    <ReactSVG
-                      src='/assets/icons/outlined/PlusCircle.svg'
-                      className='mb-[6px]'
-                    />
-                    <p className='text-L/Medium text-grey-500'>신규 카드등록</p>
-                  </div>
-                </button>
-              </div>
-              <div className='mt-8'>
-                <p className='text-L/Regular text-grey-800'>
-                  구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
-                </p>
-                <button
-                  onClick={() => {
-                    // 결제 api 필요
-                  }}
-                  className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
-                >
-                  업그레이드 하기
-                </button>
-              </div>
+              <RegisterCards />
             </div>
           </div>
         </div>

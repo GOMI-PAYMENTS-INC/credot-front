@@ -19,7 +19,7 @@ import {
   _resetAmplitude,
 } from '@/amplitude/amplitude.service';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth/auth-atom';
+import { LoginTokenAtom, UserAtom } from '@/atom/auth.atom';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
@@ -27,7 +27,7 @@ import { PATH } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { authReturnUrl } from '@/auth/container';
-import { HackleAtom } from '@/atom/common/hackle.atom';
+import { HackleAtom } from '@/atom/hackle.atom';
 //TODO: 분리시키기
 export const signInApi = () => {
   const navigation = useNavigate();
