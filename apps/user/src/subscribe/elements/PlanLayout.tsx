@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Default as Layout } from '@/common/layouts';
-
+import { Footer } from '@/subscribe/elements/Footer';
 interface IPlanLayout {
   children: ReactNode;
 }
@@ -12,6 +12,7 @@ export const PlanLayout = ({ children }: IPlanLayout) => {
         <div className='absolute right-0 bottom-0 h-[130px] w-[348px] rounded-[348px] bg-orange-500 opacity-[0.2] blur-[100px]' />
         {children}
       </section>
+      <Footer />
     </Layout>
   );
 };
