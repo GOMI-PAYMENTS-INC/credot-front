@@ -15,8 +15,6 @@ export const UpgradePlan = () => {
   const [plans, setPlans] = useState<TPlans[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
 
-  const date = new Date();
-
   useEffect(() => {
     window.scroll(0, 0);
 
@@ -102,7 +100,6 @@ export const UpgradePlan = () => {
                               <p className='ml-2.5 text-2XL/Bold'>
                                 {formatNumber(plan.price)}
                                 <span className='text-M/Medium'>
-                                  {' '}
                                   /{plan.subscribeCycle}일
                                 </span>
                               </p>
@@ -143,7 +140,7 @@ export const UpgradePlan = () => {
             </div>
 
             <div className='w-[444px]'>
-              <RegisterCards />
+              <RegisterCards uniqueKey={selectedPlan?.uniqueKey} />
             </div>
           </div>
         </div>

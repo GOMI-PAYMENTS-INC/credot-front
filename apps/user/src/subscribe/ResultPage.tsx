@@ -3,27 +3,28 @@ import { formatNumber } from '@/utils/formatNumber';
 import { useEffect, useState } from 'react';
 
 import { PLANS, RESULT_OF_PAY_REQUEST } from '@/subscribe/constant';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
+
 import { useRecoilValue } from 'recoil';
-import { UserCardsAtom } from '@/atom';
+import { UserCardsAtom, UserPlanAtom } from '@/atom';
 import { insertDash } from '@/subscribe/container';
 import { convertTime } from '@/utils/parsingTimezone';
+import { CACHING_KEY } from '@/types/enum.code';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export const ResultPage = () => {
   const { result } = useParams();
-  const [requestStatue, setRequestStatus] = useState<{}>('');
-  const userCardsInfo = useRecoilValue(UserCardsAtom);
 
-  const userMainCard = userCardsInfo.find((card) => card.isMain);
+  const [userCardsInfo] = useRecoilValue(UserCardsAtom);
+
+  const response: TPayments = useLocation().state.response;
+  const selectedPlan = useSessionStorage
+    .getItem(CACHING_KEY.PLANS)
+    .find((plan: TPlans) => plan.uniqueKey === response.name);
+  console.log(userCardsInfo, 'response');
   const navigator = useNavigate();
-  useEffect(() => {
-    setRequestStatus(result as TRequestStatus);
-  }, []);
 
-  const selectedPlan = PLANS[0];
   const { text, title, buttonText, billText } =
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
   const isAccepted = result === 'accepted';
@@ -66,9 +67,9 @@ export const ResultPage = () => {
                       {isAccepted && (
                         <p className='text-L/Bold'>{convertTime(null, 'YYYY.MM.DD')}</p>
                       )}
-                      <p className='text-L/Bold'>{userMainCard?.cardName}</p>
+                      <p className='text-L/Bold'>{response.cardName}</p>
                       <p className='text-L/Bold'>
-                        {insertDash(userMainCard?.cardNumber)}
+                        {insertDash(userCardsInfo?.cardNumber)}
                       </p>
                       <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
                       {isAccepted ? (

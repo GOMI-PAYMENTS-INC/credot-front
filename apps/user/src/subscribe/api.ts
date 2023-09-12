@@ -4,6 +4,7 @@ const PLANS_API = {
   product: 'api/v1/product',
   postUserCard: 'api/v1/user-card',
   getUserCards: 'api/v1/user-card',
+  postPayment: 'api/v1/payment',
 };
 
 export const getPlans = async () => {
@@ -35,5 +36,18 @@ export const getUserCards = async () => {
     return data.data.userCards;
   } catch (error) {
     throw new Error('회원 카드를 조회하는 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const postPayment = async (params: { uniqueKey: TPlanUniqueKey }) => {
+  try {
+    const { data } = await HTTP.post<
+      { uniqueKey: TPlanUniqueKey },
+      { data: TPostPaymentsResponse }
+    >(PLANS_API.postPayment, params);
+
+    return data.data.payment;
+  } catch (error) {
+    throw new Error('결제 생성 과정에서 에러가 발생했습니다.');
   }
 };
