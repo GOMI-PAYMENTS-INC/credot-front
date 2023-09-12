@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { PATH } from '@/router/routeList';
 import { convertTime } from '@/utils/parsingTimezone';
 import { isFalsy } from '@/utils/isFalsy';
+import { isTruthy } from '@/utils/isTruthy';
 
 export const DATA = [
   {
@@ -123,8 +124,8 @@ export const storePlans = async (
   setPlans: Dispatch<SetStateAction<TPlans[]>>,
 ) => {
   const item = sessionStorage.getItem(CACHING_KEY.PLANS);
-  if (item) {
-    const parsingItem = JSON.parse(item) as TPlans[];
+  if (isTruthy(item)) {
+    const parsingItem = JSON.parse(item!) as TPlans[];
     setPlans(parsingItem);
     const [_state] = parsingItem.filter((plans) => plans.name !== 'Free');
     setSelectedPlan(_state);

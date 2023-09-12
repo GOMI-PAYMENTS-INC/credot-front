@@ -10,6 +10,7 @@ import { PATH } from '@/router/routeList';
 import { useRecoilValue } from 'recoil';
 import { UserCardsAtom } from '@/atom';
 import { insertDash } from '@/subscribe/container';
+import { convertTime } from '@/utils/parsingTimezone';
 
 export const ResultPage = () => {
   const { result } = useParams();
@@ -62,7 +63,9 @@ export const ResultPage = () => {
                       )}
                     </div>
                     <div className='flex flex-col gap-5 text-end'>
-                      {isAccepted && <p className='text-L/Bold'>2023.09.05</p>}
+                      {isAccepted && (
+                        <p className='text-L/Bold'>{convertTime(null, 'YYYY.MM.DD')}</p>
+                      )}
                       <p className='text-L/Bold'>{userMainCard?.cardName}</p>
                       <p className='text-L/Bold'>
                         {insertDash(userMainCard?.cardNumber)}

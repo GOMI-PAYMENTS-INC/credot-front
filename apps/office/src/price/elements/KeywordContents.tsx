@@ -16,7 +16,7 @@ export const KeywordContents = () => {
                 <p className='mt-2'>데이터를 기반의 판매 전략을 수립하세요</p>
                 <button
                   id='movedToSolution'
-                  className='button-filled-normal-large-primary-false-false-true mt-[47px] flex justify-end bg-grey-100 text-orange-400'
+                  className='button-filled-normal-large-primary-false-false-true relative mt-[47px] flex w-[204px] justify-center bg-grey-100'
                   onClick={(event) =>
                     openAppWithTag({
                       url: GlobalEnv.serviceUrl,
@@ -27,10 +27,12 @@ export const KeywordContents = () => {
                     })
                   }
                 >
-                  고미인사이트 무료 시작하기
+                  <p className=' text-center text-XL/Bold text-orange-400'>
+                    무료 시작하기
+                  </p>
                   <ReactSVG
                     src='assets/icons/Union.svg'
-                    className='absolute mt-6 cursor-auto'
+                    className='absolute bottom-[-20px] right-[30px] cursor-auto self-end'
                   />
                 </button>
               </div>

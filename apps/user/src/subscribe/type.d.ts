@@ -27,7 +27,7 @@ type TPlans = {
   isSubscribe: true;
   subscribeCycle: number;
   isUse: true;
-  uniqueKey: string;
+  uniqueKey: TPlanUniqueKey;
 };
 
 type TPlanNames = 'Starter' | 'Pro' | 'Free';
@@ -88,3 +88,5 @@ type TPortOneResponse = {
   status: string;
   success: boolean;
 };
+
+type TPlanUniqueKey = 'PRODUCT_PLAN_FREE' | 'PRODUCT_PLAN_STARTER' | 'PRODUCT_PLAN_PRO';
