@@ -2,7 +2,7 @@ import { insertDash, _getUserCards } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, Fragment, useState } from 'react';
 import { PATH } from '@/router/routeList';
 
 import { isTruthy } from '@/utils/isTruthy';
@@ -10,10 +10,12 @@ import { registerCard } from '@/subscribe/container';
 import { UserAtom } from '@/atom/auth.atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserCardsAtom } from '@/atom';
+import { isFalsy } from '@/utils/isFalsy';
 
 export const RegisterCards = () => {
   const { pathname } = useLocation();
   const [userCards, setUserCards] = useRecoilState(UserCardsAtom);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const userInfo = useRecoilValue(UserAtom)?.me;
   const navigator = useNavigate();
@@ -21,30 +23,6 @@ export const RegisterCards = () => {
   useEffect(() => {
     _getUserCards(setUserCards);
   }, []);
-
-  const EmptyCard = useMemo(() => {
-    if (pathname === PATH.SUBSCRIBE) {
-      return (
-        <div className='flex justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'>
-          <p className='py-[35px] text-L/Medium text-grey-500'>등록된 카드가 없어요</p>
-        </div>
-      );
-    }
-    return (
-      <button
-        id='registed_card'
-        className='flex w-full justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'
-        onClick={() => {
-          registerCard(userInfo!.email, userInfo!.id, setUserCards);
-        }}
-      >
-        <div className='flex flex-col items-center justify-center py-[14px]'>
-          <ReactSVG src='/assets/icons/outlined/PlusCircle.svg' className='mb-[6px]' />
-          <p className='text-L/Medium text-grey-500'>신규 카드등록</p>
-        </div>
-      </button>
-    );
-  }, [pathname]);
 
   const FilledCard = useMemo(() => {
     if (pathname === PATH.SUBSCRIBE) {
@@ -67,6 +45,15 @@ export const RegisterCards = () => {
         <button
           onClick={() => {
             // 결제 api 필요
+            console.log(userCards, '야호');
+            if (isFalsy(userCards)) {
+              return setIsError(true);
+            }
+
+            if (isError && userCards) {
+              setIsError(false);
+            }
+
             navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'accepted'));
           }}
           className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
@@ -76,6 +63,56 @@ export const RegisterCards = () => {
       </div>
     );
   }, [pathname]);
+
+  const EmptyCard = useMemo(() => {
+    if (pathname === PATH.SUBSCRIBE) {
+      return (
+        <div className='flex justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'>
+          <p className='py-[35px] text-L/Medium text-grey-500'>등록된 카드가 없어요</p>
+        </div>
+      );
+    }
+    return (
+      <Fragment>
+        <div className='border-b-[1px] border-grey-200 pb-[30px]'>
+          <button
+            id='registed_card'
+            className={`flex w-full justify-center rounded-lg border-[1px] ${
+              isError ? 'border-red-500' : 'border-grey-300'
+            } bg-grey-50`}
+            onClick={() => {
+              if (isError) {
+                setIsError(false);
+              }
+              registerCard(userInfo!.email, userInfo!.id, setUserCards);
+            }}
+          >
+            <div className='flex flex-col items-center justify-center py-[14px]'>
+              <ReactSVG
+                src='/assets/icons/outlined/PlusCircle.svg'
+                className='mb-[6px]'
+              />
+              <p className='text-L/Medium text-grey-500'>신규 카드등록</p>
+            </div>
+          </button>
+          {isError && (
+            <div className='flex items-center pt-[6px]'>
+              <ReactSVG
+                src='/assets/icons/outlined/ExclamationCircle.svg'
+                beforeInjection={(src) =>
+                  src.setAttribute('class', 'fill-red-500 w-5 h-5')
+                }
+              />
+              <p className='pl-2 text-M/Regular text-red-500'>
+                결제하실 수단을 먼저 등록해주세요.
+              </p>
+            </div>
+          )}
+        </div>
+        {FilledCard}
+      </Fragment>
+    );
+  }, [pathname, isError]);
 
   return (
     <div className='flex-grow space-y-5 text-2XL/Bold'>
@@ -90,7 +127,9 @@ export const RegisterCards = () => {
           <>
             <div
               id='scrollbar'
-              className='max-h-[270px] overflow-auto border-b-[1px] border-grey-200 pr-2 pb-5'
+              className={`max-h-[270px] overflow-auto pr-2 ${
+                pathname === PATH.UPGRADE_PLAN && 'border-b-[1px] border-grey-200 pb-5'
+              }`}
             >
               {userCards.map((card) => {
                 const isMain = card.isMain
