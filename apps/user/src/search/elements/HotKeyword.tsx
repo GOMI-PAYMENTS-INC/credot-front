@@ -31,7 +31,7 @@ interface IHotKeyword {
     keyword: string;
   }>;
   searchSortBy: TSortBy;
-  hotKeywordRef: ForwardedRef<HTMLDivElement>;
+  hotKeywordRef?: ForwardedRef<HTMLDivElement>;
 }
 export const HotKeyword = (props: IHotKeyword) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
