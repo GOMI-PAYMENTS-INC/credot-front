@@ -59,7 +59,7 @@ export const UpgradePlan = () => {
                 <ul id='plan_list' className='flex flex-col gap-5'>
                   {plans &&
                     plans
-                      .filter((plan) => plan.name !== 'Free')
+                      .filter((plan) => plan.uniqueKey !== 'PRODUCT_PLAN_FREE')
                       .map((plan, index) => {
                         const isSelected = plan.name === selectedPlan?.name;
                         const selectedBorder = isSelected
@@ -120,7 +120,6 @@ export const UpgradePlan = () => {
                     <div className='flex flex-col gap-5'>
                       <p>구독 서비스명</p>
                       <p>리포트 발행 가능 수</p>
-                      <p>자동결제일</p>
                       <p>서비스 금액</p>
                       <p>할인 금액</p>
                     </div>
@@ -128,7 +127,6 @@ export const UpgradePlan = () => {
                       <div className='flex flex-col gap-5 text-end'>
                         <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
                         <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
-                        <p className='text-L/Bold'>매월 {date.getDate()}일</p>
                         <p>{formatNumber(selectedPlan.originPrice)}</p>
                         <p>{formatNumber(selectedPlan.originPrice / 2)}</p>
                       </div>
