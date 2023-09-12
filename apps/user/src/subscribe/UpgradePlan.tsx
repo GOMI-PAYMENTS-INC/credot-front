@@ -127,15 +127,17 @@ export const UpgradePlan = () => {
                       <div className='flex flex-col gap-5 text-end'>
                         <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
                         <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
-                        <p>{formatNumber(selectedPlan.originPrice)}</p>
-                        <p>{formatNumber(selectedPlan.originPrice / 2)}</p>
+                        <p>{formatNumber(selectedPlan.originPrice)}원</p>
+                        <p>{formatNumber(selectedPlan.originPrice / 2)}원</p>
                       </div>
                     )}
                   </div>
                 </div>
                 <div className='mt-[18px] flex justify-between'>
                   <p className='text-2XL/Bold text-orange-400'>총 결제 금액</p>
-                  <p className='text-2XL/Regular'>{formatNumber(selectedPlan?.price)}</p>
+                  <p className='text-2XL/Regular'>
+                    {formatNumber(selectedPlan?.price)}원
+                  </p>
                 </div>
               </div>
             </div>
