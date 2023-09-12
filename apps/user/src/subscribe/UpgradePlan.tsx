@@ -115,8 +115,8 @@ export const UpgradePlan = () => {
 
               <div>
                 <p className='text-2XL/Bold'>결제정보</p>
-                <div className='mt-[14px] h-[254px] w-[608px] border-y-[1px]'>
-                  <div className='mt-[22px] flex justify-between border-grey-200 text-L/Regular'>
+                <div className='mt-[14px] max-h-[254px] w-[608px] border-y-[1px]'>
+                  <div className='my-[22px] flex justify-between border-grey-200 text-L/Regular'>
                     <div className='flex flex-col gap-5'>
                       <p>구독 서비스명</p>
                       <p>리포트 발행 가능 수</p>
