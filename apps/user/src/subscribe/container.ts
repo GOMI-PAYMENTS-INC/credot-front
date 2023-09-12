@@ -1,10 +1,11 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { getPlans, postUserCard, getUserCards } from '@/subscribe/api';
+import { getPlans, postUserCard, getUserCards, postPayment } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
-import { v4 as uuidv4 } from 'uuid';
+import type { NavigateFunction } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
-import { convertTime } from '@/utils/parsingTimezone';
+import { v4 as uuidv4 } from 'uuid';
+
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
 
@@ -178,5 +179,25 @@ export const _getUserCards = async (
     setUserCards(response);
   } catch (error) {
     throw new Error('유저 정보를 상태에 저장하는 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const _postPayment = async (
+  uniqueKey: TPlanUniqueKey | undefined,
+  navigator: NavigateFunction,
+  setIsError: Dispatch<SetStateAction<boolean>>,
+  userCards: TUserCard[],
+) => {
+  if (isFalsy(userCards)) {
+    return setIsError(true);
+  }
+  if (uniqueKey) {
+    const response = await postPayment({ uniqueKey });
+    let path = 'accepted';
+    if (isTruthy(response.failReason)) path = 'rejected';
+
+    return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', path), {
+      state: { response },
+    });
   }
 };
