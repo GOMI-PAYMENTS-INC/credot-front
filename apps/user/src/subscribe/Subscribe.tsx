@@ -8,6 +8,7 @@ import { PATH } from '@/router/routeList';
 
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
+import { Footer } from '@/subscribe/elements/Footer';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
@@ -87,6 +88,7 @@ export const Subscribe = () => {
           <FAQ list={SUBSCRIBE_QNA} />
         </footer>
       </section>
+      <Footer />
     </Layout>
   );
 };
