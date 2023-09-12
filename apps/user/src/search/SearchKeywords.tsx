@@ -1,4 +1,4 @@
-import { Fragment, KeyboardEvent, useEffect, useState } from 'react';
+import { Fragment, KeyboardEvent, useEffect, useState, useRef } from 'react';
 import { Default as Layout } from '@/common/layouts';
 import {
   SearchResult,
@@ -38,14 +38,17 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
+import { useRecoilState } from 'recoil';
+import { SwitchAtom } from '@/atom/common.atom';
 import { BackforwardButton } from '@/components/BackForwardButton';
-
-import MSearchKeyword from './MSearchKeyword';
+import MSearchKeyword from '@/search/MSearchKeyword';
 
 export const SearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
   const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
+  const hotKeywordRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
@@ -105,7 +108,13 @@ export const SearchKeywords = () => {
         _state={searchState}
       />
 
-      <div className='flex h-full flex-col items-center bg-grey-50 px-[41px]'>
+      <div
+        className='flex h-full flex-col items-center bg-grey-50 px-[41px]'
+        onClick={(event) => {
+          if (hotKeywordRef.current?.contains(event.target as Node) === false && isOpen)
+            setIsOpen(false);
+        }}
+      >
         <div className='absolute right-0 bottom-0 block'>
           <img src='/assets/images/NBackground.png' />
         </div>
@@ -242,6 +251,7 @@ export const SearchKeywords = () => {
           >
             {searchState.keyword ? (
               <SearchResult
+                hotKeywordRef={hotKeywordRef}
                 count={response?.main.count}
                 _dispatch={setSearchState}
                 setModal={setModal}
