@@ -1,6 +1,6 @@
 import { Default as Layout } from '@/common/layouts';
 import { TransactionHistory } from '@/subscribe/elements';
-import { FAQ } from './elements/FAQ';
+import { FAQ } from '@/subscribe/elements/FAQ';
 
 import { SUBSCRIBE_QNA } from '@/subscribe/constant';
 import { useNavigate } from 'react-router-dom';
@@ -9,12 +9,14 @@ import { PATH } from '@/router/routeList';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
 import { Footer } from '@/subscribe/elements/Footer';
+import { storePlansIntoSession } from '@/subscribe/container';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
     window.scroll(0, 0);
+    storePlansIntoSession();
   }, []);
 
   return (

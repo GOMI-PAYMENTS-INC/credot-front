@@ -1,5 +1,11 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { getPlans, postUserCard, getUserCards, postPayment } from '@/subscribe/api';
+import {
+  getPlans,
+  postUserCard,
+  getUserCards,
+  postPayment,
+  getPayment,
+} from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
 import type { NavigateFunction } from 'react-router-dom';
@@ -8,6 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export const DATA = [
   {
@@ -120,6 +127,18 @@ export const registerCard = (
   );
 };
 
+export const storePlansIntoSession = async () => {
+  if (isTruthy(sessionStorage.getItem(CACHING_KEY.PLANS))) return;
+  try {
+    const response = await getPlans();
+    if (response) {
+      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
+    }
+  } catch (error) {
+    throw new Error('플랜 저장 과정에서 에러가 발생했습니다.');
+  }
+};
+
 export const storePlans = async (
   setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
   setPlans: Dispatch<SetStateAction<TPlans[]>>,
@@ -200,4 +219,18 @@ export const _postPayment = async (
       state: { response },
     });
   }
+};
+
+export const _getPayments = async (setBills: Dispatch<SetStateAction<TPayments[]>>) => {
+  const response = await getPayment();
+  return setBills(response);
+};
+
+export const convertPlan = (plan: TPlanUniqueKey): TPlanNames | string => {
+  const plans = useSessionStorage.getItem(CACHING_KEY.PLANS);
+
+  if (isTruthy(plans)) {
+    return `${plans.find((pl: TPlans) => pl.uniqueKey === plan).name} 플랜`;
+  }
+  return '하하';
 };
