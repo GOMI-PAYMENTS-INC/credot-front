@@ -19,7 +19,7 @@ import {
   _resetAmplitude,
 } from '@/amplitude/amplitude.service';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth.atom';
+
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
@@ -27,13 +27,15 @@ import { PATH } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { authReturnUrl } from '@/auth/container';
-import { HackleAtom } from '@/atom/hackle.atom';
+import { LoginTokenAtom, UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
+
 //TODO: 분리시키기
 export const signInApi = () => {
   const navigation = useNavigate();
   const queryClient = useQueryClient();
   const clearUserAtom = useResetRecoilState(UserAtom);
-  const clearHackleState = useResetRecoilState(HackleAtom);
+  const userCardAtom = useResetRecoilState(UserCardsAtom);
+  const userPlanAtom = useResetRecoilState(UserPlanAtom);
 
   const clearLoginTokenAtom = useResetRecoilState(LoginTokenAtom);
   const userInfo = useRecoilValue(UserAtom);
@@ -93,7 +95,10 @@ export const signInApi = () => {
 
   const clearUserInfo = () => {
     // auth에서 사용중인 recoil 초기화
+
     clearUserAtom();
+    userCardAtom();
+    userPlanAtom();
     clearLoginTokenAtom();
 
     // 쿠키 삭제
@@ -122,7 +127,7 @@ export const signInApi = () => {
 
   const onLogout = async () => {
     clearUserInfo();
-    clearHackleState();
+
     navigation(PATH.SIGN_IN);
 
     // ##### 로그아웃 이벤트 시작 ##### //
