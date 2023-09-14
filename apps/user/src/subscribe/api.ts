@@ -40,14 +40,14 @@ export const getUserCards = async () => {
 
 export const postPayment = async (params: { uniqueKey: TPlanUniqueKey }) => {
   try {
-    const { data } = await HTTP.post<
+    const response = await HTTP.post<
       { uniqueKey: TPlanUniqueKey },
       { data: TPostPaymentsResponse }
     >(PLANS_API.payment, params);
 
-    return data.data.payment;
+    return response.data.data.payment;
   } catch (error) {
-    throw new Error('결제 생성 과정에서 에러가 발생했습니다.');
+    throw new Error('결제 과정에서 에러가 발생했습니다.');
   }
 };
 
