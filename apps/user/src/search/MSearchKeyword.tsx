@@ -1,7 +1,12 @@
 import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } from 'react';
 import { Default } from '@/common/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
-import { SearchModal, SearchKeywordTranslator, HotKeyword } from '@/search/elements';
+import {
+  SearchModal,
+  SearchKeywordTranslator,
+  HotKeyword,
+  ExccededAlertModal,
+} from '@/search/elements';
 import {
   CACHING_KEY,
   COUNTRY_TYPE,
@@ -48,13 +53,19 @@ import { CountryType } from '@/generated/graphql';
 import UseTooltip from '@/components/UseTooltip';
 import { SearchTooltips } from '@/search/elements/Tooltip';
 import { switchModal, searchRequestHandler } from '@/search/elements/container';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { SubscriptionAtom, PlansAtom } from '@/atom';
+import { _checkSubscription } from '@/common/container';
 
 const MSearchKeyword = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+  const [isExceeded, setIsExceeded] = useState<boolean>(false);
 
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
+  const [subscription, setSubscription] = useRecoilState(SubscriptionAtom);
+  const plans = useRecoilValue(PlansAtom);
 
   const { register, getValues, setValue, watch } = useForm<{
     country: CountryType;
@@ -231,6 +242,14 @@ const MSearchKeyword = () => {
 
   return (
     <Default>
+      {isExceeded && (
+        <ExccededAlertModal
+          isExceeded={isExceeded}
+          setIsExceeded={setIsExceeded}
+          subscription={subscription!}
+          plans={plans}
+        />
+      )}
       <ModalComponent isOpen={_state.isModalOpen}>
         <SearchModal
           _state={_state}
@@ -353,7 +372,13 @@ const MSearchKeyword = () => {
                   'opacity-30 xs:hidden xs:bg-orange-200'
                 } ${isOpenDropdown && 'z-[-1]'}`}
                 disabled={_state.keyword === '' || isMonthlyCountZero || isFetching}
-                onClick={() => setRequestReport(true)}
+                onClick={async () => {
+                  const isAvailable = await _checkSubscription(
+                    setSubscription,
+                    setIsExceeded,
+                  );
+                  if (isAvailable) setRequestReport(true);
+                }}
               >
                 {requestReport || (isTruthy(_state.keyword) && isLoading) ? (
                   <div className=' scale-[0.2]'>

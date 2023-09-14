@@ -39,11 +39,9 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { useRecoilState } from 'recoil';
-import { SwitchAtom } from '@/atom/common.atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { SubscriptionAtom, PlansAtom, SwitchAtom } from '@/atom';
 import { BackforwardButton } from '@/components/BackForwardButton';
-import { useRecoilValue } from 'recoil';
-import { SubscriptionAtom, PlansAtom } from '@/atom';
 import MSearchKeyword from '@/search/MSearchKeyword';
 
 export const SearchKeywords = () => {
