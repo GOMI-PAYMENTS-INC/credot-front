@@ -234,3 +234,16 @@ export const convertPlan = (plan: TPlanUniqueKey): TPlanNames | string => {
   }
   return '하하';
 };
+
+export const convertPlanImg = (plan: TPlanUniqueKey) => {
+  switch (plan) {
+    case 'PRODUCT_PLAN_FREE': {
+      return 'Free';
+    }
+    case 'PRODUCT_PLAN_PRO': {
+      return 'Pro';
+    }
+    default:
+      return 'Starter';
+  }
+};

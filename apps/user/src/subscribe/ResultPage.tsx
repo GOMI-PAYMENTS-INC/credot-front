@@ -1,13 +1,12 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { formatNumber } from '@/utils/formatNumber';
-import { useEffect, useState } from 'react';
 
-import { PLANS, RESULT_OF_PAY_REQUEST } from '@/subscribe/constant';
+import { RESULT_OF_PAY_REQUEST } from '@/subscribe/constant';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
 
 import { useRecoilValue } from 'recoil';
-import { UserCardsAtom, UserPlanAtom } from '@/atom';
+import { UserCardsAtom } from '@/atom';
 import { insertDash } from '@/subscribe/container';
 import { convertTime } from '@/utils/parsingTimezone';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -22,7 +21,7 @@ export const ResultPage = () => {
   const selectedPlan = useSessionStorage
     .getItem(CACHING_KEY.PLANS)
     .find((plan: TPlans) => plan.uniqueKey === response.name);
-  console.log(userCardsInfo, 'response');
+
   const navigator = useNavigate();
 
   const { text, title, buttonText, billText } =

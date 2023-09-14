@@ -5,3 +5,15 @@ type CommonErrorType = {
     data: null;
   };
 };
+
+type TGetSubscriptionResponse = {
+  id: number;
+  userId: number;
+  paymentId: number;
+  productUniqueKey: TPlanUniqueKey;
+  count: number;
+  totalCount: number;
+  startedAt: string;
+  endedAt: string;
+  productPriority: number;
+};

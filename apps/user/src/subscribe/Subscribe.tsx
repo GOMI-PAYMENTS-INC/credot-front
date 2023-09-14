@@ -9,15 +9,30 @@ import { PATH } from '@/router/routeList';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
 import { Footer } from '@/subscribe/elements/Footer';
-import { storePlansIntoSession } from '@/subscribe/container';
+import {
+  convertPlan,
+  storePlansIntoSession,
+  convertPlanImg,
+} from '@/subscribe/container';
+import { useRecoilValue } from 'recoil';
+import { SubscriptionAtom } from '@/atom';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
+  const subscriptionPlan = useRecoilValue(SubscriptionAtom);
 
   useEffect(() => {
     window.scroll(0, 0);
     storePlansIntoSession();
   }, []);
+
+  if (subscriptionPlan === null) {
+    return (
+      <div className=' scale-[0.2]'>
+        <div id='loader-white' />
+      </div>
+    );
+  }
 
   return (
     <Layout useGap={true}>
@@ -49,14 +64,19 @@ export const Subscribe = () => {
                     >
                       <div className='flex h-full flex-col items-center justify-center gap-2.5'>
                         <img
-                          src='/assets/images/Free.png'
+                          src={`/assets/images/${convertPlanImg(
+                            subscriptionPlan.productUniqueKey,
+                          )}.png`}
                           className='h-[83px] w-[83px]'
                         />
                         <p className='w-[150px] border-b-[1px] border-grey-200 pb-2.5 text-center text-XL/Bold'>
-                          Free 플랜
+                          {convertPlan(
+                            subscriptionPlan.productUniqueKey as TPlanUniqueKey,
+                          )}
                         </p>
                         <p className=' text-M/Medium text-grey-800'>
-                          리포트 발행 수 : <span className=''>0/5</span>
+                          리포트 발행 수 :
+                          <span className=''>{`${subscriptionPlan.count}/${subscriptionPlan.totalCount}`}</span>
                         </p>
                         <div className='h-2 w-[187px] rounded bg-orange-200' />
                       </div>
