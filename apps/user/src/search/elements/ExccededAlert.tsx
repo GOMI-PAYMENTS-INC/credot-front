@@ -5,17 +5,25 @@ import { _getSubscription } from '@/common/container';
 import { formatNumber } from '@/utils/formatNumber';
 import { convertPlan } from '@/common/container';
 import { PATH } from '@/router/routeList';
+import type { Dispatch, SetStateAction } from 'react';
 
 interface IExccededAlertModal {
   subscription: TGetSubscriptionResponse;
   plans: TPlans[];
+  setIsExceeded: Dispatch<SetStateAction<boolean>>;
+  isExceeded: boolean;
 }
 
-export const ExccededAlertModal = ({ subscription, plans }: IExccededAlertModal) => {
+export const ExccededAlertModal = ({
+  subscription,
+  plans,
+  setIsExceeded,
+  isExceeded,
+}: IExccededAlertModal) => {
   const navigator = useNavigate();
 
   return (
-    <ModalComponent isOpen={true}>
+    <ModalComponent isOpen={isExceeded}>
       <div className='flex w-[606px] flex-col rounded-lg bg-white p-[50px]'>
         <div className='flex flex-col gap-2.5'>
           <p className='text-2XL/Bold'>
@@ -70,7 +78,7 @@ export const ExccededAlertModal = ({ subscription, plans }: IExccededAlertModal)
           <button
             className='button-filled-normal-large-grey-false-false-true w-[163px] py-0 text-M/Bold'
             onClick={() => {
-              navigator(PATH.SUBSCRIBE);
+              setIsExceeded(false);
             }}
           >
             닫기
@@ -79,7 +87,7 @@ export const ExccededAlertModal = ({ subscription, plans }: IExccededAlertModal)
             className='button-filled-normal-large-primary-false-false-true w-[320px] border-r-[1px] bg-orange-400 text-M/Bold'
             onClick={() => {
               navigator(PATH.SUBSCRIBE);
-              //   setIsOpen(false);
+              setIsExceeded(false);
             }}
           >
             플랜 업그레이드 하기

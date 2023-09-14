@@ -5,12 +5,28 @@ import { getPlans } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isTruthy } from '@/utils/isTruthy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import type { SetStateAction, Dispatch } from 'react';
 
 export const _getSubscription = async (
   setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>,
 ) => {
   const response = await getSubscription();
-  if (response.productUniqueKey) [setSubscription(response)];
+  if (response.productUniqueKey) setSubscription(response);
+};
+
+export const _checkSubscription = async (
+  setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>,
+  setIsExceeded: Dispatch<SetStateAction<boolean>>,
+) => {
+  const response = await getSubscription();
+  if (response.count) {
+    setSubscription(response);
+    if (response.count >= response.totalCount) {
+      setIsExceeded(true);
+      return false;
+    }
+  }
+  return true;
 };
 
 export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>) => {

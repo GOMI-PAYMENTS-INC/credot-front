@@ -50,8 +50,10 @@ export const SearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
   const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
-  const hotKeywordRef = useRef<HTMLDivElement>(null);
+  const [isExceeded, setIsExceeded] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+
+  const hotKeywordRef = useRef<HTMLDivElement>(null);
 
   const subscription = useRecoilValue(SubscriptionAtom);
   const plans = useRecoilValue(PlansAtom);
@@ -100,11 +102,16 @@ export const SearchKeywords = () => {
       </Fragment>
     );
   }
-  console.log(plans, 'plans');
+
   return (
     <Layout>
-      {subscription?.id && (
-        <ExccededAlertModal subscription={subscription} plans={plans} />
+      {isExceeded && (
+        <ExccededAlertModal
+          isExceeded={isExceeded}
+          setIsExceeded={setIsExceeded}
+          subscription={subscription!}
+          plans={plans}
+        />
       )}
       <SubscriptionModal />
       <ReportGeneratorModal
@@ -260,6 +267,7 @@ export const SearchKeywords = () => {
           >
             {searchState.keyword ? (
               <SearchResult
+                setIsExceeded={setIsExceeded}
                 hotKeywordRef={hotKeywordRef}
                 count={response?.main.count}
                 _dispatch={setSearchState}
