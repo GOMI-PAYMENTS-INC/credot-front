@@ -17,13 +17,14 @@ export const ResultPage = () => {
 
   const [userCardsInfo] = useRecoilValue(UserCardsAtom);
 
-  const response: TPayments = useLocation().state.response;
+  const response: { code: number; message: string; data: TPostPaymentsResponse } =
+    useLocation().state.response;
   const isAccepted = result === 'accepted';
   const selectedPlan =
     isAccepted &&
     useSessionStorage
       .getItem(CACHING_KEY.PLANS)
-      .find((plan: TPlans) => plan.uniqueKey === response.name);
+      .find((plan: TPlans) => plan.uniqueKey === response.data.payment.name);
 
   const navigator = useNavigate();
 
@@ -40,8 +41,8 @@ export const ResultPage = () => {
               <p className='pt-[30px] text-3XL/Bold'>{title}</p>
             </div>
           </header>
-          {isAccepted && (
-            <main>
+          <main>
+            {isAccepted ? (
               <div className='rounded-lg border-[1px] border-grey-300'>
                 <div className='p-10'>
                   <p className='text-XL/Medium'>{billText}</p>
@@ -56,17 +57,14 @@ export const ResultPage = () => {
                         <p>결제카드</p>
                         <p>카드번호</p>
                         <p>구독 서비스명</p>
-
                         <p>서비스 금액</p>
                         <p>할인 금액</p>
-
                         <p>결제금액</p>
                       </div>
                       <div className='flex flex-col gap-5 text-end'>
-                        {isAccepted && (
-                          <p className='text-L/Bold'>{convertTime(null, 'YYYY.MM.DD')}</p>
-                        )}
-                        <p className='text-L/Bold'>{response.cardName}</p>
+                        <p className='text-L/Bold'>{convertTime(null, 'YYYY.MM.DD')}</p>
+
+                        <p className='text-L/Bold'>{response.data.payment.cardName}</p>
                         <p className='text-L/Bold'>
                           {insertDash(userCardsInfo?.cardNumber)}
                         </p>
@@ -88,8 +86,10 @@ export const ResultPage = () => {
                   </div>
                 </div>
               </div>
-            </main>
-          )}
+            ) : (
+              <p className='text-center text-red-700'>{response.message}</p>
+            )}
+          </main>
           <footer>
             <button
               className='button-filled-normal-large-primary-false-false-true mt-3 w-full'

@@ -42,10 +42,10 @@ export const postPayment = async (params: { uniqueKey: TPlanUniqueKey }) => {
   try {
     const response = await HTTP.post<
       { uniqueKey: TPlanUniqueKey },
-      { data: TPostPaymentsResponse }
+      { code: number; message: string; data: TPostPaymentsResponse }
     >(PLANS_API.payment, params);
 
-    return response.data.data.payment;
+    return response.data;
   } catch (error) {
     throw new Error('결제 과정에서 에러가 발생했습니다.');
   }

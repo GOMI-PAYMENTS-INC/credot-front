@@ -153,17 +153,15 @@ export const _postPayment = async (
     return setIsError(true);
   }
   if (uniqueKey) {
-    try {
-      const response = await postPayment({ uniqueKey });
-      console.log(response, 'response');
-      return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'accepted'), {
+    const response = await postPayment({ uniqueKey });
+    if (response.data === null) {
+      return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'rejected'), {
         state: { response },
       });
-    } catch (error) {
-      return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'rejected'), {
-        state: { response: { message: '하하호호' } },
-      });
     }
+    return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'accepted'), {
+      state: { response },
+    });
   }
 };
 
