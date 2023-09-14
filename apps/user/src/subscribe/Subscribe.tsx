@@ -94,8 +94,8 @@ export const Subscribe = () => {
                     >
                       <p className='text-M/Bold'>사용 기간</p>
                       <p>
-                        {convertTime(subscriptionPlan.startedAt, 'YYYY.MM.DD')} ~{' '}
-                        {convertTime(subscriptionPlan.endedAt, 'YYYY.MM.DD')}
+                        {`${convertTime(subscriptionPlan.startedAt, 'YYYY.MM.DD')} ~ 
+                        ${convertTime(subscriptionPlan.endedAt, 'YYYY.MM.DD')}`}
                       </p>
                       {subscriptionPlan.productUniqueKey !== 'PRODUCT_PLAN_PRO' && (
                         <div className='flex w-full justify-end'>

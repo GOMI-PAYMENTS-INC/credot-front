@@ -19,6 +19,7 @@ interface IRegisterCards {
 export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const { pathname } = useLocation();
   const [userCards, setUserCards] = useRecoilState(UserCardsAtom);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
   const userInfo = useRecoilValue(UserAtom)?.me;
@@ -26,6 +27,10 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
 
   useEffect(() => {
     if (isFalsy(userCards)) _getUserCards(setUserCards);
+    return () => {
+      setIsLoading(false);
+      setIsError(false);
+    };
   }, []);
 
   const FilledCard = () => {
@@ -47,12 +52,20 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
           구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
         </p>
         <button
+          disabled={isLoading}
           className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
           onClick={() => {
+            setIsLoading(true);
             _postPayment(uniqueKey, navigator, setIsError, userCards);
           }}
         >
-          업그레이드 하기
+          {isLoading ? (
+            <div className=' scale-[0.2]'>
+              <div id='loader-white' />
+            </div>
+          ) : (
+            '업그레이드 하기'
+          )}
         </button>
       </div>
     );

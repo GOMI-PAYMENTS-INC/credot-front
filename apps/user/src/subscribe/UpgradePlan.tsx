@@ -51,7 +51,7 @@ export const UpgradePlan = () => {
         style={`top-[146px] sticky`}
         originStyle={{ left: `${width}px` }}
         callback={() => {
-          navigator(PATH.SUBSCRIBE);
+          navigator(PATH.SUBSCRIBE, { replace: true });
         }}
       />
       <header className='pt-[22px]'>

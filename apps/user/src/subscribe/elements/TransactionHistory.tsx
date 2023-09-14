@@ -48,8 +48,8 @@ export const TransactionHistory = () => {
                     {convertTime(bill.paidAt, 'YYYY.MM.DD HH:mm:ss')}
                   </td>
                   <td className='w-[200px]'>
-                    {convertTime(bill.paidAt, 'YYYY.MM.DD')} ~
-                    {addTime(bill.paidAt, 30, 'YYYY.MM.DD')}
+                    {`${convertTime(bill.paidAt, 'YYYY.MM.DD')} ~ 
+                    ${addTime(bill.paidAt, 30, 'YYYY.MM.DD')}`}
                   </td>
                   <td className='w-[230px]'>
                     {bill.cardName.replace('카드', '')} 5376-9900-****-977*
