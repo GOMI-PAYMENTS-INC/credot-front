@@ -4,7 +4,8 @@ import { convertCountry, convertSortedType } from '@/utils/convertEnum';
 import { Dispatch, Fragment, SetStateAction, ForwardedRef } from 'react';
 import { HotKeyword } from '@/search/elements';
 import { useRecoilState } from 'recoil';
-import { SwitchAtom } from '@/atom/common.atom';
+import { SwitchAtom, SubscriptionAtom } from '@/atom';
+import { _checkSubscription } from '@/common/container';
 
 interface ISearchResult {
   _state: TSearchProps;
@@ -13,6 +14,7 @@ interface ISearchResult {
   _dispatch: Dispatch<SetStateAction<TSearchProps>>;
   count: number | undefined | null;
   hotKeywordRef: ForwardedRef<HTMLDivElement>;
+  setIsExceeded: Dispatch<SetStateAction<boolean>>;
 }
 
 export const SearchResult = ({
@@ -22,8 +24,11 @@ export const SearchResult = ({
   _dispatch,
   count,
   hotKeywordRef,
+  setIsExceeded,
 }: ISearchResult) => {
   const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+  const [subscription, setSubscription] = useRecoilState(SubscriptionAtom);
+
   const { keyword, sortBy, country } = _state;
   const isLoading = count === null || count === undefined;
 
@@ -108,7 +113,13 @@ export const SearchResult = ({
                   <button
                     className='button-filled-xLarge-primary-false-false-false w-[193px]'
                     disabled={modal.isOpen || isLoading}
-                    onClick={() => setModal({ ...modal, ...{ isOpen: true } })}
+                    onClick={async () => {
+                      const isAvailable = await _checkSubscription(
+                        setSubscription,
+                        setIsExceeded,
+                      );
+                      if (isAvailable) setModal({ ...modal, ...{ isOpen: true } });
+                    }}
                   >
                     {modal.isOpen ? (
                       <div className='scale-[0.2]'>

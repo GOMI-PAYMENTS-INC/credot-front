@@ -1,11 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  getPlans,
-  postUserCard,
-  getUserCards,
-  postPayment,
-  getPayment,
-} from '@/subscribe/api';
+import { postUserCard, getUserCards, postPayment, getPayment } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
 import type { NavigateFunction } from 'react-router-dom';
@@ -15,41 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-
-export const DATA = [
-  {
-    createdAt: '2023.08.23 16:04:32',
-    subscribeDate: '2023.08.16 ~ 2023.09.16',
-    creditCard: '국민 46323558****893*',
-    plan: '카테고리 분석ㅣFree 플랜',
-    status: true,
-    price: '10000',
-  },
-  {
-    createdAt: '2023.08.23 16:04:32',
-    subscribeDate: '2023.08.16 ~ 2023.09.16',
-    creditCard: '국민 46323558****893*',
-    plan: '카테고리 분석ㅣPro 플랜',
-    status: false,
-    price: '16000',
-  },
-  {
-    createdAt: '2023.08.23 16:04:32',
-    subscribeDate: '2023.08.16 ~ 2023.09.16',
-    creditCard: '국민 46323558****893*',
-    plan: '카테고리 분석ㅣStarter 플랜',
-    status: false,
-    price: '10000',
-  },
-  {
-    createdAt: '2023.08.23 16:04:32',
-    subscribeDate: '2023.08.16 ~ 2023.09.16',
-    creditCard: '국민 46323558****893*',
-    plan: '카테고리 분석ㅣPro 플랜',
-    status: true,
-    price: '16000',
-  },
-];
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -127,27 +86,15 @@ export const registerCard = (
   );
 };
 
-export const storePlansIntoSession = async () => {
-  if (isTruthy(sessionStorage.getItem(CACHING_KEY.PLANS))) return;
-  try {
-    const response = await getPlans();
-    if (response) {
-      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
-    }
-  } catch (error) {
-    throw new Error('플랜 저장 과정에서 에러가 발생했습니다.');
-  }
-};
-
 export const storePlans = async (
   setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
-  setPlans: Dispatch<SetStateAction<TPlans[]>>,
+
   userPlan: TPlanUniqueKey,
 ) => {
   const item = sessionStorage.getItem(CACHING_KEY.PLANS);
   if (isTruthy(item)) {
     const parsingItem = JSON.parse(item!) as TPlans[];
-    setPlans(parsingItem);
+
     const [starter, pro] = parsingItem.filter(
       (plans) => plans.uniqueKey !== 'PRODUCT_PLAN_FREE',
     );
@@ -160,19 +107,6 @@ export const storePlans = async (
 
     setSelectedPlan(_state);
     return;
-  }
-
-  try {
-    const response = await getPlans();
-    if (response) {
-      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
-      const [_state] = response.filter((plan) => plan.name !== 'Free');
-
-      setPlans(response);
-      setSelectedPlan(_state);
-    }
-  } catch (error) {
-    throw new Error('플랜 저장 과정에서 에러가 발생했습니다.');
   }
 };
 
@@ -220,10 +154,12 @@ export const _postPayment = async (
   }
   if (uniqueKey) {
     const response = await postPayment({ uniqueKey });
-    let path = 'accepted';
-    if (isTruthy(response.failReason)) path = 'rejected';
-
-    return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', path), {
+    if (response.data === null) {
+      return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'rejected'), {
+        state: { response },
+      });
+    }
+    return navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'accepted'), {
       state: { response },
     });
   }
@@ -232,15 +168,6 @@ export const _postPayment = async (
 export const _getPayments = async (setBills: Dispatch<SetStateAction<TPayments[]>>) => {
   const response = await getPayment();
   return setBills(response);
-};
-
-export const convertPlan = (plan: TPlanUniqueKey): TPlanNames | string => {
-  const plans = useSessionStorage.getItem(CACHING_KEY.PLANS);
-
-  if (isTruthy(plans)) {
-    return `${plans.find((pl: TPlans) => pl.uniqueKey === plan).name} 플랜`;
-  }
-  return '하하';
 };
 
 export const convertPlanImg = (plan: TPlanUniqueKey) => {
@@ -253,5 +180,29 @@ export const convertPlanImg = (plan: TPlanUniqueKey) => {
     }
     default:
       return 'Starter';
+  }
+};
+
+export const calculatorBar = (count: number, productUniqueKey: TPlanUniqueKey) => {
+  switch (productUniqueKey) {
+    case 'PRODUCT_PLAN_STARTER': {
+      const [first] = count.toString().split('');
+      if (count === 50) return '100%';
+      const width = 180 / 5;
+      return count > 9 ? `${parseInt(first) * width}px` : '';
+    }
+    case 'PRODUCT_PLAN_PRO': {
+      const [first, second, third] = count.toString().split('');
+      if (count === 120) return '100%';
+      if (second === undefined) return '';
+      const width = 180 / 12;
+      return third
+        ? `${parseInt(first + second) * width}px`
+        : `${parseInt(first) * width}px`;
+    }
+
+    default:
+      const width = 180 / 5;
+      return count === 5 ? '100%' : `${count * width}px`;
   }
 };

@@ -8,13 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { storePlans, switchPlans } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useRecoilValue } from 'recoil';
-import { SubscriptionAtom } from '@/atom';
+import { SubscriptionAtom, PlansAtom } from '@/atom';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [plans, setPlans] = useState<TPlans[]>([]);
+
+  const plans = useRecoilValue(PlansAtom);
   const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
 
   const subscriptionPlan = useRecoilValue(SubscriptionAtom);
@@ -22,7 +23,7 @@ export const UpgradePlan = () => {
   useEffect(() => {
     window.scroll(0, 0);
     if (subscriptionPlan?.id) {
-      storePlans(setSelectedPlan, setPlans, subscriptionPlan.productUniqueKey);
+      storePlans(setSelectedPlan, subscriptionPlan.productUniqueKey);
     }
     if (width === 0) {
       setWidth(document.getElementById('plan_width')?.offsetLeft! - 100);

@@ -17,16 +17,19 @@ export const ResultPage = () => {
 
   const [userCardsInfo] = useRecoilValue(UserCardsAtom);
 
-  const response: TPayments = useLocation().state.response;
-  const selectedPlan = useSessionStorage
-    .getItem(CACHING_KEY.PLANS)
-    .find((plan: TPlans) => plan.uniqueKey === response.name);
+  const response: { code: number; message: string; data: TPostPaymentsResponse } =
+    useLocation().state.response;
+  const isAccepted = result === 'accepted';
+  const selectedPlan =
+    isAccepted &&
+    useSessionStorage
+      .getItem(CACHING_KEY.PLANS)
+      .find((plan: TPlans) => plan.uniqueKey === response.data.payment.name);
 
   const navigator = useNavigate();
 
   const { text, title, buttonText, billText } =
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
-  const isAccepted = result === 'accepted';
 
   return (
     <Layout>
@@ -39,59 +42,53 @@ export const ResultPage = () => {
             </div>
           </header>
           <main>
-            <div className='rounded-lg border-[1px] border-grey-300'>
-              <div className='p-10'>
-                <p className='text-XL/Medium'>{billText}</p>
-                <div className='py-[14px]'>
-                  <div
-                    className={`flex justify-between ${
-                      isAccepted ? 'border-y-[1px] py-5' : 'border-t-[1px] pt-5'
-                    } border-grey-300 text-L/Regular`}
-                  >
-                    <div className='flex flex-col gap-5'>
-                      {isAccepted && <p>결제일시</p>}
-                      <p>결제카드</p>
-                      <p>카드번호</p>
-                      <p>구독 서비스명</p>
-                      {isAccepted ? (
-                        <>
-                          <p>서비스 금액</p>
-                          <p>할인 금액</p>
-                        </>
-                      ) : (
+            {isAccepted ? (
+              <div className='rounded-lg border-[1px] border-grey-300'>
+                <div className='p-10'>
+                  <p className='text-XL/Medium'>{billText}</p>
+                  <div className='py-[14px]'>
+                    <div
+                      className={`flex justify-between ${
+                        isAccepted ? 'border-y-[1px] py-5' : 'border-t-[1px] pt-5'
+                      } border-grey-300 text-L/Regular`}
+                    >
+                      <div className='flex flex-col gap-5'>
+                        <p>결제일시</p>
+                        <p>결제카드</p>
+                        <p>카드번호</p>
+                        <p>구독 서비스명</p>
+                        <p>서비스 금액</p>
+                        <p>할인 금액</p>
                         <p>결제금액</p>
-                      )}
-                    </div>
-                    <div className='flex flex-col gap-5 text-end'>
-                      {isAccepted && (
+                      </div>
+                      <div className='flex flex-col gap-5 text-end'>
                         <p className='text-L/Bold'>{convertTime(null, 'YYYY.MM.DD')}</p>
-                      )}
-                      <p className='text-L/Bold'>{response.cardName}</p>
-                      <p className='text-L/Bold'>
-                        {insertDash(userCardsInfo?.cardNumber)}
-                      </p>
-                      <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
-                      {isAccepted ? (
-                        <>
-                          <p>{formatNumber(selectedPlan.originPrice)}원</p>
-                          <p>{formatNumber(selectedPlan.originPrice / 2)}원</p>
-                        </>
-                      ) : (
+
+                        <p className='text-L/Bold'>{response.data.payment.cardName}</p>
+                        <p className='text-L/Bold'>
+                          {insertDash(userCardsInfo?.cardNumber)}
+                        </p>
+                        <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
+
+                        <p>{formatNumber(selectedPlan.originPrice)}원</p>
+                        <p>{formatNumber(selectedPlan.originPrice / 2)}원</p>
+
                         <p>{formatNumber(selectedPlan.price)}원</p>
-                      )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                {isAccepted && (
+
                   <div className='flex justify-between'>
                     <p className='text-2XL/Bold text-orange-400 '>총 결제 금액</p>
                     <p className='text-2XL/Regular'>
                       {formatNumber(selectedPlan.price)}원
                     </p>
                   </div>
-                )}
+                </div>
               </div>
-            </div>
+            ) : (
+              <p className='text-center text-red-700'>{response.message}</p>
+            )}
           </main>
           <footer>
             <button

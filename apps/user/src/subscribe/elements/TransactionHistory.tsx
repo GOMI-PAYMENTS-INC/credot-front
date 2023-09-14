@@ -1,9 +1,9 @@
-import { DATA } from '@/subscribe/container';
 import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { useEffect, useState } from 'react';
-import { _getPayments, convertPlan } from '@/subscribe/container';
+import { _getPayments } from '@/subscribe/container';
+import { convertPlan } from '@/common/container';
 import { convertTime, addTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
@@ -49,7 +49,7 @@ export const TransactionHistory = () => {
                   </td>
                   <td className='w-[200px]'>
                     {convertTime(bill.paidAt, 'YYYY.MM.DD')} ~
-                    {addTime(bill.paidAt, 31, 'YYYY.MM.DD')}
+                    {addTime(bill.paidAt, 30, 'YYYY.MM.DD')}
                   </td>
                   <td className='w-[230px]'>
                     {bill.cardName.replace('카드', '')} 5376-9900-****-977*
