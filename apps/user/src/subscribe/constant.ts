@@ -55,7 +55,7 @@ export const RESULT_OF_PAY_REQUEST = {
   rejected: {
     title: '결제를 실패했습니다.',
     text: 'Rejected',
-    buttonText: '결제 재시도',
+    buttonText: '확인',
     billText: '요청정보',
   },
 };

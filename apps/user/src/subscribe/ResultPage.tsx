@@ -11,29 +11,36 @@ import { insertDash } from '@/subscribe/container';
 import { convertTime } from '@/utils/parsingTimezone';
 import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-
+import { isFalsy } from '@/utils/isFalsy';
 export const ResultPage = () => {
   const { result } = useParams();
 
   const [userCardsInfo] = useRecoilValue(UserCardsAtom);
-
+  const navigator = useNavigate();
   const response: { code: number; message: string; data: TPostPaymentsResponse } =
     useLocation().state.response;
+
+  if (isFalsy(response)) {
+    navigator(PATH.SUBSCRIBE, { replace: true });
+  }
+
   const isAccepted = result === 'accepted';
+
   const selectedPlan =
     isAccepted &&
     useSessionStorage
       .getItem(CACHING_KEY.PLANS)
       .find((plan: TPlans) => plan.uniqueKey === response.data.payment.name);
 
-  const navigator = useNavigate();
-
   const { text, title, buttonText, billText } =
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
 
   return (
     <Layout>
-      <div id='frame' className='flex flex-col items-center justify-center pt-[60px]'>
+      <div
+        id='frame'
+        className='flex h-full flex-col items-center justify-center pt-[60px]'
+      >
         <div className='w-[524px] space-y-[30px]'>
           <header>
             <div className='flex flex-col items-center'>
@@ -41,7 +48,7 @@ export const ResultPage = () => {
               <p className='pt-[30px] text-3XL/Bold'>{title}</p>
             </div>
           </header>
-          <main>
+          <main className='h-fit'>
             {isAccepted ? (
               <div className='rounded-lg border-[1px] border-grey-300'>
                 <div className='p-10'>
@@ -80,25 +87,43 @@ export const ResultPage = () => {
 
                   <div className='flex justify-between'>
                     <p className='text-2XL/Bold text-orange-400 '>총 결제 금액</p>
-                    <p className='text-2XL/Regular'>
+                    <p className=' text-2XL/Regular'>
                       {formatNumber(selectedPlan.price)}원
                     </p>
                   </div>
                 </div>
               </div>
             ) : (
-              <p className='text-center text-red-700'>{response.message}</p>
+              <div>
+                <p className='text-center text-red-700'>
+                  결제 실패 사유 : {response.message}
+                </p>
+              </div>
             )}
           </main>
           <footer>
-            <button
-              className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
-              onClick={() =>
-                navigator(result === 'rejected' ? PATH.UPGRADE_PLAN : PATH.SUBSCRIBE)
-              }
-            >
-              {buttonText}
-            </button>
+            <div className='flex gap-5'>
+              {/* {isAccepted === false && (
+                <button
+                  className='button-filled-normal-large-grey-false-false-true min-w-[200px]'
+                  onClick={() =>
+                    navigator(result === 'rejected' ? PATH.UPGRADE_PLAN : PATH.SUBSCRIBE)
+                  }
+                >
+                  이전으로
+                </button>
+              )} */}
+              <button
+                className='button-filled-normal-large-primary-false-false-true w-full'
+                onClick={() =>
+                  navigator(result === 'rejected' ? PATH.UPGRADE_PLAN : PATH.SUBSCRIBE, {
+                    replace: true,
+                  })
+                }
+              >
+                {buttonText}
+              </button>
+            </div>
           </footer>
         </div>
       </div>
