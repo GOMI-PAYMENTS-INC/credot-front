@@ -7,6 +7,7 @@ import {
   ReportGeneratorModal,
   SearchTooltips,
   SubscriptionModal,
+  ExccededAlertModal,
 } from '@/search/elements';
 import { Selector } from '@/report/keyword/elements/Selector';
 import {
@@ -41,6 +42,8 @@ import { isFalsy } from '@/utils/isFalsy';
 import { useRecoilState } from 'recoil';
 import { SwitchAtom } from '@/atom/common.atom';
 import { BackforwardButton } from '@/components/BackForwardButton';
+import { useRecoilValue } from 'recoil';
+import { SubscriptionAtom, PlansAtom } from '@/atom';
 import MSearchKeyword from '@/search/MSearchKeyword';
 
 export const SearchKeywords = () => {
@@ -49,6 +52,9 @@ export const SearchKeywords = () => {
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
   const hotKeywordRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+
+  const subscription = useRecoilValue(SubscriptionAtom);
+  const plans = useRecoilValue(PlansAtom);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
@@ -94,9 +100,12 @@ export const SearchKeywords = () => {
       </Fragment>
     );
   }
-
+  console.log(plans, 'plans');
   return (
     <Layout>
+      {subscription?.id && (
+        <ExccededAlertModal subscription={subscription} plans={plans} />
+      )}
       <SubscriptionModal />
       <ReportGeneratorModal
         parameter={{

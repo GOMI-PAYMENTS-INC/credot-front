@@ -9,11 +9,9 @@ import { PATH } from '@/router/routeList';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
 import { Footer } from '@/subscribe/elements/Footer';
-import {
-  convertPlan,
-  storePlansIntoSession,
-  convertPlanImg,
-} from '@/subscribe/container';
+import { convertPlanImg, calculatorBar } from '@/subscribe/container';
+
+import { convertPlan } from '@/common/container';
 import { useRecoilValue } from 'recoil';
 import { SubscriptionAtom } from '@/atom';
 
@@ -23,7 +21,6 @@ export const Subscribe = () => {
 
   useEffect(() => {
     window.scroll(0, 0);
-    storePlansIntoSession();
   }, []);
 
   if (subscriptionPlan === null) {
@@ -33,6 +30,10 @@ export const Subscribe = () => {
       </div>
     );
   }
+  const gageBar = calculatorBar(
+    subscriptionPlan.count,
+    subscriptionPlan.productUniqueKey,
+  );
 
   return (
     <Layout useGap={true}>
@@ -76,9 +77,14 @@ export const Subscribe = () => {
                         </p>
                         <p className=' text-M/Medium text-grey-800'>
                           리포트 발행 수 :
-                          <span className=''>{`${subscriptionPlan.count}/${subscriptionPlan.totalCount}`}</span>
+                          <span className=''>{` ${subscriptionPlan.count}/${subscriptionPlan.totalCount}`}</span>
                         </p>
-                        <div className='h-2 w-[187px] rounded bg-orange-200' />
+                        <div className='flex w-[180px] rounded bg-orange-200'>
+                          <div
+                            style={{ width: gageBar }}
+                            className={`h-2 rounded  bg-orange-300`}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div

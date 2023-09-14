@@ -13,3 +13,4 @@ export * from '@/search/elements/SubscriptionModal';
 
 export * from '@/search/elements/SearchResult';
 export * from '@/search/elements/Tooltip';
+export * from '@/search/elements/ExccededAlert';

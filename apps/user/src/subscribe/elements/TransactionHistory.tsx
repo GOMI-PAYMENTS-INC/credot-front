@@ -1,9 +1,9 @@
-import { DATA } from '@/subscribe/container';
 import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { useEffect, useState } from 'react';
-import { _getPayments, convertPlan } from '@/subscribe/container';
+import { _getPayments } from '@/subscribe/container';
+import { convertPlan } from '@/common/container';
 import { convertTime, addTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
