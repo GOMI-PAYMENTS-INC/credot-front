@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { storePlans, switchPlans } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
+import { useRecoilValue } from 'recoil';
+import { SubscriptionAtom } from '@/atom';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
@@ -15,15 +17,25 @@ export const UpgradePlan = () => {
   const [plans, setPlans] = useState<TPlans[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
 
+  const subscriptionPlan = useRecoilValue(SubscriptionAtom);
+
   useEffect(() => {
     window.scroll(0, 0);
-
-    storePlans(setSelectedPlan, setPlans);
-
+    if (subscriptionPlan?.id) {
+      storePlans(setSelectedPlan, setPlans, subscriptionPlan.productUniqueKey);
+    }
     if (width === 0) {
       setWidth(document.getElementById('plan_width')?.offsetLeft! - 100);
     }
-  }, []);
+  }, [subscriptionPlan?.id]);
+
+  if (subscriptionPlan === null) {
+    return (
+      <div className=' scale-[0.2]'>
+        <div id='loader-white' />
+      </div>
+    );
+  }
 
   return (
     <Layout>
@@ -57,7 +69,7 @@ export const UpgradePlan = () => {
                 <ul id='plan_list' className='flex flex-col gap-5'>
                   {plans &&
                     plans
-                      .filter((plan) => plan.uniqueKey !== 'PRODUCT_PLAN_FREE')
+                      .filter((plan) => plan.priority > subscriptionPlan?.productPriority)
                       .map((plan, index) => {
                         const isSelected = plan.name === selectedPlan?.name;
                         const selectedBorder = isSelected
