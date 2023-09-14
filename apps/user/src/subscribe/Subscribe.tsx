@@ -87,14 +87,16 @@ export const Subscribe = () => {
                     >
                       <p className='text-M/Bold'>사용 기간</p>
                       <p>2023.08.23 ~ 2023.09.23</p>
-                      <div className='flex w-full justify-end'>
-                        <button
-                          className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
-                          onClick={() => navigator(PATH.UPGRADE_PLAN)}
-                        >
-                          업그레이드 하기
-                        </button>
-                      </div>
+                      {subscriptionPlan.productUniqueKey !== 'PRODUCT_PLAN_PRO' && (
+                        <div className='flex w-full justify-end'>
+                          <button
+                            className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
+                            onClick={() => navigator(PATH.UPGRADE_PLAN)}
+                          >
+                            업그레이드 하기
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

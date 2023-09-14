@@ -142,14 +142,22 @@ export const storePlansIntoSession = async () => {
 export const storePlans = async (
   setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
   setPlans: Dispatch<SetStateAction<TPlans[]>>,
+  userPlan: TPlanUniqueKey,
 ) => {
   const item = sessionStorage.getItem(CACHING_KEY.PLANS);
   if (isTruthy(item)) {
     const parsingItem = JSON.parse(item!) as TPlans[];
     setPlans(parsingItem);
-    const [_state] = parsingItem.filter(
+    const [starter, pro] = parsingItem.filter(
       (plans) => plans.uniqueKey !== 'PRODUCT_PLAN_FREE',
     );
+    let _state;
+    if (userPlan === 'PRODUCT_PLAN_FREE') {
+      _state = starter;
+    } else {
+      _state = pro;
+    }
+
     setSelectedPlan(_state);
     return;
   }
