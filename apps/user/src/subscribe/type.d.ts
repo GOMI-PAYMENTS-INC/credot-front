@@ -105,6 +105,7 @@ type TPayments = {
   pgTid: string;
   cardCode: string;
   cardName: string;
+  cardNumber: string;
   cardQuota: number;
   name: string;
   amount: number;

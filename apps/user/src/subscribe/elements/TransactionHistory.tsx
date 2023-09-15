@@ -2,7 +2,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
 
 import { useEffect, useState } from 'react';
-import { _getPayments } from '@/subscribe/container';
+import { insertDash, _getPayments } from '@/subscribe/container';
 import { convertPlan } from '@/common/container';
 import { convertTime, addTime } from '@/utils/parsingTimezone';
 import { ReactSVG } from 'react-svg';
@@ -52,7 +52,7 @@ export const TransactionHistory = () => {
                     ${addTime(bill.paidAt, 30, 'YYYY.MM.DD')}`}
                   </td>
                   <td className='w-[230px]'>
-                    {bill.cardName.replace('카드', '')} 5376-9900-****-977*
+                    {bill.cardName.replace('카드', '')} {insertDash(bill.cardNumber)}
                   </td>
                   <td className='w-[162px]'>
                     {convertPlan(bill.name as TPlanUniqueKey)}
