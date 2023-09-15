@@ -17,6 +17,7 @@ import { SubscriptionAtom } from '@/atom';
 import { convertTime } from '@/utils/parsingTimezone';
 import { checkUserDevice } from '@/utils/checkUserDevice';
 import { AccessDenied } from '@/subscribe/elements';
+import { _keywordAnalysisPlanUpgradeStarted } from '@/amplitude/amplitude.service';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
@@ -112,7 +113,10 @@ export const Subscribe = () => {
                         <div className='flex w-full justify-end'>
                           <button
                             className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
-                            onClick={() => navigator(PATH.UPGRADE_PLAN)}
+                            onClick={() => {
+                              navigator(PATH.UPGRADE_PLAN);
+                              _keywordAnalysisPlanUpgradeStarted();
+                            }}
                           >
                             업그레이드 하기
                           </button>

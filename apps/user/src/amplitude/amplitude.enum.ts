@@ -22,3 +22,9 @@ export const convertAmplitudeSortedType = (sort: TSortBy) => {
       return null;
   }
 };
+
+export enum KEYWORD_ANALYSIS_PLAN {
+  FREE = 'free',
+  STARTER = 'starter',
+  PRO = 'pro',
+}

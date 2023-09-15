@@ -418,3 +418,14 @@ export const _clientRecKeywordReportRequested = (
     sort_by: sortBy,
     keyword,
   });
+
+export const _subscriptionPageViewed = (plan: TAUserPlan) =>
+  _setAmplitudeEvents(amplitudeConstant.subscriptionPageViewed, {
+    keyword_analysis: plan,
+  });
+
+export const _keywordAnalysisPlanUpgradeStarted = () =>
+  _setAmplitudeEvents(amplitudeConstant.keywordAnalysisPlanUpgradeStarted);
+
+export const _cardRegistrationStarted = () =>
+  _setAmplitudeEvents(amplitudeConstant.cardRegistrationStarted);

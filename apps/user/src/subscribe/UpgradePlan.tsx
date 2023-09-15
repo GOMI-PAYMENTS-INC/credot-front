@@ -37,7 +37,7 @@ export const UpgradePlan = () => {
       </div>
     );
   }
-  console.log(width, 'width');
+
   return (
     <Layout useFooter={false} useHeightFull={false}>
       {isOpen && (

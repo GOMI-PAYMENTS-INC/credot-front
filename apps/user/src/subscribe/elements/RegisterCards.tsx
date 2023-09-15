@@ -11,7 +11,7 @@ import { UserAtom } from '@/atom/auth.atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserCardsAtom } from '@/atom';
 import { isFalsy } from '@/utils/isFalsy';
-
+import { _cardRegistrationStarted } from '@/amplitude/amplitude.service';
 interface IRegisterCards {
   uniqueKey?: TPlanUniqueKey;
 }
@@ -88,9 +88,11 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
               isError ? 'border-red-500' : 'border-grey-300'
             } bg-grey-50`}
             onClick={() => {
+              _cardRegistrationStarted();
               if (isError) {
                 setIsError(false);
               }
+
               registerCard(userInfo!.email, userInfo!.id, setUserCards);
             }}
           >
