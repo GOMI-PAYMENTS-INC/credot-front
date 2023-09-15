@@ -25,8 +25,8 @@ export const UpgradePlan = () => {
     if (subscriptionPlan?.id) {
       storePlans(setSelectedPlan, subscriptionPlan.productUniqueKey);
     }
-    if (width === 0) {
-      setWidth(document.getElementById('plan_width')?.offsetLeft! - 100);
+    if (width === 0 && document.getElementById('plan_width') !== null) {
+      setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
     }
   }, [subscriptionPlan?.id]);
 
@@ -37,7 +37,7 @@ export const UpgradePlan = () => {
       </div>
     );
   }
-
+  console.log(width, 'width');
   return (
     <Layout useFooter={false} useHeightFull={false}>
       {isOpen && (

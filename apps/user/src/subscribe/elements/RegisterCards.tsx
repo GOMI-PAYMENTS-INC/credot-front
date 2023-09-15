@@ -55,7 +55,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
           disabled={isLoading}
           className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
           onClick={() => {
-            setIsLoading(true);
+            if (isFalsy(userCards) === false) setIsLoading(true);
             _postPayment(uniqueKey, navigator, setIsError, userCards);
           }}
         >

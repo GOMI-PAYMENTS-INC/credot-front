@@ -258,7 +258,7 @@ export const storeHotKeyords = async (
     if (response) {
       sessionStorage.setItem(CACHING_KEY.HOT_KEYWORDS, JSON.stringify(response));
       const _state = response.hotKeywords.find(
-        (country) => country.countryCode === 'VN',
+        (country) => country.countryCode === 'SG',
       )!.value;
       setHotKeywords(_state);
     }
