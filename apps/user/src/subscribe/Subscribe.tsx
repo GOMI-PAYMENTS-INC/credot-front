@@ -15,10 +15,13 @@ import { convertPlan } from '@/common/container';
 import { useRecoilValue } from 'recoil';
 import { SubscriptionAtom } from '@/atom';
 import { convertTime } from '@/utils/parsingTimezone';
+import { checkUserDevice } from '@/utils/checkUserDevice';
+import { AccessDenied } from '@/subscribe/elements';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
   const subscriptionPlan = useRecoilValue(SubscriptionAtom);
+  const isMobile = checkUserDevice();
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -35,6 +38,14 @@ export const Subscribe = () => {
     subscriptionPlan.count,
     subscriptionPlan.productUniqueKey,
   );
+
+  if (isMobile) {
+    return (
+      <Layout useGap={true}>
+        <AccessDenied />
+      </Layout>
+    );
+  }
 
   return (
     <Layout useGap={true}>

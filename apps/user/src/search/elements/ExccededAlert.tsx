@@ -29,13 +29,8 @@ export const ExccededAlertModal = ({
           <p className='text-2XL/Bold xs:text-XL/Bold'>
             <span className='text-orange-400'>리포트 발행 제한 수</span>에 도달했어요!
           </p>
-          <p className='text-L/Medium text-grey-800 xs:text-S/Medium'>
-            더 많은 키워드 분석을 위해
-            <span className='hidden xs:contents'>
-              <br />
-              PC환경에서
-            </span>{' '}
-            플랜을 변경해주세요.
+          <p className='text-L/Medium text-grey-800 xs:hidden'>
+            더 많은 키워드 분석을 위해 플랜을 변경해주세요.
           </p>
           <p className='mt-2.5 text-M/Regular text-grey-600 xs:mt-0'>
             현재 사용중인 플랜 : {convertPlan(subscription.productUniqueKey!)}
@@ -85,7 +80,7 @@ export const ExccededAlertModal = ({
         </div>
         <div className='mt-[50px] flex h-12 gap-[14px] text-center xs:mt-5'>
           <button
-            className='button-filled-normal-large-grey-false-false-true w-[163px] py-0 text-M/Bold xs:w-full'
+            className='button-filled-normal-large-grey-false-false-true w-[163px] py-0 text-M/Bold'
             onClick={() => {
               setIsExceeded(false);
             }}
@@ -93,7 +88,7 @@ export const ExccededAlertModal = ({
             닫기
           </button>
           <button
-            className='button-filled-normal-large-primary-false-false-true w-[320px] border-r-[1px] bg-orange-400 text-M/Bold xs:hidden'
+            className='button-filled-normal-large-primary-false-false-true w-[320px] border-r-[1px] bg-orange-400 text-M/Bold'
             onClick={() => {
               navigator(PATH.SUBSCRIBE);
               setIsExceeded(false);
