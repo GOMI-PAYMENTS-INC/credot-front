@@ -36,7 +36,7 @@ export const ResultPage = () => {
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
 
   return (
-    <Layout>
+    <Layout useFooter={false}>
       <div
         id='frame'
         className='flex h-full flex-col items-center justify-center pt-[60px]'

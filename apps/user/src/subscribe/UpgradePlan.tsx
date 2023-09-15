@@ -39,7 +39,7 @@ export const UpgradePlan = () => {
   }
 
   return (
-    <Layout>
+    <Layout useFooter={false} useHeightFull={false}>
       {isOpen && (
         <Fragment>
           <div id='agreement' />
