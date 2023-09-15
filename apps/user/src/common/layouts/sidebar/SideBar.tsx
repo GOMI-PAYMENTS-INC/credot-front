@@ -14,16 +14,12 @@ import {
   toggleSidebar,
 } from '@/common/layouts/sidebar/container';
 import { replaceOverLength } from '@/utils/replaceOverLength';
-import {
-  _amplitudeMovedToUserGuide,
-  _subscriptionPageViewed,
-} from '@/amplitude/amplitude.service';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { MeQuery } from '@/generated/graphql';
 import { UserAtom } from '@/atom/auth.atom';
 import { useRecoilValue } from 'recoil';
 import { signInApi } from '@/auth/signIn/api';
 import { openBrowser } from '@/utils/openBrowser';
-import { UserPlanAtom } from '@/atom';
 
 interface TSideBarProps {
   _state: TSidebarState;
@@ -40,7 +36,6 @@ const SideBar = (props: TSideBarProps) => {
   const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
 
   const userAtom = useRecoilValue(UserAtom);
-  const userPlan = useRecoilValue(UserPlanAtom);
 
   useEffect(() => {
     if (userAtom) {
@@ -216,11 +211,6 @@ const SideBar = (props: TSideBarProps) => {
                     className='flex w-full justify-between'
                     onClick={() => {
                       navigation(PATH.SUBSCRIBE);
-                      if (userPlan) {
-                        _subscriptionPageViewed(
-                          userPlan.name.toLowerCase() as TAUserPlan,
-                        );
-                      }
                     }}
                   >
                     <div className='flex cursor-pointer items-center'>

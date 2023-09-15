@@ -17,7 +17,10 @@ import { SubscriptionAtom } from '@/atom';
 import { convertTime } from '@/utils/parsingTimezone';
 import { checkUserDevice } from '@/utils/checkUserDevice';
 import { AccessDenied } from '@/subscribe/elements';
-import { _keywordAnalysisPlanUpgradeStarted } from '@/amplitude/amplitude.service';
+import {
+  _keywordAnalysisPlanUpgradeStarted,
+  _subscriptionPageViewed,
+} from '@/amplitude/amplitude.service';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
@@ -25,8 +28,16 @@ export const Subscribe = () => {
   const isMobile = checkUserDevice();
 
   useEffect(() => {
-    window.scroll(0, 0);
-  }, []);
+    if (subscriptionPlan) {
+      const plan = convertPlan(subscriptionPlan?.productUniqueKey)
+        .replace('플랜', '')
+        .toLowerCase();
+      console.log(plan, 'plan');
+      _subscriptionPageViewed(plan as TAUserPlan);
+    } else {
+      window.scroll(0, 0);
+    }
+  }, [subscriptionPlan]);
 
   if (subscriptionPlan === null) {
     return (
