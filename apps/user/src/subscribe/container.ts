@@ -40,7 +40,7 @@ export const registerCard = (
   setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
 ) => {
   const userCode = import.meta.env.VITE_PORTONE_CODE;
-  const PG_MID = 'iamporttest_4';
+  const PG_MID = import.meta.env.VITE_PG_MID;
   const UUID = uuidv4();
 
   IMP.init(userCode);
