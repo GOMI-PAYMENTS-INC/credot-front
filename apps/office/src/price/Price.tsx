@@ -1,7 +1,14 @@
 import { Plan, KeywordContents } from '@/price/elements';
 import { FAQ } from '@/common';
 import { PRICE_QNA } from '@/common/constants';
+import { useEffect } from 'react';
+import { _introPricingPageViewed } from '@/amplitude/amplitude.service';
+
 const Price = () => {
+  useEffect(() => {
+    _introPricingPageViewed();
+  }, []);
+
   return (
     <main>
       <section className='flex h-[280px] w-full flex-col items-center justify-center'>

@@ -1,6 +1,6 @@
 import { getSubscription } from '@/common/api';
 import type { SetterOrUpdater } from 'recoil';
-
+import { PLANS } from '@/common/constants';
 import { getPlans } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isTruthy } from '@/utils/isTruthy';
@@ -45,8 +45,7 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
   }
 };
 
-export const convertPlan = (plan: TPlanUniqueKey): string => {
-  const plans = useSessionStorage.getItem(CACHING_KEY.PLANS);
-
+export const convertPlan = (plan: TPlanUniqueKey) => {
+  const plans = useSessionStorage.getItem(CACHING_KEY.PLANS) || PLANS;
   return `${plans.find((pl: TPlans) => pl.uniqueKey === plan).name} 플랜`;
 };
