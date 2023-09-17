@@ -1,4 +1,4 @@
-import { PARTENER_DATA } from '@/home/HomeConstant';
+import { PARTENER_DATA } from '@/home/constants';
 
 interface IPartner {
   imagePath: string;

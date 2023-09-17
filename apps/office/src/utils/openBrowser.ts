@@ -1,4 +1,5 @@
 import { _introPageMovedToSolution } from '@/amplitude/amplitude.service';
+
 import type { MouseEvent } from 'react';
 
 export const openBrowser = (url: string) => {

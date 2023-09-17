@@ -1,5 +1,5 @@
 const PATH = {
-  HOME: '/',
+  MAIN: '/',
   PRICE: '/price',
   PREVIEW: '/preview',
 };

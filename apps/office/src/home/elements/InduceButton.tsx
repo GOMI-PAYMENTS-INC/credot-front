@@ -2,11 +2,7 @@ import { openAppWithTag } from '@/utils/openBrowser';
 import { useNavigate } from 'react-router-dom';
 // import { _keywordReportPreviewed } from '@/amplitude/amplitude.service';
 import { GlobalEnv } from '@/api/config';
-import {
-  CTA_LOCATION,
-  CTA_TYPE,
-  pageCategoryConvertor,
-} from '@/amplitude/amplitude.enum';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
 import { PATH } from '@/router';
@@ -31,7 +27,7 @@ export const InduceButton = ({ className, text, varidation }: IInduceButton) => 
           onClick={(event) => {
             openAppWithTag({
               url: GlobalEnv.serviceUrl,
-              path: pageCategoryConvertor(pathname),
+              path: pathname,
               type: CTA_TYPE.BUTTON,
               location: CTA_LOCATION.HEADER,
               event: event,

@@ -4,11 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HeaderMenu } from '@/layouts/elements/HeaderMenu';
 import { PATH } from '@/router';
-import {
-  CTA_LOCATION,
-  CTA_TYPE,
-  pageCategoryConvertor,
-} from '@/amplitude/amplitude.enum';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 
 import { GlobalEnv } from '@/api/config';
 import { openAppWithTag } from '@/utils/openBrowser';
@@ -16,11 +12,11 @@ import { GNB_ROUTE } from '@/layouts/constants';
 
 export const Header = () => {
   const { pathname } = useLocation();
-  const [current, setCurrent] = useState(pathname || PATH.HOME);
+  const [current, setCurrent] = useState(pathname || PATH.MAIN);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   useEffect(() => {
-    if (pathname !== current) setCurrent(pathname || PATH.HOME);
+    if (pathname !== current) setCurrent(pathname || PATH.MAIN);
   }, [pathname]);
 
   return (
@@ -38,7 +34,7 @@ export const Header = () => {
       ) : (
         <div className='container flex h-full items-center  justify-between'>
           <div className='flex items-center'>
-            <Link to={PATH.HOME}>
+            <Link to={PATH.MAIN}>
               <ReactSVG
                 src='/assets/icons/Logo.svg'
                 beforeInjection={(svg) => {
@@ -76,7 +72,7 @@ export const Header = () => {
               onClick={(event) => {
                 openAppWithTag({
                   url: GlobalEnv.serviceUrl,
-                  path: pageCategoryConvertor(pathname),
+                  path: pathname,
                   type: CTA_TYPE.BUTTON,
                   location: CTA_LOCATION.HEADER,
                   event: event,
@@ -91,7 +87,7 @@ export const Header = () => {
               onClick={(event) => {
                 openAppWithTag({
                   url: GlobalEnv.serviceUrl,
-                  path: pageCategoryConvertor(pathname),
+                  path: pathname,
                   type: CTA_TYPE.BUTTON,
                   location: CTA_LOCATION.HEADER,
                   event: event,

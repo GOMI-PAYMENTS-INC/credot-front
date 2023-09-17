@@ -6,11 +6,7 @@ import { GNB_ROUTE } from '@/layouts/constants';
 import { GlobalEnv } from '@/api/config';
 import { openAppWithTag } from '@/utils/openBrowser';
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  CTA_LOCATION,
-  CTA_TYPE,
-  pageCategoryConvertor,
-} from '@/amplitude/amplitude.enum';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 
 interface IHeaderMenu {
   setIsOpenMenu: Dispatch<SetStateAction<boolean>>;
@@ -80,7 +76,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
-                path: pageCategoryConvertor(pathname),
+                path: pathname,
                 type: CTA_TYPE.BUTTON,
                 location: CTA_LOCATION.HEADER,
                 event: event,
@@ -96,7 +92,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
-                path: pageCategoryConvertor(pathname),
+                path: pathname,
                 type: CTA_TYPE.BUTTON,
                 location: CTA_LOCATION.HEADER,
                 event: event,
