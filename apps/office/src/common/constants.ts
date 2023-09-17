@@ -15,14 +15,8 @@ export const HOME_QNA = [
   {
     subject: '서비스 이용료가 궁금해요!',
     link: `${GlobalEnv.officeUrl}/price`,
-    linkName: '환불 정책 자세히 보기',
+    linkName: '요금 안내 바로 가기',
     content: '자세한 고미인사이트 서비스 이용료는 요금 안내 페이지를 확인해주세요.',
-  },
-
-  {
-    subject: '서비스 이용료가 궁금해요!',
-    content:
-      '현재 고미 인사이트는 무제한 사용이 가능한 이벤트를 진행중이에요! 별도의 이벤트 종료 안내까지는 무료로 무제한 사용하실 수 있어요.',
   },
 
   {
