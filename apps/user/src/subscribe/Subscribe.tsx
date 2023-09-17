@@ -26,18 +26,18 @@ export const Subscribe = () => {
   const navigator = useNavigate();
   const subscriptionPlan = useRecoilValue(SubscriptionAtom);
   const isMobile = checkUserDevice();
-
+  console.log(subscriptionPlan, 'plan');
   useEffect(() => {
     if (subscriptionPlan) {
       const plan = convertPlan(subscriptionPlan?.productUniqueKey)
         .replace('플랜', '')
         .toLowerCase();
-      console.log(plan, 'plan');
+
       _subscriptionPageViewed(plan as TAUserPlan);
     } else {
       window.scroll(0, 0);
     }
-  }, [subscriptionPlan]);
+  }, []);
 
   if (subscriptionPlan === null) {
     return (

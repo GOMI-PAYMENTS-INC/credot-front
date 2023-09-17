@@ -5,7 +5,7 @@ import {
   convertAmplitudeSortedType,
 } from '@/amplitude/amplitude.enum';
 import { CHANNEL_TYPE } from '@/types/enum.code';
-import { PropertyOperationsBuilder } from '@hackler/react-sdk';
+
 declare var amplitude: any;
 
 //TODO:axios.config 보면 casing에 snakelize 함수 있으니 참고해서 별도로 카멜/스네이크 신경쓰지 않아도 자동화 되도록 할 것 (casey 3/28)
@@ -158,8 +158,8 @@ export const _amplitudeChangePwCompleted = () => {
 
 // ##### KEYWORD REPORT - 키워드 검색창에서 국가 변경 완료 시 ##### //
 export const _amplitudeCountryChanged = (
-  countryBefore: CountryType,
-  countryAfter: CountryType,
+  countryBefore: CountryType | TSearchCountry,
+  countryAfter: CountryType | TSearchCountry,
 ) => {
   _setAmplitudeEvents(amplitudeConstant.countryChanged, {
     country_before: countryBefore,
@@ -177,7 +177,7 @@ export const _amplitudeSortByChanged = (sortByBefore: TSortBy, sortByAfter: TSor
 
 // ##### KEYWORD REPORT - 사용자가 키워드 검색 요청 시 ##### //
 export const _amplitudeKeywordSearched = (
-  country: CountryType,
+  country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
 ) => {
