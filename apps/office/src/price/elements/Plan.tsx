@@ -56,7 +56,7 @@ export const Plan = () => {
                   id='movedToSolution'
                   onClick={(event) =>
                     openAppWithTag({
-                      url: GlobalEnv.serviceUrl,
+                      url: `${GlobalEnv.serviceUrl}/subscribe`,
                       path: PATH.PRICE,
                       type: CTA_TYPE.BUTTON,
                       location: CTA_LOCATION.MIDDLE_OF_CONTENT,
