@@ -36,7 +36,7 @@ export const TransactionHistory = () => {
             <tr>
               <th colSpan={7} className='w-[1164px]'>
                 <p className='py-[14px] text-M/Regular text-grey-800'>
-                  결제 내역이 없습니다.
+                  결제 내역이 존재하지 않아요.
                 </p>
               </th>
             </tr>
