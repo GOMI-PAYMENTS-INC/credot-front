@@ -46,7 +46,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             onClick={() => setIsOpenMenu(false)}
           />
         </div>
-        {/* <ul className='gap-y-[14px] text-L/Bold xs:text-M/Bold'>
+        <ul className='gap-y-[14px] text-L/Bold xs:text-M/Bold'>
           {GNB_ROUTE.map((route) => {
             const textColor =
               route.path === current
@@ -72,7 +72,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
               </li>
             );
           })}
-        </ul> */}
+        </ul>
         <div className='mt-[54px] flex w-full justify-center gap-5 xs:mt-[50px]'>
           <button
             id='movedToSolution'
