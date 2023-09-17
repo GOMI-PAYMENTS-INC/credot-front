@@ -150,6 +150,7 @@ export const updateSearchPayload = (props: {
   if (key === 'sortBy') {
     _amplitudeSortByChanged(_state.sortBy, params as TSortBy);
   }
+
   useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
   _dispatch(updatedState);
 };
@@ -266,15 +267,16 @@ export const storeHotKeyords = async (
   try {
     const response = await getHotKeywords();
     const storedCountryCode =
-      useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD).country || 'SG';
+      useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD)?.country || 'SG';
     if (response) {
-      sessionStorage.setItem(CACHING_KEY.HOT_KEYWORDS, JSON.stringify(response));
+      useSessionStorage.setItem(CACHING_KEY.HOT_KEYWORDS, response);
       const _state = response.hotKeywords.find(
         (country) => country.countryCode === storedCountryCode,
       )!.value;
       setHotKeywords(_state);
     }
   } catch (error) {
+    console.log(error, 'error');
     throw new Error('인기검색어 저장 과정에서 에러가 발생했습니다.');
   }
 };
