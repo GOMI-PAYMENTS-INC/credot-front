@@ -161,9 +161,10 @@ export const _amplitudeCountryChanged = (
   countryBefore: CountryType | TSearchCountry,
   countryAfter: CountryType | TSearchCountry,
 ) => {
+  const [before, after] = [countryBefore, countryAfter].map((text) => text.toLowerCase());
   _setAmplitudeEvents(amplitudeConstant.countryChanged, {
-    country_before: countryBefore,
-    country_after: countryAfter,
+    country_before: before,
+    country_after: after,
   });
 };
 
