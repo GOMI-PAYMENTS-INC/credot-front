@@ -80,7 +80,7 @@ const GNB = () => {
             />
             <p className='ml-2 text-S/Medium text-grey-800'>사용자 가이드</p>
           </button>
-          (
+
           <button
             className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
             onClick={() => {
@@ -95,7 +95,6 @@ const GNB = () => {
             />
             <p className='ml-2 text-S/Medium text-grey-800'>MY PLAN</p>
           </button>
-          )
         </div>
 
         <div className='relative ml-2 flex items-center'>
