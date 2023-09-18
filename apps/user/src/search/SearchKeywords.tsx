@@ -6,7 +6,6 @@ import {
   SearchResultDetail,
   ReportGeneratorModal,
   SearchTooltips,
-  SubscriptionModal,
   ExccededAlertModal,
 } from '@/search/elements';
 import { Selector } from '@/report/keyword/elements/Selector';
@@ -95,7 +94,6 @@ export const SearchKeywords = () => {
   if (window.innerWidth < 432) {
     return (
       <Fragment>
-        <SubscriptionModal />
         <MSearchKeyword />
       </Fragment>
     );
@@ -111,7 +109,7 @@ export const SearchKeywords = () => {
           plans={plans}
         />
       )}
-      <SubscriptionModal />
+
       <ReportGeneratorModal
         parameter={{
           reportInvokeId: response?.reportInvokeId,
