@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { Default as Layout } from '@/common/layouts';
 import { Footer } from '@/subscribe/elements/Footer';
-import { _getSubscription } from '@/common/container';
 
 interface IPlanLayout {
   children: ReactNode;

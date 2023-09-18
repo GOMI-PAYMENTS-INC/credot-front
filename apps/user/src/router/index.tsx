@@ -14,7 +14,6 @@ import { authTokenStorage } from '@/utils/authToken';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
-import { _getSubscription } from '@/common/container';
 import { isTruthy } from '@/utils/isTruthy';
 
 export const Router = () => {
