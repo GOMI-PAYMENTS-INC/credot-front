@@ -51,5 +51,5 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
 
 export const convertPlan = (plan: TPlanUniqueKey) => {
   const plans = useSessionStorage.getItem(CACHING_KEY.PLANS) || PLANS;
-  return `${plans.find((pl: TPlans) => pl.uniqueKey === plan).name} 플랜`;
+  return `${plans.find((pl: TPlans) => pl.uniqueKey === plan)?.name}`;
 };
