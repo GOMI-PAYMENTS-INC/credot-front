@@ -80,23 +80,22 @@ const GNB = () => {
             />
             <p className='ml-2 text-S/Medium text-grey-800'>사용자 가이드</p>
           </button>
-
-          {import.meta.env.PROD === false && (
-            <button
-              className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
-              onClick={() => {
-                navigate(PATH.SUBSCRIBE);
+          (
+          <button
+            className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
+            onClick={() => {
+              navigate(PATH.SUBSCRIBE);
+            }}
+          >
+            <ReactSVG
+              src='/assets/icons/outlined/CreditCard.svg'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
               }}
-            >
-              <ReactSVG
-                src='/assets/icons/outlined/CreditCard.svg'
-                beforeInjection={(svg) => {
-                  svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
-                }}
-              />
-              <p className='ml-2 text-S/Medium text-grey-800'>MY PLAN</p>
-            </button>
-          )}
+            />
+            <p className='ml-2 text-S/Medium text-grey-800'>MY PLAN</p>
+          </button>
+          )
         </div>
 
         <div className='relative ml-2 flex items-center'>
