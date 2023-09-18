@@ -11,7 +11,11 @@ export const _getSubscription = async (
   setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>,
 ) => {
   const response = await getSubscription();
-  if (response.productUniqueKey) setSubscription(response);
+  const userPlan = useSessionStorage.getItem(CACHING_KEY.USER_PLAN)?.productUniqueKey;
+  // if (userPlan === null || userPlan !== response.productUniqueKey) {
+  useSessionStorage.setItem(CACHING_KEY.USER_PLAN, response);
+  setSubscription(response);
+  // }
 };
 
 export const _checkSubscription = async (

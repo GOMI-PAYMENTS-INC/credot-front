@@ -50,9 +50,7 @@ export const ReportModalType = ({
         onConfirm: {
           name: '바로 확인하기',
           confirmEvent: () => {
-            console.log(newReportId, 'newReportId');
             const URL = newReportId === undefined ? '/report' : `/report/${newReportId}`;
-            console.log(URL, 'URL');
             navigate(URL);
           },
         },
