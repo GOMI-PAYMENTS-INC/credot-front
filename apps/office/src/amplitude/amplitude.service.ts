@@ -55,5 +55,7 @@ export const _introPageMovedToSolution = (
 
 export const _introPricingPageViewed = () => {
   if (location.pathname === PATH.PRICE)
-    _setAmplitudeEvents(amplitudeConstant.pricingPageViewed);
+    _setAmplitudeEvents(amplitudeConstant.pricingPageViewed, {
+      feature: 'keyword analysis',
+    });
 };
