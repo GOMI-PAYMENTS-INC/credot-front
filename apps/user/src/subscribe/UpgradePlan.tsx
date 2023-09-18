@@ -7,28 +7,39 @@ import { useNavigate } from 'react-router-dom';
 
 import { storePlans, switchPlans } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
+import { useRecoilValue } from 'recoil';
+import { SubscriptionAtom, PlansAtom } from '@/atom';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [plans, setPlans] = useState<TPlans[]>([]);
+
+  const plans = useRecoilValue(PlansAtom);
   const [selectedPlan, setSelectedPlan] = useState<TPlans | null>(null);
 
-  const date = new Date();
+  const subscriptionPlan = useRecoilValue(SubscriptionAtom);
 
   useEffect(() => {
     window.scroll(0, 0);
-
-    storePlans(setSelectedPlan, setPlans);
-
-    if (width === 0) {
-      setWidth(document.getElementById('plan_width')?.offsetLeft! - 100);
+    if (subscriptionPlan?.id) {
+      storePlans(setSelectedPlan, subscriptionPlan.productUniqueKey);
     }
-  }, []);
+    if (width === 0 && document.getElementById('plan_width') !== null) {
+      setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
+    }
+  }, [subscriptionPlan?.id]);
+
+  if (subscriptionPlan === null) {
+    return (
+      <div className=' scale-[0.2]'>
+        <div id='loader-white' />
+      </div>
+    );
+  }
 
   return (
-    <Layout>
+    <Layout useFooter={false} useHeightFull={false}>
       {isOpen && (
         <Fragment>
           <div id='agreement' />
@@ -40,7 +51,7 @@ export const UpgradePlan = () => {
         style={`top-[146px] sticky`}
         originStyle={{ left: `${width}px` }}
         callback={() => {
-          navigator(PATH.SUBSCRIBE);
+          navigator(PATH.SUBSCRIBE, { replace: true });
         }}
       />
       <header className='pt-[22px]'>
@@ -59,7 +70,7 @@ export const UpgradePlan = () => {
                 <ul id='plan_list' className='flex flex-col gap-5'>
                   {plans &&
                     plans
-                      .filter((plan) => plan.uniqueKey !== 'PRODUCT_PLAN_FREE')
+                      .filter((plan) => plan.priority > subscriptionPlan?.productPriority)
                       .map((plan, index) => {
                         const isSelected = plan.name === selectedPlan?.name;
                         const selectedBorder = isSelected
@@ -102,7 +113,6 @@ export const UpgradePlan = () => {
                               <p className='ml-2.5 text-2XL/Bold'>
                                 {formatNumber(plan.price)}
                                 <span className='text-M/Medium'>
-                                  {' '}
                                   /{plan.subscribeCycle}일
                                 </span>
                               </p>
@@ -143,7 +153,7 @@ export const UpgradePlan = () => {
             </div>
 
             <div className='w-[444px]'>
-              <RegisterCards />
+              <RegisterCards uniqueKey={selectedPlan?.uniqueKey} />
             </div>
           </div>
         </div>

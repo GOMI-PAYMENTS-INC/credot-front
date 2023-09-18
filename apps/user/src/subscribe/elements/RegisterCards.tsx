@@ -1,8 +1,8 @@
-import { insertDash, _getUserCards } from '@/subscribe/container';
+import { insertDash, _getUserCards, _postPayment } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useMemo, useEffect, Fragment, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PATH } from '@/router/routeList';
 
 import { isTruthy } from '@/utils/isTruthy';
@@ -11,10 +11,15 @@ import { UserAtom } from '@/atom/auth.atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserCardsAtom } from '@/atom';
 import { isFalsy } from '@/utils/isFalsy';
+import { _cardRegistrationStarted } from '@/amplitude/amplitude.service';
+interface IRegisterCards {
+  uniqueKey?: TPlanUniqueKey;
+}
 
-export const RegisterCards = () => {
+export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const { pathname } = useLocation();
   const [userCards, setUserCards] = useRecoilState(UserCardsAtom);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
   const userInfo = useRecoilValue(UserAtom)?.me;
@@ -22,9 +27,13 @@ export const RegisterCards = () => {
 
   useEffect(() => {
     _getUserCards(setUserCards);
+    return () => {
+      setIsLoading(false);
+      setIsError(false);
+    };
   }, []);
 
-  const FilledCard = useMemo(() => {
+  const FilledCard = () => {
     if (pathname === PATH.SUBSCRIBE) {
       return (
         <></>
@@ -43,28 +52,26 @@ export const RegisterCards = () => {
           구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
         </p>
         <button
-          onClick={() => {
-            // 결제 api 필요
-            console.log(userCards, '야호');
-            if (isFalsy(userCards)) {
-              return setIsError(true);
-            }
-
-            if (isError && userCards) {
-              setIsError(false);
-            }
-
-            navigator(PATH.RESULT_OF_PAY_REQUEST.replace(':result', 'accepted'));
-          }}
+          disabled={isLoading}
           className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
+          onClick={() => {
+            if (isFalsy(userCards) === false) setIsLoading(true);
+            _postPayment(uniqueKey, navigator, setIsError, userCards);
+          }}
         >
-          업그레이드 하기
+          {isLoading ? (
+            <div className=' scale-[0.2]'>
+              <div id='loader-white' />
+            </div>
+          ) : (
+            '업그레이드 하기'
+          )}
         </button>
       </div>
     );
-  }, [pathname]);
+  };
 
-  const EmptyCard = useMemo(() => {
+  const EmptyCard = () => {
     if (pathname === PATH.SUBSCRIBE) {
       return (
         <div className='flex justify-center rounded-lg border-[1px] border-grey-300 bg-grey-50'>
@@ -73,7 +80,7 @@ export const RegisterCards = () => {
       );
     }
     return (
-      <Fragment>
+      <>
         <div className='border-b-[1px] border-grey-200 pb-[30px]'>
           <button
             id='registed_card'
@@ -81,9 +88,11 @@ export const RegisterCards = () => {
               isError ? 'border-red-500' : 'border-grey-300'
             } bg-grey-50`}
             onClick={() => {
+              _cardRegistrationStarted();
               if (isError) {
                 setIsError(false);
               }
+
               registerCard(userInfo!.email, userInfo!.id, setUserCards);
             }}
           >
@@ -109,10 +118,10 @@ export const RegisterCards = () => {
             </div>
           )}
         </div>
-        {FilledCard}
-      </Fragment>
+        {FilledCard()}
+      </>
     );
-  }, [pathname, isError]);
+  };
 
   return (
     <div className='flex-grow space-y-5 text-2XL/Bold'>
@@ -161,10 +170,10 @@ export const RegisterCards = () => {
                 );
               })}
             </div>
-            {FilledCard}
+            {FilledCard()}
           </>
         ) : (
-          EmptyCard
+          EmptyCard()
         )}
       </div>
     </div>

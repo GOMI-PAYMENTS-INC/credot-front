@@ -9,16 +9,18 @@ import {
   EcommerceMargin,
   InsightFunctions,
 } from '@/home/elements';
+
 import { _introPageIntroPageViewed } from '@/amplitude/amplitude.service';
-import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
+import { useLocation } from 'react-router-dom';
 import { HOME_QNA } from '@/common/constants';
 import { useEffect } from 'react';
 
-const Intro = () => {
+const Main = () => {
+  const { pathname } = useLocation();
   const IMG_PATH = '/assets/images';
 
   useEffect(() => {
-    _introPageIntroPageViewed(PAGE_CATEGORY.MAIN, window.location.href);
+    _introPageIntroPageViewed(pathname, window.location.href);
   }, []);
 
   return (
@@ -33,4 +35,4 @@ const Intro = () => {
     </main>
   );
 };
-export default Intro;
+export default Main;

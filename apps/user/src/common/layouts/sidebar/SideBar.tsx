@@ -36,6 +36,7 @@ const SideBar = (props: TSideBarProps) => {
   const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
 
   const userAtom = useRecoilValue(UserAtom);
+
   useEffect(() => {
     if (userAtom) {
       setUserInfo(userAtom);

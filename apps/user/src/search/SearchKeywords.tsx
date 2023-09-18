@@ -6,7 +6,7 @@ import {
   SearchResultDetail,
   ReportGeneratorModal,
   SearchTooltips,
-  SubscriptionModal,
+  ExccededAlertModal,
 } from '@/search/elements';
 import { Selector } from '@/report/keyword/elements/Selector';
 import {
@@ -38,8 +38,8 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isFalsy } from '@/utils/isFalsy';
 
-import { useRecoilState } from 'recoil';
-import { SwitchAtom } from '@/atom/common.atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { SubscriptionAtom, PlansAtom, SwitchAtom } from '@/atom';
 import { BackforwardButton } from '@/components/BackForwardButton';
 import MSearchKeyword from '@/search/MSearchKeyword';
 
@@ -47,8 +47,13 @@ export const SearchKeywords = () => {
   const { Search, Monthly, RelativeKeyword } = SearchTooltips();
   const [modal, setModal] = useState<TNSearchModalStatus>(SEARCH_MODAL_INIT_VALUE);
   const [searchState, setSearchState] = useState<TSearchProps>(SEARCH_STATE_INIT_VALUE);
-  const hotKeywordRef = useRef<HTMLDivElement>(null);
+  const [isExceeded, setIsExceeded] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+
+  const hotKeywordRef = useRef<HTMLDivElement>(null);
+
+  const subscription = useRecoilValue(SubscriptionAtom);
+  const plans = useRecoilValue(PlansAtom);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
     mode: 'onChange',
@@ -89,7 +94,6 @@ export const SearchKeywords = () => {
   if (window.innerWidth < 432) {
     return (
       <Fragment>
-        <SubscriptionModal />
         <MSearchKeyword />
       </Fragment>
     );
@@ -97,7 +101,15 @@ export const SearchKeywords = () => {
 
   return (
     <Layout>
-      <SubscriptionModal />
+      {isExceeded && (
+        <ExccededAlertModal
+          isExceeded={isExceeded}
+          setIsExceeded={setIsExceeded}
+          subscription={subscription!}
+          plans={plans}
+        />
+      )}
+
       <ReportGeneratorModal
         parameter={{
           reportInvokeId: response?.reportInvokeId,
@@ -251,6 +263,7 @@ export const SearchKeywords = () => {
           >
             {searchState.keyword ? (
               <SearchResult
+                setIsExceeded={setIsExceeded}
                 hotKeywordRef={hotKeywordRef}
                 count={response?.main.count}
                 _dispatch={setSearchState}

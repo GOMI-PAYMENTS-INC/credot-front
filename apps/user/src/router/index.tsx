@@ -3,9 +3,10 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { _setUserId } from '@/amplitude/amplitude.service';
-import { LoginTokenAtom, UserAtom } from '@/atom/auth.atom';
+import { LoginTokenAtom, UserAtom } from '@/atom';
 import { signInApi } from '@/auth/signIn/api';
 import { useMeQuery } from '@/generated/graphql';
+
 import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';
 import { PATH } from '@/types/enum.code';
@@ -13,12 +14,12 @@ import { authTokenStorage } from '@/utils/authToken';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
-
 import { isTruthy } from '@/utils/isTruthy';
 
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
+
   const setToken = useSetRecoilState(LoginTokenAtom);
   const storageToken = authTokenStorage.getToken();
 

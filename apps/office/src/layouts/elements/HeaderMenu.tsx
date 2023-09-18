@@ -6,11 +6,7 @@ import { GNB_ROUTE } from '@/layouts/constants';
 import { GlobalEnv } from '@/api/config';
 import { openAppWithTag } from '@/utils/openBrowser';
 import type { Dispatch, SetStateAction } from 'react';
-import {
-  CTA_LOCATION,
-  CTA_TYPE,
-  pageCategoryConvertor,
-} from '@/amplitude/amplitude.enum';
+import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 
 interface IHeaderMenu {
   setIsOpenMenu: Dispatch<SetStateAction<boolean>>;
@@ -46,7 +42,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             onClick={() => setIsOpenMenu(false)}
           />
         </div>
-        {/* <ul className='gap-y-[14px] text-L/Bold xs:text-M/Bold'>
+        <ul className='gap-y-[14px] text-L/Bold xs:text-M/Bold'>
           {GNB_ROUTE.map((route) => {
             const textColor =
               route.path === current
@@ -72,7 +68,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
               </li>
             );
           })}
-        </ul> */}
+        </ul>
         <div className='mt-[54px] flex w-full justify-center gap-5 xs:mt-[50px]'>
           <button
             id='movedToSolution'
@@ -80,7 +76,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
-                path: pageCategoryConvertor(pathname),
+                path: pathname,
                 type: CTA_TYPE.BUTTON,
                 location: CTA_LOCATION.HEADER,
                 event: event,
@@ -96,7 +92,7 @@ export const HeaderMenu = ({ setIsOpenMenu, current, setCurrent }: IHeaderMenu) 
             onClick={(event) => {
               openAppWithTag({
                 url: GlobalEnv.serviceUrl,
-                path: pageCategoryConvertor(pathname),
+                path: pathname,
                 type: CTA_TYPE.BUTTON,
                 location: CTA_LOCATION.HEADER,
                 event: event,

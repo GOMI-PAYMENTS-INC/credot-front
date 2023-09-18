@@ -1,4 +1,6 @@
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
+import { pageCategoryConvertor } from '@/amplitude/amplitude.enum';
+import { PATH } from '@/router';
 
 declare var amplitude: any;
 
@@ -26,10 +28,12 @@ export const _setAmplitudeEvents = async (
 
 // ##### INTRO PAGE - 1 - 소개 페이지 내 페이지 뷰 발생 시 ##### //
 export const _introPageIntroPageViewed = (pageCategory: string, pageUrl: string) => {
-  void _setAmplitudeEvents(amplitudeConstant.introPageViewed, {
-    page_category: pageCategory,
-    page_url: pageUrl,
-  });
+  const page_category = pageCategoryConvertor(pageCategory);
+  if (location.pathname.includes(PATH.PRICE) === false)
+    _setAmplitudeEvents(amplitudeConstant.introPageViewed, {
+      page_category,
+      page_url: pageUrl,
+    });
 };
 
 // ##### INTRO PAGE - 2 - 솔루션 페이지로 넘어가는 CTA 클릭 시 ##### //
@@ -39,14 +43,19 @@ export const _introPageMovedToSolution = (
   ctaLocation: string,
   ctaText: string,
 ) => {
+  const page_category = pageCategoryConvertor(pageCategory);
+
   void _setAmplitudeEvents(amplitudeConstant.movedToSolution, {
-    page_category: pageCategory,
+    page_category,
     cta_type: ctaType,
     cta_location: ctaLocation,
     cta_text: ctaText,
   });
 };
 
-// export const _keywordReportPreviewed = () => {
-//   void _setAmplitudeEvents(amplitudeConstant.keywordReportPreviewed);
-// };
+export const _introPricingPageViewed = () => {
+  if (location.pathname === PATH.PRICE)
+    _setAmplitudeEvents(amplitudeConstant.pricingPageViewed, {
+      feature: 'keyword analysis',
+    });
+};

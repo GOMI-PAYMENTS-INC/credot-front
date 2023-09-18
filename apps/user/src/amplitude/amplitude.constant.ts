@@ -40,4 +40,8 @@ export const amplitudeConstant = {
 
   hotKeywordSearched: 'hot keyword searched',
   recKeywordReportRequested: 'rec keyword report requested',
+
+  subscriptionPageViewed: 'subscription page viewed',
+  keywordAnalysisPlanUpgradeStarted: 'keyword analysis plan upgrade started',
+  cardRegistrationStarted: 'card registration started',
 };

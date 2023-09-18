@@ -1,6 +1,7 @@
 import { CACHING_KEY } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isFalsy } from '@/utils/isFalsy';
+import { checkUserDevice } from '@/utils/checkUserDevice';
 
 const isNewMember = (compareKey: number, userId: number) => {
   if (compareKey <= userId) {
@@ -9,14 +10,6 @@ const isNewMember = (compareKey: number, userId: number) => {
   if (compareKey > userId) {
     return false;
   }
-};
-
-const checkUserDevice = () => {
-  var UA = navigator.userAgent;
-  return (
-    /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
-    /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-  );
 };
 
 export const generateHackleConfig = (userId: number) => {

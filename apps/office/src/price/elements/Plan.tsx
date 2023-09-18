@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { GRADE, PLANS } from '@/price/constans';
 import { openAppWithTag } from '@/utils/openBrowser';
-import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
+import { planConvertor, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
 import { PATH } from '@/router';
 
@@ -54,15 +54,18 @@ export const Plan = () => {
                 <button
                   className={`${btnStyle} w-full rounded-md px-3 py-3`}
                   id='movedToSolution'
-                  onClick={(event) =>
+                  onClick={(event) => {
+                    const planConverted = planConvertor(plan.grade);
+                    console.log(planConverted, 'plan');
                     openAppWithTag({
-                      url: GlobalEnv.serviceUrl,
+                      url: 'http://localhost:5173/subscribe',
+                      // url: `${GlobalEnv.serviceUrl}/subscribe`,
                       path: PATH.PRICE,
                       type: CTA_TYPE.BUTTON,
-                      location: CTA_LOCATION.MIDDLE_OF_CONTENT,
+                      location: planConverted,
                       event: event,
-                    })
-                  }
+                    });
+                  }}
                 >
                   {plan.button}
                 </button>

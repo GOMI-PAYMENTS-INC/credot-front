@@ -4,6 +4,7 @@ export const useSessionStorage = {
     if (item !== null) {
       return JSON.parse(item);
     }
+    return null;
   },
   setItem: (key: string, value: any): void => {
     const stringifiedItem = JSON.stringify(value);

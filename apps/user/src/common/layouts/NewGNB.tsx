@@ -6,13 +6,17 @@ import { routeList } from '@/router/routeList';
 import { menuData } from '@/common/layouts/sidebar/constants';
 import { PATH } from '@/router/routeList';
 import { openBrowser } from '@/utils/openBrowser';
-import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeMovedToUserGuide,
+  _subscriptionPageViewed,
+} from '@/amplitude/amplitude.service';
 import { isIncluded } from '@/utils/isIncluded';
 
 import { useRecoilValue } from 'recoil';
-import { UserAtom } from '@/atom/auth.atom';
+
 import { signInApi } from '@/auth/signIn/api';
 import { replaceOverLength } from '@/utils/replaceOverLength';
+import { UserAtom } from '@/atom';
 
 const GNB = () => {
   const { onLogout } = signInApi();

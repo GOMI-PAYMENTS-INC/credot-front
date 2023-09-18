@@ -90,3 +90,34 @@ type TPortOneResponse = {
 };
 
 type TPlanUniqueKey = 'PRODUCT_PLAN_FREE' | 'PRODUCT_PLAN_STARTER' | 'PRODUCT_PLAN_PRO';
+
+type TPostPaymentsResponse = {
+  payment: TPayments;
+};
+
+type TPayments = {
+  id: number;
+  userId: number;
+  userCardId: number;
+  merchantUid: string;
+  payMethod: string;
+  pgProvider: string;
+  pgTid: string;
+  cardCode: string;
+  cardName: string;
+  cardNumber: string;
+  cardQuota: number;
+  name: string;
+  amount: number;
+  currency: string;
+  status: string;
+  startedAt: number;
+  paidAt: string;
+  failedAt: string;
+  cancelledAt: string;
+  failReason: string;
+  cancelReason: string;
+  receiptUrl: string;
+  createdAt: string;
+  updatedAt: string;
+};

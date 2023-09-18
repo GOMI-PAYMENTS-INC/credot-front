@@ -16,7 +16,7 @@ import { UseFormSetError } from 'react-hook-form';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
 import { AUTH_ESSENTIAL } from '@/auth/constants';
-import { _amplitudeLoggedIn, _setUserProperties } from '@/amplitude/amplitude.service';
+import { _setUserProperties } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
 import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
@@ -87,8 +87,6 @@ export const useSignUp = () => {
           isAgreeMarketing,
           () => {
             _setUserProperties(email, isAgreeMarketing, phone, Role.User);
-
-            _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
           },
         );
       },
@@ -179,9 +177,7 @@ export const useSignUp = () => {
             token,
             phone,
             isAgreeMarketing,
-            () => {
-              _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
-            },
+            () => {},
           );
         },
       },

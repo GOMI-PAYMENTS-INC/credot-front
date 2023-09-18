@@ -10,7 +10,7 @@ export const Footer = () => {
       <div className='container'>
         <div className='flex items-center justify-between sm:flex-wrap'>
           <div className='mr-4 sm:mr-0 sm:w-full'>
-            <Link to={PATH.HOME}>
+            <Link to={PATH.MAIN}>
               <ReactSVG
                 src='/assets/icons/Logo.svg'
                 beforeInjection={(svg) => {

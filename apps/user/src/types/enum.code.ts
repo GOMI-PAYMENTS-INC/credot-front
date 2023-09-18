@@ -162,6 +162,7 @@ export enum CACHING_KEY {
   IS_OPEN = 'isOpen',
   HOT_KEYWORDS = 'hot_keywords',
   PLANS = 'plan',
+  USER_PLAN = 'user_plan',
 }
 
 export enum STYLE_ENUM {
