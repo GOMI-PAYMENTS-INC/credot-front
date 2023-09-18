@@ -41,7 +41,7 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
   try {
     const response = await getPlans();
     if (response) {
-      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
+      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response.reverse()));
       setPlans(response);
     }
   } catch (error) {

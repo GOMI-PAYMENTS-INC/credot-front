@@ -89,7 +89,10 @@ type TPortOneResponse = {
   success: boolean;
 };
 
-type TPlanUniqueKey = 'PRODUCT_PLAN_FREE' | 'PRODUCT_PLAN_STARTER' | 'PRODUCT_PLAN_PRO';
+type TPlanUniqueKey =
+  | 'KEYWORD ANALYSIS_FREE'
+  | 'KEYWORD ANALYSIS_STARTER'
+  | 'KEYWORD ANALYSIS_PRO';
 
 type TPostPaymentsResponse = {
   payment: TPayments;
