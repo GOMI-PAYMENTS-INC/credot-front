@@ -88,7 +88,6 @@ export const registerCard = (
 
 export const storePlans = async (
   setSelectedPlan: Dispatch<SetStateAction<TPlans | null>>,
-
   userPlan: TPlanUniqueKey,
 ) => {
   const item = sessionStorage.getItem(CACHING_KEY.PLANS);
@@ -96,10 +95,10 @@ export const storePlans = async (
     const parsingItem = JSON.parse(item!) as TPlans[];
 
     const [starter, pro] = parsingItem.filter(
-      (plans) => plans.uniqueKey !== 'PRODUCT_PLAN_FREE',
+      (plans) => plans.uniqueKey !== 'KEYWORD ANALYSIS_FREE',
     );
     let _state;
-    if (userPlan === 'PRODUCT_PLAN_FREE') {
+    if (userPlan === 'KEYWORD ANALYSIS_FREE') {
       _state = starter;
     } else {
       _state = pro;
@@ -172,10 +171,10 @@ export const _getPayments = async (setBills: Dispatch<SetStateAction<TPayments[]
 
 export const convertPlanImg = (plan: TPlanUniqueKey) => {
   switch (plan) {
-    case 'PRODUCT_PLAN_FREE': {
+    case 'KEYWORD ANALYSIS_FREE': {
       return 'Free';
     }
-    case 'PRODUCT_PLAN_PRO': {
+    case 'KEYWORD ANALYSIS_PRO': {
       return 'Pro';
     }
     default:
@@ -185,20 +184,15 @@ export const convertPlanImg = (plan: TPlanUniqueKey) => {
 
 export const calculatorBar = (count: number, productUniqueKey: TPlanUniqueKey) => {
   switch (productUniqueKey) {
-    case 'PRODUCT_PLAN_STARTER': {
-      const [first] = count.toString().split('');
+    case 'KEYWORD ANALYSIS_STARTER': {
       if (count === 50) return '100%';
-      const width = 180 / 5;
-      return count > 9 ? `${parseInt(first) * width}px` : '';
+      const width = 180 / 50;
+      return `${count * width}px`;
     }
-    case 'PRODUCT_PLAN_PRO': {
-      const [first, second, third] = count.toString().split('');
+    case 'KEYWORD ANALYSIS_PRO': {
       if (count === 120) return '100%';
-      if (second === undefined) return '';
-      const width = 180 / 12;
-      return third
-        ? `${parseInt(first + second) * width}px`
-        : `${parseInt(first) * width}px`;
+      const width = 180 / 120;
+      return `${count * width}px`;
     }
 
     default:

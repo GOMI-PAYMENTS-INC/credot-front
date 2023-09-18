@@ -113,7 +113,7 @@ export const Subscribe = () => {
                         {`${convertTime(subscriptionPlan.startedAt, 'YYYY.MM.DD')} ~ 
                         ${convertTime(subscriptionPlan.endedAt, 'YYYY.MM.DD')}`}
                       </p>
-                      {subscriptionPlan.productUniqueKey === 'PRODUCT_PLAN_FREE' && (
+                      {subscriptionPlan.productUniqueKey === 'KEYWORD ANALYSIS_FREE' && (
                         <div className='flex w-full justify-end'>
                           <button
                             className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'

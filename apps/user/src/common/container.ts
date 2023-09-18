@@ -41,7 +41,7 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
   try {
     const response = await getPlans();
     if (response) {
-      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response));
+      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response.reverse()));
       setPlans(response);
     }
   } catch (error) {
@@ -51,5 +51,5 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
 
 export const convertPlan = (plan: TPlanUniqueKey) => {
   const plans = useSessionStorage.getItem(CACHING_KEY.PLANS) || PLANS;
-  return `${plans.find((pl: TPlans) => pl.uniqueKey === plan).name}`;
+  return `${plans.find((pl: TPlans) => pl.uniqueKey === plan)?.name}`;
 };
