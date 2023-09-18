@@ -58,7 +58,7 @@ export const Plan = () => {
                     const planConverted = planConvertor(plan.grade);
                     console.log(planConverted, 'plan');
                     openAppWithTag({
-                      url: `${GlobalEnv.serviceUrl}/subscribe`,
+                      url: plan.url,
                       path: PATH.PRICE,
                       type: CTA_TYPE.BUTTON,
                       location: planConverted,
