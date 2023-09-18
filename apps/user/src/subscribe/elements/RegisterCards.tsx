@@ -26,7 +26,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    if (isFalsy(userCards)) _getUserCards(setUserCards);
+    _getUserCards(setUserCards);
     return () => {
       setIsLoading(false);
       setIsError(false);

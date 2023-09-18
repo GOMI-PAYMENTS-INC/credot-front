@@ -72,13 +72,6 @@ export const _resetAmplitude = () => {
   amplitude.reset();
 };
 
-// ##### GENERAL - 로그인 완료 시 이벤트 ##### //
-export const _amplitudeLoggedIn = (provider: AMPLITUDE_ACCOUNT_TYPE) => {
-  void _setAmplitudeEvents(amplitudeConstant.loggedIn, {
-    provider,
-  });
-};
-
 // ##### GENERAL - 로그아웃 완료 시 이벤트 ##### //
 export const _amplitudeLoggedOut = async (callBackEvent?: () => void) => {
   await _setAmplitudeEvents(amplitudeConstant.loggedOut, {}, callBackEvent);

@@ -4,7 +4,6 @@ import { authTokenStorage } from '@/utils/authToken';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import {
   _amplitudeChangePwCompleted,
-  _amplitudeLoggedIn,
   _amplitudeLoggedOut,
   _resetAmplitude,
 } from '@/amplitude/amplitude.service';

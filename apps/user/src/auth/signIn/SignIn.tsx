@@ -6,10 +6,7 @@ import { MutationLoginArgs } from '@/generated/graphql';
 import { PATH } from '@/types/enum.code';
 import { STATUS_CODE } from '@/types/enum.code';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import {
-  _amplitudeLoggedIn,
-  _amplitudeLoginPageViewed,
-} from '@/amplitude/amplitude.service';
+import { _amplitudeLoginPageViewed } from '@/amplitude/amplitude.service';
 
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import GoogleLogin from '@/auth/signIn/GoogleLogin';

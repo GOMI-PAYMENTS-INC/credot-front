@@ -14,7 +14,6 @@ import { authTokenStorage } from '@/utils/authToken';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import {
   _amplitudeChangePwCompleted,
-  _amplitudeLoggedIn,
   _amplitudeLoggedOut,
   _resetAmplitude,
 } from '@/amplitude/amplitude.service';
@@ -54,8 +53,6 @@ export const signInApi = () => {
           1,
         );
         navigation(PATH.REAPPLY_PASSWORD);
-
-        _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
       } else {
         useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN) &&
           useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);
@@ -80,7 +77,6 @@ export const signInApi = () => {
       //구글 로그인
       authTokenStorage.setToken(res.googleLogin.token);
       moveToMain();
-      _amplitudeLoggedIn(AMPLITUDE_ACCOUNT_TYPE.GOOGLE);
     },
     onError: (err) => {
       const error = JSON.parse(JSON.stringify(err));
