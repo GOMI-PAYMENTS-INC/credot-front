@@ -419,9 +419,9 @@ export const _clientRecKeywordReportRequested = (
     keyword,
   });
 
-export const _subscriptionPageViewed = (plan: TAUserPlan) =>
+export const _subscriptionPageViewed = () =>
   _setAmplitudeEvents(amplitudeConstant.subscriptionPageViewed, {
-    keyword_analysis: plan,
+    feature: 'keyword analysis',
   });
 
 export const _keywordAnalysisPlanUpgradeStarted = () =>

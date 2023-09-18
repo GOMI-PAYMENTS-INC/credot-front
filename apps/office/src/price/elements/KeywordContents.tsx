@@ -9,7 +9,7 @@ export const KeywordContents = () => {
     <section>
       <div className='flex flex-col items-center'>
         <div className='lg:w-[806px] md:w-[532px] xs:w-[405px]'>
-          <div className='flex'>
+          <div className='flex lg:justify-center'>
             <div className='flex w-[1320px] justify-around rounded-[50px] bg-gradient-to-r from-orange-500 to-orange-300 lg:flex-col md:max-w-[712px] md:px-[81px] sm:max-w-[530px] sm:px-0 xs:max-w-[405px] xs:items-center'>
               <div className='flex flex-col items-start py-[50px] text-2XL/Bold text-grey-100 lg:my-[86px] lg:items-center lg:text-3XL/Bold md:w-[550px] sm:text-2XL/Bold'>
                 <p>국가별 Shopee 시장을 미리 분석하고</p>

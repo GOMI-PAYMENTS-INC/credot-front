@@ -21,23 +21,15 @@ import {
   _keywordAnalysisPlanUpgradeStarted,
   _subscriptionPageViewed,
 } from '@/amplitude/amplitude.service';
-import { useSessionStorage } from '@/utils/useSessionStorage';
-import { CACHING_KEY } from '@/types/enum.code';
 
 export const Subscribe = () => {
   const navigator = useNavigate();
-  const subscriptionPlan =
-    useRecoilValue(SubscriptionAtom) || useSessionStorage.getItem(CACHING_KEY.USER_PLAN);
+  const subscriptionPlan = useRecoilValue(SubscriptionAtom);
   const isMobile = checkUserDevice();
 
   useEffect(() => {
-    const _subscriptionPlan = subscriptionPlan?.productUniqueKey;
-    if (_subscriptionPlan) {
-      const plan = convertPlan(_subscriptionPlan).replace(' 플랜', '').toLowerCase();
-      _subscriptionPageViewed(plan as TAUserPlan);
-    } else {
-      window.scroll(0, 0);
-    }
+    _subscriptionPageViewed();
+    window.scroll(0, 0);
   }, []);
 
   if (subscriptionPlan === null) {
