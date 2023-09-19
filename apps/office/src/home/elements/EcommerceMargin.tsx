@@ -47,7 +47,7 @@ export const EcommerceMargin = ({ imagePath }: IEcommerceMargin) => {
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>
                   <span className='text-orange-400'>시장 정보</span> 와
-                  <span className='text-orange-400'>상품 등록 전략</span>를 한 눈에!
+                  <span className='text-orange-400'> 상품 등록 전략</span>을 한 눈에!
                 </p>
               </div>
             </div>

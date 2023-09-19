@@ -19,11 +19,11 @@ export const Efficient = ({ imagePath }: IEfficient) => {
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>
-                  <span className='text-orange-400'>유망한 상품을 발굴</span>하고
+                  <span className='text-orange-400'>경쟁이 수월한 키워드</span>를 찾고
                 </p>
                 <p className='mt-2'>
-                  <span className='text-orange-400'>상위 노출 전략</span>으로 매출 상승을
-                  경험해보세요!
+                  <span className='text-orange-400'>노출이 잘 되도록 </span>상품을
+                  등록하세요!
                 </p>
               </div>
             </div>
