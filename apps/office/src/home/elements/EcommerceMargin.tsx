@@ -52,9 +52,12 @@ export const EcommerceMargin = ({ imagePath }: IEcommerceMargin) => {
               </div>
             </div>
           </div>
-          <div className='mx-auto mt-5 max-w-[960px] md:max-w-full sm:max-w-[446px] xs:max-w-full'>
+          <div className='relative mx-auto mt-5 max-w-[960px] md:max-w-full sm:max-w-[446px] xs:max-w-full'>
             <div className='sm:hidden'>
               <img src={`${imagePath}/Section3/Animation-Desktop.gif`} alt='' />
+              <div className='absolute right-20 bottom-10 rounded-[12px] border-[1px] border-grey-300 bg-grey-50 shadow-[0_4px_16px_0px_rgba(0,0,0,0.15)]'>
+                <p className='px-[53px] py-4 text-XL/Bold text-grey-900'>브랜드 분석</p>
+              </div>
             </div>
             <div className='hidden sm:block'>
               <img src={`${imagePath}/Section3/Animation-Mobile.gif`} alt='' />
