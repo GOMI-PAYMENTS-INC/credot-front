@@ -10,7 +10,7 @@ interface IEfficient {
 export const Efficient = ({ imagePath }: IEfficient) => {
   return (
     <>
-      <section className='bg-[#FFFBF8]'>
+      <section className='h-[646px] bg-[#FFFBF8] sm:h-[910px]'>
         <div className='container py-[80px]'>
           <div className='mb-20 md:mb-[61.3px] '>
             <div className='text-center'>
@@ -19,20 +19,26 @@ export const Efficient = ({ imagePath }: IEfficient) => {
               </div>
               <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
                 <p>
-                  <span className='text-orange-400'>경쟁이 수월한 키워드</span>를 찾고
+                  <span className='text-orange-400'>경쟁이 수월한 키워드</span>발굴 부터,
                 </p>
                 <p className='mt-2'>
-                  <span className='text-orange-400'>노출이 잘 되도록 </span>상품을
-                  등록하세요!
+                  <span className='text-orange-400'>매출 상승</span>을 위한 상품 등록까지!
                 </p>
               </div>
             </div>
           </div>
-          <div className='flex justify-center'>
+          <div className='relative flex justify-center'>
             <img
-              src={`${imagePath}/Section7/Section7.png`}
-              alt=''
-              className='w-full max-w-[754px] md:max-w-[540px]'
+              className='absolute bottom-[-100px] right-[144px] h-[286px] w-[286px] lg:hidden'
+              src='/assets/images/RightCircle.png'
+            />
+            <img
+              className='absolute bottom-[-288px] h-[265px] w-[740px] lg:w-[730px] sm:hidden'
+              src='/assets/images/Efficient.png'
+            />
+            <img
+              className='hidden h-[545px] w-[366px] sm:flex'
+              src='/assets/images/XSEfficient.png'
             />
           </div>
         </div>
@@ -75,15 +81,15 @@ export const Efficient = ({ imagePath }: IEfficient) => {
           </div>
         </div>
       </section>
-      <section className='bg-main bg-cover bg-center py-[130px] lg:py-[105px] sm:bg-[20%] sm:py-[70px]  xs:bg-[40%]'>
+      <section className='bg-main bg-cover bg-center py-[130px] lg:py-[105px] sm:bg-[20%] sm:py-[70px] xs:bg-[40%]'>
         <div className='container'>
           <div className='mx-auto max-w-[1096px]'>
-            <div className='flex items-center justify-between sm:flex-wrap'>
+            <div className='flex items-center justify-between sm:flex-col sm:flex-wrap sm:text-center'>
               <div className='break-keep text-4XL/Bold text-white lg:text-3XL/Bold sm:w-full'>
                 데이터가 말해주는 <br />
                 최고의 Shopee 판매 전략!
               </div>
-              <div className='text-right sm:mt-12  sm:w-full'>
+              <div className='text-right sm:mt-12  sm:flex sm:w-full sm:flex-col sm:items-center'>
                 <button
                   id='movedToSolution'
                   className='w-full max-w-[312px] rounded bg-white py-4 px-4 text-L/Bold text-grey-800 lg:max-w-[306px] md:max-w-[286px] sm:max-w-[306px]'
