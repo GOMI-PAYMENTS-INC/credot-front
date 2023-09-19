@@ -9,13 +9,11 @@ export const Partner = ({ imagePath }: IPartner) => {
       <div className='container pt-[100px] pb-[122px] lg:pb-[80px] md:mx-auto md:pt-[77px] md:pb-[100px] sm:pb-[60px] '>
         <div className='mb-20 md:mb-[61.3px] '>
           <div className='text-center'>
-            <div className='text-2XL/Bold text-grey-800 md:text-XL/Bold'>
-              고미인사이트가 함께합니다
-            </div>
             <div className='mt-6 break-keep text-3XL/Bold md:text-2XL/Bold'>
-              <p>서비스 오픈 3개월 만에</p>
+              <p className='mb-6 text-2XL/Bold'>누적 리포트 발행 13,841건!</p>
+              <p>서비스 오픈 4개월 만에</p>
               <p className='mt-2'>
-                무려 <span className='text-orange-400'>750개사</span>가 이용했어요.
+                무려 <span className='text-orange-400'>1,200개사</span>가 이용했어요.
               </p>
             </div>
           </div>

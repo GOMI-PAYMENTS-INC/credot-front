@@ -30,7 +30,7 @@ const Main = () => {
       <InsightFunctions imagePath={IMG_PATH} />
       <Partner imagePath={IMG_PATH} />
       <Efficient imagePath={IMG_PATH} />
-      {/* <Promotion imagePath={IMG_PATH} /> */}
+      <Promotion imagePath={IMG_PATH} />
       <FAQ list={HOME_QNA} />
     </main>
   );

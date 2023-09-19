@@ -220,7 +220,7 @@ export const PARTENER_DATA = [
 export const USER_TARGET_DATA = [
   {
     imgName: 'Reseller.png',
-    name: '개인 글로벌 셀러',
+    name: '개인 셀러',
     content:
       '소싱할 상품에 대한 수요와 적정 판매가를 미리 파악하고 진입이 유리한 키워드 및 콘텐츠 전략을 수립할 수 있어요.',
   },
@@ -244,7 +244,7 @@ export const USER_TARGET_DATA = [
   },
   {
     imgName: 'Trader.png',
-    name: '수출 컨설턴트',
+    name: '수출 대행사',
     content:
       '수출 컨설팅 진행 시 고미인사이트의 데이터를 기반으로한 자료를 통해, 클라이언트에게 보다 전문성 있는 컨설팅이 가능해졌어요.',
   },

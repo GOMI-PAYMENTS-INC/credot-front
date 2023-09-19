@@ -80,7 +80,8 @@ export const Efficient = ({ imagePath }: IEfficient) => {
           <div className='mx-auto max-w-[1096px]'>
             <div className='flex items-center justify-between sm:flex-wrap'>
               <div className='break-keep text-4XL/Bold text-white lg:text-3XL/Bold sm:w-full'>
-                잘 팔릴 상품을 <br />잘 파는 방법
+                데이터가 말해주는 <br />
+                최고의 Shopee 판매 전략!
               </div>
               <div className='text-right sm:mt-12  sm:w-full'>
                 <button
