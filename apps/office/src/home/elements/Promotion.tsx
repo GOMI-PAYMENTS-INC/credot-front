@@ -6,8 +6,8 @@ export const Promotion = ({ imagePath }: IPromotion) => {
     <section>
       <div className='container py-[120px] lg:py-[60px] md:mx-auto'>
         <div className='mx-auto max-w-[1096px]'>
-          <div className='flex items-center justify-between rounded-[49px] bg-grey-200 px-[62px] py-10 lg:py-[42px] md:py-10 md:pl-[33px] sm:flex-wrap sm:justify-items-start sm:pb-0 '>
-            <div className='break-keep'>
+          <div className='flex items-center justify-between rounded-[49px] bg-grey-200 px-[62px] py-10 lg:py-[42px] md:px-5 sm:flex-wrap sm:justify-items-start sm:pb-0 '>
+            <div className='break-keep xs:w-full xs:justify-center xs:text-center'>
               <div className='mb-[13px] inline-block rounded-[33px] bg-grey-900 px-5 py-[7px]'>
                 <span className='text-S/Medium text-white'>2023.09.18~</span>
               </div>
@@ -19,9 +19,9 @@ export const Promotion = ({ imagePath }: IPromotion) => {
               </div>
             </div>
 
-            <div className='flex sm:mt-[55px] sm:flex-col xs:mt-[33px]'>
+            <div className='flex sm:mt-[55px] sm:w-full sm:flex-col sm:items-end xs:mt-[33px] xs:items-center'>
               <img
-                className='w-[450px] xs:w-[385px]'
+                className='w-[490px] md:w-[330px] xs:w-[385px]'
                 src={`${imagePath}/Section10/Ticket.png`}
                 alt=''
               />
