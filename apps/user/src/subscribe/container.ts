@@ -1,5 +1,12 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { postUserCard, getUserCards, postPayment, getPayment } from '@/subscribe/api';
+import {
+  postUserCard,
+  getUserCards,
+  postPayment,
+  getPayment,
+  patchUserCard,
+  deleteUserCard,
+} from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
 import type { NavigateFunction } from 'react-router-dom';
@@ -8,7 +15,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
-import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -198,5 +204,27 @@ export const calculatorBar = (count: number, productUniqueKey: TPlanUniqueKey) =
     default:
       const width = 180 / 5;
       return count === 5 ? '100%' : `${count * width}px`;
+  }
+};
+
+export const _patchUserCard = async (
+  cardId: number,
+  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+) => {
+  const response = await patchUserCard(cardId);
+
+  if (isTruthy(response)) {
+    setUserCards(response);
+  }
+};
+
+export const _deleteUserCard = async (
+  cardId: number,
+  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+) => {
+  const response = await deleteUserCard(cardId);
+
+  if (isTruthy(response)) {
+    setUserCards(response);
   }
 };

@@ -124,3 +124,5 @@ type TPayments = {
   createdAt: string;
   updatedAt: string;
 };
+
+type TUserCardInfo = { totalCount: number; userCards: TUserCard[] };

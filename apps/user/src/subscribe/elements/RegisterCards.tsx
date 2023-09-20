@@ -1,4 +1,11 @@
-import { insertDash, _getUserCards, _postPayment } from '@/subscribe/container';
+import {
+  insertDash,
+  _getUserCards,
+  _postPayment,
+  registerCard,
+  _patchUserCard,
+  _deleteUserCard,
+} from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -6,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { PATH } from '@/router/routeList';
 
 import { isTruthy } from '@/utils/isTruthy';
-import { registerCard } from '@/subscribe/container';
+
 import { UserAtom } from '@/atom/auth.atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserCardsAtom } from '@/atom';
@@ -36,14 +43,19 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const FilledCard = () => {
     if (pathname === PATH.SUBSCRIBE) {
       return (
-        <></>
-        // <button className='mt-2 flex w-full items-center justify-end gap-[6px] pr-2 text-M/Medium'>
-        //   <ReactSVG
-        //     src='/assets/icons/filled/PlusCircle.svg'
-        //     beforeInjection={(src) => src.setAttribute('class', 'h-5 w-5 fill-grey-800')}
-        //   />
-        //   신규 카드등록
-        // </button>
+        <button
+          className='mt-2 flex w-full items-center justify-end gap-[6px] pr-2 text-M/Medium'
+          onClick={() => {
+            _cardRegistrationStarted();
+            registerCard(userInfo!.email, userInfo!.id, setUserCards);
+          }}
+        >
+          <ReactSVG
+            src='/assets/icons/filled/PlusCircle.svg'
+            beforeInjection={(src) => src.setAttribute('class', 'h-5 w-5 fill-grey-800')}
+          />
+          신규 카드등록
+        </button>
       );
     }
     return (
@@ -164,7 +176,29 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                           </p>
                         </div>
                       </div>
-                      <button className='text-M/Regular'>기본</button>
+
+                      {card.isMain ? (
+                        <p className='self-center text-M/Regular'>기본</p>
+                      ) : (
+                        <div className='flex gap-[14px] '>
+                          <button
+                            className='text-M/Regular underline'
+                            onClick={() => {
+                              _patchUserCard(card.id, setUserCards);
+                            }}
+                          >
+                            변경
+                          </button>
+                          <button
+                            className='text-M/Regular text-grey-500 underline decoration-grey-500'
+                            onClick={() => {
+                              _deleteUserCard(card.id, setUserCards);
+                            }}
+                          >
+                            삭제
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

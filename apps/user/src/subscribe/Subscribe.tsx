@@ -11,8 +11,8 @@ import { useEffect } from 'react';
 import { Footer } from '@/subscribe/elements/Footer';
 import { convertPlanImg, calculatorBar } from '@/subscribe/container';
 
-import { convertPlan } from '@/common/container';
-import { useRecoilValue } from 'recoil';
+import { convertPlan, _getSubscription } from '@/common/container';
+import { useRecoilState } from 'recoil';
 import { SubscriptionAtom } from '@/atom';
 import { convertTime } from '@/utils/parsingTimezone';
 import { checkUserDevice } from '@/utils/checkUserDevice';
@@ -24,11 +24,12 @@ import {
 
 export const Subscribe = () => {
   const navigator = useNavigate();
-  const subscriptionPlan = useRecoilValue(SubscriptionAtom);
+  const [subscriptionPlan, setSubscription] = useRecoilState(SubscriptionAtom);
   const isMobile = checkUserDevice();
 
   useEffect(() => {
     _subscriptionPageViewed();
+
     window.scroll(0, 0);
   }, []);
 
@@ -76,7 +77,7 @@ export const Subscribe = () => {
                     id='subscription_plan'
                     className='flex h-[270px] overflow-hidden rounded-lg border-[1px] border-grey-300'
                   >
-                    <div
+                    <section
                       id='subscription_plan_count'
                       className='h-full w-[263px] border-r-[1px] bg-grey-50'
                     >
@@ -103,17 +104,27 @@ export const Subscribe = () => {
                           />
                         </div>
                       </div>
-                    </div>
-                    <div
+                    </section>
+
+                    <section
                       id='subscription_plan_date'
                       className='relative flex-grow px-6 py-[35px] text-M/Regular'
                     >
-                      <p className='text-M/Bold'>사용 기간</p>
-                      <p>
-                        {`${convertTime(subscriptionPlan.startedAt, 'YYYY.MM.DD')} ~ 
+                      <div className='flex flex-col gap-5'>
+                        <div>
+                          <p className='text-M/Bold'>사용 기간</p>
+                          <p>
+                            {`${convertTime(subscriptionPlan.startedAt, 'YYYY.MM.DD')} ~ 
                         ${convertTime(subscriptionPlan.endedAt, 'YYYY.MM.DD')}`}
-                      </p>
-                      {subscriptionPlan.productUniqueKey === 'KEYWORD ANALYSIS_FREE' && (
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className='text-M/Bold'>다음 결제일</p>
+                          <p>{convertTime(subscriptionPlan.endedAt, 'YYYY.MM.DD')}</p>
+                        </div>
+                      </div>
+                      {subscriptionPlan.productUniqueKey !== 'KEYWORD ANALYSIS_PRO' && (
                         <div className='flex w-full justify-end'>
                           <button
                             className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
@@ -126,7 +137,7 @@ export const Subscribe = () => {
                           </button>
                         </div>
                       )}
-                    </div>
+                    </section>
                   </div>
                 </div>
 
