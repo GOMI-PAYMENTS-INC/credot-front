@@ -52,7 +52,7 @@ export const SearchKeywords = () => {
 
   const hotKeywordRef = useRef<HTMLDivElement>(null);
 
-  const subscription = useRecoilValue(SubscriptionAtom);
+  const [subscription, setSubscription] = useRecoilState(SubscriptionAtom);
   const plans = useRecoilValue(PlansAtom);
 
   const { register, getValues, setValue } = useForm<{ keyword: string }>({
@@ -84,6 +84,7 @@ export const SearchKeywords = () => {
         reportInvokeId: response?.reportInvokeId,
         count: response?.main.count,
       },
+      setSubscription,
     });
   }, [modal.isOpen]);
 

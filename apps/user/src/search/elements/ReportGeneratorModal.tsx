@@ -6,6 +6,8 @@ import { SEARCH_MODAL_INIT_VALUE } from '@/search/constants';
 
 import { Modal } from '@/report/keyword/elements/Modal';
 import { MODAL_TYPE_ENUM } from '@/types/enum.code';
+import { SubscriptionAtom } from '@/atom';
+import { useSetRecoilState } from 'recoil';
 
 interface IReportGeneratorModal {
   _modalState: TNSearchModalStatus;
@@ -16,6 +18,7 @@ interface IReportGeneratorModal {
 
 export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
   const { _modalState, _modalDispatch, _state, parameter } = props;
+  const setSubscription = useSetRecoilState(SubscriptionAtom);
   const { modalType, response } = _modalState;
 
   const navigate = useNavigate();
@@ -28,7 +31,6 @@ export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
         successCallback={() => {
           if (modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses) {
             navigate(`/report`);
-            // navigate(`/report/${response}`);
           }
           if (
             [
@@ -41,6 +43,7 @@ export const ReportGeneratorModal = (props: IReportGeneratorModal) => {
               _state,
               _modalDispatch,
               parameter,
+              setSubscription,
             });
           } else {
             _modalDispatch(SEARCH_MODAL_INIT_VALUE);

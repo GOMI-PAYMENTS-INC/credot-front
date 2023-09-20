@@ -240,7 +240,7 @@ const MSidebar = (props: TSideBarProps) => {
               <div className='inline-block rounded-sm bg-grey-700 px-[7px] py-0.5 leading-none'>
                 <span className='text-S/Medium text-grey-100'>무료체험</span>
               </div>
-              <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-500 to-orange-300'></div>
+              <div className='h-[6px] w-full rounded-[28px] bg-gradient-to-r from-orange-400 to-orange-300'></div>
               <div className='flex items-center justify-between'>
                 <div className='text-M/Medium'>리포트 발행 수</div>
                 <ReactSVG

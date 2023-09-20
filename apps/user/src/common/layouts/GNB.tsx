@@ -17,6 +17,8 @@ import { useRecoilValue } from 'recoil';
 import { signInApi } from '@/auth/signIn/api';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 import { UserAtom } from '@/atom';
+import UseCustomTooltip from '@/components/UseCustomTooltip';
+import { Usage } from '@/components/Usage';
 
 const GNB = () => {
   const { onLogout } = signInApi();
@@ -62,39 +64,51 @@ const GNB = () => {
       </div>
 
       <div className='flex h-[44px]'>
-        <div className='flex gap-2.5'>
-          <button
-            className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
-            onClick={() => {
-              openBrowser(
-                'https://capable-soy-f58.notion.site/6c820f6f0afe4b959b0bf307156dac5c?pvs=4',
-              );
-              _amplitudeMovedToUserGuide('lnb');
-            }}
-          >
-            <ReactSVG
-              src='/assets/icons/outlined/QuestionCircle.svg'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
-              }}
-            />
-            <p className='ml-2 text-S/Medium text-grey-800'>사용자 가이드</p>
-          </button>
+        <div className='flex gap-[30px] border-r-[1px] border-grey-300 pr-[30px]'>
+          <UseCustomTooltip
+            component={
+              <button
+                onClick={() => {
+                  openBrowser(
+                    'https://capable-soy-f58.notion.site/6c820f6f0afe4b959b0bf307156dac5c?pvs=4',
+                  );
+                  _amplitudeMovedToUserGuide('lnb');
+                }}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/QuestionCircle.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute(
+                      'class',
+                      `w-[26px] h-[26px] fill-grey-800  hover:fill-orange-400`,
+                    );
+                  }}
+                />
+              </button>
+            }
+            content={<p className='text-M/Medium'>사용자 가이드</p>}
+          />
 
-          <button
-            className='flex items-center justify-center rounded-lg border-[1px] border-grey-300 px-5'
-            onClick={() => {
-              navigate(PATH.SUBSCRIBE);
-            }}
-          >
-            <ReactSVG
-              src='/assets/icons/outlined/CreditCard.svg'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', `w-[18px] h-[18px] fill-grey-800`);
-              }}
-            />
-            <p className='ml-2 text-S/Medium text-grey-800'>MY PLAN</p>
-          </button>
+          <UseCustomTooltip
+            component={
+              <button
+                onClick={() => {
+                  navigate(PATH.SUBSCRIBE);
+                }}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/CreditCard.svg'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute(
+                      'class',
+                      `w-[26px] h-[26px] fill-grey-800 hover:fill-orange-400`,
+                    );
+                  }}
+                />
+              </button>
+            }
+            content={<Usage />}
+          />
         </div>
 
         <div className='relative ml-2 flex items-center'>
@@ -102,7 +116,7 @@ const GNB = () => {
             className='flex w-[208px] cursor-pointer items-center justify-end py-2.5 px-5  text-S/Medium text-grey-800'
             onClick={() => setIsToggleOpen(!isToggleOpen)}
           >
-            {replaceOverLength(userAccount || '', 18)}
+            {replaceOverLength(userAccount || '', 20)}
             <ReactSVG
               src='/assets/icons/outlined/Chevronup.svg'
               className={`ml-3 block`}

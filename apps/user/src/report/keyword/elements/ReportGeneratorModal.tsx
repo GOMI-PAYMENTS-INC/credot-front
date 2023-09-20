@@ -15,6 +15,8 @@ import { CountryType } from '@/generated/graphql';
 import { Modal } from '@/report/keyword/elements/Modal';
 import { SORTING_TYPE } from '@/report/keyword/elements/constants';
 import { MODAL_TYPE_ENUM } from '@/types/enum.code';
+import { SubscriptionAtom } from '@/atom';
+import { useSetRecoilState } from 'recoil';
 
 interface IReportGeneratorModal {
   reportTrigger: TSearchTrigger;
@@ -28,6 +30,7 @@ export const ReportGeneratorModal = ({
   const navigate = useNavigate();
   const [sortingType, setSortingType] = useState<TReportGeneratorType>(SORTING_TYPE[0]);
   const [isRequested, setIsRequested] = useState<boolean>(false);
+  const setSubscription = useSetRecoilState(SubscriptionAtom);
   const [modal, setModal] = useState<TModalStatus>({
     modalType: '',
     response: '',
@@ -58,6 +61,7 @@ export const ReportGeneratorModal = ({
         _state,
         parameter,
         isOpen,
+        setSubscription,
       });
     }
   }, [response]);
@@ -89,6 +93,7 @@ export const ReportGeneratorModal = ({
                 _state,
                 parameter,
                 isOpen,
+                setSubscription,
               });
             } else {
               initializeModal(reportTrigger, setReportTrigger);
@@ -134,6 +139,7 @@ export const ReportGeneratorModal = ({
                     _state,
                     parameter,
                     isOpen,
+                    setSubscription,
                   });
                 }
               }}
