@@ -30,7 +30,7 @@ export const postUserCard = async (params: TPostUserCardRequest) => {
 export const getUserCards = async () => {
   try {
     const { data } = await HTTP.get<{
-      data: { totalCount: number; userCards: TUserCard[] };
+      data: TUserCardInfo;
     }>(PLANS_API.userCard);
     return data.data.userCards;
   } catch (error) {
@@ -60,5 +60,31 @@ export const getPayment = async () => {
     return data.data.payments;
   } catch (error) {
     throw new Error('결제 생성 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const patchUserCard = async (cardId: number) => {
+  try {
+    const { data } = await HTTP.patch<{}, { data: TUserCardInfo }>(
+      `${PLANS_API.userCard}/${cardId}`,
+      {},
+    );
+
+    return data.data.userCards;
+  } catch (error) {
+    throw new Error('카드 변경 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const deleteUserCard = async (cardId: number) => {
+  try {
+    const { data } = await HTTP.delete<{}, { data: TUserCardInfo }>(
+      `${PLANS_API.userCard}/${cardId}`,
+      {},
+      {},
+    );
+    return data.data.userCards;
+  } catch (error) {
+    throw new Error('카드 변경 과정에서 에러가 발생했습니다.');
   }
 };

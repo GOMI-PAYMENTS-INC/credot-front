@@ -83,7 +83,7 @@ export const HTTP = {
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.patch(url, Object.assign({}, options, { param: param }));
+      return await Axios.patch(url, Object.assign({}, options, { ...param }));
     } catch (error) {
       const err = error as CommonErrorType;
       if (error instanceof AxiosError) {
@@ -95,11 +95,11 @@ export const HTTP = {
   },
   delete: async <ParamType, ResponseType>(
     url: string,
-    options: AxiosRequestConfig,
     param?: ParamType,
+    options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.delete(url, Object.assign({}, options));
+      return await Axios.delete(url, Object.assign({}, options, { ...param }));
     } catch (error) {
       const err = error as CommonErrorType;
       if (error instanceof AxiosError) {
