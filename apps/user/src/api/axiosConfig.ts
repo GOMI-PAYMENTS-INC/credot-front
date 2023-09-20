@@ -79,11 +79,11 @@ export const HTTP = {
   },
   patch: async <ParamType, ResponseType>(
     url: string,
-    param: ParamType,
+    params: ParamType,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.patch(url, Object.assign({}, options, { ...param }));
+      return await Axios.patch(url, Object.assign({}, options, { ...params }));
     } catch (error) {
       const err = error as CommonErrorType;
       if (error instanceof AxiosError) {
@@ -95,11 +95,11 @@ export const HTTP = {
   },
   delete: async <ParamType, ResponseType>(
     url: string,
-    param?: ParamType,
+    params?: ParamType,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.delete(url, Object.assign({}, options, { ...param }));
+      return await Axios.delete(url, Object.assign({}, options, { ...params }));
     } catch (error) {
       const err = error as CommonErrorType;
       if (error instanceof AxiosError) {
@@ -112,11 +112,11 @@ export const HTTP = {
 
   put: async <ParamType, ResponseType>(
     url: string,
-    param: ParamType,
+    params: ParamType,
     options: AxiosRequestConfig,
   ): Promise<AxiosResponse<ResponseType>> => {
     try {
-      return await Axios.put(url, Object.assign({}, options, { param: param }));
+      return await Axios.put(url, Object.assign({}, options, { params: params }));
     } catch (error) {
       const err = error as CommonErrorType;
       if (error instanceof AxiosError) {
