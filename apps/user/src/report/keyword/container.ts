@@ -1,6 +1,7 @@
 import { _amplitudeMovedToSERP } from '@/amplitude/amplitude.service';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
+import type { SetterOrUpdater } from 'recoil';
 
 import { formatNumber } from '@/utils/formatNumber';
 import { convertExchangeRate } from '@/report/container';
@@ -13,11 +14,16 @@ import { createJobId } from '@/utils/createJobId';
 import { isFalsy } from '@/utils/isFalsy';
 import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
 import { getReportExisted, postCreateReport } from '@/search/api';
+import { _getSubscription } from '@/common/container';
 
 import {
   _clientRecKeywordReportRequested,
   _amplitudeKeywordSearched,
 } from '@/amplitude/amplitude.service';
+
+type TRequestHandler = TRequestReportModa & {
+  setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>;
+};
 
 export const getConversionRate = (rate: number) => {
   if (rate < 0.3) {
@@ -115,7 +121,8 @@ const updateModalType =
     _dispatch(type);
   };
 
-const requestReport = async ({ _state, parameter, _dispatch }: TRequestReportModa) => {
+const requestReport = async (props: TRequestHandler) => {
+  const { _state, parameter, _dispatch } = props;
   const { keyword, country, sortBy } = _state;
   const { count } = parameter;
   const updateModal = updateModalType(
@@ -153,9 +160,8 @@ const requestReport = async ({ _state, parameter, _dispatch }: TRequestReportMod
       }
     }
     return await createReport({
+      ...props,
       _dispatch: updateModal,
-      _state,
-      parameter,
       isOpen: true,
     });
   } catch (error) {
@@ -163,11 +169,12 @@ const requestReport = async ({ _state, parameter, _dispatch }: TRequestReportMod
   }
 };
 
-const createReport = async (props: TRequestReportModa) => {
+const createReport = async (props: TRequestHandler) => {
   const {
     parameter: { reportInvokeId },
     _state,
     _dispatch,
+    setSubscription,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -196,7 +203,7 @@ const createReport = async (props: TRequestReportModa) => {
           isOpen: true,
         });
       }
-
+      _getSubscription(setSubscription);
       _clientRecKeywordReportRequested(jobId, country, sortBy, keyword);
     }
   } catch (error) {
@@ -204,7 +211,7 @@ const createReport = async (props: TRequestReportModa) => {
   }
 };
 
-export const searchRequestHandler = (props: TRequestReportModa) => {
+export const searchRequestHandler = (props: TRequestHandler) => {
   if (props.isOpen) requestReport({ ...props });
 };
 

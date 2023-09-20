@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useEffect, useReducer, useState } from 'react';
 import MSidebar from './sidebar/MSidebar';
-import GNB from '@/common/layouts/NewGNB';
+import GNB from '@/common/layouts/GNB';
 import { useMatch } from 'react-router-dom';
 import { sidebarInitialState, sidebarReducer } from '@/common/layouts/sidebar/reducer';
 import { PATH } from '@/types/enum.code';

@@ -20,7 +20,13 @@ import { CountryType } from '@/generated/graphql';
 
 import { createJobId } from '@/utils/createJobId';
 import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import type { SetterOrUpdater } from 'recoil';
 import { getReportExisted, postCreateReport } from '@/search/api';
+import { _getSubscription } from '@/common/container';
+
+type TSeachPayloadInType = TSearchPayload & {
+  setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>;
+};
 
 export const queryKeywordByClick = (
   country: keyof typeof CountryType,
@@ -165,7 +171,7 @@ const updateModalType =
     _dispatch(type);
   };
 
-const requestReport = async (props: TSearchPayload) => {
+const requestReport = async (props: TSeachPayloadInType) => {
   const {
     _modalState: { modalType },
     parameter,
@@ -216,11 +222,12 @@ const requestReport = async (props: TSearchPayload) => {
   }
 };
 
-const createReport = async (props: TSearchPayload) => {
+const createReport = async (props: TSeachPayloadInType) => {
   const {
     parameter: { reportInvokeId },
     _modalDispatch,
     _state,
+    setSubscription,
   } = props;
 
   const { keyword, country, sortBy } = _state;
@@ -249,7 +256,7 @@ const createReport = async (props: TSearchPayload) => {
           isOpen: true,
         });
       }
-
+      _getSubscription(setSubscription);
       _amplitudeKeywordReportRequested(reportId, country, sortBy, keyword, jobId);
     }
   } catch (error) {
@@ -257,7 +264,7 @@ const createReport = async (props: TSearchPayload) => {
   }
 };
 
-export const searchRequestHandler = (props: TSearchPayload) => {
+export const searchRequestHandler = (props: TSeachPayloadInType) => {
   if (props._modalState.isOpen) requestReport({ ...props });
 };
 

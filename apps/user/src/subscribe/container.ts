@@ -188,22 +188,26 @@ export const convertPlanImg = (plan: TPlanUniqueKey) => {
   }
 };
 
-export const calculatorBar = (count: number, productUniqueKey: TPlanUniqueKey) => {
+export const calculatorBar = (
+  count: number,
+  productUniqueKey: TPlanUniqueKey,
+  barWidth: number = 180,
+) => {
   switch (productUniqueKey) {
     case 'KEYWORD ANALYSIS_STARTER': {
       if (count === 50) return '100%';
-      const width = 180 / 50;
-      return `${count * width}px`;
+      const width = barWidth / 50;
+      return `${Math.floor(count * width)}px`;
     }
     case 'KEYWORD ANALYSIS_PRO': {
       if (count === 120) return '100%';
-      const width = 180 / 120;
-      return `${count * width}px`;
+      const width = barWidth / 120;
+      return `${Math.floor(count * width)}px`;
     }
 
     default:
-      const width = 180 / 5;
-      return count === 5 ? '100%' : `${count * width}px`;
+      const width = barWidth / 5;
+      return count === 5 ? '100%' : `${Math.floor(count * width)}px`;
   }
 };
 
