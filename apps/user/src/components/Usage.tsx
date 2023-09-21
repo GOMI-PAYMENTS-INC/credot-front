@@ -19,11 +19,11 @@ export const Usage = () => {
   const convertColor = (() => {
     switch (plan) {
       case 'Free':
-        return 'green';
+        return 'bg-green-600';
       case 'Starter':
-        return 'blue';
+        return 'bg-blue-600';
       default:
-        return 'orange';
+        return 'bg-orange-600';
     }
   })();
 
@@ -33,7 +33,7 @@ export const Usage = () => {
         <header>
           <div className='flex items-center justify-between text-M/Medium'>
             <p>키워드 분석</p>
-            <div id='keyword_plan_card' className={`rounded-sm bg-${convertColor}-500`}>
+            <div id='keyword_plan_card' className={`rounded-sm ${convertColor}`}>
               <p className='px-3 py-0.5 text-white'>{plan}</p>
             </div>
           </div>
@@ -41,10 +41,7 @@ export const Usage = () => {
 
         <main className='flex flex-col gap-3'>
           <div className='flex w-[168px] rounded bg-grey-200'>
-            <div
-              style={{ width: gageBar }}
-              className={`h-2 rounded  bg-${convertColor}-500`}
-            />
+            <div style={{ width: gageBar }} className={`h-2 rounded  ${convertColor}`} />
           </div>
           <div className='flex justify-between text-S/Medium text-grey-800'>
             <p>리포트 발행 수</p>

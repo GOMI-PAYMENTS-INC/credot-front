@@ -8,15 +8,14 @@ import {
 } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ModalComponent } from '@/components/modals/ModalComponent';
 
 import { useEffect, useState } from 'react';
 import { PATH } from '@/router/routeList';
-
 import { isTruthy } from '@/utils/isTruthy';
 
-import { UserAtom } from '@/atom/auth.atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { UserCardsAtom } from '@/atom';
+import { UserCardsAtom, UserAtom, SwitchAtom } from '@/atom';
 import { isFalsy } from '@/utils/isFalsy';
 import { _cardRegistrationStarted } from '@/amplitude/amplitude.service';
 interface IRegisterCards {
@@ -26,6 +25,7 @@ interface IRegisterCards {
 export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const { pathname } = useLocation();
   const [userCards, setUserCards] = useRecoilState(UserCardsAtom);
+  const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
@@ -41,8 +41,8 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   }, []);
 
   const FilledCard = () => {
-    if (pathname === PATH.SUBSCRIBE) {
-      return (
+    return (
+      <>
         <button
           className='mt-2 flex w-full items-center justify-end gap-[6px] pr-2 text-M/Medium'
           onClick={() => {
@@ -56,30 +56,31 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
           />
           신규 카드등록
         </button>
-      );
-    }
-    return (
-      <div className='mt-8'>
-        <p className='text-L/Regular text-grey-800'>
-          구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
-        </p>
-        <button
-          disabled={isLoading}
-          className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
-          onClick={() => {
-            if (isFalsy(userCards) === false) setIsLoading(true);
-            _postPayment(uniqueKey, navigator, setIsError, userCards);
-          }}
-        >
-          {isLoading ? (
-            <div className=' scale-[0.2]'>
-              <div id='loader-white' />
-            </div>
-          ) : (
-            '업그레이드 하기'
-          )}
-        </button>
-      </div>
+
+        {pathname === PATH.UPGRADE_PLAN && (
+          <div className='mt-8'>
+            <p className='text-L/Regular text-grey-800'>
+              구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
+            </p>
+            <button
+              disabled={isLoading}
+              className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
+              onClick={() => {
+                if (isFalsy(userCards) === false) setIsLoading(true);
+                _postPayment(uniqueKey, navigator, setIsError, userCards);
+              }}
+            >
+              {isLoading ? (
+                <div className=' scale-[0.2]'>
+                  <div id='loader-white' />
+                </div>
+              ) : (
+                '업그레이드 하기'
+              )}
+            </button>
+          </div>
+        )}
+      </>
     );
   };
 
@@ -137,6 +138,25 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
 
   return (
     <div className='flex-grow space-y-5 text-2XL/Bold'>
+      <ModalComponent isOpen={isOpen}>
+        <div className='flex flex-col items-center justify-around overflow-hidden rounded-[10px] bg-white p-6'>
+          <header className='w-[300px]'>
+            <p className='text-2XL/Bold'>카드정보 변경</p>
+          </header>
+
+          <main className='mt-6 text-L/Medium text-grey-800'>
+            변경사항이 반영되었어요.
+          </main>
+
+          <button
+            className='button-filled-normal-large-primary-false-false-true mt-8 w-[200px]'
+            onClick={() => setIsOpen(false)}
+          >
+            확인
+          </button>
+        </div>
+      </ModalComponent>
+
       <p>
         결제 수단
         <span className='ml-[15px] text-M/Medium text-grey-500'>
@@ -184,7 +204,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                           <button
                             className='text-M/Regular underline'
                             onClick={() => {
-                              _patchUserCard(card.id, setUserCards);
+                              _patchUserCard(card.id, setUserCards, setIsOpen);
                             }}
                           >
                             변경
@@ -192,7 +212,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                           <button
                             className='text-M/Regular text-grey-500 underline decoration-grey-500'
                             onClick={() => {
-                              _deleteUserCard(card.id, setUserCards);
+                              _deleteUserCard(card.id, setUserCards, setIsOpen);
                             }}
                           >
                             삭제

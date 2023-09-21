@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
+import type { SetterOrUpdater } from 'recoil';
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -214,21 +215,25 @@ export const calculatorBar = (
 export const _patchUserCard = async (
   cardId: number,
   setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+  setIsOpen: SetterOrUpdater<boolean>,
 ) => {
   const response = await patchUserCard(cardId);
 
   if (isTruthy(response)) {
     setUserCards(response);
+    setIsOpen(true);
   }
 };
 
 export const _deleteUserCard = async (
   cardId: number,
   setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
+  setIsOpen: SetterOrUpdater<boolean>,
 ) => {
   const response = await deleteUserCard(cardId);
 
   if (isTruthy(response)) {
     setUserCards(response);
+    setIsOpen(true);
   }
 };
