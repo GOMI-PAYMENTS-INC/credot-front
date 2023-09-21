@@ -56,7 +56,6 @@ export const Plan = () => {
                   id='movedToSolution'
                   onClick={(event) => {
                     const planConverted = planConvertor(plan.grade);
-                    console.log(planConverted, 'plan');
                     openAppWithTag({
                       url: plan.url,
                       path: PATH.PRICE,

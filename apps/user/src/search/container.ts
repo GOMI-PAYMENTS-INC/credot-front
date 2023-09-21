@@ -283,7 +283,6 @@ export const storeHotKeyords = async (
       setHotKeywords(_state);
     }
   } catch (error) {
-    console.log(error, 'error');
     throw new Error('인기검색어 저장 과정에서 에러가 발생했습니다.');
   }
 };

@@ -17,12 +17,13 @@ const UseCustomTooltip = ({
     <div className='tooltip-container ml-1 self-end xs:hidden'>
       <a data-tooltip-id={`anchor-keyword-search-volum_${randomKey}`}>{component}</a>
       <Tooltip
+        noArrow
+        offset={-12}
         style={{
           opacity: 1,
           background: 'content-box',
           border: 'none',
           zIndex: '100',
-          top: '30px',
         }}
         render={() => {
           return (
