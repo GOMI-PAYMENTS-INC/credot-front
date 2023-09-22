@@ -17,3 +17,9 @@ type TGetSubscriptionResponse = {
   endedAt: string;
   productPriority: number;
 };
+
+type TDropDownOption = {
+  value: string | number;
+  iconPath?: string;
+  text: string;
+};

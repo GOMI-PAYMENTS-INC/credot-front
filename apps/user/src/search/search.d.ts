@@ -51,3 +51,17 @@ type THotKeywords = {
   keyword: string;
   translation: string;
 };
+
+type TMSearchState = {
+  country: CountryType;
+  sortBy: TSortBy;
+  keyword: string;
+};
+
+type TRelations = {
+  __typename?: 'searchDto' | undefined;
+  id: number;
+  text: string;
+  count?: number | null | undefined;
+  relevance?: number | null | undefined;
+}[];

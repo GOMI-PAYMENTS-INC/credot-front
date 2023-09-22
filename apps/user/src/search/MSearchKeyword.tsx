@@ -1,57 +1,56 @@
-import { Fragment, KeyboardEvent, useEffect, useMemo, useReducer, useState } from 'react';
+import {
+  Fragment,
+  KeyboardEvent,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
+import { useForm } from 'react-hook-form';
 import { Default } from '@/common/layouts/Default';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import {
   SearchModal,
   SearchKeywordTranslator,
   HotKeyword,
+  SearchKeywordImages,
   ExccededAlertModal,
 } from '@/search/elements';
-import {
-  CACHING_KEY,
-  COUNTRY_TYPE,
-  MODAL_SIZE_ENUM,
-  SORT_BY_TYPE,
-} from '@/types/enum.code';
-
+import { CACHING_KEY, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import { SORTING_TYPE, COUNTRY } from '@/search/constants';
 import {
   initializeState,
   queryKeyword,
   queryKeywordByClick,
   convertSearchPlaceholder,
+  onClickCountryOption,
+  onClickSortOption,
 } from '@/search/container';
-import { mobileScrollToTop } from '@/utils/scrollController';
-import { SEARCH_ACTION } from '@/search/reducer';
+
 import { searchInitialState, searchReducer } from '@/search/reducer';
 import { deprecatedGetQueryResult } from '@/search/api';
+import { Selector } from '@/report/keyword/elements/Selector';
 
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import { mobileScrollToTop } from '@/utils/scrollController';
 import { isFalsy } from '@/utils/isFalsy';
 import { formatNumber } from '@/utils/formatNumber';
-import { SearchKeywordImages } from '@/search/elements/SearchKeywordImages';
-import { replaceOverLength } from '@/utils/replaceOverLength';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { isTruthy } from '@/utils/isTruthy';
+import {
+  convertSortByIconPath,
+  convertSortedType,
+  convertCountry,
+  convertCountryIconPath,
+} from '@/utils/convertEnum';
 
-import { useForm } from 'react-hook-form';
 import {
   _amplitudeCountryChanged,
   _amplitudeRecKeywordSearched,
   _amplitudeSortByChanged,
 } from '@/amplitude/amplitude.service';
-import {
-  convertCountry,
-  convertCountryIconPath,
-  convertSortByIconPath,
-  convertSortedType,
-} from '@/utils/convertEnum';
-import DropDown, {
-  DROPDOWN_STATUS,
-  DROPDOWN_VARIANTS,
-  TDropDownOption,
-} from '@/components/dropDown';
-import { CountryType } from '@/generated/graphql';
-import UseTooltip from '@/components/UseTooltip';
-import { SearchTooltips } from '@/search/elements/Tooltip';
+
 import { switchModal, searchRequestHandler } from '@/search/elements/container';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
@@ -60,18 +59,12 @@ import { _checkSubscription } from '@/common/container';
 const MSearchKeyword = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);
   const [requestReport, setRequestReport] = useState(false);
-  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
-  const [isExceeded, setIsExceeded] = useState<boolean>(false);
 
-  const { Search, Monthly, RelativeKeyword } = SearchTooltips();
+  const [isExceeded, setIsExceeded] = useState<boolean>(false);
   const [subscription, setSubscription] = useRecoilState(SubscriptionAtom);
   const plans = useRecoilValue(PlansAtom);
 
-  const { register, getValues, setValue, watch } = useForm<{
-    country: CountryType;
-    sortBy: TSortBy;
-    keyword: string;
-  }>({
+  const { register, getValues, setValue, watch } = useForm<TMSearchState>({
     mode: 'onChange',
     defaultValues: {
       country: searchInitialState.country,
@@ -81,7 +74,6 @@ const MSearchKeyword = () => {
 
   const countryWatcher = watch('country');
   const sortByWatcher = watch('sortBy');
-  const keywordWatcher = watch('keyword');
 
   const { response, isLoading } = deprecatedGetQueryResult(
     _state.country,
@@ -119,116 +111,53 @@ const MSearchKeyword = () => {
   }, [requestReport]);
 
   const isFetching = isFalsy(_state.keyword) === false && isLoading === true;
-  const monthlySearchVolume = useMemo(() => {
-    if (isFalsy(_state.keyword) && isLoading === true) {
-      return '???';
-    }
+  const isMonthlyCountZero = typeof response !== 'boolean' && response?.main.count === 0;
+
+  const searchResult = useMemo(() => {
+    const result: {
+      monthly: ReactNode;
+      relativeKeyword: JSX.Element | TRelations | ReactNode;
+    } = {
+      monthly: null,
+      relativeKeyword: null,
+    };
     if (isFetching) {
-      return (
+      result.monthly = (
         <div className='scale-[0.3]'>
           <div id='loader' />
         </div>
       );
-    }
-    if (response) {
-      const { count } = response.main;
-      return formatNumber(count);
-    }
-  }, [response, isLoading, _state.keyword]);
-
-  const relativeKeyword = useMemo(() => {
-    if (isFalsy(_state.keyword) && isLoading === true) {
-      return [1, 2, 3, 4, 5, 6];
-    }
-    if (isFetching) {
-      return (
+      result.relativeKeyword = (
         <div className='flex h-full items-center justify-center'>
           <div className='scale-[0.3]'>
             <div id='loader' />
           </div>
         </div>
       );
+
+      return result;
     }
+
     if (response) {
-      const { relations } = response;
-      if (isFalsy(relations)) {
-        return (
-          <div className='flex h-full items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
-            연관 키워드가 없어요
-          </div>
-        );
-      }
-      return relations;
+      const {
+        main: { count },
+        relations,
+      } = response;
+      result.monthly = formatNumber(count);
+
+      result.relativeKeyword = isFalsy(relations) ? (
+        <div className='flex h-full items-center justify-center rounded-md bg-grey-200 text-L/Medium text-grey-700'>
+          연관 키워드가 없어요
+        </div>
+      ) : (
+        relations
+      );
     }
+
+    return result;
   }, [response, isLoading, _state.keyword]);
 
-  const monthlySearchColor =
-    monthlySearchVolume === '???'
-      ? 'text-3XL/Bold text-grey-300'
-      : 'text-3XL/Bold text-grey-900';
-
-  const countryOptions = () => {
-    let result: TDropDownOption[] = [];
-    const keys = Object.keys(COUNTRY_TYPE);
-    keys.map((countryCode) => {
-      const countryEnum = CountryType[countryCode as keyof typeof CountryType];
-
-      result.push({
-        value: countryEnum,
-        iconPath: convertCountryIconPath(countryEnum),
-        text: convertCountry(countryEnum),
-      });
-    });
-    return result;
-  };
-
-  const sortByOptions = () => {
-    let result: TDropDownOption[] = [];
-    const keys = Object.keys(SORT_BY_TYPE);
-    keys.map((sortBy) => {
-      const sortByEnum = SORT_BY_TYPE[sortBy as keyof typeof SORT_BY_TYPE];
-
-      result.push({
-        value: sortByEnum,
-        text: convertSortedType(sortByEnum),
-        iconPath: convertSortByIconPath(sortByEnum),
-      });
-    });
-    return result;
-  };
-
-  const onClickCountryOption = (countryCode: any) => {
-    const CountryTypeEnum: CountryType = countryCode;
-
-    setValue('country', CountryTypeEnum);
-
-    if (isFalsy(keywordWatcher) === false) {
-      queryKeyword(CountryTypeEnum, sortByWatcher, getValues('keyword'), _dispatch);
-    }
-
-    _amplitudeCountryChanged(countryWatcher, CountryTypeEnum);
-  };
-  const onClickSortOption = (sortBy: any) => {
-    setValue('sortBy', sortBy);
-
-    _dispatch({
-      type: SEARCH_ACTION.CHANGE_SORT_BY,
-      payload: sortBy,
-    });
-
-    const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
-    if (isFalsy(preKeyword) === false) {
-      preKeyword.sortBy = sortBy;
-      useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, preKeyword);
-    }
-
-    const SortTypeEnum: TSortBy = sortBy;
-    _amplitudeSortByChanged(sortByWatcher, SortTypeEnum);
-  };
-
-  const isMonthlyCountZero = typeof response !== 'boolean' && response?.main.count === 0;
-
-  const reportCreatorButtonText = useMemo(() => {
+  const reportBtnText = useMemo(() => {
     if (isMonthlyCountZero === true) {
       return '수요가 없는 키워드에요. 다른 키워드를 검색해주세요';
     }
@@ -280,33 +209,31 @@ const MSearchKeyword = () => {
               >
                 <div className='top-[118px] mt-6 block px-8 pb-5 shadow-[0_2px_6px_0_rgba(0,0,0,0.08)]'>
                   <div className='flex items-center justify-center gap-4'>
-                    <DropDown
-                      setIsOpenDropdown={setIsOpenDropdown}
-                      borderLine={true}
-                      name='country'
-                      minWidth={152}
-                      value={convertCountry(countryWatcher)}
-                      iconPath={convertCountryIconPath(countryWatcher)}
+                    <Selector
+                      minWidth={133}
+                      value={convertCountry(_state.country)}
                       isUseIcon={true}
-                      options={countryOptions()}
-                      status={DROPDOWN_STATUS.FILLED}
-                      variants={DROPDOWN_VARIANTS.CLEAR}
-                      onClickOption={onClickCountryOption}
+                      iconPath={convertCountryIconPath(_state.country)}
+                      options={COUNTRY}
+                      onClickOption={(countryCode) =>
+                        onClickCountryOption(
+                          countryCode as TSearchCountry,
+                          setValue,
+                          _state,
+                          _dispatch,
+                        )
+                      }
                     />
-                    <DropDown
-                      setIsOpenDropdown={setIsOpenDropdown}
-                      borderLine={true}
-                      name='filterOption'
-                      minWidth={152}
-                      value={convertSortedType(sortByWatcher)}
+                    <Selector
+                      minWidth={133}
+                      value={convertSortedType(_state.sortBy)}
                       isUseIcon={true}
-                      iconPath={convertSortByIconPath(sortByWatcher)}
-                      options={sortByOptions()}
-                      status={DROPDOWN_STATUS.FILLED}
-                      variants={DROPDOWN_VARIANTS.CLEAR}
-                      onClickOption={onClickSortOption}
+                      iconPath={convertSortByIconPath(_state.sortBy)}
+                      options={SORTING_TYPE}
+                      onClickOption={(sortBy) =>
+                        onClickSortOption(sortBy as TSortBy, setValue, _state, _dispatch)
+                      }
                     />
-                    <UseTooltip content={Search} />
                   </div>
                   <div id='keywordSearchInput'>
                     <div className='form-control mt-4'>
@@ -370,7 +297,7 @@ const MSearchKeyword = () => {
                 className={`w-full rounded-md bg-orange-500 py-4 ${
                   (_state.keyword === '' || isMonthlyCountZero) &&
                   'opacity-30 xs:hidden xs:bg-orange-200'
-                } ${isOpenDropdown && 'z-[-1]'}`}
+                }`}
                 disabled={_state.keyword === '' || isMonthlyCountZero || isFetching}
                 onClick={async () => {
                   const isAvailable = await _checkSubscription(
@@ -385,9 +312,7 @@ const MSearchKeyword = () => {
                     <div id='loader-white' />
                   </div>
                 ) : (
-                  <span className='text-L/Bold text-white'>
-                    {reportCreatorButtonText}
-                  </span>
+                  <span className='text-L/Bold text-white'>{reportBtnText}</span>
                 )}
               </button>
             </div>
@@ -395,7 +320,7 @@ const MSearchKeyword = () => {
         </div>
 
         <div className={`mt-12 ${isFalsy(_state.keyword) && 'hidden'}`}>
-          {isFalsy(monthlySearchVolume) ? (
+          {isFalsy(searchResult.monthly) ? (
             <div className='mt-12 flex h-[428px] items-center justify-center rounded-2xl border-[1px] border-grey-300 bg-white'>
               <div className='flex flex-col items-center text-center'>
                 <div className='h-[157px] w-[193px]'>
@@ -420,10 +345,11 @@ const MSearchKeyword = () => {
                   <div className='grow basis-full rounded-2xl border border-grey-300 bg-white px-6 py-5'>
                     <div className='flex items-center'>
                       <h3 className='text-L/Medium'>월간 검색량</h3>
-                      <UseTooltip content={Monthly} />
                     </div>
                     <div className='mt-5'>
-                      <span className={monthlySearchColor}>{monthlySearchVolume}</span>
+                      <span className={'text-3XL/Bold text-grey-900'}>
+                        {searchResult.monthly}
+                      </span>
                     </div>
                   </div>
                   <SearchKeywordImages
@@ -436,15 +362,14 @@ const MSearchKeyword = () => {
                   <div className='flex justify-between'>
                     <div className='flex items-center'>
                       <h3 className='text-L/Medium'>연관 키워드</h3>
-                      <UseTooltip content={RelativeKeyword} />
                     </div>
                     <div className='text-L/Medium'>검색량</div>
                   </div>
 
                   <div id='scrollbar' className='h-full max-h-[324px] overflow-x-auto'>
-                    {Array.isArray(relativeKeyword) ? (
+                    {Array.isArray(searchResult.relativeKeyword) ? (
                       <ul className='overflow-y-hidden text-center'>
-                        {relativeKeyword.map((keyword) => {
+                        {searchResult.relativeKeyword.map((keyword) => {
                           if (typeof keyword === 'number') {
                             return (
                               <li
@@ -495,7 +420,7 @@ const MSearchKeyword = () => {
                         })}
                       </ul>
                     ) : (
-                      relativeKeyword
+                      searchResult.relativeKeyword
                     )}
                   </div>
                 </div>

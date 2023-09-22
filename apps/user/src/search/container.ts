@@ -1,7 +1,6 @@
 import { SEARCH_ACTION, searchInitialState } from '@/search/reducer';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
-import { CACHING_KEY } from '@/types/enum.code';
 
 import { UseFormSetValue } from 'react-hook-form';
 import { SEARCH_STATE_INIT_VALUE } from '@/search/constants';
@@ -19,10 +18,22 @@ import {
 import { CountryType } from '@/generated/graphql';
 
 import { createJobId } from '@/utils/createJobId';
-import { MODAL_TYPE_ENUM, STATUS_CODE } from '@/types/enum.code';
+import {
+  MODAL_TYPE_ENUM,
+  STATUS_CODE,
+  COUNTRY_TYPE,
+  CACHING_KEY,
+  SORT_BY_TYPE,
+} from '@/types/enum.code';
 import type { SetterOrUpdater } from 'recoil';
 import { getReportExisted, postCreateReport } from '@/search/api';
 import { _getSubscription } from '@/common/container';
+import {
+  convertCountry,
+  convertCountryIconPath,
+  convertSortByIconPath,
+  convertSortedType,
+} from '@/utils/convertEnum';
 
 type TSeachPayloadInType = TSearchPayload & {
   setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>;
@@ -48,7 +59,7 @@ export const queryKeywordByClick = (
 };
 
 export const queryKeyword = (
-  country: CountryType,
+  country: CountryType | TSearchCountry,
   sortBy: TSortBy,
   keyword: string,
   _dispatch: Dispatch<TSearchActionType>,
@@ -326,4 +337,70 @@ export const switchHotKeyword = (
   const response = JSON.parse(ITEM!) as TGetKeywordsReponse;
   const _state = response.hotKeywords.find((item) => item.countryCode === country)!.value;
   setHotKeywords(_state);
+};
+
+export const countryOptions = () => {
+  let result: TDropDownOption[] = [];
+  const keys = Object.keys(COUNTRY_TYPE);
+  keys.map((countryCode) => {
+    const countryEnum = CountryType[countryCode as keyof typeof CountryType];
+
+    result.push({
+      value: countryEnum,
+      iconPath: convertCountryIconPath(countryEnum),
+      text: convertCountry(countryEnum),
+    });
+  });
+  return result;
+};
+
+export const sortByOptions = () => {
+  let result: TDropDownOption[] = [];
+  const keys = Object.keys(SORT_BY_TYPE);
+  keys.map((sortBy) => {
+    const sortByEnum = SORT_BY_TYPE[sortBy as keyof typeof SORT_BY_TYPE];
+
+    result.push({
+      value: sortByEnum,
+      text: convertSortedType(sortByEnum),
+      iconPath: convertSortByIconPath(sortByEnum),
+    });
+  });
+  return result;
+};
+
+export const onClickCountryOption = (
+  countryCode: TSearchCountry,
+  setValue: UseFormSetValue<TMSearchState>,
+  _state: TSearchState,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
+  setValue('country', countryCode);
+
+  if (isFalsy(_state.countryCode)) {
+    queryKeyword(countryCode, _state.sortBy, _state.keyword, _dispatch);
+  }
+
+  _amplitudeCountryChanged(_state.country, countryCode);
+};
+
+export const onClickSortOption = (
+  sortBy: TSortBy,
+  setValue: UseFormSetValue<TMSearchState>,
+  _state: TSearchState,
+  _dispatch: Dispatch<TSearchActionType>,
+) => {
+  setValue('sortBy', sortBy);
+
+  _dispatch({
+    type: SEARCH_ACTION.CHANGE_SORT_BY,
+    payload: sortBy,
+  });
+
+  const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
+  if (isFalsy(preKeyword) === false) {
+    preKeyword.sortBy = sortBy;
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, preKeyword);
+  }
+  _amplitudeSortByChanged(_state.sortBy, sortBy);
 };
