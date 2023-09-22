@@ -176,6 +176,7 @@ export const SearchKeywords = () => {
                       _dispatch: setSearchState,
                       key: 'country',
                       params: value as TSearchCountry,
+                      calledByEvent: true,
                     });
                   }}
                 />
@@ -186,11 +187,13 @@ export const SearchKeywords = () => {
                   iconPath={convertSortByIconPath(searchState.sortBy)}
                   options={SORTING_TYPE}
                   onClickOption={(value) => {
+                    console.log(value, value);
                     return updateSearchPayload({
                       _state: searchState,
                       _dispatch: setSearchState,
                       key: 'sortBy',
                       params: value as TSortBy,
+                      calledByEvent: true,
                     });
                   }}
                 />
@@ -217,6 +220,7 @@ export const SearchKeywords = () => {
                               _dispatch: setSearchState,
                               key: 'keyword',
                               params: keyword,
+                              calledByEvent: true,
                             });
                           }
                         }}
@@ -231,6 +235,7 @@ export const SearchKeywords = () => {
                           _dispatch: setSearchState,
                           key: 'keyword',
                           params: keyword,
+                          calledByEvent: true,
                         });
                       }}
                       className='btn-square btn border-none bg-gradient-to-r from-orange-500 to-[#FF7500]'

@@ -1,5 +1,5 @@
 import { SEARCH_ACTION, searchInitialState } from '@/search/reducer';
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { isFalsy } from '@/utils/isFalsy';
 import { CACHING_KEY } from '@/types/enum.code';
 
@@ -137,27 +137,56 @@ export const convertSearchPlaceholder = (country: CountryType) => {
   }
 };
 
+const isNotSamePayload = (prePayload: ReactNode, newPayload: ReactNode) => {
+  if (isFalsy(prePayload)) return true;
+  return prePayload === newPayload ? false : true;
+};
+
+const isDiffKeyword = (_state: TSearchProps, preKeyword: TSearchProps) => {
+  if (
+    isFalsy(preKeyword) === false &&
+    _state.keyword === preKeyword.keyword &&
+    _state.country === preKeyword.country &&
+    _state.sortBy === preKeyword.sortBy
+  ) {
+    toast.success(`${_state.keyword}에 대한 키워드 정보에요`);
+    return false;
+  }
+  return true;
+};
+
 export const updateSearchPayload = (props: {
   _state: TSearchProps;
   _dispatch: Dispatch<SetStateAction<TSearchProps>>;
   key: keyof TSearchProps;
   params: TSearchCountry | TSortBy | string | TProductImageType | null;
+  calledByEvent?: boolean;
 }) => {
-  const { _state, _dispatch, params, key } = props;
-
+  const { _state, _dispatch, params, key, calledByEvent } = props;
+  const preKeyword = useSessionStorage.getItem(CACHING_KEY.STORED_KEYWORD);
   const updatedState = Object.assign({}, _state, { [key]: params });
 
-  if (key === 'keyword') {
+  if (calledByEvent && isDiffKeyword(_state, updatedState) === false) return; // 키워드가 같을 경우 이벤트 실행 무효
+
+  if (key === 'keyword' && isNotSamePayload(preKeyword?.keyword, params as string)) {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
     _amplitudeKeywordSearched(_state.country, _state.sortBy, params as string);
   }
-  if (key === 'country') {
+  if (
+    key === 'country' &&
+    isNotSamePayload(preKeyword?.country, params as TSearchCountry)
+  ) {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
     _amplitudeCountryChanged(_state.country, params as TSearchCountry);
   }
-  if (key === 'sortBy') {
+  if (key === 'sortBy' && isNotSamePayload(preKeyword?.sortBy, params as TSortBy)) {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
     _amplitudeSortByChanged(_state.sortBy, params as TSortBy);
   }
+  if (key === 'images' && preKeyword === null) {
+    useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
+  }
 
-  useSessionStorage.setItem(CACHING_KEY.STORED_KEYWORD, updatedState);
   _dispatch(updatedState);
 };
 
