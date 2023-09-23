@@ -9,13 +9,15 @@ import {
 } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 
+import { toast } from 'react-toastify';
 import type { NavigateFunction } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
 import { v4 as uuidv4 } from 'uuid';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
-import type { SetterOrUpdater } from 'recoil';
+import { SetterOrUpdater, useSetRecoilState } from 'recoil';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -144,6 +146,7 @@ export const _getUserCards = async (
   try {
     const response = await getUserCards();
     setUserCards(response);
+    useSessionStorage.setItem(CACHING_KEY.USER_CARDS, response);
   } catch (error) {
     throw new Error('유저 정보를 상태에 저장하는 과정에서 에러가 발생했습니다.');
   }
@@ -169,6 +172,22 @@ export const _postPayment = async (
       state: { response },
     });
   }
+};
+
+export const upgradePlan = async (props: {
+  cardId: number;
+  uniqueKey: TPlanUniqueKey | undefined;
+  navigator: NavigateFunction;
+  setIsError: Dispatch<SetStateAction<boolean>>;
+  userCards: TUserCard[];
+}) => {
+  const { cardId } = props;
+  const response = await patchUserCard(cardId);
+  if (response) {
+    const { uniqueKey, navigator, setIsError, userCards } = props;
+    return await _postPayment(uniqueKey, navigator, setIsError, userCards);
+  }
+  toast.error('결제카드를 읽는 중 문제가 발생했습니다. 다시 시도해주세요.');
 };
 
 export const _getPayments = async (setBills: Dispatch<SetStateAction<TPayments[]>>) => {
@@ -214,26 +233,54 @@ export const calculatorBar = (
 
 export const _patchUserCard = async (
   cardId: number,
-  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
-  setIsOpen: SetterOrUpdater<boolean>,
+  setUserCards: SetterOrUpdater<TUserCard[]>,
+  useToast?: boolean,
 ) => {
   const response = await patchUserCard(cardId);
 
   if (isTruthy(response)) {
     setUserCards(response);
-    setIsOpen(true);
+    useToast && toast.success('결제카드가 변경되었어요.');
+    return;
   }
+
+  toast.error('잠시 후 다시 요청해주세요.');
 };
 
 export const _deleteUserCard = async (
   cardId: number,
-  setUserCards: Dispatch<SetStateAction<TUserCard[]>>,
-  setIsOpen: SetterOrUpdater<boolean>,
+  setUserCards: SetterOrUpdater<TUserCard[]>,
 ) => {
   const response = await deleteUserCard(cardId);
 
   if (isTruthy(response)) {
     setUserCards(response);
-    setIsOpen(true);
+    toast.success('카드가 삭제되었어요.');
+    return;
   }
+  toast.error('잠시 후 다시 요청해주세요.');
 };
+
+export const switchIsMain = (
+  cardId: number,
+  userCards: TUserCard[],
+  setUserCards: SetterOrUpdater<TUserCard[]>,
+) => {
+  const _userCards: TUserCard[] = structuredClone(userCards).map((card) => {
+    card.isMain = false;
+    return card;
+  });
+
+  const payload = _userCards.map((card) => {
+    if (card.id === cardId) {
+      card.isMain = true;
+      return card;
+    }
+    return card;
+  });
+
+  setUserCards(payload);
+};
+
+export const clearUserCards = (setUserCards: SetterOrUpdater<TUserCard[]>) =>
+  setUserCards([]);

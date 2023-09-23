@@ -163,6 +163,7 @@ export enum CACHING_KEY {
   HOT_KEYWORDS = 'hot_keywords',
   PLANS = 'plan',
   USER_PLAN = 'user_plan',
+  USER_CARDS = 'user_cards',
 }
 
 export enum STYLE_ENUM {

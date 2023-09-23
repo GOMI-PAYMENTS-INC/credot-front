@@ -9,7 +9,7 @@ import { storePlans, switchPlans } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useRecoilValue } from 'recoil';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
-
+import RaioButton from '@/components/RadioButton';
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
@@ -30,13 +30,21 @@ export const UpgradePlan = () => {
     }
   }, [subscriptionPlan?.id]);
 
-  if (subscriptionPlan === null) {
+  if (subscriptionPlan === null || selectedPlan === null) {
     return (
       <div className=' scale-[0.2]'>
         <div id='loader-white' />
       </div>
     );
   }
+
+  const salePrice =
+    selectedPlan.originPrice / 2 +
+    (subscriptionPlan.count / subscriptionPlan.totalCount) * 10000;
+  const printedsalePrice =
+    salePrice - selectedPlan.originPrice / 2 === 0
+      ? selectedPlan.originPrice / 2
+      : salePrice;
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
@@ -83,19 +91,7 @@ export const UpgradePlan = () => {
                             onClick={() => switchPlans(plan.name, setSelectedPlan)}
                           >
                             <div className='flex'>
-                              <div className='flex h-full items-center'>
-                                <div
-                                  className={`flex h-5 w-5 items-center justify-center rounded-full border-[2px] ${
-                                    isSelected ? 'border-orange-400' : ''
-                                  }`}
-                                >
-                                  <div
-                                    className={`h-3 w-3 rounded-full bg-orange-400 p-1 ${
-                                      isSelected ? '' : 'hidden'
-                                    }`}
-                                  />
-                                </div>
-                              </div>
+                              <RaioButton isSelected={isSelected} />
                               <div className='ml-5 flex flex-col gap-1'>
                                 <p className='text-2XL/Bold'>{plan.name}</p>
                                 <p className='text-M/Medium'>{plan.description}</p>
@@ -138,7 +134,7 @@ export const UpgradePlan = () => {
                         <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
                         <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
                         <p>{formatNumber(selectedPlan.originPrice)}원</p>
-                        <p>{formatNumber(selectedPlan.originPrice / 2)}원</p>
+                        <p>{formatNumber(printedsalePrice)}원</p>
                       </div>
                     )}
                   </div>
@@ -146,7 +142,7 @@ export const UpgradePlan = () => {
                 <div className='mt-[18px] flex justify-between'>
                   <p className='text-2XL/Bold text-orange-400'>총 결제 금액</p>
                   <p className='text-2XL/Regular'>
-                    {formatNumber(selectedPlan?.price)}원
+                    {formatNumber(selectedPlan?.originPrice - printedsalePrice)}원
                   </p>
                 </div>
               </div>

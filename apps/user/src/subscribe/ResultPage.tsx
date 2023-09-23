@@ -35,6 +35,12 @@ export const ResultPage = () => {
   const { text, title, buttonText, billText } =
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
 
+  const salePrice = selectedPlan.originPrice / 2 - response.data.payment.amount;
+  const printedsalePrice =
+    salePrice === 0
+      ? selectedPlan.originPrice / 2
+      : selectedPlan.originPrice / 2 + salePrice;
+
   return (
     <Layout useFooter={false}>
       <div
@@ -78,9 +84,11 @@ export const ResultPage = () => {
                         <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
 
                         <p>{formatNumber(selectedPlan.originPrice)}원</p>
-                        <p>{formatNumber(selectedPlan.originPrice / 2)}원</p>
+                        <p>{formatNumber(printedsalePrice)}원</p>
 
-                        <p>{formatNumber(selectedPlan.price)}원</p>
+                        <p>
+                          {formatNumber(selectedPlan.originPrice - printedsalePrice)}원
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -88,7 +96,7 @@ export const ResultPage = () => {
                   <div className='flex justify-between'>
                     <p className='text-2XL/Bold text-orange-400 '>총 결제 금액</p>
                     <p className=' text-2XL/Regular'>
-                      {formatNumber(selectedPlan.price)}원
+                      {formatNumber(response.data.payment.amount)}원
                     </p>
                   </div>
                 </div>
