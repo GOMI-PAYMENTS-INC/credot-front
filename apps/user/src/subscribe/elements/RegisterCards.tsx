@@ -1,23 +1,24 @@
 import {
   insertDash,
   _getUserCards,
-  _postPayment,
+  upgradePlan,
   registerCard,
-  _patchUserCard,
-  _deleteUserCard,
+  switchIsMain,
 } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ModalComponent } from '@/components/modals/ModalComponent';
 
 import { useEffect, useState } from 'react';
 import { PATH } from '@/router/routeList';
 import { isTruthy } from '@/utils/isTruthy';
+import { isFalsy } from '@/utils/isFalsy';
 
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { UserCardsAtom, UserAtom, SwitchAtom } from '@/atom';
-import { isFalsy } from '@/utils/isFalsy';
+import { UserCardsAtom, UserAtom } from '@/atom';
 import { _cardRegistrationStarted } from '@/amplitude/amplitude.service';
+import RaioButton from '@/components/RadioButton';
+import { SwitchOption } from '@/subscribe/elements/DisplyCards';
+
 interface IRegisterCards {
   uniqueKey?: TPlanUniqueKey;
 }
@@ -25,7 +26,7 @@ interface IRegisterCards {
 export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const { pathname } = useLocation();
   const [userCards, setUserCards] = useRecoilState(UserCardsAtom);
-  const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
@@ -39,6 +40,8 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
       setIsError(false);
     };
   }, []);
+
+  const isUpgradePage = pathname === PATH.UPGRADE_PLAN;
 
   const FilledCard = () => {
     return (
@@ -57,7 +60,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
           신규 카드등록
         </button>
 
-        {pathname === PATH.UPGRADE_PLAN && (
+        {isUpgradePage && (
           <div className='mt-8'>
             <p className='text-L/Regular text-grey-800'>
               구독 서비스 설명을 확인하였으며, 30일 간격으로 정기 결제에 동의합니다.
@@ -67,7 +70,8 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
               className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
               onClick={() => {
                 if (isFalsy(userCards) === false) setIsLoading(true);
-                _postPayment(uniqueKey, navigator, setIsError, userCards);
+                const cardId = userCards.find((card) => card.isMain)!.id;
+                upgradePlan({ cardId, uniqueKey, navigator, setIsError, userCards });
               }}
             >
               {isLoading ? (
@@ -138,25 +142,6 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
 
   return (
     <div className='flex-grow space-y-5 text-2XL/Bold'>
-      <ModalComponent isOpen={isOpen}>
-        <div className='flex flex-col items-center justify-around overflow-hidden rounded-[10px] bg-white p-6'>
-          <header className='w-[300px]'>
-            <p className='text-2XL/Bold'>카드정보 변경</p>
-          </header>
-
-          <main className='mt-6 text-L/Medium text-grey-800'>
-            변경사항이 반영되었어요.
-          </main>
-
-          <button
-            className='button-filled-normal-large-primary-false-false-true mt-8 w-[200px]'
-            onClick={() => setIsOpen(false)}
-          >
-            확인
-          </button>
-        </div>
-      </ModalComponent>
-
       <p>
         결제 수단
         <span className='ml-[15px] text-M/Medium text-grey-500'>
@@ -169,19 +154,28 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
             <div
               id='scrollbar'
               className={`max-h-[270px] overflow-auto pr-2 ${
-                pathname === PATH.UPGRADE_PLAN && 'border-b-[1px] border-grey-200 pb-5'
+                isUpgradePage && 'border-b-[1px] border-grey-200 pb-5'
               }`}
             >
               {userCards.map((card) => {
                 const isMain = card.isMain
                   ? 'border-orange-400 bg-orange-100'
                   : 'border-grey-300 bg-grey-50';
+                const upgradePageCss = isUpgradePage ? 'cursor-pointer' : '';
                 return (
                   <div
                     key={`user_card_${card.id}`}
-                    className={`mb-[15px] rounded-lg ${isMain} border-[1px]`}
+                    className={`mb-[15px] rounded-lg ${isMain} flex items-center border-[1px] ${upgradePageCss}`}
+                    onClick={() => {
+                      isUpgradePage && switchIsMain(card.id, userCards, setUserCards);
+                    }}
                   >
-                    <div className='flex justify-between px-[18px] py-[14px]'>
+                    {isUpgradePage && (
+                      <div className='ml-[18px]'>
+                        <RaioButton isSelected={card.isMain} />
+                      </div>
+                    )}
+                    <div className='flex w-full justify-between px-[18px] py-[14px]'>
                       <div className='flex items-center gap-5'>
                         <img
                           src='/assets/images/Card.png'
@@ -197,28 +191,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                         </div>
                       </div>
 
-                      {card.isMain ? (
-                        <p className='self-center text-M/Regular'>기본</p>
-                      ) : (
-                        <div className='flex gap-[14px] '>
-                          <button
-                            className='text-M/Regular underline'
-                            onClick={() => {
-                              _patchUserCard(card.id, setUserCards, setIsOpen);
-                            }}
-                          >
-                            변경
-                          </button>
-                          <button
-                            className='text-M/Regular text-grey-500 underline decoration-grey-500'
-                            onClick={() => {
-                              _deleteUserCard(card.id, setUserCards, setIsOpen);
-                            }}
-                          >
-                            삭제
-                          </button>
-                        </div>
-                      )}
+                      <SwitchOption userCard={card} />
                     </div>
                   </div>
                 );

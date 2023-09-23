@@ -9,7 +9,7 @@ import { storePlans, switchPlans } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useRecoilValue } from 'recoil';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
-
+import RaioButton from '@/components/RadioButton';
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
@@ -83,19 +83,7 @@ export const UpgradePlan = () => {
                             onClick={() => switchPlans(plan.name, setSelectedPlan)}
                           >
                             <div className='flex'>
-                              <div className='flex h-full items-center'>
-                                <div
-                                  className={`flex h-5 w-5 items-center justify-center rounded-full border-[2px] ${
-                                    isSelected ? 'border-orange-400' : ''
-                                  }`}
-                                >
-                                  <div
-                                    className={`h-3 w-3 rounded-full bg-orange-400 p-1 ${
-                                      isSelected ? '' : 'hidden'
-                                    }`}
-                                  />
-                                </div>
-                              </div>
+                              <RaioButton isSelected={isSelected} />
                               <div className='ml-5 flex flex-col gap-1'>
                                 <p className='text-2XL/Bold'>{plan.name}</p>
                                 <p className='text-M/Medium'>{plan.description}</p>

@@ -56,9 +56,9 @@ type TUserCard = {
   cardName: string;
   cardNumber: string;
   bankName: string;
-  isMain: true;
+  isMain: boolean;
   createdAt: string;
-  deleted: true;
+  deleted: boolean;
 };
 
 type TPortOneResponse = {
