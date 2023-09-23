@@ -30,13 +30,21 @@ export const UpgradePlan = () => {
     }
   }, [subscriptionPlan?.id]);
 
-  if (subscriptionPlan === null) {
+  if (subscriptionPlan === null || selectedPlan === null) {
     return (
       <div className=' scale-[0.2]'>
         <div id='loader-white' />
       </div>
     );
   }
+
+  const salePrice =
+    selectedPlan.originPrice / 2 +
+    (subscriptionPlan.count / subscriptionPlan.totalCount) * 10000;
+  const printedsalePrice =
+    salePrice - selectedPlan.originPrice / 2 === 0
+      ? selectedPlan.originPrice / 2
+      : salePrice;
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
@@ -126,7 +134,7 @@ export const UpgradePlan = () => {
                         <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
                         <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
                         <p>{formatNumber(selectedPlan.originPrice)}원</p>
-                        <p>{formatNumber(selectedPlan.originPrice / 2)}원</p>
+                        <p>{formatNumber(printedsalePrice)}원</p>
                       </div>
                     )}
                   </div>
@@ -134,7 +142,7 @@ export const UpgradePlan = () => {
                 <div className='mt-[18px] flex justify-between'>
                   <p className='text-2XL/Bold text-orange-400'>총 결제 금액</p>
                   <p className='text-2XL/Regular'>
-                    {formatNumber(selectedPlan?.price)}원
+                    {formatNumber(selectedPlan?.originPrice - printedsalePrice)}원
                   </p>
                 </div>
               </div>
