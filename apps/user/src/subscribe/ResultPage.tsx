@@ -1,45 +1,37 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
-import { formatNumber } from '@/utils/formatNumber';
 
 import { RESULT_OF_PAY_REQUEST } from '@/subscribe/constant';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { PATH } from '@/router/routeList';
+import { _getSubscription } from '@/common/container';
 
 import { useRecoilValue } from 'recoil';
-import { UserCardsAtom } from '@/atom';
-import { insertDash } from '@/subscribe/container';
+import { UserCardsAtom, SubscriptionAtom } from '@/atom';
+import { insertDash, calcPrice } from '@/subscribe/container';
 import { convertTime } from '@/utils/parsingTimezone';
-import { CACHING_KEY } from '@/types/enum.code';
-import { useSessionStorage } from '@/utils/useSessionStorage';
+
 import { isFalsy } from '@/utils/isFalsy';
+
 export const ResultPage = () => {
   const { result } = useParams();
-
+  const userSubscription = useRecoilValue(SubscriptionAtom);
   const [userCardsInfo] = useRecoilValue(UserCardsAtom);
   const navigator = useNavigate();
   const response: { code: number; message: string; data: TPostPaymentsResponse } =
     useLocation().state.response;
 
-  if (isFalsy(response)) {
-    navigator(PATH.SUBSCRIBE, { replace: true });
+  if (isFalsy(response) || isFalsy(userCardsInfo)) {
+    return location.replace(PATH.SUBSCRIBE);
   }
 
   const isAccepted = result === 'accepted';
-
-  const selectedPlan =
-    isAccepted &&
-    useSessionStorage
-      .getItem(CACHING_KEY.PLANS)
-      .find((plan: TPlans) => plan.uniqueKey === response.data.payment.name);
+  const { salePrice, price, name, originPrice } = calcPrice(
+    response.data.payment,
+    userSubscription!,
+  );
 
   const { text, title, buttonText, billText } =
     RESULT_OF_PAY_REQUEST[result as TRequestStatus];
-
-  const salePrice = selectedPlan.originPrice / 2 - response.data.payment.amount;
-  const printedsalePrice =
-    salePrice === 0
-      ? selectedPlan.originPrice / 2
-      : selectedPlan.originPrice / 2 + salePrice;
 
   return (
     <Layout useFooter={false}>
@@ -81,23 +73,19 @@ export const ResultPage = () => {
                         <p className='text-L/Bold'>
                           {insertDash(userCardsInfo?.cardNumber)}
                         </p>
-                        <p>{`키워드 분석 / ${selectedPlan.name}`}</p>
+                        <p>{`키워드 분석 / ${name}`}</p>
 
-                        <p>{formatNumber(selectedPlan.originPrice)}원</p>
-                        <p>{formatNumber(printedsalePrice)}원</p>
+                        <p>{originPrice}원</p>
+                        <p>{salePrice}원</p>
 
-                        <p>
-                          {formatNumber(selectedPlan.originPrice - printedsalePrice)}원
-                        </p>
+                        <p>{price}원</p>
                       </div>
                     </div>
                   </div>
 
                   <div className='flex justify-between'>
                     <p className='text-2XL/Bold text-orange-400 '>총 결제 금액</p>
-                    <p className=' text-2XL/Regular'>
-                      {formatNumber(response.data.payment.amount)}원
-                    </p>
+                    <p className=' text-2XL/Regular'>{price}원</p>
                   </div>
                 </div>
               </div>

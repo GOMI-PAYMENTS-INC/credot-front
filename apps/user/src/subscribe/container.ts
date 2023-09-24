@@ -16,8 +16,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
-import { SetterOrUpdater, useSetRecoilState } from 'recoil';
+import { SetterOrUpdater } from 'recoil';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { formatNumber } from '@/utils/formatNumber';
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -284,3 +285,33 @@ export const switchIsMain = (
 
 export const clearUserCards = (setUserCards: SetterOrUpdater<TUserCard[]>) =>
   setUserCards([]);
+
+export const calcPrice = (
+  chosenPlan: TPayments | TPlans,
+  currentPlan: TGetSubscriptionResponse,
+) => {
+  const selectedPlan: TPlans = useSessionStorage
+    .getItem(CACHING_KEY.PLANS)
+    .find((plan: TPlans) => plan.uniqueKey.includes(chosenPlan.name.toUpperCase()));
+  const result = {
+    name: selectedPlan.name,
+    originPrice: formatNumber(selectedPlan.originPrice),
+  };
+
+  if (currentPlan.productUniqueKey === 'KEYWORD ANALYSIS_PRO') {
+    const salePrice =
+      selectedPlan.price + (currentPlan.count / currentPlan.totalCount) * 10000;
+
+    const printedsalePrice =
+      salePrice === 0 ? selectedPlan.price : selectedPlan.price + salePrice;
+    return Object.assign({}, result, {
+      salePrice: formatNumber(printedsalePrice),
+      price: formatNumber(selectedPlan.originPrice - printedsalePrice),
+    });
+  }
+
+  return Object.assign({}, result, {
+    salePrice: formatNumber(selectedPlan.price),
+    price: formatNumber(selectedPlan.price),
+  });
+};

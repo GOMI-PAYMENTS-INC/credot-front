@@ -5,11 +5,12 @@ import { formatNumber } from '@/utils/formatNumber';
 import { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { storePlans, switchPlans } from '@/subscribe/container';
+import { storePlans, switchPlans, calcPrice } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useRecoilValue } from 'recoil';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
 import RaioButton from '@/components/RadioButton';
+
 export const UpgradePlan = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
@@ -38,13 +39,10 @@ export const UpgradePlan = () => {
     );
   }
 
-  const salePrice =
-    selectedPlan.originPrice / 2 +
-    (subscriptionPlan.count / subscriptionPlan.totalCount) * 10000;
-  const printedsalePrice =
-    salePrice - selectedPlan.originPrice / 2 === 0
-      ? selectedPlan.originPrice / 2
-      : salePrice;
+  const { salePrice, price, name, originPrice } = calcPrice(
+    selectedPlan,
+    subscriptionPlan,
+  );
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
@@ -134,16 +132,14 @@ export const UpgradePlan = () => {
                         <p className='text-L/Bold'>{`키워드 분석 / ${selectedPlan.name}`}</p>
                         <p className='text-L/Bold'>{`${selectedPlan.count}`}회</p>
                         <p>{formatNumber(selectedPlan.originPrice)}원</p>
-                        <p>{formatNumber(printedsalePrice)}원</p>
+                        <p>{salePrice}원</p>
                       </div>
                     )}
                   </div>
                 </div>
                 <div className='mt-[18px] flex justify-between'>
                   <p className='text-2XL/Bold text-orange-400'>총 결제 금액</p>
-                  <p className='text-2XL/Regular'>
-                    {formatNumber(selectedPlan?.originPrice - printedsalePrice)}원
-                  </p>
+                  <p className='text-2XL/Regular'>{price}원</p>
                 </div>
               </div>
             </div>
