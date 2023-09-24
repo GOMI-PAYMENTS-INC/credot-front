@@ -289,6 +289,7 @@ export const clearUserCards = (setUserCards: SetterOrUpdater<TUserCard[]>) =>
 export const calcPrice = (
   chosenPlan: TPayments | TPlans,
   currentPlan: TGetSubscriptionResponse,
+  amount?: number,
 ) => {
   const selectedPlan: TPlans = useSessionStorage
     .getItem(CACHING_KEY.PLANS)
@@ -298,15 +299,14 @@ export const calcPrice = (
     originPrice: formatNumber(selectedPlan.originPrice),
   };
 
-  if (currentPlan.productUniqueKey === 'KEYWORD ANALYSIS_PRO') {
-    const salePrice =
-      selectedPlan.price + (currentPlan.count / currentPlan.totalCount) * 10000;
+  if (selectedPlan.priority > 1) {
+    const salePrice = amount
+      ? selectedPlan.originPrice - amount
+      : selectedPlan.price + (currentPlan.count / currentPlan.totalCount) * 10000;
 
-    const printedsalePrice =
-      salePrice === 0 ? selectedPlan.price : selectedPlan.price + salePrice;
     return Object.assign({}, result, {
-      salePrice: formatNumber(printedsalePrice),
-      price: formatNumber(selectedPlan.originPrice - printedsalePrice),
+      salePrice: formatNumber(salePrice),
+      price: formatNumber(selectedPlan.originPrice - salePrice),
     });
   }
 

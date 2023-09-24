@@ -28,6 +28,7 @@ export const ResultPage = () => {
   const { salePrice, price, name, originPrice } = calcPrice(
     response.data.payment,
     userSubscription!,
+    response.data.payment.amount,
   );
 
   const { text, title, buttonText, billText } =
@@ -64,7 +65,7 @@ export const ResultPage = () => {
                         <p>구독 서비스명</p>
                         <p>서비스 금액</p>
                         <p>할인 금액</p>
-                        <p>결제금액</p>
+                        {/* <p>결제금액</p> */}
                       </div>
                       <div className='flex flex-col gap-5 text-end'>
                         <p className='text-L/Bold'>{convertTime(null, 'YYYY.MM.DD')}</p>
@@ -78,7 +79,7 @@ export const ResultPage = () => {
                         <p>{originPrice}원</p>
                         <p>{salePrice}원</p>
 
-                        <p>{price}원</p>
+                        {/* <p>{price}원</p> */}
                       </div>
                     </div>
                   </div>
