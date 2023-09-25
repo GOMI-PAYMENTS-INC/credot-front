@@ -26,10 +26,11 @@ export const UpgradePlan = () => {
     if (subscriptionPlan?.id) {
       storePlans(setSelectedPlan, subscriptionPlan.productUniqueKey);
     }
+
     if (width === 0 && document.getElementById('plan_width') !== null) {
       setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
     }
-  }, [subscriptionPlan?.id]);
+  }, [subscriptionPlan?.id, document.getElementById('plan_width')]);
 
   if (subscriptionPlan === null || selectedPlan === null) {
     return (
@@ -39,10 +40,9 @@ export const UpgradePlan = () => {
     );
   }
 
-  const { salePrice, price, name, originPrice } = calcPrice(
-    selectedPlan,
-    subscriptionPlan,
-  );
+  const { salePrice, price } = calcPrice(selectedPlan, subscriptionPlan);
+
+  console.log(width, 'width');
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
