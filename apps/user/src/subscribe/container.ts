@@ -6,8 +6,10 @@ import {
   getPayment,
   patchUserCard,
   deleteUserCard,
+  patchDowngrade,
 } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
+import { STATUS_CODE } from '@/types/enum.code';
 
 import { toast } from 'react-toastify';
 import type { NavigateFunction } from 'react-router-dom';
@@ -314,4 +316,17 @@ export const calcPrice = (
     salePrice: formatNumber(selectedPlan.price),
     price: formatNumber(selectedPlan.price),
   });
+};
+
+export const agreeChangedPlan = (
+  value: TCheckboxOption,
+  setError: Dispatch<SetStateAction<boolean | null>>,
+) => (isFalsy(value) ? setError(true) : setError(false));
+
+export const _downGrade = async (setIsOpen: SetterOrUpdater<boolean>) => {
+  const response = await patchDowngrade();
+  if (response.code === STATUS_CODE.SUCCESS) {
+    return setIsOpen(true);
+  }
+  toast.error('잠시 후 다시 시도해주세요.');
 };

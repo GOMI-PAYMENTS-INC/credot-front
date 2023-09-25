@@ -16,7 +16,10 @@ type TGetSubscriptionResponse = {
   startedAt: string;
   endedAt: string;
   productPriority: number;
+  nextStatus: TNextStatus;
 };
+
+type TNextStatus = 'WAIT' | 'DOWNGRADE_STARTER' | 'UNSUBSCRIBE';
 
 type TDropDownOption = {
   value: string | number;

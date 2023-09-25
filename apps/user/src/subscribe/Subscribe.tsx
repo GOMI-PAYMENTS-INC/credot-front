@@ -129,7 +129,9 @@ export const Subscribe = () => {
                         {subscriptionPlan.productUniqueKey === 'KEYWORD ANALYSIS_PRO' ? (
                           <div className='absolute bottom-[35px] right-6 flex gap-5 text-M/Regular text-grey-500'>
                             <button
-                              className='underline decoration-grey-500'
+                              className={`underline decoration-grey-500 ${
+                                subscriptionPlan.nextStatus === 'WAIT' ? '' : 'hidden'
+                              }`}
                               onClick={() => navigator(PATH.DOWN_GRADE)}
                             >
                               플랜 변경
