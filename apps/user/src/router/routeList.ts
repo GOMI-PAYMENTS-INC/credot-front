@@ -10,7 +10,7 @@ import {
 
 import { SearchKeywords } from '@/search/SearchKeywords';
 import * as ReportRoutes from '@/report';
-import { Subscribe, UpgradePlan, ResultPage } from '@/subscribe';
+import { Subscribe, UpgradePlan, ResultPage, DownGrade } from '@/subscribe';
 
 export const PATH = {
   SEARCH_PRODUCTS: '/',
@@ -25,6 +25,7 @@ export const PATH = {
   REPORT_DETAIL_BY_SHARE: '/share/:id',
   SUBSCRIBE: '/subscribe',
   UPGRADE_PLAN: '/subscribe/upgrade',
+  DOWN_GRADE: '/subscribe/downgrade',
   RESULT_OF_PAY_REQUEST: '/subscribe/:result',
 } as const;
 
@@ -46,49 +47,42 @@ export const signInRouter = {
 
 export const routeList: IRoute[] = [
   {
-    //회원가입
     isPrivate: false,
     description: 'SignUp',
     path: PATH.SIGN_UP,
     component: SignUp,
   },
   {
-    //소셜 회원가입시 전화번호 추가 입력
     isPrivate: false,
     description: 'SignUpWithGoogle',
     path: PATH.SIGN_UP_WITH_GOOGLE,
     component: SignUpByGoogle,
   },
   {
-    //비밀번호 찾기
     isPrivate: false,
     description: 'FindPassword',
     path: PATH.FIND_PASSWORD,
     component: FindPassword,
   },
   {
-    //아이디 찾기
     isPrivate: false,
     description: 'FindIdentification',
     path: PATH.FIND_ID,
     component: FindId,
   },
   {
-    //로그인
     isPrivate: false,
     description: 'SignIn',
     path: PATH.SIGN_IN,
     component: SignIn,
   },
   {
-    //비밀번호 재설정
     isPrivate: true,
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: TemporaryPassword,
   },
   {
-    //검색
     isPrivate: true,
     description: 'SearchProducts',
     path: PATH.SEARCH_PRODUCTS,
@@ -96,42 +90,42 @@ export const routeList: IRoute[] = [
   },
 
   {
-    //리포트 목록
     isPrivate: true,
     description: 'ReportList',
     path: PATH.REPORT_LIST,
     component: ReportRoutes.ReportList,
   },
   {
-    //리포트 상세
     isPrivate: true,
     description: 'DetailReport',
     path: PATH.REPORT_DETAIL,
     component: ReportRoutes.DetailReportPage,
   },
   {
-    //리포트 상세 - 공유하기
     isPrivate: false,
     description: 'DetailReportByShare',
     path: PATH.REPORT_DETAIL_BY_SHARE,
     component: ReportRoutes.DetailReportPageByShare,
   },
   {
-    //리포트 상세 - 공유하기
     isPrivate: true,
     description: 'Subscribe',
     path: PATH.SUBSCRIBE,
     component: Subscribe,
   },
   {
-    //리포트 상세 - 공유하기
     isPrivate: true,
     description: 'UpgradePlan',
     path: PATH.UPGRADE_PLAN,
     component: UpgradePlan,
   },
   {
-    //리포트 상세 - 공유하기
+    isPrivate: true,
+    description: 'DownGrade',
+    path: PATH.DOWN_GRADE,
+    component: DownGrade,
+  },
+  {
     isPrivate: true,
     description: 'ResultPage',
     path: PATH.RESULT_OF_PAY_REQUEST,

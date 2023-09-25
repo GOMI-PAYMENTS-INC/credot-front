@@ -2,7 +2,7 @@ interface ICustomRaioButton {
   isSelected: boolean;
 }
 
-const RaioButton = ({ isSelected }: ICustomRaioButton) => {
+const RadioButton = ({ isSelected }: ICustomRaioButton) => {
   return (
     <div className='flex h-full items-center'>
       <div
@@ -20,4 +20,4 @@ const RaioButton = ({ isSelected }: ICustomRaioButton) => {
   );
 };
 
-export default RaioButton;
+export default RadioButton;

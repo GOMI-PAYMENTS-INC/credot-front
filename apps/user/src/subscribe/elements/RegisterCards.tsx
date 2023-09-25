@@ -16,7 +16,7 @@ import { isFalsy } from '@/utils/isFalsy';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserCardsAtom, UserAtom } from '@/atom';
 import { _cardRegistrationStarted } from '@/amplitude/amplitude.service';
-import RaioButton from '@/components/RadioButton';
+import RadioButton from '@/components/RadioButton';
 import { SwitchOption } from '@/subscribe/elements/DisplyCards';
 
 interface IRegisterCards {
@@ -172,7 +172,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                   >
                     {isUpgradePage && (
                       <div className='ml-[18px]'>
-                        <RaioButton isSelected={card.isMain} />
+                        <RadioButton isSelected={card.isMain} />
                       </div>
                     )}
                     <div className='flex w-full justify-between px-[18px] py-[14px]'>
