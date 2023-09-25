@@ -21,7 +21,8 @@ export const ResultPage = () => {
     useLocation().state.response;
 
   if (isFalsy(response) || isFalsy(userCardsInfo)) {
-    return location.replace(PATH.SUBSCRIBE);
+    location.replace(PATH.SUBSCRIBE);
+    return <></>;
   }
 
   const isAccepted = result === 'accepted';

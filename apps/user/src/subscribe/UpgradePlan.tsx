@@ -42,8 +42,6 @@ export const UpgradePlan = () => {
 
   const { salePrice, price } = calcPrice(selectedPlan, subscriptionPlan);
 
-  console.log(width, 'width');
-
   return (
     <Layout useFooter={false} useHeightFull={false}>
       {isOpen && (
