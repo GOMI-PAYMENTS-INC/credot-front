@@ -9,7 +9,7 @@ import { PATH } from '@/router/routeList';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
 import { Footer } from '@/subscribe/elements/Footer';
-import { convertPlanImg, calculatorBar } from '@/subscribe/container';
+import { convertPlanImg, calculatorBar, _cancelDowngrade } from '@/subscribe/container';
 
 import { convertPlan, _getSubscription } from '@/common/container';
 import { useRecoilState } from 'recoil';
@@ -52,6 +52,8 @@ export const Subscribe = () => {
       </Layout>
     );
   }
+
+  const isKeptSubscription = subscriptionPlan.nextStatus === 'WAIT';
 
   return (
     <Layout useGap={true}>
@@ -123,6 +125,17 @@ export const Subscribe = () => {
                           <p className='text-M/Bold'>다음 결제일</p>
                           <p>{convertTime(subscriptionPlan.endedAt, 'YYYY.MM.DD')}</p>
                         </div>
+
+                        {isKeptSubscription === false && (
+                          <div className='flex justify-between'>
+                            <p>Starter 플랜으로 전환 예정</p>
+                            <button onClick={() => _cancelDowngrade(setSubscription)}>
+                              <p className='text-orange-400 underline decoration-orange-400'>
+                                취소 하기
+                              </p>
+                            </button>
+                          </div>
+                        )}
                       </div>
 
                       <div className='flex w-full justify-end'>
@@ -130,7 +143,7 @@ export const Subscribe = () => {
                           <div className='absolute bottom-[35px] right-6 flex gap-5 text-M/Regular text-grey-500'>
                             <button
                               className={`underline decoration-grey-500 ${
-                                subscriptionPlan.nextStatus === 'WAIT' ? '' : 'hidden'
+                                isKeptSubscription ? '' : 'hidden'
                               }`}
                               onClick={() => navigator(PATH.DOWN_GRADE)}
                             >
