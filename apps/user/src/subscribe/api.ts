@@ -1,9 +1,12 @@
 import { HTTP } from '@/api/axiosConfig';
+import { STATUS_CODE } from '@/types/enum.code';
 
 const PLANS_API = {
   product: 'api/v1/product',
   userCard: 'api/v1/user-card',
   payment: 'api/v1/payment',
+  downgrade: 'api/v1/subscribe/downgrade',
+  calcelDowngrade: 'api/v1/subscribe/cancel-downgrade',
 };
 
 export const getPlans = async () => {
@@ -86,5 +89,29 @@ export const deleteUserCard = async (cardId: number) => {
     return data.data.userCards;
   } catch (error) {
     throw new Error('카드 변경 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const patchDowngrade = async () => {
+  try {
+    const { data } = await HTTP.patch<
+      {},
+      { code: STATUS_CODE; data: TGetSubscriptionResponse }
+    >(PLANS_API.downgrade, {});
+    return data;
+  } catch (error) {
+    throw new Error('플랜 다운그레이드 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const patchCancelDowngrade = async () => {
+  try {
+    const { data } = await HTTP.patch<
+      {},
+      { code: STATUS_CODE; data: TGetSubscriptionResponse }
+    >(PLANS_API.calcelDowngrade, {});
+    return data;
+  } catch (error) {
+    throw new Error('플랜 다운그레이드 취소 과정에서 에러가 발생했습니다.');
   }
 };

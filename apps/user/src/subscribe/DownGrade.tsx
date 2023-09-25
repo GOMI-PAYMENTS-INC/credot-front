@@ -1,14 +1,26 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { BackforwardButton } from '@/components/BackForwardButton';
 import { useNavigate } from 'react-router-dom';
+
 import { useEffect, useState } from 'react';
 import { CACHING_KEY, PATH } from '@/types/enum.code';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+import { SwitchAtom } from '@/atom';
+import { useRecoilState } from 'recoil';
+
 import { formatNumber } from '@/utils/formatNumber';
+import { agreeChangedPlan, _downGrade } from '@/subscribe/container';
+import Checkbox from '@/components/Checkbox/Checkbox';
+
+import { ModalComponent } from '@/components/modals/ModalComponent';
+import { ReactSVG } from 'react-svg';
 
 export const DownGrade = () => {
   const navigator = useNavigate();
   const [width, setWidth] = useState(0);
+  const [isError, setIsError] = useState<boolean | null>(null);
+  const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+
   const starterPlan = useSessionStorage
     .getItem(CACHING_KEY.PLANS)
     .find((plan: TPlans) => plan.uniqueKey === 'KEYWORD ANALYSIS_STARTER');
@@ -18,10 +30,38 @@ export const DownGrade = () => {
     if (width === 0 && document.getElementById('plan_width') !== null) {
       setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
     }
+
+    return () => {
+      setIsError(null);
+      setIsOpen(false);
+    };
   }, [document.getElementById('plan_width')]);
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
+      <ModalComponent isOpen={isOpen}>
+        <div className='flex w-[400px] flex-col items-center overflow-hidden rounded-[10px] bg-white'>
+          <div className='flex flex-col items-center justify-center px-6 py-4'>
+            <ReactSVG
+              src='/assets/icons/outlined/CheckCircle.svg'
+              beforeInjection={(svg) => {
+                svg.setAttribute('class', 'fill-green-600 w-[34px] h-[34px]');
+              }}
+            />
+            <h1 className='pt-2.5 text-2XL/Bold text-grey-900'>플랜 변경 완료</h1>
+            <p className='pt-6 text-L/Medium'>
+              다음 정기 결제일부터 변경된 플랜이 적용되어요.
+            </p>
+
+            <button
+              className='button-filled-normal-large-grey-false-false-true mt-10 w-full'
+              onClick={() => navigator(PATH.SUBSCRIBE, { replace: true })}
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      </ModalComponent>
       <BackforwardButton
         style={`top-[146px] sticky`}
         originStyle={{ left: `${width}px` }}
@@ -106,23 +146,26 @@ export const DownGrade = () => {
               </div>
             </div>
 
-            <div className='mt-[14px] flex items-center self-start'>
-              <input
-                id='remember_me'
-                name='remember_me'
-                type='checkbox'
-                className='checkboxCustom peer'
-              />
-              <label
-                htmlFor='remember_me'
-                className='checkboxCustom-label bg-[length:24px_24px] bg-[left_top_50%] pl-[30px] text-L/Regular'
-              >
-                플랜 변경에 따른 유의 사항을 이해했습니다.
-              </label>
-            </div>
+            <Checkbox
+              customCss='mt-[14px]'
+              options={[
+                { text: '플랜 변경에 따른 유의 사항을 이해했습니다.', value: 'agree' },
+              ]}
+              callback={(value: TCheckboxOption) => agreeChangedPlan(value, setIsError)}
+            />
+            {isError && (
+              <p className='pt-1 text-M/Regular text-red-500'>
+                플랜 변경에 따른 유의 사항을 확인해 주세요.
+              </p>
+            )}
             <button
               className='button-filled-normal-large-grey-false-false-true mt-10 w-full'
-              onClick={() => {}}
+              onClick={() => {
+                if (isError === null && isError) {
+                  return setIsError(true);
+                }
+                _downGrade(setIsOpen);
+              }}
             >
               플랜 변경하기
             </button>
