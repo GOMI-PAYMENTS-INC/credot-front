@@ -48,6 +48,7 @@ type TPostUserCardResponse = {
 
 type TUserCard = {
   updatedAt: string;
+  cardCode: string;
   id: number;
   userId: number;
   customerUid: string;

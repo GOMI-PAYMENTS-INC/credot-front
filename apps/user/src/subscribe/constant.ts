@@ -59,3 +59,26 @@ export const RESULT_OF_PAY_REQUEST = {
     billText: '요청정보',
   },
 };
+
+export const CARD_CODE = [
+  { text: 'BC', value: '361' },
+  { text: 'KB	', value: '381' },
+  { text: '현대	', value: '367' },
+  { text: '삼성	', value: '365' },
+  { text: '롯데	', value: '368' },
+  { text: 'NH	', value: '371' },
+  { text: '우리	', value: '041' },
+  { text: '하나SK', value: '374' },
+  { text: '새마을', value: '045' },
+  { text: '제주	', value: '373' },
+  { text: '광주	', value: '364' },
+  { text: '신한	', value: '366' },
+  { text: 'KDB', value: '002' },
+  { text: '수협	', value: '369' },
+  { text: '신협	', value: '048' },
+  { text: '씨티	', value: '370' },
+  { text: '우체국', value: '071' },
+  { text: 'K뱅크', value: '089' },
+  { text: '전북	', value: '372' },
+  { text: '카카오', value: '090' },
+];

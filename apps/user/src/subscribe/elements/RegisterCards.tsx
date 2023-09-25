@@ -4,6 +4,7 @@ import {
   upgradePlan,
   registerCard,
   switchIsMain,
+  getCardImgPath,
 } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -162,6 +163,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                   ? 'border-orange-400 bg-orange-100'
                   : 'border-grey-300 bg-grey-50';
                 const upgradePageCss = isUpgradePage ? 'cursor-pointer' : '';
+                const cardImgPath = getCardImgPath(card.cardCode);
                 return (
                   <div
                     key={`user_card_${card.id}`}
@@ -178,7 +180,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                     <div className='flex w-full justify-between px-[18px] py-[14px]'>
                       <div className='flex items-center gap-5'>
                         <img
-                          src='/assets/images/Card.png'
+                          src={`/assets/images/cards/${cardImgPath}.png`}
                           className='h-12 w-[100px] border-r-[2px] border-grey-300 pr-5'
                         />
                         <div className='flex flex-col gap-[5px] text-M/Medium'>

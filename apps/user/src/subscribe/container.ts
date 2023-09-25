@@ -22,6 +22,7 @@ import { isTruthy } from '@/utils/isTruthy';
 import { SetterOrUpdater } from 'recoil';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { formatNumber } from '@/utils/formatNumber';
+import { CARD_CODE } from '@/subscribe/constant';
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -341,4 +342,12 @@ export const _cancelDowngrade = async (
     return _getSubscription(setSubscription);
   }
   toast.error('잠시 후 다시 시도해주세요.');
+};
+
+export const getCardImgPath = (cardCode: string) => {
+  const code = CARD_CODE.find((code) => code.value === cardCode);
+  if (code) {
+    return code.value;
+  }
+  return 'ETC';
 };
