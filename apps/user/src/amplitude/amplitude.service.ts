@@ -423,3 +423,6 @@ export const _keywordAnalysisPlanUpgradeStarted = () =>
 
 export const _cardRegistrationStarted = () =>
   _setAmplitudeEvents(amplitudeConstant.cardRegistrationStarted);
+
+export const _keywordAnalysisPlanDowngradeStarted = () =>
+  _setAmplitudeEvents(amplitudeConstant.keywordAnalysisPlanDowngradeStarted);

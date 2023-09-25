@@ -149,14 +149,17 @@ export const Subscribe = () => {
                             >
                               플랜 변경
                             </button>
-                            <button
-                              className='underline decoration-grey-500'
-                              onClick={() => {
-                                // _deleteUserCard(card.id, setUserCards, setIsOpen);
-                              }}
-                            >
-                              구독 해지
-                            </button>
+
+                            {isKeptSubscription && (
+                              <button
+                                className='underline decoration-grey-500'
+                                onClick={() => {
+                                  // _deleteUserCard(card.id, setUserCards, setIsOpen);
+                                }}
+                              >
+                                구독 해지
+                              </button>
+                            )}
                           </div>
                         ) : (
                           <button

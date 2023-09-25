@@ -1,6 +1,7 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { BackforwardButton } from '@/components/BackForwardButton';
 import { useNavigate } from 'react-router-dom';
+import { _keywordAnalysisPlanDowngradeStarted } from '@/amplitude/amplitude.service';
 
 import { useEffect, useState } from 'react';
 import { CACHING_KEY, PATH } from '@/types/enum.code';
@@ -10,6 +11,7 @@ import { useRecoilState } from 'recoil';
 
 import { formatNumber } from '@/utils/formatNumber';
 import { agreeChangedPlan, _downGrade } from '@/subscribe/container';
+import { convertTime } from '@/utils/parsingTimezone';
 import Checkbox from '@/components/Checkbox/Checkbox';
 
 import { ModalComponent } from '@/components/modals/ModalComponent';
@@ -25,9 +27,14 @@ export const DownGrade = () => {
     .getItem(CACHING_KEY.PLANS)
     .find((plan: TPlans) => plan.uniqueKey === 'KEYWORD ANALYSIS_STARTER');
 
+  const userPlan: TGetSubscriptionResponse = useSessionStorage.getItem(
+    CACHING_KEY.USER_PLAN,
+  );
+
   useEffect(() => {
     window.scroll(0, 0);
     if (width === 0 && document.getElementById('plan_width') !== null) {
+      _keywordAnalysisPlanDowngradeStarted();
       setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
     }
 
@@ -72,7 +79,7 @@ export const DownGrade = () => {
       <header className='pt-[22px]'>
         <div className='flex w-full justify-center'>
           <div id='plan_width' className='flex w-[1138px] justify-center'>
-            <p className='text-4XL/Bold'>업그레이드 하기</p>
+            <p className='text-4XL/Bold'>플랜 변경하기</p>
           </div>
         </div>
       </header>
@@ -104,30 +111,6 @@ export const DownGrade = () => {
                 </div>
               </div>
             </div>
-            <div id='bill'>
-              <p className='text-XL/Medium'>결제정보</p>
-              <div className='mt-[14px] w-[608px] border-y-[1px]'>
-                <div className='my-[22px] flex justify-between border-grey-200 text-L/Regular'>
-                  <div className='flex flex-col gap-5'>
-                    <p>구독 서비스명</p>
-                    <p>리포트 발행 가능 수</p>
-                    <p>서비스 금액</p>
-                    <p>할인 금액</p>
-                  </div>
-
-                  <div className='flex flex-col gap-5 text-end'>
-                    <p className='text-L/Bold'>{`키워드 분석 / ${starterPlan.name}`}</p>
-                    <p className='text-L/Bold'>{`${starterPlan.count}`}회</p>
-                    <p>{formatNumber(starterPlan.originPrice)}원</p>
-                    <p>- 원</p>
-                  </div>
-                </div>
-              </div>
-              <div className='mt-[18px] flex justify-between'>
-                <p className='text-2XL/Bold '>결제 금액</p>
-                <p className='text-2XL/Regular'>{formatNumber(starterPlan.price)}원</p>
-              </div>
-            </div>
           </div>
         </div>
       </main>
@@ -141,7 +124,10 @@ export const DownGrade = () => {
                   <li>
                     하위 플랜으로 변경 시 사용할 수 있는 서비스 이용량이 제한되어요.
                   </li>
-                  <li>변경된 플랜은 다음 정기 결제일부터 적용되어요.</li>
+                  <li>
+                    변경된 플랜은 다음 정기 결제일인
+                    {` (${convertTime(userPlan.endedAt, 'YYYY.MM.DD')})`} 부터 적용되어요.
+                  </li>
                 </ul>
               </div>
             </div>
@@ -161,7 +147,7 @@ export const DownGrade = () => {
             <button
               className='button-filled-normal-large-grey-false-false-true mt-10 w-full'
               onClick={() => {
-                if (isError === null && isError) {
+                if (isError === null || isError) {
                   return setIsError(true);
                 }
                 _downGrade(setIsOpen);

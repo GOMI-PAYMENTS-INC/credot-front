@@ -338,7 +338,7 @@ export const _cancelDowngrade = async (
 ) => {
   const response = await patchCancelDowngrade();
   if (response.code === STATUS_CODE.SUCCESS) {
-    toast.success('구독 해지가 취소되었어요.');
+    toast.success('플랜 변경이 취소되었어요.');
     return _getSubscription(setSubscription);
   }
   toast.error('잠시 후 다시 시도해주세요.');
