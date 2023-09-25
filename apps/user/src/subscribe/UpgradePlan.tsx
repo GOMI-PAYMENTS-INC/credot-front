@@ -9,7 +9,7 @@ import { storePlans, switchPlans, calcPrice } from '@/subscribe/container';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useRecoilValue } from 'recoil';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
-import RaioButton from '@/components/RadioButton';
+import RadioButton from '@/components/RadioButton';
 
 export const UpgradePlan = () => {
   const navigator = useNavigate();
@@ -89,7 +89,7 @@ export const UpgradePlan = () => {
                             onClick={() => switchPlans(plan.name, setSelectedPlan)}
                           >
                             <div className='flex'>
-                              <RaioButton isSelected={isSelected} />
+                              <RadioButton isSelected={isSelected} />
                               <div className='ml-5 flex flex-col gap-1'>
                                 <p className='text-2XL/Bold'>{plan.name}</p>
                                 <p className='text-M/Medium'>{plan.description}</p>
