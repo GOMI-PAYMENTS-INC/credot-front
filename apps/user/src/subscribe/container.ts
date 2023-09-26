@@ -8,6 +8,8 @@ import {
   deleteUserCard,
   patchDowngrade,
   patchCancelDowngrade,
+  patchUnsubscription,
+  patchCancelUnsubscription,
 } from '@/subscribe/api';
 import { CACHING_KEY, STATUS_CODE } from '@/types/enum.code';
 
@@ -22,6 +24,7 @@ import { isTruthy } from '@/utils/isTruthy';
 import { SetterOrUpdater } from 'recoil';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { formatNumber } from '@/utils/formatNumber';
+import { CARD_CODE } from '@/subscribe/constant';
 
 export const openFAQ = (params: {
   faqIndex: number;
@@ -337,8 +340,91 @@ export const _cancelDowngrade = async (
 ) => {
   const response = await patchCancelDowngrade();
   if (response.code === STATUS_CODE.SUCCESS) {
+    toast.success('플랜 변경이 취소되었어요.');
+    return _getSubscription(setSubscription);
+  }
+  toast.error('잠시 후 다시 시도해주세요.');
+};
+
+export const getCardImgPath = (cardCode: string) => {
+  const code = CARD_CODE.find((code) => code.value === cardCode);
+  if (code) {
+    return code.value;
+  }
+  return 'ETC';
+};
+
+export const _patchUnsubscription = async (setIsOpen: SetterOrUpdater<boolean>) => {
+  const response = await patchUnsubscription();
+  if (response.code === STATUS_CODE.SUCCESS) {
+    return setIsOpen(true);
+  }
+  toast.error('잠시 후 다시 시도해주세요.');
+};
+
+export const _patchCancelUnsubscription = async (
+  setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>,
+) => {
+  const response = await patchCancelUnsubscription();
+  if (response.code === STATUS_CODE.SUCCESS) {
     toast.success('구독 해지가 취소되었어요.');
     return _getSubscription(setSubscription);
   }
   toast.error('잠시 후 다시 시도해주세요.');
+};
+
+export const getSource = (pathname: string) => {
+  const plans: TPlans[] = useSessionStorage.getItem(CACHING_KEY.PLANS);
+
+  const builder = {
+    text: '',
+    plan: '',
+    warningText: '',
+    modalDiscription: '',
+    warningDiscription: '',
+    options: [{ text: '', value: '' }],
+    planInfo: plans[0],
+  };
+
+  if (pathname === PATH.UNSUBSCRIPTION) {
+    const userPlan: TGetSubscriptionResponse = useSessionStorage.getItem(
+      CACHING_KEY.USER_PLAN,
+    );
+
+    builder.text = '구독 해지';
+    builder.plan = '사용중인 플랜';
+    builder.warningText = '구독 해지';
+    builder.warningDiscription = '구독 해지는';
+    builder.modalDiscription = ' 구독이 해지되어요.';
+    builder.options = [
+      { text: '구독 해지에 따른 유의 사항을 이해했습니다.', value: 'agree' },
+    ];
+    builder.planInfo = plans.find(
+      (plan: TPlans) => plan.uniqueKey === userPlan.productUniqueKey,
+    )!;
+
+    return builder;
+  }
+
+  builder.text = '플랜 변경';
+  builder.plan = '적용 플랜';
+  builder.warningText = '하위 플랜으로 변경';
+  builder.warningDiscription = '변경된 플랜은';
+  builder.modalDiscription = ' 변경된 플랜이 적용되어요.';
+  builder.options = [
+    { text: '플랜 변경에 따른 유의 사항을 이해했습니다.', value: 'agree' },
+  ];
+  builder.planInfo = plans.find(
+    (plan: TPlans) => plan.uniqueKey === 'KEYWORD ANALYSIS_STARTER',
+  )!;
+
+  return builder;
+};
+
+export const getCancelSource = (nextStatus: TNextStatus) => {
+  if (nextStatus === 'UNSUBSCRIBE') {
+    return { plan: 'Free' };
+  }
+
+  return { plan: 'Stater' };
 };

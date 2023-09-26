@@ -4,6 +4,7 @@ import {
   upgradePlan,
   registerCard,
   switchIsMain,
+  getCardImgPath,
 } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -46,20 +47,23 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const FilledCard = () => {
     return (
       <>
-        <button
-          className='mt-2 flex w-full items-center justify-end gap-[6px] pr-2 text-M/Medium'
-          onClick={() => {
-            _cardRegistrationStarted();
-            registerCard(userInfo!.email, userInfo!.id, setUserCards);
-          }}
-        >
-          <ReactSVG
-            src='/assets/icons/filled/PlusCircle.svg'
-            beforeInjection={(src) => src.setAttribute('class', 'h-5 w-5 fill-grey-800')}
-          />
-          신규 카드등록
-        </button>
-
+        <div className='flex w-full justify-end'>
+          <button
+            className='mt-2 flex items-center gap-[6px] pr-2 text-M/Medium'
+            onClick={() => {
+              _cardRegistrationStarted();
+              registerCard(userInfo!.email, userInfo!.id, setUserCards);
+            }}
+          >
+            <ReactSVG
+              src='/assets/icons/filled/PlusCircle.svg'
+              beforeInjection={(src) =>
+                src.setAttribute('class', 'h-5 w-5 fill-grey-800')
+              }
+            />
+            신규 카드등록
+          </button>
+        </div>
         {isUpgradePage && (
           <div className='mt-8'>
             <p className='text-L/Regular text-grey-800'>
@@ -162,6 +166,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                   ? 'border-orange-400 bg-orange-100'
                   : 'border-grey-300 bg-grey-50';
                 const upgradePageCss = isUpgradePage ? 'cursor-pointer' : '';
+                const cardImgPath = getCardImgPath(card.cardCode);
                 return (
                   <div
                     key={`user_card_${card.id}`}
@@ -178,7 +183,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                     <div className='flex w-full justify-between px-[18px] py-[14px]'>
                       <div className='flex items-center gap-5'>
                         <img
-                          src='/assets/images/Card.png'
+                          src={`/assets/images/cards/${cardImgPath}.png`}
                           className='h-12 w-[100px] border-r-[2px] border-grey-300 pr-5'
                         />
                         <div className='flex flex-col gap-[5px] text-M/Medium'>

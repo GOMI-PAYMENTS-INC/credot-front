@@ -39,7 +39,7 @@ export const Footer = () => {
             </div>
             <div className='mt-4 sm:mt-0 '>
               <a
-                href='https://gomicorp.notion.site/611d950ad238426ba16a96eb0631f739'
+                href='https://capable-soy-f58.notion.site/6c820f6f0afe4b959b0bf307156dac5c?pvs=4'
                 target='_blank'
                 rel='noreferrer'
               >

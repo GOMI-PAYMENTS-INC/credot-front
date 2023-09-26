@@ -187,7 +187,6 @@ export const SearchKeywords = () => {
                   iconPath={convertSortByIconPath(searchState.sortBy)}
                   options={SORTING_TYPE}
                   onClickOption={(value) => {
-                    console.log(value, value);
                     return updateSearchPayload({
                       _state: searchState,
                       _dispatch: setSearchState,

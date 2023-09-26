@@ -7,6 +7,8 @@ const PLANS_API = {
   payment: 'api/v1/payment',
   downgrade: 'api/v1/subscribe/downgrade',
   calcelDowngrade: 'api/v1/subscribe/cancel-downgrade',
+  unsubscription: 'api/v1/subscribe/unsubscribe',
+  cancelUnsubscription: 'api/v1/subscribe/cancel-unsubscribe',
 };
 
 export const getPlans = async () => {
@@ -113,5 +115,29 @@ export const patchCancelDowngrade = async () => {
     return data;
   } catch (error) {
     throw new Error('플랜 다운그레이드 취소 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const patchUnsubscription = async () => {
+  try {
+    const { data } = await HTTP.patch<
+      {},
+      { code: STATUS_CODE; data: TGetSubscriptionResponse }
+    >(PLANS_API.unsubscription, {});
+    return data;
+  } catch (error) {
+    throw new Error('구독 해지 과정에서 에러가 발생했습니다.');
+  }
+};
+
+export const patchCancelUnsubscription = async () => {
+  try {
+    const { data } = await HTTP.patch<
+      {},
+      { code: STATUS_CODE; data: TGetSubscriptionResponse }
+    >(PLANS_API.cancelUnsubscription, {});
+    return data;
+  } catch (error) {
+    throw new Error('구독 해지 취소 과정에서 에러가 발생했습니다.');
   }
 };

@@ -26,6 +26,7 @@ export const PATH = {
   SUBSCRIBE: '/subscribe',
   UPGRADE_PLAN: '/subscribe/upgrade',
   DOWN_GRADE: '/subscribe/downgrade',
+  UNSUBSCRIPTION: '/subscribe/unsubscription',
   RESULT_OF_PAY_REQUEST: '/subscribe/:result',
 } as const;
 
@@ -123,6 +124,12 @@ export const routeList: IRoute[] = [
     isPrivate: true,
     description: 'DownGrade',
     path: PATH.DOWN_GRADE,
+    component: DownGrade,
+  },
+  {
+    isPrivate: true,
+    description: 'Unsubscription',
+    path: PATH.UNSUBSCRIPTION,
     component: DownGrade,
   },
   {

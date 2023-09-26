@@ -44,4 +44,5 @@ export const amplitudeConstant = {
   subscriptionPageViewed: 'subscription page viewed',
   keywordAnalysisPlanUpgradeStarted: 'keyword analysis plan upgrade started',
   cardRegistrationStarted: 'card registration started',
+  keywordAnalysisPlanDowngradeStarted: 'keyword analysis plan downgrade started',
 };
