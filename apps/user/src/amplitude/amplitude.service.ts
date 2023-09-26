@@ -426,3 +426,6 @@ export const _cardRegistrationStarted = () =>
 
 export const _keywordAnalysisPlanDowngradeStarted = () =>
   _setAmplitudeEvents(amplitudeConstant.keywordAnalysisPlanDowngradeStarted);
+
+export const _keywordAnalysisUnsubscribeStarted = () =>
+  _setAmplitudeEvents(amplitudeConstant.keywordAnalysisUnsubscribeStarted);

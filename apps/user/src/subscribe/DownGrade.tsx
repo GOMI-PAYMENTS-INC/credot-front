@@ -1,7 +1,10 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { BackforwardButton } from '@/components/BackForwardButton';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { _keywordAnalysisPlanDowngradeStarted } from '@/amplitude/amplitude.service';
+import {
+  _keywordAnalysisPlanDowngradeStarted,
+  _keywordAnalysisUnsubscribeStarted,
+} from '@/amplitude/amplitude.service';
 
 import { useEffect, useState } from 'react';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -55,7 +58,9 @@ export const DownGrade = () => {
     }
 
     if (width === 0 && document.getElementById('plan_width') !== null) {
-      _keywordAnalysisPlanDowngradeStarted();
+      pathname === PATH.UNSUBSCRIPTION
+        ? _keywordAnalysisUnsubscribeStarted()
+        : _keywordAnalysisPlanDowngradeStarted();
       setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
     }
 

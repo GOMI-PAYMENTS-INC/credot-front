@@ -150,37 +150,50 @@ export const Subscribe = () => {
                       </div>
 
                       <div className='flex w-full justify-end'>
-                        {subscriptionPlan.productUniqueKey === 'KEYWORD ANALYSIS_PRO' ? (
-                          <div className='absolute bottom-[35px] right-6 flex gap-5 text-M/Regular text-grey-500'>
-                            <button
-                              className={`underline decoration-grey-500 ${
-                                isKeptSubscription ? '' : 'hidden'
-                              }`}
-                              onClick={() => navigator(PATH.DOWN_GRADE)}
-                            >
-                              플랜 변경
-                            </button>
-
-                            {isKeptSubscription && (
+                        <div className='absolute bottom-[35px] right-6 flex gap-5 text-M/Regular text-grey-500'>
+                          {subscriptionPlan.productUniqueKey ===
+                          'KEYWORD ANALYSIS_PRO' ? (
+                            <>
                               <button
-                                className='underline decoration-grey-500'
-                                onClick={() => navigator(PATH.UNSUBSCRIPTION)}
+                                className={`underline decoration-grey-500 ${
+                                  isKeptSubscription ? '' : 'hidden'
+                                }`}
+                                onClick={() => navigator(PATH.DOWN_GRADE)}
                               >
-                                구독 해지
+                                플랜 변경
                               </button>
-                            )}
-                          </div>
-                        ) : (
-                          <button
-                            className='button-filled-normal-large-primary-false-false-true absolute bottom-[35px] right-6  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
-                            onClick={() => {
-                              navigator(PATH.UPGRADE_PLAN);
-                              _keywordAnalysisPlanUpgradeStarted();
-                            }}
-                          >
-                            업그레이드 하기
-                          </button>
-                        )}
+
+                              {isKeptSubscription && (
+                                <button
+                                  className='underline decoration-grey-500'
+                                  onClick={() => navigator(PATH.UNSUBSCRIPTION)}
+                                >
+                                  구독 해지
+                                </button>
+                              )}
+                            </>
+                          ) : (
+                            isKeptSubscription && (
+                              <>
+                                <button
+                                  className='underline decoration-grey-500'
+                                  onClick={() => navigator(PATH.UNSUBSCRIPTION)}
+                                >
+                                  구독 해지
+                                </button>
+                                <button
+                                  className='button-filled-normal-large-primary-false-false-true  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
+                                  onClick={() => {
+                                    navigator(PATH.UPGRADE_PLAN);
+                                    _keywordAnalysisPlanUpgradeStarted();
+                                  }}
+                                >
+                                  업그레이드 하기
+                                </button>
+                              </>
+                            )
+                          )}
+                        </div>
                       </div>
                     </section>
                   </div>
