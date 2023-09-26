@@ -136,7 +136,6 @@ export const Subscribe = () => {
                             <p>{plan} 플랜으로 전환 예정</p>
                             <button
                               onClick={() => {
-                                console.log(plan, 'plan');
                                 plan
                                   ? _patchCancelUnsubscription(setSubscription)
                                   : _cancelDowngrade(setSubscription);
