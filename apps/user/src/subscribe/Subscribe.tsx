@@ -9,7 +9,13 @@ import { PATH } from '@/router/routeList';
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';
 import { Footer } from '@/subscribe/elements/Footer';
-import { convertPlanImg, calculatorBar, _cancelDowngrade } from '@/subscribe/container';
+import {
+  convertPlanImg,
+  calculatorBar,
+  _cancelDowngrade,
+  getCancelSource,
+  _patchCancelUnsubscription,
+} from '@/subscribe/container';
 
 import { convertPlan, _getSubscription } from '@/common/container';
 import { useRecoilState } from 'recoil';
@@ -29,7 +35,6 @@ export const Subscribe = () => {
 
   useEffect(() => {
     _subscriptionPageViewed();
-
     window.scroll(0, 0);
   }, []);
 
@@ -54,7 +59,7 @@ export const Subscribe = () => {
   }
 
   const isKeptSubscription = subscriptionPlan.nextStatus === 'WAIT';
-
+  const { plan } = getCancelSource(subscriptionPlan.nextStatus);
   return (
     <Layout useGap={true}>
       <section className='space-y-[60px]'>
@@ -128,8 +133,15 @@ export const Subscribe = () => {
 
                         {isKeptSubscription === false && (
                           <div className='flex justify-between'>
-                            <p>Starter 플랜으로 전환 예정</p>
-                            <button onClick={() => _cancelDowngrade(setSubscription)}>
+                            <p>{plan} 플랜으로 전환 예정</p>
+                            <button
+                              onClick={() => {
+                                console.log(plan, 'plan');
+                                plan
+                                  ? _patchCancelUnsubscription(setSubscription)
+                                  : _cancelDowngrade(setSubscription);
+                              }}
+                            >
                               <p className='text-orange-400 underline decoration-orange-400'>
                                 취소 하기
                               </p>

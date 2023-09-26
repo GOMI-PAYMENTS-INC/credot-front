@@ -8,6 +8,8 @@ import {
   deleteUserCard,
   patchDowngrade,
   patchCancelDowngrade,
+  patchUnsubscription,
+  patchCancelUnsubscription,
 } from '@/subscribe/api';
 import { CACHING_KEY, STATUS_CODE } from '@/types/enum.code';
 
@@ -352,6 +354,25 @@ export const getCardImgPath = (cardCode: string) => {
   return 'ETC';
 };
 
+export const _patchUnsubscription = async (setIsOpen: SetterOrUpdater<boolean>) => {
+  const response = await patchUnsubscription();
+  if (response.code === STATUS_CODE.SUCCESS) {
+    return setIsOpen(true);
+  }
+  toast.error('잠시 후 다시 시도해주세요.');
+};
+
+export const _patchCancelUnsubscription = async (
+  setSubscription: SetterOrUpdater<TGetSubscriptionResponse | null>,
+) => {
+  const response = await patchCancelUnsubscription();
+  if (response.code === STATUS_CODE.SUCCESS) {
+    toast.success('구독 해지가 취소되었어요.');
+    return _getSubscription(setSubscription);
+  }
+  toast.error('잠시 후 다시 시도해주세요.');
+};
+
 export const getSource = (pathname: string) => {
   const plans: TPlans[] = useSessionStorage.getItem(CACHING_KEY.PLANS);
 
@@ -381,7 +402,7 @@ export const getSource = (pathname: string) => {
     builder.planInfo = plans.find(
       (plan: TPlans) => plan.uniqueKey === userPlan.productUniqueKey,
     )!;
-    console.log(builder, 'builder');
+
     return builder;
   }
 
@@ -396,6 +417,14 @@ export const getSource = (pathname: string) => {
   builder.planInfo = plans.find(
     (plan: TPlans) => plan.uniqueKey === 'KEYWORD ANALYSIS_STARTER',
   )!;
-  console.log(builder, 'builder');
+
   return builder;
+};
+
+export const getCancelSource = (nextStatus: TNextStatus) => {
+  if (nextStatus === 'UNSUBSCRIBE') {
+    return { plan: 'Free' };
+  }
+
+  return { plan: 'Stater' };
 };

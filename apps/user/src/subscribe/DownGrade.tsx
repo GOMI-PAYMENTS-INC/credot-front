@@ -4,13 +4,19 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { _keywordAnalysisPlanDowngradeStarted } from '@/amplitude/amplitude.service';
 
 import { useEffect, useState } from 'react';
-import { CACHING_KEY, PATH } from '@/types/enum.code';
+import { CACHING_KEY } from '@/types/enum.code';
+import { PATH } from '@/router/routeList';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SwitchAtom } from '@/atom';
 import { useRecoilState } from 'recoil';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { agreeChangedPlan, getSource, _downGrade } from '@/subscribe/container';
+import {
+  agreeChangedPlan,
+  getSource,
+  _downGrade,
+  _patchUnsubscription,
+} from '@/subscribe/container';
 import { convertTime } from '@/utils/parsingTimezone';
 import Checkbox from '@/components/Checkbox/Checkbox';
 
@@ -151,7 +157,9 @@ export const DownGrade = () => {
                 if (isError === null || isError) {
                   return setIsError(true);
                 }
-                _downGrade(setIsOpen);
+                pathname === PATH.UNSUBSCRIPTION
+                  ? _patchUnsubscription(setIsOpen)
+                  : _downGrade(setIsOpen);
               }}
             >
               {text}하기
