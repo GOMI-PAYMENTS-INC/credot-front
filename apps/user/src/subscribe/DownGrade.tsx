@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { CACHING_KEY } from '@/types/enum.code';
 import { PATH } from '@/router/routeList';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { SwitchAtom } from '@/atom';
-import { useRecoilState } from 'recoil';
+import { SwitchAtom, SubscriptionAtom } from '@/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { formatNumber } from '@/utils/formatNumber';
 import {
@@ -22,6 +22,8 @@ import Checkbox from '@/components/Checkbox/Checkbox';
 
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { ReactSVG } from 'react-svg';
+
+import { _getSubscription } from '@/common/container';
 
 export const DownGrade = () => {
   const navigator = useNavigate();
@@ -39,6 +41,7 @@ export const DownGrade = () => {
   const [width, setWidth] = useState(0);
   const [isError, setIsError] = useState<boolean | null>(null);
   const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
+  const setSubscription = useSetRecoilState(SubscriptionAtom);
 
   const userPlan: TGetSubscriptionResponse = useSessionStorage.getItem(
     CACHING_KEY.USER_PLAN,
@@ -46,6 +49,11 @@ export const DownGrade = () => {
 
   useEffect(() => {
     window.scroll(0, 0);
+
+    if (userPlan.nextStatus !== 'WAIT') {
+      navigator(PATH.SUBSCRIBE, { replace: true });
+    }
+
     if (width === 0 && document.getElementById('plan_width') !== null) {
       _keywordAnalysisPlanDowngradeStarted();
       setWidth(document.getElementById('plan_width')!.offsetLeft - 100);
@@ -55,13 +63,13 @@ export const DownGrade = () => {
       setIsError(null);
       setIsOpen(false);
     };
-  }, [document.getElementById('plan_width')]);
+  }, [document.getElementById('plan_width'), userPlan.nextStatus]);
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
       <ModalComponent isOpen={isOpen}>
         <div className='flex w-[400px] flex-col items-center overflow-hidden rounded-[10px] bg-white'>
-          <div className='flex flex-col items-center justify-center px-6 py-4'>
+          <div className='flex w-full flex-col items-center justify-center px-6 py-4'>
             <ReactSVG
               src='/assets/icons/outlined/CheckCircle.svg'
               beforeInjection={(svg) => {
@@ -72,7 +80,7 @@ export const DownGrade = () => {
             <p className='pt-6 text-L/Medium'>다음 정기 결제일부터 {modalDiscription}</p>
 
             <button
-              className='button-filled-normal-large-grey-false-false-true mt-8 w-full'
+              className='w-max-[352px] button-filled-normal-large-grey-false-false-true mt-8 w-full'
               onClick={() => navigator(PATH.SUBSCRIBE, { replace: true })}
             >
               확인
@@ -113,7 +121,9 @@ export const DownGrade = () => {
                   </div>
                   <div className='flex items-center'>
                     <p className='text-2XL/Bold'>
-                      {formatNumber(planInfo.price)}원
+                      {planInfo.price === 0
+                        ? '무료'
+                        : `${formatNumber(planInfo.price)}원`}
                       <span className='pl-1 text-M/Medium'>
                         / {planInfo.subscribeCycle}일
                       </span>
@@ -148,18 +158,19 @@ export const DownGrade = () => {
             />
             {isError && (
               <p className='pt-1 text-M/Regular text-red-500'>
-                {text}에 따른 유의 사항을 이해했습니다.
+                {text}에 따른 유의 사항을 이해했어요.
               </p>
             )}
             <button
               className='button-filled-normal-large-grey-false-false-true mt-10 w-full'
-              onClick={() => {
+              onClick={async () => {
                 if (isError === null || isError) {
                   return setIsError(true);
                 }
                 pathname === PATH.UNSUBSCRIPTION
                   ? _patchUnsubscription(setIsOpen)
                   : _downGrade(setIsOpen);
+                _getSubscription(setSubscription);
               }}
             >
               {text}하기
