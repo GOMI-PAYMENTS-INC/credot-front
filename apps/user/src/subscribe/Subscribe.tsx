@@ -175,12 +175,15 @@ export const Subscribe = () => {
                           ) : (
                             isKeptSubscription && (
                               <>
-                                <button
-                                  className='underline decoration-grey-500'
-                                  onClick={() => navigator(PATH.UNSUBSCRIPTION)}
-                                >
-                                  구독 해지
-                                </button>
+                                {subscriptionPlan.productUniqueKey !==
+                                  'KEYWORD ANALYSIS_FREE' && (
+                                  <button
+                                    className='underline decoration-grey-500'
+                                    onClick={() => navigator(PATH.UNSUBSCRIPTION)}
+                                  >
+                                    구독 해지
+                                  </button>
+                                )}
                                 <button
                                   className='button-filled-normal-large-primary-false-false-true  w-[134px] bg-gradient-to-t from-orange-500 to-[#FF8C04]'
                                   onClick={() => {
