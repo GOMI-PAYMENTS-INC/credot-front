@@ -72,7 +72,7 @@ export const DownGrade = () => {
             <p className='pt-6 text-L/Medium'>다음 정기 결제일부터 {modalDiscription}</p>
 
             <button
-              className='button-filled-normal-large-grey-false-false-true mt-10 w-full'
+              className='button-filled-normal-large-grey-false-false-true mt-8 w-full'
               onClick={() => navigator(PATH.SUBSCRIBE, { replace: true })}
             >
               확인
@@ -135,7 +135,7 @@ export const DownGrade = () => {
                   <li>{warningText} 시 사용할 수 있는 서비스 이용량이 제한되어요.</li>
                   <li>
                     {warningDiscription} 다음 정기 결제일인
-                    {` (${convertTime(userPlan.endedAt, 'YYYY.MM.DD')})`} 부터 적용되어요.
+                    {` ${convertTime(userPlan.endedAt, 'YYYY.MM.DD')}`} 부터 적용되어요.
                   </li>
                 </ul>
               </div>
@@ -148,7 +148,7 @@ export const DownGrade = () => {
             />
             {isError && (
               <p className='pt-1 text-M/Regular text-red-500'>
-                {text}에 따른 유의 사항을 확인해 주세요.
+                {text}에 따른 유의 사항을 이해했습니다.
               </p>
             )}
             <button
