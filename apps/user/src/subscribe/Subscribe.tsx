@@ -153,9 +153,7 @@ export const Subscribe = () => {
                             {isKeptSubscription && (
                               <button
                                 className='underline decoration-grey-500'
-                                onClick={() => {
-                                  // _deleteUserCard(card.id, setUserCards, setIsOpen);
-                                }}
+                                onClick={() => navigator(PATH.UNSUBSCRIPTION)}
                               >
                                 구독 해지
                               </button>

@@ -351,3 +351,51 @@ export const getCardImgPath = (cardCode: string) => {
   }
   return 'ETC';
 };
+
+export const getSource = (pathname: string) => {
+  const plans: TPlans[] = useSessionStorage.getItem(CACHING_KEY.PLANS);
+
+  const builder = {
+    text: '',
+    plan: '',
+    warningText: '',
+    modalDiscription: '',
+    warningDiscription: '',
+    options: [{ text: '', value: '' }],
+    planInfo: plans[0],
+  };
+
+  if (pathname === PATH.UNSUBSCRIPTION) {
+    const userPlan: TGetSubscriptionResponse = useSessionStorage.getItem(
+      CACHING_KEY.USER_PLAN,
+    );
+
+    builder.text = '구독 해지';
+    builder.plan = '사용중인 플랜';
+    builder.warningText = '구독 해지';
+    builder.warningDiscription = '구독 해지는';
+    builder.modalDiscription = ' 구독이 해지되어요.';
+    builder.options = [
+      { text: '구독 해지에 따른 유의 사항을 이해했습니다.', value: 'agree' },
+    ];
+    builder.planInfo = plans.find(
+      (plan: TPlans) => plan.uniqueKey === userPlan.productUniqueKey,
+    )!;
+    console.log(builder, 'builder');
+    return builder;
+  }
+
+  builder.text = '플랜 변경';
+  builder.plan = '적용 플랜';
+  builder.warningText = '하위 플랜으로 변경';
+  builder.warningDiscription = '변경된 플랜은';
+  builder.modalDiscription = ' 변경된 플랜이 적용되어요.';
+  builder.options = [
+    { text: '플랜 변경에 따른 유의 사항을 이해했습니다.', value: 'agree' },
+  ];
+  builder.planInfo = plans.find(
+    (plan: TPlans) => plan.uniqueKey === 'KEYWORD ANALYSIS_STARTER',
+  )!;
+  console.log(builder, 'builder');
+  return builder;
+};

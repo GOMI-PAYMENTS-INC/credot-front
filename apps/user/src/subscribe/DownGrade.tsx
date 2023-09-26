@@ -1,6 +1,6 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { BackforwardButton } from '@/components/BackForwardButton';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { _keywordAnalysisPlanDowngradeStarted } from '@/amplitude/amplitude.service';
 
 import { useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ import { SwitchAtom } from '@/atom';
 import { useRecoilState } from 'recoil';
 
 import { formatNumber } from '@/utils/formatNumber';
-import { agreeChangedPlan, _downGrade } from '@/subscribe/container';
+import { agreeChangedPlan, getSource, _downGrade } from '@/subscribe/container';
 import { convertTime } from '@/utils/parsingTimezone';
 import Checkbox from '@/components/Checkbox/Checkbox';
 
@@ -19,13 +19,20 @@ import { ReactSVG } from 'react-svg';
 
 export const DownGrade = () => {
   const navigator = useNavigate();
+  const { pathname } = useLocation();
+  const {
+    text,
+    plan,
+    modalDiscription,
+    warningText,
+    warningDiscription,
+    options,
+    planInfo,
+  } = getSource(pathname);
+
   const [width, setWidth] = useState(0);
   const [isError, setIsError] = useState<boolean | null>(null);
   const [isOpen, setIsOpen] = useRecoilState(SwitchAtom);
-
-  const starterPlan = useSessionStorage
-    .getItem(CACHING_KEY.PLANS)
-    .find((plan: TPlans) => plan.uniqueKey === 'KEYWORD ANALYSIS_STARTER');
 
   const userPlan: TGetSubscriptionResponse = useSessionStorage.getItem(
     CACHING_KEY.USER_PLAN,
@@ -55,10 +62,8 @@ export const DownGrade = () => {
                 svg.setAttribute('class', 'fill-green-600 w-[34px] h-[34px]');
               }}
             />
-            <h1 className='pt-2.5 text-2XL/Bold text-grey-900'>플랜 변경 완료</h1>
-            <p className='pt-6 text-L/Medium'>
-              다음 정기 결제일부터 변경된 플랜이 적용되어요.
-            </p>
+            <h1 className='pt-2.5 text-2XL/Bold text-grey-900'>{text} 완료</h1>
+            <p className='pt-6 text-L/Medium'>다음 정기 결제일부터 {modalDiscription}</p>
 
             <button
               className='button-filled-normal-large-grey-false-false-true mt-10 w-full'
@@ -79,7 +84,7 @@ export const DownGrade = () => {
       <header className='pt-[22px]'>
         <div className='flex w-full justify-center'>
           <div id='plan_width' className='flex w-[1138px] justify-center'>
-            <p className='text-4XL/Bold'>플랜 변경하기</p>
+            <p className='text-4XL/Bold'>{text}하기</p>
           </div>
         </div>
       </header>
@@ -91,20 +96,20 @@ export const DownGrade = () => {
             className='flex w-[608px] flex-col justify-center gap-[50px]'
           >
             <div id='plan'>
-              <p className='mb-5 text-XL/Medium'>적용 플랜</p>
+              <p className='mb-5 text-XL/Medium'>{plan}</p>
               <div>
                 <div className='flex justify-between rounded-lg border-[1px] px-5 py-[14px]'>
                   <div className='flex'>
                     <div className='flex flex-col gap-1'>
-                      <p className='text-2XL/Bold'>{starterPlan.name}</p>
-                      <p className='text-M/Medium'>{starterPlan.description}</p>
+                      <p className='text-2XL/Bold'>{planInfo.name}</p>
+                      <p className='text-M/Medium'>{planInfo.description}</p>
                     </div>
                   </div>
                   <div className='flex items-center'>
                     <p className='text-2XL/Bold'>
-                      {formatNumber(starterPlan.price)}원
+                      {formatNumber(planInfo.price)}원
                       <span className='pl-1 text-M/Medium'>
-                        / {starterPlan.subscribeCycle}일
+                        / {planInfo.subscribeCycle}일
                       </span>
                     </p>
                   </div>
@@ -120,12 +125,10 @@ export const DownGrade = () => {
             <div className='rounded-lg border-[1px]'>
               <div className='p-5'>
                 <ul className='list-inside list-disc space-y-2.5 text-M/Regular'>
-                  <p className='list-none pb-2.5 text-L/Bold'>플랜 변경 시 유의사항</p>
+                  <p className='list-none pb-2.5 text-L/Bold'>{text} 시 유의사항</p>
+                  <li>{warningText} 시 사용할 수 있는 서비스 이용량이 제한되어요.</li>
                   <li>
-                    하위 플랜으로 변경 시 사용할 수 있는 서비스 이용량이 제한되어요.
-                  </li>
-                  <li>
-                    변경된 플랜은 다음 정기 결제일인
+                    {warningDiscription} 다음 정기 결제일인
                     {` (${convertTime(userPlan.endedAt, 'YYYY.MM.DD')})`} 부터 적용되어요.
                   </li>
                 </ul>
@@ -134,14 +137,12 @@ export const DownGrade = () => {
 
             <Checkbox
               customCss='mt-[14px]'
-              options={[
-                { text: '플랜 변경에 따른 유의 사항을 이해했습니다.', value: 'agree' },
-              ]}
+              options={options}
               callback={(value: TCheckboxOption) => agreeChangedPlan(value, setIsError)}
             />
             {isError && (
               <p className='pt-1 text-M/Regular text-red-500'>
-                플랜 변경에 따른 유의 사항을 확인해 주세요.
+                {text}에 따른 유의 사항을 확인해 주세요.
               </p>
             )}
             <button
@@ -153,7 +154,7 @@ export const DownGrade = () => {
                 _downGrade(setIsOpen);
               }}
             >
-              플랜 변경하기
+              {text}하기
             </button>
           </div>
         </div>
