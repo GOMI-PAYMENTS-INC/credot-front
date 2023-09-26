@@ -297,6 +297,9 @@ export const calcPrice = (
   currentPlan: TGetSubscriptionResponse,
   amount?: number,
 ) => {
+  const userPlan: TGetSubscriptionResponse = useSessionStorage.getItem(
+    CACHING_KEY.USER_PLAN,
+  );
   const selectedPlan: TPlans = useSessionStorage
     .getItem(CACHING_KEY.PLANS)
     .find((plan: TPlans) => plan.uniqueKey.includes(chosenPlan.name.toUpperCase()));
@@ -305,7 +308,10 @@ export const calcPrice = (
     originPrice: formatNumber(selectedPlan.originPrice),
   };
 
-  if (selectedPlan.priority > 1) {
+  if (
+    userPlan.productUniqueKey !== 'KEYWORD ANALYSIS_FREE' &&
+    selectedPlan.priority > 1
+  ) {
     const salePrice = amount
       ? selectedPlan.originPrice - amount
       : selectedPlan.price + (currentPlan.count / currentPlan.totalCount) * 10000;
