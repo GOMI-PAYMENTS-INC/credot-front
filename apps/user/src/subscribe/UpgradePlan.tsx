@@ -32,6 +32,26 @@ export const UpgradePlan = () => {
     }
   }, [subscriptionPlan?.id, document.getElementById('plan_width')]);
 
+  useEffect(() => {
+    const pg = document.getElementsByClassName(
+      'imp-dialog customizable payment-tosspayments pc',
+    )[0];
+    if (pg) {
+      document
+        .getElementsByClassName('imp-dialog customizable payment-tosspayments pc')[0]
+        .setAttribute(
+          'class',
+          `${
+            document.getElementsByClassName(
+              'imp-dialog customizable payment-tosspayments pc',
+            )[0].className
+          } bg-black bg-opacity-20`,
+        );
+    }
+  }, [
+    document.getElementsByClassName('imp-dialog customizable payment-tosspayments pc'),
+  ]);
+
   if (subscriptionPlan === null || selectedPlan === null) {
     return (
       <div className=' scale-[0.2]'>
@@ -44,13 +64,6 @@ export const UpgradePlan = () => {
 
   return (
     <Layout useFooter={false} useHeightFull={false}>
-      {isOpen && (
-        <Fragment>
-          <div id='agreement' />
-          <div hidden id='payment-widget' />
-        </Fragment>
-      )}
-
       <BackforwardButton
         style={`top-[146px] sticky`}
         originStyle={{ left: `${width}px` }}

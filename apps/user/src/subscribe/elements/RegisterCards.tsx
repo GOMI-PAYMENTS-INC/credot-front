@@ -5,6 +5,7 @@ import {
   registerCard,
   switchIsMain,
   getCardImgPath,
+  turnDim,
 } from '@/subscribe/container';
 import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -31,6 +32,8 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
+  const [dim, setDim] = useState<boolean>(false);
+
   const userInfo = useRecoilValue(UserAtom)?.me;
   const navigator = useNavigate();
 
@@ -41,6 +44,8 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
       setIsError(false);
     };
   }, []);
+
+  useEffect(() => turnDim(dim, setDim), [dim]);
 
   const isUpgradePage = pathname === PATH.UPGRADE_PLAN;
 
@@ -53,6 +58,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
             onClick={() => {
               _cardRegistrationStarted();
               registerCard(userInfo!.email, userInfo!.id, setUserCards);
+              setDim(true);
             }}
           >
             <ReactSVG
