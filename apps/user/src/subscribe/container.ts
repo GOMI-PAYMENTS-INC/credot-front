@@ -422,3 +422,24 @@ export const getCancelSource = (nextStatus: TNextStatus) => {
 
   return { plan: 'Stater' };
 };
+
+export const turnDim = (
+  trigger: boolean,
+  setTrigger: Dispatch<SetStateAction<boolean>>,
+) => {
+  if (trigger) {
+    setTimeout(() => {
+      document
+        .getElementsByClassName('imp-dialog customizable payment-tosspayments pc')[0]
+        .setAttribute(
+          'class',
+          `${
+            document.getElementsByClassName(
+              'imp-dialog customizable payment-tosspayments pc',
+            )[0].className
+          } bg-black bg-opacity-20`,
+        );
+      setTrigger(false);
+    }, 500);
+  }
+};
