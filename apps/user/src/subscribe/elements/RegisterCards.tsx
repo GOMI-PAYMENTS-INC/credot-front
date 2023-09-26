@@ -52,24 +52,26 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
   const FilledCard = () => {
     return (
       <>
-        <div className='flex w-full justify-end'>
-          <button
-            className='mt-2 flex items-center gap-[6px] pr-2 text-M/Medium'
-            onClick={() => {
-              _cardRegistrationStarted();
-              registerCard(userInfo!.email, userInfo!.id, setUserCards);
-              setDim(true);
-            }}
-          >
-            <ReactSVG
-              src='/assets/icons/filled/PlusCircle.svg'
-              beforeInjection={(src) =>
-                src.setAttribute('class', 'h-5 w-5 fill-grey-800')
-              }
-            />
-            신규 카드등록
-          </button>
-        </div>
+        {isTruthy(userCards) && (
+          <div className='flex w-full justify-end'>
+            <button
+              className='mt-2 flex items-center gap-[6px] pr-2 text-M/Medium'
+              onClick={() => {
+                _cardRegistrationStarted();
+                registerCard(userInfo!.email, userInfo!.id, setUserCards);
+                setDim(true);
+              }}
+            >
+              <ReactSVG
+                src='/assets/icons/filled/PlusCircle.svg'
+                beforeInjection={(src) =>
+                  src.setAttribute('class', 'h-5 w-5 fill-grey-800')
+                }
+              />
+              신규 카드등록
+            </button>
+          </div>
+        )}
         {isUpgradePage && (
           <div className='mt-8'>
             <p className='text-L/Regular text-grey-800'>
@@ -119,8 +121,8 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
               if (isError) {
                 setIsError(false);
               }
-
               registerCard(userInfo!.email, userInfo!.id, setUserCards);
+              setDim(true);
             }}
           >
             <div className='flex flex-col items-center justify-center py-[14px]'>
@@ -201,7 +203,6 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
                           </p>
                         </div>
                       </div>
-
                       <SwitchOption userCard={card} />
                     </div>
                   </div>
