@@ -1,4 +1,4 @@
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { useLocation } from 'react-router-dom';
 import { _patchUserCard, _deleteUserCard, clearUserCards } from '@/subscribe/container';
 import { useSetRecoilState } from 'recoil';

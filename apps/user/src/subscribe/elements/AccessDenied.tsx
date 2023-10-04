@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 
 export const AccessDenied = () => {
   const navigator = useNavigate();

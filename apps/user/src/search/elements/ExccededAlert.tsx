@@ -4,7 +4,7 @@ import { _getSubscription } from '@/common/container';
 
 import { formatNumber } from '@/utils/formatNumber';
 import { convertPlan } from '@/common/container';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import type { Dispatch, SetStateAction } from 'react';
 
 interface IExccededAlertModal {

@@ -1,5 +1,6 @@
-import { PATH } from '@/types/enum.code';
+import { PATH } from '@/common/constants';
 
+console.log(PATH, 'PATH');
 export const menuData = [
   {
     key: 'keywordAnalyze',
@@ -7,6 +8,13 @@ export const menuData = [
     iconPath: '/assets/icons/outlined/Target.svg',
     path: [PATH.SEARCH_PRODUCTS, PATH.REPORT_LIST, PATH.REPORT_DETAIL],
     children: [
+      {
+        key: 'keywordAnalyze-0',
+        title: '키워드 찾기',
+        iconPath: '',
+        path: PATH.CATEGORY,
+        activePath: [],
+      },
       {
         key: 'keywordAnalyze-1',
         title: '리포트 생성',
