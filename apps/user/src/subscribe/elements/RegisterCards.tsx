@@ -79,7 +79,7 @@ export const RegisterCards = ({ uniqueKey }: IRegisterCards) => {
             </p>
             <button
               disabled={isLoading}
-              className='button-filled-normal-large-primary-false-false-true mt-3 w-full'
+              className='button-filled-normal-large-primary-false-false-true mt-3 h-[68px] w-full text-XL/Bold'
               onClick={() => {
                 if (isFalsy(userCards) === false) setIsLoading(true);
                 const cardId = userCards.find((card) => card.isMain)!.id;

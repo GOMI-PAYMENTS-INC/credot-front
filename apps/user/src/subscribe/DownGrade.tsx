@@ -163,7 +163,7 @@ export const DownGrade = () => {
             />
             {isError && (
               <p className='pt-1 text-M/Regular text-red-500'>
-                {text}에 따른 유의 사항을 이해했어요.
+                {text}에 따른 유의 사항을 확인해주세요.
               </p>
             )}
             <button

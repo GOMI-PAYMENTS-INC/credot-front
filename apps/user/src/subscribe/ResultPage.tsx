@@ -112,7 +112,7 @@ export const ResultPage = () => {
                 </button>
               )} */}
               <button
-                className='button-filled-normal-large-primary-false-false-true w-full'
+                className='button-filled-normal-large-primary-false-false-true h-[64px] w-full'
                 onClick={() =>
                   navigator(result === 'rejected' ? PATH.UPGRADE_PLAN : PATH.SUBSCRIBE, {
                     replace: true,
