@@ -101,13 +101,17 @@ const getReportList = async (queryString: TReportListParamsType) => {
 
 const deleteReportList = async (params: TDeleteReportListParamsType) => {
   const { ids } = params;
+  const items = ids.reduce((pre, cur, index) => {
+    if (index === 0) {
+      pre = pre + cur;
+      return pre;
+    }
+    pre = pre + `&ids=` + cur;
+    return pre;
+  }, '?ids=');
   try {
     return await HTTP.delete<TDeleteReportListParamsType, TDeleteReportListResponse>(
-      REPORT_URL,
-      { ids },
-      {
-        paramsSerializer: (paramObj) => new URLSearchParams(paramObj).toString(),
-      },
+      REPORT_URL + items,
     );
   } catch (error) {
     console.error(error);
