@@ -315,7 +315,7 @@ export const calcPrice = (
   ) {
     const salePrice = amount
       ? selectedPlan.originPrice - amount
-      : selectedPlan.price +
+      : selectedPlan.price -
         (currentPlan.totalCount - currentPlan.count / currentPlan.totalCount) * 10000;
 
     return Object.assign({}, result, {
