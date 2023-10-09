@@ -313,10 +313,14 @@ export const calcPrice = (
     userPlan.productUniqueKey !== 'KEYWORD ANALYSIS_FREE' &&
     selectedPlan.priority > 1
   ) {
+    const saleCount =
+      (currentPlan.totalCount - currentPlan.count) / currentPlan.totalCount;
+
+    const salePriceNum = saleCount === 1 ? 0 : saleCount;
+
     const salePrice = amount
       ? selectedPlan.originPrice - amount
-      : selectedPlan.price -
-        (currentPlan.totalCount - currentPlan.count / currentPlan.totalCount) * 10000;
+      : selectedPlan.price + salePriceNum * 10000;
 
     return Object.assign({}, result, {
       salePrice: formatNumber(salePrice),
