@@ -188,8 +188,9 @@ export const upgradePlan = async (props: {
   setIsError: Dispatch<SetStateAction<boolean>>;
   userCards: TUserCard[];
 }) => {
-  const { cardId } = props;
-  const response = await patchUserCard(cardId);
+  const { cardId, userCards } = props;
+  const isCard = userCards.length > 0;
+  const response = isCard ? true : await patchUserCard(cardId);
   if (response) {
     const { uniqueKey, navigator, setIsError, userCards } = props;
     return await _postPayment(uniqueKey, navigator, setIsError, userCards);
@@ -312,9 +313,14 @@ export const calcPrice = (
     userPlan.productUniqueKey !== 'KEYWORD ANALYSIS_FREE' &&
     selectedPlan.priority > 1
   ) {
+    const saleCount =
+      (currentPlan.totalCount - currentPlan.count) / currentPlan.totalCount;
+
+    const salePriceNum = saleCount === 1 ? 0 : saleCount;
+
     const salePrice = amount
       ? selectedPlan.originPrice - amount
-      : selectedPlan.price + (currentPlan.count / currentPlan.totalCount) * 10000;
+      : selectedPlan.price + salePriceNum * 10000;
 
     return Object.assign({}, result, {
       salePrice: formatNumber(salePrice),
