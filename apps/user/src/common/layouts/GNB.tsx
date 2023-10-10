@@ -3,7 +3,7 @@ import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { routeList } from '@/router/routeList';
 
-import { menuData } from '@/common/layouts/sidebar/constants';
+import { MENU_DATA } from '@/common/layouts/sidebar/constants';
 import { PATH } from '@/common/constants';
 import { openBrowser } from '@/utils/openBrowser';
 import {
@@ -23,7 +23,7 @@ import { Usage } from '@/components/Usage';
 const GNB = () => {
   const { onLogout } = signInApi();
   const userAccount = useRecoilValue(UserAtom)?.me.email;
-  const [MENU] = menuData;
+  const [MENU] = MENU_DATA;
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -46,7 +46,7 @@ const GNB = () => {
             const isFit =
               isIncluded(route.path, ...menu.activePath) || route.path === menu.path;
             const highLightEffect = isFit
-              ? 'text-orange-500 bg-orange-100'
+              ? 'text-orange-500 bg-orange-100 text-M/Bold'
               : 'text-M/Regular text-grey-800';
             return (
               <li

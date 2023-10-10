@@ -5,7 +5,7 @@ import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { Dispatch, useEffect, useState } from 'react';
 import { PATH } from '@/types/enum.code';
-import { menuData } from '@/common/layouts/sidebar/constants';
+import { MENU_DATA } from '@/common/layouts/sidebar/constants';
 import { TSidebarAction } from '@/common/layouts/sidebar/reducer';
 import {
   switchFunctionToggle,
@@ -71,7 +71,7 @@ const MSidebar = (props: TSideBarProps) => {
               </Link>
             </div>
             <ul>
-              {menuData.map((menu, menuIndex) => {
+              {MENU_DATA.map((menu, menuIndex) => {
                 let isCollapsedActive = false;
                 let isCollapsed = _state.openedDepthList.includes(menu.key);
                 if (isCollapsed === false) {
