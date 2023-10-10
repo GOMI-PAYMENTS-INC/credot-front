@@ -185,6 +185,7 @@ input[type='number'] {
 /* Works on Chrome, Edge, and Safari */
 #scrollbar::-webkit-scrollbar {
   width: 4px;
+  height: 8px;
 }
 
 #scrollbar::-webkit-scrollbar-thumb {

@@ -1,6 +1,7 @@
 import { Default as Layout } from '@/common/layouts';
 import { Selector } from '@/report/keyword/elements/Selector';
 import Pagination from '@/components/pagination';
+import { ProductsTable } from '@/category/elements/ProductsTable';
 
 import { useState } from 'react';
 import { CATEGORY_STATE } from '@/category';
@@ -61,7 +62,9 @@ const Category = () => {
               </p>
             </div>
           </section>
-          <main id='category_result_table' className='mt-5 mb-[34px]'></main>
+          <main id='scrollbar' className='mt-5 mb-[34px] h-fit overflow-y-scroll'>
+            <ProductsTable />
+          </main>
           <div id='pagination' className='flex items-center justify-between'>
             <Selector
               minWidth={133}

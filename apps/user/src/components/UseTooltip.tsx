@@ -4,6 +4,7 @@ import { Tooltip, PlacesType } from 'react-tooltip';
 interface IUseTooltip {
   content: ReactNode;
   place?: PlacesType;
+  tooltipStyle?: string;
 }
 
 interface IContentPack {
@@ -25,7 +26,7 @@ export const ToolTipCombiner = (props: { children: ReactNode }) => {
   return <div className='flex flex-col gap-5'>{children}</div>;
 };
 
-const UseTooltip = ({ content, place = 'right' }: IUseTooltip) => {
+const UseTooltip = ({ content, place = 'right', tooltipStyle }: IUseTooltip) => {
   const randomKey = Math.random() * 100;
   return (
     <div className='tooltip-container ml-1 xs:hidden'>
@@ -34,7 +35,9 @@ const UseTooltip = ({ content, place = 'right' }: IUseTooltip) => {
           src='/assets/icons/outlined/QuestionCircle.svg'
           className=''
           beforeInjection={(svg) => {
-            svg.setAttribute('class', 'fill-grey-600 h-[14px] w-[14px]');
+            tooltipStyle = tooltipStyle ? tooltipStyle : 'fill-grey-600';
+
+            svg.setAttribute('class', `${tooltipStyle} h-[14px] w-[14px]`);
           }}
         />
       </a>
