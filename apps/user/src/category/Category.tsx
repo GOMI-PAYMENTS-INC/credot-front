@@ -62,7 +62,7 @@ const Category = () => {
               </p>
             </div>
           </section>
-          <main id='scrollbar' className='mt-5 mb-[34px] h-fit overflow-y-scroll'>
+          <main className='h-fit'>
             <ProductsTable />
           </main>
           <div id='pagination' className='flex items-center justify-between'>

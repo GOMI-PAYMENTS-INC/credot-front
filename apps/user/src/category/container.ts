@@ -62,29 +62,54 @@ const pathConvertor = (value: number) => {
   }
   return '/assets/icons/filled/DecreasedIcon.svg';
 };
-export const sepecificFeature = (key: keyof TRespone, value: ReactNode) => {
+export const sepecificFeature = (
+  key: keyof TRespone,
+  value: ReactNode,
+  useScroll: boolean,
+) => {
   const featrue = {
     value: value,
     iconPath: '',
     tdStyle: 'border-r-[1px] border-b-[1px] p-[14px]',
     valueStyle: '',
+    iconStyle: '',
+    divStyle: '',
   };
   switch (key) {
     case 'salesGrowthRate': {
       featrue.value = `${value}%`;
-      featrue.tdStyle = `${featrue.tdStyle} flex gap-2.5 items-center`;
+      featrue.divStyle = `flex gap-2.5 items-center`;
       featrue.valueStyle = 'w-20 text-center';
       featrue.iconPath = pathConvertor(value as number);
+      featrue.iconStyle = 'self-left';
       return featrue;
     }
     case 'keyword': {
-      featrue.iconPath = pathConvertor(value as number);
+      featrue.divStyle = `flex justify-between items-center`;
+      featrue.tdStyle = `${featrue.tdStyle} sticky left-0 bg-white z-10 ${
+        useScroll ? 'shadow-[rgba(0,_0,_0,_0.25)_0px_60px_40px_-7px]' : ''
+      }`;
       featrue.valueStyle = 'text-orange-400 cursor-pointer w-[180px] truncate';
+      featrue.iconPath = '/assets/icons/outlined/Linkout.svg';
+      featrue.iconStyle = 'cursor-pointer';
       return featrue;
     }
     default: {
-      featrue.tdStyle = `${featrue.tdStyle} text-center`;
+      featrue.divStyle = `text-center`;
       return featrue;
     }
+  }
+};
+
+export const scrollSwitch = (
+  scroll: number,
+  useScroll: boolean,
+  setUseScroll: Dispatch<SetStateAction<boolean>>,
+) => {
+  if (scroll === 0 && useScroll) {
+    setUseScroll(false);
+  }
+  if (scroll > 0 && useScroll === false) {
+    setUseScroll(true);
   }
 };
