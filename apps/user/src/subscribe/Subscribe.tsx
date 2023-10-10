@@ -4,7 +4,7 @@ import { FAQ } from '@/subscribe/elements/FAQ';
 
 import { SUBSCRIBE_QNA } from '@/subscribe/constant';
 import { useNavigate } from 'react-router-dom';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 
 import { RegisterCards } from '@/subscribe/elements/RegisterCards';
 import { useEffect } from 'react';

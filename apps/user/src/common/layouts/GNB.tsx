@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { routeList } from '@/router/routeList';
 
 import { menuData } from '@/common/layouts/sidebar/constants';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { openBrowser } from '@/utils/openBrowser';
 import {
   _amplitudeMovedToUserGuide,

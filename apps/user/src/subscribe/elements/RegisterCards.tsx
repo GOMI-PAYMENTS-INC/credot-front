@@ -11,7 +11,7 @@ import { ReactSVG } from 'react-svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { isTruthy } from '@/utils/isTruthy';
 import { isFalsy } from '@/utils/isFalsy';
 

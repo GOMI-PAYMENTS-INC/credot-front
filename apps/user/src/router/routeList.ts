@@ -7,28 +7,11 @@ import {
   SignIn,
   TemporaryPassword,
 } from '@/auth';
-
+import { PATH } from '@/common/constants';
 import { SearchKeywords } from '@/search/SearchKeywords';
 import * as ReportRoutes from '@/report';
 import { Subscribe, UpgradePlan, ResultPage, DownGrade } from '@/subscribe';
-
-export const PATH = {
-  SEARCH_PRODUCTS: '/',
-  SIGN_IN: '/signin',
-  SIGN_UP: '/signup',
-  SIGN_UP_WITH_GOOGLE: '/signup/social',
-  FIND_PASSWORD: '/find/password',
-  FIND_ID: '/find/id',
-  REAPPLY_PASSWORD: '/signin/password',
-  REPORT_LIST: '/report',
-  REPORT_DETAIL: '/report/:id',
-  REPORT_DETAIL_BY_SHARE: '/share/:id',
-  SUBSCRIBE: '/subscribe',
-  UPGRADE_PLAN: '/subscribe/upgrade',
-  DOWN_GRADE: '/subscribe/downgrade',
-  UNSUBSCRIPTION: '/subscribe/unsubscription',
-  RESULT_OF_PAY_REQUEST: '/subscribe/:result',
-} as const;
+import Category from '@/category/Category';
 
 type TPathKey = keyof typeof PATH;
 
@@ -137,5 +120,11 @@ export const routeList: IRoute[] = [
     description: 'ResultPage',
     path: PATH.RESULT_OF_PAY_REQUEST,
     component: ResultPage,
+  },
+  {
+    isPrivate: true,
+    description: 'Category',
+    path: PATH.CATEGORY,
+    component: Category,
   },
 ];

@@ -15,7 +15,7 @@ import { CACHING_KEY, STATUS_CODE } from '@/types/enum.code';
 
 import { toast } from 'react-toastify';
 import type { NavigateFunction } from 'react-router-dom';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { _getSubscription } from '@/common/container';
 

@@ -8,7 +8,7 @@ import {
 
 import { useEffect, useState } from 'react';
 import { CACHING_KEY } from '@/types/enum.code';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { SwitchAtom, SubscriptionAtom } from '@/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';

@@ -1,6 +1,6 @@
 import { PlanLayout as Layout } from '@/subscribe/elements/PlanLayout';
 import { BackforwardButton } from '@/components/BackForwardButton';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { formatNumber } from '@/utils/formatNumber';
 import { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';

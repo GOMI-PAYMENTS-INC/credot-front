@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useScroll } from '@/components/useScroll';
 import { BackforwardButton } from '@/components/BackForwardButton';
-import { PATH } from '@/router/routeList';
+import { PATH } from '@/common/constants';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 interface TDetailReportContent {
