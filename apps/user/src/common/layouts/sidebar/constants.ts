@@ -1,7 +1,6 @@
 import { PATH } from '@/common/constants';
 
-console.log(PATH, 'PATH');
-export const menuData = [
+export const MENU_DATA = [
   {
     key: 'keywordAnalyze',
     title: '키워드 분석',

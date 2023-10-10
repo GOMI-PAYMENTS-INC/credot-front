@@ -1,4 +1,4 @@
-import { menuData } from '@/common/layouts/sidebar/constants';
+import { MENU_DATA } from '@/common/layouts/sidebar/constants';
 
 export enum SIDE_BAR_ACTION {
   TOGGLE_SIDE_BAR = 'TOGGLE_SIDE_BAR',
@@ -17,7 +17,7 @@ export type TSidebarAction = {
 const sidebarInitialState: TSidebarState = {
   openedSidebar: window.innerWidth < 432 ? false : true,
   //lnb 내 메뉴 열림 여부
-  openedDepthList: [Object.values(menuData)[0].key],
+  openedDepthList: [Object.values(MENU_DATA)[0].key],
   //마이 메뉴 열림 여부
   openedUserMenu: false,
   openedFuncionMenu: false,
