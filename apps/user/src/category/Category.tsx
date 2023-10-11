@@ -61,7 +61,7 @@ const Category = () => {
             </div>
           </section>
           <main className='h-fit'>
-            <ProductsTable />
+            <ProductsTable searchState={searchState} />
           </main>
           <div id='pagination' className='flex items-center justify-between'>
             <Selector

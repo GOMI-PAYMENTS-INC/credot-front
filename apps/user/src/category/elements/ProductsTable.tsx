@@ -9,7 +9,11 @@ import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { getElementLocation } from '@/utils/getElementLocation';
 import { useState } from 'react';
 
-export const ProductsTable = () => {
+interface IProductsTable {
+  searchState: TCategorySearchType;
+}
+
+export const ProductsTable = ({ searchState }: IProductsTable) => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
   const [tableWidth, setTableWidth] = useState<number>();
   return (
@@ -68,9 +72,9 @@ export const ProductsTable = () => {
                         <button
                           onClick={() =>
                             openBrowser(
-                              `${convertShopeeSiteUrl('VN')}/search?keyword=${
-                                product[key]
-                              }`,
+                              `${convertShopeeSiteUrl(
+                                searchState.country,
+                              )}/search?keyword=${product[key]}`,
                               'R',
                             )
                           }
