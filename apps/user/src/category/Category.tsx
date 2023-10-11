@@ -11,7 +11,8 @@ import { updateCategoryPayload } from '@/category/container';
 
 import { convertCountry } from '@/utils/convertEnum';
 
-import { SORTING_TYPE, COUNTRY } from '@/search/constants';
+import { COUNTRY } from '@/search/constants';
+import { CATEGORIES } from '@/category/constants';
 
 const Category = () => {
   const [searchState, setSearchState] = useState<TCategorySearchType>(CATEGORY_STATE);
@@ -26,6 +27,7 @@ const Category = () => {
                 <Selector
                   minWidth={133}
                   value={convertCountry(searchState.country)}
+                  selectStyle={'h-[60px] items-center flex'}
                   isUseIcon={true}
                   iconPath={convertCountryIconPath(searchState.country)}
                   options={COUNTRY}
@@ -42,9 +44,8 @@ const Category = () => {
                 <Selector
                   minWidth={436}
                   value={searchState.category}
-                  isUseIcon={true}
-                  iconPath={searchState.category}
-                  options={SORTING_TYPE}
+                  isUseIcon={false}
+                  options={CATEGORIES}
                   onClickOption={(value) => {
                     return updateCategoryPayload({
                       _state: searchState,

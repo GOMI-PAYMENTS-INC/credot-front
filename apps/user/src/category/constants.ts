@@ -1,6 +1,10 @@
 export const CATEGORY_STATE: TCategorySearchType = {
   country: 'SG',
-  category: 'Hi',
+  category: {
+    text: 'Food & Beverages',
+    value: 'Food & Beverages',
+    subValue: '음식 & 음료수',
+  },
 };
 
 export const TABLE_COL_ELEMENTS = [
@@ -16,6 +20,13 @@ export const TABLE_COL_ELEMENTS = [
   'sales',
   'sales7Day',
   'sales30Day',
+];
+
+export const CATEGORIES = [
+  { text: 'Food & Beverages', value: 'Food & Beverages', subValue: '음식 & 음료수' },
+  { text: 'Pets', value: 'Pets', subValue: '애완용품' },
+  { text: 'Health', value: 'Health', subValue: '건강' },
+  { text: 'Beauty', value: 'Beauty', subValue: '미용' },
 ];
 
 export const PRODUCT_TABLE_ELEMENTS: TTableElements = {

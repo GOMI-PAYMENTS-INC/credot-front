@@ -16,19 +16,8 @@ export type TDropDownOption = {
   value: string | number;
   iconPath?: string;
   text: ReactNode;
-};
-
-type TDropDown = {
-  name?: string;
-  status?: DROPDOWN_STATUS;
-  variants?: DROPDOWN_VARIANTS;
-  isUseIcon?: boolean;
-  value: ReactNode;
-  minWidth?: number;
-  label?: string;
-  iconPath?: string;
-  options: TDropDownOption[];
-  onClickOption?: (value: ReactNode) => void;
+  subValue?: string;
+  subValueStyle?: string;
 };
 
 const statusStyle = (status: DROPDOWN_STATUS) => {
@@ -63,6 +52,20 @@ const variantsStyle = (variants: DROPDOWN_VARIANTS) => {
   }
 };
 
+type TDropDown = {
+  name?: string;
+  status?: DROPDOWN_STATUS;
+  variants?: DROPDOWN_VARIANTS;
+  isUseIcon?: boolean;
+  value: string | TDropDownOption;
+  minWidth?: number;
+  label?: string;
+  iconPath?: string;
+  options: TDropDownOption[];
+  selectStyle?: string;
+  onClickOption?: (value: ReactNode) => void;
+};
+
 export const Selector = ({
   name = Math.floor(Math.random() * 1000).toString(),
   status = DROPDOWN_STATUS.FILLED,
@@ -73,6 +76,7 @@ export const Selector = ({
   isUseIcon,
   options,
   label,
+  selectStyle,
   onClickOption,
 }: TDropDown) => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -92,7 +96,7 @@ export const Selector = ({
         {label && <label className='inputCustom-label'>{label}</label>}
         <div
           id={`select-group-${name}`}
-          className={`relative w-fit rounded-lg border-[1px] bg-white text-S/Regular text-grey-900`}
+          className={`relative w-fit rounded-lg border-[1px] bg-white text-S/Regular text-grey-900 ${selectStyle}`}
           ref={selectorRef}
         >
           <button
@@ -104,13 +108,24 @@ export const Selector = ({
             onClick={() => setOpen(!isOpen)}
           >
             {isUseIcon && <ReactSVG src={iconPath!} />}
-            <span>{value}</span>
+            {typeof value === 'string' ? (
+              <p>{value}</p>
+            ) : (
+              <div className='flex flex-col gap-1 text-start'>
+                <p>{value.text}</p>
+                {value.subValue && (
+                  <p className={`text-XS/Medium text-grey-700 ${value.subValueStyle}`}>
+                    {value.subValue}
+                  </p>
+                )}
+              </div>
+            )}
           </button>
 
           {isOpen && (
             <ul
               id={`select-option-${name}`}
-              className='absolute top-[calc(100%_+_4px)] z-10 min-w-full rounded-md bg-white shadow-[0px_4px_12px_rgba(0,0,0,0.08)]'
+              className='absolute top-[calc(100%_+_4px)] z-30 min-w-full rounded-md bg-white shadow-[0px_4px_12px_rgba(0,0,0,0.08)]'
             >
               {options.map((option) => {
                 return (
@@ -118,13 +133,20 @@ export const Selector = ({
                     <button
                       className={`flex w-full gap-x-2 break-keep py-3 px-4 hover:bg-grey-100 ${
                         option.text === value && 'text-orange-500'
-                      }`}
+                      } ${option.subValue ? 'flex flex-col gap-1' : ''}`}
                       onClick={() => {
                         handleOnClickOption(option.value);
                       }}
                     >
                       {isUseIcon && <ReactSVG src={option.iconPath!} />}
-                      <span>{option.text}</span>
+                      <p>{option.text}</p>
+                      {option.subValue && (
+                        <p
+                          className={`text-XS/Medium text-grey-700 ${option.subValueStyle}`}
+                        >
+                          {option.subValue}
+                        </p>
+                      )}
                     </button>
                   </li>
                 );

@@ -1,6 +1,6 @@
 type TCategorySearchType = {
   country: TSearchCountry;
-  category: string;
+  category: { text: string; value: string; subValue: string };
 };
 type TColumnType = 'type1' | 'type2' | 'type3' | '';
 type TTableColumn = { title: string; type: TColumnType };
