@@ -1,8 +1,15 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { useSessionStorage } from '@/utils/useSessionStorage';
-import { CACHING_KEY } from '@/types/enum.code';
-import { PRODUCT_TABLE_ELEMENTS, TABLE_COL_ELEMENTS } from '@/category/constants';
-import { switchHotKeyword } from '@/search/container';
+import { PRODUCT_TABLE_ELEMENTS } from '@/category/constants';
+
+export const updatePagination = (
+  key: keyof TPagination,
+  value: number,
+  pagination: TPagination,
+  setPagination: Dispatch<SetStateAction<TPagination>>,
+) => {
+  const _state = Object.assign({}, pagination, { [key]: value });
+  setPagination(_state);
+};
 
 export const updateCategoryPayload = (props: {
   _state: TCategorySearchType;
@@ -12,10 +19,10 @@ export const updateCategoryPayload = (props: {
   calledByEvent?: boolean;
 }) => {
   const { _state, _dispatch, params, key, calledByEvent } = props;
-  const preKeyword = useSessionStorage.getItem(CACHING_KEY.CATEGORY);
+
   const updatedState = Object.assign({}, _state, { [key]: params });
 
-  // _dispatch(updatedState);
+  _dispatch(updatedState);
 };
 
 export const featureConvertor = (type: TColumnType, index: number) => {
@@ -86,10 +93,13 @@ export const sepecificFeature = (
     }
     case 'keyword': {
       featrue.divStyle = `flex justify-between items-center`;
-      featrue.tdStyle = `${featrue.tdStyle} sticky left-0 bg-white z-10 ${
+      featrue.tdStyle = `${
+        featrue.tdStyle
+      } py-[6px] pl-[14px] pr-4 sticky left-0 bg-white z-10 ${
         useScroll ? 'shadow-[rgba(0,_0,_0,_0.25)_0px_60px_40px_-7px]' : ''
       }`;
-      featrue.valueStyle = 'text-orange-400 cursor-pointer w-[180px] truncate';
+      featrue.valueStyle =
+        'text-grey-900 w-[130px] truncate text-S/Medium text-center self-center text-start';
       featrue.iconPath = '/assets/icons/outlined/Linkout.svg';
       featrue.iconStyle = 'cursor-pointer';
       return featrue;

@@ -101,7 +101,7 @@ export const SearchKeywords = () => {
   }
 
   return (
-    <Layout>
+    <Layout useGap={true}>
       {isExceeded && (
         <ExccededAlertModal
           isExceeded={isExceeded}
@@ -132,7 +132,7 @@ export const SearchKeywords = () => {
           <img src='/assets/images/NBackground.png' />
         </div>
         <section
-          className={`w-[1075px] pt-[102px] ${
+          className={`w-[1075px] pt-10 ${
             searchState.keyword
               ? 'mx-[192px] flex  gap-[58px] border-grey-300'
               : 'mx-[180px] h-full'

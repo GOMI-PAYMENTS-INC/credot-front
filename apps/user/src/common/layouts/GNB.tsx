@@ -46,8 +46,8 @@ const GNB = () => {
             const isFit =
               isIncluded(route.path, ...menu.activePath) || route.path === menu.path;
             const highLightEffect = isFit
-              ? 'text-orange-500 bg-orange-100 text-M/Bold'
-              : 'text-M/Regular text-grey-800';
+              ? 'text-orange-500 bg-orange-100 text-S/Bold'
+              : 'text-S/Regular text-grey-800';
             return (
               <li
                 key={menu.key}

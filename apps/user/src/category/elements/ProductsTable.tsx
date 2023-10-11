@@ -11,13 +11,13 @@ import { useState } from 'react';
 
 export const ProductsTable = () => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
-
+  const [tableWidth, setTableWidth] = useState<number>();
   return (
     <div
       id='scrollbar'
-      className='mt-5 mb-[34px] h-fit overflow-y-scroll'
+      className='mt-5 mb-[34px] h-fit overflow-y-scroll '
       onScroll={() => {
-        const { scrollLeft } = getElementLocation('scrollbar');
+        const { scrollLeft, offsetLeft } = getElementLocation('scrollbar');
         scrollSwitch(scrollLeft, useScroll, setUseScroll);
       }}
     >
@@ -61,33 +61,53 @@ export const ProductsTable = () => {
                   const { value, iconPath, tdStyle, valueStyle, iconStyle, divStyle } =
                     sepecificFeature(_key, product[_key], useScroll);
 
-                  return (
+                  return key === 'keyword' ? (
+                    <th key={`${product.keyword}_${index}`} className={tdStyle}>
+                      <div className='flex gap-4'>
+                        <p className={valueStyle}>{value}</p>
+                        <button
+                          onClick={() =>
+                            openBrowser(
+                              `${convertShopeeSiteUrl('VN')}/search?keyword=${
+                                product[key]
+                              }`,
+                              'R',
+                            )
+                          }
+                        >
+                          <ReactSVG
+                            src={iconPath}
+                            className={iconStyle}
+                            beforeInjection={(svg) =>
+                              svg.setAttribute('class', 'fill-grey-600')
+                            }
+                          />
+                        </button>
+                        <button
+                          id='relative_report_generator'
+                          className='rounded-md border-[1px] border-orange-600 bg-orange-100 p-2'
+                          onClick={() => {}}
+                        >
+                          <ReactSVG
+                            className=''
+                            src='/assets/icons/outlined/CarbonReport.svg'
+                            beforeInjection={(svg) =>
+                              svg.setAttribute(
+                                'class',
+                                'fill-orange-400 w-[19px] h-[19px]',
+                              )
+                            }
+                          />
+                        </button>
+                      </div>
+                    </th>
+                  ) : (
                     <td key={`${product.keyword}_${index}`} className={tdStyle}>
                       <div className={divStyle}>
                         {key === 'salesGrowthRate' && (
                           <ReactSVG src={iconPath} className={iconStyle} />
                         )}
                         <p className={valueStyle}>{value}</p>
-                        {key === 'keyword' && (
-                          <button
-                            onClick={() =>
-                              openBrowser(
-                                `${convertShopeeSiteUrl('VN')}/search?keyword=${
-                                  product[key]
-                                }`,
-                                'R',
-                              )
-                            }
-                          >
-                            <ReactSVG
-                              src={iconPath}
-                              className={iconStyle}
-                              beforeInjection={(svg) =>
-                                svg.setAttribute('class', 'fill-grey-600')
-                              }
-                            />
-                          </button>
-                        )}
                       </div>
                     </td>
                   );

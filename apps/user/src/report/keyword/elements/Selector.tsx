@@ -63,7 +63,7 @@ type TDropDown = {
   iconPath?: string;
   options: TDropDownOption[];
   selectStyle?: string;
-  onClickOption?: (value: ReactNode) => void;
+  onClickOption?: (value: string | number | TDropDownOption) => void;
 };
 
 export const Selector = ({
@@ -128,14 +128,21 @@ export const Selector = ({
               className='absolute top-[calc(100%_+_4px)] z-30 min-w-full rounded-md bg-white shadow-[0px_4px_12px_rgba(0,0,0,0.08)]'
             >
               {options.map((option) => {
+                const valueText = typeof value === 'string' ? value : value.text;
                 return (
                   <li key={option.value}>
                     <button
                       className={`flex w-full gap-x-2 break-keep py-3 px-4 hover:bg-grey-100 ${
-                        option.text === value && 'text-orange-500'
+                        option.text === valueText && 'text-orange-500'
                       } ${option.subValue ? 'flex flex-col gap-1' : ''}`}
                       onClick={() => {
-                        handleOnClickOption(option.value);
+                        let payload;
+                        if (option.subValue) {
+                          payload = option;
+                        } else {
+                          payload = option.value;
+                        }
+                        handleOnClickOption(payload);
                       }}
                     >
                       {isUseIcon && <ReactSVG src={option.iconPath!} />}

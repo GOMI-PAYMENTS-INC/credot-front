@@ -6,7 +6,7 @@ type TColumnType = 'type1' | 'type2' | 'type3' | '';
 type TTableColumn = { title: string; type: TColumnType };
 
 type TTableElements = { thead: TTableColumn[]; tbody: TRespone[] };
-
+type TPagination = { bundle: number; page: number };
 type TRespone = {
   id: number;
   baseDate: string;
