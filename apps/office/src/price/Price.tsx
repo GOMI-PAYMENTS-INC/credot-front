@@ -1,5 +1,6 @@
-import { Plan, KeywordContents } from '@/price/elements';
-import { FAQ } from '@/common';
+import { Plan } from '@/price/elements';
+
+import { FAQ, KeywordContent } from '@/common';
 import { PRICE_QNA } from '@/common/constants';
 import { useEffect } from 'react';
 import { _introPricingPageViewed } from '@/amplitude/amplitude.service';
@@ -19,7 +20,7 @@ const Price = () => {
         </p>
       </section>
       <Plan />
-      <KeywordContents />
+      <KeywordContent />
       <FAQ list={PRICE_QNA} />
     </main>
   );

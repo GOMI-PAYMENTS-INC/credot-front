@@ -5,6 +5,7 @@ export enum PAGE_CATEGORY {
   PREVIEW = 'preview',
   KEYWORD_REPORT_PREVIEWED = 'keyword report previewed',
   KEYWORD_ANALYSIS_PRICING = 'keyword analysis pricing',
+  CONTENT_VIEWED = 'content viewed',
 }
 export enum CTA_TYPE {
   BUTTON = 'button',
