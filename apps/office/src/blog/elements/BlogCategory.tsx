@@ -6,7 +6,7 @@ export const BlogCategory = () => {
 
   return (
     <section>
-      <CardList listType='extend' title={id!} />
+      <CardList listType='extend' title={id as TCategory} />
     </section>
   );
 };
