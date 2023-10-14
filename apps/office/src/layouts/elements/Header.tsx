@@ -3,12 +3,13 @@ import { ReactSVG } from 'react-svg';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HeaderMenu } from '@/layouts/elements/HeaderMenu';
-import { PATH } from '@/router';
+import { PATH } from '@/common/constants';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 
 import { GlobalEnv } from '@/api/config';
 import { openAppWithTag } from '@/utils/openBrowser';
 import { GNB_ROUTE } from '@/layouts/constants';
+import { getUnderline } from '@/layouts/container';
 
 export const Header = () => {
   const { pathname } = useLocation();
@@ -21,7 +22,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full border-b-[1px] border-grey-400 bg-white  ${
+      className={`fixed top-0 left-0 z-50 w-full border-b-[1px] border-grey-100 bg-white  ${
         isOpenMenu ? 'h-full' : 'h-20'
       }`}
     >
@@ -43,10 +44,10 @@ export const Header = () => {
               />
             </Link>
 
-            <div className=' ml-[58px] flex items-center justify-center gap-x-[25px] text-center text-M/Medium md:hidden'>
+            <div className='ml-[58px] flex items-center justify-center gap-x-[25px] text-center text-M/Medium md:hidden'>
               {GNB_ROUTE.map((route) => {
-                const underLine =
-                  route.path === current ? 'border-b-orange-500 ' : 'border-b-white';
+                const underLine = getUnderline(route, current);
+
                 return (
                   <Link
                     key={route.path}

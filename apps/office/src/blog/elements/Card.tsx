@@ -10,7 +10,7 @@ export const Card = ({ type = '' }: ICard) => {
     getCardCss(type);
 
   return (
-    <div className='flex flex-col rounded-lg'>
+    <div className='flex cursor-pointer flex-col rounded-lg shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
       <img className={imgStyle} src='/assets/images/main.png' />
       <div id='content_info' className={contentInfoStyle}>
         <p className={titleStyle}>SERP, 검색결과 화면 분석의 중요성</p>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
-import { PATH } from '@/router';
+import { PATH } from '@/common/constants';
 
 export const Footer = () => {
   const IMG_PATH = '/assets/images';
