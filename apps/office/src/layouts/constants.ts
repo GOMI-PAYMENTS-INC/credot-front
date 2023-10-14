@@ -1,10 +1,6 @@
-const PATH = {
-  MAIN: '/',
-  PRICE: '/price',
-  BLOG: '/blog',
-};
+import { PATH } from '@/common/constants';
 
 export const GNB_ROUTE = [
-  { text: '블로그', path: PATH.BLOG, icon: 'Preview' },
-  { text: '요금 안내', path: PATH.PRICE, icon: 'Coin' },
+  { text: '블로그', path: PATH.BLOG, icon: 'Preview', child: [PATH.CONTENT] },
+  { text: '요금 안내', path: PATH.PRICE, icon: 'Coin', child: [] },
 ];

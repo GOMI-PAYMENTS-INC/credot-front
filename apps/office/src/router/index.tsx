@@ -5,14 +5,10 @@ import Layout from '@/layouts/Layout';
 import Main from '@/home/Main';
 import Price from '@/price/Price';
 import Blog from '@/blog/Blog';
+import { BlogCategory, Landing } from '@/blog/elements';
 
 import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
-
-export const PATH = {
-  MAIN: '/',
-  PRICE: '/price',
-  BLOG: '/blog',
-};
+import { PATH } from '@/common/constants';
 
 type TPathKey = keyof typeof PATH;
 
@@ -48,9 +44,23 @@ export const Router = () => {
   return (
     <Layout>
       <Routes>
-        {routeList.map((route, index) => (
-          <Route key={index} path={route.path} element={createElement(route.component)} />
-        ))}
+        {routeList.map((route, index) => {
+          if (pathname.includes(PATH.BLOG)) {
+            return (
+              <Route key={index} path={PATH.BLOG} element={createElement(Blog)}>
+                <Route key={index} path={PATH.BLOG} element={createElement(Landing)} />
+                <Route path={PATH.CONTENT} element={createElement(BlogCategory)} />
+              </Route>
+            );
+          }
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={createElement(route.component)}
+            />
+          );
+        })}
       </Routes>
     </Layout>
   );

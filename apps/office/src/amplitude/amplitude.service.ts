@@ -1,6 +1,6 @@
 import { amplitudeConstant } from '@/amplitude/amplitude.constant';
 import { pageCategoryConvertor } from '@/amplitude/amplitude.enum';
-import { PATH } from '@/router';
+import { PATH } from '@/common/constants';
 
 declare var amplitude: any;
 

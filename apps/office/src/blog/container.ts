@@ -23,3 +23,24 @@ export const getCardCss = (type: 'main' | '') => {
 
   return cardCss;
 };
+
+export const getPath = (pathname: string, movedPath: string) => {
+  if (pathname.includes('content')) {
+    const path = pathname.split('/');
+    path.pop();
+
+    return path.join('/') + `/${movedPath}`;
+  }
+  return pathname + `/content/${movedPath}`;
+};
+
+export const convertTitle = (title: TCategory) => {
+  switch (title) {
+    case 'insight':
+      return '인사이트';
+    case 'news':
+      return '뉴스';
+    default:
+      return '제품';
+  }
+};

@@ -2,7 +2,7 @@ import { ReactSVG } from 'react-svg';
 import { openAppWithTag } from '@/utils/openBrowser';
 import { CTA_LOCATION, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
-import { PATH } from '@/router';
+import { PATH } from '@/common/constants';
 
 export const KeywordContent = () => {
   return (
@@ -36,7 +36,7 @@ export const KeywordContent = () => {
               >
                 <p className=' text-center text-XL/Bold text-white'>무료 시작하기</p>
                 <ReactSVG
-                  src='assets/icons/Union.svg'
+                  src='/assets/icons/Union.svg'
                   className='absolute bottom-[-20px] right-[0px] cursor-auto self-end'
                 />
               </button>

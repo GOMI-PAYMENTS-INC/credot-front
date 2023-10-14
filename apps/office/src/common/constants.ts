@@ -1,5 +1,12 @@
 import { GlobalEnv } from '@/api/config';
 
+export const PATH = {
+  MAIN: '/',
+  PRICE: '/price',
+  BLOG: '/blog',
+  CONTENT: 'content/:id',
+};
+
 export const HOME_QNA = [
   {
     subject: '고미인사이트는 어떤 서비스인가요?',
