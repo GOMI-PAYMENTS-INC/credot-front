@@ -18,7 +18,7 @@ const Blog = () => {
       >
         {
           <div className='w-[1300px] pl-[300px] sm:w-[300px] sm:pl-0'>
-            {isDevice &&
+            {(pathname.includes('content') || isDevice) &&
               CATEGORY_LIST.map((category) => {
                 const underLine = pathname.includes(category.path)
                   ? 'border-b-orange-400 '
