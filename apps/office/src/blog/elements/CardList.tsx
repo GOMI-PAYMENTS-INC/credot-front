@@ -11,6 +11,7 @@ export const CardList = ({ listType = 'standard', title }: ICardList) => {
   const cards = listType === 'standard' ? Array(3).fill(1) : Array(9).fill(1);
   const cardListStyle = listType === 'standard' ? '' : 'flex-wrap  gap-y-[50px]';
   const _title = convertTitle(title as TCategory);
+  console.log(title, 'title');
   const navigator = useNavigate();
   const { pathname } = useLocation();
   return (
