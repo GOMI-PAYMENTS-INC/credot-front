@@ -18,7 +18,8 @@ const Blog = () => {
       >
         {
           <div className='w-[1300px] pl-[300px] sm:w-[300px] sm:pl-0'>
-            {(pathname.includes('content') || isDevice) &&
+            {
+              // (pathname.includes('content') || isDevice) &&
               CATEGORY_LIST.map((category) => {
                 const underLine = pathname.includes(category.path)
                   ? 'border-b-orange-400 '
@@ -39,12 +40,16 @@ const Blog = () => {
                     </p>
                   </button>
                 );
-              })}
+              })
+            }
           </div>
         }
       </div>
-
-      <div className='mt-[60px] flex w-[1144px] flex-col gap-[120px]'>
+      <div
+        id='blog_background'
+        className=' absolute top-10 h-[400px] w-full bg-gradient-to-b from-orange-100 to-white'
+      />
+      <div className='relative mt-[60px] flex w-[1144px] flex-col gap-[120px]'>
         <Outlet />
       </div>
       <div className='mt-[100px] w-full'>
