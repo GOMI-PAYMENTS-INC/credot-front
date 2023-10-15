@@ -9,15 +9,15 @@ interface ICardList {
 
 export const CardList = ({ listType = 'standard', title }: ICardList) => {
   const cards = listType === 'standard' ? Array(3).fill(1) : Array(9).fill(1);
-  const cardListStyle = listType === 'standard' ? '' : 'flex-wrap  gap-y-[50px]';
+  const cardListStyle = listType === 'standard' ? '' : 'flex-wrap gap-y-[50px]';
   const _title = convertTitle(title as TCategory);
-  console.log(title, 'title');
+
   const navigator = useNavigate();
   const { pathname } = useLocation();
   return (
     <div className='flex w-full flex-col' id='card_list_frame'>
-      <header id='card_list_title' className='mb-5 flex justify-between'>
-        <p className='text-2XL/Bold'>{_title}</p>
+      <header id='card_list_title' className='mb-5 flex w-full justify-between'>
+        <p className='self-start text-2XL/Bold'>{_title}</p>
         {listType === 'standard' && (
           <button
             onClick={() => {
@@ -31,14 +31,16 @@ export const CardList = ({ listType = 'standard', title }: ICardList) => {
       </header>
 
       <main>
-        <div id='card_list' className={`flex gap-[23px] ${cardListStyle}`}>
-          {cards.map((card, index) => {
-            return (
-              <div key={`card_${index}`} className='flex max-w-[366px]'>
-                <Card />
-              </div>
-            );
-          })}
+        <div className='flex justify-center'>
+          <div id='card_list' className={`flex gap-[23px] ${cardListStyle}`}>
+            {cards.map((card, index) => {
+              return (
+                <div key={`card_${index}`} className='flex max-w-[366px]'>
+                  <Card />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </main>
     </div>

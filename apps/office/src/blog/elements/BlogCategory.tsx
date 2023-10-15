@@ -5,8 +5,10 @@ export const BlogCategory = () => {
   const { id } = useParams();
 
   return (
-    <section>
-      <CardList listType='extend' title={id as TCategory} />
+    <section className='w-full overflow-x-hidden'>
+      <div className='flex flex-col'>
+        <CardList listType='extend' title={id as TCategory} />
+      </div>
     </section>
   );
 };

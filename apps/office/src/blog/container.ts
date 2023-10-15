@@ -15,10 +15,13 @@ export const getCardCss = (type: 'main' | '') => {
     cardCss.contentInfoStyle = `${cardCss.contentInfoStyle} flex justify-between px-[60px] py-[26px]`;
   } else {
     cardCss.imgStyle = `${cardCss.imgStyle} h-[207px] w-full rounded-t-lg`;
-    cardCss.titleStyle = 'text-L/Bold w-[328px] h-[56px] text-ellipsis';
-    cardCss.contentInfoDivStyle = `${cardCss.contentInfoDivStyle} h-[52px] w-[328px]`;
+    cardCss.contentInfoDivStyle = `${cardCss.contentInfoDivStyle} h-[52px] w-[328px] lg:w-[275px] lg:h-12`;
+
+    cardCss.titleStyle =
+      'text-L/Bold w-[328px] h-[56px] text-ellipsis lg:text-M/Bold sm:text-L/Bold';
+
+    cardCss.contentInfoStyle = `${cardCss.contentInfoStyle} border-b-0 rounded-b-[0px] flex-col flex p-5 lg:text-S/Regular sm:text-S/Medium `;
     cardCss.contentStyle = 'text-M/Medium leading-[27px] text-grey-700';
-    cardCss.contentInfoStyle = `${cardCss.contentInfoStyle} border-b-0 rounded-b-[0px] flex-col flex p-5`;
   }
 
   return cardCss;

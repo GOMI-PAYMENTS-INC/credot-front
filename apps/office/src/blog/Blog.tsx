@@ -17,7 +17,7 @@ const Blog = () => {
         className='sticky top-20 z-30 w-full gap-x-[25px] border-b-[1px] bg-white pl-[300px] text-start text-M/Medium md:hidden'
       >
         {
-          <div className='w-[1300px] pl-[300px] sm:w-[300px] sm:pl-0'>
+          <div className='w-[1300px] pl-[300px] lg:w-[] sm:w-[300px] sm:pl-0'>
             {
               // (pathname.includes('content') || isDevice) &&
               CATEGORY_LIST.map((category) => {
@@ -49,7 +49,7 @@ const Blog = () => {
         id='blog_background'
         className=' absolute top-10 h-[400px] w-full bg-gradient-to-b from-orange-100 to-white'
       />
-      <div className='relative mt-[60px] flex w-[1144px] flex-col gap-[120px]'>
+      <div className='relative mt-[60px] flex w-[1144px] flex-col gap-[120px] md:w-auto'>
         <Outlet />
       </div>
       <div className='mt-[100px] w-full'>
