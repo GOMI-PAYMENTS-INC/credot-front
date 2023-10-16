@@ -9,6 +9,7 @@ import { BlogCategory, Landing } from '@/blog/elements';
 
 import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/common/constants';
+import SERP from '@/blog/elements/SERP';
 
 type TPathKey = keyof typeof PATH;
 
@@ -50,6 +51,7 @@ export const Router = () => {
               <Route key={index} path={PATH.BLOG} element={createElement(Blog)}>
                 <Route key={index} path={PATH.BLOG} element={createElement(Landing)} />
                 <Route path={PATH.CONTENT} element={createElement(BlogCategory)} />
+                <Route path={PATH.SERP} element={createElement(SERP)} />
               </Route>
             );
           }

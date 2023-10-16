@@ -1,6 +1,6 @@
-export const getCardCss = (type: 'main' | '') => {
+export const getCardCss = (type: TCard) => {
   const cardCss = {
-    imgStyle: 'border-[1px] rounded-t-lg border-b-0 border-grey-300',
+    imgStyle: 'rounded-t-lg border-b-0 border-grey-300 border-[1px]',
     contentInfoStyle: 'rounded-b-lg border-[1px] border-t-0',
     contentInfoDivStyle: 'overflow-hidden text-ellipsis',
     titleStyle: '',
@@ -20,8 +20,16 @@ export const getCardCss = (type: 'main' | '') => {
     cardCss.titleStyle =
       'text-L/Bold w-[328px] h-[56px] text-ellipsis lg:text-M/Bold sm:text-L/Bold';
 
-    cardCss.contentInfoStyle = `${cardCss.contentInfoStyle} border-b-0 rounded-b-[0px] flex-col flex p-5 lg:text-S/Regular sm:text-S/Medium `;
+    cardCss.contentInfoStyle = `${cardCss.contentInfoStyle} border-b-none rounded-b-[0px] flex-col flex p-5 lg:text-S/Regular sm:text-S/Medium `;
     cardCss.contentStyle = 'text-M/Medium leading-[27px] text-grey-700';
+  }
+
+  if (type === 'recommandation') {
+    cardCss.titleStyle = 'text-L/Bold w-[272px] h-[60px] text-ellipsis';
+    cardCss.imgStyle = 'w-[318px] h-[180px] rounded-l-lg';
+    cardCss.contentInfoStyle = `border-[1px] rounded-r-lg border-l-none w-full border-grey-300 flex-col flex gap-2.5 p-[25px]`;
+    cardCss.contentStyle = 'text-M/Regular leading-[27px] text-grey-700';
+    cardCss.contentInfoDivStyle = `overflow-hidden text-ellipsis w-[380px] h-[60px]`;
   }
 
   return cardCss;

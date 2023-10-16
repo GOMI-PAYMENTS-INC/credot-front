@@ -2,15 +2,17 @@ import { getCardCss } from '@/blog/container';
 import { isFalsy } from '@/utils/isFalsy';
 
 interface ICard {
-  type?: 'main' | '';
+  type?: TCard;
 }
 
 export const Card = ({ type = '' }: ICard) => {
   const { imgStyle, contentInfoStyle, contentStyle, titleStyle, contentInfoDivStyle } =
     getCardCss(type);
-
+  const mainFrameStyle = type === 'recommandation' ? '' : 'flex-col';
   return (
-    <div className='flex cursor-pointer flex-col rounded-lg shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)] lg:max-w-[334px]'>
+    <div
+      className={`flex cursor-pointer ${mainFrameStyle} rounded-lg shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)] lg:max-w-[334px]`}
+    >
       <img className={imgStyle} src='/assets/images/main.png' />
       <div id='content_info' className={contentInfoStyle}>
         <p className={titleStyle}>SERP, 검색결과 화면 분석의 중요성</p>
@@ -25,7 +27,7 @@ export const Card = ({ type = '' }: ICard) => {
       {isFalsy(type) && (
         <div
           id='author'
-          className='bg-grey- flex justify-between rounded-b-lg border-[1px] border-t-0 bg-grey-200 px-5 py-[14px]'
+          className={`py-[14px]} flex justify-between rounded-b-lg rounded-r border-[1px] border-t-0 bg-grey-200 px-5`}
         >
           <div className='flex gap-2.5'>
             <img className='h-[44px]  w-[44px]' src='/assets/images/Kai.png' />
