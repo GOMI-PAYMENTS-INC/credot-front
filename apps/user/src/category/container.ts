@@ -1,5 +1,8 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { PRODUCT_TABLE_ELEMENTS } from '@/category/constants';
+import { useSessionStorage } from '@/utils/useSessionStorage';
+import { CACHING_KEY } from '@/types/enum.code';
+import { getCategoryProducts } from '@/category/api';
 
 export const updatePagination = (
   key: keyof TPagination,
@@ -11,7 +14,7 @@ export const updatePagination = (
   setPagination(_state);
 };
 
-export const updateCategoryPayload = (props: {
+export const updateCategoryPayload = async (props: {
   _state: TCategorySearchType;
   _dispatch: Dispatch<SetStateAction<TCategorySearchType>>;
   key: keyof TCategorySearchType;
@@ -19,10 +22,28 @@ export const updateCategoryPayload = (props: {
   calledByEvent?: boolean;
 }) => {
   const { _state, _dispatch, params, key, calledByEvent } = props;
+  let payload;
+  if (key === 'country') {
+    const categories = (await useSessionStorage.getItem(CACHING_KEY.CATEGORY)) as {
+      countryCode: TSearchCountry;
+      category: {
+        code: string;
+        value: string;
+      }[];
+    }[];
 
-  const updatedState = Object.assign({}, _state, { [key]: params });
+    const category = categories.find((category) => category.countryCode === params);
 
-  _dispatch(updatedState);
+    payload = Object.assign({}, _state, {
+      country: category?.countryCode,
+      category: category?.category[0],
+      categories: category?.category,
+    });
+  } else {
+    const category = _state.categories.find((category) => category.value === params);
+    payload = Object.assign({}, _state, { category });
+  }
+  _dispatch(payload);
 };
 
 export const featureConvertor = (type: TColumnType, index: number) => {
@@ -70,7 +91,7 @@ const pathConvertor = (value: number) => {
   return '/assets/icons/filled/DecreasedIcon.svg';
 };
 export const sepecificFeature = (
-  key: keyof TRespone,
+  key: keyof TTableRowData,
   value: ReactNode,
   useScroll: boolean,
 ) => {
@@ -122,4 +143,17 @@ export const scrollSwitch = (
   if (scroll > 0 && useScroll === false) {
     setUseScroll(true);
   }
+};
+
+export const _getCategoryProducts = async (
+  searchState: TCategorySearchType,
+  setRowTable: Dispatch<SetStateAction<TTableRowData[]>>,
+) => {
+  const { country, category } = searchState;
+  const response = await getCategoryProducts({
+    countryCode: country,
+    categoryCode: category.code,
+  });
+  console.log(response, 'response');
+  setRowTable(response);
 };

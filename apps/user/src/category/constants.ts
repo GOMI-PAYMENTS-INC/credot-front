@@ -1,10 +1,15 @@
 export const CATEGORY_STATE: TCategorySearchType = {
   country: 'SG',
   category: {
-    text: 'Food & Beverages',
+    code: '100629',
     value: 'Food & Beverages',
-    subValue: '음식 & 음료수',
   },
+  categories: [
+    {
+      code: '100629',
+      value: 'Food & Beverages',
+    },
+  ],
 };
 
 export const TABLE_COL_ELEMENTS = [
@@ -20,6 +25,29 @@ export const TABLE_COL_ELEMENTS = [
   'sales',
   'sales7Day',
   'sales30Day',
+];
+
+export const TABLE_INITIALSTAE = [
+  {
+    id: 1493,
+    countryCode: 'SG' as TSearchCountry,
+    baseDate: '2023-10-05',
+    categoryCode1: 100629,
+    categoryCode2: 100651,
+    categoryCode3: 100824,
+    keyword: 'coffee',
+    itemCount: 390,
+    sales: 110,
+    sales7Day: 913,
+    sales30Day: 8893,
+    gmv30Day: 105249.52,
+    searchValue: 18714,
+    cpc: 22,
+    salesGrowthRate: -80.89,
+    averagePrice: 4.457910906,
+    createdAt: '2023-10-06 7:17:53',
+    updatedAt: '2023-10-06 7:17:53',
+  },
 ];
 
 export const CATEGORIES = [

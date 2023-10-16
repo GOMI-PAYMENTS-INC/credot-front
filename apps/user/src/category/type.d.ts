@@ -1,13 +1,17 @@
 type TCategorySearchType = {
   country: TSearchCountry;
-  category: { text: string; value: string; subValue: string };
+  category: TCategoryType;
+  categories: TCategoryType[];
 };
+type TCategoryType = { value: string; code: string };
 type TColumnType = 'type1' | 'type2' | 'type3' | '';
 type TTableColumn = { title: string; type: TColumnType };
 
-type TTableElements = { thead: TTableColumn[]; tbody: TRespone[] };
+type TTableElements = { thead: TTableColumn[]; tbody: TTableRowData[] };
+
 type TPagination = { bundle: number; page: number };
-type TRespone = {
+
+type TTableRowData = {
   id: number;
   baseDate: string;
   countryCode: TSearchCountry;

@@ -26,3 +26,13 @@ type TDropDownOption = {
   iconPath?: string;
   text: string;
 };
+
+type TCategoryListResponse = {
+  categories: {
+    countryCode: TSearchCountry;
+    category: {
+      code: string;
+      value: string;
+    }[];
+  }[];
+};

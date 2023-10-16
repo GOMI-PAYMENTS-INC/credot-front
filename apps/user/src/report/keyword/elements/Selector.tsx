@@ -15,7 +15,7 @@ export enum DROPDOWN_VARIANTS {
 export type TDropDownOption = {
   value: string | number;
   iconPath?: string;
-  text: ReactNode;
+  text?: ReactNode;
   subValue?: string;
   subValueStyle?: string;
 };
@@ -112,11 +112,13 @@ export const Selector = ({
               <p>{value}</p>
             ) : (
               <div className='flex flex-col gap-1 text-start'>
-                <p>{value.text}</p>
-                {value.subValue && (
+                <p>{value?.text || value.value}</p>
+                {value.subValue ? (
                   <p className={`text-XS/Medium text-grey-700 ${value.subValueStyle}`}>
                     {value.subValue}
                   </p>
+                ) : (
+                  ''
                 )}
               </div>
             )}
@@ -129,11 +131,12 @@ export const Selector = ({
             >
               {options.map((option) => {
                 const valueText = typeof value === 'string' ? value : value.text;
+                const compareKey = option.text || option.value;
                 return (
                   <li key={option.value}>
                     <button
                       className={`flex w-full gap-x-2 break-keep py-3 px-4 hover:bg-grey-100 ${
-                        option.text === valueText && 'text-orange-500'
+                        compareKey === valueText && 'text-orange-500'
                       } ${option.subValue ? 'flex flex-col gap-1' : ''}`}
                       onClick={() => {
                         let payload;
@@ -146,7 +149,7 @@ export const Selector = ({
                       }}
                     >
                       {isUseIcon && <ReactSVG src={option.iconPath!} />}
-                      <p>{option.text}</p>
+                      <p>{option.text || option.value}</p>
                       {option.subValue && (
                         <p
                           className={`text-XS/Medium text-grey-700 ${option.subValueStyle}`}

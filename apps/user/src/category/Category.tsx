@@ -5,14 +5,11 @@ import { ProductsTable } from '@/category/elements/ProductsTable';
 
 import { useState } from 'react';
 import { CATEGORY_STATE } from '@/category';
-
 import { convertCountryIconPath } from '@/utils/convertEnum';
 import { updateCategoryPayload, updatePagination } from '@/category/container';
 
 import { convertCountry } from '@/utils/convertEnum';
-
 import { COUNTRY } from '@/search/constants';
-import { CATEGORIES } from '@/category/constants';
 
 const Category = () => {
   const [searchState, setSearchState] = useState<TCategorySearchType>(CATEGORY_STATE);
@@ -28,7 +25,6 @@ const Category = () => {
                 <Selector
                   minWidth={133}
                   value={convertCountry(searchState.country)}
-                  selectStyle={'h-[60px] items-center flex'}
                   isUseIcon={true}
                   iconPath={convertCountryIconPath(searchState.country)}
                   options={COUNTRY}
@@ -44,9 +40,9 @@ const Category = () => {
                 />
                 <Selector
                   minWidth={436}
-                  value={searchState.category}
+                  value={searchState.category.value}
                   isUseIcon={false}
-                  options={CATEGORIES}
+                  options={searchState.categories}
                   onClickOption={(value) =>
                     updateCategoryPayload({
                       _state: searchState,

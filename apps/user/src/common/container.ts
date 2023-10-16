@@ -1,10 +1,11 @@
-import { getSubscription } from '@/common/api';
-import type { SetterOrUpdater } from 'recoil';
+import { getSubscription, getCategories } from '@/common/api';
 import { PLANS } from '@/common/constants';
 import { getPlans } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
 import { isTruthy } from '@/utils/isTruthy';
 import { useSessionStorage } from '@/utils/useSessionStorage';
+
+import type { SetterOrUpdater } from 'recoil';
 import type { SetStateAction, Dispatch } from 'react';
 
 export const _getSubscription = async (
@@ -16,6 +17,11 @@ export const _getSubscription = async (
   useSessionStorage.setItem(CACHING_KEY.USER_PLAN, response);
   setSubscription(response);
   // }
+};
+
+export const _getCategories = async () => {
+  const categories = await getCategories();
+  return useSessionStorage.setItem(CACHING_KEY.CATEGORY, categories);
 };
 
 export const _checkSubscription = async (

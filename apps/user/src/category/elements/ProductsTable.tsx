@@ -1,5 +1,14 @@
-import { PRODUCT_TABLE_ELEMENTS, TABLE_COL_ELEMENTS } from '@/category/constants';
-import { featureConvertor, sepecificFeature, scrollSwitch } from '@/category/container';
+import {
+  PRODUCT_TABLE_ELEMENTS,
+  TABLE_COL_ELEMENTS,
+  TABLE_INITIALSTAE,
+} from '@/category/constants';
+import {
+  featureConvertor,
+  sepecificFeature,
+  scrollSwitch,
+  _getCategoryProducts,
+} from '@/category/container';
 import UseTooltip from '@/components/UseTooltip';
 import { SortingButton } from '@/category/elements/SortingButton';
 
@@ -7,7 +16,8 @@ import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { getElementLocation } from '@/utils/getElementLocation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getCategoryProducts } from '@/category/api';
 
 interface IProductsTable {
   searchState: TCategorySearchType;
@@ -15,7 +25,12 @@ interface IProductsTable {
 
 export const ProductsTable = ({ searchState }: IProductsTable) => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
-  const [tableWidth, setTableWidth] = useState<number>();
+  const [rowData, setRowData] = useState<TTableRowData[]>(TABLE_INITIALSTAE);
+  console.log(rowData, 'rowdata');
+  useEffect(() => {
+    _getCategoryProducts(searchState, setRowData);
+  }, [searchState.category.code]);
+
   return (
     <div
       id='scrollbar'
@@ -61,7 +76,7 @@ export const ProductsTable = ({ searchState }: IProductsTable) => {
             return (
               <tr key={`row_${index}`}>
                 {TABLE_COL_ELEMENTS.map((key, index) => {
-                  const _key = key as keyof TRespone;
+                  const _key = key as keyof TTableRowData;
                   const { value, iconPath, tdStyle, valueStyle, iconStyle, divStyle } =
                     sepecificFeature(_key, product[_key], useScroll);
 
