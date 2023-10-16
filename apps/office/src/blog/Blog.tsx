@@ -10,17 +10,21 @@ const Blog = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const bgStyle = pathname.includes('serp') ? 'bg-grey-100' : 'bg-white';
+  const isContentPage = pathname.includes('insight/');
   return (
     <section id='blog_frame' className='flex w-full flex-col items-center justify-center'>
       <div
         id='category_gnb'
         className={`sticky top-20 z-30 w-full gap-x-[25px] border-b-[1px] ${bgStyle} pl-[300px] text-start text-M/Medium md:hidden`}
       >
-        {pathname.includes('serp') ? (
+        {isContentPage ? (
           <div className='w-[1300px] py-2 pl-[300px] sm:w-[300px] sm:pl-0'>
             {CONTENT_LIST.map((content) => {
               return (
-                <div className='flex items-center text-center text-S/Medium'>
+                <div
+                  key={content.text}
+                  className='flex items-center text-center text-S/Medium'
+                >
                   <Link to={PATH.BLOG}>
                     <p className='text-grey-700'>블로그</p>
                   </Link>
@@ -69,10 +73,12 @@ const Blog = () => {
         )}
       </div>
 
-      <div
-        id='blog_background'
-        className=' absolute top-10 h-[400px] w-full bg-gradient-to-b from-orange-100 to-white'
-      />
+      {isContentPage === false && (
+        <div
+          id='blog_background'
+          className=' absolute top-10 h-[400px] w-full bg-gradient-to-b from-orange-100 to-white'
+        />
+      )}
       <div className='relative mt-[60px] flex w-[1144px] flex-col gap-[120px] md:w-auto'>
         <Outlet />
       </div>

@@ -6,6 +6,7 @@ export const PATH = {
   BLOG: '/blog',
   CATEGORY: 'category/:id',
   SERP: 'category/insight/serp',
+  SEO: 'category/insight/seo',
 };
 
 export const HOME_QNA = [
