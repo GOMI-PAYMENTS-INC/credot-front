@@ -4,7 +4,8 @@ export const PATH = {
   MAIN: '/',
   PRICE: '/price',
   BLOG: '/blog',
-  CONTENT: 'content/:id',
+  CATEGORY: 'category/:id',
+  SERP: 'category/insight/serp',
 };
 
 export const HOME_QNA = [
