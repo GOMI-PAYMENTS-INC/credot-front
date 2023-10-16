@@ -7,6 +7,8 @@ export const PATH = {
   CATEGORY: 'category/:id',
   SERP: 'category/insight/serp',
   SEO: 'category/insight/seo',
+  SEARCH_TREND: 'category/insight/searchtrend',
+  CVR: 'category/insight/cvr',
 };
 
 export const HOME_QNA = [

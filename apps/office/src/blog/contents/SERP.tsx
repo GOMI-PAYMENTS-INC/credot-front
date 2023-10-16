@@ -1,7 +1,7 @@
 import { SEO_LIST } from '@/blog/constants';
 import { Card } from '@/blog/elements';
 
-const SERP = () => {
+export const SERP = () => {
   return (
     <div id='content_frame' className='flex flex-col items-center justify-center'>
       <img src='/assets/images/main.png' className='pb-[50px]' />
@@ -202,5 +202,3 @@ const SERP = () => {
     </div>
   );
 };
-
-export default SERP;

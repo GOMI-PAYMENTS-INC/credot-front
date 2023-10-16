@@ -9,8 +9,7 @@ import { BlogCategory, Landing } from '@/blog/elements';
 
 import { PAGE_CATEGORY } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/common/constants';
-import SERP from '@/blog/elements/SERP';
-import SEO from '@/blog/elements/SEO';
+import { SERP, SEO, SearchTrend, CVR } from '@/blog/contents';
 
 type TPathKey = keyof typeof PATH;
 
@@ -54,6 +53,8 @@ export const Router = () => {
                 <Route path={PATH.CATEGORY} element={createElement(BlogCategory)} />
                 <Route path={PATH.SERP} element={createElement(SERP)} />
                 <Route path={PATH.SEO} element={createElement(SEO)} />
+                <Route path={PATH.SEARCH_TREND} element={createElement(SearchTrend)} />
+                <Route path={PATH.CVR} element={createElement(CVR)} />
               </Route>
             );
           }

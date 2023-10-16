@@ -1,7 +1,7 @@
 import { Card } from '@/blog/elements';
 import { SEO_INSIGHT } from '@/blog/constants';
 
-const SEO = () => {
+export const SEO = () => {
   return (
     <div id='content_frame' className='flex flex-col items-center justify-center'>
       <img src='/assets/images/SEO.png' className='pb-[50px]' />
@@ -201,5 +201,3 @@ const SEO = () => {
     </div>
   );
 };
-
-export default SEO;
