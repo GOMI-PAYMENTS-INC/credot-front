@@ -49,8 +49,8 @@ export const Router = () => {
           if (pathname.includes(PATH.BLOG)) {
             return (
               <Route key={index} path={PATH.BLOG} element={createElement(Blog)}>
-                <Route key={index} path={PATH.BLOG} element={createElement(Landing)} />
-                <Route path={PATH.CONTENT} element={createElement(BlogCategory)} />
+                <Route path={PATH.BLOG} element={createElement(Landing)} />
+                <Route path={PATH.CATEGORY} element={createElement(BlogCategory)} />
                 <Route path={PATH.SERP} element={createElement(SERP)} />
               </Route>
             );

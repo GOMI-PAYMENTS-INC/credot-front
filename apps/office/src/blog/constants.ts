@@ -1,5 +1,11 @@
+import { PATH } from '@/common/constants';
+
+export const CONTENT_LIST = [
+  { text: 'SERP, 검색 결과 화면 분석의 중요성', category: 'insight', path: PATH.SERP },
+];
+
 export const CATEGORY_LIST = [
-  { text: '인사이트', value: 'insight', path: 'insight' },
+  { text: '인사이트', value: 'insight', path: 'insight', children: CONTENT_LIST },
   { text: '제품', value: 'product', path: 'product' },
   { text: '소식', value: 'news', path: 'news' },
 ];

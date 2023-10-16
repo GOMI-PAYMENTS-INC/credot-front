@@ -185,7 +185,7 @@ const SERP = () => {
         <section id='recommand_contents'>
           <div className='mt-[120px] flex flex-col gap-5'>
             <p className='text-2XL/Bold'>아래 컨텐츠도 확인해보세요!</p>
-            <div className='space-y-[50px]'>
+            <div className='flex flex-col gap-[50px]'>
               <Card type='recommandation' />
               <Card type='recommandation' />
             </div>

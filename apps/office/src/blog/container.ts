@@ -36,13 +36,19 @@ export const getCardCss = (type: TCard) => {
 };
 
 export const getPath = (pathname: string, movedPath: string) => {
-  if (pathname.includes('content')) {
+  if (pathname.includes('serp')) {
+    const path = pathname.split('/');
+    path.pop();
+
+    return path.join('/');
+  }
+  if (pathname.includes('category')) {
     const path = pathname.split('/');
     path.pop();
 
     return path.join('/') + `/${movedPath}`;
   }
-  return pathname + `/content/${movedPath}`;
+  return pathname + `/category/${movedPath}`;
 };
 
 export const convertTitle = (title: TCategory) => {
