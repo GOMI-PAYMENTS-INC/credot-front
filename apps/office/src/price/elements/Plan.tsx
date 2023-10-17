@@ -3,7 +3,7 @@ import { GRADE, PLANS } from '@/price/constans';
 import { openAppWithTag } from '@/utils/openBrowser';
 import { planConvertor, CTA_TYPE } from '@/amplitude/amplitude.enum';
 import { GlobalEnv } from '@/api/config';
-import { PATH } from '@/router';
+import { PATH } from '@/common/constants';
 
 export const Plan = () => {
   const PriceCard = useMemo(() => {

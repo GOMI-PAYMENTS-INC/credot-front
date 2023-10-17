@@ -1,5 +1,17 @@
 import { GlobalEnv } from '@/api/config';
 
+export const PATH = {
+  MAIN: '/',
+  PRICE: '/price',
+  BLOG: '/blog',
+  CATEGORY: 'category/:id',
+  SERP: 'category/insight/serp',
+  SEO: 'category/insight/seo',
+  SEARCH_TREND: 'category/insight/searchtrend',
+  CVR: 'category/insight/cvr',
+  CPC: 'category/insight/cpc',
+};
+
 export const HOME_QNA = [
   {
     subject: '고미인사이트는 어떤 서비스인가요?',
