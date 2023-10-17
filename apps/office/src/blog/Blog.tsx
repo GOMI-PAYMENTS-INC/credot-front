@@ -17,7 +17,7 @@ const Blog = () => {
     if (isContentPage) {
       const payload = {
         text: isContentPage.text,
-        contentId: isContentPage.text,
+        contentId: isContentPage.id,
         category: isContentPage.category as TCategory,
       };
       _blogContentViewed(payload);

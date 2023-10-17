@@ -62,7 +62,7 @@ export const _introPricingPageViewed = () => {
 
 export const _blogContentViewed = (props: {
   text: string;
-  contentId: string;
+  contentId: number;
   category: TCategory;
 }) => {
   _setAmplitudeEvents(amplitudeConstant.contentViewed, {
