@@ -27,7 +27,7 @@ export const getCardCss = (type: TCard) => {
   }
 
   if (type === 'recommandation') {
-    cardCss.titleStyle = 'text-L/Bold w-[272px] h-[60px] text-ellipsis';
+    cardCss.titleStyle = 'text-L/Bold w-[340px] h-[60px] text-ellipsis';
     cardCss.imgStyle = 'w-[318px] h-[180px] rounded-l-lg';
     cardCss.contentInfoStyle = `border-[1px] rounded-r-lg border-l-none w-full border-grey-100 flex-col flex gap-2.5 p-[25px]`;
     cardCss.contentStyle = 'text-M/Regular leading-[27px] text-grey-700';
