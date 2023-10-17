@@ -15,14 +15,14 @@ export const Card = ({ type = '', content }: ICard) => {
   const { imgStyle, contentInfoStyle, contentStyle, titleStyle, contentInfoDivStyle } =
     getCardCss(type);
   const mainFrameStyle = type === 'recommandation' ? '' : 'flex-col';
-  const imagePath = type === 'main' ? content.mainImg : img;
+  const imagePath = type !== '' ? content.mainImg : img;
   return (
     <Link to={path}>
       {type === 'main' && <p className='mb-5 text-2XL/Bold'>추천 컨텐츠</p>}
       <div
         className={`flex cursor-pointer ${mainFrameStyle} rounded-lg shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)] lg:max-w-[334px]`}
       >
-        <img className={imgStyle} src={imagePath} />
+        <img className={`${imgStyle}`} src={imagePath} />
         <div id='content_info' className={contentInfoStyle}>
           <p className={titleStyle}>{text}</p>
           <div className={contentInfoDivStyle}>
@@ -37,7 +37,7 @@ export const Card = ({ type = '', content }: ICard) => {
             } border-[1px] border-grey-100 bg-grey-200 py-[14px] px-5`}
           >
             <div className='flex gap-2.5'>
-              <img className='h-[44px]  w-[44px]' src='/assets/images/Kai.png' />
+              <img className='h-[44px] w-[44px]' src='/assets/images/Kai.png' />
               <div>
                 <p className='text-M/Medium'>{name}</p>
                 <p className='text-S/Regular text-grey-700'>{position}</p>
