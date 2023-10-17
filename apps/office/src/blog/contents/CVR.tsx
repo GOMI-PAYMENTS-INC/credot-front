@@ -1,13 +1,19 @@
 import { Card } from '@/blog/elements';
+import { CONTENT_LIST } from '@/blog/constants';
 
 export const CVR = () => {
+  const [Search_Trend, _, CPC] = CONTENT_LIST.filter(
+    (content) => content.category === 'product',
+  );
   return (
     <div id='content_frame' className='flex flex-col items-center justify-center'>
       <img src='/assets/images/CVR.png' className='pb-[50px]' />
-      <section id='contents' className='max-w-[760px] space-y-[100px]'>
+      <section
+        id='contents'
+        className='max-w-[760px] space-y-[50px] divide-y-2 divide-grey-200'
+      >
         <section id='content_header' className='space-y-[50px]'>
           <p className='text-3XL/Bold'>구매자들의 검색 의도를 알려주는 ‘구매 전환율’</p>
-
           <div id='author' className='flex flex-col items-end gap-[14px] px-5 py-[14px]'>
             <div className='flex flex-col'>
               <p className='text-S/Regular text-grey-700'>2023.08.17</p>
@@ -78,7 +84,7 @@ export const CVR = () => {
           </section>
         </section>
 
-        <section id='content_mechanism'>
+        <section className='pt-[50px]' id='content_mechanism'>
           <div className='flex flex-col gap-5 text-L/Regular leading-[44px]'>
             <p className='text-2XL/Bold'>
               검색량이 많은 메인 키워드 VS 구매 전환이 많은 세부 키워드?
@@ -93,7 +99,7 @@ export const CVR = () => {
               </p>
               <p>
                 정답을 쉽게 답하기는 어렵지만,
-                <span className='text-L/Bold'>
+                <span className='mx-1 text-L/Bold'>
                   신규 상품일수록 검색량은 적지만 구매전환 빈도가 높은 세부 키워드를 공략
                   하는 것이 매출에 유리하다 말할 수 있습니다.
                 </span>
@@ -103,6 +109,7 @@ export const CVR = () => {
                 경우에는 CPC광고를 통해 상품을 노출 시키는 것도 좋은 전략 이 될 수
                 있습니다.
               </p>
+              <img src='/assets/images/CVR_IMG.png' />
               <p>
                 고미인사이트의 키워드 분석 기능에서는 키워드의
                 <span className='text-L/Bold'> 검색량</span>과
@@ -126,15 +133,15 @@ export const CVR = () => {
           </div>
         </section>
 
-        {/* <section id='recommand_contents'>
-          <div className='mt-[120px] flex flex-col gap-5'>
+        <section id='recommand_contents'>
+          <div className='mt-[50px] flex flex-col gap-5'>
             <p className='text-2XL/Bold'>아래 컨텐츠도 확인해보세요!</p>
             <div className='flex flex-col gap-[50px]'>
-              <Card type='recommandation' />
-              <Card type='recommandation' />
+              <Card content={Search_Trend} type='recommandation' />
+              <Card content={CPC} type='recommandation' />
             </div>
           </div>
-        </section> */}
+        </section>
       </section>
     </div>
   );

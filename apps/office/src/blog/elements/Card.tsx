@@ -15,7 +15,8 @@ export const Card = ({ type = '', content }: ICard) => {
   const { imgStyle, contentInfoStyle, contentStyle, titleStyle, contentInfoDivStyle } =
     getCardCss(type);
   const mainFrameStyle = type === 'recommandation' ? '' : 'flex-col';
-  const imagePath = type !== '' ? content.mainImg : img;
+  const imagePath = type === 'main' ? content.mainImg : img;
+
   return (
     <Link to={path}>
       {type === 'main' && <p className='mb-5 text-2XL/Bold'>추천 컨텐츠</p>}
