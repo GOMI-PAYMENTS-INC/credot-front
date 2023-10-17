@@ -18,6 +18,7 @@ export const Card = ({ type = '', content }: ICard) => {
   const imagePath = type === 'main' ? content.mainImg : img;
   return (
     <Link to={path}>
+      {type === 'main' && <p className='mb-5 text-2XL/Bold'>추천 컨텐츠</p>}
       <div
         className={`flex cursor-pointer ${mainFrameStyle} rounded-lg shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)] lg:max-w-[334px]`}
       >
