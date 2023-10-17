@@ -50,7 +50,7 @@ export const CPC = () => {
             <div className='space-y-[50px]'>
               <p>
                 CPC(Cost per Click)광고란, 특정 광고 영역이 클릭될 때마다 비용이 과금되는
-                형태의 디지털 광고를 의미합 니다. 트래픽이 많이 발생하는 포털사나 이커머스
+                형태의 디지털 광고를 의미합니다. 트래픽이 많이 발생하는 포털사나 이커머스
                 플랫폼에서는 CPC 광고 영역을 광고주들에게 입찰을 통해 판매함으로서 수익을
                 내고 있습니다.
               </p>
@@ -173,7 +173,7 @@ export const CPC = () => {
           </div>
         </section>
 
-        <section id='recommand_contents'>
+        {/* <section id='recommand_contents'>
           <div className='mt-[120px] flex flex-col gap-5'>
             <p className='text-2XL/Bold'>아래 컨텐츠도 확인해보세요!</p>
             <div className='flex flex-col gap-[50px]'>
@@ -181,7 +181,7 @@ export const CPC = () => {
               <Card type='recommandation' />
             </div>
           </div>
-        </section>
+        </section> */}
       </section>
     </div>
   );

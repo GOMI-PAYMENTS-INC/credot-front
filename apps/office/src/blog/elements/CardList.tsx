@@ -5,10 +5,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 interface ICardList {
   listType?: 'standard' | 'extend';
   title: TCategory;
+  contents: TContent[];
 }
 
-export const CardList = ({ listType = 'standard', title }: ICardList) => {
+export const CardList = ({ listType = 'standard', title, contents }: ICardList) => {
   const cards = listType === 'standard' ? Array(3).fill(1) : Array(9).fill(1);
+
   const cardListStyle = listType === 'standard' ? '' : 'flex-wrap gap-y-[50px]';
   const _title = convertTitle(title as TCategory);
 
@@ -33,13 +35,16 @@ export const CardList = ({ listType = 'standard', title }: ICardList) => {
       <main>
         <div className='flex justify-center'>
           <div id='card_list' className={`flex gap-[23px] ${cardListStyle}`}>
-            {cards.map((card, index) => {
-              return (
-                <div key={`card_${index}`} className='flex max-w-[366px]'>
-                  <Card />
-                </div>
-              );
-            })}
+            {cards
+              .map((_, index) => contents[index])
+              .filter(Boolean)
+              .map((card, index) => {
+                return (
+                  <div key={`card_${index}`} className='flex max-w-[366px]'>
+                    <Card content={card} />
+                  </div>
+                );
+              })}
           </div>
         </div>
       </main>

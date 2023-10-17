@@ -4,7 +4,7 @@ import { Card } from '@/blog/elements';
 export const SERP = () => {
   return (
     <div id='content_frame' className='flex flex-col items-center justify-center'>
-      <img src='/assets/images/main.png' className='pb-[50px]' />
+      <img src='/assets/images/SERP.png' className='pb-[50px]' />
       <section id='contents' className='max-w-[760px] space-y-[100px]'>
         <section id='content_header' className='space-y-[50px]'>
           <p className='text-3XL/Bold'>SERP, 검색 결과 화면 분석의 중요성</p>
@@ -189,7 +189,7 @@ export const SERP = () => {
           </div>
         </section>
 
-        <section id='recommand_contents'>
+        {/* <section id='recommand_contents'>
           <div className='mt-[120px] flex flex-col gap-5'>
             <p className='text-2XL/Bold'>아래 컨텐츠도 확인해보세요!</p>
             <div className='flex flex-col gap-[50px]'>
@@ -197,7 +197,7 @@ export const SERP = () => {
               <Card type='recommandation' />
             </div>
           </div>
-        </section>
+        </section> */}
       </section>
     </div>
   );

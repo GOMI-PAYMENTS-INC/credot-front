@@ -165,7 +165,7 @@ export const SearchTrend = () => {
           </div>
         </section>
 
-        <section id='recommand_contents'>
+        {/* <section id='recommand_contents'>
           <div className='mt-[120px] flex flex-col gap-5'>
             <p className='text-2XL/Bold'>아래 컨텐츠도 확인해보세요!</p>
             <div className='flex flex-col gap-[50px]'>
@@ -173,7 +173,7 @@ export const SearchTrend = () => {
               <Card type='recommandation' />
             </div>
           </div>
-        </section>
+        </section> */}
       </section>
     </div>
   );

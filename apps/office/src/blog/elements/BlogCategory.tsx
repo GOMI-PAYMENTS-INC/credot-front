@@ -7,7 +7,7 @@ export const BlogCategory = () => {
   return (
     <section className='w-full overflow-x-hidden'>
       <div className='flex flex-col'>
-        <CardList listType='extend' title={id as TCategory} />
+        {/* <CardList listType='extend' title={id as TCategory} /> */}
       </div>
     </section>
   );
