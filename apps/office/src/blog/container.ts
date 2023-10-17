@@ -2,8 +2,8 @@ import { CONTENT_LIST } from '@/blog/constants';
 
 export const getCardCss = (type: TCard) => {
   const cardCss = {
-    imgStyle: 'rounded-t-lg border-b-0 border-grey-300 border-[1px]',
-    contentInfoStyle: 'rounded-b-lg border-[1px] border-t-0',
+    imgStyle: 'rounded-t-lg border-b-0 border-grey-100 border-[1px]',
+    contentInfoStyle: 'rounded-b-lg border-[1px] border-grey-100',
     contentInfoDivStyle: 'overflow-hidden text-ellipsis',
     titleStyle: '',
     contentStyle: '',
@@ -29,7 +29,7 @@ export const getCardCss = (type: TCard) => {
   if (type === 'recommandation') {
     cardCss.titleStyle = 'text-L/Bold w-[272px] h-[60px] text-ellipsis';
     cardCss.imgStyle = 'w-[318px] h-[180px] rounded-l-lg';
-    cardCss.contentInfoStyle = `border-[1px] rounded-r-lg border-l-none w-full border-grey-300 flex-col flex gap-2.5 p-[25px]`;
+    cardCss.contentInfoStyle = `border-[1px] rounded-r-lg border-l-none w-full border-grey-100 flex-col flex gap-2.5 p-[25px]`;
     cardCss.contentStyle = 'text-M/Regular leading-[27px] text-grey-700';
     cardCss.contentInfoDivStyle = `overflow-hidden text-ellipsis w-[380px] h-[60px]`;
   }

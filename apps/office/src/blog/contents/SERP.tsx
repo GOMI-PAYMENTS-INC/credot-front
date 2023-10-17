@@ -1,5 +1,4 @@
 import { SEO_LIST } from '@/blog/constants';
-import { Card } from '@/blog/elements';
 
 export const SERP = () => {
   return (

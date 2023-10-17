@@ -31,7 +31,9 @@ export const Card = ({ type = '', content }: ICard) => {
         {isFalsy(type) && (
           <div
             id='author'
-            className={`flex justify-between rounded-b-lg rounded-r border-[1px] border-t-0 bg-grey-200 py-[14px] px-5`}
+            className={`flex justify-between rounded-b-lg ${
+              type === 'recommandation' ? 'rounded-r' : ''
+            } border-[1px] border-grey-100 bg-grey-200 py-[14px] px-5`}
           >
             <div className='flex gap-2.5'>
               <img className='h-[44px]  w-[44px]' src='/assets/images/Kai.png' />
