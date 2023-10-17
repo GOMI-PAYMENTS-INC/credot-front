@@ -1,3 +1,5 @@
+import { CONTENT_LIST } from '@/blog/constants';
+
 export const getCardCss = (type: TCard) => {
   const cardCss = {
     imgStyle: 'rounded-t-lg border-b-0 border-grey-300 border-[1px]',
@@ -60,4 +62,10 @@ export const convertTitle = (title: TCategory) => {
     default:
       return '제품';
   }
+};
+
+export const getBreadcrumb = (pathname: string) => {
+  const path = pathname.split('/');
+  const category = path[path.length - 1];
+  return CONTENT_LIST.find((content) => content.path.includes(category));
 };

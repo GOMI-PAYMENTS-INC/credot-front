@@ -6,6 +6,10 @@ export const PATH = {
   BLOG: '/blog',
   CATEGORY: 'category/:id',
   SERP: 'category/insight/serp',
+  SEO: 'category/insight/seo',
+  SEARCH_TREND: 'category/insight/searchtrend',
+  CVR: 'category/insight/cvr',
+  CPC: 'category/insight/cpc',
 };
 
 export const HOME_QNA = [
