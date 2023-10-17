@@ -4,12 +4,25 @@ import { getPath } from '@/blog/container';
 import { PATH } from '@/common/constants';
 import { ReactSVG } from 'react-svg';
 import { getBreadcrumb } from '@/blog/container';
+import { useEffect } from 'react';
+import { _blogContentViewed } from '@/amplitude/amplitude.service';
 
 const Blog = () => {
   // const navigate = useNavigate();
   const { pathname } = useLocation();
   const bgStyle = pathname.includes('serp') ? 'bg-grey-100' : 'bg-white';
   const isContentPage = pathname.includes('insight/') ? getBreadcrumb(pathname) : false;
+
+  useEffect(() => {
+    if (isContentPage) {
+      const payload = {
+        text: isContentPage.text,
+        contentId: isContentPage.text,
+        category: isContentPage.category as TCategory,
+      };
+      _blogContentViewed(payload);
+    }
+  }, [pathname]);
 
   return (
     <section id='blog_frame' className='flex w-full flex-col items-center justify-center'>

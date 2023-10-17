@@ -59,3 +59,15 @@ export const _introPricingPageViewed = () => {
       feature: 'keyword analysis',
     });
 };
+
+export const _blogContentViewed = (props: {
+  text: string;
+  contentId: string;
+  category: TCategory;
+}) => {
+  _setAmplitudeEvents(amplitudeConstant.contentViewed, {
+    category: props.category,
+    content_id: props.contentId,
+    content_title: props.text,
+  });
+};

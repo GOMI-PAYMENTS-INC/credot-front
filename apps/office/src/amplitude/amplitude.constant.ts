@@ -3,4 +3,5 @@ export const amplitudeConstant = {
   movedToSolution: 'moved to solution',
   keywordReportPreviewed: 'keyword report previewed',
   pricingPageViewed: 'pricing page viewed',
+  contentViewed: 'content viewed',
 };
