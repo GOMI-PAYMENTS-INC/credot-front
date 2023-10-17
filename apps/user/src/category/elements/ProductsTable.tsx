@@ -1,7 +1,7 @@
 import {
-  PRODUCT_TABLE_ELEMENTS,
+  PRODUCT_TABLE_HEADS,
   TABLE_COL_ELEMENTS,
-  TABLE_INITIALSTAE,
+  TABLE_INITIALSTATE,
 } from '@/category/constants';
 import {
   featureConvertor,
@@ -17,7 +17,6 @@ import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { getElementLocation } from '@/utils/getElementLocation';
 import { useEffect, useState } from 'react';
-import { getCategoryProducts } from '@/category/api';
 
 interface IProductsTable {
   searchState: TCategorySearchType;
@@ -25,8 +24,9 @@ interface IProductsTable {
 
 export const ProductsTable = ({ searchState }: IProductsTable) => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
-  const [rowData, setRowData] = useState<TTableRowData[]>(TABLE_INITIALSTAE);
-  console.log(rowData, 'rowdata');
+  const [rowData, setRowData] = useState<TCategoryTableList>(TABLE_INITIALSTATE);
+  const { categoryHotKeywords } = rowData;
+
   useEffect(() => {
     _getCategoryProducts(searchState, setRowData);
   }, [searchState.category.code]);
@@ -43,7 +43,7 @@ export const ProductsTable = ({ searchState }: IProductsTable) => {
       <table className='w-max border-separate border-spacing-0'>
         <thead className='border-b border-grey-300'>
           <tr>
-            {PRODUCT_TABLE_ELEMENTS.thead.map((col: TTableColumn, index: number) => {
+            {PRODUCT_TABLE_HEADS.map((col: TTableColumn, index: number) => {
               const { thStyle, colStyle } = featureConvertor(col.type, index);
               return (
                 <th
@@ -72,7 +72,7 @@ export const ProductsTable = ({ searchState }: IProductsTable) => {
           </tr>
         </thead>
         <tbody>
-          {PRODUCT_TABLE_ELEMENTS.tbody.map((product, index: number) => {
+          {categoryHotKeywords.map((product, index: number) => {
             return (
               <tr key={`row_${index}`}>
                 {TABLE_COL_ELEMENTS.map((key, index) => {

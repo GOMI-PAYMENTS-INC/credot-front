@@ -11,6 +11,7 @@ import {
   _getSubscription,
   storePlansIntoSession,
   _getCategories,
+  _getCurrency,
 } from '@/common/container';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
 
@@ -27,6 +28,10 @@ export default function PrivateRoute() {
     }
     if (isFalsy(sessionStorage.getItem(CACHING_KEY.CATEGORY))) {
       _getCategories();
+    }
+
+    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CURRENCY))) {
+      _getCurrency();
     }
 
     _getSubscription(setSubscription);

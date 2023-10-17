@@ -1,5 +1,5 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { PRODUCT_TABLE_ELEMENTS } from '@/category/constants';
+import { PRODUCT_TABLE_HEADS } from '@/category/constants';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { getCategoryProducts } from '@/category/api';
@@ -31,7 +31,7 @@ export const updateCategoryPayload = async (props: {
         value: string;
       }[];
     }[];
-
+    console.log(categories, 'cat');
     const category = categories.find((category) => category.countryCode === params);
 
     payload = Object.assign({}, _state, {
@@ -43,11 +43,12 @@ export const updateCategoryPayload = async (props: {
     const category = _state.categories.find((category) => category.value === params);
     payload = Object.assign({}, _state, { category });
   }
+  console.log(payload, 'payload');
   _dispatch(payload);
 };
 
 export const featureConvertor = (type: TColumnType, index: number) => {
-  const lastIdx = PRODUCT_TABLE_ELEMENTS.thead.length - 1;
+  const lastIdx = PRODUCT_TABLE_HEADS.length - 1;
 
   const THEAD_DEFAULT_CSS = {
     thStyle: 'border-r-[1px] border-grey-300',
@@ -147,7 +148,7 @@ export const scrollSwitch = (
 
 export const _getCategoryProducts = async (
   searchState: TCategorySearchType,
-  setRowTable: Dispatch<SetStateAction<TTableRowData[]>>,
+  setRowTable: Dispatch<SetStateAction<TCategoryTableList>>,
 ) => {
   const { country, category } = searchState;
   const response = await getCategoryProducts({

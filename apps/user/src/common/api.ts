@@ -19,3 +19,13 @@ export const getCategories = async () => {
     throw new Error('카테고리 목록을 요청하는 과정에서 에러가 발생했습니다.');
   }
 };
+
+export const getCurrency = async () => {
+  const URL = '/api/v1/exchange-rate';
+  try {
+    const { data } = await HTTP.get<{ data: TCurrencyResponse }>(URL);
+    return data.data.exchangeRates;
+  } catch (error) {
+    throw new Error('국가 환율을 요청하는 과정에서 에러가 발생했습니다.');
+  }
+};

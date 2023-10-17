@@ -31,3 +31,8 @@ type TTableRowData = {
   createdAt: string;
   updatedAt: string;
 };
+
+type TCategoryTableList = {
+  totalCount: number;
+  categoryHotKeywords: TTableRowData[];
+};

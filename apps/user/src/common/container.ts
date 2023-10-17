@@ -1,4 +1,4 @@
-import { getSubscription, getCategories } from '@/common/api';
+import { getSubscription, getCategories, getCurrency } from '@/common/api';
 import { PLANS } from '@/common/constants';
 import { getPlans } from '@/subscribe/api';
 import { CACHING_KEY } from '@/types/enum.code';
@@ -47,7 +47,7 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
   try {
     const response = await getPlans();
     if (response) {
-      sessionStorage.setItem(CACHING_KEY.PLANS, JSON.stringify(response.reverse()));
+      useSessionStorage.setItem(CACHING_KEY.PLANS, response.reverse());
       setPlans(response);
     }
   } catch (error) {
@@ -58,4 +58,9 @@ export const storePlansIntoSession = async (setPlans: SetterOrUpdater<TPlans[]>)
 export const convertPlan = (plan: TPlanUniqueKey) => {
   const plans = useSessionStorage.getItem(CACHING_KEY.PLANS) || PLANS;
   return `${plans.find((pl: TPlans) => pl.uniqueKey === plan)?.name}`;
+};
+
+export const _getCurrency = async () => {
+  const response = await getCurrency();
+  return useSessionStorage.setItem(CACHING_KEY.CURRENCY, response);
 };
