@@ -107,12 +107,11 @@ const Blog = () => {
          )}
        </div> */}
 
-      {isContentPage === false && (
-        <div
-          id='blog_background'
-          className=' absolute top-10 h-[400px] w-full bg-gradient-to-b from-orange-100 to-white'
-        />
-      )}
+      <div
+        id='blog_background'
+        className=' absolute top-10 h-[400px] w-full bg-gradient-to-b from-orange-100 to-white'
+      />
+
       <div className='relative mt-[60px] flex w-[1144px] flex-col gap-[120px] md:w-auto'>
         <Outlet />
       </div>

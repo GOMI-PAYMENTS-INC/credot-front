@@ -2,7 +2,7 @@ import { PATH } from '@/common/constants';
 
 export const CONTENT_LIST = [
   {
-    text: 'SERP, 검색 결과 화면 분석의 중요성',
+    text: `SERP, 검색 결과 화면 분석의 중요성`,
     category: 'insight',
     path: `/blog/${PATH.SERP}`,
     img: '/assets/images/thumbnail/SERP.png',
@@ -28,7 +28,7 @@ export const CONTENT_LIST = [
   },
   {
     text: "시장의 트랜드를 알려주는 '검색량 추이'",
-    category: 'insight',
+    category: 'product',
     path: `/blog/${PATH.SEARCH_TREND}`,
     img: '/assets/images/thumbnail/SearchTrend.png',
     mainImg: '/assets/images/SearchTrend.png',
@@ -39,7 +39,7 @@ export const CONTENT_LIST = [
   },
   {
     text: '구매자들의 검색 의도를 알려주는 ‘구매 전환율’',
-    category: 'insight',
+    category: 'product',
     path: `/blog/${PATH.CVR}`,
     img: '/assets/images/thumbnail/CVR.png',
     mainImg: '/assets/images/CVR.png',
@@ -50,7 +50,7 @@ export const CONTENT_LIST = [
   },
   {
     text: 'CPC 광고하기 좋은 키워드 찾기!',
-    category: 'insight',
+    category: 'product',
     path: `/blog/${PATH.CPC}`,
     img: '/assets/images/thumbnail/CPC.png',
     mainImg: '/assets/images/CPC.png',
