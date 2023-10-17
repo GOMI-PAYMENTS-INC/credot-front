@@ -1,6 +1,6 @@
 import { SEO_LIST } from '@/blog/constants';
 import { CONTENT_LIST } from '@/blog/constants';
-import { Card } from '../elements';
+import { Card } from '@/blog/elements';
 
 export const SERP = () => {
   const SEO_BLOG = CONTENT_LIST.find(
