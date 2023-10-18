@@ -91,7 +91,7 @@ export const convertExchangeRate = (country: CountryType) => {
   }
 };
 
-export const convertShopeeSiteUrl = (country: CountryType) => {
+export const convertShopeeSiteUrl = (country: CountryType | TSearchCountry) => {
   switch (country) {
     case CountryType.SG:
       return 'https://shopee.sg';

@@ -64,7 +64,7 @@ const ReportList = () => {
     setParams(limit, String(_state.page));
   };
   return (
-    <Default>
+    <Default useGap={true}>
       {/*헤더*/}
       <header className='border-b-[1px] border-b-grey-200 bg-white xs:hidden'>
         <div className='container'>

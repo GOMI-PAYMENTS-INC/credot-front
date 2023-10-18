@@ -7,7 +7,12 @@ import { useEffect } from 'react';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useLocation } from 'react-router-dom';
-import { _getSubscription, storePlansIntoSession } from '@/common/container';
+import {
+  _getSubscription,
+  storePlansIntoSession,
+  _getCategories,
+  _getCurrency,
+} from '@/common/container';
 import { SubscriptionAtom, PlansAtom } from '@/atom';
 
 export default function PrivateRoute() {
@@ -20,6 +25,13 @@ export default function PrivateRoute() {
   useEffect(() => {
     if (isFalsy(plans) || isFalsy(sessionStorage.getItem(CACHING_KEY.PLANS))) {
       storePlansIntoSession(setPlans);
+    }
+    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CATEGORY))) {
+      _getCategories();
+    }
+
+    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CURRENCY))) {
+      _getCurrency();
     }
 
     _getSubscription(setSubscription);

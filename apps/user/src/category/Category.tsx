@@ -1,20 +1,36 @@
 import { Default as Layout } from '@/common/layouts';
 import { Selector } from '@/report/keyword/elements/Selector';
-import Pagination from '@/components/pagination';
+import Pagination from '@/components/Pagination/Pagination';
 import { ProductsTable } from '@/category/elements/ProductsTable';
 
-import { useState } from 'react';
-import { CATEGORY_STATE } from '@/category';
+import { useEffect, useState } from 'react';
 
 import { convertCountryIconPath } from '@/utils/convertEnum';
-import { updateCategoryPayload } from '@/category/container';
+import {
+  updateCategoryPayload,
+  splitTableByPagination,
+  _getCategoryProducts,
+  _setSearchState,
+  updateTable,
+} from '@/category/container';
 
 import { convertCountry } from '@/utils/convertEnum';
-
-import { SORTING_TYPE, COUNTRY } from '@/search/constants';
+import { COUNTRY } from '@/search/constants';
+import { CATEGORY_STATE } from '@/category/constants';
 
 const Category = () => {
   const [searchState, setSearchState] = useState<TCategorySearchType>(CATEGORY_STATE);
+  const [pagination, setPagination] = useState<TPagination>({ bundle: 10, page: 1 });
+  const [tableData, setTableData] = useState<TCategoryTableData>({
+    tableData: [],
+    printTable: [],
+  });
+
+  useEffect(() => {
+    if (searchState.category.code === '') _setSearchState(setSearchState);
+
+    _getCategoryProducts(searchState, pagination, setTableData);
+  }, [searchState.category.code, searchState.country]);
 
   return (
     <Layout useGap={true}>
@@ -29,61 +45,72 @@ const Category = () => {
                   isUseIcon={true}
                   iconPath={convertCountryIconPath(searchState.country)}
                   options={COUNTRY}
-                  onClickOption={(value) => {
-                    return updateCategoryPayload({
+                  onClickOption={(value) =>
+                    updateCategoryPayload({
                       _state: searchState,
                       _dispatch: setSearchState,
                       key: 'country',
                       params: value as TSearchCountry,
                       calledByEvent: true,
-                    });
-                  }}
+                    })
+                  }
                 />
                 <Selector
                   minWidth={436}
-                  value={searchState.category}
-                  isUseIcon={true}
-                  iconPath={searchState.category}
-                  options={SORTING_TYPE}
-                  onClickOption={(value) => {
-                    return updateCategoryPayload({
+                  value={searchState.category.value}
+                  isUseIcon={false}
+                  options={searchState.categories}
+                  onClickOption={(value) =>
+                    updateCategoryPayload({
                       _state: searchState,
                       _dispatch: setSearchState,
                       key: 'category',
                       params: value as string,
                       calledByEvent: true,
-                    });
-                  }}
+                    })
+                  }
                 />
               </div>
-              <p className='self-end text-S/Medium'>
-                <span className=' text-orange-400'>‘키워드'</span>를 클릭하여 보다 자세한
-                리포트를 확인하세요.
-              </p>
             </div>
           </section>
-          <main id='scrollbar' className='mt-5 mb-[34px] h-fit overflow-y-scroll'>
-            <ProductsTable />
+          <main className='h-fit'>
+            <ProductsTable tableData={tableData} />
           </main>
+
           <div id='pagination' className='flex items-center justify-between'>
             <Selector
               minWidth={133}
-              value={`${10}개씩`}
+              value={`${pagination.bundle}개씩`}
               isUseIcon={false}
               options={[10, 30, 50, 100].map((num) => ({
                 value: num,
                 text: `${num}개씩`,
               }))}
-              onClickOption={(value) => {
-                console.log(value, 'value');
-              }}
+              onClickOption={(value) =>
+                updateTable(
+                  'bundle',
+                  value as number,
+                  pagination,
+                  setPagination,
+                  tableData,
+                  setTableData,
+                )
+              }
             />
             <Pagination
-              total={100}
-              page={1}
-              limit={10}
-              _dispatch={() => {}}
-              setParams={() => {}}
+              total={tableData.tableData.length}
+              page={pagination.page}
+              limit={pagination.bundle}
+              setParams={(value: number) =>
+                updateTable(
+                  'page',
+                  value as number,
+                  pagination,
+                  setPagination,
+                  tableData,
+                  setTableData,
+                )
+              }
             />
             <p>최신 업데이트 : 2023.09.23</p>
           </div>

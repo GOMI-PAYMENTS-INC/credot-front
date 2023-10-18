@@ -4,12 +4,7 @@ import { ReactSVG } from 'react-svg';
 
 import { ModalComponent } from '@/components/modals/ModalComponent';
 
-import {
-  _getReportList,
-  getReportListByPage,
-  onClickDeleteReport,
-  onClickReload,
-} from '@/report/container';
+import { _getReportList, getReportListByPage, onClickReload } from '@/report/container';
 import { reportListInitialState, reportListReducer } from '@/report/reducer';
 import { MReportListColumn } from '@/report/mobile/MReportListColumn';
 

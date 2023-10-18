@@ -26,3 +26,24 @@ type TDropDownOption = {
   iconPath?: string;
   text: string;
 };
+
+type TCategoryListResponse = {
+  countryCode: TSearchCountry;
+  category: {
+    code: string;
+    value: string;
+  }[];
+}[];
+
+type TCurrencyResponse = {
+  exchangeRates: {
+    id: 0;
+    name: 'string';
+    country: 'string';
+    currencyCode: 'string';
+    currencyUnit: 'string';
+    basePrice: 'string';
+    date: 'string';
+    createdAt: '2023-10-17T01:43:46.987Z';
+  }[];
+};
