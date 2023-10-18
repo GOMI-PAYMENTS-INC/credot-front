@@ -189,7 +189,7 @@ export const _getCategoryProducts = async (
   if (isCaching(country, category.code)) {
     const categoryProduct = getTableDataFromSession(country, category.code);
     const table = splitTableByPagination(pagination, categoryProduct?.products!); // 업데이트 로직;
-    console.log(table, 'table');
+
     return setRowTable({ tableData: categoryProduct?.products!, printTable: table });
   }
 
@@ -234,7 +234,7 @@ export const updateTable = (
   setPagination(_pagination);
 
   const table = splitTableByPagination(_pagination, tableData.tableData);
-  console.log(table, 'table');
+
   const updatedTable = structuredClone(tableData) as TCategoryTableData;
   updatedTable.printTable = table;
 

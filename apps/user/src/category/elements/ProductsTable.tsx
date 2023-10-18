@@ -1,8 +1,4 @@
-import {
-  PRODUCT_TABLE_HEADS,
-  TABLE_COL_ELEMENTS,
-  // TABLE_INITIALSTATE,
-} from '@/category/constants';
+import { PRODUCT_TABLE_HEADS, TABLE_COL_ELEMENTS } from '@/category/constants';
 import {
   featureConvertor,
   sepecificFeature,
@@ -16,7 +12,7 @@ import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { getElementLocation } from '@/utils/getElementLocation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface IProductsTable {
   tableData: TCategoryTableData;
@@ -24,7 +20,7 @@ interface IProductsTable {
 
 export const ProductsTable = ({ tableData }: IProductsTable) => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
-  console.log(tableData, 'tableData');
+
   return (
     <div
       id='scrollbar'

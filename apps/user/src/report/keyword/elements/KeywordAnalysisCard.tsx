@@ -63,7 +63,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
           id='Search'
           tooltipItem={{ text, itemCount }}
         />
-        {analysisInfo.totalSalesCount && (
+        {analysisInfo.totalSalesCount ? (
           <Card
             grade={conversion}
             rate={`${_conversionRate} 회`}
@@ -72,6 +72,8 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
             id='Conversion'
             tooltipItem={{ text, itemCount }}
           />
+        ) : (
+          <></>
         )}
         <Card
           grade={competition}
