@@ -166,6 +166,7 @@ export enum CACHING_KEY {
   USER_CARDS = 'user_cards',
   CATEGORY = 'categories',
   CURRENCY = 'currency',
+  CATEGORY_PRODUCTS = 'category_products',
 }
 
 export enum STYLE_ENUM {

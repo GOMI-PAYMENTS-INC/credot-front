@@ -1,15 +1,7 @@
-export const CATEGORY_STATE: TCategorySearchType = {
-  country: 'SG',
-  category: {
-    code: '100629',
-    value: 'Food & Beverages',
-  },
-  categories: [
-    {
-      code: '100629',
-      value: 'Food & Beverages',
-    },
-  ],
+export const CATEGORY_STATE = {
+  country: 'SG' as TSearchCountry,
+  category: { code: '', value: '' },
+  categories: [{ code: '', value: '' }],
 };
 
 export const TABLE_COL_ELEMENTS = [
@@ -26,11 +18,6 @@ export const TABLE_COL_ELEMENTS = [
   'sales7Day',
   'sales30Day',
 ];
-
-export const TABLE_INITIALSTATE = {
-  totalCount: 0,
-  categoryHotKeywords: [],
-};
 
 export const CATEGORIES = [
   { text: 'Food & Beverages', value: 'Food & Beverages', subValue: '음식 & 음료수' },

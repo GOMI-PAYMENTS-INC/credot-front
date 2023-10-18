@@ -1,7 +1,7 @@
 import {
   PRODUCT_TABLE_HEADS,
   TABLE_COL_ELEMENTS,
-  TABLE_INITIALSTATE,
+  // TABLE_INITIALSTATE,
 } from '@/category/constants';
 import {
   featureConvertor,
@@ -19,18 +19,12 @@ import { getElementLocation } from '@/utils/getElementLocation';
 import { useEffect, useState } from 'react';
 
 interface IProductsTable {
-  searchState: TCategorySearchType;
+  tableData: TCategoryTableData;
 }
 
-export const ProductsTable = ({ searchState }: IProductsTable) => {
+export const ProductsTable = ({ tableData }: IProductsTable) => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
-  const [rowData, setRowData] = useState<TCategoryTableList>(TABLE_INITIALSTATE);
-  const { categoryHotKeywords } = rowData;
-
-  useEffect(() => {
-    _getCategoryProducts(searchState, setRowData);
-  }, [searchState.category.code]);
-
+  console.log(tableData, 'tableData');
   return (
     <div
       id='scrollbar'
@@ -72,7 +66,7 @@ export const ProductsTable = ({ searchState }: IProductsTable) => {
           </tr>
         </thead>
         <tbody>
-          {categoryHotKeywords.map((product, index: number) => {
+          {tableData.printTable.map((product, index: number) => {
             return (
               <tr key={`row_${index}`}>
                 {TABLE_COL_ELEMENTS.map((key, index) => {
@@ -88,7 +82,7 @@ export const ProductsTable = ({ searchState }: IProductsTable) => {
                           onClick={() =>
                             openBrowser(
                               `${convertShopeeSiteUrl(
-                                searchState.country,
+                                product.countryCode,
                               )}/search?keyword=${product[key]}`,
                               'R',
                             )

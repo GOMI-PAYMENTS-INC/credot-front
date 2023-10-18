@@ -28,14 +28,12 @@ type TDropDownOption = {
 };
 
 type TCategoryListResponse = {
-  categories: {
-    countryCode: TSearchCountry;
-    category: {
-      code: string;
-      value: string;
-    }[];
+  countryCode: TSearchCountry;
+  category: {
+    code: string;
+    value: string;
   }[];
-};
+}[];
 
 type TCurrencyResponse = {
   exchangeRates: {

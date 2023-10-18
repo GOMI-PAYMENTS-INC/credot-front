@@ -3,17 +3,34 @@ import { Selector } from '@/report/keyword/elements/Selector';
 import Pagination from '@/components/Pagination/Pagination';
 import { ProductsTable } from '@/category/elements/ProductsTable';
 
-import { useState } from 'react';
-import { CATEGORY_STATE } from '@/category';
+import { useEffect, useState } from 'react';
+
 import { convertCountryIconPath } from '@/utils/convertEnum';
-import { updateCategoryPayload, updatePagination } from '@/category/container';
+import {
+  updateCategoryPayload,
+  splitTableByPagination,
+  _getCategoryProducts,
+  _setSearchState,
+  updateTable,
+} from '@/category/container';
 
 import { convertCountry } from '@/utils/convertEnum';
 import { COUNTRY } from '@/search/constants';
+import { CATEGORY_STATE } from '@/category/constants';
 
 const Category = () => {
   const [searchState, setSearchState] = useState<TCategorySearchType>(CATEGORY_STATE);
   const [pagination, setPagination] = useState<TPagination>({ bundle: 10, page: 1 });
+  const [tableData, setTableData] = useState<TCategoryTableData>({
+    tableData: [],
+    printTable: [],
+  });
+
+  useEffect(() => {
+    if (searchState.category.code === '') _setSearchState(setSearchState);
+
+    _getCategoryProducts(searchState, pagination, setTableData);
+  }, [searchState.category.code, searchState.country]);
 
   return (
     <Layout useGap={true}>
@@ -57,8 +74,9 @@ const Category = () => {
             </div>
           </section>
           <main className='h-fit'>
-            <ProductsTable searchState={searchState} />
+            <ProductsTable tableData={tableData} />
           </main>
+
           <div id='pagination' className='flex items-center justify-between'>
             <Selector
               minWidth={133}
@@ -69,15 +87,29 @@ const Category = () => {
                 text: `${num}개씩`,
               }))}
               onClickOption={(value) =>
-                updatePagination('bundle', value as number, pagination, setPagination)
+                updateTable(
+                  'bundle',
+                  value as number,
+                  pagination,
+                  setPagination,
+                  tableData,
+                  setTableData,
+                )
               }
             />
             <Pagination
-              total={100}
+              total={tableData.tableData.length}
               page={pagination.page}
               limit={pagination.bundle}
               setParams={(value: number) =>
-                updatePagination('page', value, pagination, setPagination)
+                updateTable(
+                  'page',
+                  value as number,
+                  pagination,
+                  setPagination,
+                  tableData,
+                  setTableData,
+                )
               }
             />
             <p>최신 업데이트 : 2023.09.23</p>

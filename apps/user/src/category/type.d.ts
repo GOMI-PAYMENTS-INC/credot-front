@@ -36,3 +36,15 @@ type TCategoryTableList = {
   totalCount: number;
   categoryHotKeywords: TTableRowData[];
 };
+
+type TCachingCategoryProducts = {
+  [country: string]: {
+    products: TTableRowData[];
+    code: string;
+  }[];
+};
+
+type TCategoryTableData = {
+  tableData: TTableRowData[];
+  printTable: TTableRowData[];
+};

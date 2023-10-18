@@ -4,16 +4,6 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { getCategoryProducts } from '@/category/api';
 
-export const updatePagination = (
-  key: keyof TPagination,
-  value: number,
-  pagination: TPagination,
-  setPagination: Dispatch<SetStateAction<TPagination>>,
-) => {
-  const _state = Object.assign({}, pagination, { [key]: value });
-  setPagination(_state);
-};
-
 export const updateCategoryPayload = async (props: {
   _state: TCategorySearchType;
   _dispatch: Dispatch<SetStateAction<TCategorySearchType>>;
@@ -31,7 +21,7 @@ export const updateCategoryPayload = async (props: {
         value: string;
       }[];
     }[];
-    console.log(categories, 'cat');
+
     const category = categories.find((category) => category.countryCode === params);
 
     payload = Object.assign({}, _state, {
@@ -43,7 +33,7 @@ export const updateCategoryPayload = async (props: {
     const category = _state.categories.find((category) => category.value === params);
     payload = Object.assign({}, _state, { category });
   }
-  console.log(payload, 'payload');
+
   _dispatch(payload);
 };
 
@@ -146,15 +136,123 @@ export const scrollSwitch = (
   }
 };
 
+const cachingData = (country: TSearchCountry, code: string, value: TTableRowData[]) => {
+  let categoryProducts: TCachingCategoryProducts = {
+    [country]: [{ products: value, code }],
+  };
+
+  const item = useSessionStorage.getItem(
+    CACHING_KEY.CATEGORY_PRODUCTS,
+  ) as TCachingCategoryProducts;
+
+  if (categoryProducts[country]) {
+    const categories = categoryProducts[country];
+
+    categoryProducts = structuredClone(item) as TCachingCategoryProducts;
+    categories.push({ products: value, code });
+  }
+  categoryProducts = Object.assign({}, item, categoryProducts);
+  useSessionStorage.setItem(CACHING_KEY.CATEGORY_PRODUCTS, categoryProducts);
+};
+
+const getTableDataFromSession = (country: TSearchCountry, categoryCode: string) => {
+  const item = useSessionStorage.getItem(
+    CACHING_KEY.CATEGORY_PRODUCTS,
+  ) as TCachingCategoryProducts;
+  if (item === null) return null;
+
+  return item[country].find((product) => product.code === categoryCode);
+};
+
+const isCaching = (country: TSearchCountry, categoryCode: string) => {
+  const categories = useSessionStorage.getItem(
+    CACHING_KEY.CATEGORY_PRODUCTS,
+  ) as TCachingCategoryProducts;
+
+  if (categories === null || categories[country] === undefined) return false;
+
+  const countryProduct = categories[country];
+
+  if (countryProduct.find((product) => product.code === categoryCode)) return true;
+
+  return false;
+};
+
 export const _getCategoryProducts = async (
   searchState: TCategorySearchType,
-  setRowTable: Dispatch<SetStateAction<TCategoryTableList>>,
+  pagination: TPagination,
+  setRowTable: Dispatch<SetStateAction<TCategoryTableData>>,
 ) => {
   const { country, category } = searchState;
-  const response = await getCategoryProducts({
+  if (category.code === '') return;
+
+  if (isCaching(country, category.code)) {
+    const categoryProduct = getTableDataFromSession(country, category.code);
+    const table = splitTableByPagination(pagination, categoryProduct?.products!); // 업데이트 로직;
+    console.log(table, 'table');
+    return setRowTable({ tableData: categoryProduct?.products!, printTable: table });
+  }
+
+  const { categoryHotKeywords } = await getCategoryProducts({
     countryCode: country,
     categoryCode: category.code,
   });
-  console.log(response, 'response');
-  setRowTable(response);
+
+  cachingData(country, category.code, categoryHotKeywords);
+  const payload = {
+    tableData: categoryHotKeywords,
+    printTable: splitTableByPagination(pagination, categoryHotKeywords),
+  };
+
+  setRowTable(payload);
+};
+
+export const splitTableByPagination = (
+  pagination: TPagination,
+  tableData: TTableRowData[],
+) => {
+  const { bundle, page } = pagination;
+  const _tableData = structuredClone(tableData) as TTableRowData[];
+
+  const from = (page - 1) * bundle;
+  const to = bundle;
+
+  const table = _tableData.splice(from, to);
+
+  return table;
+};
+
+export const updateTable = (
+  key: keyof TPagination,
+  value: number,
+  pagination: TPagination,
+  setPagination: Dispatch<SetStateAction<TPagination>>,
+  tableData: TCategoryTableData,
+  setTableData: Dispatch<SetStateAction<TCategoryTableData>>,
+) => {
+  const _pagination = Object.assign({}, pagination, { [key]: value });
+  setPagination(_pagination);
+
+  const table = splitTableByPagination(_pagination, tableData.tableData);
+  console.log(table, 'table');
+  const updatedTable = structuredClone(tableData) as TCategoryTableData;
+  updatedTable.printTable = table;
+
+  return setTableData(updatedTable);
+};
+
+export const _setSearchState = (
+  setSearchState: Dispatch<SetStateAction<TCategorySearchType>>,
+) => {
+  const categories = useSessionStorage.getItem(
+    CACHING_KEY.CATEGORY,
+  ) as TCategoryListResponse;
+  const initialCategory = categories.find((category) => category.countryCode === 'SG')!;
+
+  const initialCategoryState = {
+    country: initialCategory.countryCode,
+    category: initialCategory.category[0],
+    categories: initialCategory.category,
+  };
+  return setSearchState(initialCategoryState);
 };
