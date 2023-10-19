@@ -1,5 +1,5 @@
 {
-  "name": "kr-core-gomi-keyword-front-user",
+  "name": "gomi-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,21 +12,24 @@
     "build:prod": "tsc && vite build --mode production",
     "serve:dev": "yarn build:dev && vite preview",
     "serve:prod": "yarn build:prod && vite preview",
-    "gen": "graphql-codegen --config codegen.yml && sed -i '' 's/= unknown/extends unknown/g' src/generated/graphql.tsx && sed -i '' 's/TData =/TData extends/g' src/generated/graphql.tsx && prettier --write src/generated/graphql.tsx"
+    "gen": "node script/codegen.mjs"
   },
   "dependencies": {
     "@hackler/react-sdk": "^11.18.1",
     "@hookform/error-message": "^2.0.1",
     "@tanstack/react-query": "^4.13.0",
     "@tosspayments/payment-widget-sdk": "^0.9.3",
+    "@types/form-data": "^2.5.0",
     "axios": "^0.27.2",
     "casing": "^1.1.0",
     "dayjs": "^1.11.7",
     "echarts": "^5.4.2",
     "echarts-for-react": "^3.0.2",
+    "form-data": "^4.0.0",
     "graphql": "^16.6.0",
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
+    "openapi-typescript-codegen": "^0.25.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
