@@ -60,7 +60,27 @@ export const convertPlan = (plan: TPlanUniqueKey) => {
   return `${plans.find((pl: TPlans) => pl.uniqueKey === plan)?.name}`;
 };
 
+const convertCurrencyCode = (code: 'TWD' | 'THB' | 'VND' | 'SGD' | 'MYR') => {
+  switch (code) {
+    case 'MYR':
+      return 'MY';
+    case 'THB':
+      return 'TH';
+    case 'VND':
+      return 'VN';
+    case 'SGD':
+      return 'SG';
+    default:
+      return 'TW';
+  }
+};
+
 export const _getCurrency = async () => {
   const response = await getCurrency();
-  return useSessionStorage.setItem(CACHING_KEY.CURRENCY, response);
+  const _response = response.map((data) =>
+    Object.assign(data, {
+      currencyCode: convertCurrencyCode(data.currencyCode as TCurrencyCode),
+    }),
+  );
+  return useSessionStorage.setItem(CACHING_KEY.CURRENCY, _response);
 };

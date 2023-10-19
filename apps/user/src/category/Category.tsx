@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { convertCountryIconPath } from '@/utils/convertEnum';
 import {
   updateCategoryPayload,
-  splitTableByPagination,
   _getCategoryProducts,
   _setSearchState,
   updateTable,
@@ -74,7 +73,7 @@ const Category = () => {
             </div>
           </section>
           <main className='h-fit'>
-            <ProductsTable tableData={tableData} />
+            <ProductsTable printTable={tableData.printTable} />
           </main>
 
           <div id='pagination' className='flex items-center justify-between'>

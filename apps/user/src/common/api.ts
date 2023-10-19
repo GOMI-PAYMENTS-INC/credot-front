@@ -23,7 +23,7 @@ export const getCategories = async () => {
 export const getCurrency = async () => {
   const URL = '/api/v1/exchange-rate';
   try {
-    const { data } = await HTTP.get<{ data: TCurrencyResponse }>(URL);
+    const { data } = await HTTP.get<{ data: { exchangeRates: TCurrencyResponse } }>(URL);
     return data.data.exchangeRates;
   } catch (error) {
     throw new Error('국가 환율을 요청하는 과정에서 에러가 발생했습니다.');
