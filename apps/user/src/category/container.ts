@@ -1,5 +1,5 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { PRODUCT_TABLE_HEADS } from '@/category/constants';
+import { PRODUCT_TABLE_HEADS, SORTING_STYLE } from '@/category/constants';
 import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { getCategoryProducts } from '@/category/api';
@@ -8,6 +8,7 @@ import roundNumber from '@/utils/roundNumber';
 import convertExchangeRate from '@/utils/convetExchangeRate';
 import { formatNumber } from '@/utils/formatNumber';
 import { isFalsy } from '@/utils/isFalsy';
+import type { SetterOrUpdater } from 'recoil';
 
 const divideNumber = (...args: any) =>
   args
@@ -231,7 +232,7 @@ const isCaching = (country: TSearchCountry, categoryCode: string) => {
 export const _getCategoryProducts = async (
   searchState: TCategorySearchType,
   pagination: TPagination,
-  setRowTable: Dispatch<SetStateAction<TCategoryTableData>>,
+  setRowTable: SetterOrUpdater<TCategoryTableData>,
 ) => {
   const { country, category } = searchState;
   if (category.code === '') return;
@@ -260,9 +261,12 @@ export const _getCategoryProducts = async (
 export const splitTableByPagination = (
   pagination: TPagination,
   tableData: TTableRowData[],
+  copyArray: boolean = true,
 ) => {
   const { bundle, page } = pagination;
-  const _tableData = structuredClone(tableData) as TTableRowData[];
+  const _tableData = copyArray
+    ? (structuredClone(tableData) as TTableRowData[])
+    : tableData;
 
   const from = (page - 1) * bundle;
   const to = bundle;
@@ -276,9 +280,9 @@ export const updateTable = (
   key: keyof TPagination,
   value: number,
   pagination: TPagination,
-  setPagination: Dispatch<SetStateAction<TPagination>>,
+  setPagination: SetterOrUpdater<TPagination>,
   tableData: TCategoryTableData,
-  setTableData: Dispatch<SetStateAction<TCategoryTableData>>,
+  setTableData: SetterOrUpdater<TCategoryTableData>,
 ) => {
   const _pagination = Object.assign({}, pagination, { [key]: value });
   setPagination(_pagination);
@@ -321,4 +325,80 @@ export const getBaseDate = (searchState: TCategorySearchType) => {
       .find((category) => category.countryCode === country)
       ?.category.find((item) => item.code === code)?.baseDate || ''
   ).replaceAll('-', '.');
+};
+
+export const getSortingIconStyle = (
+  config: TSortingConfig,
+  key: keyof TTableRowData,
+): { down: string; up: string } => {
+  const { sortingItem, type } = config;
+  const { growth, normal, normalSelected, growthAsc, growthDesc } = SORTING_STYLE;
+  if (key === 'salesGrowthRate') {
+    if (sortingItem === key)
+      return type === 'ASC'
+        ? { down: growth, up: growthAsc }
+        : { down: growthDesc, up: growth };
+    return { down: growth, up: growth };
+  }
+
+  if (key === config.sortingItem) {
+    return type === 'ASC'
+      ? { down: normal, up: normalSelected }
+      : { down: normalSelected, up: normal };
+  }
+
+  return { down: normal, up: normal };
+};
+
+export const updateStatesBySorting = (
+  config: TSortingConfig,
+  key: keyof TTableRowData,
+  setConfig: SetterOrUpdater<TSortingConfig>,
+  tableList: TCategoryTableData,
+  setTableList: SetterOrUpdater<TCategoryTableData>,
+  pagination: TPagination,
+) => {
+  if (key !== 'salesGrowthRate' && key.includes('Rate')) return 0;
+
+  const _config = Object.assign({}, config, {
+    type: key === config.sortingItem && config.type === 'ASC' ? 'DESC' : 'ASC',
+  });
+  updateSortingConfig(_config, key, setConfig);
+  tableListUpdateBySorting(_config, key, tableList, setTableList, pagination);
+};
+
+export const updateSortingConfig = (
+  config: TSortingConfig,
+  key: keyof TTableRowData,
+  setConfig: SetterOrUpdater<TSortingConfig>,
+) => {
+  const { sortingItem, type } = config;
+
+  if (key === sortingItem) {
+    setConfig(config);
+  } else {
+    setConfig({ sortingItem: key, type: 'ASC' });
+  }
+};
+
+export const tableListUpdateBySorting = (
+  config: TSortingConfig,
+  key: keyof TTableRowData,
+  tableList: TCategoryTableData,
+  setTableList: SetterOrUpdater<TCategoryTableData>,
+  pagination: TPagination,
+) => {
+  const _rowTable = structuredClone(tableList) as TCategoryTableData;
+  const { type } = config;
+
+  _rowTable.tableData.sort((cur, pre) => {
+    const [_cur, _pre] = [cur[key], pre[key]] as number[];
+
+    if (type === 'ASC') return _cur - _pre > 0 ? 1 : -1;
+
+    return _cur - _pre < 0 ? 1 : -1;
+  });
+
+  const table = splitTableByPagination(pagination, _rowTable.tableData);
+  setTableList({ tableData: _rowTable.tableData, printTable: table });
 };
