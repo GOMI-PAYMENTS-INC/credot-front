@@ -72,6 +72,7 @@ export const updateCategoryPayload = async (props: {
     const categories = (await useSessionStorage.getItem(
       CACHING_KEY.CATEGORY,
     )) as TCategoryListResponse;
+    if (isFalsy(categories)) return '';
 
     const category = categories.find((category) => category.countryCode === params);
 
@@ -319,6 +320,7 @@ export const getBaseDate = (searchState: TCategorySearchType) => {
     country,
     category: { code },
   } = searchState;
+  if (isFalsy(categories)) return '';
 
   return (
     categories
