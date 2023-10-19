@@ -18,7 +18,6 @@ export const Modal = (props: IRequestReportModalType) => {
     if (props.modalType === MODAL_TYPE_ENUM.MakeDuplicateReportSuccesses && isDisalbed) {
       setIsDisalbed(false);
     }
-    // return () => props.cleanUpFunction();
   }, [props.modalType]);
 
   return (

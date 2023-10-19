@@ -101,6 +101,18 @@ export const ReportGeneratorModal = ({
           }}
           failedCallback={() => {
             initializeModal(reportTrigger, setReportTrigger);
+
+            if (
+              [
+                MODAL_TYPE_ENUM.MakeReportSuccesses,
+                MODAL_TYPE_ENUM.SameKeywordReportExisted,
+                MODAL_TYPE_ENUM.NotBeOverDayReport,
+              ].includes(modal.modalType)
+            ) {
+              setSortingType(SORTING_TYPE[0]);
+              setIsRequested(false);
+              setModal({ modalType: '', response: '' });
+            }
           }}
         />
       ) : (
