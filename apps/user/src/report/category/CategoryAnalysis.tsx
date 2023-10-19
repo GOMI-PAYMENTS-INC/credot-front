@@ -1,11 +1,11 @@
+import { useMemo } from 'react';
+
+import UseTooltip from '@/components/UseTooltip';
+import { CategoryRankChart } from '@/report/category/CategoryRankChart';
+import { setCategoryData } from '@/report/category/container';
+import { CategoryToolTip } from '@/report/category/Tooltip';
 import { DetailReportSectionHeader } from '@/report/elements';
 import { TITLE } from '@/types/enum.code';
-
-import { useMemo } from 'react';
-import { setCategoryData } from '@/report/category/container';
-import { CategoryRankChart } from '@/report/category/CategoryRankChart';
-import UseTooltip from '@/components/UseTooltip';
-import { CategoryToolTip } from '@/report/category/Tooltip';
 
 interface ICategoryAnalysis {
   categoryAnalysis: null | TCategoryAnalysis;
