@@ -33,7 +33,7 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     // import 순서
     'simple-import-sort/imports': 'error',
-
+    'react/react-in-jsx-scope': 'off',
     'import/extensions': [
       'error',
       'always',

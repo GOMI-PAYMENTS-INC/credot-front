@@ -11,9 +11,7 @@ import { useForm } from 'react-hook-form';
 import { useRecoilState,useRecoilValue } from 'recoil';
 
 import {
-  _amplitudeCountryChanged,
   _amplitudeRecKeywordSearched,
-  _amplitudeSortByChanged,
 } from '@/amplitude/amplitude.service';
 import { PlansAtom,SubscriptionAtom } from '@/atom';
 import { _checkSubscription } from '@/common/container';
