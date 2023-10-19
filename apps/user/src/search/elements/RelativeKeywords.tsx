@@ -1,8 +1,9 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { isFalsy } from '@/utils/isFalsy';
-import { formatNumber } from '@/utils/formatNumber';
-import { updateSearchPayload } from '@/search/container';
+
 import UseTooltip from '@/components/UseTooltip';
+import { updateSearchPayload } from '@/search/container';
+import { formatNumber } from '@/utils/formatNumber';
+import { isFalsy } from '@/utils/isFalsy';
 
 interface IRelativeKeyowrds {
   tooltip: JSX.Element;
