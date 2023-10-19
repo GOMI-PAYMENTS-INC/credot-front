@@ -32,6 +32,7 @@ type TCategoryListResponse = {
   category: {
     code: string;
     value: string;
+    baseDate: string;
   }[];
 }[];
 

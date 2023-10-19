@@ -68,13 +68,9 @@ export const updateCategoryPayload = async (props: {
   const { _state, _dispatch, params, key, calledByEvent } = props;
   let payload;
   if (key === 'country') {
-    const categories = (await useSessionStorage.getItem(CACHING_KEY.CATEGORY)) as {
-      countryCode: TSearchCountry;
-      category: {
-        code: string;
-        value: string;
-      }[];
-    }[];
+    const categories = (await useSessionStorage.getItem(
+      CACHING_KEY.CATEGORY,
+    )) as TCategoryListResponse;
 
     const category = categories.find((category) => category.countryCode === params);
 
@@ -309,4 +305,20 @@ export const _setSearchState = (
     categories: initialCategory.category,
   };
   return setSearchState(initialCategoryState);
+};
+
+export const getBaseDate = (searchState: TCategorySearchType) => {
+  const categories = useSessionStorage.getItem(
+    CACHING_KEY.CATEGORY,
+  ) as TCategoryListResponse;
+  const {
+    country,
+    category: { code },
+  } = searchState;
+
+  return (
+    categories
+      .find((category) => category.countryCode === country)
+      ?.category.find((item) => item.code === code)?.baseDate || ''
+  ).replaceAll('-', '.');
 };

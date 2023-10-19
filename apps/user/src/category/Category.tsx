@@ -11,6 +11,7 @@ import {
   _getCategoryProducts,
   _setSearchState,
   updateTable,
+  getBaseDate,
 } from '@/category/container';
 
 import { convertCountry } from '@/utils/convertEnum';
@@ -30,6 +31,8 @@ const Category = () => {
 
     _getCategoryProducts(searchState, pagination, setTableData);
   }, [searchState.category.code, searchState.country]);
+
+  const updatedAt = getBaseDate(searchState);
 
   return (
     <Layout useGap={true}>
@@ -111,7 +114,7 @@ const Category = () => {
                 )
               }
             />
-            <p>최신 업데이트 : 2023.09.23</p>
+            <p>최신 업데이트 : {updatedAt}</p>
           </div>
         </div>
       </div>
