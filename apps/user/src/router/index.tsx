@@ -9,12 +9,14 @@ import { useMeQuery } from '@/generated/graphql';
 
 import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';
-import { PATH } from '@/types/enum.code';
+import { PATH, CACHING_KEY } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 
 import { isFalsy } from '@/utils/isFalsy';
 import { useCookieStorage } from '@/utils/useCookieStorage';
 import { isTruthy } from '@/utils/isTruthy';
+
+import { _getSubscription, _getCategories, _getCurrency } from '@/common/container';
 
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
@@ -49,6 +51,14 @@ export const Router = () => {
   );
 
   useEffect(() => {
+    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CATEGORY))) {
+      _getCategories();
+    }
+
+    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CURRENCY))) {
+      _getCurrency();
+    }
+
     if (isFalsy(userInfo)) {
       setToken(storageToken);
       setUserInfo(userQueryData);

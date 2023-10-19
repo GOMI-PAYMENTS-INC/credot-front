@@ -17,12 +17,14 @@ const divideNumber = (...args: any) =>
 
 export const convertTableList = (table: TTableRowData[]) => {
   if (isFalsy(table)) return [];
-
-  const _table = structuredClone(table) as TTableRowData[];
-
   const currencyList = useSessionStorage.getItem(
     CACHING_KEY.CURRENCY,
   ) as TCurrencyResponse;
+
+  if (isFalsy(currencyList)) return [];
+
+  const _table = structuredClone(table) as TTableRowData[];
+
   const countryCode = table[0].countryCode;
   const currency = currencyList.find(
     (data) => (data.currencyCode as TSearchCountry) === countryCode,
@@ -72,7 +74,6 @@ export const updateCategoryPayload = async (props: {
     const categories = (await useSessionStorage.getItem(
       CACHING_KEY.CATEGORY,
     )) as TCategoryListResponse;
-    if (isFalsy(categories)) return '';
 
     const category = categories.find((category) => category.countryCode === params);
 
@@ -296,12 +297,13 @@ export const updateTable = (
   return setTableData(updatedTable);
 };
 
-export const _setSearchState = (
+export const _setSearchState = async (
   setSearchState: Dispatch<SetStateAction<TCategorySearchType>>,
 ) => {
-  const categories = useSessionStorage.getItem(
+  const categories = (await useSessionStorage.getItem(
     CACHING_KEY.CATEGORY,
-  ) as TCategoryListResponse;
+  )) as TCategoryListResponse;
+
   const initialCategory = categories.find((category) => category.countryCode === 'SG')!;
 
   const initialCategoryState = {
@@ -320,7 +322,6 @@ export const getBaseDate = (searchState: TCategorySearchType) => {
     country,
     category: { code },
   } = searchState;
-  if (isFalsy(categories)) return '';
 
   return (
     categories

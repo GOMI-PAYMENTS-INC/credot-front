@@ -26,13 +26,6 @@ export default function PrivateRoute() {
     if (isFalsy(plans) || isFalsy(sessionStorage.getItem(CACHING_KEY.PLANS))) {
       storePlansIntoSession(setPlans);
     }
-    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CATEGORY))) {
-      _getCategories();
-    }
-
-    if (isFalsy(sessionStorage.getItem(CACHING_KEY.CURRENCY))) {
-      _getCurrency();
-    }
 
     _getSubscription(setSubscription);
   }, [pathname]);
