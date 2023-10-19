@@ -50,7 +50,8 @@ export const PLANS = [
 ];
 
 export const PATH = {
-  SEARCH_PRODUCTS: '/',
+  CATEGORY: '/',
+  SEARCH_PRODUCTS: '/keyword',
   SIGN_IN: '/signin',
   SIGN_UP: '/signup',
   SIGN_UP_WITH_GOOGLE: '/signup/social',
@@ -65,5 +66,4 @@ export const PATH = {
   DOWN_GRADE: '/subscribe/downgrade',
   UNSUBSCRIPTION: '/subscribe/unsubscription',
   RESULT_OF_PAY_REQUEST: '/subscribe/:result',
-  CATEGORY: '/category',
 } as const;

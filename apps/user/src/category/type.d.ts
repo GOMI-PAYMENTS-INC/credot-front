@@ -12,24 +12,27 @@ type TTableElements = { thead: TTableColumn[]; tbody: TTableRowData[] };
 type TPagination = { bundle: number; page: number };
 
 type TTableRowData = {
-  id: number;
+  id: number | string;
   baseDate: string;
   countryCode: TSearchCountry;
-  categoryCode1: number;
-  categoryCode2: number;
-  categoryCode3: number;
+  categoryCode1: number | string;
+  categoryCode2: number | string;
+  categoryCode3: number | string;
   keyword: string;
-  itemCount: number;
-  sales: number;
-  sales7Day: number;
-  sales30Day: number;
-  gmv30Day: number;
-  searchValue: number;
-  cpc: number;
-  salesGrowthRate: number;
-  averagePrice: number;
+  itemCount: number | string;
+  sales: number | string;
+  sales7Day: number | string;
+  sales30Day: number | string;
+  gmv30Day: number | string;
+  searchValue: number | string;
+  cpc: number | string;
+  salesGrowthRate: number | string;
+  averagePrice: number | string;
   createdAt: string;
   updatedAt: string;
+  competitonRate?: string;
+  conversionRate?: string;
+  cpcRate?: string;
 };
 
 type TCategoryTableList = {
@@ -48,3 +51,5 @@ type TCategoryTableData = {
   tableData: TTableRowData[];
   printTable: TTableRowData[];
 };
+
+type TCurrencyCode = 'TWD' | 'THB' | 'VND' | 'SGD' | 'MYR';

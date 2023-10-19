@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, Fragment } from 'react';
 import { Card } from '@/report/keyword/elements/Card';
 import { convertScoreToText } from '@/report/constants/Score';
 import { formatNumber } from '@/utils/formatNumber';
@@ -63,7 +63,7 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
           id='Search'
           tooltipItem={{ text, itemCount }}
         />
-        {analysisInfo.totalSalesCount && (
+        {analysisInfo.totalSalesCount ? (
           <Card
             grade={conversion}
             rate={`${_conversionRate} 회`}
@@ -72,6 +72,8 @@ export const KeywordAnalysisCard = (props: IKeywordAnalysisCard) => {
             id='Conversion'
             tooltipItem={{ text, itemCount }}
           />
+        ) : (
+          <Fragment />
         )}
         <Card
           grade={competition}

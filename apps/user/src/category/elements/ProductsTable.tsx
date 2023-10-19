@@ -1,13 +1,10 @@
-import {
-  PRODUCT_TABLE_HEADS,
-  TABLE_COL_ELEMENTS,
-  // TABLE_INITIALSTATE,
-} from '@/category/constants';
+import { PRODUCT_TABLE_HEADS, TABLE_COL_ELEMENTS } from '@/category/constants';
 import {
   featureConvertor,
   sepecificFeature,
   scrollSwitch,
   _getCategoryProducts,
+  convertTableList,
 } from '@/category/container';
 import UseTooltip from '@/components/UseTooltip';
 import { SortingButton } from '@/category/elements/SortingButton';
@@ -16,15 +13,16 @@ import { ReactSVG } from 'react-svg';
 import { openBrowser } from '@/utils/openBrowser';
 import { convertShopeeSiteUrl } from '@/utils/convertEnum';
 import { getElementLocation } from '@/utils/getElementLocation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface IProductsTable {
-  tableData: TCategoryTableData;
+  printTable: TTableRowData[];
 }
 
-export const ProductsTable = ({ tableData }: IProductsTable) => {
+export const ProductsTable = ({ printTable }: IProductsTable) => {
   const [useScroll, setUseScroll] = useState<boolean>(false);
-  console.log(tableData, 'tableData');
+  const _printTable = convertTableList(printTable);
+
   return (
     <div
       id='scrollbar'
@@ -66,11 +64,12 @@ export const ProductsTable = ({ tableData }: IProductsTable) => {
           </tr>
         </thead>
         <tbody>
-          {tableData.printTable.map((product, index: number) => {
+          {_printTable.map((product, index: number) => {
             return (
               <tr key={`row_${index}`}>
-                {TABLE_COL_ELEMENTS.map((key, index) => {
-                  const _key = key as keyof TTableRowData;
+                {TABLE_COL_ELEMENTS.map((element, index) => {
+                  const { key, unit } = element;
+                  const _key = element.key as keyof TTableRowData;
                   const { value, iconPath, tdStyle, valueStyle, iconStyle, divStyle } =
                     sepecificFeature(_key, product[_key], useScroll);
 
@@ -120,7 +119,9 @@ export const ProductsTable = ({ tableData }: IProductsTable) => {
                         {key === 'salesGrowthRate' && (
                           <ReactSVG src={iconPath} className={iconStyle} />
                         )}
-                        <p className={valueStyle}>{value}</p>
+                        <p className={valueStyle}>
+                          {value} {unit}
+                        </p>
                       </div>
                     </td>
                   );

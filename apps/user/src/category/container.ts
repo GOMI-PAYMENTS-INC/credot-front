@@ -4,6 +4,60 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 import { CACHING_KEY } from '@/types/enum.code';
 import { getCategoryProducts } from '@/category/api';
 
+import roundNumber from '@/utils/roundNumber';
+import convertExchangeRate from '@/utils/convetExchangeRate';
+import { formatNumber } from '@/utils/formatNumber';
+import { isFalsy } from '@/utils/isFalsy';
+
+const divideNumber = (...args: any) =>
+  args
+    .map((arg: string | number) => (typeof arg === 'string' ? parseInt(arg) : arg))
+    .reduce((pre: number, cur: number) => pre / cur);
+
+export const convertTableList = (table: TTableRowData[]) => {
+  if (isFalsy(table)) return [];
+
+  const _table = structuredClone(table) as TTableRowData[];
+
+  const currencyList = useSessionStorage.getItem(
+    CACHING_KEY.CURRENCY,
+  ) as TCurrencyResponse;
+  const countryCode = table[0].countryCode;
+  const currency = currencyList.find(
+    (data) => (data.currencyCode as TSearchCountry) === countryCode,
+  )!;
+
+  return _table.map((data) => {
+    const [currencyUnit, basePrice] = [currency.currencyUnit, currency.basePrice].map(
+      (item) => parseInt(item),
+    );
+    const conversionRate = divideNumber(data.sales30Day, data.searchValue);
+    const competitonRate = divideNumber(data.itemCount, data.searchValue);
+    const cpcRate = divideNumber(data.cpc, data.averagePrice);
+
+    data.conversionRate = formatNumber(conversionRate);
+    data.competitonRate = `1 : ${formatNumber(competitonRate)}`;
+    data.cpcRate = formatNumber(cpcRate);
+    data.salesGrowthRate = roundNumber(data.salesGrowthRate);
+    data.gmv30Day = formatNumber(data.gmv30Day);
+    data.sales7Day = formatNumber(data.sales7Day);
+    data.sales30Day = formatNumber(data.sales30Day);
+    data.searchValue = formatNumber(data.searchValue);
+    data.sales = formatNumber(data.sales);
+    data.itemCount = formatNumber(data.itemCount);
+    data.averagePrice = formatNumber(
+      roundNumber(
+        convertExchangeRate(currencyUnit, data.averagePrice as number, basePrice),
+      ),
+    );
+    data.cpc = formatNumber(
+      roundNumber(convertExchangeRate(currencyUnit, data.cpc as number, basePrice)),
+    );
+
+    return data;
+  });
+};
+
 export const updateCategoryPayload = async (props: {
   _state: TCategorySearchType;
   _dispatch: Dispatch<SetStateAction<TCategorySearchType>>;
@@ -189,7 +243,7 @@ export const _getCategoryProducts = async (
   if (isCaching(country, category.code)) {
     const categoryProduct = getTableDataFromSession(country, category.code);
     const table = splitTableByPagination(pagination, categoryProduct?.products!); // 업데이트 로직;
-    console.log(table, 'table');
+
     return setRowTable({ tableData: categoryProduct?.products!, printTable: table });
   }
 
@@ -234,7 +288,7 @@ export const updateTable = (
   setPagination(_pagination);
 
   const table = splitTableByPagination(_pagination, tableData.tableData);
-  console.log(table, 'table');
+
   const updatedTable = structuredClone(tableData) as TCategoryTableData;
   updatedTable.printTable = table;
 

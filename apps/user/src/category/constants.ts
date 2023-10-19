@@ -5,18 +5,18 @@ export const CATEGORY_STATE = {
 };
 
 export const TABLE_COL_ELEMENTS = [
-  'keyword',
-  'salesGrowthRate',
-  'sales30Day',
-  'itemCount',
-  'averagePrice',
-  'cpc',
-  '',
-  '',
-  '',
-  'sales',
-  'sales7Day',
-  'sales30Day',
+  { unit: '건', key: 'keyword' },
+  { unit: '', key: 'salesGrowthRate' },
+  { unit: '건', key: 'searchValue' },
+  { unit: '개', key: 'itemCount' },
+  { unit: '원', key: 'averagePrice' },
+  { unit: '원', key: 'cpc' },
+  { unit: '', key: 'competitonRate' },
+  { unit: '회', key: 'conversionRate' },
+  { unit: '%', key: 'cpcRate' },
+  { unit: '건', key: 'sales' },
+  { unit: '건', key: 'sales7Day' },
+  { unit: '건', key: 'sales30Day' },
 ];
 
 export const CATEGORIES = [
