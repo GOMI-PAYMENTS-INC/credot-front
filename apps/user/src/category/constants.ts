@@ -27,19 +27,24 @@ export const CATEGORIES = [
 ];
 
 export const PRODUCT_TABLE_HEADS: TTableColumn[] = [
-  { title: '키워드', type: 'type1' },
-
-  { title: '판매량 성장률', type: 'type2' },
-
-  { title: '최근 30일 검색량', type: 'type3' },
-  { title: '경쟁 상품 수', type: 'type3' },
-  { title: '평균 판매가', type: 'type3' },
-  { title: 'CPC 비용', type: 'type3' },
-
-  { title: '노출 경쟁률', type: '' },
-  { title: '구매 전환빈도', type: '' },
-  { title: 'CPC 비율', type: '' },
-  { title: '전일 판매량', type: '' },
-  { title: '최근 7일 판매량', type: '' },
-  { title: '최근 30일 판매량', type: '' },
+  { key: 'keyword', title: '키워드', type: 'type1' },
+  { key: 'salesGrowthRate', title: '판매량 성장률', type: 'type2' },
+  { key: 'searchValue', title: '최근 30일 검색량', type: 'type3' },
+  { key: 'itemCount', title: '경쟁 상품 수', type: 'type3' },
+  { key: 'averagePrice', title: '평균 판매가', type: 'type3' },
+  { key: 'cpc', title: 'CPC 비용', type: 'type3' },
+  { key: 'competitonRate', title: '노출 경쟁률', type: '' },
+  { key: 'conversionRate', title: '구매 전환빈도', type: '' },
+  { key: 'cpcRate', title: 'CPC 비율', type: '' },
+  { key: 'sales', title: '전일 판매량', type: '' },
+  { key: 'sales7Day', title: '최근 7일 판매량', type: '' },
+  { key: 'sales30Day', title: '최근 30일 판매량', type: '' },
 ];
+
+export const SORTING_STYLE = {
+  growth: 'fill-white',
+  growthAsc: 'fill-blue-600',
+  growthDesc: 'fill-red-600',
+  normal: 'fill-grey-400',
+  normalSelected: 'fill-grey-800',
+};

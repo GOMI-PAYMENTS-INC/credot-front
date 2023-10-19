@@ -5,7 +5,7 @@ type TCategorySearchType = {
 };
 type TCategoryType = { value: string; code: string };
 type TColumnType = 'type1' | 'type2' | 'type3' | '';
-type TTableColumn = { title: string; type: TColumnType };
+type TTableColumn = { title: string; type: TColumnType; key: keyof TTableRowData };
 
 type TTableElements = { thead: TTableColumn[]; tbody: TTableRowData[] };
 
@@ -53,3 +53,10 @@ type TCategoryTableData = {
 };
 
 type TCurrencyCode = 'TWD' | 'THB' | 'VND' | 'SGD' | 'MYR';
+
+type TSortingType = 'DESC' | 'ASC' | '';
+
+type TSortingConfig = {
+  sortingItem: keyof TTableRowData;
+  type: TSortingType;
+};

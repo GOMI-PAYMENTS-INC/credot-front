@@ -11,25 +11,27 @@ import {
   _getCategoryProducts,
   _setSearchState,
   updateTable,
+  getBaseDate,
 } from '@/category/container';
 
+import { useRecoilState } from 'recoil';
+import { PaginationAtom, TableItemAtom } from '@/atom';
 import { convertCountry } from '@/utils/convertEnum';
 import { COUNTRY } from '@/search/constants';
 import { CATEGORY_STATE } from '@/category/constants';
 
 const Category = () => {
   const [searchState, setSearchState] = useState<TCategorySearchType>(CATEGORY_STATE);
-  const [pagination, setPagination] = useState<TPagination>({ bundle: 10, page: 1 });
-  const [tableData, setTableData] = useState<TCategoryTableData>({
-    tableData: [],
-    printTable: [],
-  });
+  const [pagination, setPagination] = useRecoilState(PaginationAtom);
+  const [tableData, setTableData] = useRecoilState(TableItemAtom);
 
   useEffect(() => {
     if (searchState.category.code === '') _setSearchState(setSearchState);
 
     _getCategoryProducts(searchState, pagination, setTableData);
   }, [searchState.category.code, searchState.country]);
+
+  const updatedAt = getBaseDate(searchState);
 
   return (
     <Layout useGap={true}>
@@ -111,7 +113,7 @@ const Category = () => {
                 )
               }
             />
-            <p>최신 업데이트 : 2023.09.23</p>
+            <p>최신 업데이트 : {updatedAt}</p>
           </div>
         </div>
       </div>

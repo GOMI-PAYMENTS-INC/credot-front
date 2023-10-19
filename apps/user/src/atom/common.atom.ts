@@ -14,3 +14,8 @@ export const PlansAtom = atom<TPlans[]>({
   key: 'plans',
   default: [],
 });
+
+export const PaginationAtom = atom<TPagination>({
+  key: 'pagination',
+  default: { bundle: 10, page: 1 },
+});

@@ -69,7 +69,7 @@ export const ProductsTable = ({ printTable }: IProductsTable) => {
                           tooltipStyle={col.type === 'type2' ? 'fill-white' : ''}
                           content={'안녕'}
                         />
-                        <SortingButton type={col.type} />
+                        <SortingButton itemKey={col.key} />
                       </>
                     )}
                   </div>
