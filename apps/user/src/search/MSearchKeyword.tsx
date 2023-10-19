@@ -8,53 +8,50 @@ import {
   useState,
 } from 'react';
 import { useForm } from 'react-hook-form';
-import { Default } from '@/common/layouts/Default';
-import { ModalComponent } from '@/components/modals/ModalComponent';
-import {
-  SearchModal,
-  SearchKeywordTranslator,
-  HotKeyword,
-  SearchKeywordImages,
-  ExccededAlertModal,
-} from '@/search/elements';
-import { CACHING_KEY, MODAL_SIZE_ENUM } from '@/types/enum.code';
-import { SORTING_TYPE, COUNTRY } from '@/search/constants';
-import {
-  initializeState,
-  queryKeyword,
-  queryKeywordByClick,
-  convertSearchPlaceholder,
-  onClickCountryOption,
-  onClickSortOption,
-} from '@/search/container';
-
-import { searchInitialState, searchReducer } from '@/search/reducer';
-import { deprecatedGetQueryResult } from '@/search/api';
-import { Selector } from '@/report/keyword/elements/Selector';
-
-import { replaceOverLength } from '@/utils/replaceOverLength';
-import { mobileScrollToTop } from '@/utils/scrollController';
-import { isFalsy } from '@/utils/isFalsy';
-import { formatNumber } from '@/utils/formatNumber';
-import { useSessionStorage } from '@/utils/useSessionStorage';
-import { isTruthy } from '@/utils/isTruthy';
-import {
-  convertSortByIconPath,
-  convertSortedType,
-  convertCountry,
-  convertCountryIconPath,
-} from '@/utils/convertEnum';
+import { useRecoilState,useRecoilValue } from 'recoil';
 
 import {
   _amplitudeCountryChanged,
   _amplitudeRecKeywordSearched,
   _amplitudeSortByChanged,
 } from '@/amplitude/amplitude.service';
-
-import { switchModal, searchRequestHandler } from '@/search/elements/container';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { SubscriptionAtom, PlansAtom } from '@/atom';
+import { PlansAtom,SubscriptionAtom } from '@/atom';
 import { _checkSubscription } from '@/common/container';
+import { Default } from '@/common/layouts/Default';
+import { ModalComponent } from '@/components/modals/ModalComponent';
+import { Selector } from '@/report/keyword/elements/Selector';
+import { deprecatedGetQueryResult } from '@/search/api';
+import { COUNTRY,SORTING_TYPE } from '@/search/constants';
+import {
+  convertSearchPlaceholder,
+  initializeState,
+  onClickCountryOption,
+  onClickSortOption,
+  queryKeyword,
+  queryKeywordByClick,
+} from '@/search/container';
+import {
+  ExccededAlertModal,
+  HotKeyword,
+  SearchKeywordImages,
+  SearchKeywordTranslator,
+  SearchModal,
+} from '@/search/elements';
+import { searchRequestHandler,switchModal } from '@/search/elements/container';
+import { searchInitialState, searchReducer } from '@/search/reducer';
+import { CACHING_KEY, MODAL_SIZE_ENUM } from '@/types/enum.code';
+import {
+  convertCountry,
+  convertCountryIconPath,
+  convertSortByIconPath,
+  convertSortedType,
+} from '@/utils/convertEnum';
+import { formatNumber } from '@/utils/formatNumber';
+import { isFalsy } from '@/utils/isFalsy';
+import { isTruthy } from '@/utils/isTruthy';
+import { replaceOverLength } from '@/utils/replaceOverLength';
+import { mobileScrollToTop } from '@/utils/scrollController';
+import { useSessionStorage } from '@/utils/useSessionStorage';
 
 const MSearchKeyword = () => {
   const [_state, _dispatch] = useReducer(searchReducer, searchInitialState);

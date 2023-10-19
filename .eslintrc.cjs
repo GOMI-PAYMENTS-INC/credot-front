@@ -16,6 +16,7 @@ module.exports = {
     node: true,
     // 'jest/globals': true,
   },
+  parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react-hooks', 'simple-import-sort'],
   extends: ['plugin:react/recommended'],
   settings: {
@@ -40,6 +41,7 @@ module.exports = {
         pattern: {
           jsx: 'never',
           tsx: 'never',
+          "": 'never',
         },
       },
     ],
@@ -47,7 +49,6 @@ module.exports = {
   overrides: [
     {
       files: './apps/*.ts?(x)',
-      parser: '@typescript-eslint/parser',
       parserOptions: {
         project: ['./tsconfig.json', './apps/**/tsconfig.json'],
       },
