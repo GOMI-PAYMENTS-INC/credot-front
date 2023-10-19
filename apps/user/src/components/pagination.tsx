@@ -1,7 +1,5 @@
 import { Dispatch, Fragment } from 'react';
-
 import { ReactSVG } from 'react-svg';
-import { getReportListByPage } from '@/report/container';
 
 type TPagination = {
   total: number;
@@ -13,7 +11,6 @@ type TPagination = {
 
 const Pagination = ({ total, limit, page, _dispatch, setParams }: TPagination) => {
   const onClickPage = async (goPage: number) => {
-    await getReportListByPage(_dispatch, limit, page, goPage);
     setParams(String(limit), String(goPage));
   };
 

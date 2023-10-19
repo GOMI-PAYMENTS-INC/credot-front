@@ -1,7 +1,5 @@
-import { Dispatch, Fragment } from 'react';
-
+import {  Fragment } from 'react';
 import { ReactSVG } from 'react-svg';
-import { getReportListByPage } from '@/report/container';
 
 type TPagination = {
   total: number;

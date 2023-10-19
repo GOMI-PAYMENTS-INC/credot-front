@@ -1,24 +1,20 @@
-import { ReactSVG } from 'react-svg';
-import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { routeList } from '@/router/routeList';
-
-import { MENU_DATA } from '@/common/layouts/sidebar/constants';
-import { PATH } from '@/common/constants';
-import { openBrowser } from '@/utils/openBrowser';
-import {
-  _amplitudeMovedToUserGuide,
-  _subscriptionPageViewed,
-} from '@/amplitude/amplitude.service';
-import { isIncluded } from '@/utils/isIncluded';
-
+import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 import { useRecoilValue } from 'recoil';
 
-import { signInApi } from '@/auth/signIn/api';
-import { replaceOverLength } from '@/utils/replaceOverLength';
+import {
+  _amplitudeMovedToUserGuide,
+} from '@/amplitude/amplitude.service';
 import { UserAtom } from '@/atom';
+import { signInApi } from '@/auth/signIn/api';
+import { PATH } from '@/common/constants';
+import { MENU_DATA } from '@/common/layouts/sidebar/constants';
 import UseCustomTooltip from '@/components/UseCustomTooltip';
-import { Usage } from '@/components/Usage';
+import { routeList } from '@/router/routeList';
+import { isIncluded } from '@/utils/isIncluded';
+import { openBrowser } from '@/utils/openBrowser';
+import { replaceOverLength } from '@/utils/replaceOverLength';
 
 const GNB = () => {
   const { onLogout } = signInApi();
@@ -87,27 +83,6 @@ const GNB = () => {
               </button>
             }
             content={<p className='text-M/Medium'>사용자 가이드</p>}
-          />
-
-          <UseCustomTooltip
-            component={
-              <button
-                onClick={() => {
-                  navigate(PATH.SUBSCRIBE);
-                }}
-              >
-                <ReactSVG
-                  src='/assets/icons/outlined/CreditCard.svg'
-                  beforeInjection={(svg) => {
-                    svg.setAttribute(
-                      'class',
-                      `w-[26px] h-[26px] fill-grey-800 hover:fill-orange-400`,
-                    );
-                  }}
-                />
-              </button>
-            }
-            content={<Usage />}
           />
         </div>
 
