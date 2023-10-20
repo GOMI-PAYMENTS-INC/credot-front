@@ -1,4 +1,21 @@
 import { Dispatch, SetStateAction } from 'react';
+import { UseFormSetError } from 'react-hook-form';
+
+import {
+  _amplitudeFindIdFailed,
+  _amplitudeFindIdSucceeded,
+  _amplitudeFindPwFailed,
+  _amplitudeFindPwSucceeded,
+  _amplitudeMobileVerified,
+} from '@/amplitude/amplitude.service';
+import {
+  activateVerifyCode,
+  clickVerifyBtn,
+  duplicationVerifyTry,
+  exceptedVerifyTry,
+  getVerifyCodeSignatureNumber,
+  isAccountExisted,
+} from '@/auth/container';
 import {
   CountryType,
   FindPasswordInput,
@@ -9,25 +26,7 @@ import {
   useSmsVerifyCodeConfirmQuery,
 } from '@/generated/graphql';
 import { STATUS_CODE } from '@/types/enum.code';
-
 import { isTruthy } from '@/utils/isTruthy';
-import {
-  activateVerifyCode,
-  clickVerifyBtn,
-  duplicationVerifyTry,
-  exceptedVerifyTry,
-  getVerifyCodeSignatureNumber,
-  isAccountExisted,
-} from '@/auth/container';
-import { UseFormSetError } from 'react-hook-form';
-
-import {
-  _amplitudeFindIdFailed,
-  _amplitudeFindIdSucceeded,
-  _amplitudeFindPwFailed,
-  _amplitudeFindPwSucceeded,
-  _amplitudeMobileVerified,
-} from '@/amplitude/amplitude.service';
 
 export const useVerifyCode = (
   type: SmsVerifyType,

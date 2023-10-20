@@ -10,7 +10,7 @@ export const useLoginHook = () => {
   const { moveToMain } = authReturnUrl();
 
   return useMutation((requestBody: LoginDto) => AuthService.login(requestBody), {
-    onSuccess: (_, variable) => {
+    onSuccess: (_) => {
       authTokenStorage.setToken(_.accessToken);
       if (useCookieStorage.getCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN)) {
         useCookieStorage.removeCookie(CACHING_KEY.TEMPORARY_PASSWORD_LOGIN);

@@ -3,10 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type RegisterDto = {
-  email: string;
-  password: string;
-  phone: string;
-  phoneVerifyCode: string;
-  isMarketingOk: boolean;
+export type PhoneAuthDto = {
+  verifyCodeSignatureNumber: string;
 };

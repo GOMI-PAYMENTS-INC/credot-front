@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { _amplitudeLoginPageViewed } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useLoginHook } from '@/auth/hooks/login.hook';
-import { signInApi } from '@/auth/signIn/api';
 import { Common2Section as Layout } from '@/common/layouts/Common2Section';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { LoginDto } from '@/generated-rest/api/front';
@@ -17,8 +16,7 @@ interface ISignInForm {
 
 export const SignIn = () => {
   const navigation = useNavigate();
-  const { loginMutate } = signInApi();
-  const { mutate: loginMutate2 } = useLoginHook();
+  const { mutate: loginMutate } = useLoginHook();
 
   useEffect(() => {
     _amplitudeLoginPageViewed();
@@ -38,11 +36,9 @@ export const SignIn = () => {
       email: value.email,
       password: value.password,
     };
-    loginMutate2(loginFormValue, {
+    loginMutate(loginFormValue, {
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));
-        console.log(error);
-
         const errorCode = error.body.message;
         if (errorCode) {
           switch (errorCode) {
@@ -172,7 +168,6 @@ export const SignIn = () => {
                   로그인
                 </button>
               </div>
-              {/*<GoogleLogin onGoogleSignIn={onGoogleSignIn} />*/}
             </div>
           </div>
         </form>

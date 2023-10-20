@@ -1,25 +1,25 @@
 import { Dispatch, SetStateAction } from 'react';
-import {
-  useSignupMutation,
-  MutationSignupArgs,
-  useExistsUserEmailQuery,
-  useGoogleSignupMutation,
-  SignupMutation,
-  GoogleSignupMutation,
-  Role,
-} from '@/generated/graphql';
-import { TERM_TYPE } from '@/types/enum.code';
+import { UseFormSetError } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import { _setUserProperties } from '@/amplitude/amplitude.service';
+import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
+import { AUTH_ESSENTIAL } from '@/auth/constants';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { setWelcomeModalClosingTime } from '@/auth/container';
-import { UseFormSetError } from 'react-hook-form';
+import {
+  GoogleSignupMutation,
+  MutationSignupArgs,
+  Role,
+  SignupMutation,
+  useExistsUserEmailQuery,
+  useGoogleSignupMutation,
+  useSignupMutation,
+} from '@/generated/graphql';
+import { TERM_TYPE } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_ESSENTIAL } from '@/auth/constants';
-import { _setUserProperties } from '@/amplitude/amplitude.service';
-import { NOTIFICATION_MESSAGE } from '@/auth/constants';
-import { _amplitudeSignupCompleted } from '@/amplitude/amplitude.service';
-import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 
 export const useSignUp = () => {
   const { mutate: signUpMutate } = useSignupMutation({

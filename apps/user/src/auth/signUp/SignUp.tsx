@@ -1,19 +1,24 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { PATH } from '@/types/enum.code';
-
-import { Common1Section as Layout } from '@/common/layouts/Common1Section';
-import { WelcomeModal } from '@/auth/common/WelcomeModal';
-import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
-
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { TERMS_LIST } from '@/auth/constants';
 import { ErrorMessage } from '@hookform/error-message';
-import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
-import { isFalsy } from '@/utils/isFalsy';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useForm, UseFormSetError } from 'react-hook-form';
 
-import { useVerifyCode } from '@/auth/findAccount/api';
-import { useSignUp } from '@/auth/signUp/api';
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import {
+  _amplitudeSignupCompleted,
+  _amplitudeSignupStarted,
+  _setUserProperties,
+} from '@/amplitude/amplitude.service';
+import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
+import { WelcomeModal } from '@/auth/common/WelcomeModal';
+import { AUTH_ESSENTIAL, TERMS_LIST } from '@/auth/constants';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import {
   assignEmail,
   authInitialState,
@@ -23,14 +28,24 @@ import {
   openDetailTermContent,
   selectAllTerms,
   selectTerm,
+  setWelcomeModalClosingTime,
   signUpVerifyCode,
   termInitialState,
 } from '@/auth/container';
+import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
+import {
+  useRequestPhoneAuthHook,
+  useVerifyPhoneAuthHook,
+} from '@/auth/hooks/phone-auth.hook';
+import { useExistEmailHook, useRegisterHook } from '@/auth/hooks/register.hook';
+import { Common1Section as Layout } from '@/common/layouts/Common1Section';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { MutationSignupArgs, Role, SignupMutation } from '@/generated/graphql';
+import { RegisterDto, TokenDto } from '@/generated-rest/api/front';
+import { PATH, TERM_TYPE } from '@/types/enum.code';
+import { authTokenStorage } from '@/utils/authToken';
+import { isFalsy } from '@/utils/isFalsy';
 import { isTruthy } from '@/utils/isTruthy';
-import { NOTIFICATION_MESSAGE } from '@/auth/constants';
-import { _amplitudeSignupStarted } from '@/amplitude/amplitude.service';
-import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
-import { SmsVerifyType } from '@/generated/graphql';
 
 export const SignUp = () => {
   const [isVerification, setIsVerification] =
@@ -47,12 +62,19 @@ export const SignUp = () => {
     mode: 'onChange',
   });
 
-  const { _getVerifyCode, _checkSmsVerifyCode } = useVerifyCode(
-    SmsVerifyType.S,
+  const { mutate: getVerifyCode } = useRequestPhoneAuthHook(
     isVerification,
     setIsVerification,
     setError,
   );
+
+  const { data } = useVerifyPhoneAuthHook(
+    isVerification,
+    setIsVerification,
+    setError,
+    getValues('phone'),
+  );
+  const isPassedVerifyCode = !!data?.verifyCodeSignatureNumber;
 
   useEffect(() => {
     _amplitudeSignupStarted(AMPLITUDE_ACCOUNT_TYPE.LOCAL);
@@ -63,7 +85,10 @@ export const SignUp = () => {
     isReadyToSignUp(isPassedVerifyCode, signUpState, setSignUpState);
   }, [signUpState.checkedTerms]);
 
-  const { _applyAccount, _isExistedAccount } = useSignUp();
+  const { mutate: signUp } = useRegisterHook();
+
+  /** 이메일 입력 시 이메일 계정이 존재하는지 체크 */
+  useExistEmailHook(watch('email'), signUpState.triggerConfirmEmail, setError);
 
   const clickVerifyButton = () => {
     const phone = getValues('phone');
@@ -75,12 +100,68 @@ export const SignUp = () => {
       setError,
     );
 
-    return isValid && _getVerifyCode(phone);
+    return isValid && getVerifyCode({ phoneNumber: phone });
   };
 
-  _isExistedAccount(watch('email'), signUpState.triggerConfirmEmail, setError);
+  const handleSignUp = (
+    value: TAuthEssentialProps,
+    verifyCodeSignatureNumber: string,
+    signUpEvent: TTermsCheckState,
+    setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
+    setError: UseFormSetError<TAuthEssentialProps>,
+  ) => {
+    if (/^\s+|\s+$/g.test(value.password) === true)
+      return setError('password', { message: NOTIFICATION_MESSAGE.whiteSpace });
+    const _value = Object.assign(value, { verifyCode: verifyCodeSignatureNumber });
 
-  const [isPassedVerifyCode] = _checkSmsVerifyCode(getValues('phone'));
+    const isValid = Object.keys(_value).filter((item) => {
+      const key = item as keyof TAuthEssentialProps;
+      if (isFalsy(_value[key])) {
+        setError(key, { message: AUTH_ESSENTIAL[key] });
+        return false;
+      }
+      return true;
+    });
+    //FIXME: validation 로직은 비즈니스로 옮기기
+    const checkedTerms = [TERM_TYPE.PERSONAL_AGREE, TERM_TYPE.USE_AGREE].every((term) =>
+      signUpEvent.checkedTerms.includes(term),
+    );
+    const isAgreeMarketing = signUpEvent.checkedTerms.includes(TERM_TYPE.MARKETING_AGREE);
+    const isValidVerifyCodeSign = isFalsy(verifyCodeSignatureNumber);
+    const isValidTerms = isFalsy(checkedTerms);
+
+    if (isValid.length !== 5 || isValidVerifyCodeSign || isValidTerms) return;
+
+    const { email, password, phone } = value;
+
+    const payload: RegisterDto = {
+      email: email,
+      password: password,
+      phone: phone,
+      phoneVerifyCode: verifyCodeSignatureNumber,
+      isMarketingOk: isAgreeMarketing,
+    };
+
+    signUp(payload, {
+      onSuccess: async (_) => {
+        //로그인 처리
+        authTokenStorage.setToken(_.accessToken);
+
+        //모달이 켜지고 화면 이동
+        setWelcomeModalClosingTime(1500, signUpEvent, setSignupEvent);
+
+        await _amplitudeSignupCompleted(
+          AMPLITUDE_ACCOUNT_TYPE.LOCAL,
+          email,
+          phone,
+          isAgreeMarketing,
+          () => {
+            _setUserProperties(email, isAgreeMarketing, phone, Role.User);
+          },
+        );
+      },
+    });
+  };
 
   const requestVerifyCodeButton = useMemo(() => {
     return eventHandlerByFindAccount(isVerification);
@@ -359,7 +440,7 @@ export const SignUp = () => {
               <button
                 className='button-filled-normal-xLarge-red-false-false-true w-full xs:fixed xs:bottom-0 xs:right-5 xs:mb-[35px] xs:w-[335px] xs:self-center'
                 onClick={() => {
-                  _applyAccount(
+                  handleSignUp(
                     getValues(),
                     isVerification.verifyCodeSignatureNumber,
                     signUpState,
