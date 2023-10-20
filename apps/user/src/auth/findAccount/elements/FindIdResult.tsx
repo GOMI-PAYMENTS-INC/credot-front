@@ -1,22 +1,19 @@
-import { Fragment, Dispatch, SetStateAction } from 'react';
+import { Dispatch, Fragment, SetStateAction } from 'react';
+import { UseFormSetValue } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
+
+import { initializeAuthState } from '@/auth/container';
 import { FindAccountTittle } from '@/auth/findAccount/elements';
 import { AUTH_RESPONSE_TYPE, PATH } from '@/types/enum.code';
-import { Link } from 'react-router-dom';
-
-import { ReactSVG } from 'react-svg';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 import { isTruthy } from '@/utils/isTruthy';
 
-import { initializeAuthState } from '@/auth/container';
-import { UseFormSetValue } from 'react-hook-form';
-
 interface IFindIdResultProps {
   isExistedAccount: null | keyof typeof AUTH_RESPONSE_TYPE;
-  userAccounts?: Array<{
+  userAccounts?: {
     email: string;
-    isSocialLogin: boolean;
-    socialProvider?: string | null;
-  }>;
+  }[];
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   setValue: UseFormSetValue<TAuthEssentialProps>;
 }

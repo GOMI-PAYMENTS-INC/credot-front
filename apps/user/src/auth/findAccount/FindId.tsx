@@ -1,24 +1,25 @@
+import { ErrorMessage } from '@hookform/error-message';
 import { useEffect, useMemo, useState } from 'react';
-import { isFalsy } from '@/utils/isFalsy';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { useForm } from 'react-hook-form';
 
-import { NOTIFICATION_MESSAGE } from '@/auth/constants';
-import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
-import { FindAccountTittle, FindIdResult } from '@/auth/findAccount/elements';
-
+import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
 import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
-import { FindAccountLayout as Layout } from '@/common/layouts/FindAccountLayout';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/auth/container';
-
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/auth/findAccount/api';
-import { _amplitudeFindIdStarted } from '@/amplitude/amplitude.service';
-import { SmsVerifyType } from '@/generated/graphql';
+import { FindAccountTittle, FindIdResult } from '@/auth/findAccount/elements';
+import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
+import { useFindAccountHook } from '@/auth/hooks/account.hook';
+import {
+  useRequestPhoneAuthHook,
+  useVerifyPhoneAuthHook,
+} from '@/auth/hooks/phone-auth.hook';
+import { FindAccountLayout as Layout } from '@/common/layouts/FindAccountLayout';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { isFalsy } from '@/utils/isFalsy';
 
 export const FindId = () => {
   const {
@@ -34,19 +35,23 @@ export const FindId = () => {
   const [isVerification, setIsVerification] =
     useState<TVerifyButtonState>(authInitialState);
 
-  const { _getVerifyCode, _checkSmsVerifyCode, _getUserAccount } = useVerifyCode(
-    SmsVerifyType.P,
+  const { mutate: getVerifyCode } = useRequestPhoneAuthHook(
     isVerification,
     setIsVerification,
     setError,
   );
 
-  _checkSmsVerifyCode(getValues('phone'));
+  useVerifyPhoneAuthHook(isVerification, setIsVerification, setError, getValues('phone'));
 
-  const [userAccounts] = _getUserAccount({
-    phone: getValues('phone'),
-    verifyCodeSign: isVerification.verifyCodeSignatureNumber,
-  });
+  const { data: userAccounts = [] } = useFindAccountHook(
+    isVerification,
+    setIsVerification,
+    setError,
+    {
+      phone: getValues('phone'),
+      verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+    },
+  );
 
   const requestVerifyCodeButton = useMemo(() => {
     return eventHandlerByFindAccount(isVerification);
@@ -63,7 +68,7 @@ export const FindId = () => {
       setIsVerification,
       setError,
     );
-    return isValid && _getVerifyCode(phoneNumber);
+    return isValid && getVerifyCode({ phoneNumber });
   };
 
   useEffect(() => {
@@ -139,7 +144,7 @@ export const FindId = () => {
         <FindIdResult
           setIsVerification={setIsVerification}
           setValue={setValue}
-          userAccounts={userAccounts?.findAccount.accounts}
+          userAccounts={userAccounts}
           isExistedAccount={isVerification.isExistedAccount}
         />
       )}

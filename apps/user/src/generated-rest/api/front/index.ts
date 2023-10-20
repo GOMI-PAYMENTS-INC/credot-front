@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type { AccountDto } from './models/AccountDto';
 export type { ExistDto } from './models/ExistDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PhoneAuthDto } from './models/PhoneAuthDto';

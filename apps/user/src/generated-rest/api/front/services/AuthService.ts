@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AccountDto } from '../models/AccountDto';
 import type { ExistDto } from '../models/ExistDto';
 import type { LoginDto } from '../models/LoginDto';
 import type { PhoneAuthDto } from '../models/PhoneAuthDto';
@@ -19,12 +20,9 @@ export class AuthService {
    * 로그인
    * @param requestBody
    * @returns TokenDto
-   * @returns any
    * @throws ApiError
    */
-  public static login(
-    requestBody: LoginDto,
-  ): CancelablePromise<TokenDto | Record<string, any>> {
+  public static login(requestBody: LoginDto): CancelablePromise<TokenDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/auth/login',
@@ -49,12 +47,9 @@ export class AuthService {
    * 회원가입
    * @param requestBody
    * @returns TokenDto
-   * @returns any
    * @throws ApiError
    */
-  public static register(
-    requestBody: RegisterDto,
-  ): CancelablePromise<TokenDto | Record<string, any>> {
+  public static register(requestBody: RegisterDto): CancelablePromise<TokenDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/auth/register',
@@ -75,6 +70,27 @@ export class AuthService {
       url: '/auth/exist',
       query: {
         email: email,
+      },
+    });
+  }
+
+  /**
+   * 아이디 찾기
+   * @param phoneNumber
+   * @param verifyCode
+   * @returns AccountDto
+   * @throws ApiError
+   */
+  public static findAccount(
+    phoneNumber: string,
+    verifyCode: string,
+  ): CancelablePromise<Array<AccountDto>> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/auth/find-account',
+      query: {
+        phoneNumber: phoneNumber,
+        verifyCode: verifyCode,
       },
     });
   }
