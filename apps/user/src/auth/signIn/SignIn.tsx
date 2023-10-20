@@ -1,17 +1,15 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { Common2Section as Layout } from '@/common/layouts/Common2Section';
-import { MutationLoginArgs } from '@/generated/graphql';
-import { PATH } from '@/types/enum.code';
-import { STATUS_CODE } from '@/types/enum.code';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { _amplitudeLoginPageViewed } from '@/amplitude/amplitude.service';
 
+import { _amplitudeLoginPageViewed } from '@/amplitude/amplitude.service';
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
-import GoogleLogin from '@/auth/signIn/GoogleLogin';
+import { useLoginHook } from '@/auth/hooks/login.hook';
 import { signInApi } from '@/auth/signIn/api';
-import { SystemOverhaul } from '@/common/SystemOverhaul';
+import { Common2Section as Layout } from '@/common/layouts/Common2Section';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { LoginDto } from '@/generated-rest/api/front';
+import { PATH } from '@/types/enum.code';
 interface ISignInForm {
   email: string;
   password: string;
@@ -19,19 +17,12 @@ interface ISignInForm {
 
 export const SignIn = () => {
   const navigation = useNavigate();
-  const { loginMutate, _googleLoginMutate } = signInApi();
+  const { loginMutate } = signInApi();
+  const { mutate: loginMutate2 } = useLoginHook();
 
   useEffect(() => {
     _amplitudeLoginPageViewed();
   }, []);
-
-  // https://stackoverflow.com/questions/49819183/react-what-is-the-best-way-to-handle-login-and-authentication
-  const onGoogleSignIn = (res: CredentialResponse) => {
-    const { credential } = res;
-    if (credential) {
-      _googleLoginMutate({ idToken: credential });
-    }
-  };
 
   const {
     register,
@@ -43,38 +34,30 @@ export const SignIn = () => {
   });
 
   const onValid = (value: ISignInForm) => {
-    const loginFormValue: MutationLoginArgs = {
-      login: {
-        email: value.email,
-        password: value.password,
-      },
+    const loginFormValue: LoginDto = {
+      email: value.email,
+      password: value.password,
     };
-    loginMutate(loginFormValue, {
+    loginMutate2(loginFormValue, {
       onError: (err) => {
         const error = JSON.parse(JSON.stringify(err));
+        console.log(error);
 
-        const errorCode = error.response.errors[0].extensions.code;
-
+        const errorCode = error.body.message;
         if (errorCode) {
           switch (errorCode) {
-            case STATUS_CODE.INVALID_PASSWORD:
+            case 'INVALID_PASSWORD':
               setError('password', {
                 type: 'custom',
                 message: '비밀번호가 일치하지 않아요.',
               });
               break;
-            case STATUS_CODE.USER_NOT_EXIST:
+            case 'EMPTY_EMAIL':
               setError('email', {
                 type: 'custom',
                 message: '존재하지 않는 이메일 주소에요.',
               });
               break;
-            case STATUS_CODE.NOT_EXIST_PASSWORD:
-              setError('password', {
-                type: 'custom',
-                message:
-                  'Google 계정으로 가입한 메일 주소에요. 구글 계정으로 로그인 해주세요.',
-              });
           }
         }
       },
@@ -189,7 +172,7 @@ export const SignIn = () => {
                   로그인
                 </button>
               </div>
-              <GoogleLogin onGoogleSignIn={onGoogleSignIn} />
+              {/*<GoogleLogin onGoogleSignIn={onGoogleSignIn} />*/}
             </div>
           </div>
         </form>

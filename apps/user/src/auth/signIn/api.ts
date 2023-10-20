@@ -1,5 +1,16 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
+import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
+import {
+  _amplitudeChangePwCompleted,
+  _amplitudeLoggedOut,
+  _resetAmplitude,
+} from '@/amplitude/amplitude.service';
+import { LoginTokenAtom, UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
+import { authReturnUrl } from '@/auth/container';
 import {
   ChangePasswordInput,
   GoogleLoginMutationVariables,
@@ -9,24 +20,11 @@ import {
   useLoginMutation,
 } from '@/generated/graphql';
 import { CACHING_KEY } from '@/types/enum.code';
-import { authTokenStorage } from '@/utils/authToken';
-
-import { useCookieStorage } from '@/utils/useCookieStorage';
-import {
-  _amplitudeChangePwCompleted,
-  _amplitudeLoggedOut,
-  _resetAmplitude,
-} from '@/amplitude/amplitude.service';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
-
-import { useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import { PATH } from '@/types/enum.code';
+import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 import { useSessionStorage } from '@/utils/useSessionStorage';
-import { authReturnUrl } from '@/auth/container';
-import { LoginTokenAtom, UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
 
 //TODO: 분리시키기
 export const signInApi = () => {

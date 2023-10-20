@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { LoginDto } from '../models/LoginDto';
 import type { RegisterDto } from '../models/RegisterDto';
 import type { TokenDto } from '../models/TokenDto';
 import type { UserDto } from '../models/UserDto';
@@ -13,13 +14,16 @@ import { request as __request } from '../core/request';
 export class AuthService {
   /**
    * 로그인
+   * @param requestBody
    * @returns TokenDto
    * @throws ApiError
    */
-  public static authControllerLogin(): CancelablePromise<TokenDto> {
+  public static login(requestBody: LoginDto): CancelablePromise<TokenDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/auth/login',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 
@@ -28,7 +32,7 @@ export class AuthService {
    * @returns UserDto
    * @throws ApiError
    */
-  public static authControllerGetProfile(): CancelablePromise<UserDto> {
+  public static getProfile(): CancelablePromise<UserDto> {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/auth/profile',
@@ -41,9 +45,7 @@ export class AuthService {
    * @returns UserDto
    * @throws ApiError
    */
-  public static authControllerRegister(
-    requestBody: RegisterDto,
-  ): CancelablePromise<UserDto> {
+  public static register(requestBody: RegisterDto): CancelablePromise<UserDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/auth/register',
