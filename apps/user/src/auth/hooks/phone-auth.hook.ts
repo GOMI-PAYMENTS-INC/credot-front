@@ -6,14 +6,12 @@ import { _amplitudeMobileVerified } from '@/amplitude/amplitude.service';
 import {
   activateVerifyCode,
   clickVerifyBtn,
-  duplicationVerifyTry,
   exceptedVerifyTry,
   getVerifyCodeSignatureNumber,
 } from '@/auth/container';
 import { AuthService, RequestPhoneAuthDto } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 import { PhoneAuthDto } from '@/generated-rest/api/front/models/PhoneAuthDto';
-import { STATUS_CODE } from '@/types/enum.code';
 
 export const useRequestPhoneAuthHook = (
   isVerification: TVerifyButtonState,

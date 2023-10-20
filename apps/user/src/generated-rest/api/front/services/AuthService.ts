@@ -8,6 +8,7 @@ import type { LoginDto } from '../models/LoginDto';
 import type { PhoneAuthDto } from '../models/PhoneAuthDto';
 import type { RegisterDto } from '../models/RegisterDto';
 import type { RequestPhoneAuthDto } from '../models/RequestPhoneAuthDto';
+import type { SendTemporaryPasswordDto } from '../models/SendTemporaryPasswordDto';
 import type { TokenDto } from '../models/TokenDto';
 import type { UserDto } from '../models/UserDto';
 
@@ -92,6 +93,24 @@ export class AuthService {
         phoneNumber: phoneNumber,
         verifyCode: verifyCode,
       },
+    });
+  }
+
+  /**
+   * 임시 비밀번호 보내기
+   * @param requestBody
+   * @returns AccountDto
+   * @returns any
+   * @throws ApiError
+   */
+  public static sendTemporaryPassword(
+    requestBody: SendTemporaryPasswordDto,
+  ): CancelablePromise<AccountDto | Record<string, any>> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/auth/send-temporary-password',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 

@@ -1,23 +1,25 @@
+import { ErrorMessage } from '@hookform/error-message';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { useVerifyCode } from '@/auth/findAccount/api';
 
-import { FindAccountLayout as Layout } from '@/common/layouts/FindAccountLayout';
-import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
-import { isFalsy } from '@/utils/isFalsy';
-
-import { FindAccountTittle, FindPasswordResult } from '@/auth/findAccount/elements';
-
+import { _amplitudeFindPwStarted } from '@/amplitude/amplitude.service';
+import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import {
   authInitialState,
   eventHandlerByFindAccount,
   isPhoneVerifyPrepared,
 } from '@/auth/container';
-import { NOTIFICATION_MESSAGE } from '@/auth/constants';
-import { _amplitudeFindPwStarted } from '@/amplitude/amplitude.service';
-import { VerifyCodeInput } from '@/auth/common/VerifyCodeInput';
-import { SmsVerifyType } from '@/generated/graphql';
+import { FindAccountTittle, FindPasswordResult } from '@/auth/findAccount/elements';
+import { FindAccountBottom } from '@/auth/findAccount/elements/FindAccountBottom';
+import { useSendTemporaryPasswordHook } from '@/auth/hooks/account.hook';
+import {
+  useRequestPhoneAuthHook,
+  useVerifyPhoneAuthHook,
+} from '@/auth/hooks/phone-auth.hook';
+import { FindAccountLayout as Layout } from '@/common/layouts/FindAccountLayout';
+import { isFalsy } from '@/utils/isFalsy';
+import { isTruthy } from '@/utils/isTruthy';
 
 export const FindPassword = () => {
   const [isVerification, setIsVerification] =
@@ -33,12 +35,18 @@ export const FindPassword = () => {
     mode: 'onChange',
   });
 
-  const { _getVerifyCode, _checkSmsVerifyCode, _sendTemporaryPassword } = useVerifyCode(
-    SmsVerifyType.P,
+  const { mutate: sendTemporaryPassword } = useSendTemporaryPasswordHook(
+    isVerification,
+    setIsVerification,
+  );
+
+  const { mutate: getVerifyCode } = useRequestPhoneAuthHook(
     isVerification,
     setIsVerification,
     setError,
   );
+
+  useVerifyPhoneAuthHook(isVerification, setIsVerification, setError, getValues('phone'));
 
   const requestVerifyCodeButton = useMemo(() => {
     return eventHandlerByFindAccount(isVerification);
@@ -58,24 +66,30 @@ export const FindPassword = () => {
       email,
     );
 
-    return isValid && _getVerifyCode(phone);
+    return isValid && getVerifyCode({ phoneNumber: phone });
   };
-
-  _checkSmsVerifyCode(getValues('phone'));
 
   useEffect(() => {
     _amplitudeFindPwStarted();
   }, []);
 
   useEffect(() => {
+    const payload = {
+      email: getValues('email'),
+      phone: getValues('phone'),
+      verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+    };
+
+    const isValid = Object.values(payload).every((userData) => isTruthy(userData));
     if (
       isVerification.verifyCodeSignatureNumber &&
-      isVerification.isExistedAccount === null
+      isVerification.isExistedAccount === null &&
+      isValid
     ) {
-      _sendTemporaryPassword({
+      sendTemporaryPassword({
         email: getValues('email'),
-        phone: getValues('phone'),
-        verifyCodeSign: isVerification.verifyCodeSignatureNumber,
+        phoneNumber: getValues('phone'),
+        verifyCode: isVerification.verifyCodeSignatureNumber,
       });
     }
   }, [isVerification.verifyCodeSignatureNumber]);
