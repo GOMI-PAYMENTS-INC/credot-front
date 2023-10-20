@@ -1,24 +1,23 @@
+import { Dispatch, useEffect, useState } from 'react';
 import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
+import { useRecoilValue } from 'recoil';
 
-import { routeList } from '@/router/routeList';
-import { isIncluded } from '@/utils/isIncluded';
-import { Dispatch, useEffect, useState } from 'react';
-import { PATH } from '@/types/enum.code';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
+import { MeType, UserAtom } from '@/atom/auth.atom';
 import { MENU_DATA } from '@/common/layouts/sidebar/constants';
-import { TSidebarAction } from '@/common/layouts/sidebar/reducer';
 import {
   switchFunctionToggle,
   toggleDepth2Menu,
   toggleSidebar,
 } from '@/common/layouts/sidebar/container';
-import { replaceOverLength } from '@/utils/replaceOverLength';
-import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
-import { MeQuery } from '@/generated/graphql';
-import { UserAtom } from '@/atom/auth.atom';
-import { useRecoilValue } from 'recoil';
-import { signInApi } from '@/auth/signIn/api';
+import { TSidebarAction } from '@/common/layouts/sidebar/reducer';
+import { useLogout } from '@/hooks/user.hook';
+import { routeList } from '@/router/routeList';
+import { PATH } from '@/types/enum.code';
+import { isIncluded } from '@/utils/isIncluded';
 import { openBrowser } from '@/utils/openBrowser';
+import { replaceOverLength } from '@/utils/replaceOverLength';
 
 interface TSideBarProps {
   _state: TSidebarState;
@@ -26,13 +25,13 @@ interface TSideBarProps {
 }
 const MSidebar = (props: TSideBarProps) => {
   const { _state, _dispatch } = props;
-  const { onLogout } = signInApi();
+  const { logout } = useLogout();
   const navigation = useNavigate();
   const { pathname } = useLocation();
   const [{ route }] = matchRoutes(routeList, pathname) || [];
   const { path } = route;
 
-  const [userInfo, setUserInfo] = useState<MeQuery | undefined>(undefined);
+  const [userInfo, setUserInfo] = useState<MeType | undefined>(undefined);
 
   const userAtom = useRecoilValue(UserAtom);
   useEffect(() => {
@@ -228,7 +227,7 @@ const MSidebar = (props: TSideBarProps) => {
                   <li
                     className='cursor-pointer px-4 py-3 text-S/Regular text-red-700'
                     onClick={() => {
-                      void onLogout();
+                      logout();
                     }}
                   >
                     로그아웃

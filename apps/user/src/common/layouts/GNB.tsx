@@ -3,21 +3,19 @@ import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { useRecoilValue } from 'recoil';
 
-import {
-  _amplitudeMovedToUserGuide,
-} from '@/amplitude/amplitude.service';
+import { _amplitudeMovedToUserGuide } from '@/amplitude/amplitude.service';
 import { UserAtom } from '@/atom';
-import { signInApi } from '@/auth/signIn/api';
 import { PATH } from '@/common/constants';
 import { MENU_DATA } from '@/common/layouts/sidebar/constants';
 import UseCustomTooltip from '@/components/UseCustomTooltip';
+import { useLogout } from '@/hooks/user.hook';
 import { routeList } from '@/router/routeList';
 import { isIncluded } from '@/utils/isIncluded';
 import { openBrowser } from '@/utils/openBrowser';
 import { replaceOverLength } from '@/utils/replaceOverLength';
 
 const GNB = () => {
-  const { onLogout } = signInApi();
+  const { logout } = useLogout();
   const userAccount = useRecoilValue(UserAtom)?.me.email;
   const [MENU] = MENU_DATA;
   const [isToggleOpen, setIsToggleOpen] = useState(false);
@@ -108,7 +106,7 @@ const GNB = () => {
               <ul className=''>
                 <li
                   className='cursor-pointer px-4 py-3 text-S/Regular text-red-700'
-                  onClick={() => onLogout()}
+                  onClick={() => logout()}
                 >
                   로그아웃
                 </li>

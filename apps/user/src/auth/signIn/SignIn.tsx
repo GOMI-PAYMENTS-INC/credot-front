@@ -9,6 +9,7 @@ import { Common2Section as Layout } from '@/common/layouts/Common2Section';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { LoginDto } from '@/generated-rest/api/front';
 import { PATH } from '@/types/enum.code';
+import { authTokenStorage } from '@/utils/authToken';
 interface ISignInForm {
   email: string;
   password: string;
@@ -19,6 +20,10 @@ export const SignIn = () => {
   const { mutate: loginMutate } = useLoginHook();
 
   useEffect(() => {
+    if (authTokenStorage.getToken()) {
+      navigation('/');
+      return;
+    }
     _amplitudeLoginPageViewed();
   }, []);
 

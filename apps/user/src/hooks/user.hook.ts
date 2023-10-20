@@ -2,7 +2,11 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 
-import { _resetAmplitude, _setUserId } from '@/amplitude/amplitude.service';
+import {
+  _amplitudeLoggedOut,
+  _resetAmplitude,
+  _setUserId,
+} from '@/amplitude/amplitude.service';
 import { LoginTokenAtom, UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
 import { AuthService, UserDto } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
@@ -36,6 +40,25 @@ export const useMeHook = (token: string | null) => {
       navigation(PATH.SIGN_IN);
     },
   });
+};
+
+export const useLogout = () => {
+  const { clearUserInfo } = useClearUserInfo();
+  const navigation = useNavigate();
+
+  const logout = () => {
+    clearUserInfo();
+    navigation(PATH.SIGN_IN);
+
+    // ##### 로그아웃 이벤트 시작 ##### //
+    //앰플리튜드 - 로그아웃 이벤트
+    _amplitudeLoggedOut();
+    // ##### 로그아웃이벤트 끝 ##### //
+  };
+
+  return {
+    logout,
+  };
 };
 
 const useClearUserInfo = () => {
