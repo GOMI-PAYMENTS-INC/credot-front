@@ -1,12 +1,13 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { isFalsy } from '@/utils/isFalsy';
-import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.code';
 import { FieldErrorsImpl, UseFormSetError, UseFormSetValue } from 'react-hook-form';
-import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
+import { useNavigate } from 'react-router-dom';
+
 import { TERMS_LIST } from '@/auth/constants';
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
+import { AUTH_RESPONSE_TYPE, CACHING_KEY, PATH, TERM_TYPE } from '@/types/enum.code';
+import { isFalsy } from '@/utils/isFalsy';
+import { mergeCopiedValue } from '@/utils/mergeCopiedValue';
 import { useCookieStorage } from '@/utils/useCookieStorage';
-import { useNavigate } from 'react-router-dom';
 
 export const authInitialState: TVerifyButtonState = {
   firstCalled: false,

@@ -1,13 +1,6 @@
 import { ComponentType } from 'react';
 
-import {
-  FindId,
-  FindPassword,
-  SignIn,
-  SignUp,
-  SignUpByGoogle,
-  TemporaryPassword,
-} from '@/auth';
+import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth';
 import Category from '@/category/Category';
 import { PATH } from '@/common/constants';
 
@@ -33,12 +26,6 @@ export const routeList: IRoute[] = [
     description: 'SignUp',
     path: PATH.SIGN_UP,
     component: SignUp,
-  },
-  {
-    isPrivate: false,
-    description: 'SignUpWithGoogle',
-    path: PATH.SIGN_UP_WITH_GOOGLE,
-    component: SignUpByGoogle,
   },
   {
     isPrivate: false,

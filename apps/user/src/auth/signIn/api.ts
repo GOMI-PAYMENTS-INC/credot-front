@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 
-import { AMPLITUDE_ACCOUNT_TYPE } from '@/amplitude/amplitude.enum';
 import {
   _amplitudeChangePwCompleted,
   _amplitudeLoggedOut,

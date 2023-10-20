@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import { authReturnUrl } from '@/auth/container';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { useInterval } from '@/components/useInterval';
-import { isTruthy } from '@/utils/isTruthy';
 import { PATH } from '@/types/enum.code';
-import { authReturnUrl } from '@/auth/container';
+import { isTruthy } from '@/utils/isTruthy';
 interface IWelcomeModal {
   closingTime: number | null;
   path: PATH;

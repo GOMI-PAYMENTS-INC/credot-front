@@ -1,12 +1,12 @@
-import { useState, Dispatch, SetStateAction, useEffect } from 'react';
-import { isFalsy } from '@/utils/isFalsy';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
-import { useForm, UseFormSetError, FieldErrorsImpl } from 'react-hook-form';
-
 import { ErrorMessage } from '@hookform/error-message';
-import { useInterval } from '@/components/useInterval';
-import { clickVerifyBtn } from '@/auth/container';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { FieldErrorsImpl, useForm, UseFormSetError } from 'react-hook-form';
+
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
+import { clickVerifyBtn } from '@/auth/container';
+import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { useInterval } from '@/components/useInterval';
+import { isFalsy } from '@/utils/isFalsy';
 interface IVerifyCode {
   setIsVerification: Dispatch<SetStateAction<TVerifyButtonState>>;
   isVerification: TVerifyButtonState;
