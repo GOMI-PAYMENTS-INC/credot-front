@@ -27,20 +27,15 @@ export const useRequestPhoneAuthHook = (
         activateVerifyCode(isVerification, setIsVerification);
       },
       onError: (err: ApiError) => {
-        const errorCode = err.message;
-        setError('phone', { message: errorCode });
-
-        if (errorCode === STATUS_CODE.NOT_RETRY_VERIFY_CODE) {
+        const errorCode = err.body.message;
+        if (errorCode === 'EXCEED_PHONE_VERIFICATION') {
+          setError('phone', {
+            message: '인증번호 발송 횟수를 초과했어요. 5분간 인증이 불가능해요.',
+          });
           exceptedVerifyTry(isVerification, setIsVerification);
-
           return;
         }
 
-        if (errorCode === STATUS_CODE.DUPLICATE_VERIFY_CODE) {
-          duplicationVerifyTry(isVerification, setIsVerification);
-
-          return;
-        }
         clickVerifyBtn(isVerification, setIsVerification, { firstCalled: false });
       },
     },
@@ -70,9 +65,7 @@ export const useVerifyPhoneAuthHook = (
       }
     },
     onError: (err: ApiError) => {
-      const errorCode = err.message;
-
-      setError('verifyCode', { message: errorCode });
+      setError('verifyCode', { message: '인증번호가 올바르지 않아요.' });
       return;
     },
   });
