@@ -5,4 +5,5 @@
 
 export type TokenDto = {
   accessToken: string;
+  isTemporaryPassword?: boolean;
 };

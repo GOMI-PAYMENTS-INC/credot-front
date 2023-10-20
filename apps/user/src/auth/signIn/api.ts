@@ -18,6 +18,7 @@ import {
   useGoogleLoginMutation,
   useLoginMutation,
 } from '@/generated/graphql';
+import { OpenAPI } from '@/generated-rest/api/front/core/OpenAPI';
 import { CACHING_KEY } from '@/types/enum.code';
 import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
@@ -42,6 +43,8 @@ export const signInApi = () => {
   const { mutate: loginMutate } = useLoginMutation({
     onSuccess: (res) => {
       authTokenStorage.setToken(res.login.token);
+      OpenAPI.TOKEN = res.login.token;
+
       // 임시비밀번호로 로그인 한 경우
       if (res.login.popupInfo) {
         useCookieStorage.setCookie(

@@ -1,8 +1,23 @@
-import {atom} from 'recoil';
+import { atom } from 'recoil';
 
-import {MeQuery} from '@/generated/graphql';
+import { Role } from '@/generated/graphql';
 
-export const UserAtom = atom<MeQuery | undefined>({
+export interface MeType {
+  me: {
+    id: number;
+    email: string;
+    role?: Role;
+    name?: string;
+    nickName?: string | null;
+    phone?: string | null;
+    profileImage?: string | null;
+    joinedAt?: string | null;
+    isSocialLogin?: boolean;
+    socialProvider?: string | null;
+  };
+}
+
+export const UserAtom = atom<MeType | undefined>({
   key: 'user',
   default: undefined,
 });

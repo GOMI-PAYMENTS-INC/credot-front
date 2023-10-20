@@ -1,57 +1,34 @@
 import { createElement, useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { Route, Routes } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
-import { _setUserId } from '@/amplitude/amplitude.service';
-import { LoginTokenAtom, UserAtom } from '@/atom';
-import { signInApi } from '@/auth/signIn/api';
-import { useMeQuery } from '@/generated/graphql';
+import { UserAtom } from '@/atom';
+import { OpenAPI } from '@/generated-rest/api/front/core/OpenAPI';
+import { useMeHook } from '@/hooks/user.hook';
 import PrivateRoute from '@/router/PrivateRouter';
 import { routeList } from '@/router/routeList';
-import { PATH } from '@/types/enum.code';
 import { authTokenStorage } from '@/utils/authToken';
 import { isFalsy } from '@/utils/isFalsy';
-import { isTruthy } from '@/utils/isTruthy';
-import { useCookieStorage } from '@/utils/useCookieStorage';
 
 export const Router = () => {
   // 인증이 반드시 필요한 페이지
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
 
-  const setToken = useSetRecoilState(LoginTokenAtom);
   const storageToken = authTokenStorage.getToken();
+  OpenAPI.TOKEN = typeof storageToken === 'string' ? storageToken : undefined;
 
-  //FIXME: signInAPI 분리하기
-  const { clearUserInfo, clearAmplitude } = signInApi();
-  const navigation = useNavigate();
-
-  const { data: userQueryData } = useMeQuery(
-    { token: storageToken },
-    {
-      enabled: isTruthy(storageToken),
-      refetchOnWindowFocus: false,
-      onSuccess: (res) => {
-        const userId = res.me.id;
-        if (isFalsy(useCookieStorage.getCookie('AMPLITUDE_USER_ID'))) {
-          //앰플리튜드에서 사용할 회원 정보 셋팅
-          _setUserId(userId);
-          useCookieStorage.setCookie('AMPLITUDE_USER_ID', 'true', 1);
-        }
-      },
-      onError: () => {
-        clearUserInfo();
-        clearAmplitude();
-        navigation(PATH.SIGN_IN);
-      },
-    },
-  );
+  const { data: userQueryData } = useMeHook(storageToken);
 
   useEffect(() => {
-    if (isFalsy(userInfo)) {
-      setToken(storageToken);
-      setUserInfo(userQueryData);
+    if (isFalsy(userInfo) && userQueryData) {
+      setUserInfo({
+        me: {
+          id: userQueryData.id,
+          email: userQueryData.email,
+        },
+      });
     }
-  }, [userQueryData?.me.id]);
+  }, [userQueryData?.id]);
 
   return (
     <Routes>

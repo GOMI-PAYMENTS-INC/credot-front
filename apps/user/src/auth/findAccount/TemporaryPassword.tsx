@@ -1,18 +1,17 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-import { Common2Section as Layout } from '@/common/layouts/Common2Section';
-import { ChangePasswordInput } from '@/generated/graphql';
-import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useRecoilValue } from 'recoil';
+
+import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
 import { UserAtom } from '@/atom/auth.atom';
-import { signInApi } from '@/auth/signIn/api';
-import { useEffect } from 'react';
-import { useCookieStorage } from '@/utils/useCookieStorage';
+import { NOTIFICATION_MESSAGE } from '@/auth/constants';
+import { useResetPassword } from '@/auth/hooks/account.hook';
+import { Common2Section as Layout } from '@/common/layouts/Common2Section';
 import { CACHING_KEY } from '@/types/enum.code';
 import { PATH } from '@/types/enum.code';
-import { _amplitudeChangePwStarted } from '@/amplitude/amplitude.service';
+import { useCookieStorage } from '@/utils/useCookieStorage';
 
 interface IResetPassword {
   email: string;
@@ -21,7 +20,7 @@ interface IResetPassword {
 }
 
 export const TemporaryPassword = () => {
-  const { _changePassword } = signInApi();
+  const { mutate: changePassword } = useResetPassword();
   const userInfo = useRecoilValue(UserAtom);
   const navigation = useNavigate();
 
@@ -50,12 +49,10 @@ export const TemporaryPassword = () => {
       return false;
     }
 
-    const changePasswordInput: ChangePasswordInput = {
+    return changePassword({
       email: userInfo?.me.email,
-      newPassword: data?.newPassword,
-    };
-
-    return _changePassword(changePasswordInput);
+      password: data?.newPassword,
+    });
   };
 
   const onInvalid = () => {

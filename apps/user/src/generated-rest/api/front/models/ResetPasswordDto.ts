@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UserDto = {
+export type ResetPasswordDto = {
   email: string;
-  id: number;
+  password: string;
 };

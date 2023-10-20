@@ -8,6 +8,7 @@ import type { LoginDto } from '../models/LoginDto';
 import type { PhoneAuthDto } from '../models/PhoneAuthDto';
 import type { RegisterDto } from '../models/RegisterDto';
 import type { RequestPhoneAuthDto } from '../models/RequestPhoneAuthDto';
+import type { ResetPasswordDto } from '../models/ResetPasswordDto';
 import type { SendTemporaryPasswordDto } from '../models/SendTemporaryPasswordDto';
 import type { TokenDto } from '../models/TokenDto';
 import type { UserDto } from '../models/UserDto';
@@ -100,15 +101,32 @@ export class AuthService {
    * 임시 비밀번호 보내기
    * @param requestBody
    * @returns AccountDto
-   * @returns any
    * @throws ApiError
    */
   public static sendTemporaryPassword(
     requestBody: SendTemporaryPasswordDto,
-  ): CancelablePromise<AccountDto | Record<string, any>> {
+  ): CancelablePromise<AccountDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/auth/send-temporary-password',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * 비밀번호 재설정
+   * @param requestBody
+   * @returns AccountDto
+   * @returns UserDto
+   * @throws ApiError
+   */
+  public static resetPassword(
+    requestBody: ResetPasswordDto,
+  ): CancelablePromise<AccountDto | UserDto> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/auth/reset-password',
       body: requestBody,
       mediaType: 'application/json',
     });

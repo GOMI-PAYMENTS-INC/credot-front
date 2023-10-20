@@ -1,25 +1,24 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Dispatch, SetStateAction } from 'react';
 import { UseFormSetError } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import {
+  _amplitudeChangePwCompleted,
   _amplitudeFindIdFailed,
   _amplitudeFindIdSucceeded,
   _amplitudeFindPwFailed,
   _amplitudeFindPwSucceeded,
 } from '@/amplitude/amplitude.service';
-import { isAccountExisted } from '@/auth/container';
+import { authReturnUrl, isAccountExisted } from '@/auth/container';
 import {
   AccountDto,
   AuthService,
-  LoginDto,
+  ResetPasswordDto,
   SendTemporaryPasswordDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
-import { CACHING_KEY } from '@/types/enum.code';
-import { authTokenStorage } from '@/utils/authToken';
 import { isTruthy } from '@/utils/isTruthy';
-import { useCookieStorage } from '@/utils/useCookieStorage';
 
 export const useFindAccountHook = (
   isVerification: TVerifyButtonState,
@@ -66,6 +65,24 @@ export const useSendTemporaryPasswordHook = (
       onError: (err) => {
         isAccountExisted(undefined, isVerification, setIsVerification);
         _amplitudeFindPwFailed();
+      },
+    },
+  );
+};
+
+export const useResetPassword = () => {
+  const { moveToMain } = authReturnUrl();
+  return useMutation(
+    (requestBody: ResetPasswordDto) => AuthService.resetPassword(requestBody),
+    {
+      onSuccess: () => {
+        toast.success('비밀번호가 정상적으로 변경되었어요.');
+        moveToMain();
+
+        _amplitudeChangePwCompleted();
+      },
+      onError: () => {
+        toast.error('변경 실패하였습니다.');
       },
     },
   );
