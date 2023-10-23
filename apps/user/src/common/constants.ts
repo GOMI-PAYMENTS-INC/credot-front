@@ -1,5 +1,6 @@
 export const PATH = {
   CATEGORY: '/',
+  LANDING: '/',
   SEARCH_PRODUCTS: '/keyword',
   SIGN_IN: '/signin',
   SIGN_UP: '/signup',

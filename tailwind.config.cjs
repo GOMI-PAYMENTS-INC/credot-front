@@ -111,6 +111,10 @@ module.exports = {
     extend: {
       //색상
       colors: {
+        'dark-orange': {
+          900: '#30170B',
+        },
+
         orange: {
           100: '#FFF5F0',
           200: '#FFDAC8',
