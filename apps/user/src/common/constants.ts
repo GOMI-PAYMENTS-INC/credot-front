@@ -1,5 +1,6 @@
 export const PATH = {
   APPLY: '/apply',
+  CONNECT: '/connect',
   LANDING: '/',
   SEARCH_PRODUCTS: '/keyword',
   SIGN_IN: '/signin',

@@ -50,7 +50,7 @@ export const Default = ({ children, useGap = false }: IDefaultProps) => {
                 </li>
               </ul>
             </div>
-            <div>{children}</div>
+            <div className='p-5'>{children}</div>
           </div>
         </Fragment>
       </div>
