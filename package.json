@@ -83,5 +83,5 @@
   },
   "description": "gomi-insight",
   "repository": "https://github.com/gomicorp/kr-core-gomi-keyword-front.git",
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@4.0.0"
 }
