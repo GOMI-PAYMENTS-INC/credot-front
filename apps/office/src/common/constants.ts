@@ -4,12 +4,12 @@ export const PATH = {
   MAIN: '/',
   PRICE: '/price',
   BLOG: '/blog',
-  CATEGORY: 'category/:id',
-  SERP: 'category/insight/serp',
-  SEO: 'category/insight/seo',
-  SEARCH_TREND: 'category/insight/searchtrend',
-  CVR: 'category/insight/cvr',
-  CPC: 'category/insight/cpc',
+  CATEGORY: 'apply/:id',
+  SERP: 'apply/insight/serp',
+  SEO: 'apply/insight/seo',
+  SEARCH_TREND: 'apply/insight/searchtrend',
+  CVR: 'apply/insight/cvr',
+  CPC: 'apply/insight/cpc',
 };
 
 export const HOME_QNA = [

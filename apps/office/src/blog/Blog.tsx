@@ -1,11 +1,12 @@
-import { KeywordContent } from '@/common';
-import { useNavigate, useLocation, Outlet, Link } from 'react-router-dom';
-import { getPath } from '@/blog/container';
-import { PATH } from '@/common/constants';
-import { ReactSVG } from 'react-svg';
-import { getBreadcrumb } from '@/blog/container';
 import { useEffect } from 'react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
+
 import { _blogContentViewed } from '@/amplitude/amplitude.service';
+import { getPath } from '@/blog/container';
+import { getBreadcrumb } from '@/blog/container';
+import { KeywordContent } from '@/common';
+import { PATH } from '@/common/constants';
 
 const Blog = () => {
   // const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Blog = () => {
                 src='/assets/icons/ArrowRightSmall.svg'
                 beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-600')}
               />
-              {/* <Link to={`${PATH.BLOG}/category/${isContentPage?.category}`}>
+              {/* <Link to={`${PATH.BLOG}/apply/${isContentPage?.apply}`}>
                 <p className='text-grey-700'>인사이트</p>
               </Link>
               <ReactSVG
@@ -66,7 +67,7 @@ const Blog = () => {
                      src='/assets/icons/ArrowRightSmall.svg'
                      beforeInjection={(svg) => svg.setAttribute('class', 'fill-grey-600')}
                    />
-                   <Link to={`${PATH.BLOG}/category/${content.category}`}>
+                   <Link to={`${PATH.BLOG}/apply/${content.apply}`}>
                      <p className='text-grey-700'>인사이트</p>
                    </Link>
                    <ReactSVG
@@ -82,23 +83,23 @@ const Blog = () => {
            </div>
          ) : (
            <div className='w-[1300px] pl-[300px] sm:w-[300px] sm:pl-0'>
-             {CATEGORY_LIST.map((category) => {
-               const underLine = pathname.includes(category.path)
+             {CATEGORY_LIST.map((apply) => {
+               const underLine = pathname.includes(apply.path)
                  ? 'border-b-orange-400 '
                  : 'border-b-white';
                return (
                  <button
-                   key={category.path}
+                   key={apply.path}
                    onClick={() => {
-                     const path = getPath(pathname, category.path);
+                     const path = getPath(pathname, apply.path);
                      navigate(path);
                    }}
                  >
                    <p
-                     key={category.path}
+                     key={apply.path}
                      className={`w-[140px] cursor-pointer border-b-[2px] pt-[14px] pb-3 ${underLine}`}
                    >
-                     {category.text}
+                     {apply.text}
                    </p>
                  </button>
                );

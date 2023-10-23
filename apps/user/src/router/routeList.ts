@@ -1,8 +1,8 @@
 import { ComponentType } from 'react';
 
 import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth';
-import Category from '@/category/Category';
 import { PATH } from '@/common/constants';
+import Apply from '@/v2/apply/Apply';
 import { Landing } from '@/v2/landing/Landing';
 
 type TPathKey = keyof typeof PATH;
@@ -60,8 +60,8 @@ export const routeList: IRoute[] = [
   },
   {
     isPrivate: true,
-    description: 'Category',
-    path: PATH.CATEGORY,
-    component: Category,
+    description: 'Apply',
+    path: PATH.APPLY,
+    component: Apply,
   },
 ];

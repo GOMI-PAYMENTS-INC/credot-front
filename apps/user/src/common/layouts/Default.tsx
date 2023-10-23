@@ -1,16 +1,16 @@
-import { Fragment, ReactNode, useEffect, useReducer, useState } from 'react';
-import MSidebar from './sidebar/MSidebar';
-import GNB from '@/common/layouts/GNB';
+import { Fragment, ReactNode, useEffect, useState } from 'react';
 import { useMatch } from 'react-router-dom';
-import { sidebarInitialState, sidebarReducer } from '@/common/layouts/sidebar/reducer';
+
+import menuIcon1 from '@/common/assets/menu_icon_1.png';
+import GNB from '@/common/layouts/GNB';
 import { PATH } from '@/types/enum.code';
+
 interface IDefaultProps {
   children?: ReactNode;
   useGap?: boolean;
 }
 
 export const Default = ({ children, useGap = false }: IDefaultProps) => {
-  const [_state, _dispatch] = useReducer(sidebarReducer, sidebarInitialState);
   const [handleCss, setHandleCss] = useState('');
 
   const pattern = [PATH.REPORT_DETAIL, PATH.REPORT_DETAIL_BY_SHARE].some(
@@ -24,17 +24,35 @@ export const Default = ({ children, useGap = false }: IDefaultProps) => {
   return (
     <Fragment>
       <div className='h-screen'>
-        {window.innerWidth < 432 ? (
-          <Fragment>
-            <MSidebar _state={_state} _dispatch={_dispatch} />
-            <div className={handleCss}>{children}</div>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <GNB />
-            <div className={`${handleCss} ${useGap ? 'mt-[72px]' : ''}`}>{children}</div>
-          </Fragment>
-        )}
+        <Fragment>
+          <GNB />
+          <div className={`${handleCss} ${useGap ? 'mt-[72px]' : ''} flex`}>
+            <div className='w-[200px] border-r-[1px] border-grey-300 bg-grey-50 px-[22px] py-[30px]'>
+              <div className='text-XS/Bold text-grey-700'>채권 판매</div>
+              <ul className='mt-[17px]'>
+                <li className='border-b-[1px] border-grey-200 py-[12px]'>
+                  <span className='flex'>
+                    <span className='mr-[8px]'>
+                      <img src={menuIcon1} />
+                    </span>
+                    <span className='self-center text-S/Bold text-orange-400'>
+                      정산금 채권 판매
+                    </span>
+                  </span>
+                </li>
+                <li className='py-[12px]'>
+                  <span className='flex'>
+                    <span className='mr-[8px]'>
+                      <img src={menuIcon1} />
+                    </span>
+                    <span className='self-center text-S/Medium'>매출 채권 판매</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div>{children}</div>
+          </div>
+        </Fragment>
       </div>
     </Fragment>
   );
