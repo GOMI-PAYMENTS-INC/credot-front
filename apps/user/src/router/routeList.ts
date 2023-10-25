@@ -5,6 +5,7 @@ import { PATH } from '@/common/constants';
 import Apply from '@/v2/apply/Apply';
 import Connect from '@/v2/connect/Connect';
 import InterLock from '@/v2/interlock/Interlock';
+import { InterlockError } from '@/v2/interlock/InterlockError';
 import { InterlockProgress } from '@/v2/interlock/InterlockProgress';
 import { Landing } from '@/v2/landing/Landing';
 
@@ -78,5 +79,11 @@ export const routeList: IRoute[] = [
     description: 'InterlockProgress',
     path: PATH.INTERLOCK_PROGRESS,
     component: InterlockProgress,
+  },
+  {
+    isPrivate: true,
+    description: 'InterlockError',
+    path: PATH.INTERLOCK_ERROR,
+    component: InterlockError,
   },
 ];

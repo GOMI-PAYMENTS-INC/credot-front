@@ -1,6 +1,7 @@
 export const PATH = {
   INTERLOCK: '/interlock',
   INTERLOCK_PROGRESS: '/interlock/progress',
+  INTERLOCK_ERROR: '/interlock/error',
   APPLY: '/apply',
   CONNECT: '/connect',
   LANDING: '/',

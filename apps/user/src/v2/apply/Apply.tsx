@@ -16,6 +16,8 @@ const Apply = () => {
     /*** VAN 연동 여부가 false 일 경우 사이드바 hidden ***/
     if (!isInterlockVan) {
       setSideBarVisibility(false);
+    } else {
+      setSideBarVisibility(true);
     }
   }, [isInterlockVan]);
 
