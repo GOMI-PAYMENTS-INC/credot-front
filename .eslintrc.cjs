@@ -41,6 +41,7 @@ module.exports = {
         pattern: {
           jsx: 'never',
           tsx: 'never',
+          ts: 'never',
           "": 'never',
         },
       },

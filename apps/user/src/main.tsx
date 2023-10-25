@@ -3,11 +3,11 @@ import '@/index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+
+import App from '@/App';
 import ChannelService from '@/config/channelTalk';
 
 import ErrorBoundary from './ErrorBoundary';
-// import HackleConfig from '@/config/HackleConfig';
-import App from '@/App';
 
 const queryClient = new QueryClient({
   defaultOptions: {

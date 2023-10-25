@@ -4,6 +4,8 @@ import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth'
 import { PATH } from '@/common/constants';
 import Apply from '@/v2/apply/Apply';
 import Connect from '@/v2/connect/Connect';
+import InterLock from '@/v2/interlock/Interlock';
+import { InterlockProgress } from '@/v2/interlock/InterlockProgress';
 import { Landing } from '@/v2/landing/Landing';
 
 type TPathKey = keyof typeof PATH;
@@ -67,8 +69,14 @@ export const routeList: IRoute[] = [
   },
   {
     isPrivate: true,
-    description: 'Connect',
-    path: PATH.CONNECT,
-    component: Connect,
+    description: 'Interlock',
+    path: PATH.INTERLOCK,
+    component: InterLock,
+  },
+  {
+    isPrivate: true,
+    description: 'InterlockProgress',
+    path: PATH.INTERLOCK_PROGRESS,
+    component: InterlockProgress,
   },
 ];

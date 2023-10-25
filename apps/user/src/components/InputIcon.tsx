@@ -1,5 +1,5 @@
-import { ReactSVG } from 'react-svg';
 import { Fragment } from 'react';
+import { ReactSVG } from 'react-svg';
 
 export enum INPUTSTATUS {
   NORMAL = 'normal',

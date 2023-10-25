@@ -15,8 +15,6 @@ export const useLoginHook = () => {
     onSuccess: (_) => {
       authTokenStorage.setToken(_.accessToken);
 
-      console.log('>>>> login', _.isTemporaryPassword);
-
       if (_.isTemporaryPassword) {
         useCookieStorage.setCookie(
           CACHING_KEY.TEMPORARY_PASSWORD_LOGIN,

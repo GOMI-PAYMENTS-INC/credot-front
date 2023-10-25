@@ -121,13 +121,14 @@ module.exports = {
           400: '#FFDAC8',
           500: '#FF7500',
           600: '#FF6C28',
-          700: '#FF5100',
+          green: '#3AA528',
         },
 
         orange: {
           100: '#FFF5F0',
           200: '#FFDAC8',
           300: '#FFA378',
+          350: '#FF8C04',
           400: '#FF6C28',
           500: '#FF5100',
           600: '#E64900',
@@ -248,10 +249,12 @@ module.exports = {
 
       boxShadow: {
         inputHover: '0px 0px 4px rgba(255, 163, 120, 0.5)',
+        default: '0px 0px 50px 0px rgba(0, 0, 0, 0.04)',
       },
+
       orangeGradient: {
         500: 'bg-gradient-to-r from-[#FF5100] to-[#FFA378]',
-        300: 'bg-gradient-to-r from-[#FFA378] to-[#FFF5F0]',
+        200: 'bg-gradient-to-r from-[#FFA378] to-[#FFF5F0]',
       },
     },
   },
