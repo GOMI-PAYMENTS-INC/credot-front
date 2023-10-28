@@ -21,7 +21,7 @@ export const SignIn = () => {
 
   useEffect(() => {
     if (authTokenStorage.getToken()) {
-      navigation(PATH.APPLY);
+      navigation(PATH.BREAKDOWN);
       return;
     }
     _amplitudeLoginPageViewed();

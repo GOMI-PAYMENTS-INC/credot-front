@@ -3,7 +3,7 @@ import { ComponentType } from 'react';
 import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth';
 import { PATH } from '@/common/constants';
 import Apply from '@/v2/apply/Apply';
-import Connect from '@/v2/connect/Connect';
+import Breakdown from '@/v2/breakdown/Breakdown';
 import InterLock from '@/v2/interlock/Interlock';
 import { InterlockError } from '@/v2/interlock/InterlockError';
 import { InterlockProgress } from '@/v2/interlock/InterlockProgress';
@@ -18,12 +18,6 @@ export interface IRoute {
   path: TPathType;
   component: ComponentType;
 }
-
-export const signInRouter = {
-  description: 'SignIn',
-  path: PATH.SIGN_IN,
-  component: FindId,
-};
 
 export const routeList: IRoute[] = [
   {
@@ -67,6 +61,12 @@ export const routeList: IRoute[] = [
     description: 'Apply',
     path: PATH.APPLY,
     component: Apply,
+  },
+  {
+    isPrivate: true,
+    description: 'Breakdown',
+    path: PATH.BREAKDOWN,
+    component: Breakdown,
   },
   {
     isPrivate: true,

@@ -28,7 +28,7 @@ export const Default = ({ children, useGap = false }: IDefaultProps) => {
           <GNB />
           <div className={`${handleCss} ${useGap ? 'mt-[72px]' : ''} flex`}>
             <SideBar />
-            <div className='p-5'>{children}</div>
+            <div className='w-full'>{children}</div>
           </div>
         </Fragment>
       </div>

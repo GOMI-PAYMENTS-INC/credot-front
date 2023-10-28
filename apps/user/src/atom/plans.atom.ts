@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 
-export const UserCardsAtom = atom<TUserCard[]>({
+export const UserCardsAtom = atom<[]>({
   key: 'userCard',
   default: [],
 });
 
-export const UserPlanAtom = atom<TPlans | null>({
+export const UserPlanAtom = atom<null>({
   key: 'userPlan',
   default: null,
 });

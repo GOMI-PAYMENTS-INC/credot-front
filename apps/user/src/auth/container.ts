@@ -178,22 +178,6 @@ export const exceptedVerifyTry = (
   );
 };
 
-export const duplicationVerifyTry = (
-  state: TVerifyButtonState,
-  _setState: Dispatch<SetStateAction<TVerifyButtonState>>,
-) => {
-  const _state = mergeCopiedValue(state);
-  _setState(
-    _state({
-      activeVerifyCode: false,
-      firstCalled: false,
-      theElseCalled: true,
-      isExceeded: false,
-      isDuplication: true,
-    }),
-  );
-};
-
 export const getVerifyCodeSignatureNumber = (
   verifyCodeSignatureNumber: string,
   state: TVerifyButtonState,
@@ -331,7 +315,7 @@ export const authReturnUrl = () => {
       useCookieStorage.removeCookie(CACHING_KEY.RETURN_URL);
       window.location.href = decodeURIComponent(returnUrl);
     } else {
-      navigation(goToUrl ? goToUrl : PATH.SEARCH_PRODUCTS);
+      navigation(goToUrl ? goToUrl : PATH.BREAKDOWN);
     }
   };
   return {

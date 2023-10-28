@@ -1,4 +1,5 @@
 export const PATH = {
+  BREAKDOWN: '/breakdown',
   INTERLOCK: '/interlock',
   INTERLOCK_PROGRESS: '/interlock/progress',
   INTERLOCK_ERROR: '/interlock/error',

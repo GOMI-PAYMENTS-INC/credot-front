@@ -119,8 +119,8 @@ export enum GRADE_ITEMS {
 }
 
 export enum PATH {
+  BREAKDOWN = '/breakdown',
   SEARCH_PRODUCTS = '/',
-  SEARCH_PRODUCTS_TEST = '/test',
   SIGN_IN = '/signin',
   SIGN_UP = '/signup',
   SIGN_UP_WITH_GOOGLE = '/signup/social',

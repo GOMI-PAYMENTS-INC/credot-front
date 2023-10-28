@@ -1,6 +1,9 @@
 import '@/index.css';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LicenseManager } from 'ag-grid-enterprise';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -14,6 +17,9 @@ const queryClient = new QueryClient({
     queries: {},
   },
 });
+
+/** ag-grid license */
+LicenseManager.setLicenseKey(import.meta.env.VITE_APP_AG_GRID_LICENSE_KEY);
 
 ChannelService.boot({ pluginKey: import.meta.env.VITE_CHANNELTALK_PLUGIN });
 
