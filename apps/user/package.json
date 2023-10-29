@@ -15,6 +15,7 @@
     "gen": "node script/codegen.mjs"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@hackler/react-sdk": "^11.18.1",
     "@hookform/error-message": "^2.0.1",
     "@tanstack/react-query": "^4.13.0",
@@ -23,6 +24,7 @@
     "ag-grid-community": "^30.2.0",
     "ag-grid-enterprise": "^30.2.0",
     "ag-grid-react": "^30.2.0",
+    "antd": "^5.10.2",
     "axios": "^0.27.2",
     "casing": "^1.1.0",
     "dayjs": "^1.11.7",
@@ -52,8 +54,9 @@
     "@graphql-codegen/typescript-react-query": "^4.0.5",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tanstack/react-query-devtools": "^4.14.5",
+    "@types/antd": "^1.0.0",
     "@types/node": "^18.11.7",
-    "@types/react": "^18.0.22",
+    "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "@types/uuid": "^9.0.3",
     "@vitejs/plugin-react": "^2.2.0",
