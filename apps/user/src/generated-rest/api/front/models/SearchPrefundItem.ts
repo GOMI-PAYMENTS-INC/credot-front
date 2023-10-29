@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum CrawlingTypeEnum {
-  EASYSHOP = 'EASYSHOP',
-  EASYSHOP_SALES = 'EASYSHOP_SALES',
-}
+export type SearchPrefundItem = {
+  name: string;
+  values: Array<number>;
+};

@@ -14,10 +14,16 @@ export type { RegisterDto } from './models/RegisterDto';
 export type { RequestCrawlingDto } from './models/RequestCrawlingDto';
 export type { RequestPhoneAuthDto } from './models/RequestPhoneAuthDto';
 export type { ResetPasswordDto } from './models/ResetPasswordDto';
+export type { SearchDetailItemDto } from './models/SearchDetailItemDto';
+export type { SearchPrefundDto } from './models/SearchPrefundDto';
+export type { SearchPrefundItem } from './models/SearchPrefundItem';
 export type { SendTemporaryPasswordDto } from './models/SendTemporaryPasswordDto';
+export type { TodayPreFundDto } from './models/TodayPreFundDto';
+export type { TodayPreFundSummaryDto } from './models/TodayPreFundSummaryDto';
 export type { TokenDto } from './models/TokenDto';
 export type { UserDto } from './models/UserDto';
 
 export { AuthService } from './services/AuthService';
 export { DefaultService } from './services/DefaultService';
 export { InterlockService } from './services/InterlockService';
+export { PrefundService } from './services/PrefundService';
