@@ -41,7 +41,7 @@ const InterLock = () => {
 
     const result = await checkVanLogin(input);
     if (!result) {
-      setError('id', { message: undefined });
+      setError('id', { message: '' });
       setError('password', { message: '아이디 또는 패스워드가 일치하지 않습니다.' });
       return;
     }

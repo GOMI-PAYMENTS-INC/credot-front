@@ -1,6 +1,6 @@
+import type { JSX } from 'react';
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-
 /*
 handleOk : 모달이 완료된 다음 일어날 일
 handleCancel : 모달을 닫을 때 일어날 일
@@ -20,5 +20,5 @@ export const ModalComponent = ({ isOpen, children }: ModalComponentProps) => {
       </div>
     ) : null,
     document.body,
-  );
+  ) as unknown as JSX.Element;
 };

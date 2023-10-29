@@ -51,16 +51,16 @@ export const routeList: IRoute[] = [
     component: SignIn,
   },
   {
+    isPrivate: false,
+    description: 'Apply',
+    path: PATH.APPLY,
+    component: Apply,
+  },
+  {
     isPrivate: true,
     description: 'ReapplyPassword',
     path: PATH.REAPPLY_PASSWORD,
     component: TemporaryPassword,
-  },
-  {
-    isPrivate: true,
-    description: 'Apply',
-    path: PATH.APPLY,
-    component: Apply,
   },
   {
     isPrivate: true,

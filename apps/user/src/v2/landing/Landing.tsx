@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { PATH } from '@/types/enum.code';
+import { FloatingButton } from '@/v2/landing/components/FloatingButton';
 
 import commerce from './assets/ecommerce.png';
 import landing1 from './assets/landing1.png';
@@ -22,6 +23,7 @@ export const Landing = () => {
 
   return (
     <div>
+      <FloatingButton />
       <div className='flex min-h-[597px] items-center justify-center bg-gradient-to-r from-dark-orange-900 to-orange-400'>
         <div className='mr-[308px]'>
           <div className='mb-4'>
@@ -41,7 +43,7 @@ export const Landing = () => {
             className='rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-16 py-4 text-xl font-bold leading-[56px] text-white'
             to={PATH.SIGN_IN}
           >
-            서비스 이용하기
+            서비스 신청하기
           </Link>
         </div>
         <div>
@@ -116,7 +118,7 @@ export const Landing = () => {
           onClick={() => navigate('/selection')}
         />
       </div>
-      <div>
+      <div className='bg-grey-50 py-[94px]'>
         <img src={landing6} className='mx-auto' />
       </div>
       <div>
