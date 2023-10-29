@@ -1,8 +1,28 @@
 import { CalendarOutlined } from '@ant-design/icons';
 import { DatePicker } from 'antd';
+import type { RangePickerProps } from 'antd/es/date-picker';
+import dayjs from 'dayjs';
 import ReactECharts from 'echarts-for-react';
+import { useState } from 'react';
+
+import { useSearchPeriodPrefundHook } from '@/v2/breakdown/hooks/prefund.hook';
 const { RangePicker } = DatePicker;
+
+const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+  // Can not select days before today and today
+  return current && current > dayjs();
+};
+
 export const PeriodPreFund = () => {
+  const [dates, setDates] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
+    dayjs().subtract(7, 'd'),
+    dayjs(),
+  ]);
+  const { data: result, isLoading } = useSearchPeriodPrefundHook({
+    startAt: dates[0].format('YYYY-MM-DD'),
+    endAt: dates[1].format('YYYY-MM-DD'),
+  });
+
   const option = {
     tooltip: {
       trigger: 'axis',
@@ -25,7 +45,7 @@ export const PeriodPreFund = () => {
     },
     xAxis: {
       type: 'category',
-      data: ['10.27', '10.28', '10.29', '10.30', '10.31', '11.1', '11.2'],
+      data: result?.dates || [],
     },
     yAxis: {
       type: 'value',
@@ -41,7 +61,7 @@ export const PeriodPreFund = () => {
         itemStyle: {
           color: '#F2FAFF',
         },
-        data: [150, 212, 201, 154, 190, 330, 410],
+        data: result?.data.find((item) => item.name === 'setoff')?.values || [],
       },
       {
         name: '서비스 수수료',
@@ -53,7 +73,8 @@ export const PeriodPreFund = () => {
         itemStyle: {
           color: '#ABDCFF',
         },
-        data: [-220, 182, 191, 234, -290, 330, 310],
+        data:
+          result?.data.find((item) => item.name === 'serviceCommission')?.values || [],
       },
       {
         name: '카드사 수수료',
@@ -65,7 +86,7 @@ export const PeriodPreFund = () => {
         itemStyle: {
           color: '#40B6FF',
         },
-        data: [120, 132, -501, 134, 90, 230, 210],
+        data: result?.data.find((item) => item.name === 'cardCommission')?.values || [],
       },
       {
         name: '매출',
@@ -77,7 +98,7 @@ export const PeriodPreFund = () => {
         itemStyle: {
           color: '#E64900',
         },
-        data: [320, 302, 301, 334, 390, 330, 320],
+        data: result?.data.find((item) => item.name === 'salesPrice')?.values || [],
       },
     ],
   };
@@ -89,12 +110,20 @@ export const PeriodPreFund = () => {
         <div>
           <RangePicker
             placeholder={['시작일', '종료일']}
+            value={dates}
             separator={'~'}
+            onChange={(dates) => {
+              const dateValues = dates as [dayjs.Dayjs, dayjs.Dayjs];
+              if (dateValues[0] && dateValues[1]) {
+                setDates(dateValues);
+              }
+            }}
+            disabledDate={disabledDate}
             suffixIcon={<CalendarOutlined rev={undefined} className='text-orange-400' />}
           />
         </div>
       </div>
-      <ReactECharts option={option} />
+      <ReactECharts option={option} showLoading={isLoading} />
     </div>
   );
 };

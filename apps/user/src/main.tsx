@@ -4,6 +4,13 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LicenseManager } from 'ag-grid-enterprise';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import localeData from 'dayjs/plugin/localeData';
+import weekday from 'dayjs/plugin/weekday';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import weekYear from 'dayjs/plugin/weekYear';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -17,6 +24,13 @@ const queryClient = new QueryClient({
     queries: {},
   },
 });
+
+dayjs.extend(customParseFormat);
+dayjs.extend(advancedFormat);
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
 
 /** ag-grid license */
 LicenseManager.setLicenseKey(import.meta.env.VITE_APP_AG_GRID_LICENSE_KEY);
