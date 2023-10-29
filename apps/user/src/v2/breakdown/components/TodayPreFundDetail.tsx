@@ -69,6 +69,7 @@ export const TodayPreFundDetail = () => {
       dataIndex: 'preFundDate',
       key: 'preFundDate',
       className: 'text-center',
+      render: (value) => value || '-',
     },
     {
       title: '전일 카드 매출',

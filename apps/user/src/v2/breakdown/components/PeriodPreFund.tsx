@@ -3,9 +3,10 @@ import { DatePicker } from 'antd';
 import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs from 'dayjs';
 import ReactECharts from 'echarts-for-react';
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import { useSearchPeriodPrefundHook } from '@/v2/breakdown/hooks/prefund.hook';
+import { BreakdownDatePickerAtom } from '@/v2/breakdown/store/date.atom';
 const { RangePicker } = DatePicker;
 
 const disabledDate: RangePickerProps['disabledDate'] = (current) => {
@@ -14,10 +15,7 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
 };
 
 export const PeriodPreFund = () => {
-  const [dates, setDates] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs().subtract(7, 'd'),
-    dayjs(),
-  ]);
+  const [dates, setDates] = useRecoilState(BreakdownDatePickerAtom);
   const { data: result, isLoading } = useSearchPeriodPrefundHook({
     startAt: dates[0].format('YYYY-MM-DD'),
     endAt: dates[1].format('YYYY-MM-DD'),

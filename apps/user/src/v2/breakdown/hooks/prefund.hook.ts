@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import {
   PrefundService,
+  SearchDetailItemDto,
   SearchPrefundDto,
   TodayPreFundDto,
   TodayPreFundSummaryDto,
@@ -47,6 +48,25 @@ export const useSearchPeriodPrefundHook = ({
     onError: (err: ApiError) => {
       console.error(err.message);
       toast.error('선정산금 기간 데이터를 가져오기 실패했어요!');
+      return;
+    },
+  });
+};
+
+export const useSearchPeriodPrefundDetailHook = ({
+  startAt,
+  endAt,
+}: {
+  startAt: string;
+  endAt: string;
+}) => {
+  return useQuery<SearchDetailItemDto[], ApiError>({
+    queryKey: ['search-period-prefund-detail'],
+    queryFn: () => PrefundService.searchDetails(startAt, endAt),
+    enabled: !!(startAt && endAt),
+    onError: (err: ApiError) => {
+      console.error(err.message);
+      toast.error('선정산금 기간 내역 데이터를 가져오기 실패했어요!');
       return;
     },
   });

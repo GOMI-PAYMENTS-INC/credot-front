@@ -2,22 +2,12 @@ import { DownOutlined, RightOutlined } from '@ant-design/icons';
 import { ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-interface IPreFundDetailItem {
-  key?: number;
-  date: string;
-  cardCompanyName: string;
-  preFundPrice: number;
-  status: string;
-  rowSpan?: number;
-  preFundDate: string;
-  approvalAmount: number;
-  commission: number;
-  serviceCommission: number;
-  setoff: number;
-  children?: IPreFundDetailItem[];
-}
+import { SearchDetailItemDto } from '@/generated-rest/api/front';
+import { useSearchPeriodPrefundDetailHook } from '@/v2/breakdown/hooks/prefund.hook';
+import { BreakdownDatePickerAtom } from '@/v2/breakdown/store/date.atom';
 
 const Wrapper = styled.div`
   .ant-table-thead .ant-table-cell:nth-child(3) {
@@ -42,8 +32,13 @@ const Wrapper = styled.div`
 const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 
 export const PreFundHistory = () => {
+  const [dates] = useRecoilState(BreakdownDatePickerAtom);
+  const { data: result, isLoading } = useSearchPeriodPrefundDetailHook({
+    startAt: dates[0].format('YYYY-MM-DD'),
+    endAt: dates[1].format('YYYY-MM-DD'),
+  });
   const [expandableRows, setExpandableRows] = useState<readonly any[]>([]);
-  const listColumn: ColumnsType<IPreFundDetailItem> = [
+  const listColumn: ColumnsType<SearchDetailItemDto> = [
     {
       title: '날짜',
       dataIndex: 'date',
@@ -53,7 +48,7 @@ export const PreFundHistory = () => {
           return { rowSpan: record.rowSpan };
         }
 
-        if (!record.key) {
+        if (record.key === undefined) {
           return {
             rowSpan: 0,
           };
@@ -93,6 +88,7 @@ export const PreFundHistory = () => {
       dataIndex: 'preFundDate',
       key: 'preFundDate',
       className: 'text-center',
+      render: (value) => value || '-',
     },
     {
       title: '전일 카드 매출',
@@ -130,152 +126,7 @@ export const PreFundHistory = () => {
     },
   ];
 
-  const data: IPreFundDetailItem[] = [
-    {
-      key: 1,
-      date: '2023-10-26',
-      cardCompanyName: '전체',
-      rowSpan: 4,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-      children: [
-        {
-          date: '2023-10-26',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-        {
-          date: '2023-10-26',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-        {
-          date: '2023-10-26',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-      ],
-    },
-    {
-      key: 2,
-      date: '2023-10-25',
-      cardCompanyName: '전체',
-      rowSpan: 4,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-      children: [
-        {
-          date: '2023-10-25',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-        {
-          date: '2023-10-25',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-        {
-          date: '2023-10-25',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-      ],
-    },
-    {
-      key: 3,
-      date: '2023-10-24',
-      cardCompanyName: '전체',
-      rowSpan: 4,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-      children: [
-        {
-          date: '2023-10-24',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-        {
-          date: '2023-10-24',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-        {
-          date: '2023-10-24',
-          cardCompanyName: '현대 카드',
-          preFundPrice: 50000000,
-          status: '입금 준비중',
-          preFundDate: '2023-10-24 17:23:23',
-          approvalAmount: 3000000,
-          commission: 3000000,
-          serviceCommission: 1000000,
-          setoff: 3000000,
-        },
-      ],
-    },
-  ];
+  const data: SearchDetailItemDto[] = result || [];
   return (
     <div className='mt-[90px]'>
       <div className='text-XL/Bold'>상세 내역</div>
@@ -297,6 +148,7 @@ export const PreFundHistory = () => {
             dataSource={data}
             pagination={false}
             bordered
+            loading={isLoading}
             expandable={{
               onExpandedRowsChange: (rows) => {
                 setExpandableRows(rows);
@@ -314,7 +166,8 @@ export const PreFundHistory = () => {
                   />
                 ),
             }}
-          ></Table>
+            scroll={{ y: 240 }}
+          />
         </ConfigProvider>
       </Wrapper>
     </div>
