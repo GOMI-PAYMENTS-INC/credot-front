@@ -2,18 +2,8 @@ import { ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import styled from 'styled-components';
 
-interface IPreFundDetailItem {
-  date: string;
-  cardCompanyName: string;
-  preFundPrice: number;
-  status: string;
-  rowSpan: number;
-  preFundDate: string;
-  approvalAmount: number;
-  commission: number;
-  serviceCommission: number;
-  setoff: number;
-}
+import { TodayPreFundDto } from '@/generated-rest/api/front';
+import { useTodayPrefundDetailHook } from '@/v2/breakdown/hooks/prefund.hook';
 
 const Wrapper = styled.div`
   .ant-table-thead .ant-table-cell:nth-child(3) {
@@ -38,7 +28,8 @@ const Wrapper = styled.div`
 const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 
 export const TodayPreFundDetail = () => {
-  const listColumn: ColumnsType<IPreFundDetailItem> = [
+  const { data: details, isLoading } = useTodayPrefundDetailHook();
+  const listColumn: ColumnsType<TodayPreFundDto> = [
     {
       title: '날짜',
       dataIndex: 'date',
@@ -81,8 +72,8 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '전일 카드 매출',
-      dataIndex: 'approvalAmount',
-      key: 'approvalAmount',
+      dataIndex: 'preSalesPrice',
+      key: 'preSalesPrice',
       className: 'text-right',
       render: (value, record, index) => {
         return (
@@ -94,8 +85,8 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '전일 카드사 수수료',
-      dataIndex: 'commission',
-      key: 'commission',
+      dataIndex: 'preCardCommission',
+      key: 'preCardCommission',
       className: 'text-right text-blue-600',
       render: localeValueFormatter,
     },
@@ -115,56 +106,7 @@ export const TodayPreFundDetail = () => {
     },
   ];
 
-  const data: IPreFundDetailItem[] = [
-    {
-      date: '2023-10-24',
-      cardCompanyName: '전체',
-      rowSpan: 4,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-    },
-    {
-      date: '',
-      cardCompanyName: '현대 카드',
-      rowSpan: 0,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-    },
-    {
-      date: '',
-      cardCompanyName: '현대 카드',
-      rowSpan: 0,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-    },
-    {
-      date: '',
-      cardCompanyName: '현대 카드',
-      rowSpan: 0,
-      preFundPrice: 50000000,
-      status: '입금 준비중',
-      preFundDate: '2023-10-24 17:23:23',
-      approvalAmount: 3000000,
-      commission: 3000000,
-      serviceCommission: 1000000,
-      setoff: 3000000,
-    },
-  ];
+  const data: TodayPreFundDto[] = details || [];
   return (
     <div className='mt-[90px]'>
       <div className='text-XL/Bold'>상세 내역</div>
@@ -182,10 +124,12 @@ export const TodayPreFundDetail = () => {
           }}
         >
           <Table
+            loading={isLoading}
             columns={listColumn}
             dataSource={data}
             pagination={false}
             bordered
+            scroll={{ y: 240 }}
           ></Table>
         </ConfigProvider>
       </Wrapper>

@@ -17,4 +17,15 @@ export class DefaultService {
       url: '/',
     });
   }
+
+  /**
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static prefundControllerCreate(): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/prefund/create',
+    });
+  }
 }
