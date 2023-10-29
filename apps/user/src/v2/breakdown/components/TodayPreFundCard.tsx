@@ -19,22 +19,22 @@ export const TodayPreFundCard = () => {
         </div>
         <div className='ml-[-1px] flex w-full border border-grey-300 bg-grey-50 px-[30px] py-[28px]'>
           <div>
-            <div className='text-M/Medium text-grey-800'>선정산 금액</div>
+            <div className='text-M/Medium text-grey-800'>전일 매출</div>
             <div className='mt-[10px] text-2XL/Bold text-grey-800'>50,000,000원</div>
           </div>
           <MinusIcon />
           <div>
-            <div className='text-M/Medium text-grey-800'>선정산 금액</div>
+            <div className='text-M/Medium text-grey-800'>전일 카드사 수수료</div>
             <div className='mt-[10px] text-2XL/Regular text-grey-800'>50,000,000원</div>
           </div>
           <MinusIcon />
           <div>
-            <div className='text-M/Medium text-grey-800'>선정산 금액</div>
+            <div className='text-M/Medium text-grey-800'>서비스 수수료</div>
             <div className='mt-[10px] text-2XL/Regular text-grey-800'>50,000,000원</div>
           </div>
           <MinusIcon />
           <div>
-            <div className='text-M/Medium text-grey-800'>선정산 금액</div>
+            <div className='text-M/Medium text-grey-800'>과정산 금액</div>
             <div className='mt-[10px] text-2XL/Regular text-grey-800'>50,000,000원</div>
           </div>
         </div>
