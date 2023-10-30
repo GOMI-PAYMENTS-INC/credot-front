@@ -22,7 +22,7 @@ export class PrefundService {
    */
   public static searchMyPrefund(
     requestBody: RequestCrawlingDto,
-  ): CancelablePromise<CrawlingResponseDto> {
+  ): CancelablePromise<Array<CrawlingResponseDto>> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/prefund/request',
@@ -35,12 +35,9 @@ export class PrefundService {
    * 정산금 채권 결과
    * @param crawlingId
    * @returns TodayPreFundSummaryDto
-   * @returns any
    * @throws ApiError
    */
-  public static myPrefund(
-    crawlingId: number,
-  ): CancelablePromise<TodayPreFundSummaryDto | Record<string, any>> {
+  public static myPrefund(crawlingId: number): CancelablePromise<TodayPreFundSummaryDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/prefund/request/result',

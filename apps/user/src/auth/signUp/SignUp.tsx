@@ -110,7 +110,7 @@ export const SignUp = () => {
     setSignupEvent: Dispatch<SetStateAction<TTermsCheckState>>,
     setError: UseFormSetError<TAuthEssentialProps>,
   ) => {
-    if (/^\s+|\s+$/g.test(value.password) === true)
+    if (/^\s+|\s+$/g.test(value.password))
       return setError('password', { message: NOTIFICATION_MESSAGE.whiteSpace });
     const _value = Object.assign(value, { verifyCode: verifyCodeSignatureNumber });
 

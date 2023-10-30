@@ -39,7 +39,7 @@ export const useRequestBond = () => {
   );
 };
 
-export const useGetInterlock = (requestId: number) => {
+export const useGetInterlock = (requestId: string) => {
   const navigation = useNavigate();
   return useQuery<CrawlingDto, ApiError>({
     queryKey: ['getInterlock', requestId],

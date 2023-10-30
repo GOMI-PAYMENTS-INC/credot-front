@@ -5,5 +5,4 @@
 
 export enum CrawlingTypeEnum {
   EASYSHOP = 'EASYSHOP',
-  EASYSHOP_SALES = 'EASYSHOP_SALES',
 }

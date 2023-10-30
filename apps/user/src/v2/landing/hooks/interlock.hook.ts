@@ -1,13 +1,6 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
-import {
-  CrawlingDto,
-  InterlockService,
-  PrefundService,
-  RequestCrawlingDto,
-} from '@/generated-rest/api/front';
-import { ApiError } from '@/generated-rest/api/front/core/ApiError';
+import { InterlockService, RequestCrawlingDto } from '@/generated-rest/api/front';
 
 export const useCheckVanLogin = () => {
   return useMutation(
@@ -18,28 +11,4 @@ export const useCheckVanLogin = () => {
       },
     },
   );
-};
-
-export const useRequestBond = () => {
-  return useMutation(
-    (requestBody: RequestCrawlingDto) => PrefundService.searchMyPrefund(requestBody),
-    {
-      onSuccess: (res) => {
-        return res;
-      },
-    },
-  );
-};
-
-export const useGetInterlock = (requestId: number | null) => {
-  return useQuery<CrawlingDto, ApiError>({
-    queryKey: ['getInterlock', requestId],
-    queryFn: () => InterlockService.getCrawling(requestId as number),
-    enabled: !!requestId,
-    refetchInterval: 2000,
-    staleTime: 0,
-    onSuccess: (res: CrawlingDto) => {
-      return res;
-    },
-  });
 };

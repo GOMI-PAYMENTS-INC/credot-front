@@ -1,3 +1,4 @@
+import { Divider } from 'antd';
 import { useForm } from 'react-hook-form';
 import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
@@ -66,18 +67,14 @@ export const LoginView = ({
   const hasError = errors?.password?.message || errors?.id?.message;
 
   return (
-    <>
-      <p className='mb-[40px] text-S/Regular text-grey-800'>
-        사용중인 가맹점 매출 관리사이트의 로그인 정보를 입력해주세요. 묶여 있는 정산금을
-        바로 확인해드릴께요!
-      </p>
+    <div>
       <form onSubmit={handleSubmit(onValid)}>
-        <div>
-          <div className='mb-[40px] space-y-5'>
-            <div className='inputCustom-group'>
+        <div className='flex flex-row items-center'>
+          <div className='flex flex-row items-center'>
+            <div className='inputCustom-group mr-[10px]'>
               <div className='inputCustom-textbox-wrap'>
                 <CustomSelect
-                  className={`h-[46px] w-[50%] rounded border border-grey-400  px-4 text-grey-800 hover:border-orange-300 hover:shadow-inputHover`}
+                  className={`h-[46px] w-[50%] w-[171px] rounded border border-grey-400 px-4  text-S/Regular text-grey-800 hover:border-orange-300 hover:shadow-inputHover`}
                   {...register('type', {
                     required: '타입을 입력해주세요.',
                   })}
@@ -86,10 +83,10 @@ export const LoginView = ({
                 </CustomSelect>
               </div>
             </div>
-            <div className='inputCustom-group'>
+            <div className='inputCustom-group relative mr-[10px]'>
               <div className='inputCustom-textbox-wrap'>
                 <input
-                  className={`inputCustom-textbox w-full placeholder:text-grey-800 ${
+                  className={`inputCustom-textbox w-[207px] text-S/Regular ${
                     errors?.id ? 'error' : ''
                   } h-[46px]`}
                   type='text'
@@ -103,12 +100,32 @@ export const LoginView = ({
                   iconSize={5}
                 />
               </div>
+              <p
+                className={`inputCustom-helptext -bottom-30 absolute left-0 ${
+                  hasError ? 'visible' : 'invisible'
+                } mb-[10px] flex min-h-[20px] w-[230px] justify-center`}
+              >
+                <ReactSVG
+                  src='/assets/icons/outlined/ExclamationCircle.svg'
+                  className='mr-[4px] self-center'
+                  beforeInjection={(svg) => {
+                    svg.setAttribute('class', `w-4 h-4 fill-red-600`);
+                  }}
+                />
+                {errors?.id?.message && !errors?.password?.message && errors?.id?.message}
+                {!errors?.id?.message &&
+                  errors?.password?.message &&
+                  errors?.password?.message}
+                {errors?.id?.message &&
+                  errors?.password?.message &&
+                  '아이디 또는 비밀번호를 입력해주세요.'}
+              </p>
             </div>
             <div className='space-y-2'>
               <div className='inputCustom-group'>
                 <div className='inputCustom-textbox-wrap'>
                   <input
-                    className={`inputCustom-textbox w-full placeholder:text-grey-800 ${
+                    className={`inputCustom-textbox w-[207px] text-S/Regular ${
                       errors?.password ? 'error' : ''
                     } h-[46px]`}
                     type='password'
@@ -126,35 +143,17 @@ export const LoginView = ({
             </div>
           </div>
 
-          <p
-            className={`inputCustom-helptext ${
-              hasError ? 'visible' : 'invisible'
-            } mb-[10px] flex min-h-[20px] justify-center`}
-          >
-            <ReactSVG
-              src='/assets/icons/outlined/ExclamationCircle.svg'
-              className='mr-[4px] self-center'
-              beforeInjection={(svg) => {
-                svg.setAttribute('class', `w-4 h-4 fill-red-600`);
-              }}
-            />
-            {errors?.id?.message && !errors?.password?.message && errors?.id?.message}
-            {!errors?.id?.message &&
-              errors?.password?.message &&
-              errors?.password?.message}
-            {errors?.id?.message &&
-              errors?.password?.message &&
-              '아이디 또는 비밀번호를 입력해주세요.'}
-          </p>
+          <Divider type='vertical' className='mx-[37px] h-[40px] bg-grey-300' />
+
           <button
             type='submit'
             disabled={loading}
-            className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
+            className='w- button-filled-normal-xLarge-red-false-false-true h-[56px] w-[223px] bg-gradient-to-r from-orange-500 to-gomi-500'
           >
             {loading ? <Spin /> : '조회하기'}
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };

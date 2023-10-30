@@ -1,12 +1,14 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { ProgressView } from '@/v2/apply/components/ProgressView';
 import Calculator from '@/v2/landing/assets/calculator.png';
 import { LoginView } from '@/v2/landing/components/LoginView';
-import { ProgressView } from '@/v2/landing/components/ProgressView';
-import { useCheckVanLogin, useRequestBond } from '@/v2/landing/hooks/interlock.hook';
+import { useCheckVanLogin } from '@/v2/landing/hooks/interlock.hook';
+import { useSearchMyPrefund } from '@/v2/landing/hooks/prefund.hook';
 
 const CustomModal = styled(Modal)`
   position: fixed !important;
@@ -22,14 +24,21 @@ export const SearchModal = ({
   isOpen: boolean;
   onClose(): void;
 }) => {
+  const navigate = useNavigate();
   const { mutateAsync: checkVanLogin, isLoading: checkVanLoginLoading } =
     useCheckVanLogin();
   const {
-    mutateAsync: requestBond,
+    mutateAsync: searchMyBond,
     isSuccess,
     data,
     isLoading: requestBondLoading,
-  } = useRequestBond();
+  } = useSearchMyPrefund();
+
+  useEffect(() => {
+    if (data) {
+      navigate(`/apply?requestIds=${data.map((item) => item.crawlingId).join(',')}`);
+    }
+  }, [data]);
 
   return (
     <CustomModal
@@ -79,11 +88,10 @@ export const SearchModal = ({
       {!isSuccess && (
         <LoginView
           checkVanLogin={checkVanLogin}
-          requestBond={requestBond}
+          searchMyBond={searchMyBond}
           loading={checkVanLoginLoading || requestBondLoading}
         />
       )}
-      {isSuccess && <ProgressView requestId={data.crawlingId} />}
     </CustomModal>
   );
 };

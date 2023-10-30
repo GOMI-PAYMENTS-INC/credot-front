@@ -1,4 +1,3 @@
-import { CardList } from '@/blog/elements';
 import { useParams } from 'react-router-dom';
 
 export const BlogCategory = () => {

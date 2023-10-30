@@ -6,7 +6,7 @@ import { SideBarVisibility } from '@/atom/sidebar.atom';
 import { Default as Layout } from '@/common/layouts';
 import { ModalComponent } from '@/components/modals/ModalComponent';
 import { CrawlingDto } from '@/generated-rest/api/front';
-import ProgressImg from '@/v2/interlock/assets/progress-img.png';
+import ProgressImg from '@/v2/apply/assets/progress-img.png';
 import { useGetInterlock } from '@/v2/interlock/hooks/interlock.hook';
 
 export const InterlockProgress = () => {
@@ -14,7 +14,7 @@ export const InterlockProgress = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const requestId = searchParams.get('requestId'); // test
-  const { data, refetch } = useGetInterlock(Number(requestId));
+  const { data, refetch } = useGetInterlock(requestId || '');
 
   useEffect(() => {
     if (!requestId) {

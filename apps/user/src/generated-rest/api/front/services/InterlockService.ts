@@ -12,6 +12,22 @@ import { request as __request } from '../core/request';
 
 export class InterlockService {
   /**
+   * 채권 요청 조회
+   * @param requestId
+   * @returns CrawlingDto
+   * @throws ApiError
+   */
+  public static getCrawling(requestId: string): CancelablePromise<CrawlingDto> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/interlock/{requestId}',
+      path: {
+        requestId: requestId,
+      },
+    });
+  }
+
+  /**
    * 정산금 채권 조회
    * @param requestBody
    * @returns boolean
@@ -54,22 +70,6 @@ export class InterlockService {
       url: '/interlock/request',
       body: requestBody,
       mediaType: 'application/json',
-    });
-  }
-
-  /**
-   * 채권 요청 조회
-   * @param requestId
-   * @returns CrawlingDto
-   * @throws ApiError
-   */
-  public static getCrawling(requestId: number): CancelablePromise<CrawlingDto> {
-    return __request(OpenAPI, {
-      method: 'GET',
-      url: '/interlock/{requestId}',
-      path: {
-        requestId: requestId,
-      },
     });
   }
 }

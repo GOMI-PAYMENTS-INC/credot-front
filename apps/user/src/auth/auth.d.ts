@@ -9,7 +9,7 @@ type TVerifyButtonState = {
   isExistedAccount: null | 'EMPTY' | 'FILLED';
 };
 
-type TTermsType = 'useAgree' | 'personalAgree' | 'marketingAgree';
+type TTermsType = 'useAgree' | 'personalAgree' | 'personalAgree2' | 'marketingAgree';
 
 type TTermsCheckState = {
   checkedTerms: TTermsType[] | string[];
