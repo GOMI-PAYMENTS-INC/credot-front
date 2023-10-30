@@ -31,10 +31,10 @@ export const useRequestBond = () => {
   );
 };
 
-export const useGetInterlock = (requestId: number) => {
+export const useGetInterlock = (requestId: number | null) => {
   return useQuery<CrawlingDto, ApiError>({
     queryKey: ['getInterlock', requestId],
-    queryFn: () => InterlockService.getCrawling(requestId),
+    queryFn: () => InterlockService.getCrawling(requestId as number),
     enabled: !!requestId,
     refetchInterval: 2000,
     staleTime: 0,

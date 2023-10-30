@@ -74,7 +74,7 @@ export const ApplyFormCard = () => {
                   errors?.companyName ? 'error' : ''
                 } h-[46px]`}
                 type='text'
-                placeholder='(주) 고미페이먼츠'
+                placeholder='사업자등록증상의 상호명을 입력해주세요.'
                 {...register('companyName', {
                   required: '상호명을 입력해주세요.',
                 })}
@@ -104,7 +104,7 @@ export const ApplyFormCard = () => {
                   errors?.name ? 'error' : ''
                 } h-[46px]`}
                 type='text'
-                placeholder='이름'
+                placeholder='담당자분의 성함을 입력해주세요.'
                 {...register('name', {
                   required: '이름을 입력해주세요.',
                 })}
@@ -135,7 +135,7 @@ export const ApplyFormCard = () => {
                 }`}
                 id='verify'
                 type='text'
-                placeholder='전화번호를 숫자만 입력해주세요.'
+                placeholder='담당자분의 전화번호를 입력해주세요.'
                 maxLength={11}
                 {...register('phoneNumber', {
                   required: NOTIFICATION_MESSAGE.emptyPhoneNumber,
@@ -171,7 +171,7 @@ export const ApplyFormCard = () => {
                 className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
                 id='email'
                 type='email'
-                placeholder='dbkim99@gmail.com'
+                placeholder='담당자분의 이메일 주소를 입력해주세요.'
                 {...register('email', {
                   required: NOTIFICATION_MESSAGE.emptyEmail,
                   pattern: {

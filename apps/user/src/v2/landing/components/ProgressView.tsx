@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CrawlingDto } from '@/generated-rest/api/front';
@@ -6,13 +6,18 @@ import ProgressImg from '@/v2/interlock/assets/progress-img.png';
 import { useGetInterlock } from '@/v2/landing/hooks/interlock.hook';
 
 export const ProgressView = ({ requestId }: { requestId: number }) => {
+  const [isFail, setIsFail] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { data } = useGetInterlock(Number(requestId));
+  const { data } = useGetInterlock(isFail ? null : Number(requestId));
 
   useEffect(() => {
     if (data) {
       if (data.status === CrawlingDto.status.DONE) {
         navigate(`/apply?requestId=${requestId}`);
+      }
+
+      if (data.status === CrawlingDto.status.FAILED) {
+        setIsFail(true);
       }
     }
   }, [data]);

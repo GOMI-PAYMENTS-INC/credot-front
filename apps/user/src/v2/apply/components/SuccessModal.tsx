@@ -16,7 +16,7 @@ export const SuccessModal = ({
         <div className='h-[57px] w-[57px]'>
           <img src='/assets/images/Success.gif' />
         </div>
-        <div className='mt-[20px] text-XL/Bold text-grey-900'>서비스 신청 완료!</div>
+        <div className='mt-[20px] text-XL/Bold text-grey-900'>서비스 신청 완료</div>
         <div className='mt-[14px] text-L/Regular text-grey-900'>
           담당자 배정 후 최대한 빠른 시간 내 연락드릴께요
         </div>
