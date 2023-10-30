@@ -32,6 +32,25 @@ export class PrefundService {
   }
 
   /**
+   * 정산금 채권 결과
+   * @param crawlingId
+   * @returns TodayPreFundSummaryDto
+   * @returns any
+   * @throws ApiError
+   */
+  public static myPrefund(
+    crawlingId: number,
+  ): CancelablePromise<TodayPreFundSummaryDto | Record<string, any>> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/prefund/request/result',
+      query: {
+        crawlingId: crawlingId,
+      },
+    });
+  }
+
+  /**
    * 오늘 선정산금
    * @returns TodayPreFundSummaryDto
    * @throws ApiError

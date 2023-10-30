@@ -12,18 +12,6 @@ import { request as __request } from '../core/request';
 
 export class InterlockService {
   /**
-   * VAN사 연동 여부 조회
-   * @returns boolean
-   * @throws ApiError
-   */
-  public static checkInterLockVan(): CancelablePromise<boolean> {
-    return __request(OpenAPI, {
-      method: 'GET',
-      url: '/interlock/check-interlock-van',
-    });
-  }
-
-  /**
    * 정산금 채권 조회
    * @param requestBody
    * @returns boolean
@@ -37,6 +25,18 @@ export class InterlockService {
       url: '/interlock/check',
       body: requestBody,
       mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * VAN사 연동 여부 조회
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static checkInterLockVan(): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/interlock/check-interlock-van',
     });
   }
 

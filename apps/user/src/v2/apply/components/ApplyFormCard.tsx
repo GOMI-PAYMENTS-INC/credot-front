@@ -1,4 +1,3 @@
-import { Divider } from 'antd';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -56,145 +55,143 @@ export const ApplyFormCard = () => {
 
   return (
     <>
-      <div className='w-full rounded-t-[8px] bg-grey-800 py-[25px] text-center text-XL/Bold text-white shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
-        서비스 이용 신청서
-      </div>
-      <div className='rounded-b-[8px] bg-grey-100 px-[107px] py-[33px] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
-        <form onSubmit={handleSubmit(onValid)}>
-          <div className='inputCustom-group flex'>
-            <label
-              className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
-              htmlFor='name'
-            >
-              상호명
-            </label>
-            <div className='inputCustom-textbox-wrap w-full'>
-              <input
-                className={`inputCustom-textbox w-full ${
-                  errors?.companyName ? 'error' : ''
-                } h-[46px]`}
-                type='text'
-                placeholder='사업자등록증상의 상호명을 입력해주세요.'
-                {...register('companyName', {
-                  required: '상호명을 입력해주세요.',
-                })}
-              />
-              <InputIcon
-                status={errors?.companyName ? INPUTSTATUS.ERROR : undefined}
-                iconSize={5}
-              />
+      <div className='rounded-[8px] bg-white px-[47px] py-[33px] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
+        <form onSubmit={handleSubmit(onValid)} className='flex'>
+          <div className='mr-[36px] w-[454px]'>
+            <div className='inputCustom-group flex'>
+              <label
+                className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
+                htmlFor='name'
+              >
+                상호명
+              </label>
+              <div className='inputCustom-textbox-wrap w-full'>
+                <input
+                  className={`inputCustom-textbox h-[44px] w-full placeholder:text-S/Regular ${
+                    errors?.companyName ? 'error' : ''
+                  }`}
+                  type='text'
+                  placeholder='사업자등록증상의 상호명을 입력해주세요.'
+                  {...register('companyName', {
+                    required: '상호명을 입력해주세요.',
+                  })}
+                />
+                <InputIcon
+                  status={errors?.companyName ? INPUTSTATUS.ERROR : undefined}
+                  iconSize={5}
+                />
+              </div>
+            </div>
+            <div className={`${errors?.companyName ? 'visible' : 'invisible'} h-[20px]`}>
+              <p className='inputCustom-helptext ml-[76px]'>
+                {errors?.companyName?.message || ''}
+              </p>
+            </div>
+
+            <div className='inputCustom-group mt-[8px] flex'>
+              <label
+                className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
+                htmlFor='name'
+              >
+                성명
+              </label>
+              <div className='inputCustom-textbox-wrap w-full'>
+                <input
+                  className={`inputCustom-textbox h-[44px] w-full placeholder:text-S/Regular ${
+                    errors?.name ? 'error' : ''
+                  } h-[46px]`}
+                  type='text'
+                  placeholder='담당자분의 성함을 입력해주세요.'
+                  {...register('name', {
+                    required: '셩명을 입력해주세요.',
+                  })}
+                />
+                <InputIcon
+                  status={errors?.name ? INPUTSTATUS.ERROR : undefined}
+                  iconSize={5}
+                />
+              </div>
+            </div>
+            <div className={`${errors?.name ? 'visible' : 'invisible'} h-[20px]`}>
+              <p className='inputCustom-helptext ml-[76px]'>
+                {errors?.name?.message || ''}
+              </p>
+            </div>
+
+            <div className='inputCustom-group mt-[8px] flex'>
+              <label
+                className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
+                htmlFor='name'
+              >
+                전화번호
+              </label>
+              <div className='inputCustom-textbox-wrap w-full'>
+                <input
+                  className={`inputCustom-textbox h-[44px] w-full placeholder:text-S/Regular ${
+                    errors?.phoneNumber ? 'error' : ''
+                  }`}
+                  id='verify'
+                  type='text'
+                  placeholder='담당자분의 전화번호를 입력해주세요.'
+                  maxLength={11}
+                  {...register('phoneNumber', {
+                    required: NOTIFICATION_MESSAGE.emptyPhoneNumber,
+                    pattern: {
+                      value: /(010)[0-9]{8}$/g,
+                      message: NOTIFICATION_MESSAGE.invalidPhone,
+                    },
+                    onChange: (event) => {
+                      event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                    },
+                  })}
+                />
+                <InputIcon
+                  status={errors?.phoneNumber ? INPUTSTATUS.ERROR : undefined}
+                  iconSize={5}
+                />
+              </div>
+            </div>
+            <div className={`${errors?.phoneNumber ? 'visible' : 'invisible'} h-[20px]`}>
+              <p className='inputCustom-helptext ml-[76px]'>
+                {errors?.phoneNumber?.message || ''}
+              </p>
+            </div>
+            <div className='inputCustom-group mt-[8px] flex'>
+              <label
+                className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
+                htmlFor='email'
+              >
+                이메일
+              </label>
+              <div className='inputCustom-textbox-wrap w-full'>
+                <input
+                  className={`inputCustom-textbox h-[44px] w-full placeholder:text-S/Regular ${
+                    errors?.email ? 'error' : ''
+                  }`}
+                  id='email'
+                  type='email'
+                  placeholder='담당자분의 이메일 주소를 입력해주세요.'
+                  {...register('email', {
+                    required: NOTIFICATION_MESSAGE.emptyEmail,
+                    pattern: {
+                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                      message: NOTIFICATION_MESSAGE.invalidEmail,
+                    },
+                  })}
+                />
+                <InputIcon
+                  status={errors?.email ? INPUTSTATUS.ERROR : undefined}
+                  iconSize={5}
+                />
+              </div>
+            </div>
+            <div className={`${errors?.email ? 'visible' : 'invisible'} h-[20px]`}>
+              <p className='inputCustom-helptext ml-[76px]'>
+                {errors?.email?.message || ''}
+              </p>
             </div>
           </div>
-          <div className={`${errors?.companyName ? 'visible' : 'invisible'} h-[20px]`}>
-            <p className='inputCustom-helptext ml-[76px]'>
-              {errors?.companyName?.message || ''}
-            </p>
-          </div>
-
-          <div className='inputCustom-group mt-[8px] flex'>
-            <label
-              className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
-              htmlFor='name'
-            >
-              이름
-            </label>
-            <div className='inputCustom-textbox-wrap w-full'>
-              <input
-                className={`inputCustom-textbox w-full ${
-                  errors?.name ? 'error' : ''
-                } h-[46px]`}
-                type='text'
-                placeholder='담당자분의 성함을 입력해주세요.'
-                {...register('name', {
-                  required: '이름을 입력해주세요.',
-                })}
-              />
-              <InputIcon
-                status={errors?.name ? INPUTSTATUS.ERROR : undefined}
-                iconSize={5}
-              />
-            </div>
-          </div>
-          <div className={`${errors?.name ? 'visible' : 'invisible'} h-[20px]`}>
-            <p className='inputCustom-helptext ml-[76px]'>
-              {errors?.name?.message || ''}
-            </p>
-          </div>
-
-          <div className='inputCustom-group mt-[8px] flex'>
-            <label
-              className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
-              htmlFor='name'
-            >
-              전화번호
-            </label>
-            <div className='inputCustom-textbox-wrap w-full'>
-              <input
-                className={`inputCustom-textbox w-full ${
-                  errors?.phoneNumber ? 'error' : ''
-                }`}
-                id='verify'
-                type='text'
-                placeholder='담당자분의 전화번호를 입력해주세요.'
-                maxLength={11}
-                {...register('phoneNumber', {
-                  required: NOTIFICATION_MESSAGE.emptyPhoneNumber,
-                  pattern: {
-                    value: /(010)[0-9]{8}$/g,
-                    message: NOTIFICATION_MESSAGE.invalidPhone,
-                  },
-                  onChange: (event) => {
-                    event.target.value = event.target.value.replace(/[^0-9]/g, '');
-                  },
-                })}
-              />
-              <InputIcon
-                status={errors?.phoneNumber ? INPUTSTATUS.ERROR : undefined}
-                iconSize={5}
-              />
-            </div>
-          </div>
-          <div className={`${errors?.phoneNumber ? 'visible' : 'invisible'} h-[20px]`}>
-            <p className='inputCustom-helptext ml-[76px]'>
-              {errors?.phoneNumber?.message || ''}
-            </p>
-          </div>
-          <div className='inputCustom-group mt-[8px] flex'>
-            <label
-              className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
-              htmlFor='email'
-            >
-              이메일
-            </label>
-            <div className='inputCustom-textbox-wrap w-full'>
-              <input
-                className={`inputCustom-textbox w-full ${errors?.email ? 'error' : ''}`}
-                id='email'
-                type='email'
-                placeholder='담당자분의 이메일 주소를 입력해주세요.'
-                {...register('email', {
-                  required: NOTIFICATION_MESSAGE.emptyEmail,
-                  pattern: {
-                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                    message: NOTIFICATION_MESSAGE.invalidEmail,
-                  },
-                })}
-              />
-              <InputIcon
-                status={errors?.email ? INPUTSTATUS.ERROR : undefined}
-                iconSize={5}
-              />
-            </div>
-          </div>
-          <div className={`${errors?.email ? 'visible' : 'invisible'} h-[20px]`}>
-            <p className='inputCustom-helptext ml-[76px]'>
-              {errors?.email?.message || ''}
-            </p>
-          </div>
-
-          <Divider className='my-[30px]' />
-
-          <div className='space-y-4 text-grey-900'>
+          <div className='w-[416px] space-y-4 text-grey-900'>
             <div className='rounded-md bg-grey-100 px-2.5 py-2'>
               <input
                 type='checkbox'
@@ -220,7 +217,7 @@ export const ApplyFormCard = () => {
               />
               <label
                 htmlFor='requiredAgreeTerm'
-                className='termsHeaderCheckbox-label xs:text-S/Medium'
+                className='termsHeaderCheckbox-label xs:text-M/Medium'
               >
                 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
               </label>
@@ -268,20 +265,21 @@ export const ApplyFormCard = () => {
                 );
               })}
             </ul>
-          </div>
-          <div
-            className={`${errors?.requiredAgreeTerm ? 'visible' : 'invisible'} h-[20px]`}
-          >
-            <p className='inputCustom-helptext'>{errors?.requiredAgreeTerm?.message}</p>
-          </div>
-
-          <div className='mt-[30px]'>
-            <button
-              type='submit'
-              className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
+            <div
+              className={`${
+                errors?.requiredAgreeTerm ? 'visible' : 'invisible'
+              } h-[20px]`}
             >
-              신청 완료
-            </button>
+              <p className='inputCustom-helptext'>{errors?.requiredAgreeTerm?.message}</p>
+            </div>
+            <div className='mt-[30px]'>
+              <button
+                type='submit'
+                className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
+              >
+                신청 완료
+              </button>
+            </div>
           </div>
         </form>
       </div>
