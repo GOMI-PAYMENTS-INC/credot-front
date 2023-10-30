@@ -142,6 +142,7 @@ export enum AUTH_RESPONSE_TYPE {
 export enum TERM_TYPE {
   USE_AGREE = 'useAgree',
   PERSONAL_AGREE = 'personalAgree',
+  PERSONAL_AGREE_2 = 'personalAgree2',
   MARKETING_AGREE = 'marketingAgree',
 }
 

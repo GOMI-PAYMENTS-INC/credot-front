@@ -624,7 +624,7 @@ export const TERMS_LIST = [
       '그 밖의 사항은 (주)고미인사이트 서비스 개인정보 처리방침에 따릅니다.\n',
   },
   {
-    id: TERM_TYPE.PERSONAL_AGREE,
+    id: TERM_TYPE.PERSONAL_AGREE_2,
     label: '개인(신용)정보 제공 및 위탁동의',
     required: required.essential,
     detail:

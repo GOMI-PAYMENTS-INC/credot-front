@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CrawlingResponseDto } from '../models/CrawlingResponseDto';
+import type { RequestCrawlingDto } from '../models/RequestCrawlingDto';
 import type { SearchDetailItemDto } from '../models/SearchDetailItemDto';
 import type { SearchPrefundDto } from '../models/SearchPrefundDto';
 import type { TodayPreFundDto } from '../models/TodayPreFundDto';
@@ -12,6 +14,23 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class PrefundService {
+  /**
+   * 정산금 채권 요청
+   * @param requestBody
+   * @returns CrawlingResponseDto
+   * @throws ApiError
+   */
+  public static searchMyPrefund(
+    requestBody: RequestCrawlingDto,
+  ): CancelablePromise<CrawlingResponseDto> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/prefund/request',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
   /**
    * 오늘 선정산금
    * @returns TodayPreFundSummaryDto

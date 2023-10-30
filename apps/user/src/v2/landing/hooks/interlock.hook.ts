@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   CrawlingDto,
   InterlockService,
+  PrefundService,
   RequestCrawlingDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
@@ -21,7 +22,7 @@ export const useCheckVanLogin = () => {
 
 export const useRequestBond = () => {
   return useMutation(
-    (requestBody: RequestCrawlingDto) => InterlockService.requestBond(requestBody),
+    (requestBody: RequestCrawlingDto) => PrefundService.searchMyPrefund(requestBody),
     {
       onSuccess: (res) => {
         return res;
