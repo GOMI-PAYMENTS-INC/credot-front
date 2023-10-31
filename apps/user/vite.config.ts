@@ -21,7 +21,7 @@ export default defineConfig({
   },
 
   preview: {
-    port: 8080,
+    port: 80,
     proxy: {
       '/': {
         target: 'https://app.gomiinsight.com',
