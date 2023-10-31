@@ -500,6 +500,14 @@ input[type='number'] {
   animation: spinner-b87k6z 1s infinite linear;
 }
 
+.gomi-spinner-small {
+  width: 3px;
+  height: 3px;
+  border-radius: 11.2px;
+  box-shadow: 7px 0px 0 0 rgba(230, 73, 0, 0.2), 6px 4px 0 0 rgba(230, 73, 0,0.4), 2px 6px 0 0 rgba(230, 73, 0,0.6), -2px 6px 0 0 rgba(230, 73, 0,0.8), -5px 4px 0 0 #E64900;
+  animation: spinner-b87k6z 1s infinite linear;
+}
+
 @keyframes spinner-b87k6z {
   to {
     transform: rotate(360deg);

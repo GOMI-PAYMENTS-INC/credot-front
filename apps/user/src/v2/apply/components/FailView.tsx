@@ -1,5 +1,5 @@
 import { ViewType } from '@/v2/apply/Apply';
-import FailImg from '@/v2/apply/assets/fail.png';
+import FailImg from '@/v2/apply/assets/fail.gif';
 
 export const FailView = ({ onChange }: { onChange(view: ViewType): void }) => {
   return (

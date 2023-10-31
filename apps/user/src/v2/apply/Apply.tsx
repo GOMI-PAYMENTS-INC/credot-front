@@ -24,7 +24,7 @@ export enum ViewType {
 const Apply = () => {
   const [searchParams] = useSearchParams();
   const requestIdsQueryParams = searchParams.get('requestIds');
-  // const navigate = useNavigate();
+  const [isStopPollingStatus, setIsStopPollingStatus] = useState<boolean>(false);
 
   const [viewType, setViewType] = useState<ViewType>(ViewType.LOGIN);
   const [requestIds, setRequestIds] = useState<number[]>(
@@ -34,8 +34,10 @@ const Apply = () => {
   );
 
   /*** 선정산 요청 상태 조회 API ***/
-  const { data: requestStatusData, isLoading: isRequestStatusLoading } =
-    useGetInterlock(requestIds);
+  const { data: requestStatusData, isLoading: isRequestStatusLoading } = useGetInterlock(
+    requestIds,
+    isStopPollingStatus,
+  );
 
   /*** 선정산 요청 로그인 체크 API ***/
   const { mutateAsync: checkVanLogin, isLoading: checkVanLoginLoading } =
@@ -64,12 +66,19 @@ const Apply = () => {
       setViewType(ViewType.PROGRESS);
       return;
     }
+
+    if (requestStatusData?.status === CrawlingDto.status.DONE) {
+      setViewType(ViewType.RESULT);
+      return;
+    }
   }, [requestStatusData]);
 
   // 내 선정산 정보 결과가 성공적으로 왔을 때
   useEffect(() => {
     if (myPrefundData) {
       setViewType(ViewType.RESULT);
+      setIsStopPollingStatus(true);
+      return;
     }
   }, [myPrefundData]);
 

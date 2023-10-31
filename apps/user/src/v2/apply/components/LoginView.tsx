@@ -148,9 +148,9 @@ export const LoginView = ({
           <button
             type='submit'
             disabled={loading}
-            className='w- button-filled-normal-xLarge-red-false-false-true h-[56px] w-[223px] bg-gradient-to-r from-orange-500 to-gomi-500'
+            className='h-[56px] w-[223px] rounded-[8px] border-[1px] border-orange-300 bg-orange-100 text-L/Bold text-orange-400'
           >
-            {loading ? <Spin /> : '조회하기'}
+            {loading ? <Spin size='small' /> : '조회하기'}
           </button>
         </div>
       </form>

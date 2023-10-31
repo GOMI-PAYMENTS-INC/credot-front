@@ -1,4 +1,4 @@
-import ProgressImg from '@/v2/apply/assets/progress-img.png';
+import ProgressImg from '@/v2/apply/assets/progress-img.gif';
 
 export const ProgressView = () => {
   return (
