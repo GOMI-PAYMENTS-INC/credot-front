@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "build:dev": "tsc && vite build --mode development",
     "build:prod": "tsc && vite build --mode production",
-    "serve:dev": "yarn build:dev && vite preview",
+    "serve:dev": "yarn build:dev && vite preview --host 0.0.0.0",
     "serve:prod": "yarn build:prod && vite preview",
     "gen": "node script/codegen.mjs"
   },
