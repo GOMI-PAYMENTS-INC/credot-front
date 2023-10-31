@@ -22,12 +22,5 @@ export default defineConfig({
 
   preview: {
     port: 80,
-    proxy: {
-      '/': {
-        target: 'https://app.gomiinsight.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\//, ''),
-      },
-    },
   },
 });
