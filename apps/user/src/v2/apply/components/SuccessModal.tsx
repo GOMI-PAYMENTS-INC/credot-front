@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { ModalComponent } from '@/components/modals/ModalComponent';
 
 export const SuccessModal = ({
@@ -7,9 +9,13 @@ export const SuccessModal = ({
   isOpen: boolean;
   onClose(): void;
 }) => {
+  const navigation = useNavigate();
+
   const handleSuccess = () => {
+    navigation('/');
     onClose();
   };
+
   return (
     <ModalComponent isOpen={isOpen}>
       <div className='flex h-full max-h-[283px] w-full max-w-[403px] flex-col items-center overflow-hidden rounded-[10px] bg-white py-[30px] px-[30px]'>

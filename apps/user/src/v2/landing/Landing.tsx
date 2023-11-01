@@ -41,7 +41,7 @@ export const Landing = () => {
 
           <Link
             className='rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-16 py-4 text-xl font-bold leading-[56px] text-white'
-            to={PATH.SIGN_IN}
+            to={PATH.APPLY}
           >
             서비스 신청하기
           </Link>

@@ -119,6 +119,7 @@ export enum GRADE_ITEMS {
 }
 
 export enum PATH {
+  APPLY = '/apply',
   BREAKDOWN = '/breakdown',
   SEARCH_PRODUCTS = '/',
   SIGN_IN = '/signin',
