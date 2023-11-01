@@ -1,20 +1,36 @@
-name: Release Tag
+name: cd for dev
+
+concurrency:
+  group: cd-for-dev
+  cancel-in-progress: true
+
 on:
   push:
     branches:
-      - master
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: staging
+
     steps:
-      - uses: actions/checkout@v2
-      - name: 버전 정보 추출
-        run: echo "##[set-output name=version;]$(echo '${{ github.event.head_commit.message }}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')"
-        id: extract_version_name
-      - name: Release 생성
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout source code
+        uses: actions/checkout@master
+
+      - name: Install & build
+        run: yarn user:dev-build
+
+      - name: Commit & Push changes
+        uses: actions-js/push@master
         with:
-          tag_name: ${{ steps.extract_version_name.outputs.version }}
-          release_name: ${{ steps.extract_version_name.outputs.version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run scripts in server
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.AWS_KEY }}
+          host: ${{ secrets.AWS_DEV_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          script: |
+            ./dev-client-deploy.sh
