@@ -110,7 +110,7 @@ export const TodayPreFundDetail = () => {
   const data: TodayPreFundDto[] = details || [];
   return (
     <div className='mt-[90px]'>
-      <div className='text-XL/Bold'>상세 내역</div>
+      <div className='text-L/Bold text-grey-700'>상세 내역</div>
       <Wrapper className='gm-h-full mt-[10px]'>
         <ConfigProvider
           theme={{

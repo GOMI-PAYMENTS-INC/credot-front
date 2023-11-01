@@ -104,7 +104,7 @@ export const PeriodPreFund = () => {
   return (
     <div className='mt-[90px]'>
       <div className='flex justify-between'>
-        <div className='text-XL/Bold'>기간 조회</div>
+        <div className='text-2XL/Bold text-grey-900'>기간 조회</div>
         <div>
           <RangePicker
             placeholder={['시작일', '종료일']}

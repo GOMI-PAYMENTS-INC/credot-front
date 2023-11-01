@@ -13,7 +13,7 @@ export const TodayPreFundCard = () => {
   const { data: summary } = useTodayPrefundHook();
   return (
     <div>
-      <div className='text-XL/Bold'>오늘 선정산금</div>
+      <div className='text-2XL/Bold text-grey-900'>오늘 선정산금</div>
       <div className='mt-[14px] flex'>
         <div className='w-full max-w-[232px] border border-grey-300 bg-grey-50 px-[24px] py-[28px]'>
           <div className='text-M/Bold'>선정산 금액</div>

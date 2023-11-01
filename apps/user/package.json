@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "yarn set version berry && yarn install",
-    "dev": "vite",
+    "dev": "vite --mode dev",
     "build": "tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "build:dev": "tsc && vite build --mode development",
