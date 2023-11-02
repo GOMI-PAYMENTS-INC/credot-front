@@ -166,7 +166,6 @@ export const PreFundHistory = () => {
                   />
                 ),
             }}
-            scroll={{ y: 240 }}
           />
         </ConfigProvider>
       </Wrapper>

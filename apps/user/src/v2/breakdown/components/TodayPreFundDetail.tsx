@@ -130,7 +130,6 @@ export const TodayPreFundDetail = () => {
             dataSource={data}
             pagination={false}
             bordered
-            scroll={{ y: 240 }}
           ></Table>
         </ConfigProvider>
       </Wrapper>

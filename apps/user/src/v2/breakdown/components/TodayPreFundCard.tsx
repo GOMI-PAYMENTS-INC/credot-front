@@ -32,21 +32,21 @@ export const TodayPreFundCard = () => {
           <div>
             <div className='text-M/Medium text-grey-800'>전일 카드사 수수료</div>
             <div className='mt-[10px] text-2XL/Regular text-grey-800'>
-              {(summary?.preCardCommission || 0).toLocaleString()}원
+              {Math.abs(summary?.preCardCommission || 0).toLocaleString()}원
             </div>
           </div>
           <MinusIcon />
           <div>
             <div className='text-M/Medium text-grey-800'>서비스 수수료</div>
             <div className='mt-[10px] text-2XL/Regular text-grey-800'>
-              {(summary?.serviceCommission || 0).toLocaleString()}원
+              {Math.abs(summary?.serviceCommission || 0).toLocaleString()}원
             </div>
           </div>
           <MinusIcon />
           <div>
             <div className='text-M/Medium text-grey-800'>과정산 금액</div>
             <div className='mt-[10px] text-2XL/Regular text-grey-800'>
-              {(summary?.setoff || 0).toLocaleString()}원
+              {Math.abs(summary?.setoff || 0).toLocaleString()}원
             </div>
           </div>
         </div>
