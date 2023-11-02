@@ -33,7 +33,7 @@ export const PeriodPreFund = () => {
       orient: 'horizontal',
       right: 0,
       bottom: 0,
-      data: ['매출', '카드사 수수료', '서비스 수수료', '과정산 금액'],
+      data: ['전일 매출', '전일 카드사 수수료', '서비스 수수료', '과정산 금액'],
     },
     grid: {
       left: '3%',
@@ -75,7 +75,7 @@ export const PeriodPreFund = () => {
           result?.data.find((item) => item.name === 'serviceCommission')?.values || [],
       },
       {
-        name: '카드사 수수료',
+        name: '전일 카드사 수수료',
         type: 'bar',
         stack: 'total',
         emphasis: {
@@ -87,7 +87,7 @@ export const PeriodPreFund = () => {
         data: result?.data.find((item) => item.name === 'cardCommission')?.values || [],
       },
       {
-        name: '매출',
+        name: '전일 매출',
         type: 'bar',
         stack: 'total',
         emphasis: {
