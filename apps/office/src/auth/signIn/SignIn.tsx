@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useLoginHook } from '@/auth/hooks/login.hook';
@@ -66,7 +66,7 @@ export const SignIn = () => {
   return (
     <Layout>
       <div>
-        <h3 className='text-center text-3XL/Medium md:hidden'>로그인</h3>
+        <h3 className='text-center text-3XL/Medium md:hidden'>관리자 로그인</h3>
       </div>
       <div className='mt-10 space-y-12 md:mt-[56px] md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
@@ -143,23 +143,6 @@ export const SignIn = () => {
                   로그인 상태 유지
                 </label>
               </div>
-              <div>
-                <button
-                  type='button'
-                  onClick={() => navigation(PATH.FIND_ID)}
-                  className='cursor-pointer justify-center  bg-white py-2.5  px-2 text-S/Bold text-grey-800'
-                >
-                  아이디 찾기
-                </button>
-
-                <button
-                  type='button'
-                  onClick={() => navigation(PATH.FIND_PASSWORD)}
-                  className='cursor-pointer justify-center   bg-white py-2.5  px-2 text-S/Bold text-grey-800'
-                >
-                  비밀번호 찾기
-                </button>
-              </div>
             </div>
 
             <div className='space-y-3'>
@@ -174,21 +157,6 @@ export const SignIn = () => {
             </div>
           </div>
         </form>
-        <div className='space-y-4'>
-          <div className='text-center text-M/Regular text-grey-700'>
-            아직 회원이 아니세요?
-          </div>
-          <div>
-            <Link to={PATH.SIGN_UP}>
-              <button
-                type='submit'
-                className='button-outlined-normal-xLarge-primary-false-false-true w-full md:mb-[114px]'
-              >
-                회원가입 하기
-              </button>
-            </Link>
-          </div>
-        </div>
       </div>
     </Layout>
   );
