@@ -22,7 +22,18 @@ export class DefaultService {
    * @returns boolean
    * @throws ApiError
    */
-  public static prefundControllerCreate(): CancelablePromise<boolean> {
+  public static prefundControllerCreateDaily(): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/prefund/create/daily',
+    });
+  }
+
+  /**
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static prefundControllerCreateNew(): CancelablePromise<boolean> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/prefund/create',

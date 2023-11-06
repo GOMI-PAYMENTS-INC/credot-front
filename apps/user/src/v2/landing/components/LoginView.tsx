@@ -44,13 +44,16 @@ export const LoginView = ({
     formState: { errors },
   } = useForm<ISearchForm>({
     mode: 'onChange',
+    defaultValues: {
+      type: CrawlingTypeEnum.CREDIT_FINANCE,
+    },
   });
 
   const onValid = async (values: ISearchForm) => {
     const input: RequestCrawlingDto = {
       loginId: values.id,
       password: values.password,
-      type: CrawlingTypeEnum.EASYSHOP,
+      type: values.type,
     };
 
     const result = await checkVanLogin(input);
@@ -82,7 +85,7 @@ export const LoginView = ({
                     required: '타입을 입력해주세요.',
                   })}
                 >
-                  <option value={CrawlingTypeEnum.EASYSHOP}>이지샵(KICC)</option>
+                  <option value={CrawlingTypeEnum.CREDIT_FINANCE}>여신금융협회</option>
                 </CustomSelect>
               </div>
             </div>

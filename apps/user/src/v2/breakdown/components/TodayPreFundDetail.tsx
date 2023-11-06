@@ -31,12 +31,12 @@ export const TodayPreFundDetail = () => {
   const { data: details, isLoading } = useTodayPrefundDetailHook();
   const listColumn: ColumnsType<TodayPreFundDto> = [
     {
-      title: '날짜',
-      dataIndex: 'date',
-      key: 'date',
+      title: '매출 발생일',
+      dataIndex: 'salesGroupAt',
+      key: 'salesGroupAt',
       className: 'bg-grey-100 align-baseline',
       onCell: (record, index) => ({
-        rowSpan: record.rowSpan,
+        rowSpan: record.rowSpanForSalesGroupAt,
       }),
     },
     {
@@ -65,14 +65,7 @@ export const TodayPreFundDetail = () => {
       className: 'text-center',
     },
     {
-      title: '선정산 일시',
-      dataIndex: 'preFundDate',
-      key: 'preFundDate',
-      className: 'text-center',
-      render: (value) => value || '-',
-    },
-    {
-      title: '전일 카드 매출',
+      title: '카드 매출',
       dataIndex: 'preSalesPrice',
       key: 'preSalesPrice',
       className: 'text-right',
@@ -85,7 +78,7 @@ export const TodayPreFundDetail = () => {
       },
     },
     {
-      title: '전일 카드사 수수료',
+      title: '카드사 수수료',
       dataIndex: 'preCardCommission',
       key: 'preCardCommission',
       className: 'text-right text-blue-600',

@@ -6,10 +6,12 @@
 export type SearchDetailItemDto = {
   key?: number;
   date: string;
+  salesGroupAt: string;
   cardCompanyName: string;
   preFundPrice: number;
   status: string;
   rowSpan?: number;
+  rowSpanForSalesGroupAt?: number;
   preFundDate: string;
   approvalAmount: number;
   commission: number;

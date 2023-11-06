@@ -5,10 +5,12 @@
 
 export type TodayPreFundDto = {
   date: string;
+  salesGroupAt: string;
   cardCompanyName: string;
   preFundPrice: number;
   status: string;
   rowSpan: number;
+  rowSpanForSalesGroupAt: number;
   preFundDate: string;
   preSalesPrice: number;
   preCardCommission: number;

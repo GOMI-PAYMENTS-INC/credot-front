@@ -5,4 +5,5 @@
 
 export enum CrawlingTypeEnum {
   EASYSHOP = 'EASYSHOP',
+  CREDIT_FINANCE = 'CREDIT_FINANCE',
 }

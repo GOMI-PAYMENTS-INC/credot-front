@@ -4,7 +4,7 @@ export const PrefundResultContent = ({ prefund }: { prefund: number }) => {
   return (
     <>
       <div className='text-XL/Medium text-grey-800'>
-        <div className='mb-[10px]'>이지샵(KICC)을 통해 사장님께서</div>
+        <div className='mb-[10px]'>여신금융협회를 통해 사장님께서</div>
         <div>아직 정산 받지 못한 금액을 불러왔어요.</div>
       </div>
       <div className='flex items-center'>
