@@ -4122,13 +4122,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.9":
-  version: 1.11.9
-  resolution: "dayjs@npm:1.11.9"
-  checksum: 7bee5a13653049ae166d4ee7f17fd1b3cd31ec8699b2bae1dee6262431d8d5815a4a9f12eaf48d1879a98d993c014a9a9098ed75aa6a041efe9bccc080a687cd
-  languageName: node
-  linkType: hard
-
 "debounce@npm:^1.2.0":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -5752,6 +5745,67 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"gomi-office@workspace:apps/office":
+  version: 0.0.0-use.local
+  resolution: "gomi-office@workspace:apps/office"
+  dependencies:
+    "@ant-design/icons": "npm:^5.2.6"
+    "@graphql-codegen/cli": "npm:^2.13.8"
+    "@graphql-codegen/client-preset": "npm:^1.1.3"
+    "@graphql-codegen/introspection": "npm:^2.2.1"
+    "@graphql-codegen/typescript": "npm:^2.8.1"
+    "@graphql-codegen/typescript-operations": "npm:^2.5.6"
+    "@graphql-codegen/typescript-react-query": "npm:^4.0.5"
+    "@hackler/react-sdk": "npm:^11.18.1"
+    "@hookform/error-message": "npm:^2.0.1"
+    "@tailwindcss/line-clamp": "npm:^0.4.2"
+    "@tanstack/react-query": "npm:^4.13.0"
+    "@tanstack/react-query-devtools": "npm:^4.14.5"
+    "@tosspayments/payment-widget-sdk": "npm:^0.9.3"
+    "@types/antd": "npm:^1.0.0"
+    "@types/form-data": "npm:^2.5.0"
+    "@types/node": "npm:^18.11.7"
+    "@types/react": "npm:^18.2.33"
+    "@types/react-dom": "npm:^18.2.14"
+    "@types/uuid": "npm:^9.0.3"
+    "@vitejs/plugin-react": "npm:^2.2.0"
+    ag-grid-community: "npm:^30.2.0"
+    ag-grid-enterprise: "npm:^30.2.0"
+    ag-grid-react: "npm:^30.2.0"
+    antd: "npm:^5.10.2"
+    autoprefixer: "npm:^10.4.13"
+    axios: "npm:^0.27.2"
+    casing: "npm:^1.1.0"
+    daisyui: "npm:^2.38.1"
+    dayjs: "npm:^1.11.7"
+    echarts: "npm:^5.4.2"
+    echarts-for-react: "npm:^3.0.2"
+    form-data: "npm:^4.0.0"
+    graphql: "npm:^16.6.0"
+    graphql-config: "npm:^4.3.6"
+    graphql-request: "npm:^4.3.0"
+    graphql-tag: "npm:^2.12.6"
+    openapi-typescript-codegen: "npm:^0.25.0"
+    postcss: "npm:^8.4.18"
+    prettier: "npm:latest"
+    react: "npm:^18.2.0"
+    react-chartjs-2: "npm:^5.2.0"
+    react-dom: "npm:^18.2.0"
+    react-hook-form: "npm:^7.39.6"
+    react-router-dom: "npm:^6.4.2"
+    react-svg: "npm:^16.0.0"
+    react-toastify: "npm:^9.1.1"
+    react-tooltip: "npm:^5.13.2"
+    recoil: "npm:^0.7.6"
+    styled-components: "npm:^6.1.0"
+    tailwindcss: "npm:^3.2.1"
+    uuid: "npm:^9.0.0"
+    vite: "npm:3.1.8"
+    vite-plugin-html-env: "npm:^1.2.7"
+    vite-plugin-svgr: "npm:^2.2.2"
+  languageName: unknown
+  linkType: soft
+
 "gopd@npm:^1.0.1":
   version: 1.0.1
   resolution: "gopd@npm:1.0.1"
@@ -6771,42 +6825,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kr-core-gomi-keyword-front-office@workspace:apps/office":
+"kr-gomi-settlement-front@workspace:.":
   version: 0.0.0-use.local
-  resolution: "kr-core-gomi-keyword-front-office@workspace:apps/office"
-  dependencies:
-    "@hackler/react-sdk": "npm:^11.18.1"
-    "@tailwindcss/line-clamp": "npm:^0.4.2"
-    "@tanstack/react-query": "npm:^4.13.0"
-    "@types/node": "npm:^18.11.7"
-    "@types/react": "npm:^18.0.22"
-    "@types/react-dom": "npm:^18.0.7"
-    "@vitejs/plugin-react": "npm:^2.2.0"
-    autoprefixer: "npm:^10.4.13"
-    daisyui: "npm:^2.38.1"
-    dayjs: "npm:^1.11.9"
-    echarts: "npm:^5.4.2"
-    echarts-for-react: "npm:^3.0.2"
-    postcss: "npm:^8.4.18"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    react-hook-form: "npm:^7.39.6"
-    react-router-dom: "npm:^6.4.2"
-    react-svg: "npm:^16.0.0"
-    react-toastify: "npm:^9.1.1"
-    react-tooltip: "npm:^5.18.0"
-    recoil: "npm:^0.7.6"
-    swiper: "npm:^8.4.5"
-    tailwindcss: "npm:^3.2.1"
-    vite: "npm:3.1.8"
-    vite-plugin-html-env: "npm:^1.2.7"
-    vite-plugin-svgr: "npm:^2.2.2"
-  languageName: unknown
-  linkType: soft
-
-"kr-core-gomi-keyword-front@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "kr-core-gomi-keyword-front@workspace:."
+  resolution: "kr-gomi-settlement-front@workspace:."
   dependencies:
     "@commitlint/cli": "npm:^17.4.2"
     "@commitlint/config-conventional": "npm:^17.4.2"
@@ -8832,19 +8853,6 @@ __metadata:
     react: ">=16.14.0"
     react-dom: ">=16.14.0"
   checksum: f41c397d3db7a42f345c176ac9415abbb21b494772b3ff9c0f1a59f99a59b5884bc8548b3baa3152585d898bf049218c41678d79ed691441babf0e3adaec1a68
-  languageName: node
-  linkType: hard
-
-"react-tooltip@npm:^5.18.0":
-  version: 5.18.0
-  resolution: "react-tooltip@npm:5.18.0"
-  dependencies:
-    "@floating-ui/dom": "npm:^1.0.0"
-    classnames: "npm:^2.3.0"
-  peerDependencies:
-    react: ">=16.14.0"
-    react-dom: ">=16.14.0"
-  checksum: 6c3264a00fcef70c458fb467b5f7f0b8c91032370bc7a54393fd163e1bc655bd2027fa95866a305acb12a57e85a6c8d61ca6ab56d43e9318f69b3530a6faf01e
   languageName: node
   linkType: hard
 

@@ -1,1 +1,1 @@
-# kr-core-gomi-keyword-office-front
+# kr-core-gomi-keyword-front

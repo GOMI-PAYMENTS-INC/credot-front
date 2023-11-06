@@ -1,6 +1,7 @@
 export const GlobalEnv = {
-  serviceUrl: import.meta.env.VITE_SERVICE_URL,
-  officeUrl: import.meta.env.VITE_OFFICE_URL,
-  amplitudeDebug:  import.meta.env.VITE_APP_AMPLITUDE_DEBUG,
+  viteGoogleClientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+  tokenKey: import.meta.env.VITE_TOKEN_KEY,
+  restUrl: import.meta.env.VITE_REST_URL,
+  graphqlUrl: import.meta.env.VITE_GRAPHQL_URL,
   amplitudeApiKey:  import.meta.env.VITE_APP_AMPLITUDE_API_KEY
 };

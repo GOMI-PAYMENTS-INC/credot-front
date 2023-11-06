@@ -1,5 +1,5 @@
 {
-  "name": "kr-core-gomi-keyword-front",
+  "name": "kr-gomi-settlement-front",
   "private": true,
   "workspaces": {
     "packages": [
@@ -18,11 +18,11 @@
     "user:prod-build": "yarn prepare:user && yarn workspace gomi-client run build:prod",
     "user:prod-preview": "yarn prepare:user && yarn workspace gomi-client run serve:prod",
     "user:gen": "yarn workspace gomi-client run gen",
-    "office:dev": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run dev",
-    "office:dev-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:dev",
-    "office:prod-build": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run build:prod",
-    "office:dev-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:dev",
-    "office:prod-preview": "yarn prepare:office && yarn workspace kr-core-gomi-keyword-front-office run serve:prod"
+    "office:dev": "yarn prepare:office && yarn workspace gomi-office run dev",
+    "office:dev-build": "yarn prepare:office && yarn workspace gomi-office run build:dev",
+    "office:prod-build": "yarn prepare:office && yarn workspace gomi-office run build:prod",
+    "office:dev-preview": "yarn prepare:office && yarn workspace gomi-office run serve:dev",
+    "office:prod-preview": "yarn prepare:office && yarn workspace gomi-office run serve:prod"
   },
   "dependencies": {
     "@hackler/react-sdk": "^11.18.1",
@@ -81,7 +81,6 @@
       "unplugged": true
     }
   },
-  "description": "gomi-insight",
-  "repository": "https://github.com/gomicorp/kr-core-gomi-keyword-front.git",
+  "description": "gomi-settlement",
   "packageManager": "yarn@4.0.1"
 }
