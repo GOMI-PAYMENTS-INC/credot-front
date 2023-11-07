@@ -1,37 +1,74 @@
-import { useRecoilValue } from 'recoil';
+import {
+  CheckCircleOutlined,
+  SisternodeOutlined,
+  TransactionOutlined,
+} from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { ConfigProvider, Menu } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { SideBarVisibility } from '@/atom/sidebar.atom';
-import menuIcon1 from '@/common/assets/menu_icon_1.png';
+type MenuItem = Required<MenuProps>['items'][number];
 
+const CustomMenu = styled(Menu)`
+  .ant-menu-item-divider {
+    width: 80%;
+    margin: 0 auto;
+  }
+`;
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
+const items: MenuProps['items'] = [
+  getItem('출금 준비', '/withdrawal-ready', <SisternodeOutlined />),
+  { type: 'divider' },
+  getItem('출금 완료', '/withdrawal-done', <TransactionOutlined />),
+  { type: 'divider' },
+  getItem('거래 완료', '/transaction-done', <CheckCircleOutlined />),
+];
 export const SideBar = () => {
-  const visible = useRecoilValue(SideBarVisibility);
+  const navigation = useNavigate();
+  const location = useLocation();
+  const onClick: MenuProps['onClick'] = (e) => {
+    navigation(e.key);
+  };
+
   return (
-    <div
-      className={`w-[200px] border-r-[1px] border-grey-300 bg-grey-50 px-[22px] py-[30px] ${
-        visible ? 'block' : 'hidden'
-      }`}
-    >
-      <div className='text-XS/Bold text-grey-700'>채권 판매</div>
-      <ul className='mt-[17px]'>
-        <li className='border-b-[1px] border-grey-200 py-[12px]'>
-          <span className='flex'>
-            <span className='mr-[8px]'>
-              <img src={menuIcon1} />
-            </span>
-            <span className='self-center text-S/Bold text-orange-400'>
-              정산금 채권 판매
-            </span>
-          </span>
-        </li>
-        <li className='py-[12px]'>
-          <span className='flex'>
-            <span className='mr-[8px]'>
-              <img src={menuIcon1} />
-            </span>
-            <span className='self-center text-S/Medium'>매출 채권 판매</span>
-          </span>
-        </li>
-      </ul>
+    <div className={`relative h-full border-grey-300 bg-grey-50`}>
+      <div className='absolute top-[40px] left-0 px-[20px] text-XS/Bold text-grey-700'>
+        선정산 서비스
+      </div>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#FF6C28',
+            colorText: '#595959',
+          },
+        }}
+      >
+        <CustomMenu
+          className='h-full bg-grey-50 py-[70px]'
+          onClick={onClick}
+          selectedKeys={[location.pathname]}
+          style={{ width: 256 }}
+          mode='inline'
+          items={items}
+        />
+      </ConfigProvider>
     </div>
   );
 };

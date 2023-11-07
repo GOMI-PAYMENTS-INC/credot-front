@@ -113,26 +113,17 @@ export enum REPORT_DETAIL_TYPE {
 }
 
 export enum GRADE_ITEMS {
-  HIGH = 'high',
-  MEDIUM = 'medium',
   LOW = 'low',
 }
 
 export enum PATH {
-  APPLY = '/apply',
-  BREAKDOWN = '/breakdown',
-  SEARCH_PRODUCTS = '/',
+  HOME = '/',
   SIGN_IN = '/signin',
-  SIGN_UP = '/signup',
-  SIGN_UP_WITH_GOOGLE = '/signup/social',
   FIND_PASSWORD = '/find/password',
   FIND_ID = '/find/id',
   REAPPLY_PASSWORD = '/signin/password',
-  REPORT_LIST = '/report',
   REPORT_DETAIL = '/report/:id',
   REPORT_DETAIL_BY_SHARE = '/share/:id',
-  _REPORT_DETAIL_BY_SHARE = '/share',
-  SUBSCRIBE = '/subscribe',
 }
 
 export enum AUTH_RESPONSE_TYPE {

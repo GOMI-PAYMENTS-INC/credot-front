@@ -315,7 +315,7 @@ export const authReturnUrl = () => {
       useCookieStorage.removeCookie(CACHING_KEY.RETURN_URL);
       window.location.href = decodeURIComponent(returnUrl);
     } else {
-      navigation(goToUrl ? goToUrl : PATH.BREAKDOWN);
+      navigation(goToUrl ? goToUrl : PATH.HOME);
     }
   };
   return {

@@ -20,7 +20,7 @@ export const SignIn = () => {
 
   useEffect(() => {
     if (authTokenStorage.getToken()) {
-      navigation(PATH.BREAKDOWN);
+      navigation(PATH.HOME);
       return;
     }
   }, []);

@@ -18,6 +18,7 @@
     "user:prod-build": "yarn prepare:user && yarn workspace gomi-client run build:prod",
     "user:prod-preview": "yarn prepare:user && yarn workspace gomi-client run serve:prod",
     "user:gen": "yarn workspace gomi-client run gen",
+    "office:gen": "yarn workspace gomi-office run gen",
     "office:dev": "yarn prepare:office && yarn workspace gomi-office run dev",
     "office:dev-build": "yarn prepare:office && yarn workspace gomi-office run build:dev",
     "office:prod-build": "yarn prepare:office && yarn workspace gomi-office run build:prod",

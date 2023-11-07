@@ -11,32 +11,10 @@ export class DefaultService {
    * @returns string
    * @throws ApiError
    */
-  public static clientControllerGetHello(): CancelablePromise<string> {
+  public static officeControllerGetHello(): CancelablePromise<string> {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/',
-    });
-  }
-
-  /**
-   * @returns boolean
-   * @throws ApiError
-   */
-  public static prefundControllerCreateDaily(): CancelablePromise<boolean> {
-    return __request(OpenAPI, {
-      method: 'POST',
-      url: '/prefund/create/daily',
-    });
-  }
-
-  /**
-   * @returns boolean
-   * @throws ApiError
-   */
-  public static prefundControllerCreateNew(): CancelablePromise<boolean> {
-    return __request(OpenAPI, {
-      method: 'POST',
-      url: '/prefund/create',
     });
   }
 }

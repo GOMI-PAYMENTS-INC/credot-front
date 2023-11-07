@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { useRecoilValue } from 'recoil';
 
@@ -16,7 +16,7 @@ const GNB = () => {
   return (
     <header className='fixed top-0 z-30 flex w-full justify-between border-[1px] border-grey-300 bg-white px-[40px] py-[13px]'>
       <div className='flex items-center'>
-        <Link to={PATH.BREAKDOWN}>
+        <Link to={PATH.HOME}>
           <ReactSVG
             src='/assets/icons/Logo.svg'
             className='cursor-pointer'
