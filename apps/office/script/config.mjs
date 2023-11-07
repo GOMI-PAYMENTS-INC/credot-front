@@ -1,6 +1,6 @@
 import path from 'path';
 
-const frontPort = 8001;
+const frontPort = 8005;
 const frontOutPath = path.resolve(path.join(process.env.PWD, '/src/generated-rest/api/front'));
 
 console.log(frontOutPath)

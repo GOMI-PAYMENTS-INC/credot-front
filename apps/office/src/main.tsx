@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LicenseManager } from 'ag-grid-enterprise';
+import { ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -41,7 +42,16 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#FF6C28',
+              colorText: '#595959',
+            },
+          }}
+        >
+          <App />
+        </ConfigProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </ErrorBoundary>,

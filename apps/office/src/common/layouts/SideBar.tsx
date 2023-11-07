@@ -52,23 +52,14 @@ export const SideBar = () => {
       <div className='absolute top-[40px] left-0 px-[20px] text-XS/Bold text-grey-700'>
         선정산 서비스
       </div>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#FF6C28',
-            colorText: '#595959',
-          },
-        }}
-      >
-        <CustomMenu
-          className='h-full bg-grey-50 py-[70px]'
-          onClick={onClick}
-          selectedKeys={[location.pathname]}
-          style={{ width: 256 }}
-          mode='inline'
-          items={items}
-        />
-      </ConfigProvider>
+      <CustomMenu
+        className='h-full bg-grey-50 py-[70px]'
+        onClick={onClick}
+        selectedKeys={[location.pathname]}
+        style={{ width: 256 }}
+        mode='inline'
+        items={items}
+      />
     </div>
   );
 };

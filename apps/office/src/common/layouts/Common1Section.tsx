@@ -12,7 +12,7 @@ export const Common1Section = ({ children }: ICommon1SectionProps) => (
     <div className='container-common h-full w-full '>
       <div className='flex h-full w-full flex-col items-center'>
         <div className='xs:hidden'>
-          <Link to={PATH.SEARCH_PRODUCTS}>
+          <Link to={PATH.HOME}>
             <ReactSVG
               src='/assets/icons/Logo.svg'
               className='w-30 h-8 cursor-pointer'
