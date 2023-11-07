@@ -17,6 +17,12 @@ export const routeList: IRoute[] = [
   {
     isPrivate: false,
     description: 'SignIn',
+    path: PATH.LANDING,
+    component: SignIn,
+  },
+  {
+    isPrivate: false,
+    description: 'SignIn',
     path: PATH.SIGN_IN,
     component: SignIn,
   },
