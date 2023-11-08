@@ -16,8 +16,8 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
     {
       title: '업체명',
       width: 186,
-      dataIndex: 'cardCompanyName',
-      key: 'cardCompanyName',
+      dataIndex: 'name',
+      key: 'name',
       className: 'text-center',
     },
     {
