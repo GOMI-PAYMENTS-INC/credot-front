@@ -8,6 +8,7 @@ git fetch --all
 git reset origin/$BRANCH --hard
 
 # front-api
+cd /home/ec2-user/kr-gomi-settlement/apps/user
 if [[ $(pm2 list | grep front-client) ]]; then
   pm2 restart front-client
 else
@@ -15,6 +16,7 @@ else
 fi
 
 # office-api
+cd /home/ec2-user/kr-gomi-settlement/apps/office
 if [[ $(pm2 list | grep front-office) ]]; then
   pm2 restart front-office
 else
