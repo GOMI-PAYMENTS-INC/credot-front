@@ -18,8 +18,11 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@master
 
-      - name: Install & build
+      - name: Install & build for client
         run: yarn user:dev-build
+
+      - name: Install & build for office
+        run: yarn office:dev-build
 
       - name: Commit & Push changes
         uses: actions-js/push@master
