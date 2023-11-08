@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useLoginHook } from '@/auth/hooks/login.hook';
@@ -57,6 +58,8 @@ export const SignIn = () => {
                 message: '존재하지 않는 이메일 주소에요.',
               });
               break;
+            default:
+              toast.error(errorCode);
           }
         }
       },
