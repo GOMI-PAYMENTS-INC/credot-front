@@ -1,45 +1,11 @@
-import { ConfigProvider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  .ant-table-thead .ant-table-cell,
-  .ant-table-row .ant-table-cell {
-    height: 40px;
-    padding: 10px 16px;
-  }
-
-  .ant-table-thead > tr > th {
-    text-align: center;
-  }
-`;
+import { PrefundRecord } from '@/v2/prefund/components/DataTable';
 
 const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 
-type PrefundRecord = {
-  key: number;
-  prefundGroupAt: string;
-  name: string;
-  cardCompanyName: string;
-  status: string;
-  prefund: number;
-  bankName: string;
-  bankAccountHolder: string;
-  bankAccount: string;
-  preSalesPrice: number;
-  preCardCommission: number;
-  cardSettlementPrice: number;
-  setoff: number;
-  serviceCommission: number;
-  id: number;
-  email: string;
-  phoneNumber: string;
-  cardSettlementGroupAt: string;
-  prefundAt: string;
-};
-
-export const DataTable = () => {
-  const listColumn: ColumnsType<PrefundRecord> = [
+export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
+  return [
     {
       title: '데이터 생성일',
       width: 140,
@@ -100,7 +66,7 @@ export const DataTable = () => {
     {
       title: 'D-1 매출',
       width: 124,
-      dataIndex: 'preSalesPrice',
+      dataIndex: 'salesPrice',
       key: 'preSalesPrice',
       className: 'text-right',
       render: localeValueFormatter,
@@ -108,7 +74,7 @@ export const DataTable = () => {
     {
       title: 'D-1 카드사 수수료',
       width: 160,
-      dataIndex: 'preCardCommission',
+      dataIndex: 'cardCommission',
       key: 'preCardCommission',
       className: 'text-right',
       render: localeValueFormatter,
@@ -126,7 +92,7 @@ export const DataTable = () => {
       width: 124,
       dataIndex: 'setoff',
       key: 'setoff',
-      className: 'text-right ',
+      className: 'text-right',
       render: localeValueFormatter,
     },
     {
@@ -173,64 +139,4 @@ export const DataTable = () => {
       className: 'text-center',
     },
   ];
-
-  return (
-    <div className='mx-auto w-[1280px]'>
-      <Wrapper className='gm-h-full mt-[10px]'>
-        <ConfigProvider
-          theme={{
-            components: {
-              Table: {
-                headerBg: '#F5F5F5',
-                headerColor: '#595959',
-                headerBorderRadius: 0,
-                colorText: '#595959',
-              },
-            },
-          }}
-        >
-          <Table
-            loading={false}
-            columns={listColumn}
-            rowSelection={{
-              type: 'checkbox',
-              onChange: (selectedRowKeys: React.Key[], selectedRows: PrefundRecord[]) => {
-                console.log(
-                  `selectedRowKeys: ${selectedRowKeys}`,
-                  'selectedRows: ',
-                  selectedRows,
-                );
-              },
-            }}
-            dataSource={[
-              {
-                key: 1,
-                prefundGroupAt: '2023-11-07',
-                name: 'testA',
-                cardCompanyName: '삼성카드',
-                status: '출금 준비',
-                prefund: 70123,
-                bankName: '하나은행',
-                bankAccountHolder: '홍길동',
-                bankAccount: '111-3333-4444',
-                preSalesPrice: 232323,
-                preCardCommission: 1212,
-                cardSettlementPrice: 1212,
-                setoff: 122,
-                serviceCommission: 1212121,
-                id: 1,
-                email: 'test@ggg.com',
-                phoneNumber: '010-2492-0223',
-                cardSettlementGroupAt: '2023-11-30',
-                prefundAt: '2023-11-07',
-              },
-            ]}
-            scroll={{ x: 'max-content' }}
-            pagination={false}
-            bordered
-          ></Table>
-        </ConfigProvider>
-      </Wrapper>
-    </div>
-  );
 };

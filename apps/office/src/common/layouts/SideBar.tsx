@@ -34,11 +34,11 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('출금 준비', '/withdrawal-ready', <SisternodeOutlined />),
+  getItem('출금 준비', '/prefund/ready', <SisternodeOutlined />),
   { type: 'divider' },
-  getItem('출금 완료', '/withdrawal-done', <TransactionOutlined />),
+  getItem('출금 완료', '/prefund/deposit-done', <TransactionOutlined />),
   { type: 'divider' },
-  getItem('거래 완료', '/transaction-done', <CheckCircleOutlined />),
+  getItem('거래 완료', '/prefund/done', <CheckCircleOutlined />),
 ];
 export const SideBar = () => {
   const navigation = useNavigate();

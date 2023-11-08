@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 
 import { UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
-import { AuthService, UserDto } from '@/generated-rest/api/front';
+import { AuthService, UserDto, UserService } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 import { OpenAPI } from '@/generated-rest/api/front/core/OpenAPI';
 import { CACHING_KEY, PATH } from '@/types/enum.code';
@@ -33,6 +33,13 @@ export const useMeHook = (token: string | null) => {
       clearUserInfo();
       navigation(PATH.SIGN_IN);
     },
+  });
+};
+
+export const useUserListHook = () => {
+  return useQuery<UserDto[], ApiError>({
+    queryKey: ['userList'],
+    queryFn: () => UserService.getUsers(),
   });
 };
 

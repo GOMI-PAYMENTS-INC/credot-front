@@ -3,9 +3,7 @@ import { ComponentType } from 'react';
 import { SignIn } from '@/auth';
 import { PATH } from '@/common/constants';
 import { Home } from '@/v2/home';
-import { TransactionDone } from '@/v2/transaction-done';
-import { WithdrawalDone } from '@/v2/withdrawal-done';
-import { WithdrawalReady } from '@/v2/withdrawal-ready';
+import { TransactionDone, WithdrawalDone, WithdrawalReady } from '@/v2/prefund/';
 
 type TPathKey = keyof typeof PATH;
 

@@ -1,7 +1,7 @@
 export const PATH = {
-  WITHDRAWAL_READY: '/withdrawal-ready',
-  WITHDRAWAL_DONE: '/withdrawal-done',
-  TRANSACTION_DONE: '/transaction-done',
+  WITHDRAWAL_READY: '/prefund/ready',
+  WITHDRAWAL_DONE: '/prefund/deposit-done',
+  TRANSACTION_DONE: '/prefund/done',
   INTERLOCK: '/interlock',
   INTERLOCK_PROGRESS: '/interlock/progress',
   INTERLOCK_ERROR: '/interlock/error',

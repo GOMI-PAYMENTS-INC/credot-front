@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UserDto = {
-  email: string;
-  name: string;
-  role: string;
-  id: number;
-};
+export enum PrefundStatusEnum {
+  READY = 'READY',
+  DEPOSIT_DONE = 'DEPOSIT_DONE',
+  DONE = 'DONE',
+  SETOFF = 'SETOFF',
+}
