@@ -7,7 +7,11 @@ import { PrefundFilterAtom } from '@/v2/prefund/atom';
 
 export type TermType = 'today' | 'yesterday' | 'recent-7-days' | null;
 
-export const Filter = () => {
+export const Filter = ({
+  dataFilterCriteriaLabel,
+}: {
+  dataFilterCriteriaLabel: string;
+}) => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
   const { data: users } = useUserListHook();
 
@@ -45,7 +49,9 @@ export const Filter = () => {
     <div className='mt-[20px] w-full bg-grey-50 py-[20px]'>
       <div className='mx-auto flex w-[1280px] justify-between'>
         <div className='flex items-center'>
-          <div className='mr-[40px] text-S/Regular text-grey-700'>데이터 생성일</div>
+          <div className='mr-[40px] text-S/Regular text-grey-700'>
+            {dataFilterCriteriaLabel}
+          </div>
           <Button
             className='mr-[14px]'
             type={filter.term === 'today' ? 'primary' : 'default'}

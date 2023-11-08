@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { PrefundDto, PrefundStatusEnum } from '@/generated-rest/api/front';
+import { PrefundStatusEnum } from '@/generated-rest/api/front';
 import { usePrefundList, useUpdatePrefundStatus } from '@/hooks/prefund.hook';
 import { PrefundFilterAtom } from '@/v2/prefund/atom';
 import { getDataTableColumns } from '@/v2/prefund/components/DataTableColumns';
@@ -45,35 +45,29 @@ export type PrefundRecord = {
   prefundAt: string;
 };
 
-export const DataTable = ({
-  data,
-  isLoading,
-}: {
-  data: PrefundDto[];
-  isLoading: boolean;
-}) => {
+export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
   const [filter] = useRecoilState(PrefundFilterAtom);
   const [selectedRows, setSelectedRows] = useState<PrefundRecord[]>([]);
   const listColumn: ColumnsType<PrefundRecord> = getDataTableColumns();
 
-  const { mutateAsync: updateStatus } = useUpdatePrefundStatus();
-  const { refetch } = usePrefundList({
-    status: PrefundStatusEnum.READY,
+  const { mutateAsync: updatePrefundStatus } = useUpdatePrefundStatus();
+  const { refetch, data, isLoading } = usePrefundList({
+    status,
     startAt: filter.termRange[0].format('YYYY-MM-DD'),
     endAt: filter.termRange[1].format('YYYY-MM-DD'),
     userId: filter.userId,
   });
 
   /*** 선정산 상태 변경 ***/
-  const handleUpdateStatus = async (status: PrefundStatusEnum) => {
+  const handleUpdateStatus = async (updateStatus: PrefundStatusEnum) => {
     const prefundIds = selectedRows.map((i) => i.id);
     if (!prefundIds.length) {
       toast.error('변경할 선정산을 선택해주세요.');
       return;
     }
 
-    await updateStatus({
-      status,
+    await updatePrefundStatus({
+      status: updateStatus,
       prefundIds,
     });
     await refetch();
@@ -98,7 +92,7 @@ export const DataTable = ({
             }}
           >
             <Table
-              loading={false}
+              loading={isLoading}
               columns={listColumn}
               rowSelection={{
                 type: 'checkbox',
@@ -109,7 +103,7 @@ export const DataTable = ({
                   setSelectedRows(selectedRows);
                 },
               }}
-              dataSource={data.map((item) => ({
+              dataSource={(data || []).map((item) => ({
                 ...item,
                 key: item.id,
                 prefund: item.salesPrice + item.cardCommission + item.setoff,
