@@ -26,7 +26,7 @@ export const WithdrawalReady = () => {
         onRefetch={refetch}
       />
       <Filter dataFilterCriteriaLabel={'데이터 생성일'} />
-      <DataTable status={PrefundStatusEnum.DEPOSIT_DONE} />
+      <DataTable status={PrefundStatusEnum.READY} />
     </Default>
   );
 };
