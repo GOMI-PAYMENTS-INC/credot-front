@@ -37,7 +37,7 @@ export const routeList: IRoute[] = [
   {
     isPrivate: true,
     description: 'HOME',
-    path: PATH.HOME,
+    path: PATH.WITHDRAWAL_READY,
     component: Home,
   },
   {
