@@ -43,6 +43,10 @@ export const Filter = ({
     isToday && setFilter({ ...filter, termRange: dates, term: 'today' });
     isYesterday && setFilter({ ...filter, termRange: dates, term: 'yesterday' });
     isRecent7Days && setFilter({ ...filter, termRange: dates, term: 'recent-7-days' });
+    !isToday &&
+      !isYesterday &&
+      !isRecent7Days &&
+      setFilter({ ...filter, termRange: dates, term: null });
   };
 
   return (
