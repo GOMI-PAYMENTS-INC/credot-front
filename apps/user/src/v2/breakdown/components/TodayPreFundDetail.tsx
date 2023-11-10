@@ -50,13 +50,7 @@ export const TodayPreFundDetail = () => {
       dataIndex: 'preFundPrice',
       key: 'preFundPrice',
       className: 'text-right text-red-600',
-      render: (value, record, index) => {
-        return (
-          <span className={`${index === 0 ? 'font-bold' : ''}`}>
-            {localeValueFormatter(value)}
-          </span>
-        );
-      },
+      render: localeValueFormatter,
     },
     {
       title: '처리 상태',
@@ -69,13 +63,7 @@ export const TodayPreFundDetail = () => {
       dataIndex: 'preSalesPrice',
       key: 'preSalesPrice',
       className: 'text-right',
-      render: (value, record, index) => {
-        return (
-          <span className={`${index === 0 ? 'font-bold' : ''}`}>
-            {localeValueFormatter(value)}
-          </span>
-        );
-      },
+      render: localeValueFormatter,
     },
     {
       title: '카드사 수수료',
