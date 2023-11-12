@@ -5729,6 +5729,7 @@ __metadata:
     prettier: "npm:latest"
     react: "npm:^18.2.0"
     react-chartjs-2: "npm:^5.2.0"
+    react-device-detect: "npm:^2.2.3"
     react-dom: "npm:^18.2.0"
     react-hook-form: "npm:^7.39.6"
     react-router-dom: "npm:^6.4.2"
@@ -8750,6 +8751,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-device-detect@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "react-device-detect@npm:2.2.3"
+  dependencies:
+    ua-parser-js: "npm:^1.0.33"
+  peerDependencies:
+    react: ">= 0.14.0"
+    react-dom: ">= 0.14.0"
+  checksum: 7152e2b216b3bb6fd75c7859d3441b89658695c629a13c5d374f076756705650be585d5c4dc19d9d34908ef1b61f19b52f1055d74dd7104b77d1b6f897ee09e0
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -10139,6 +10152,13 @@ __metadata:
   version: 0.7.32
   resolution: "ua-parser-js@npm:0.7.32"
   checksum: 0a8a3c482a4b615e7047a522c9a737c70d505f5a94a7e1b7d7675112ce366eb930efeca828f72a6c7fb67e57eafd2575bdfab565a430a51b38c50da312d80980
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^1.0.33":
+  version: 1.0.37
+  resolution: "ua-parser-js@npm:1.0.37"
+  checksum: 56508f2428ebac64382c4d41da14189e5013e3e2a5f5918aff4bee3ba77df1f4eaad6f81f90c24999f1cf12cc1596764684497fec07e0ff5182ce9a323a8c05b
   languageName: node
   linkType: hard
 

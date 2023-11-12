@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 
 const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 
-export const TodayPreFundDetail = () => {
+export const MTodayPreFundDetail = () => {
   const { data: details, isLoading } = useTodayPrefundDetailHook();
   const listColumn: ColumnsType<TodayPreFundDto> = [
     {
@@ -49,7 +49,7 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '선정산 금액',
-      width: 154,
+      width: 150,
       dataIndex: 'preFundPrice',
       key: 'preFundPrice',
       className: 'text-right text-red-600',
@@ -57,14 +57,14 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '처리 상태',
-      width: 152,
+      width: 150,
       dataIndex: 'status',
       key: 'status',
       className: 'text-center',
     },
     {
       title: '카드 매출',
-      width: 152,
+      width: 150,
       dataIndex: 'preSalesPrice',
       key: 'preSalesPrice',
       className: 'text-right',
@@ -72,7 +72,7 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '카드사 수수료',
-      width: 152,
+      width: 150,
       dataIndex: 'preCardCommission',
       key: 'preCardCommission',
       className: 'text-right text-blue-600',
@@ -80,7 +80,7 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '서비스 수수료',
-      width: 152,
+      width: 150,
       dataIndex: 'serviceCommission',
       key: 'serviceCommission',
       className: 'text-right text-blue-600',
@@ -88,7 +88,7 @@ export const TodayPreFundDetail = () => {
     },
     {
       title: '과정산 금액',
-      width: 152,
+      width: 150,
       dataIndex: 'setoff',
       key: 'setoff',
       className: 'text-right text-blue-600',
@@ -98,8 +98,8 @@ export const TodayPreFundDetail = () => {
 
   const data: TodayPreFundDto[] = details || [];
   return (
-    <div className='mt-[90px]'>
-      <div className='text-L/Bold text-grey-700'>상세 내역</div>
+    <div className='mt-[50px] px-[20px]'>
+      <div className='text-M/Bold text-grey-700'>상세 내역</div>
       <Wrapper className='gm-h-full mt-[10px]'>
         <ConfigProvider
           theme={{
@@ -117,6 +117,9 @@ export const TodayPreFundDetail = () => {
             loading={isLoading}
             columns={listColumn}
             dataSource={data}
+            scroll={{
+              x: 'max-content',
+            }}
             pagination={false}
             bordered
           ></Table>
