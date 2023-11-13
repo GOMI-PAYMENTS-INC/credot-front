@@ -141,8 +141,10 @@ export const Landing = () => {
             )}
 
             <div
-              className={`text-[40px] font-bold leading-[56.5px] text-white ${
-                isMobile ? 'mt-[52px] text-center text-[28px] leading-[40px]' : ''
+              className={`font-bold text-white ${
+                isMobile
+                  ? 'mt-[52px] text-center text-[28px] leading-[40px]'
+                  : 'text-[40px] leading-[56.5px]'
               }`}
             >
               모든 사장님들을 위한 <br />
@@ -150,8 +152,10 @@ export const Landing = () => {
             </div>
 
             <div
-              className={`mt-[20px] mb-[32px] leading-[60px] text-white ${
-                isMobile ? 'mt-[26px] text-center text-[20px] leading-[28px]' : ''
+              className={`mt-[20px] mb-[32px] text-white ${
+                isMobile
+                  ? 'mt-[26px] text-center text-[20px] leading-[28px]'
+                  : 'leading-[60px]'
               }`}
             >
               묶여 있는 정산금, 더이상 {isMobile ? <br /> : ''} 기다리지 말고 지금 바로
@@ -219,8 +223,8 @@ export const Landing = () => {
       >
         <div
           className={`${
-            isMobile ? 'text-[26px] leading-[40px]' : ''
-          } relative text-center text-[32px] font-bold leading-[50px]`}
+            isMobile ? 'text-[26px] leading-[40px]' : 'text-[32px] leading-[50px]'
+          } relative text-center font-bold`}
         >
           {!isMobile && (
             <img
@@ -241,16 +245,16 @@ export const Landing = () => {
 
       <div className={isMobile ? 'py-[50px]' : 'py-[80px]'}>
         <div
-          className={`text-center text-[32px] font-bold leading-[70px] text-grey-800 ${
-            isMobile ? 'text-[26px] leading-[40px]' : ''
+          className={`text-center font-bold text-grey-800 ${
+            isMobile ? 'text-[26px] leading-[40px]' : 'text-[32px] leading-[70px]'
           }`}
         >
           총 82개 {isMobile ? <br /> : ''} 정산 시스템 연동 완료!
         </div>
 
         <div
-          className={`mt-[20px] text-center text-[20px] font-medium leading-[33px] text-[#797979] ${
-            isMobile ? 'leading[36px] text-[18px]' : ''
+          className={`mt-[20px] text-center font-medium text-[#797979] ${
+            isMobile ? 'leading[36px] text-[18px]' : 'text-[20px] leading-[33px]'
           }`}
         >
           더 많은 사장님들이 {isMobile ? <br /> : ''} 더 많은 정산을 받을 수 있도록 <br />
@@ -271,8 +275,8 @@ export const Landing = () => {
 
       <div className={`${isMobile ? 'py-[50px]' : 'py-[80px]'} bg-[#624334]`}>
         <div
-          className={`text-center text-[32px] font-bold leading-[70px] text-grey-800 ${
-            isMobile ? 'text-[26px] leading-[40px]' : ''
+          className={`text-center font-bold text-grey-800 ${
+            isMobile ? 'text-[26px] leading-[40px]' : 'text-[32px] leading-[70px]'
           } text-white`}
         >
           누적 정산금 지급액 {isMobile ? <br /> : ''}{' '}
@@ -280,8 +284,8 @@ export const Landing = () => {
         </div>
 
         <div
-          className={`mt-[20px] text-center text-[20px] leading-[33px] text-white ${
-            isMobile ? 'leading[36px] text-[18px]' : ''
+          className={`mt-[20px] text-center text-white ${
+            isMobile ? 'leading[36px] text-[18px]' : 'text-[20px] leading-[33px]'
           }`}
         >
           이미 많은 사장님들께서 {isMobile ? <br /> : ''} 선정산 서비스를 통해 <br />
@@ -291,8 +295,8 @@ export const Landing = () => {
 
       <div className={`${isMobile ? 'py-[90px]' : 'py-[96px]'} bg-[#FFF5F0]`}>
         <div
-          className={`text-center text-[32px] font-bold leading-[70px] text-grey-800 ${
-            isMobile ? 'text-[26px] leading-[40px]' : ''
+          className={`text-center font-bold text-grey-800 ${
+            isMobile ? 'text-[26px] leading-[40px]' : 'text-[32px] leading-[70px]'
           } text-grey-800`}
         >
           <span className='text-orange-400'>
@@ -301,8 +305,8 @@ export const Landing = () => {
         </div>
 
         <div
-          className={`mt-[20px] text-center text-[20px] leading-[33px] text-grey-800 ${
-            isMobile ? 'leading[36px] text-[18px]' : ''
+          className={`mt-[20px] text-center text-grey-800 ${
+            isMobile ? 'leading[36px] text-[18px]' : 'text-[20px] leading-[33px]'
           }`}
         >
           선정산 서비스는 정산 예정인 금액을 {isMobile ? <br /> : ''} 미리 지급 받고{' '}
@@ -354,12 +358,12 @@ export const Landing = () => {
           isMobile ? 'py-[60px]' : 'py-[94px]'
         }`}
       >
-        <div className={`text-2XL/Bold ${isMobile ? 'text-XL/Bold' : ''}`}>
+        <div className={`${isMobile ? 'text-XL/Bold' : 'text-2XL/Bold '}`}>
           <span className='text-orange-500'>자주 묻는 질문을 모았어요.</span>
         </div>
         <div
-          className={`mt-[30px] text-3XL/Bold ${
-            isMobile ? 'mt-[10px] text-[28px] font-bold leading-[40px]' : ''
+          className={`mt-[30px] ${
+            isMobile ? 'mt-[10px] text-[28px] font-bold leading-[40px]' : 'text-3XL/Bold'
           }`}
         >
           <span className='text-grey-900'>FAQ</span>
@@ -386,8 +390,8 @@ export const Landing = () => {
                 label: (
                   <div
                     className={`${
-                      isMobile ? 'pl-[12px] text-L/Bold' : ''
-                    } px-[36px] text-XL/Bold text-grey-900`}
+                      isMobile ? 'pl-[12px] text-L/Bold' : 'text-XL/Bold'
+                    } px-[36px] text-grey-900`}
                   >
                     {item.label}
                   </div>
@@ -396,8 +400,8 @@ export const Landing = () => {
                   <>
                     <div
                       className={`${
-                        isMobile ? 'pl-[12px] text-S/Regular' : ''
-                      } px-[36px] text-M/Medium text-grey-700`}
+                        isMobile ? 'pl-[12px] text-S/Regular' : 'text-M/Medium'
+                      } px-[36px] text-grey-700`}
                     >
                       {item.children}
                     </div>
