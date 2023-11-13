@@ -1,10 +1,10 @@
 import { CloseOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { ProgressView } from '@/v2/apply/components/ProgressView';
 import Calculator from '@/v2/landing/assets/calculator.png';
 import { LoginView } from '@/v2/landing/components/LoginView';
 import { useCheckVanLogin } from '@/v2/landing/hooks/interlock.hook';
@@ -40,8 +40,9 @@ export const SearchModal = ({
     }
   }, [data]);
 
+  const ModalComponent = isMobile ? Modal : CustomModal;
   return (
-    <CustomModal
+    <ModalComponent
       open={isOpen}
       title={
         <div className='flex justify-between text-white'>
@@ -92,6 +93,6 @@ export const SearchModal = ({
           loading={checkVanLoginLoading || requestBondLoading}
         />
       )}
-    </CustomModal>
+    </ModalComponent>
   );
 };

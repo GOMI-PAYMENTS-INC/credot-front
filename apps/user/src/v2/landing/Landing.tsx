@@ -18,6 +18,7 @@ import mpg from '@/v2/landing/assets/m_pg.png';
 import mainImage from '@/v2/landing/assets/main_image_1.png';
 import mFooter from '@/v2/landing/assets/mFooter.png';
 import pg from '@/v2/landing/assets/pg.png';
+import { FloatingButton } from '@/v2/landing/components/FloatingButton';
 
 const CustomFAQWrapper = styled.div`
   .ant-collapse-item {
@@ -121,7 +122,7 @@ export const Landing = () => {
 
   return (
     <div>
-      {/*<FloatingButton />*/}
+      <FloatingButton />
       <div
         className={`${
           isMobile ? 'py-[60px]' : ''
