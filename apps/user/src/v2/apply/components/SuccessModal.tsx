@@ -18,7 +18,7 @@ export const SuccessModal = ({
 
   return (
     <ModalComponent isOpen={isOpen}>
-      <div className='flex h-full max-h-[283px] w-full max-w-[403px] flex-col items-center overflow-hidden rounded-[10px] bg-white py-[30px] px-[30px]'>
+      <div className='flex h-full max-h-[300px] w-full max-w-[403px] flex-col items-center overflow-hidden rounded-[10px] bg-white py-[30px] px-[30px]'>
         <div className='h-[57px] w-[57px]'>
           <img src='/assets/images/Success.gif' />
         </div>
@@ -27,7 +27,7 @@ export const SuccessModal = ({
           담당자 배정 후 최대한 빠른 시간 내 연락드릴께요
         </div>
         <button
-          className='mt-[30px] h-[48px] w-[272px] rounded-[6px] bg-[#DBDBDB]'
+          className='mt-[30px] h-[48px] w-[272px] rounded-[6px] bg-[#DBDBDB] py-[12px]'
           onClick={handleSuccess}
         >
           확인하기

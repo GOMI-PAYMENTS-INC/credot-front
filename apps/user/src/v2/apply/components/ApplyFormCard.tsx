@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useForm } from 'react-hook-form';
 
 import { NOTIFICATION_MESSAGE, TERMS_LIST } from '@/auth/constants';
@@ -55,9 +56,18 @@ export const ApplyFormCard = () => {
 
   return (
     <>
-      <div className='rounded-[8px] bg-white px-[47px] py-[33px] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
-        <form onSubmit={handleSubmit(onValid)} className='flex'>
-          <div className='mr-[36px] w-[454px]'>
+      <div
+        className={
+          isMobile
+            ? 'pb-[70px]'
+            : 'rounded-[8px] bg-white px-[47px] py-[33px] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'
+        }
+      >
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className={`flex ${isMobile ? 'flex-col' : ''}`}
+        >
+          <div className={isMobile ? '' : 'mr-[36px] w-[454px]'}>
             <div className='inputCustom-group flex'>
               <label
                 className='inputCustom-label mr-[12px] w-[64px] self-center text-right text-S/Medium text-grey-800'
@@ -191,7 +201,9 @@ export const ApplyFormCard = () => {
               </p>
             </div>
           </div>
-          <div className='w-[416px] space-y-4 text-grey-900'>
+          <div
+            className={`${isMobile ? 'mt-[10px]' : 'w-[416px]'} space-y-4 text-grey-900`}
+          >
             <div className='rounded-md bg-grey-100 px-2.5 py-2'>
               <input
                 type='checkbox'
@@ -217,9 +229,14 @@ export const ApplyFormCard = () => {
               />
               <label
                 htmlFor='requiredAgreeTerm'
-                className='termsHeaderCheckbox-label xs:text-M/Medium'
+                className={`${
+                  isMobile
+                    ? 'termsHeaderCheckbox-label text-[14px] text-grey-800'
+                    : 'termsHeaderCheckbox-label xs:text-M/Medium'
+                } pl-[36px]`}
               >
-                이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
+                이용약관, 개인정보 수집 및 이용에 {isMobile ? <br /> : null} 모두
+                동의합니다.
               </label>
             </div>
             <ul className='space-y-2'>
@@ -240,7 +257,7 @@ export const ApplyFormCard = () => {
                       </label>
 
                       <button
-                        className='textButton-secondary-default-small-none'
+                        className='textButton-secondary-default-small-none min-w-[30px]'
                         type='button'
                         onClick={() => {
                           setTermTextStatus({
@@ -272,14 +289,24 @@ export const ApplyFormCard = () => {
             >
               <p className='inputCustom-helptext'>{errors?.requiredAgreeTerm?.message}</p>
             </div>
-            <div className='mt-[30px]'>
+            {!isMobile && (
+              <div className='mt-[30px]'>
+                <button
+                  type='submit'
+                  className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
+                >
+                  신청 완료
+                </button>
+              </div>
+            )}
+            {isMobile && (
               <button
                 type='submit'
-                className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
+                className='fixed left-0 bottom-0 w-full bg-orange-500 bg-gradient-to-r from-orange-500 to-orange-350 px-2.5 py-[29px] text-L/Bold text-white'
               >
-                신청 완료
+                서비스 신청하기
               </button>
-            </div>
+            )}
           </div>
         </form>
       </div>
