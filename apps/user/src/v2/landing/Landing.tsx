@@ -9,15 +9,21 @@ import img24h from '@/v2/landing/assets/24h.png';
 import couponImage from '@/v2/landing/assets/coupon.png';
 import commerce from '@/v2/landing/assets/ecommerce.png';
 import icon1 from '@/v2/landing/assets/icon1.png';
+import landingImage4 from '@/v2/landing/assets/landing4.png';
 import landing5 from '@/v2/landing/assets/landing5.png';
 import landing7 from '@/v2/landing/assets/landing7.png';
 import landingImage1 from '@/v2/landing/assets/landingImage1.png';
 import landingImage2 from '@/v2/landing/assets/landingImage2.png';
 import Logo from '@/v2/landing/assets/logo.png';
+import mCommerce from '@/v2/landing/assets/m_commerce.png';
 import mpg from '@/v2/landing/assets/m_pg.png';
+import mVan from '@/v2/landing/assets/m_van.png';
 import mainImage from '@/v2/landing/assets/main_image_1.png';
 import mFooter from '@/v2/landing/assets/mFooter.png';
-import pg from '@/v2/landing/assets/pg.png';
+import MLandingImage4 from '@/v2/landing/assets/mLanding4.png';
+import MLandingImage2 from '@/v2/landing/assets/MlandingImage2.png';
+import van from '@/v2/landing/assets/pg.png';
+import pg from '@/v2/landing/assets/van.png';
 import { FloatingButton } from '@/v2/landing/components/FloatingButton';
 
 const CustomFAQWrapper = styled.div`
@@ -85,15 +91,17 @@ const FAQContents = [
 export const Tab = ({
   selected,
   onClick,
+  className,
   title,
 }: {
   selected: boolean;
+  className?: string;
   onClick(): void;
   title: string;
 }) => {
   return (
     <div
-      className={`mr-[25px] w-[168px] cursor-pointer self-center rounded-[30px] py-[16px] text-center font-bold ${
+      className={`${className} w-[168px] cursor-pointer self-center rounded-[30px] py-[16px] text-center font-bold ${
         selected ? 'bg-orange-400 text-white' : 'border border-grey-300 text-grey-800'
       } ${isMobile ? 'w-[90px] py-[9px]' : ''}`}
       onClick={onClick}
@@ -238,8 +246,12 @@ export const Landing = () => {
             모든 정산은 {isMobile ? <br /> : ''} 매출 발생 24시간 이내
           </span>
         </div>
-        <div className={isMobile ? '' : 'mt-[46px]'}>
-          {isMobile ? null : <img src={landingImage2} width={957} />}
+        <div className={isMobile ? 'mt-[40px]' : 'mt-[46px]'}>
+          {isMobile ? (
+            <img src={MLandingImage2} />
+          ) : (
+            <img src={landingImage2} width={957} />
+          )}
         </div>
       </div>
 
@@ -263,14 +275,24 @@ export const Landing = () => {
 
         <div className='mt-[60px] flex justify-center'>
           <div className='flex'>
-            <Tab onClick={() => setIndex(0)} selected={index === 0} title={'쇼핑몰'} />
-            <Tab onClick={() => setIndex(1)} selected={index === 1} title={'PG사'} />
+            <Tab
+              className='mr-[25px]'
+              onClick={() => setIndex(0)}
+              selected={index === 0}
+              title={'쇼핑몰'}
+            />
+            <Tab
+              className='mr-[25px]'
+              onClick={() => setIndex(1)}
+              selected={index === 1}
+              title={'PG사'}
+            />
             <Tab onClick={() => setIndex(2)} selected={index === 2} title={'VAN사'} />
           </div>
         </div>
-        {index === 0 && <img src={commerce} className='mx-auto' />}
+        {index === 0 && <img src={isMobile ? mCommerce : commerce} className='mx-auto' />}
         {index === 1 && <img src={isMobile ? mpg : pg} className='mx-auto' />}
-        {index === 2 && <img src={isMobile ? mpg : pg} className='mx-auto' />}
+        {index === 2 && <img src={isMobile ? mVan : van} className='mx-auto' />}
       </div>
 
       <div className={`${isMobile ? 'py-[50px]' : 'py-[80px]'} bg-[#624334]`}>
@@ -312,6 +334,14 @@ export const Landing = () => {
           선정산 서비스는 정산 예정인 금액을 {isMobile ? <br /> : ''} 미리 지급 받고{' '}
           {isMobile ? '' : <br />}
           추후 정산금이 입금되면 {isMobile ? <br /> : ''} 저희가 다시 받아가는 개념이에요.
+        </div>
+
+        <div>
+          {isMobile ? (
+            <img src={MLandingImage4} className='mx-auto' />
+          ) : (
+            <img src={landingImage4} className='mx-auto mt-[40px]' />
+          )}
         </div>
       </div>
       <div
