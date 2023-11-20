@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { CrawlingDto } from '@/generated-rest/api/front';
-import { PrefundRequestIdAtom } from '@/v2/apply/atom/request.atom';
+import { PrefundRequestIdAtom } from '@/v2/apply/atom';
 import { useGetInterlock } from '@/v2/apply/hooks/interlock.hook';
 import { useMyPrefund } from '@/v2/apply/hooks/prefund.hook';
 import { MApply } from '@/v2/apply/MApply';

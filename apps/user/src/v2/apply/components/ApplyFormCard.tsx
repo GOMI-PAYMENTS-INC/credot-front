@@ -7,7 +7,7 @@ import { NOTIFICATION_MESSAGE, TERMS_LIST } from '@/auth/constants';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { Spin } from '@/components/Spin';
 import { TERM_TYPE } from '@/types/enum.code';
-import { PrefundRequestIdAtom } from '@/v2/apply/atom/request.atom';
+import { PrefundRequestIdAtom } from '@/v2/apply/atom';
 import { SuccessModal } from '@/v2/apply/components/SuccessModal';
 import { useApplyPrefund } from '@/v2/apply/hooks/apply.hook';
 
