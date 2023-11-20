@@ -21,7 +21,6 @@ import { useSessionStorage } from '@/utils/useSessionStorage';
 export const useMeHook = (token: string | null) => {
   const { clearUserInfo } = useClearUserInfo();
   const navigation = useNavigate();
-  console.log('>>>> useMe', token);
   return useQuery<UserDto, ApiError>({
     queryKey: ['profile', token],
     queryFn: () => AuthService.getProfile(),

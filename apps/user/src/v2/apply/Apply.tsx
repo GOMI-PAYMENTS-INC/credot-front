@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useSearchParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import { CrawlingDto } from '@/generated-rest/api/front';
+import { PrefundRequestIdAtom } from '@/v2/apply/atom/request.atom';
 import { useGetInterlock } from '@/v2/apply/hooks/interlock.hook';
 import { useMyPrefund } from '@/v2/apply/hooks/prefund.hook';
 import { MApply } from '@/v2/apply/MApply';
@@ -18,16 +20,12 @@ export enum ViewType {
 }
 
 const Apply = () => {
+  const [requestIds, setRequestIds] = useRecoilState(PrefundRequestIdAtom);
   const [searchParams] = useSearchParams();
   const requestIdsQueryParams = searchParams.get('requestIds');
   const [isStopPollingStatus, setIsStopPollingStatus] = useState<boolean>(false);
 
   const [viewType, setViewType] = useState<ViewType>(ViewType.LOGIN);
-  const [requestIds, setRequestIds] = useState<number[]>(
-    requestIdsQueryParams
-      ? `${requestIdsQueryParams}`.split(',').map((requestId) => Number(requestId))
-      : [],
-  );
 
   /*** 선정산 요청 상태 조회 API ***/
   const { data: requestStatusData, isLoading: isRequestStatusLoading } = useGetInterlock(
@@ -89,6 +87,9 @@ const Apply = () => {
   useEffect(() => {
     if (requestIdsQueryParams) {
       setViewType(ViewType.PROGRESS);
+      setRequestIds(
+        `${requestIdsQueryParams}`.split(',').map((requestId) => Number(requestId)),
+      );
       return;
     }
   }, []);

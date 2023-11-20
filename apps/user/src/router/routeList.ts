@@ -4,9 +4,6 @@ import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth'
 import { PATH } from '@/common/constants';
 import Apply from '@/v2/apply/Apply';
 import Breakdown from '@/v2/breakdown/Breakdown';
-import InterLock from '@/v2/interlock/Interlock';
-import { InterlockError } from '@/v2/interlock/InterlockError';
-import { InterlockProgress } from '@/v2/interlock/InterlockProgress';
 import { Landing } from '@/v2/landing/Landing';
 
 type TPathKey = keyof typeof PATH;
@@ -67,23 +64,5 @@ export const routeList: IRoute[] = [
     description: 'Breakdown',
     path: PATH.BREAKDOWN,
     component: Breakdown,
-  },
-  {
-    isPrivate: true,
-    description: 'Interlock',
-    path: PATH.INTERLOCK,
-    component: InterLock,
-  },
-  {
-    isPrivate: true,
-    description: 'InterlockProgress',
-    path: PATH.INTERLOCK_PROGRESS,
-    component: InterlockProgress,
-  },
-  {
-    isPrivate: true,
-    description: 'InterlockError',
-    path: PATH.INTERLOCK_ERROR,
-    component: InterlockError,
   },
 ];

@@ -496,7 +496,6 @@ input[type='number'] {
   width: 6px;
   height: 6px;
   border-radius: 11.2px;
-  box-shadow: 14px 0px 0 0 rgba(255,255,255, 0.2), 11.7px 8.5px 0 0 rgba(255,255,255,0.4), 4.68px 13.6px 0 0 rgba(255,255,255,0.6), -4.68px 13.6px 0 0 rgba(255,255,255,0.8), -11.7px 8.5px 0 0 #fff;
   animation: spinner-b87k6z 1s infinite linear;
 }
 
@@ -504,8 +503,23 @@ input[type='number'] {
   width: 3px;
   height: 3px;
   border-radius: 11.2px;
-  box-shadow: 7px 0px 0 0 rgba(230, 73, 0, 0.2), 6px 4px 0 0 rgba(230, 73, 0,0.4), 2px 6px 0 0 rgba(230, 73, 0,0.6), -2px 6px 0 0 rgba(230, 73, 0,0.8), -5px 4px 0 0 #E64900;
   animation: spinner-b87k6z 1s infinite linear;
+}
+
+.gomi-spinner-large-white {
+  box-shadow: 14px 0px 0 0 rgba(255,255,255, 0.2), 11.7px 8.5px 0 0 rgba(255,255,255,0.4), 4.68px 13.6px 0 0 rgba(255,255,255,0.6), -4.68px 13.6px 0 0 rgba(255,255,255,0.8), -11.7px 8.5px 0 0 #fff;
+}
+
+.gomi-spinner-small-white {
+  box-shadow: 7px 0px 0 0 rgba(255,255,255, 0.2), 6px 4px 0 0 rgba(255,255,255,0.4), 2px 6px 0 0 rgba(255,255,255,0.6), -2px 6px 0 0 rgba(255,255,255,0.8), -5px 4px 0 0 #fff;
+}
+
+.gomi-spinner-large-primary {
+  box-shadow: 7px 0px 0 0 rgba(230, 73, 0, 0.2), 6px 4px 0 0 rgba(230, 73, 0,0.4), 2px 6px 0 0 rgba(230, 73, 0,0.6), -2px 6px 0 0 rgba(230, 73, 0,0.8), -5px 4px 0 0 #E64900;
+}
+
+.gomi-spinner-small-primary {
+  box-shadow: 7px 0px 0 0 rgba(230, 73, 0, 0.2), 6px 4px 0 0 rgba(230, 73, 0,0.4), 2px 6px 0 0 rgba(230, 73, 0,0.6), -2px 6px 0 0 rgba(230, 73, 0,0.8), -5px 4px 0 0 #E64900;
 }
 
 @keyframes spinner-b87k6z {

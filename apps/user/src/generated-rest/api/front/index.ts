@@ -7,6 +7,7 @@ export type { AccountDto } from './models/AccountDto';
 export { CrawlingDto } from './models/CrawlingDto';
 export type { CrawlingResponseDto } from './models/CrawlingResponseDto';
 export { CrawlingTypeEnum } from './models/CrawlingTypeEnum';
+export type { CreateApplyDto } from './models/CreateApplyDto';
 export type { ExistDto } from './models/ExistDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PhoneAuthDto } from './models/PhoneAuthDto';
@@ -23,6 +24,7 @@ export type { TodayPreFundSummaryDto } from './models/TodayPreFundSummaryDto';
 export type { TokenDto } from './models/TokenDto';
 export type { UserDto } from './models/UserDto';
 
+export { ApplyService } from './services/ApplyService';
 export { AuthService } from './services/AuthService';
 export { DefaultService } from './services/DefaultService';
 export { InterlockService } from './services/InterlockService';

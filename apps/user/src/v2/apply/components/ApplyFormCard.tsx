@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
 
 import { NOTIFICATION_MESSAGE, TERMS_LIST } from '@/auth/constants';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
+import { Spin } from '@/components/Spin';
 import { TERM_TYPE } from '@/types/enum.code';
+import { PrefundRequestIdAtom } from '@/v2/apply/atom/request.atom';
 import { SuccessModal } from '@/v2/apply/components/SuccessModal';
+import { useApplyPrefund } from '@/v2/apply/hooks/apply.hook';
 
 interface IApplyForm {
   companyName: string;
@@ -19,7 +23,8 @@ interface IApplyForm {
   marketingAgree: boolean;
 }
 
-export const ApplyFormCard = () => {
+export const ApplyFormCard = ({ prefund }: { prefund: number }) => {
+  const [requestIds] = useRecoilState(PrefundRequestIdAtom);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [termTextStatus, setTermTextStatus] = useState<{
     useAgree: boolean;
@@ -32,6 +37,7 @@ export const ApplyFormCard = () => {
     personalAgree2: false,
     marketingAgree: false,
   });
+  const { mutateAsync: applyMutate, isLoading: isApplyLoading } = useApplyPrefund();
   const {
     register,
     handleSubmit,
@@ -42,8 +48,19 @@ export const ApplyFormCard = () => {
     mode: 'onChange',
   });
 
-  const onValid = (values: IApplyForm) => {
-    setShowSuccessModal(true);
+  const onValid = async (values: IApplyForm) => {
+    const success = await applyMutate({
+      name: values.name,
+      companyName: values.companyName,
+      phoneNumber: values.phoneNumber,
+      email: values.email,
+      prefund,
+      requestId: requestIds[0],
+    });
+
+    if (success) {
+      setShowSuccessModal(true);
+    }
   };
 
   // 이용약관 하위를 모두 선택했을 경우 모든 동의 OK 처리
@@ -293,18 +310,20 @@ export const ApplyFormCard = () => {
               <div className='mt-[30px]'>
                 <button
                   type='submit'
+                  disabled={isApplyLoading}
                   className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
                 >
-                  신청 완료
+                  {isApplyLoading ? <Spin color='white' /> : '신청 완료'}
                 </button>
               </div>
             )}
             {isMobile && (
               <button
                 type='submit'
+                disabled={isApplyLoading}
                 className='fixed left-0 bottom-0 w-full bg-orange-500 bg-gradient-to-r from-orange-500 to-orange-350 px-2.5 py-[29px] text-L/Bold text-white'
               >
-                서비스 신청하기
+                {isApplyLoading ? <Spin size='small' /> : '서비스 신청하기'}
               </button>
             )}
           </div>

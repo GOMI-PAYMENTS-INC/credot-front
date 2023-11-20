@@ -39,9 +39,7 @@ export const PCApply = ({
       </div>
       <div className='mt-[60px]'>
         <PrefundCard title='묶여 있는 정산금 조회'>
-          {viewType === ViewType.RESULT && (
-            <PrefundResultContent prefund={prefund || 0} />
-          )}
+          {viewType === ViewType.RESULT && <PrefundResultContent prefund={prefund} />}
           {viewType === ViewType.FAIL && (
             <FailView onChange={(type: ViewType) => setViewType(type)} />
           )}
@@ -56,7 +54,7 @@ export const PCApply = ({
         </PrefundCard>
       </div>
       <div className='mt-[40px]'>
-        <ApplyFormCard />
+        <ApplyFormCard prefund={prefund} />
       </div>
     </div>
   );

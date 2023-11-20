@@ -154,7 +154,7 @@ export const LoginView = ({
             disabled={loading}
             className='button-filled-normal-xLarge-red-false-false-true h-[58px] w-full bg-gradient-to-r from-orange-500 to-orange-350'
           >
-            {loading ? <Spin /> : '조회하기'}
+            {loading ? <Spin color='white' /> : '조회하기'}
           </button>
         </div>
       </form>

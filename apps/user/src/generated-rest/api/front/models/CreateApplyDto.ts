@@ -3,9 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UserDto = {
+export type CreateApplyDto = {
+  phoneNumber: string;
   email: string;
+  prefund: number;
+  companyName: string;
   name: string;
-  role: string;
-  id: number;
+  requestId?: number;
 };

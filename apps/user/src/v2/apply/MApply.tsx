@@ -84,7 +84,7 @@ export const MApply = ({
               {viewType === ViewType.PROGRESS && <ProgressView />}
             </>
           )}
-          {isApplyStep && <ApplyFormCard />}
+          {isApplyStep && <ApplyFormCard prefund={prefund} />}
         </div>
 
         {[ViewType.LOGIN, viewType === ViewType.FAIL].includes(viewType) && (
