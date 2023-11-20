@@ -1,10 +1,13 @@
 import {
   CheckCircleOutlined,
+  FileDoneOutlined,
   SisternodeOutlined,
   TransactionOutlined,
+  UserAddOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { ConfigProvider, Menu } from 'antd';
+import { Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -40,6 +43,15 @@ const items: MenuProps['items'] = [
   { type: 'divider' },
   getItem('거래 완료', '/prefund/done', <CheckCircleOutlined />),
 ];
+
+const memberManagementItems: MenuProps['items'] = [
+  getItem('서비스 신청 내역', '/member/apply/list', <FileDoneOutlined />),
+  { type: 'divider' },
+  getItem('신규 회원 등록', '/member/register', <UserAddOutlined />),
+  { type: 'divider' },
+  getItem('회원 조회', '/member/list', <UserOutlined />),
+];
+
 export const SideBar = () => {
   const navigation = useNavigate();
   const location = useLocation();
@@ -49,16 +61,24 @@ export const SideBar = () => {
 
   return (
     <div className={`relative h-full border-grey-300 bg-grey-50`}>
-      <div className='absolute top-[40px] left-0 px-[20px] text-XS/Bold text-grey-700'>
-        선정산 서비스
-      </div>
+      <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>선정산 서비스</div>
       <CustomMenu
-        className='h-full bg-grey-50 py-[70px]'
+        className='mt-[15px] h-auto bg-grey-50'
         onClick={onClick}
         selectedKeys={[location.pathname]}
         style={{ width: 256 }}
         mode='inline'
         items={items}
+      />
+
+      <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>회원 관리</div>
+      <CustomMenu
+        className='mt-[15px] h-full bg-grey-50'
+        onClick={onClick}
+        selectedKeys={[location.pathname]}
+        style={{ width: 256 }}
+        mode='inline'
+        items={memberManagementItems}
       />
     </div>
   );
