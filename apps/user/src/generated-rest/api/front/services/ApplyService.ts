@@ -18,7 +18,7 @@ export class ApplyService {
   public static apply(requestBody: CreateApplyDto): CancelablePromise<boolean> {
     return __request(OpenAPI, {
       method: 'POST',
-      url: '/apply/check',
+      url: '/apply',
       body: requestBody,
       mediaType: 'application/json',
     });
