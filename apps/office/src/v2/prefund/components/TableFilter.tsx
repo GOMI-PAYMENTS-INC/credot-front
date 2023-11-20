@@ -36,7 +36,7 @@ export const TableFilter = ({
         <div className='mr-[11px] text-S/Regular text-grey-700'>선택 건 상태</div>
         <Select
           placeholder='변경할 상태를 선택해주세요.'
-          className='mr-[40px]'
+          className='mr-[14px]'
           value={status}
           style={{ width: 200 }}
           onChange={handleChange}

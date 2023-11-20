@@ -1,4 +1,5 @@
 export const PATH = {
+  MEMBER_APPLY_LIST: '/member/apply/list',
   WITHDRAWAL_READY: '/prefund/ready',
   WITHDRAWAL_DONE: '/prefund/deposit-done',
   TRANSACTION_DONE: '/prefund/done',
