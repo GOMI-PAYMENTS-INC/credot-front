@@ -5,10 +5,11 @@ import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { PrefundStatusEnum } from '@/generated-rest/api/front';
-import { MemberApplyFilterAtom, StatusType } from '@/v2/member/atom';
-import { getDataTableColumns } from '@/v2/member/components/DataTableColumns';
-import { TableFilter } from '@/v2/member/components/TableFilter';
+import { ApplyStatusEnum } from '@/generated-rest/api/front';
+import { MemberApplyFilterAtom } from '@/v2/member/atom';
+import { getDataTableColumns } from '@/v2/member/components/apply/DataTableColumns';
+import { TableFilter } from '@/v2/member/components/apply/TableFilter';
+import { useApplyList, useUpdateApplyStatus } from '@/v2/member/hooks/apply.hook';
 
 const Wrapper = styled.div`
   .ant-table-thead .ant-table-cell,
@@ -22,44 +23,43 @@ const Wrapper = styled.div`
   }
 `;
 
-export type PrefundRecord = {
-  key: number;
-  prefundGroupAt: string;
-  name: string;
-  cardCompanyName: string;
-  status: string;
-  prefund: number;
-  bankName: string;
-  bankAccountHolder: string;
-  bankAccount: string;
-  salesPrice: number;
-  cardCommission: number;
-  cardSettlementPrice: number;
-  setoff: number;
-  serviceCommission: number;
+export type ApplyRecord = {
   id: number;
-  email: string;
+  key: number;
+  createdAt: string;
+  name: string;
+  companyName: string;
   phoneNumber: string;
-  cardSettlementGroupAt: string;
-  prefundAt: string;
+  email: string;
+  status: string;
+  isPrefund: boolean;
+  prefund: number;
 };
 
-export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
+export const DataTable = () => {
   const [filter] = useRecoilState(MemberApplyFilterAtom);
-  const [selectedRows, setSelectedRows] = useState<PrefundRecord[]>([]);
-  const listColumn: ColumnsType<PrefundRecord> = getDataTableColumns();
+  const [selectedRows, setSelectedRows] = useState<ApplyRecord[]>([]);
+  const listColumn: ColumnsType<ApplyRecord> = getDataTableColumns();
+  const { mutateAsync: updateApplyStatus } = useUpdateApplyStatus();
+  const { refetch, data, isLoading } = useApplyList({
+    status: filter.status,
+    userId: filter.userId,
+  });
 
   /*** 선정산 상태 변경 ***/
-  const handleUpdateStatus = async (updateStatus: StatusType) => {
+  const handleUpdateStatus = async (updateStatus: ApplyStatusEnum) => {
     const applyIds = selectedRows.map((i) => i.id);
     if (!applyIds.length) {
       toast.error('변경할 신청 내역을 선택해주세요.');
       return;
     }
-  };
 
-  const isLoading = false;
-  const data: any[] = [];
+    await updateApplyStatus({
+      status: updateStatus,
+      applyIds,
+    });
+    await refetch();
+  };
 
   return (
     <>
@@ -83,18 +83,13 @@ export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
               columns={listColumn}
               rowSelection={{
                 type: 'checkbox',
-                onChange: (
-                  selectedRowKeys: React.Key[],
-                  selectedRows: PrefundRecord[],
-                ) => {
+                onChange: (selectedRowKeys: React.Key[], selectedRows: ApplyRecord[]) => {
                   setSelectedRows(selectedRows);
                 },
               }}
               dataSource={(data || []).map((item) => ({
                 ...item,
                 key: item.id,
-                prefund: item.salesPrice + item.cardCommission + item.setoff,
-                cardSettlementPrice: item.salesPrice + item.cardCommission,
               }))}
               scroll={{ x: 'max-content' }}
               pagination={false}

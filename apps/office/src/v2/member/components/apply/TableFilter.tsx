@@ -2,11 +2,15 @@ import { Button, Select } from 'antd';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { StatusType } from '@/v2/member/atom';
+import { ApplyStatusEnum } from '@/generated-rest/api/front';
 
-export const TableFilter = ({ onUpdate }: { onUpdate(status: StatusType): void }) => {
-  const [status, setStatus] = useState<StatusType | null>(null);
-  const handleChange = (value: StatusType) => {
+export const TableFilter = ({
+  onUpdate,
+}: {
+  onUpdate(status: ApplyStatusEnum): void;
+}) => {
+  const [status, setStatus] = useState<ApplyStatusEnum>(ApplyStatusEnum.NEW_APPLY);
+  const handleChange = (value: ApplyStatusEnum) => {
     setStatus(value);
   };
 
@@ -17,7 +21,7 @@ export const TableFilter = ({ onUpdate }: { onUpdate(status: StatusType): void }
     }
 
     onUpdate(status);
-    setStatus(null);
+    setStatus(status);
   };
 
   return (

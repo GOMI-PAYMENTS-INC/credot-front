@@ -1,21 +1,23 @@
 import { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
 
-import { PrefundRecord } from '@/v2/prefund/components/DataTable';
+import { ApplyRecord } from '@/v2/member/components/apply/DataTable';
 
 const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 
-export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
+export const getDataTableColumns = (): ColumnsType<ApplyRecord> => {
   return [
     {
       title: '신청 일시',
-      width: 140,
+      width: 160,
       dataIndex: 'createdAt',
       key: 'createdAt',
+      render: (value: string) => dayjs(value).format('YYYY-MM-DD hh:mm:ss'),
       className: 'text-center',
     },
     {
       title: '상태',
-      width: 186,
+      width: 100,
       dataIndex: 'status',
       key: 'status',
       className: 'text-center',
@@ -25,7 +27,9 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
       width: 142,
       dataIndex: 'prefund',
       key: 'prefund',
-      className: 'text-center',
+      className: 'text-right',
+      render: (value: number, record: ApplyRecord) =>
+        record.isPrefund ? localeValueFormatter(value) : '조회안함',
     },
     {
       title: '상호',
@@ -35,12 +39,18 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
       className: 'text-center',
     },
     {
+      title: '담당자명',
+      width: 124,
+      dataIndex: 'name',
+      key: 'name',
+      className: 'text-center',
+    },
+    {
       title: '연락처',
       width: 148,
       dataIndex: 'phoneNumber',
       key: 'phoneNumber',
-      className: 'text-right font-bold',
-      render: localeValueFormatter,
+      className: 'text-center',
     },
     {
       title: '이메일',

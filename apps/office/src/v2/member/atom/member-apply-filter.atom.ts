@@ -1,16 +1,16 @@
 import { atom } from 'recoil';
 
-export type StatusType = 'NEW_APPLY' | 'IN_BUSINESS' | 'IN_CONTRACT' | 'IN_HOLD';
+import { ApplyStatusEnum } from '@/generated-rest/api/front';
 
 export type MemberApplyFilterType = {
-  status: StatusType;
+  status: ApplyStatusEnum;
   userId: null | number;
 };
 
 export const MemberApplyFilterAtom = atom<MemberApplyFilterType>({
   key: 'MemberApplyFilter',
   default: {
-    status: 'NEW_APPLY',
+    status: ApplyStatusEnum.NEW_APPLY,
     userId: null,
   },
 });

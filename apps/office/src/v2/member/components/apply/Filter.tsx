@@ -1,7 +1,8 @@
 import { Button, Select } from 'antd';
 import { useRecoilState } from 'recoil';
 
-import { MemberApplyFilterAtom, StatusType } from '@/v2/member/atom';
+import { ApplyStatusEnum } from '@/generated-rest/api/front';
+import { MemberApplyFilterAtom } from '@/v2/member/atom';
 
 export const Filter = ({
   dataFilterCriteriaLabel,
@@ -10,7 +11,7 @@ export const Filter = ({
 }) => {
   const [filter, setFilter] = useRecoilState(MemberApplyFilterAtom);
 
-  const handleChangeStatus = (value: StatusType) => {
+  const handleChangeStatus = (value: ApplyStatusEnum) => {
     setFilter({
       ...filter,
       status: value,
@@ -28,28 +29,28 @@ export const Filter = ({
           <Button
             className='mr-[14px]'
             type={filter.status === 'NEW_APPLY' ? 'primary' : 'default'}
-            onClick={() => handleChangeStatus('NEW_APPLY')}
+            onClick={() => handleChangeStatus(ApplyStatusEnum.NEW_APPLY)}
           >
             신규 신청
           </Button>
           <Button
             className='mr-[14px]'
             type={filter.status === 'IN_BUSINESS' ? 'primary' : 'default'}
-            onClick={() => handleChangeStatus('IN_BUSINESS')}
+            onClick={() => handleChangeStatus(ApplyStatusEnum.IN_BUSINESS)}
           >
             영업중
           </Button>
           <Button
             className='mr-[14px]'
             type={filter.status === 'IN_CONTRACT' ? 'primary' : 'default'}
-            onClick={() => handleChangeStatus('IN_CONTRACT')}
+            onClick={() => handleChangeStatus(ApplyStatusEnum.IN_CONTRACT)}
           >
             계약중
           </Button>
           <Button
             className='mr-[14px]'
             type={filter.status === 'IN_HOLD' ? 'primary' : 'default'}
-            onClick={() => handleChangeStatus('IN_HOLD')}
+            onClick={() => handleChangeStatus(ApplyStatusEnum.IN_HOLD)}
           >
             보류
           </Button>

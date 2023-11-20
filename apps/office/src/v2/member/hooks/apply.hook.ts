@@ -2,40 +2,33 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 import {
-  PrefundDto,
-  PrefundService,
-  PrefundStatusEnum,
-  UpdatePrefundDto,
+  ApplyDto,
+  ApplyService,
+  ApplyStatusEnum,
+  UpdateApplyDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 
-export const usePrefundList = ({
+export const useApplyList = ({
   status,
   userId,
-  startAt,
-  endAt,
 }: {
-  status: PrefundStatusEnum;
+  status: ApplyStatusEnum;
   userId: number | null;
-  startAt: string;
-  endAt: string;
 }) => {
-  return useQuery<PrefundDto[], ApiError>({
-    queryKey: ['prefund-list', status, userId, startAt, endAt],
-    queryFn: () =>
-      PrefundService.getPrefunds(status, startAt, endAt, userId ? String(userId) : ''),
-    refetchOnWindowFocus: false,
+  return useQuery<ApplyDto[], ApiError>({
+    queryKey: ['apply-list', status, userId],
+    queryFn: () => ApplyService.getApplies(status, userId ? String(userId) : ''),
     onError: (error: ApiError) => {
       console.error(JSON.stringify(error));
-      toast.error('선정산 목록을 불러오지 못하였습니다.');
+      toast.error('서비스 신청 목록을 불러오지 못하였습니다.');
     },
   });
 };
 
-export const useUpdatePrefundStatus = () => {
+export const useUpdateApplyStatus = () => {
   return useMutation(
-    (requestBody: UpdatePrefundDto) =>
-      PrefundService.updatePrefundStatusByIds(requestBody),
+    (requestBody: UpdateApplyDto) => ApplyService.updateApplyStatusByIds(requestBody),
     {
       onSuccess: (res) => {
         toast.success('상태가 변경되었습니다.');
