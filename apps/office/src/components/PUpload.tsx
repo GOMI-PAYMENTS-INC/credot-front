@@ -7,11 +7,13 @@ import { request as __request } from '@/generated-rest/api/front/core/request';
 import { useGetFiles } from '@/hooks/upload.hook';
 export const PUpload = ({
   children,
+  onChange,
   defaultFileIds = [],
   onRemove,
   maxCount,
 }: {
   children: ReactNode;
+  onChange?(fileList: UploadFile<FileDto>[]): void;
   defaultFileIds?: number[];
   onRemove?: any;
   maxCount?: number;
@@ -51,6 +53,7 @@ export const PUpload = ({
           return file;
         });
         setFileList(info.fileList);
+        onChange(info.fileList);
       }}
       customRequest={({ file, onProgress, onSuccess, onError }) => {
         if (typeof file === 'string') {

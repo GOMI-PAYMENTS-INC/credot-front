@@ -1,12 +1,14 @@
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Divider, Form, Input, Radio, Row, Select, Upload } from 'antd';
+import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Col, Divider, Form, Input, Modal, Radio, Row, Select } from 'antd';
 
 import { Default } from '@/common/layouts';
 import { PUpload } from '@/components/PUpload';
+import { CrawlingTypeEnum, UserTypeEnum } from '@/generated-rest/api/front';
 import { Header } from '@/v2/member/components/header';
+import { useRegisterMember } from '@/v2/member/hooks/member.hook';
 
 interface MemberRegisterFormType {
-  type: 'corporate' | 'individual';
+  type: UserTypeEnum;
   companyName: string;
   businessNumber: string;
   corporateRegistrationNumber: string;
@@ -20,17 +22,31 @@ interface MemberRegisterFormType {
   bankName: string;
   bankAccountHolder: string;
   bankAccount: string;
-  crawlingType: string;
+  crawlingType: CrawlingTypeEnum;
   crawlingAccountId: string;
   crawlingPassword: string;
+  businessLicenseFileId: number;
+  corporateRegisterFileId: number;
+  certificateOfCorporateSealFileId: number;
 }
 
 export const MemberRegister = () => {
   const [form] = Form.useForm<MemberRegisterFormType>();
+  const { mutateAsync: register, isLoading } = useRegisterMember();
 
   const handleFinish = (values: MemberRegisterFormType) => {
-    console.log(values);
-    console.log('>>> submit');
+    Modal.confirm({
+      title: '신규 유저 등록',
+      icon: <ExclamationCircleOutlined />,
+      content: '신규 유저를 등록하시겠습니까?',
+      okText: '등록',
+      cancelText: '취소',
+      onOk: () => {
+        register({ ...values }).then(() => {
+          form.resetFields();
+        });
+      },
+    });
   };
 
   return (
@@ -49,9 +65,12 @@ export const MemberRegister = () => {
                     labelAlign='left'
                     labelCol={{ span: 3 }}
                   >
-                    <Radio.Group defaultValue='corporate' buttonStyle='solid'>
-                      <Radio.Button value='corporate'>법인</Radio.Button>
-                      <Radio.Button value='individual'>개인</Radio.Button>
+                    <Radio.Group
+                      defaultValue={UserTypeEnum.CORPORATE}
+                      buttonStyle='solid'
+                    >
+                      <Radio.Button value={UserTypeEnum.CORPORATE}>법인</Radio.Button>
+                      <Radio.Button value={UserTypeEnum.INDIVIDUAL}>개인</Radio.Button>
                     </Radio.Group>
                   </Form.Item>
                 </Col>
@@ -220,8 +239,13 @@ export const MemberRegister = () => {
                     labelAlign='left'
                     labelCol={{ span: 5 }}
                   >
-                    <Select defaultValue='CREDIT_FINANCE' className='!w-[180px]'>
-                      <Select.Option value='CREDIT_FINANCE'>여신금융협회</Select.Option>
+                    <Select
+                      defaultValue={CrawlingTypeEnum.CREDIT_FINANCE}
+                      className='!w-[180px]'
+                    >
+                      <Select.Option value={CrawlingTypeEnum.CREDIT_FINANCE}>
+                        여신금융협회
+                      </Select.Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -256,33 +280,60 @@ export const MemberRegister = () => {
               <Row gutter={[16, 16]}>
                 <Col span={6}>
                   <Form.Item
+                    name='businessLicenseFileId'
                     label='사업자등록증'
                     labelAlign='left'
                     labelCol={{ span: 7 }}
                   >
-                    <PUpload maxCount={1}>
+                    <PUpload
+                      maxCount={1}
+                      onChange={(fileList) => {
+                        fileList.length &&
+                          form.setFieldsValue({
+                            businessLicenseFileId: fileList[0]?.response?.id,
+                          });
+                      }}
+                    >
                       <Button icon={<UploadOutlined />}>업로드</Button>
                     </PUpload>
                   </Form.Item>
                 </Col>
                 <Col span={6}>
                   <Form.Item
+                    name='corporateRegisterFileId'
                     label='법인등기부등본'
                     labelAlign='left'
                     labelCol={{ span: 8 }}
                   >
-                    <PUpload maxCount={1}>
+                    <PUpload
+                      maxCount={1}
+                      onChange={(fileList) => {
+                        fileList.length &&
+                          form.setFieldsValue({
+                            corporateRegisterFileId: fileList[0]?.response?.id,
+                          });
+                      }}
+                    >
                       <Button icon={<UploadOutlined />}>업로드</Button>
                     </PUpload>
                   </Form.Item>
                 </Col>
                 <Col span={6}>
                   <Form.Item
+                    name='certificateOfCorporateSealFileId'
                     label='법인인감증명서'
                     labelAlign='left'
                     labelCol={{ span: 8 }}
                   >
-                    <PUpload maxCount={1}>
+                    <PUpload
+                      maxCount={1}
+                      onChange={(fileList) => {
+                        fileList.length &&
+                          form.setFieldsValue({
+                            certificateOfCorporateSealFileId: fileList[0]?.response?.id,
+                          });
+                      }}
+                    >
                       <Button icon={<UploadOutlined />}>업로드</Button>
                     </PUpload>
                   </Form.Item>
@@ -290,7 +341,7 @@ export const MemberRegister = () => {
               </Row>
             </div>
 
-            <small className='inline-block text-grey-700'>
+            <small className='mt-[20px] inline-block text-grey-700'>
               * 생성되는 계정의 기본 비밀번호는 12345qwert 입니다.
             </small>
 
@@ -298,6 +349,7 @@ export const MemberRegister = () => {
               <Button
                 type='primary'
                 htmlType='submit'
+                loading={isLoading}
                 className='h-[56px] w-[288px] text-M/Bold'
               >
                 등록
