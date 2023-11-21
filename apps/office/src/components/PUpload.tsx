@@ -53,7 +53,7 @@ export const PUpload = ({
           return file;
         });
         setFileList(info.fileList);
-        onChange(info.fileList);
+        onChange?.(info.fileList);
       }}
       customRequest={({ file, onProgress, onSuccess, onError }) => {
         if (typeof file === 'string') {
