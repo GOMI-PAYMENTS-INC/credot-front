@@ -12,13 +12,17 @@ import { request as __request } from '../core/request';
 export class UserService {
   /**
    * 유저 목록 추출
+   * @param userId
    * @returns UserDto
    * @throws ApiError
    */
-  public static getUsers(): CancelablePromise<Array<UserDto>> {
+  public static getUsers(userId: string): CancelablePromise<Array<UserDto>> {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/user/list',
+      query: {
+        userId: userId,
+      },
     });
   }
 

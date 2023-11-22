@@ -29,12 +29,9 @@ export class UploadService {
    * 파일 업로드
    * @param formData
    * @returns FileDto
-   * @returns any
    * @throws ApiError
    */
-  public static uploadFile(formData: {
-    file?: Blob;
-  }): CancelablePromise<FileDto | Record<string, any>> {
+  public static uploadFile(formData: { file?: Blob }): CancelablePromise<FileDto> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/upload',

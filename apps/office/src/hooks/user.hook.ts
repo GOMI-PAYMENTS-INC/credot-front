@@ -35,10 +35,10 @@ export const useMeHook = (token: string | null) => {
   });
 };
 
-export const useUserListHook = () => {
+export const useUserListHook = (userId: string | null) => {
   return useQuery<UserDto[], ApiError>({
-    queryKey: ['userList'],
-    queryFn: () => UserService.getUsers(),
+    queryKey: ['userList', userId],
+    queryFn: () => UserService.getUsers(userId || ''),
   });
 };
 

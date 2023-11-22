@@ -3,7 +3,7 @@ import { ComponentType } from 'react';
 import { SignIn } from '@/auth';
 import { PATH } from '@/common/constants';
 import { Home } from '@/v2/home';
-import { MemberApplyList, MemberRegister } from '@/v2/member';
+import { MemberApplyList, MemberList, MemberRegister } from '@/v2/member';
 import { TransactionDone, WithdrawalDone, WithdrawalReady } from '@/v2/prefund/';
 
 type TPathKey = keyof typeof PATH;
@@ -17,6 +17,12 @@ export interface IRoute {
 }
 
 export const routeList: IRoute[] = [
+  {
+    isPrivate: true,
+    description: '',
+    path: PATH.MEMBER_LIST,
+    component: MemberList,
+  },
   {
     isPrivate: true,
     description: 'MEMBER_REGISTER',
