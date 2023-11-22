@@ -5,6 +5,7 @@
 
 export type { ApplyDto } from './models/ApplyDto';
 export { ApplyStatusEnum } from './models/ApplyStatusEnum';
+export type { CrawlingInfoDto } from './models/CrawlingInfoDto';
 export { CrawlingTypeEnum } from './models/CrawlingTypeEnum';
 export type { CreateUserDto } from './models/CreateUserDto';
 export type { FileDto } from './models/FileDto';
@@ -14,6 +15,8 @@ export { PrefundStatusEnum } from './models/PrefundStatusEnum';
 export type { TokenDto } from './models/TokenDto';
 export type { UpdateApplyDto } from './models/UpdateApplyDto';
 export type { UpdatePrefundDto } from './models/UpdatePrefundDto';
+export type { UpdateUserDataDto } from './models/UpdateUserDataDto';
+export type { UpdateUserDto } from './models/UpdateUserDto';
 export type { UserDto } from './models/UserDto';
 export { UserTypeEnum } from './models/UserTypeEnum';
 

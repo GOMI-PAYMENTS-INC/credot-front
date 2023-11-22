@@ -1,4 +1,5 @@
 export const PATH = {
+  MEMBER_UPDATE: '/member/update/:memberId',
   MEMBER_LIST: '/member/list',
   MEMBER_REGISTER: '/member/register',
   MEMBER_APPLY_LIST: '/member/apply/list',

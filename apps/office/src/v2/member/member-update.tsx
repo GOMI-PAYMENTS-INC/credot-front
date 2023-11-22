@@ -1,13 +1,19 @@
 import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Col, Divider, Form, Input, Modal, Radio, Row, Select } from 'antd';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Default } from '@/common/layouts';
 import { PUpload } from '@/components/PUpload';
 import { CrawlingTypeEnum, UserTypeEnum } from '@/generated-rest/api/front';
 import { Header } from '@/v2/member/components/header';
-import { useRegisterMember } from '@/v2/member/hooks/member.hook';
+import {
+  useUpdateMember,
+  useUserCrawlingInfoHook,
+  useUserHook,
+} from '@/v2/member/hooks/member.hook';
 
-interface MemberRegisterFormType {
+interface MemberUpdateFormType {
   type: UserTypeEnum;
   companyName: string;
   businessNumber: string;
@@ -17,7 +23,6 @@ interface MemberRegisterFormType {
   companyAddress: string;
   managerPosition: string;
   managerName: string;
-  email: string;
   phoneNumber: string;
   bankName: string;
   bankAccountHolder: string;
@@ -30,28 +35,52 @@ interface MemberRegisterFormType {
   certificateOfCorporateSealFileId: number;
 }
 
-export const MemberRegister = () => {
-  const [form] = Form.useForm<MemberRegisterFormType>();
-  const { mutateAsync: register, isLoading } = useRegisterMember();
-
-  const handleFinish = (values: MemberRegisterFormType) => {
+export const MemberUpdate = () => {
+  const { memberId } = useParams();
+  const { data, refetch: refetchUser } = useUserHook(Number(memberId));
+  const { data: crawlingInfos, refetch: refetchCrawlingInfo } = useUserCrawlingInfoHook(
+    Number(memberId),
+  );
+  const [form] = Form.useForm<MemberUpdateFormType>();
+  const { mutateAsync: updateMember, isLoading } = useUpdateMember();
+  const handleFinish = (values: MemberUpdateFormType) => {
     Modal.confirm({
-      title: '신규 회원 등록',
+      title: '회원 수정',
       icon: <ExclamationCircleOutlined />,
-      content: '신규 회원을 등록하시겠습니까?',
-      okText: '등록',
+      content: '수정하시겠습니까?',
+      okText: '수정',
       cancelText: '취소',
       onOk: () => {
-        register({ ...values }).then(() => {
-          form.resetFields();
+        updateMember({ id: Number(memberId), data: values }).then(() => {
+          refetchUser();
+          refetchCrawlingInfo();
         });
       },
     });
   };
 
+  useEffect(() => {
+    if (data) {
+      form.setFieldsValue({
+        ...data,
+        companyName: data.name,
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (crawlingInfos?.length) {
+      form.setFieldsValue({
+        crawlingType: crawlingInfos[0].type,
+        crawlingAccountId: crawlingInfos[0].accountId,
+        crawlingPassword: crawlingInfos[0].password,
+      });
+    }
+  }, [crawlingInfos]);
+
   return (
     <Default useGap>
-      <Header title='신규 회원 등록' />
+      <Header title='회원 수정' />
       <div className='mt-[20px] h-full bg-grey-50'>
         <div className='mx-auto w-[1280px] py-[20px]'>
           <Form colon={false} form={form} onFinish={handleFinish}>
@@ -170,14 +199,13 @@ export const MemberRegister = () => {
                   </Form.Item>
                 </Col>
                 <Col span={6}>
-                  <Form.Item
-                    name='email'
-                    label='이메일'
-                    rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
-                    labelAlign='left'
-                    labelCol={{ span: 5 }}
-                  >
-                    <Input placeholder='이메일을 입력하세요.' className='w-[180px]' />
+                  <Form.Item label='이메일' labelAlign='left' labelCol={{ span: 5 }}>
+                    <Input
+                      placeholder='이메일을 입력하세요.'
+                      disabled
+                      value={data?.email}
+                      className='w-[180px]'
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={6}>
@@ -287,6 +315,9 @@ export const MemberRegister = () => {
                   >
                     <PUpload
                       maxCount={1}
+                      defaultFileIds={
+                        data?.businessLicenseFileId ? [data?.businessLicenseFileId] : []
+                      }
                       onChange={(fileList) => {
                         fileList.length &&
                           form.setFieldsValue({
@@ -307,6 +338,11 @@ export const MemberRegister = () => {
                   >
                     <PUpload
                       maxCount={1}
+                      defaultFileIds={
+                        data?.corporateRegisterFileId
+                          ? [data?.corporateRegisterFileId]
+                          : []
+                      }
                       onChange={(fileList) => {
                         fileList.length &&
                           form.setFieldsValue({
@@ -327,6 +363,11 @@ export const MemberRegister = () => {
                   >
                     <PUpload
                       maxCount={1}
+                      defaultFileIds={
+                        data?.certificateOfCorporateSealFileId
+                          ? [data?.certificateOfCorporateSealFileId]
+                          : []
+                      }
                       onChange={(fileList) => {
                         fileList.length &&
                           form.setFieldsValue({
@@ -341,10 +382,6 @@ export const MemberRegister = () => {
               </Row>
             </div>
 
-            <small className='mt-[20px] inline-block text-grey-700'>
-              * 생성되는 계정의 기본 비밀번호는 12345qwert 입니다.
-            </small>
-
             <Form.Item className='mt-[60px] text-center'>
               <Button
                 type='primary'
@@ -352,7 +389,7 @@ export const MemberRegister = () => {
                 loading={isLoading}
                 className='h-[56px] w-[288px] text-M/Bold'
               >
-                등록
+                수정
               </Button>
             </Form.Item>
           </Form>
