@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { ApplyStatusEnum } from '@/generated-rest/api/front';
 import { MemberApplyFilterAtom } from '@/v2/member/atom';
+import { useApplyList } from '@/v2/member/hooks/apply.hook';
 
 export const Filter = ({
   dataFilterCriteriaLabel,
@@ -10,6 +11,10 @@ export const Filter = ({
   dataFilterCriteriaLabel: string;
 }) => {
   const [filter, setFilter] = useRecoilState(MemberApplyFilterAtom);
+  const { data: users } = useApplyList({
+    status: filter.status,
+    userId: null,
+  });
 
   const handleChangeStatus = (value: ApplyStatusEnum) => {
     setFilter({
@@ -18,7 +23,6 @@ export const Filter = ({
     });
   };
 
-  const users: { id: number; name: string }[] = [];
   return (
     <div className='mt-[20px] w-full bg-grey-50 py-[20px]'>
       <div className='mx-auto flex w-[1280px] justify-between'>
