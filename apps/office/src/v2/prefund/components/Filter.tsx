@@ -13,7 +13,7 @@ export const Filter = ({
   dataFilterCriteriaLabel: string;
 }) => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
-  const { data: users } = useUserListHook();
+  const { data: users } = useUserListHook(null);
 
   const handleChangeTerm = (value: TermType) => {
     const today = dayjs();
