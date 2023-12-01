@@ -19,12 +19,7 @@ export const UserAtom = atom<MeType | undefined>({
   default: undefined,
 });
 
-export const IsLoginStorageAtom = atom<boolean>({
-  key: 'isLoginStorageAtom',
+export const GoogleAtom = atom<boolean>({
+  key: 'GOOGLE',
   default: false,
-});
-
-export const LoginTokenAtom = atom<string | null>({
-  key: 'loginTokenAtom',
-  default: null,
 });

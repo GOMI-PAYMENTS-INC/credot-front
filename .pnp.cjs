@@ -7264,6 +7264,32 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@react-oauth/google", [\
+      ["npm:0.12.1", {\
+        "packageLocation": "./.yarn/cache/@react-oauth-google-npm-0.12.1-3ab30462b7-89d9c2db5b.zip/node_modules/@react-oauth/google/",\
+        "packageDependencies": [\
+          ["@react-oauth/google", "npm:0.12.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:0.12.1", {\
+        "packageLocation": "./.yarn/__virtual__/@react-oauth-google-virtual-f79890e06d/0/cache/@react-oauth-google-npm-0.12.1-3ab30462b7-89d9c2db5b.zip/node_modules/@react-oauth/google/",\
+        "packageDependencies": [\
+          ["@react-oauth/google", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:0.12.1"],\
+          ["@types/react", "npm:18.2.33"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@remix-run/router", [\
       ["npm:1.3.0", {\
         "packageLocation": "./.yarn/cache/@remix-run-router-npm-1.3.0-0f8f725247-e588f8b517.zip/node_modules/@remix-run/router/",\
@@ -11979,6 +12005,7 @@ const RAW_RUNTIME_STATE =
           ["@graphql-codegen/typescript-react-query", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:4.1.0"],\
           ["@hackler/react-sdk", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:11.18.1"],\
           ["@hookform/error-message", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:2.0.1"],\
+          ["@react-oauth/google", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:0.12.1"],\
           ["@tailwindcss/line-clamp", "virtual:d633f049cb919b525b9fc930a9e31e18854fada043e4f4d31837aef0e68642ae2d6ae94f98c6e6aa4e81ec0313f70945692bf9a350028373c0a4ac616ec610ee#npm:0.4.2"],\
           ["@tanstack/react-query", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:4.22.0"],\
           ["@tanstack/react-query-devtools", "virtual:9a2cb2d93d1143050b242cd2ce3b4b591a89fb88d532d6e91892de2a3390d9d45c747692cc70b11d88bb54f678b688fd0ddb038c5456666a8771e0f84ab08dd6#npm:4.22.0"],\

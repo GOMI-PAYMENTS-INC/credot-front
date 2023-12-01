@@ -18,6 +18,7 @@
     "@ant-design/icons": "^5.2.6",
     "@hackler/react-sdk": "^11.18.1",
     "@hookform/error-message": "^2.0.1",
+    "@react-oauth/google": "^0.12.1",
     "@tanstack/react-query": "^4.13.0",
     "@tosspayments/payment-widget-sdk": "^0.9.3",
     "@types/form-data": "^2.5.0",

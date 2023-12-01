@@ -1,6 +1,8 @@
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Fragment, ReactNode, useEffect, useState } from 'react';
 import { useMatch } from 'react-router-dom';
 
+import { GlobalEnv } from '@/api/config';
 import GNB from '@/common/layouts/GNB';
 import { SideBar } from '@/common/layouts/SideBar';
 import { PATH } from '@/types/enum.code';
@@ -25,7 +27,9 @@ export const Default = ({ children, useGap = false }: IDefaultProps) => {
     <Fragment>
       <div className='h-screen'>
         <Fragment>
-          <GNB />
+          <GoogleOAuthProvider clientId={GlobalEnv.viteGoogleClientId}>
+            <GNB />
+          </GoogleOAuthProvider>
           <div className={`${handleCss} ${useGap ? 'mt-[72px]' : ''} flex`}>
             <SideBar />
             <div className='w-full py-[40px]'>{children}</div>
