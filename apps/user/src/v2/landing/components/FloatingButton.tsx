@@ -11,7 +11,7 @@ export const FloatingButton = () => {
       <div
         onClick={() => setOpen(true)}
         className={`${isOpen ? 'invisible translate-y-3' : 'visible -translate-y-3'} ${
-          isMobile ? 'bottom-[24px] right-[24px]' : 'right-[120px] bottom-[151px]'
+          isMobile ? 'bottom-[20px] right-[20px]' : 'right-[30px] bottom-[30px]'
         } fixed z-[9999] w-[256px] w-full cursor-pointer rounded-[100px] bg-gradient-to-b from-grey-800 to-[#323131] py-[14px] px-[32px] text-white shadow-[0px_8px_16px_rgba(0,0,0,0.08)] transition-all`}
       >
         <div className='flex justify-center'>

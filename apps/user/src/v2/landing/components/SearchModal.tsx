@@ -17,6 +17,17 @@ const CustomModal = styled(Modal)`
   top: auto;
 `;
 
+const CustomMobileModal = styled(Modal)`
+  position: fixed;
+  bottom: 0 !important;
+  top: auto; !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+`;
+
 export const SearchModal = ({
   isOpen,
   onClose,
@@ -40,7 +51,7 @@ export const SearchModal = ({
     }
   }, [data]);
 
-  const ModalComponent = isMobile ? Modal : CustomModal;
+  const ModalComponent = isMobile ? CustomMobileModal : CustomModal;
   return (
     <ModalComponent
       open={isOpen}
@@ -79,7 +90,7 @@ export const SearchModal = ({
         onClose();
       }}
       footer={null}
-      mask={false}
+      mask={isMobile}
       maskClosable
       getContainer={() => {
         document.body.style.overflow = 'auto';

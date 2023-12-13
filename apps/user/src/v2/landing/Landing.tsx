@@ -2,9 +2,10 @@ import { Collapse, ConfigProvider, Divider } from 'antd';
 import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Link, useNavigate } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
 
-import { PATH } from '@/types/enum.code';
+import { PATH } from '@/common/constants';
 import img24h from '@/v2/landing/assets/24h.png';
 import couponImage from '@/v2/landing/assets/coupon.png';
 import commerce from '@/v2/landing/assets/ecommerce.png';
@@ -132,9 +133,40 @@ export const Landing = () => {
     <div>
       <FloatingButton />
       <div
+        className={`flex justify-between ${
+          isMobile ? 'px-[20px] py-[12px]' : 'px-[40px] py-[16px]'
+        }`}
+      >
+        <Link to={PATH.LANDING} className='self-center'>
+          <ReactSVG
+            src='/assets/icons/Logo.svg'
+            className='cursor-pointer'
+            beforeInjection={(svg) => {
+              svg.setAttribute('class', 'w-[138px] h-[27px]');
+            }}
+          />
+        </Link>
+        {!isMobile && (
+          <div
+            className={`w-[117px] cursor-pointer rounded-[8px] border-[1px] border-grey-400 py-[10px] text-center text-S/Medium text-grey-800`}
+            onClick={() => navigate(PATH.SIGN_IN)}
+          >
+            가맹점 관리자
+          </div>
+        )}
+        {isMobile && (
+          <div
+            className={`w-[97px] cursor-pointer rounded-[8px] border-[1px] border-grey-400 py-[10px] text-center text-S/Medium text-grey-800`}
+            onClick={() => navigate(PATH.SIGN_IN)}
+          >
+            가맹점 관리자
+          </div>
+        )}
+      </div>
+      <div
         className={`${
           isMobile ? 'py-[60px]' : ''
-        } flex min-h-[597px] items-center justify-center bg-gradient-to-r from-dark-orange-900 to-orange-400`}
+        } flex min-h-[565px] items-center justify-center bg-gradient-to-r from-dark-orange-900 to-orange-400`}
       >
         <div
           className={`${
@@ -142,12 +174,6 @@ export const Landing = () => {
           } flex justify-between`}
         >
           <div>
-            {!isMobile && (
-              <div className='mb-4'>
-                <img src={Logo} width={233} />
-              </div>
-            )}
-
             <div
               className={`font-bold text-white ${
                 isMobile
