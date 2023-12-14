@@ -7,15 +7,12 @@ import styled from 'styled-components';
 
 import { PATH } from '@/common/constants';
 import img24h from '@/v2/landing/assets/24h.png';
-import couponImage from '@/v2/landing/assets/coupon.png';
 import commerce from '@/v2/landing/assets/ecommerce.png';
 import icon1 from '@/v2/landing/assets/icon1.png';
 import landingImage4 from '@/v2/landing/assets/landing4.png';
-import landing5 from '@/v2/landing/assets/landing5.png';
 import landing7 from '@/v2/landing/assets/landing7.png';
 import landingImage1 from '@/v2/landing/assets/landingImage1.png';
 import landingImage2 from '@/v2/landing/assets/landingImage2.png';
-import Logo from '@/v2/landing/assets/logo.png';
 import mCommerce from '@/v2/landing/assets/m_commerce.png';
 import mpg from '@/v2/landing/assets/m_pg.png';
 import mVan from '@/v2/landing/assets/m_van.png';
@@ -23,6 +20,11 @@ import mainImage from '@/v2/landing/assets/main_image_1.png';
 import mFooter from '@/v2/landing/assets/mFooter.png';
 import MLandingImage4 from '@/v2/landing/assets/mLanding4.png';
 import MLandingImage2 from '@/v2/landing/assets/MlandingImage2.png';
+import partnerships from '@/v2/landing/assets/partnership.png';
+import partnershipsM1 from '@/v2/landing/assets/partnership_m1.png';
+import partnershipsM2 from '@/v2/landing/assets/partnership_m2.png';
+import partnershipsM3 from '@/v2/landing/assets/partnership_m3.png';
+import partnershipsShadow from '@/v2/landing/assets/partnership_shadow.png';
 import van from '@/v2/landing/assets/pg.png';
 import pg from '@/v2/landing/assets/van.png';
 import { FloatingButton } from '@/v2/landing/components/FloatingButton';
@@ -245,7 +247,7 @@ export const Landing = () => {
             <Box title='주유소 사장님' icon={icon1} />
             <Box title='학원 원장님' icon={icon1} />
             <Box title='휴대폰 대리점' icon={icon1} />
-            <Box title='자체 쇼피몽 운영' icon={icon1} />
+            <Box title='자체 쇼피몰 운영' icon={icon1} />
           </div>
         </div>
       </div>
@@ -321,7 +323,7 @@ export const Landing = () => {
         {index === 2 && <img src={isMobile ? mVan : van} className='mx-auto' />}
       </div>
 
-      <div className={`${isMobile ? 'py-[50px]' : 'py-[80px]'} bg-[#624334]`}>
+      <div className={`${isMobile ? 'py-[50px]' : 'pt-[80px]'} bg-[#624334]`}>
         <div
           className={`text-center font-bold text-grey-800 ${
             isMobile ? 'text-[26px] leading-[40px]' : 'text-[32px] leading-[70px]'
@@ -339,6 +341,63 @@ export const Landing = () => {
           이미 많은 사장님들께서 {isMobile ? <br /> : ''} 선정산 서비스를 통해 <br />
           유동성 있는 현금관리를 하고 있어요.
         </div>
+
+        {!isMobile && (
+          <div className='relative'>
+            <img
+              src={partnershipsShadow}
+              className='absolute bottom-0 left-[50%] mx-auto translate-x-[-50%]'
+            />
+            <img src={partnerships} className='mx-auto' />
+          </div>
+        )}
+
+        {isMobile && (
+          <>
+            <div className='relative mt-[24px] h-[90px] w-full overflow-hidden'>
+              <div className='absolute mb-10 flex animate-slider flex-row'>
+                <img
+                  className='mx-w-auto w-[auto] max-w-[none]'
+                  src={partnershipsM1}
+                  alt=''
+                />
+                <img
+                  className='mx-w-auto ml-[18px] w-[auto] max-w-[none]'
+                  src={partnershipsM1}
+                  alt=''
+                />
+              </div>
+            </div>
+            <div className='relative mt-[24px] h-[90px] w-full overflow-hidden'>
+              <div className='absolute mb-10 flex animate-slider2 flex-row'>
+                <img
+                  className='mx-w-auto w-[auto] max-w-[none]'
+                  src={partnershipsM2}
+                  alt=''
+                />
+                <img
+                  className='mx-w-auto ml-[18px] w-[auto] max-w-[none]'
+                  src={partnershipsM2}
+                  alt=''
+                />
+              </div>
+            </div>
+            <div className='relative mt-[24px] h-[90px] w-full overflow-hidden'>
+              <div className='absolute mb-10 flex animate-slider flex-row'>
+                <img
+                  className='mx-w-auto w-[auto] max-w-[none]'
+                  src={partnershipsM3}
+                  alt=''
+                />
+                <img
+                  className='mx-w-auto ml-[18px] w-[auto] max-w-[none]'
+                  src={partnershipsM3}
+                  alt=''
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <div className={`${isMobile ? 'py-[90px]' : 'py-[96px]'} bg-[#FFF5F0]`}>
@@ -369,45 +428,6 @@ export const Landing = () => {
             <img src={landingImage4} className='mx-auto mt-[40px]' />
           )}
         </div>
-      </div>
-      <div
-        className={`${
-          isMobile
-            ? 'flex flex-col items-center bg-grey-200 py-[70px] text-center'
-            : 'py-[110px]'
-        }`}
-      >
-        {!isMobile && (
-          <img
-            src={landing5}
-            className='mx-auto cursor-pointer'
-            onClick={() => navigate('/apply')}
-            width={1098}
-          />
-        )}
-        {isMobile && (
-          <>
-            <div className='w-[179px] rounded-[33px] bg-grey-900 py-[12px] px-[7px] text-center text-white'>
-              2023.09.18 ~
-            </div>
-            <div
-              className={`mt-[30px] text-[28px] font-bold leading-[40px] text-grey-800`}
-            >
-              <span className='text-black'>신규 회원 이벤트</span>
-            </div>
-            <div className={`mt-[8px] text-[16px] leading-[30px] text-grey-700`}>
-              고미세틀먼트 서비스 첫 이용 고객님께 <br />
-              최대 300만원까지 선정산 수수료를 면제해드려요.
-            </div>
-            <div
-              className={`mt-[30px] cursor-pointer rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-[12px] px-[30px] text-center text-L/Bold text-white`}
-              onClick={() => navigate('/apply')}
-            >
-              서비스 신청하기
-            </div>
-            <img src={couponImage} width={340} className='mt-[50px]' />
-          </>
-        )}
       </div>
       <div
         className={`flex flex-col items-center bg-grey-50 ${

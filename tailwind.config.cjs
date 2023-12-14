@@ -256,6 +256,30 @@ module.exports = {
         500: 'bg-gradient-to-r from-[#FF5100] to-[#FFA378]',
         200: 'bg-gradient-to-r from-[#FFA378] to-[#FFF5F0]',
       },
+
+      keyframes: {
+        slider: {
+          '0%': {
+            transform: 'translateX(0px)'
+          },
+          '100%': {
+            transform: 'translateX(-1032px)'
+          }
+        },
+        'slider2': {
+          '0%': {
+            transform: 'translateX(-1032px)'
+          },
+          '100%': {
+            transform: 'translateX(0)'
+          }
+        }
+      },
+
+      animation: {
+        slider: 'slider 28s linear infinite',
+        'slider2': 'slider2 28s linear infinite',
+      }
     },
   },
 };
