@@ -28,6 +28,7 @@ export { UserTypeEnum } from './models/UserTypeEnum';
 export { ApplyService } from './services/ApplyService';
 export { AuthService } from './services/AuthService';
 export { DefaultService } from './services/DefaultService';
+export { FutureFundService } from './services/FutureFundService';
 export { GoogleService } from './services/GoogleService';
 export { PrefundService } from './services/PrefundService';
 export { UploadService } from './services/UploadService';

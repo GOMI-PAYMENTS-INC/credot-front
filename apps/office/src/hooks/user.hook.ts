@@ -42,6 +42,14 @@ export const useUserListHook = (userId: string | null) => {
   });
 };
 
+export const useUserById = (userId: number | null) => {
+  return useQuery<UserDto, ApiError>({
+    queryKey: ['user', userId],
+    queryFn: () => UserService.getUser(Number(userId)),
+    enabled: !!userId,
+  });
+};
+
 export const useLogout = () => {
   const { clearUserInfo } = useClearUserInfo();
   const navigation = useNavigate();

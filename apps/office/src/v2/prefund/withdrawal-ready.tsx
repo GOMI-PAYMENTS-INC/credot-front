@@ -8,6 +8,7 @@ import { PrefundFilterAtom } from '@/v2/prefund/atom';
 import { DataTable } from '@/v2/prefund/components/DataTable';
 import { Filter } from '@/v2/prefund/components/Filter';
 import { Header } from '@/v2/prefund/components/header';
+import { SummaryPreFundCard } from '@/v2/prefund/components/SummaryPreFundCard';
 import { UserInfoSection } from '@/v2/prefund/components/UserInfoSection';
 
 export const WithdrawalReady = () => {
@@ -28,6 +29,7 @@ export const WithdrawalReady = () => {
       />
       <Filter dateRangeOn={false} dataFilterCriteriaLabel={'데이터 생성일'} />
       <UserInfoSection />
+      <SummaryPreFundCard />
       <DataTable status={PrefundStatusEnum.READY} />
     </Default>
   );
