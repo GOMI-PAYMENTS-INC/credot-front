@@ -12,7 +12,7 @@ export const Filter = ({
   dateRangeOn = true,
 }: {
   dataFilterCriteriaLabel: string;
-  dateRangeOn: boolean;
+  dateRangeOn?: boolean;
 }) => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
   const { data: users } = useUserListHook(null);

@@ -8,6 +8,7 @@ import { PrefundFilterAtom } from '@/v2/prefund/atom';
 import { DataTable } from '@/v2/prefund/components/DataTable';
 import { Filter } from '@/v2/prefund/components/Filter';
 import { Header } from '@/v2/prefund/components/header';
+import { UserInfoSection } from '@/v2/prefund/components/UserInfoSection';
 
 export const WithdrawalReady = () => {
   const [filter] = useRecoilState(PrefundFilterAtom);
@@ -26,6 +27,7 @@ export const WithdrawalReady = () => {
         onRefetch={refetch}
       />
       <Filter dateRangeOn={false} dataFilterCriteriaLabel={'데이터 생성일'} />
+      <UserInfoSection />
       <DataTable status={PrefundStatusEnum.READY} />
     </Default>
   );
