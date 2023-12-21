@@ -25,7 +25,7 @@ export const WithdrawalReady = () => {
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
         onRefetch={refetch}
       />
-      <Filter dataFilterCriteriaLabel={'데이터 생성일'} />
+      <Filter dateRangeOn={false} dataFilterCriteriaLabel={'데이터 생성일'} />
       <DataTable status={PrefundStatusEnum.READY} />
     </Default>
   );
