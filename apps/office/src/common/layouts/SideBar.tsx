@@ -44,6 +44,10 @@ const items: MenuProps['items'] = [
   getItem('거래 완료', '/prefund/done', <CheckCircleOutlined />),
 ];
 
+const futureFundItems: MenuProps['items'] = [
+  getItem('내역 조회', '/future-fund', <SisternodeOutlined />),
+];
+
 const memberManagementItems: MenuProps['items'] = [
   getItem('서비스 신청 내역', '/member/apply/list', <FileDoneOutlined />),
   { type: 'divider' },
@@ -69,6 +73,18 @@ export const SideBar = () => {
         style={{ width: 256 }}
         mode='inline'
         items={items}
+      />
+
+      <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>
+        미래정산 서비스
+      </div>
+      <CustomMenu
+        className='mt-[15px] h-auto bg-grey-50'
+        onClick={onClick}
+        selectedKeys={[location.pathname]}
+        style={{ width: 256 }}
+        mode='inline'
+        items={futureFundItems}
       />
 
       <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>회원 관리</div>
