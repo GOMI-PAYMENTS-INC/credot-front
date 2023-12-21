@@ -1,9 +1,9 @@
 import { Col, Row } from 'antd';
 import { useRecoilState } from 'recoil';
 
-import { useUserById } from '@/hooks/user.hook';
+import { useUserById } from '@/hooks';
 import { PrefundFilterAtom } from '@/v2/prefund/atom';
-import { useFutureFund } from '@/v2/prefund/hooks/future-fund.hook';
+import { useFutureFund } from '@/v2/prefund/hooks';
 
 export const UserInfoSection = () => {
   const [filter] = useRecoilState(PrefundFilterAtom);

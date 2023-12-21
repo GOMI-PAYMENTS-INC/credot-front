@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { Default } from '@/common/layouts';
@@ -12,13 +13,21 @@ import { SummaryPreFundCard } from '@/v2/prefund/components/SummaryPreFundCard';
 import { UserInfoSection } from '@/v2/prefund/components/UserInfoSection';
 
 export const WithdrawalReady = () => {
-  const [filter] = useRecoilState(PrefundFilterAtom);
+  const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
   const { dataUpdatedAt, isLoading, refetch } = usePrefundList({
     status: PrefundStatusEnum.READY,
     startAt: filter.termRange[0].format('YYYY-MM-DD'),
     endAt: filter.termRange[1].format('YYYY-MM-DD'),
     userId: filter.userId,
   });
+
+  useEffect(() => {
+    setFilter({
+      term: 'today',
+      termRange: [dayjs(), dayjs()],
+      userId: null,
+    });
+  }, []);
 
   return (
     <Default useGap>
