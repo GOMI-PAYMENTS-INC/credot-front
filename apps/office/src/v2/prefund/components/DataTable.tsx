@@ -72,7 +72,9 @@ export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
   const prefundAmount = selectedRows.reduce((acc, cur) => acc + cur.prefundPrice, 0);
   return (
     <>
-      <TableFilter amount={prefundAmount} onUpdate={handleUpdateStatus} />
+      {status !== PrefundStatusEnum.DONE && (
+        <TableFilter amount={prefundAmount} onUpdate={handleUpdateStatus} />
+      )}
       <div className='mx-auto w-[1280px]'>
         <Wrapper className='gm-h-full mt-[10px]'>
           <ConfigProvider
