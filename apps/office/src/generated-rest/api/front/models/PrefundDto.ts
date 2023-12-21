@@ -23,4 +23,6 @@ export type PrefundDto = {
   bankAccount: string;
   email: string;
   phoneNumber: string;
+  repaymentFees: number;
+  repaymentPrice: number;
 };

@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum CrawlingTypeEnum {
-  EASYSHOP = 'EASYSHOP',
-  CREDIT_FINANCE = 'CREDIT_FINANCE',
-  INNOPAY = 'INNOPAY',
-}
+export type ApplyFutureFundDto = {
+  price: number;
+  date: string;
+  userId: number;
+};

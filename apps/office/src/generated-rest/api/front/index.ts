@@ -4,15 +4,19 @@
 /* eslint-disable */
 
 export type { ApplyDto } from './models/ApplyDto';
+export type { ApplyFutureFundDto } from './models/ApplyFutureFundDto';
 export { ApplyStatusEnum } from './models/ApplyStatusEnum';
 export type { CrawlingInfoDto } from './models/CrawlingInfoDto';
 export { CrawlingTypeEnum } from './models/CrawlingTypeEnum';
 export type { CreateUserDto } from './models/CreateUserDto';
 export type { FileDto } from './models/FileDto';
+export type { FutureFundDto } from './models/FutureFundDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PrefundDto } from './models/PrefundDto';
 export { PrefundStatusEnum } from './models/PrefundStatusEnum';
 export type { RequestTokenDto } from './models/RequestTokenDto';
+export type { SummaryPrefundDto } from './models/SummaryPrefundDto';
+export type { TodayFutureFundDto } from './models/TodayFutureFundDto';
 export type { TokenDto } from './models/TokenDto';
 export type { UpdateApplyDto } from './models/UpdateApplyDto';
 export type { UpdatePrefundDto } from './models/UpdatePrefundDto';
