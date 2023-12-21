@@ -14,7 +14,7 @@ import { UserInfoSection } from '@/v2/prefund/components/UserInfoSection';
 
 export const WithdrawalReady = () => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
-  const { dataUpdatedAt, isLoading, refetch } = usePrefundList({
+  const { dataUpdatedAt, refetch } = usePrefundList({
     status: PrefundStatusEnum.READY,
     startAt: filter.termRange[0].format('YYYY-MM-DD'),
     endAt: filter.termRange[1].format('YYYY-MM-DD'),
