@@ -24,7 +24,6 @@ export const usePrefundList = ({
     queryKey: ['prefund-list', status, userId, startAt, endAt],
     queryFn: () =>
       PrefundService.getPrefunds(status, startAt, endAt, userId ? String(userId) : ''),
-    refetchOnWindowFocus: false,
     onError: (error: ApiError) => {
       console.error(JSON.stringify(error));
       toast.error('선정산 목록을 불러오지 못하였습니다.');

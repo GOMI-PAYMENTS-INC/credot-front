@@ -29,18 +29,14 @@ export type PrefundRecord = {
   name: string;
   cardCompanyName: string;
   status: string;
-  prefund: number;
-  bankName: string;
-  bankAccountHolder: string;
-  bankAccount: string;
+  prefundPrice: number;
+  depositPrice: number;
   salesPrice: number;
   cardCommission: number;
   cardSettlementPrice: number;
   setoff: number;
   serviceCommission: number;
   id: number;
-  email: string;
-  phoneNumber: string;
   cardSettlementGroupAt: string;
   prefundAt: string;
 };
@@ -73,7 +69,7 @@ export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
     await refetch();
   };
 
-  const prefundAmount = selectedRows.reduce((acc, cur) => acc + cur.prefund, 0);
+  const prefundAmount = selectedRows.reduce((acc, cur) => acc + cur.prefundPrice, 0);
   return (
     <>
       <TableFilter amount={prefundAmount} onUpdate={handleUpdateStatus} />
@@ -106,8 +102,6 @@ export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
               dataSource={(data || []).map((item) => ({
                 ...item,
                 key: item.id,
-                prefund: item.salesPrice + item.cardCommission + item.setoff,
-                cardSettlementPrice: item.salesPrice + item.cardCommission,
               }))}
               scroll={{ x: 'max-content' }}
               pagination={false}

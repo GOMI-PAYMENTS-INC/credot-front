@@ -18,11 +18,9 @@ export type PrefundDto = {
    * User Info
    */
   name: string;
-  bankName: string;
-  bankAccountHolder: string;
-  bankAccount: string;
-  email: string;
-  phoneNumber: string;
   repaymentFees: number;
   repaymentPrice: number;
+  cardSettlementPrice: number;
+  prefundPrice: number;
+  depositPrice: number;
 };

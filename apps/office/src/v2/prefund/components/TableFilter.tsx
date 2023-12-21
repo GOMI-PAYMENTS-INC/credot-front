@@ -1,8 +1,10 @@
-import { Button, Select } from 'antd';
+import { Button, Select, Tooltip } from 'antd';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
 
 import { PrefundStatusEnum } from '@/generated-rest/api/front';
+import { PrefundFilterAtom } from '@/v2/prefund/atom';
 
 export const TableFilter = ({
   amount,
@@ -11,6 +13,7 @@ export const TableFilter = ({
   amount: number;
   onUpdate(status: PrefundStatusEnum): void;
 }) => {
+  const [filter] = useRecoilState(PrefundFilterAtom);
   const [status, setStatus] = useState<PrefundStatusEnum | null>(null);
   const handleChange = (value: PrefundStatusEnum) => {
     setStatus(value);
@@ -40,15 +43,18 @@ export const TableFilter = ({
           value={status}
           style={{ width: 200 }}
           onChange={handleChange}
+          disabled={!filter.userId}
           options={[
             { value: PrefundStatusEnum.READY, label: '출금 준비' },
             { value: PrefundStatusEnum.DEPOSIT_DONE, label: '출금 완료' },
             { value: PrefundStatusEnum.DONE, label: '거래 완료' },
           ]}
         />
-        <Button onClick={handleUpdate} type='primary'>
-          변경
-        </Button>
+        <Tooltip title='업체를 선택한 후 처리해주세요.' open={!filter.userId}>
+          <Button onClick={handleUpdate} disabled={!filter.userId}>
+            변경
+          </Button>
+        </Tooltip>
       </div>
     </div>
   );
