@@ -2,9 +2,13 @@ import { HomeFilled } from '@ant-design/icons';
 
 import { Header } from '@/v3/components';
 import { ContentLayout, Default } from '@/v3/layouts';
-import { PrefundSummary } from '@/v3/pages/home/components/PrefundSummary';
-import { PrefundTable } from '@/v3/pages/home/components/PrefundTable';
-import { PrefundView } from '@/v3/pages/home/components/PrefundView';
+import {
+  FutureFundTable,
+  PrefundSummary,
+  PrefundTable,
+  PrefundView,
+} from '@/v3/pages/home/components';
+
 export const Home = () => {
   return (
     <Default>
@@ -22,6 +26,12 @@ export const Home = () => {
               <div className='text-XL/Bold text-grey-800'>오늘 선정산 현황</div>
               <div className='mt-[14px] w-full'>
                 <PrefundTable />
+              </div>
+              <div className='mt-[70px] text-XL/Bold text-grey-800'>
+                오늘 미래정산 현황
+              </div>
+              <div className='mt-[14px] w-full'>
+                <FutureFundTable />
               </div>
             </div>
             <div className='ml-[74px] min-w-[338px]'>

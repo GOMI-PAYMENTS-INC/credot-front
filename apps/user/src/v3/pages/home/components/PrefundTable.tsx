@@ -4,7 +4,7 @@ import { hyundaeCard } from '@/v3/pages/home/assets';
 
 export const PrefundCard = () => {
   return (
-    <>
+    <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
       <Col span={6}>
         <img src={hyundaeCard} alt='현대카드' className='mx-auto' />
       </Col>
@@ -20,7 +20,7 @@ export const PrefundCard = () => {
       <Col span={4} className='text-center text-purple-600'>
         선정산 완료
       </Col>
-    </>
+    </Row>
   );
 };
 
@@ -42,9 +42,7 @@ export const PrefundTable = () => {
           상태
         </Col>
       </Row>
-      <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
-        <PrefundCard />
-      </Row>
+      <PrefundCard />
     </>
   );
 };
