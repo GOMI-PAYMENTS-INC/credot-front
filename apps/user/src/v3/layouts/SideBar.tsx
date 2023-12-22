@@ -106,9 +106,7 @@ export const SideBar = () => {
   return (
     <div
       className={`${
-        isMobile
-          ? 'h-full w-full pt-[57px] pb-[20px]'
-          : 'relative h-full w-[200px] py-[36px]'
+        isMobile ? 'w-full pt-[57px] pb-[20px]' : 'relative h-full w-[200px] py-[36px]'
       } bg-grey-50`}
     >
       <div className='flex'>
@@ -153,9 +151,9 @@ export const SideBar = () => {
       )}
       {isMobile && (
         <div
-          className={`absolute top-[100px] left-0 z-[100] w-full bg-grey-50 ${
+          className={`absolute top-[100px] left-0 z-[100] flex w-full flex-col justify-between bg-grey-50 ${
             collapsed ? 'h-[calc(100vh-100px)]' : 'h-0'
-          } flex flex-col justify-between overflow-hidden transition-all delay-150 duration-300`}
+          } overflow-hidden transition-all delay-150 duration-300`}
         >
           <div className='px-[28px]'>
             <CustomMenu
