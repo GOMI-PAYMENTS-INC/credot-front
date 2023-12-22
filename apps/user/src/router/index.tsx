@@ -24,6 +24,7 @@ export const Router = () => {
       setUserInfo({
         me: {
           id: userQueryData.id,
+          name: userQueryData.name,
           email: userQueryData.email,
         },
       });

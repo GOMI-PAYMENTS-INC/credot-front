@@ -7,7 +7,6 @@
     ]
   },
   "scripts": {
-    "postinstall": "husky install",
     "lint": "yarn eslint --cache apps/user --ext .tsx ",
     "prepare": "yarn set version berry && yarn install && yarn dlx @yarnpkg/sdks vscode",
     "prepare:user": "cd apps/user && yarn set version berry && yarn install",
