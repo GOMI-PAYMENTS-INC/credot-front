@@ -70,7 +70,7 @@ export const SideBar = () => {
   console.log(userInfo);
 
   return (
-    <div className={`relative h-full w-[200px] bg-grey-50 py-[36px] px-[28px]`}>
+    <div className={`relative h-full w-[200px] bg-grey-50 py-[36px]`}>
       <Link to={PATH.BREAKDOWN}>
         <ReactSVG
           src='../src/v3/layouts/assets/logo.svg'
@@ -80,35 +80,39 @@ export const SideBar = () => {
           }}
         />
       </Link>
-      <CustomMenu
-        className='mt-[51px] h-auto bg-grey-50'
-        onClick={handleClick}
-        selectedKeys={[location.pathname]}
-        style={{ width: 144, border: 'none' }}
-        mode='inline'
-        items={items}
-      />
-      <div className='absolute bottom-[595px] left-0 w-full border-t border-grey-300 py-[18px]'>
-        <div className='px-[16px]'>
-          <Dropdown
-            menu={{
-              items: dropDownItems,
-              onClick: handleDropDownMenuClick,
-            }}
-            trigger={['click']}
-            placement='bottomRight'
-          >
-            <a onClick={(e) => e.preventDefault()}>
-              <Space>
-                <span className='text-S/Medium text-grey-800'>
-                  <span className='mr-[12px] inline-block'>
-                    {userInfo?.me.name || '-'}
+      <div className='flex h-full flex-col justify-between'>
+        <div className='px-[28px]'>
+          <CustomMenu
+            className='mt-[51px] h-auto bg-grey-50'
+            onClick={handleClick}
+            selectedKeys={[location.pathname]}
+            style={{ width: 144, border: 'none' }}
+            mode='inline'
+            items={items}
+          />
+        </div>
+        <div className='w-full border-t border-grey-300 py-[18px]'>
+          <div className='px-[16px]'>
+            <Dropdown
+              menu={{
+                items: dropDownItems,
+                onClick: handleDropDownMenuClick,
+              }}
+              trigger={['click']}
+              placement='bottomRight'
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                  <span className='text-S/Medium text-grey-800'>
+                    <span className='mr-[12px] inline-block'>
+                      {userInfo?.me.name || '-'}
+                    </span>
+                    <RightOutlined className='w-[9px] cursor-pointer' />
                   </span>
-                  <RightOutlined className='w-[9px] cursor-pointer' />
-                </span>
-              </Space>
-            </a>
-          </Dropdown>
+                </Space>
+              </a>
+            </Dropdown>
+          </div>
         </div>
       </div>
     </div>
