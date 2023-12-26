@@ -85,7 +85,7 @@ export const MFutureFundTable = ({
         </Col>
       </Row>
       <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
-        <Col span={12} className='text-center text-L/Medium'>
+        <Col span={12} className='text-center'>
           {localeString(repaymentFees)}원
         </Col>
         <Col span={12} className='text-center'>
@@ -155,7 +155,7 @@ export const PCFutureFundTable = ({
         <Col span={6} className='text-center'>
           {localeString(accrualFees)}원
         </Col>
-        <Col span={6} className='text-center text-L/Medium'>
+        <Col span={6} className='text-center'>
           {localeString(repaymentFees)}원
         </Col>
         <Col span={6} className='text-center'>
