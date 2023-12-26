@@ -3,11 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type TodayFutureFundDto = {
-  futureFundPrice: number;
-  accumulatedFees: number;
-  applyPrice: number;
-  accrualFees: number;
+export type RepaymentFutureFundDto = {
   repaymentPrice: number;
   repaymentFees: number;
+  date: string;
+  userId: number;
 };

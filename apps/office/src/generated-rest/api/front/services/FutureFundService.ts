@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ApplyFutureFundDto } from '../models/ApplyFutureFundDto';
 import type { FutureFundDto } from '../models/FutureFundDto';
+import type { RepaymentFutureFundDto } from '../models/RepaymentFutureFundDto';
 import type { TodayFutureFundDto } from '../models/TodayFutureFundDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -61,6 +62,23 @@ export class FutureFundService {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/future-fund/apply',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * 미래 정산 상환
+   * @param requestBody
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static repayment(
+    requestBody: RepaymentFutureFundDto,
+  ): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/future-fund/repayment',
       body: requestBody,
       mediaType: 'application/json',
     });

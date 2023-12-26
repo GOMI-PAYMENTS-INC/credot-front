@@ -6,6 +6,7 @@ import {
   FutureFundDto,
   FutureFundService,
   PrefundService,
+  RepaymentFutureFundDto,
   UpdatePrefundDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
@@ -26,17 +27,33 @@ export const useFutureFundList = ({
   });
 };
 
-export const useUpdatePrefundStatus = () => {
+export const useFutureFundApply = () => {
   return useMutation(
     (requestBody: ApplyFutureFundDto) => FutureFundService.apply(requestBody),
     {
       onSuccess: (res) => {
-        toast.success('미래 정산이 등록되었습니다.');
+        toast.success('미래 정산이 신청되었습니다.');
         return res;
       },
       onError: (error: ApiError) => {
         console.error(JSON.stringify(error));
-        toast.error('미래 정산이 등록이 실패했어요!');
+        toast.error('미래 정산이 신청이 실패했어요!');
+      },
+    },
+  );
+};
+
+export const useFutureFundRepayment = () => {
+  return useMutation(
+    (requestBody: RepaymentFutureFundDto) => FutureFundService.repayment(requestBody),
+    {
+      onSuccess: (res) => {
+        toast.success('미래 정산 상환이 처리되었습니다.');
+        return res;
+      },
+      onError: (error: ApiError) => {
+        console.error(JSON.stringify(error));
+        toast.error('미래 정산 상환이 실패했어요!');
       },
     },
   );

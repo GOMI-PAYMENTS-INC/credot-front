@@ -2,12 +2,10 @@ import dayjs from 'dayjs';
 import { useRecoilState } from 'recoil';
 
 import { Default } from '@/common/layouts';
-import { PrefundStatusEnum } from '@/generated-rest/api/front';
 import { FutureFundFilterAtom } from '@/v2/future-fund/atom';
 import { DataTable } from '@/v2/future-fund/components/DataTable';
 import { Filter } from '@/v2/future-fund/components/Filter';
 import { Header } from '@/v2/future-fund/components/header';
-import { UserInfoSection } from '@/v2/future-fund/components/UserInfoSection';
 import { useFutureFundList } from '@/v2/future-fund/hooks/future-fund.hook';
 
 export const FutureFundList = () => {
@@ -26,7 +24,6 @@ export const FutureFundList = () => {
         onRefetch={refetch}
       />
       <Filter dataFilterCriteriaLabel={'데이터 생성일'} />
-      <UserInfoSection />
       <DataTable />
     </Default>
   );

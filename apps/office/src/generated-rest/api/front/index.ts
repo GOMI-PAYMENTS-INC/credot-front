@@ -14,6 +14,7 @@ export type { FutureFundDto } from './models/FutureFundDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PrefundDto } from './models/PrefundDto';
 export { PrefundStatusEnum } from './models/PrefundStatusEnum';
+export type { RepaymentFutureFundDto } from './models/RepaymentFutureFundDto';
 export type { RequestTokenDto } from './models/RequestTokenDto';
 export type { SummaryPrefundDto } from './models/SummaryPrefundDto';
 export type { TodayFutureFundDto } from './models/TodayFutureFundDto';
