@@ -121,7 +121,7 @@ export class PrefundService {
    * @returns SearchDetailItemDto2
    * @throws ApiError
    */
-  public static searchDetails1(
+  public static searchDetailsV2(
     startAt: string,
     endAt: string,
   ): CancelablePromise<Array<SearchDetailItemDto2>> {

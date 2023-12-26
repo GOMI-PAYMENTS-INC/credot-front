@@ -18,7 +18,14 @@ export const PCHome = () => {
       <div className='w-full'>
         <ContentLayout>
           <div className='h-[330px] pt-[63px]'>
-            <Header icon={<HomeFilled className='text-white' />} title={'Home'} />
+            <Header
+              icon={
+                <div className='h-[30px] w-[30px] rounded-[50%] bg-[#FFD873] text-center leading-[30px]'>
+                  <HomeFilled className='text-white' />
+                </div>
+              }
+              title={<span className='text-white'>Home</span>}
+            />
             <div className='mt-[30px]'>
               <PrefundView />
             </div>
