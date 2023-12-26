@@ -1,5 +1,9 @@
-import { PrefundSummary, PrefundTable, PrefundView } from '@/v3/pages/home/components';
-import { MFutureFundTable } from '@/v3/pages/home/components/MFutureFundTable';
+import {
+  FutureFundTable,
+  PrefundSummary,
+  PrefundTable,
+  PrefundView,
+} from '@/v3/pages/home/components';
 
 export const MHome = () => {
   return (
@@ -22,7 +26,7 @@ export const MHome = () => {
           오늘 미래정산 현황
         </div>
         <div className='my-[28px] w-full px-[20px] pl-[20px]'>
-          <MFutureFundTable />
+          <FutureFundTable />
         </div>
       </div>
     </>

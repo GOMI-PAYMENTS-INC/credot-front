@@ -2,6 +2,9 @@ import { Col, Row } from 'antd';
 import { isMobile } from 'react-device-detect';
 
 import { abstract, equal } from '@/v3/pages/home/assets';
+import { useTodayFutureFundHook } from '@/v3/pages/home/hooks/future-fund.hook';
+import { useTodayPrefundHook } from '@/v3/pages/home/hooks/prefund.hook';
+import { localeString, number } from '@/v3/util';
 
 export const PrefundSummaryItem = ({ name, price }: { name: string; price: number }) => {
   return (
@@ -23,13 +26,16 @@ export const PrefundSummaryItem = ({ name, price }: { name: string; price: numbe
           isMobile ? 'text-S/Regular' : 'text-M/Medium'
         } text-right text-grey-800`}
       >
-        {price}원
+        {localeString(price)}원
       </Col>
     </Row>
   );
 };
 
 export const PrefundSummary = () => {
+  const { data: prefund } = useTodayPrefundHook();
+  const { data: futureFund } = useTodayFutureFundHook();
+
   return (
     <>
       <Row
@@ -49,12 +55,18 @@ export const PrefundSummary = () => {
             isMobile ? 'text-S/Bold' : 'text-L/Bold'
           } text-right text-grey-800`}
         >
-          50,000,000원
+          {localeString(number(prefund?.preSalesPrice))}원
         </Col>
       </Row>
-      <PrefundSummaryItem name='카드사 수수료' price={0} />
-      <PrefundSummaryItem name='선정산 수수료' price={0} />
-      <PrefundSummaryItem name='과정산 수수료' price={0} />
+      <PrefundSummaryItem
+        name='카드사 수수료'
+        price={number(prefund?.preCardCommission)}
+      />
+      <PrefundSummaryItem
+        name='선정산 수수료'
+        price={number(prefund?.serviceCommission)}
+      />
+      <PrefundSummaryItem name='과정산 금액' price={number(prefund?.setoff)} />
       <Row className='border-y border-grey-200 bg-grey-100 px-[20px] py-[20px]'>
         <Col
           span={12}
@@ -73,11 +85,17 @@ export const PrefundSummary = () => {
             isMobile ? 'text-S/Regular' : 'text-M/Medium'
           } text-right text-grey-800`}
         >
-          45,000,000원
+          {localeString(number(prefund?.prefund))}원
         </Col>
       </Row>
-      <PrefundSummaryItem name='미래 정산금 상환' price={0} />
-      <PrefundSummaryItem name='미래 정산 수수료' price={0} />
+      <PrefundSummaryItem
+        name='미래 정산금 상환'
+        price={number(futureFund?.repaymentPrice)}
+      />
+      <PrefundSummaryItem
+        name='미래 정산 수수료'
+        price={number(futureFund?.repaymentFees)}
+      />
       <Row
         className={`${
           isMobile ? '' : 'rounded-br-[8px] rounded-bl-[8px]'
@@ -87,7 +105,12 @@ export const PrefundSummary = () => {
           입금 예정액
         </Col>
         <Col span={17} className='text-right text-2XL/Bold text-white'>
-          50,000,000원
+          {localeString(
+            number(prefund?.prefund) +
+              number(futureFund?.repaymentPrice) +
+              number(futureFund?.repaymentFees),
+          )}
+          원
         </Col>
       </Row>
     </>
