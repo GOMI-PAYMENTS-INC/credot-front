@@ -18,16 +18,16 @@ export const FutureFundTable = () => {
         </Col>
       </Row>
       <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
-        <Col span={6} className='text-center text-grey-800'>
+        <Col span={6} className='text-center'>
           50,000,000원
         </Col>
-        <Col span={6} className='text-center text-grey-800'>
+        <Col span={6} className='text-center text-L/Medium'>
           5,000,000원
         </Col>
-        <Col span={6} className='text-center text-L/Medium'>
+        <Col span={6} className='text-center'>
           -4,000,000원
         </Col>
-        <Col span={6} className='text-center text-purple-600'>
+        <Col span={6} className='text-center'>
           46,000,000원
         </Col>
       </Row>
@@ -46,16 +46,16 @@ export const FutureFundTable = () => {
         </Col>
       </Row>
       <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
-        <Col span={6} className='text-center text-grey-800'>
+        <Col span={6} className='text-center'>
           150,000원
         </Col>
-        <Col span={6} className='text-center text-grey-800'>
+        <Col span={6} className='text-center'>
           50,000원
         </Col>
         <Col span={6} className='text-center text-L/Medium'>
           200,000원
         </Col>
-        <Col span={6} className='text-center text-purple-600'>
+        <Col span={6} className='text-center'>
           0원
         </Col>
       </Row>
