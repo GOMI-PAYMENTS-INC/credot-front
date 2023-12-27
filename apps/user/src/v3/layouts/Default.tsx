@@ -12,7 +12,7 @@ const { Sider, Content } = Layout;
 
 export const Default = ({ children }: IDefaultProps) => {
   return (
-    <Layout className={`h-full bg-transparent ${isMobile ? '!flex-col' : ''}`}>
+    <Layout className={`min-h-screen bg-transparent ${isMobile ? '!flex-col' : ''}`}>
       <Sider
         className={`!bg-transparent ${isMobile ? '!w-full !max-w-full !flex-none' : ''}`}
       >
