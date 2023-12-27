@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { PrefundDto } from '../models/PrefundDto';
+import type { SummaryPrefundDto } from '../models/SummaryPrefundDto';
 import type { UpdatePrefundDto } from '../models/UpdatePrefundDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -32,6 +33,27 @@ export class PrefundService {
         status: status,
         startAt: startAt,
         endAt: endAt,
+        userId: userId,
+      },
+    });
+  }
+
+  /**
+   * 출금 준비 > 선정산 요약 정보
+   * @param date
+   * @param userId
+   * @returns SummaryPrefundDto
+   * @throws ApiError
+   */
+  public static summary(
+    date: string,
+    userId: number,
+  ): CancelablePromise<SummaryPrefundDto> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/prefund/summary',
+      query: {
+        date: date,
         userId: userId,
       },
     });

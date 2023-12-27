@@ -2,6 +2,7 @@ import { ComponentType } from 'react';
 
 import { SignIn } from '@/auth';
 import { PATH } from '@/common/constants';
+import { FutureFundList } from '@/v2/future-fund';
 import { Home } from '@/v2/home';
 import { MemberApplyList, MemberList, MemberRegister, MemberUpdate } from '@/v2/member';
 import { TransactionDone, WithdrawalDone, WithdrawalReady } from '@/v2/prefund/';
@@ -17,6 +18,12 @@ export interface IRoute {
 }
 
 export const routeList: IRoute[] = [
+  {
+    isPrivate: true,
+    description: '',
+    path: PATH.FUTURE_FUND_LIST,
+    component: FutureFundList,
+  },
   {
     isPrivate: true,
     description: '',

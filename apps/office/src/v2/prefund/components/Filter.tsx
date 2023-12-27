@@ -9,8 +9,10 @@ export type TermType = 'today' | 'yesterday' | 'recent-7-days' | null;
 
 export const Filter = ({
   dataFilterCriteriaLabel,
+  dateRangeOn = true,
 }: {
   dataFilterCriteriaLabel: string;
+  dateRangeOn?: boolean;
 }) => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
   const { data: users } = useUserListHook(null);
@@ -63,27 +65,31 @@ export const Filter = ({
           >
             오늘
           </Button>
-          <Button
-            className='mr-[14px]'
-            type={filter.term === 'yesterday' ? 'primary' : 'default'}
-            onClick={() => handleChangeTerm('yesterday')}
-          >
-            어제
-          </Button>
-          <Button
-            type={filter.term === 'recent-7-days' ? 'primary' : 'default'}
-            className='mr-[14px]'
-            onClick={() => handleChangeTerm('recent-7-days')}
-          >
-            최근 7일
-          </Button>
-          <DatePicker.RangePicker
-            value={filter.termRange}
-            placeholder={['시작일', '종료일']}
-            onChange={(dates) =>
-              handleChangeTermRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
-            }
-          />
+          {dateRangeOn && (
+            <>
+              <Button
+                className='mr-[14px]'
+                type={filter.term === 'yesterday' ? 'primary' : 'default'}
+                onClick={() => handleChangeTerm('yesterday')}
+              >
+                어제
+              </Button>
+              <Button
+                type={filter.term === 'recent-7-days' ? 'primary' : 'default'}
+                className='mr-[14px]'
+                onClick={() => handleChangeTerm('recent-7-days')}
+              >
+                최근 7일
+              </Button>
+              <DatePicker.RangePicker
+                value={filter.termRange}
+                placeholder={['시작일', '종료일']}
+                onChange={(dates) =>
+                  handleChangeTermRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
+                }
+              />
+            </>
+          )}
         </div>
         <div className='flex items-center'>
           <div className='mr-[11px] text-S/Regular text-grey-700'>업체명</div>

@@ -4,15 +4,20 @@
 /* eslint-disable */
 
 export type { ApplyDto } from './models/ApplyDto';
+export type { ApplyFutureFundDto } from './models/ApplyFutureFundDto';
 export { ApplyStatusEnum } from './models/ApplyStatusEnum';
 export type { CrawlingInfoDto } from './models/CrawlingInfoDto';
 export { CrawlingTypeEnum } from './models/CrawlingTypeEnum';
 export type { CreateUserDto } from './models/CreateUserDto';
 export type { FileDto } from './models/FileDto';
+export type { FutureFundDto } from './models/FutureFundDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PrefundDto } from './models/PrefundDto';
 export { PrefundStatusEnum } from './models/PrefundStatusEnum';
+export type { RepaymentFutureFundDto } from './models/RepaymentFutureFundDto';
 export type { RequestTokenDto } from './models/RequestTokenDto';
+export type { SummaryPrefundDto } from './models/SummaryPrefundDto';
+export type { TodayFutureFundDto } from './models/TodayFutureFundDto';
 export type { TokenDto } from './models/TokenDto';
 export type { UpdateApplyDto } from './models/UpdateApplyDto';
 export type { UpdatePrefundDto } from './models/UpdatePrefundDto';
@@ -24,6 +29,7 @@ export { UserTypeEnum } from './models/UserTypeEnum';
 export { ApplyService } from './services/ApplyService';
 export { AuthService } from './services/AuthService';
 export { DefaultService } from './services/DefaultService';
+export { FutureFundService } from './services/FutureFundService';
 export { GoogleService } from './services/GoogleService';
 export { PrefundService } from './services/PrefundService';
 export { UploadService } from './services/UploadService';

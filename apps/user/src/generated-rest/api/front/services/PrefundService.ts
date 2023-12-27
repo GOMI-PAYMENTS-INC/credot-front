@@ -5,6 +5,7 @@
 import type { CrawlingResponseDto } from '../models/CrawlingResponseDto';
 import type { RequestCrawlingDto } from '../models/RequestCrawlingDto';
 import type { SearchDetailItemDto } from '../models/SearchDetailItemDto';
+import type { SearchDetailItemDto2 } from '../models/SearchDetailItemDto2';
 import type { SearchPrefundDto } from '../models/SearchPrefundDto';
 import type { TodayPreFundDto } from '../models/TodayPreFundDto';
 import type { TodayPreFundSummaryDto } from '../models/TodayPreFundSummaryDto';
@@ -106,6 +107,27 @@ export class PrefundService {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/prefund/search/details',
+      query: {
+        startAt: startAt,
+        endAt: endAt,
+      },
+    });
+  }
+
+  /**
+   * 선정산금 기간 상세
+   * @param startAt
+   * @param endAt
+   * @returns SearchDetailItemDto2
+   * @throws ApiError
+   */
+  public static searchDetailsV2(
+    startAt: string,
+    endAt: string,
+  ): CancelablePromise<Array<SearchDetailItemDto2>> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/v2/prefund/search/details',
       query: {
         startAt: startAt,
         endAt: endAt,

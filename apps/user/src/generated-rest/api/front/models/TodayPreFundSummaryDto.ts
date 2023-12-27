@@ -9,4 +9,5 @@ export type TodayPreFundSummaryDto = {
   preCardCommission: number;
   serviceCommission: number;
   setoff: number;
+  prefundAvgDate: number;
 };

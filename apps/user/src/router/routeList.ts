@@ -5,6 +5,7 @@ import { PATH } from '@/common/constants';
 import Apply from '@/v2/apply/Apply';
 import Breakdown from '@/v2/breakdown/Breakdown';
 import { Landing } from '@/v2/landing/Landing';
+import { routerList } from '@/v3/router/router-list';
 
 type TPathKey = keyof typeof PATH;
 
@@ -12,11 +13,12 @@ export type TPathType = (typeof PATH)[TPathKey];
 export interface IRoute {
   isPrivate: boolean;
   description: string;
-  path: TPathType;
+  path: TPathType | string;
   component: ComponentType;
 }
 
 export const routeList: IRoute[] = [
+  ...routerList,
   {
     isPrivate: false,
     description: 'Landing',
