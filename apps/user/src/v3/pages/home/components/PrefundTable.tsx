@@ -4,7 +4,16 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import { hyundaeCard } from '@/v3/pages/home/assets';
+import {
+  bcCard,
+  hanaCard,
+  hyundaeCard,
+  kbCard,
+  lotteCard,
+  nhCard,
+  samsungCard,
+  shinhanCard,
+} from '@/v3/pages/home/assets';
 import { useTodayPrefundDetailHook } from '@/v3/pages/home/hooks/prefund.hook';
 import { localeString, number } from '@/v3/util';
 
@@ -15,6 +24,56 @@ type PrefundCard = {
   price: number;
   status: string;
 };
+
+function cardImage(cardCompanyName: string): string {
+  const BC_CARD_ALIAS_LIST = ['비씨카드'];
+  const KB_CARD_ALIAS_LIST = ['KB국민카드', 'KB카드'];
+  const HANA_CARD_ALIAS_LIST = ['하나구외환', '하나카드'];
+  const HYUNDAE_CARD_ALIAS_LIST = ['현대카드'];
+  const SHINHAN_CARD_ALIAS_LIST = ['신한카드'];
+  const SAMSUNG_CARD_ALIAS_LIST = ['삼성카드'];
+  const NH_CARD_ALIAS_LIST = ['NH카드', '농협NH카드'];
+  const LOTTE_CARD_ALIAS_LIST = ['롯데카드'];
+  const HDO_CARD_ALIAS_LIST = ['디지털상품권(HDO)'];
+
+  if (BC_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return bcCard;
+  }
+
+  if (KB_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return kbCard;
+  }
+
+  if (HANA_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return hanaCard;
+  }
+
+  if (SHINHAN_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return shinhanCard;
+  }
+
+  if (HYUNDAE_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return hyundaeCard;
+  }
+
+  if (SAMSUNG_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return samsungCard;
+  }
+
+  if (NH_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return nhCard;
+  }
+
+  if (LOTTE_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return lotteCard;
+  }
+
+  if (HDO_CARD_ALIAS_LIST.includes(cardCompanyName)) {
+    return hyundaeCard;
+  }
+
+  return '';
+}
 
 export const FoldablePrefundCard = ({
   date,
@@ -30,7 +89,7 @@ export const FoldablePrefundCard = ({
           open ? 'rounded-tl-[8px] rounded-tr-[8px] bg-grey-200' : 'rounded-[8px]'
         } overflow-hidden transition-all delay-150 duration-300`}
       >
-        <Col span={10}>
+        <Col span={10} className='self-center'>
           <img src={hyundaeCard} alt='현대카드' className='mx-auto' />
         </Col>
         <Col span={10} className='text-center text-M/Medium'>
@@ -72,56 +131,6 @@ export const FoldablePrefundCard = ({
   );
 };
 
-function cardImage(cardCompanyName: string): string {
-  const BC_CARD_ALIAS_LIST = ['비씨카드'];
-  const KB_CARD_ALIAS_LIST = ['KB국민카드', 'KB카드'];
-  const HANA_CARD_ALIAS_LIST = ['하나구외환', '하나카드'];
-  const HYUNDAE_CARD_ALIAS_LIST = ['현대카드'];
-  const SHINHAN_CARD_ALIAS_LIST = ['신한카드'];
-  const SAMSUNG_CARD_ALIAS_LIST = ['삼성카드'];
-  const NH_CARD_ALIAS_LIST = ['NH카드', '농협NH카드'];
-  const LOTTE_CARD_ALIAS_LIST = ['롯데카드'];
-  const HDO_CARD_ALIAS_LIST = ['디지털상품권(HDO)'];
-
-  if (BC_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (KB_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (HANA_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (SHINHAN_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (HYUNDAE_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (SAMSUNG_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (NH_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (LOTTE_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  if (HDO_CARD_ALIAS_LIST.includes(cardCompanyName)) {
-    return hyundaeCard;
-  }
-
-  return '';
-}
-
 export const PrefundCard = ({
   cardCompanyName,
   date,
@@ -131,7 +140,7 @@ export const PrefundCard = ({
 }: PrefundCard) => {
   return (
     <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
-      <Col span={6}>
+      <Col span={6} className='self-center'>
         <img src={cardImage(cardCompanyName)} alt='현대카드' className='mx-auto' />
       </Col>
       <Col span={4} className='text-center text-grey-800'>
