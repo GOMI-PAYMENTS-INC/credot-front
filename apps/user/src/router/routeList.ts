@@ -5,6 +5,7 @@ import { PATH } from '@/common/constants';
 import Apply from '@/v2/apply/Apply';
 import Breakdown from '@/v2/breakdown/Breakdown';
 import { Landing } from '@/v2/landing/Landing';
+import { Home } from '@/v3/pages';
 import { routerList } from '@/v3/router/router-list';
 
 type TPathKey = keyof typeof PATH;
@@ -65,6 +66,6 @@ export const routeList: IRoute[] = [
     isPrivate: true,
     description: 'Breakdown',
     path: PATH.BREAKDOWN,
-    component: Breakdown,
+    component: Home,
   },
 ];

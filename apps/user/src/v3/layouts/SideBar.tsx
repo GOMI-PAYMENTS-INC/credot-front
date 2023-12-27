@@ -50,7 +50,7 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('홈', '/home', <HomeOutlined />),
+  getItem('홈', '/breakdown', <HomeOutlined />),
   { type: 'divider' },
   getItem('서비스 이용내역', '/history', <HistoryOutlined />),
 ];
