@@ -5,5 +5,5 @@ interface IContentLayoutProps {
 }
 
 export const ContentLayout = ({ children }: IContentLayoutProps) => {
-  return <div className='ml-[249px] w-[1079px]'>{children}</div>;
+  return <div className='mx-auto w-[1079px] px-[20px]'>{children}</div>;
 };

@@ -11,7 +11,7 @@ export const MHome = () => {
       <div className='bg-purple-600'>
         <PrefundView />
       </div>
-      <div className='mt-[50px] w-full'>
+      <div className='mt-[50px] h-full w-full'>
         <div className='pl-[20px] text-L/Bold text-grey-800'>오늘 선정산 현황</div>
         <div className='mt-[14px] w-full'>
           <PrefundSummary />
@@ -25,7 +25,7 @@ export const MHome = () => {
         <div className='mt-[52px] pl-[20px] text-L/Bold text-grey-800 '>
           오늘 미래정산 현황
         </div>
-        <div className='my-[28px] w-full px-[20px] pl-[20px]'>
+        <div className='my-[28px] w-full px-[20px]'>
           <FutureFundTable />
         </div>
       </div>

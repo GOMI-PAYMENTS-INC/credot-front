@@ -101,6 +101,7 @@ export const SideBar = () => {
   const navigation = useNavigate();
   const handleClick: MenuProps['onClick'] = (e) => {
     navigation(e.key);
+    setCollapsed(false);
   };
 
   return (

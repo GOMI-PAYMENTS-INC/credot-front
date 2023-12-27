@@ -16,7 +16,8 @@ html,
 body,
 #root,
 main {
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   /* min-width: 1000px; */
 }
 input::-webkit-outer-spin-button,

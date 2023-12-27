@@ -8,7 +8,7 @@ import { localeString, number } from '@/v3/util';
 
 export const PrefundSummaryItem = ({ name, price }: { name: string; price: number }) => {
   return (
-    <Row className='bg-white px-[20px] py-[16px]'>
+    <Row className='border-r border-l border-[#F5F5F5] bg-white px-[20px] py-[16px]'>
       <Col
         span={14}
         className={`${
@@ -41,7 +41,7 @@ export const PrefundSummary = () => {
       <Row
         className={`${
           isMobile ? '' : 'rounded-tr-[8px] rounded-tl-[8px]'
-        } mt-[43px]  bg-grey-200 py-[16px] px-[20px]`}
+        } mt-[43px]  border-r border-l border-t border-[#F5F5F5]  bg-grey-200 py-[16px] px-[20px]`}
       >
         <Col
           span={6}
@@ -99,7 +99,7 @@ export const PrefundSummary = () => {
       <Row
         className={`${
           isMobile ? '' : 'rounded-br-[8px] rounded-bl-[8px]'
-        } bg-[#B36DEE] py-[16px] px-[20px]`}
+        } border-r border-l border-b border-[#F5F5F5] bg-[#B36DEE] py-[16px] px-[20px]`}
       >
         <Col span={7} className='self-center text-L/Medium text-white'>
           입금 예정액

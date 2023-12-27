@@ -171,7 +171,9 @@ export const FutureFundTable = () => {
   if (futureFund?.futureFundPrice === 0) {
     return (
       <>
-        <Row className='mx-[20px]  mt-[14px] rounded-[8px] border border-grey-200 py-[16px] text-center'>
+        <Row
+          className={`mt-[14px] rounded-[8px] border border-grey-200 py-[16px] text-center`}
+        >
           <Col span={24}>미래 정산 데이터가 존재하지 않아요.</Col>
         </Row>
       </>
