@@ -1,9 +1,4 @@
-import {
-  HistoryOutlined,
-  HomeOutlined,
-  MenuFoldOutlined,
-  RightOutlined,
-} from '@ant-design/icons';
+import { HistoryOutlined, HomeOutlined, RightOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, MenuProps, Space } from 'antd';
 import { isMobile } from 'react-device-detect';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +8,7 @@ import styled from 'styled-components';
 
 import { UserAtom } from '@/atom';
 import { PATH } from '@/common/constants';
+import { useLogout } from '@/hooks/user.hook';
 import { SideBarCollapseAtom } from '@/v3/atoms';
 import { menuFoldIn, menuFoldOut } from '@/v3/layouts/assets';
 
@@ -55,12 +51,20 @@ const items: MenuProps['items'] = [
   getItem('서비스 이용내역', '/history', <HistoryOutlined />),
 ];
 
-export const MyInfo = () => {
+export const SideBar = () => {
+  const [collapsed, setCollapsed] = useRecoilState(SideBarCollapseAtom);
+  const navigation = useNavigate();
   const [userInfo] = useRecoilState(UserAtom);
+  const { logout } = useLogout();
+
+  const handleClick: MenuProps['onClick'] = (e) => {
+    navigation(e.key);
+    setCollapsed(false);
+  };
 
   const handleDropDownMenuClick: MenuProps['onClick'] = (e) => {
-    if (e.key === '3') {
-      // Logout
+    if (e.key === '1') {
+      logout();
     }
   };
 
@@ -70,39 +74,6 @@ export const MyInfo = () => {
       key: '1',
     },
   ];
-
-  return (
-    <div className='w-full border-t border-grey-300 py-[18px]'>
-      <div className='px-[16px]'>
-        <Dropdown
-          menu={{
-            items: dropDownItems,
-            onClick: handleDropDownMenuClick,
-          }}
-          trigger={['click']}
-          placement='bottomRight'
-        >
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <span className='text-S/Medium text-grey-800'>
-                <span className='mr-[12px] inline-block'>{userInfo?.me.name || '-'}</span>
-                <RightOutlined className='w-[9px] cursor-pointer' />
-              </span>
-            </Space>
-          </a>
-        </Dropdown>
-      </div>
-    </div>
-  );
-};
-
-export const SideBar = () => {
-  const [collapsed, setCollapsed] = useRecoilState(SideBarCollapseAtom);
-  const navigation = useNavigate();
-  const handleClick: MenuProps['onClick'] = (e) => {
-    navigation(e.key);
-    setCollapsed(false);
-  };
 
   return (
     <div
@@ -136,7 +107,7 @@ export const SideBar = () => {
         </Link>
       </div>
       {!isMobile && (
-        <div className={`flex h-full flex-col justify-between`}>
+        <div className={`relative flex h-full flex-col justify-between`}>
           <div className='px-[28px]'>
             <CustomMenu
               className='mt-[51px] h-auto bg-grey-50'
@@ -147,7 +118,29 @@ export const SideBar = () => {
               items={items}
             />
           </div>
-          <MyInfo />
+          <div className='fixed bottom-[30px] w-[200px] border-t border-grey-300 py-[18px]'>
+            <div className='px-[16px]'>
+              <Dropdown
+                menu={{
+                  items: dropDownItems,
+                  onClick: handleDropDownMenuClick,
+                }}
+                trigger={['click']}
+                placement='bottomRight'
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <span className='text-S/Medium text-grey-800'>
+                      <span className='mr-[12px] inline-block'>
+                        {userInfo?.me.name || '-'}
+                      </span>
+                      <RightOutlined className='w-[9px] cursor-pointer' />
+                    </span>
+                  </Space>
+                </a>
+              </Dropdown>
+            </div>
+          </div>
         </div>
       )}
       {isMobile && (
@@ -171,7 +164,9 @@ export const SideBar = () => {
               <a onClick={(e) => e.preventDefault()}>
                 <Space>
                   <span className='text-S/Medium text-[#FF334B]'>
-                    <span className='mr-[12px] inline-block'>로그아웃</span>
+                    <span className='mr-[12px] inline-block' onClick={() => logout()}>
+                      로그아웃
+                    </span>
                   </span>
                 </Space>
               </a>
