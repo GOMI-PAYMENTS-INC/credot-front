@@ -98,7 +98,7 @@ export const SideBar = () => {
           ))}
         <Link to={PATH.BREAKDOWN} className='basis-full self-center'>
           <ReactSVG
-            src='../src/v3/layouts/assets/logo.svg'
+            src='/assets/logo.svg'
             className='cursor-pointer'
             beforeInjection={(svg) => {
               svg.setAttribute('class', 'w-[107px] mx-auto');
