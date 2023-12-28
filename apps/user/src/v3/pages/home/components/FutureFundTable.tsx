@@ -265,7 +265,7 @@ export const PCFutureFundTable = ({
 
 export const FutureFundTable = () => {
   const { data: futureFund } = useTodayFutureFundHook();
-  if (!futureFund) {
+  if (!futureFund?.futureFundPrice && !futureFund?.applyPrice) {
     return (
       <>
         <Row
