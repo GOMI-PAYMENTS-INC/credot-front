@@ -41,7 +41,7 @@ export const InputIcon = ({ status, iconSize = 4, time }: TInputIcon) => {
   return (
     <Fragment>
       {time ? (
-        <span className='absolute right-4 top-3 inline-block w-1/6 text-right text-orange-500'>
+        <span className='absolute right-4 top-3 inline-block w-1/6 text-right text-purple-600'>
           {time.minutes}:{time.seconds < 10 ? `0${time.seconds}` : time.seconds}
         </span>
       ) : (

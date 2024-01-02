@@ -112,13 +112,13 @@ input[type='number'] {
     read-only/disabled:bg-grey-200
     read-only/disabled:text-grey-700
 
-    hover:border-orange-300
+    hover:border-purple-300
     hover:shadow-inputHover
 
     read-only/disabled:hover:border-grey-400
     read-only/disabled:hover/focus:shadow-none
     focus:border-[1.2px]
-    focus:border-orange-300
+    focus:border-purple-300
 
     focus:outline-none
     read-only/disabled:focus:border-grey-400;
