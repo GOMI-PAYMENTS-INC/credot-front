@@ -44,7 +44,7 @@ module.exports = {
           '@apply rounded bg-orange-500 px-2.5 py-3 text-white text-M/Bold': {},
         },
         '.button-filled-normal-xLarge-red-false-false-true': {
-          '@apply rounded bg-orange-500 px-2.5 py-4 text-white text-L/Bold': {},
+          '@apply rounded bg-purple-600 px-2.5 py-4 text-white text-L/Bold': {},
         },
         '.button-filled-disabled-xLarge-primary-false-false-true': {
           '@apply rounded bg-grey-300 py-4 text-L/Bold text-grey-500': {},
@@ -70,7 +70,7 @@ module.exports = {
             {},
         },
         '.button-outlined-normal-xLarge-primary-false-false-true': {
-          '@apply rounded bg-white py-4 border-orange-300 text-L/Bold text-orange-500 border':
+          '@apply rounded bg-white py-4 border-purple-300 text-L/Bold text-purple-600 border':
             {},
         },
         '.button-outlined-normal-medium-primary-false-false-false': {
@@ -175,7 +175,16 @@ module.exports = {
         },
 
         purple: {
-          600: '#983BE3',
+          50: '#FBF7FF',
+          100: '#FF5E8FF',
+          200: '#ECD3FF',
+          300: '#DFB6FF',
+          400: '#D094FF',
+          500: '#B657FF',
+          600: '#9811FF',
+          700: '#790DCB',
+          800: '#4B0B7C',
+          900: '#39095D',
         },
 
         red: {
