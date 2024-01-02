@@ -18,7 +18,7 @@ module.exports = {
           '@apply p-1 w-6 h-6': {},
         },
         '.textButton-primary-default-large-none': {
-          '@apply py-3 px-[14px] text-orange-500 text-M/Bold': {},
+          '@apply py-3 px-[14px] text-purple-600 text-M/Bold': {},
         },
         '.textButton-secondary-default-small-none': {
           '@apply py-2 px-1 text-grey-800 text-XS/Medium': {},
@@ -41,7 +41,7 @@ module.exports = {
           '@apply rounded bg-grey-200 px-2.5 py-4 text-grey-800 text-M/Bold': {},
         },
         '.button-filled-normal-large-primary-false-false-true': {
-          '@apply rounded bg-orange-500 px-2.5 py-3 text-white text-M/Bold': {},
+          '@apply rounded bg-purple-600 px-2.5 py-3 text-white text-M/Bold': {},
         },
         '.button-filled-normal-xLarge-red-false-false-true': {
           '@apply rounded bg-purple-600 px-2.5 py-4 text-white text-L/Bold': {},
