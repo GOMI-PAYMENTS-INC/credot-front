@@ -1,0 +1,11 @@
+.service-benefit:before {
+    border-bottom: 180px solid #4E1C77;
+    border-left: 50vw solid transparent;
+    border-right: 50vw solid transparent;
+    content: "";
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: -180px;
+    width: 100%;
+}

@@ -1,3 +1,5 @@
+import './styles/ServiceBenefit.css';
+
 import { Layout } from 'antd';
 import { ReactSVG } from 'react-svg';
 
@@ -8,6 +10,7 @@ import {
   LandingMenu,
   ServicePreview,
 } from '@/v3/pages/landing/components';
+import { ServiceBenefit } from '@/v3/pages/landing/components/ServiceBenefit';
 
 const { Header, Content, Footer } = Layout;
 
@@ -32,6 +35,7 @@ export const Landing = () => {
           <Customer />
           <CustomerType />
           <ServicePreview />
+          <ServiceBenefit />
         </Content>
       </div>
       <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
