@@ -7,6 +7,7 @@ import {
   Customer,
   CustomerType,
   Epilogue,
+  Faq,
   FutureFund,
   Intro,
   LandingMenu,
@@ -42,6 +43,7 @@ export const Landing = () => {
           <ServiceFee />
           <Epilogue />
           <FutureFund />
+          <Faq />
         </Content>
       </div>
       <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>

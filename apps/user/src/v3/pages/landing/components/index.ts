@@ -6,3 +6,4 @@ export * from './ServicePreview';
 export * from './ServiceFee';
 export * from './Epilogue';
 export * from './FutureFund';
+export * from './Faq';
