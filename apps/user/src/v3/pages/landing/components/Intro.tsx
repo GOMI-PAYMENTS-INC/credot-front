@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+
+import { PATH } from '@/common/constants';
 import {
   floatingImg1,
   floatingImg2,
@@ -8,6 +11,7 @@ import {
 } from '@/v3/pages/landing/assets';
 
 export const Intro = () => {
+  const navigation = useNavigate();
   return (
     <div className='h-[870px] w-full bg-purple-50 pt-[59px] text-center'>
       <div className='mx-auto w-[1100px]'>
@@ -32,7 +36,10 @@ export const Intro = () => {
           <span className='font-bold text-purple-600'>가장 빠른 D+1일 정산 서비스</span>
         </div>
         <div className='mt-[50px] flex justify-center'>
-          <button className='h-[48px] rounded-[8px] border-[#F5F5F5] bg-white px-[46px] text-M/Bold leading-[48px] text-grey-800 shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
+          <button
+            onClick={() => navigation(PATH.SIGN_IN)}
+            className='h-[48px] rounded-[8px] border border-[#F5F5F5] bg-white px-[46px] text-M/Bold leading-[48px] text-grey-800 shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'
+          >
             로그인
           </button>
           <div className='ml-[20px]'></div>
