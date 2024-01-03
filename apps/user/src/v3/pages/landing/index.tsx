@@ -6,6 +6,7 @@ import {
   CustomerType,
   Intro,
   LandingMenu,
+  ServicePreview,
 } from '@/v3/pages/landing/components';
 
 const { Header, Content, Footer } = Layout;
@@ -30,6 +31,7 @@ export const Landing = () => {
           <Intro />
           <Customer />
           <CustomerType />
+          <ServicePreview />
         </Content>
       </div>
       <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
