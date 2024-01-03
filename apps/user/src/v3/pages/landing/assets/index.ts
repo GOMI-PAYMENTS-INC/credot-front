@@ -1,3 +1,4 @@
+import clickIconPng from './click-icon.png';
 import customerTypeCardImage1Png from './customer-type-card-image-1.png';
 import customerTypeCardImage2Png from './customer-type-card-image-2.png';
 import gasStationIconPng from './gas-station-icon.png';
@@ -9,6 +10,7 @@ import prefundCyclePng from './prefund-cycle.png';
 import priceDropIconPng from './price-drop-icon.png';
 import restaurantIconPng from './restaurant-icon.png';
 import safetyIconPng from './safety-icon.png';
+import shakeHandIconPng from './shakehand-icon.png';
 import starIconPng from './star-icon.png';
 import timerIconPng from './timer-icon.png';
 
@@ -32,3 +34,6 @@ export const starIcon = starIconPng;
 export const timerIcon = timerIconPng;
 
 export const mobile = mobilePng;
+
+export const clickIcon = clickIconPng;
+export const shakeHandIcon = shakeHandIconPng;

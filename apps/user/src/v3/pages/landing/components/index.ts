@@ -5,3 +5,4 @@ export * from './CustomerType';
 export * from './ServicePreview';
 export * from './ServiceFee';
 export * from './Epilogue';
+export * from './FutureFund';

@@ -33,7 +33,7 @@ export const ServiceBenefit = () => {
         <div className='text-center text-3XL/Bold leading-[56px] text-white'>
           신용은 그대로! 현금 유동성만 확보하여 <br /> 안정적인 비즈니스를 만들어가세요!
         </div>
-        <div className='mt-[80px] flex gap-20'>
+        <div className='mt-[80px] flex justify-center gap-20'>
           <BenefitItem
             icon={starIcon}
             text='대출이 아니니깐, 신용도 영향 X'
