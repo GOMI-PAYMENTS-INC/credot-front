@@ -3,6 +3,7 @@ import './styles/ServiceBenefit.css';
 import { Layout } from 'antd';
 import { ReactSVG } from 'react-svg';
 
+import { logo } from '@/v3/pages/landing/assets';
 import {
   Customer,
   CustomerType,
@@ -46,7 +47,21 @@ export const Landing = () => {
           <Faq />
         </Content>
       </div>
-      <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
+      <Footer>
+        <div className='mx-auto w-[1100px] py-[56px]'>
+          <img src={logo} width={168} />
+          <div className='mt-[24px] text-L/Bold text-grey-800'>고미페이먼츠 주식회사</div>
+          <div className='mt-[24px] text-M/Regular leading-[30px] text-grey-700'>
+            대표이사 : 엄희찬 | 개인정보관리책임자 : 안형준 <br />
+            사업자등록번호 : 813-81-02548 <br />
+            주소 : 서울시 강남구 강남대로 624, ICT 타워 7층 <br />
+            메일 : kai@gomipayments.com <br />
+          </div>
+          <div className='mt-[24px] text-S/Medium text-grey-500'>
+            Copyright © 2022 Gomi payments Inc. All rights reserved
+          </div>
+        </div>
+      </Footer>
     </Layout>
   );
 };

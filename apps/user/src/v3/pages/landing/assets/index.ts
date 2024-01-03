@@ -3,6 +3,7 @@ import customerTypeCardImage1Png from './customer-type-card-image-1.png';
 import customerTypeCardImage2Png from './customer-type-card-image-2.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
+import logoPng from './logo.png';
 import mobilePng from './mobile.png';
 import monitorPng from './monitor.png';
 import prefundPng from './prefund.png';
@@ -37,3 +38,5 @@ export const mobile = mobilePng;
 
 export const clickIcon = clickIconPng;
 export const shakeHandIcon = shakeHandIconPng;
+
+export const logo = logoPng;
