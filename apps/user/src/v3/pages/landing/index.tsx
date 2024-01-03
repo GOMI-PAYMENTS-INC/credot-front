@@ -1,7 +1,12 @@
 import { Layout } from 'antd';
 import { ReactSVG } from 'react-svg';
 
-import { Customer, Intro, LandingMenu } from '@/v3/pages/landing/components';
+import {
+  Customer,
+  CustomerType,
+  Intro,
+  LandingMenu,
+} from '@/v3/pages/landing/components';
 
 const { Header, Content, Footer } = Layout;
 
@@ -24,6 +29,7 @@ export const Landing = () => {
         <Content className='h-full'>
           <Intro />
           <Customer />
+          <CustomerType />
         </Content>
       </div>
       <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>

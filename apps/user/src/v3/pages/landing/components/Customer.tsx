@@ -15,12 +15,12 @@ function CustomerItems({
         <div className='h-[90px] rounded-[50px] bg-white'>
           <img src={icon} className='mx-auto py-[19px]' width={50} />
         </div>
-        <div className='mt-[6px] font-bold text-white'>병원</div>
+        <div className='mt-[6px] text-M/Bold text-white'>병원</div>
       </div>
       <div className='mx-[50px] h-[40px] w-[1px] self-center bg-grey-400' />
       <div className='self-center'>
         {(content1.length && (
-          <div className='flex text-white'>
+          <div className='flex text-L/Medium text-white'>
             {content1.map((content, index) => (
               <div className={`mr-[25px] opacity-${100 - index * 10}`} key={content}>
                 {content}
@@ -30,7 +30,7 @@ function CustomerItems({
         )) ||
           null}
         {(content2.length && (
-          <div className='mt-[14px] flex text-white'>
+          <div className='mt-[14px] flex text-L/Medium text-white'>
             {content2.map((content, index) => (
               <div className={`mr-[25px] opacity-${100 - index * 10}`} key={content}>
                 {content}
@@ -53,7 +53,7 @@ export const Customer = () => {
           안정적인 비즈니스를 함께 만들어갑니다.
         </div>
 
-        <div className='mt-[50px] flex flex-col items-center gap-10'>
+        <div className='flex-start mx-auto mt-[50px] flex flex-col gap-10'>
           <CustomerItems
             icon={hospitalIcon}
             content1={[
@@ -100,8 +100,8 @@ export const Customer = () => {
           />
         </div>
         <div className='col mt-[40px] flex flex-col items-center gap-5'>
-          <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-60' />
           <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-40' />
+          <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-30' />
           <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-20' />
         </div>
       </div>

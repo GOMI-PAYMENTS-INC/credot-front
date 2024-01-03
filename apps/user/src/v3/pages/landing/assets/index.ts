@@ -1,3 +1,5 @@
+import customerTypeCardImage1Png from './customer-type-card-image-1.png';
+import customerTypeCardImage2Png from './customer-type-card-image-2.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
 import monitorPng from './monitor.png';
@@ -12,3 +14,7 @@ export const hospitalIcon = hospitalIconPng;
 export const gasStationIcon = gasStationIconPng;
 
 export const restaurantIcon = restaurantIconPng;
+
+export const customerTypeCardImage1 = customerTypeCardImage1Png;
+
+export const customerTypeCardImage2 = customerTypeCardImage2Png;
