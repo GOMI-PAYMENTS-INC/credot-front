@@ -38,7 +38,7 @@ function FutureFundItem({
 
 export const FutureFund = () => {
   return (
-    <div className='relative mt-[90px] inline-block w-full bg-[#621A9D] py-[86px]'>
+    <div className='relative inline-block w-full bg-[#621A9D] py-[86px]'>
       <div className='mx-auto w-[1100px]'>
         <div className='text-center text-3XL/Bold leading-[56px] text-white'>
           D+1일 정산을 넘어, <br /> 미래 매출에 대한 정산까지!
