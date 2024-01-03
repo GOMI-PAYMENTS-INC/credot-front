@@ -6,6 +6,7 @@ import { ReactSVG } from 'react-svg';
 import {
   Customer,
   CustomerType,
+  Epilogue,
   Intro,
   LandingMenu,
   ServiceFee,
@@ -38,6 +39,7 @@ export const Landing = () => {
           <ServicePreview />
           <ServiceBenefit />
           <ServiceFee />
+          <Epilogue />
         </Content>
       </div>
       <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>

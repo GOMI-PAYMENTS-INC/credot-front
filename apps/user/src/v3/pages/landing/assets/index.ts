@@ -2,6 +2,7 @@ import customerTypeCardImage1Png from './customer-type-card-image-1.png';
 import customerTypeCardImage2Png from './customer-type-card-image-2.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
+import mobilePng from './mobile.png';
 import monitorPng from './monitor.png';
 import prefundPng from './prefund.png';
 import prefundCyclePng from './prefund-cycle.png';
@@ -29,3 +30,5 @@ export const priceDropIcon = priceDropIconPng;
 export const safetyIcon = safetyIconPng;
 export const starIcon = starIconPng;
 export const timerIcon = timerIconPng;
+
+export const mobile = mobilePng;
