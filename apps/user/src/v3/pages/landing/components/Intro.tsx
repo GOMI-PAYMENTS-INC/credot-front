@@ -1,9 +1,30 @@
-import { monitor, prefund } from '@/v3/pages/landing/assets';
+import {
+  floatingImg1,
+  floatingImg2,
+  floatingImg3,
+  floatingImg4,
+  monitor,
+  prefund,
+} from '@/v3/pages/landing/assets';
 
 export const Intro = () => {
   return (
     <div className='h-[870px] w-full bg-purple-50 pt-[59px] text-center'>
       <div className='mx-auto w-[1100px]'>
+        <div className='relative'>
+          <div className='animation-ico absolute left-[-50px] top-[67px]'>
+            <img src={floatingImg1} />
+          </div>
+          <div className='animation-ico absolute left-[-140px] top-[340px]'>
+            <img src={floatingImg2} />
+          </div>
+          <div className='animation-ico absolute right-0 top-[40px]'>
+            <img src={floatingImg3} />
+          </div>
+          <div className='animation-ico absolute top-[370px] right-[-100px]'>
+            <img src={floatingImg4} />
+          </div>
+        </div>
         <div className='text-2XL/Bold text-purple-600'>어제 매출, 오늘 정산 밧는닷!</div>
         <div className='text-[70px] font-black text-purple-600'>크레닷.</div>
         <div className='mt-[20px] text-XL/Light text-grey-700'>

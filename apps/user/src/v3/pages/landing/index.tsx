@@ -22,7 +22,7 @@ const { Header, Content, Footer } = Layout;
 export const Landing = () => {
   return (
     <Layout className='h-full bg-transparent'>
-      <Header className='flex items-center border-b border-grey-300 bg-transparent'>
+      <Header className='mx-auto flex h-auto w-[1100px] items-center justify-between border-b border-grey-300 bg-transparent py-[20px]'>
         <ReactSVG
           src='/assets/logo.svg'
           className='cursor-pointer'
@@ -30,8 +30,16 @@ export const Landing = () => {
             svg.setAttribute('class', 'w-[107px] mx-auto');
           }}
         />
-        <div className='ml-[97px]'>
-          <LandingMenu />
+        <div>
+          <div className='flex justify-center'>
+            <button className='h-[44px] rounded-[8px] border border-grey-300 bg-white px-[20px] text-M/Bold leading-[44px] text-grey-800 shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
+              로그인
+            </button>
+            <div className='ml-[20px]'></div>
+            <button className='h-[44px] rounded-[8px] bg-purple-600 px-[24px] text-M/Bold leading-[44px] text-white shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
+              도입 문의하기
+            </button>
+          </div>
         </div>
       </Header>
       <div className='h-auto'>

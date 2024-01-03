@@ -1,6 +1,10 @@
 import clickIconPng from './click-icon.png';
 import customerTypeCardImage1Png from './customer-type-card-image-1.png';
 import customerTypeCardImage2Png from './customer-type-card-image-2.png';
+import floatingImg1Png from './floating-img-1.png';
+import floatingImg2Png from './floating-img-2.png';
+import floatingImg3Png from './floating-img-3.png';
+import floatingImg4Png from './floating-img-4.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
 import logoPng from './logo.png';
@@ -40,3 +44,8 @@ export const clickIcon = clickIconPng;
 export const shakeHandIcon = shakeHandIconPng;
 
 export const logo = logoPng;
+
+export const floatingImg1 = floatingImg1Png;
+export const floatingImg2 = floatingImg2Png;
+export const floatingImg3 = floatingImg3Png;
+export const floatingImg4 = floatingImg4Png;
