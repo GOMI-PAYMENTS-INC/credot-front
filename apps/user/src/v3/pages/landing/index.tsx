@@ -8,6 +8,7 @@ import {
   CustomerType,
   Intro,
   LandingMenu,
+  ServiceFee,
   ServicePreview,
 } from '@/v3/pages/landing/components';
 import { ServiceBenefit } from '@/v3/pages/landing/components/ServiceBenefit';
@@ -36,6 +37,7 @@ export const Landing = () => {
           <CustomerType />
           <ServicePreview />
           <ServiceBenefit />
+          <ServiceFee />
         </Content>
       </div>
       <Footer>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
