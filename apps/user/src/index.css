@@ -92,7 +92,7 @@ input[type='number'] {
     @apply hidden;
   }
   .checkboxCustom-label {
-    @apply inline-block bg-no-repeat bg-svg-Filled/CheckSquareUnchecked-grey-500 peer-checked:bg-svg-Filled/CheckSquare-orange-500;
+    @apply inline-block bg-no-repeat bg-svg-Filled/CheckSquareUnchecked-grey-500 peer-checked:bg-svg-Filled/CheckSquare-purple-500;
   }
 
   /*input*/
