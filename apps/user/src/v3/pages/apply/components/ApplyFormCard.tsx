@@ -105,9 +105,10 @@ export const ApplyFormCard = () => {
                       className={`inputCustom-textbox h-[44px] w-full !bg-white placeholder:text-S/Regular ${
                         errors?.companyType ? 'error' : ''
                       }`}
+                      placeholder='사업자구분을 선택해주세요.'
                       {...register('companyType', {
-                        value: '',
-                        required: '상호명을 입력해주세요.',
+                        value: '신규사업자',
+                        required: '사업자구분을 선택해주세요.',
                       })}
                     >
                       <option value='신규사업자'>신규사업자</option>
@@ -131,7 +132,7 @@ export const ApplyFormCard = () => {
                         errors?.companyName ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='사업자등록증상의 상호명을 입력해주세요.'
                       {...register('companyName', {
                         required: '상호명을 입력해주세요.',
                       })}
@@ -141,6 +142,13 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div
+                  className={`${errors?.companyName ? 'visible' : 'invisible'} h-[20px]`}
+                >
+                  <p className='inputCustom-helptext'>
+                    {errors?.companyName?.message || ''}
+                  </p>
                 </div>
               </Col>
               <Col span={8}>
@@ -158,7 +166,7 @@ export const ApplyFormCard = () => {
                         errors?.industryType ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='업종을 입력해주세요.'
                       {...register('industryType', {
                         required: '업종을 입력해주세요.',
                       })}
@@ -168,6 +176,13 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div
+                  className={`${errors?.industryType ? 'visible' : 'invisible'} h-[20px]`}
+                >
+                  <p className='inputCustom-helptext'>
+                    {errors?.industryType?.message || ''}
+                  </p>
                 </div>
               </Col>
             </Row>
@@ -188,7 +203,7 @@ export const ApplyFormCard = () => {
                         errors?.address ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='주소를 입력해주세요.'
                       {...register('address', {
                         required: '주소를 입력해주세요.',
                       })}
@@ -198,6 +213,9 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div className={`${errors?.address ? 'visible' : 'invisible'} h-[20px]`}>
+                  <p className='inputCustom-helptext'>{errors?.address?.message || ''}</p>
                 </div>
               </Col>
               <Col span={8}>
@@ -214,7 +232,7 @@ export const ApplyFormCard = () => {
                         errors?.monthlySales ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='월 평균 매출을 입력해주세요.'
                       {...register('monthlySales', {
                         onChange: (event) => {
                           event.target.value = Number(
@@ -248,7 +266,7 @@ export const ApplyFormCard = () => {
                         errors?.jobTitle ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='직함을 입력해주세요.'
                       {...register('jobTitle', {
                         required: '직함을 입력해주세요.',
                       })}
@@ -258,6 +276,11 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div className={`${errors?.jobTitle ? 'visible' : 'invisible'} h-[20px]`}>
+                  <p className='inputCustom-helptext'>
+                    {errors?.jobTitle?.message || ''}
+                  </p>
                 </div>
               </Col>
               <Col span={8}>
@@ -275,7 +298,7 @@ export const ApplyFormCard = () => {
                         errors?.name ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='담당자분의 성함을 입력해주세요.'
                       {...register('name', {
                         required: '성함을 입력해주세요.',
                       })}
@@ -285,6 +308,9 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div className={`${errors?.name ? 'visible' : 'invisible'} h-[20px]`}>
+                  <p className='inputCustom-helptext'>{errors?.name?.message || ''}</p>
                 </div>
               </Col>
               <Col span={8}>
@@ -302,7 +328,7 @@ export const ApplyFormCard = () => {
                         errors?.phoneNumber ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='담당자분의 연락처를 입력해주세요.'
                       {...register('phoneNumber', {
                         required: '연락처를 입력해주세요.',
                         pattern: {
@@ -319,6 +345,13 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div
+                  className={`${errors?.phoneNumber ? 'visible' : 'invisible'} h-[20px]`}
+                >
+                  <p className='inputCustom-helptext'>
+                    {errors?.phoneNumber?.message || ''}
+                  </p>
                 </div>
               </Col>
             </Row>
@@ -338,7 +371,7 @@ export const ApplyFormCard = () => {
                         errors?.email ? 'error' : ''
                       }`}
                       type='text'
-                      placeholder=''
+                      placeholder='담당자분의 이메일을 입력해주세요.'
                       {...register('email', {
                         required: '이메일을 입력해주세요.',
                       })}
@@ -348,6 +381,9 @@ export const ApplyFormCard = () => {
                       iconSize={5}
                     />
                   </div>
+                </div>
+                <div className={`${errors?.email ? 'visible' : 'invisible'} h-[20px]`}>
+                  <p className='inputCustom-helptext'>{errors?.email?.message || ''}</p>
                 </div>
               </Col>
               <Col span={8}>
@@ -364,7 +400,7 @@ export const ApplyFormCard = () => {
                         errors?.interestedService ? 'error' : ''
                       }`}
                       {...register('interestedService', {
-                        value: '',
+                        value: '선정산/미래정산 서비스',
                       })}
                     >
                       <option value='선정산/미래정산 서비스'>
