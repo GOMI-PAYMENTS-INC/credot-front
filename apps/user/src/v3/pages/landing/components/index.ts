@@ -13,3 +13,4 @@ export * from './MCustomerType';
 export * from './MServicePreview';
 export * from './MServiceBenefit';
 export * from './MServiceFee';
+export * from './MEpilogue';
