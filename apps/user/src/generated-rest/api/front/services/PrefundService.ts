@@ -94,7 +94,7 @@ export class PrefundService {
   }
 
   /**
-   * 선정산금 기간 상세
+   * 선정산금 기간 상세 LEGACY
    * @param startAt
    * @param endAt
    * @returns SearchDetailItemDto

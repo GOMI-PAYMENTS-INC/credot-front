@@ -6,8 +6,13 @@
 export type CreateApplyDto = {
   phoneNumber: string;
   email: string;
-  prefund: number;
   companyName: string;
   name: string;
-  requestId?: number;
+  companyType: string;
+  industryType: string;
+  address: string;
+  monthlySales: string;
+  jobTitle: string;
+  interestedService: string;
+  marketingAgree: boolean;
 };

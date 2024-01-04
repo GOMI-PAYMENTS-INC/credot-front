@@ -1,10 +1,11 @@
 import { IRoute } from '@/router/routeList';
-import { History, Home, Landing } from '@/v3/pages';
+import { Apply, History, Home, Landing } from '@/v3/pages';
 
 export const NEW_PATH = {
   HOME: '/home',
   HISTORY: '/history',
   LANDING: '/v2',
+  APPLY: '/v2/apply',
 };
 
 export const routerList: IRoute[] = [
@@ -25,5 +26,11 @@ export const routerList: IRoute[] = [
     description: '랜딩페이지',
     path: NEW_PATH.LANDING,
     component: Landing,
+  },
+  {
+    isPrivate: false,
+    description: '신청페이지',
+    path: NEW_PATH.APPLY,
+    component: Apply,
   },
 ];
