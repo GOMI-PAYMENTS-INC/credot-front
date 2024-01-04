@@ -10,3 +10,4 @@ export * from './Faq';
 export * from './MIntro';
 export * from './MCustomer';
 export * from './MCustomerType';
+export * from './MServicePreview';

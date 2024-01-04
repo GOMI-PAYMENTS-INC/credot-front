@@ -18,6 +18,7 @@ import {
   MCustomer,
   MCustomerType,
   MIntro,
+  MServicePreview,
   ServiceFee,
   ServicePreview,
 } from '@/v3/pages/landing/components';
@@ -95,6 +96,7 @@ export const MobileHome = () => {
         <MIntro />
         <MCustomer />
         <MCustomerType />
+        <MServicePreview />
       </div>
     </Default>
   );

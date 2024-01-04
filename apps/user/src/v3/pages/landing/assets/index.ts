@@ -8,6 +8,7 @@ import floatingImg4Png from './floating-img-4.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
 import logoPng from './logo.png';
+import mServicePreviewPng from './m-service-preview.png';
 import mobilePng from './mobile.png';
 import monitorPng from './monitor.png';
 import prefundPng from './prefund.png';
@@ -49,3 +50,5 @@ export const floatingImg1 = floatingImg1Png;
 export const floatingImg2 = floatingImg2Png;
 export const floatingImg3 = floatingImg3Png;
 export const floatingImg4 = floatingImg4Png;
+
+export const mServicePreview = mServicePreviewPng;
