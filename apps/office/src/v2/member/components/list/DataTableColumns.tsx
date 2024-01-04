@@ -38,7 +38,7 @@ export const getDataTableColumns = (): ColumnsType<MemberRecord> => {
         <Button
           size='small'
           type='text'
-          className='text-orange-500'
+          className='text-purple-500'
           onClick={() => navigation(`/member/update/${record.id}`)}
         >
           수정

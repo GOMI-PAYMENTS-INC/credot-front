@@ -25,7 +25,7 @@ export const SummaryPreFundCard = () => {
         <div className='mt-[14px] flex'>
           <div className='mr-[28px] w-full max-w-[232px] border border-grey-300 bg-grey-50 px-[24px] py-[28px]'>
             <div className='text-M/Bold'>선정산 금액</div>
-            <div className='mt-[10px] text-XL/Bold text-orange-400'>
+            <div className='mt-[10px] text-XL/Bold text-purple-400'>
               {(summaryData?.prefundPrice || 0).toLocaleString()}원
             </div>
           </div>
@@ -62,7 +62,7 @@ export const SummaryPreFundCard = () => {
         <div className='mt-[14px] flex'>
           <div className='mr-[28px] w-full max-w-[232px] border border-grey-300 bg-grey-50 px-[24px] py-[28px]'>
             <div className='text-M/Bold'>실제 입금액</div>
-            <div className='mt-[10px] text-XL/Bold text-orange-400'>
+            <div className='mt-[10px] text-XL/Bold text-purple-400'>
               {(summaryData?.depositPrice || 0).toLocaleString()}원
             </div>
           </div>

@@ -14,7 +14,7 @@ export const Common1Section = ({ children }: ICommon1SectionProps) => (
         <div className='xs:hidden'>
           <Link to={PATH.HOME}>
             <ReactSVG
-              src='/assets/icons/Logo.svg'
+              src='/assets/logo.svg'
               className='w-30 h-8 cursor-pointer'
               beforeInjection={(svg) => {
                 svg.setAttribute('style', 'width: 166px');

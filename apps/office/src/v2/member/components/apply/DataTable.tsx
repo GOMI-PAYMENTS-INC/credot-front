@@ -32,8 +32,13 @@ export type ApplyRecord = {
   phoneNumber: string;
   email: string;
   status: string;
-  isPrefund: boolean;
-  prefund: number;
+  companyType: string;
+  industryType: string;
+  address: string;
+  monthlySales: string;
+  jobTitle: string;
+  interestedService: string;
+  marketingAgree: boolean;
 };
 
 export const DataTable = () => {

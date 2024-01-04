@@ -10,7 +10,7 @@ import { useFutureFundList } from '@/v2/future-fund/hooks/future-fund.hook';
 
 export const FutureFundList = () => {
   const [filter] = useRecoilState(FutureFundFilterAtom);
-  const { dataUpdatedAt, refetch } = useFutureFundList({
+  const { dataUpdatedAt } = useFutureFundList({
     startAt: filter.termRange[0].format('YYYY-MM-DD'),
     endAt: filter.termRange[1].format('YYYY-MM-DD'),
     userId: filter.userId,
@@ -21,7 +21,6 @@ export const FutureFundList = () => {
       <Header
         title='미래 정산 내역'
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
-        onRefetch={refetch}
       />
       <Filter dataFilterCriteriaLabel={'데이터 생성일'} />
       <DataTable />

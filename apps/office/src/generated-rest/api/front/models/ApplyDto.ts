@@ -6,11 +6,16 @@
 export type ApplyDto = {
   createdAt: string;
   status: string;
-  prefund: number;
-  isPrefund: boolean;
   companyName: string;
   name: string;
   phoneNumber: string;
   email: string;
   id: number;
+  companyType: string;
+  industryType: string;
+  address: string;
+  monthlySales: string;
+  jobTitle: string;
+  interestedService: string;
+  marketingAgree: boolean;
 };

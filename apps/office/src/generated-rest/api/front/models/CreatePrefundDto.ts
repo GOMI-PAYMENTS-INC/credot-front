@@ -3,11 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ApplyFutureFundDto = {
+export type CreatePrefundDto = {
   /**
-   * 미래 정산 신청 날짜
+   * 선정산 날짜
    */
-  date: string;
-  price: number;
+  targetDate: string;
   userId: number;
 };

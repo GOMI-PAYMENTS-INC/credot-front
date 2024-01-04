@@ -519,7 +519,3 @@ input[type='number'] {
     transform: rotate(360deg);
   }
 }
-
-.ant-btn-primary {
-  background-color: #ff6c28 !important;
-}

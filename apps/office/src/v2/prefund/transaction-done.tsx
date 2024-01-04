@@ -23,7 +23,6 @@ export const TransactionDone = () => {
       <Header
         title='거래 완료'
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
-        onRefetch={refetch}
       />
       <Filter dataFilterCriteriaLabel={'카드사 정산일'} />
       <DataTable status={PrefundStatusEnum.DONE} />

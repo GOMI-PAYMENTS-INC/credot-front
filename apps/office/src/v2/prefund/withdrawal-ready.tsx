@@ -14,7 +14,7 @@ import { UserInfoSection } from '@/v2/prefund/components/UserInfoSection';
 
 export const WithdrawalReady = () => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
-  const { dataUpdatedAt, refetch } = usePrefundList({
+  const { dataUpdatedAt } = usePrefundList({
     status: PrefundStatusEnum.READY,
     startAt: filter.termRange[0].format('YYYY-MM-DD'),
     endAt: filter.termRange[1].format('YYYY-MM-DD'),
@@ -34,7 +34,6 @@ export const WithdrawalReady = () => {
       <Header
         title='출금 준비'
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
-        onRefetch={refetch}
       />
       <Filter dateRangeOn={false} dataFilterCriteriaLabel={'데이터 생성일'} />
       <UserInfoSection />

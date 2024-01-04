@@ -106,7 +106,7 @@ export const DataTable = () => {
         <div className='mx-auto mt-[83px] flex w-[1280px] flex-col'>
           <div className='mb-[25px] flex'>
             <div className='text-[14px] text-grey-700'>데이터 수동 입력</div>
-            <div className='ml-[27px] text-S/Medium text-orange-500'>
+            <div className='ml-[27px] text-S/Medium text-purple-500'>
               금일 발생한 입출금건에 대해서만 입력 가능합니다.
             </div>
           </div>

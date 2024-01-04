@@ -33,7 +33,7 @@ export const TableFilter = ({
     <div className='mx-auto mt-[24px] flex w-[1280px] justify-between'>
       <div className='flex items-center'>
         <div className='mr-[20px] text-S/Regular text-grey-700'>선정산 금액 합계</div>
-        <div className='text-XL/Bold text-orange-500'>{amount.toLocaleString()}원</div>
+        <div className='text-XL/Bold text-purple-500'>{amount.toLocaleString()}원</div>
       </div>
       <div className='flex items-center'>
         <div className='mr-[11px] text-S/Regular text-grey-700'>선택 건 상태</div>
