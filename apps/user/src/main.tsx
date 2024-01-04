@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LicenseManager } from 'ag-grid-enterprise';
+import { ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -41,7 +42,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ConfigProvider
+          theme={{
+            token: {
+              fontFamily: `'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif !important`,
+            },
+          }}
+        >
+          <App />
+        </ConfigProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </ErrorBoundary>,

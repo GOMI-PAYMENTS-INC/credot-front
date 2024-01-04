@@ -105,6 +105,24 @@ export const MobileHome = () => {
         <MServiceFee />
         <MEpilogue />
         <MFutureFund />
+        <Faq />
+        <Footer className='px-[18px]'>
+          <div className='mx-auto py-[56px]'>
+            <img src={logo} width={168} />
+            <div className='mt-[36px] text-S/Bold text-grey-800'>
+              고미페이먼츠 주식회사
+            </div>
+            <div className='mt-[16px] text-XS/Regular leading-[24px] text-grey-700'>
+              대표이사 : 엄희찬 | 개인정보관리책임자 : 안형준 <br />
+              사업자등록번호 : 813-81-02548 <br />
+              주소 : 서울시 강남구 강남대로 624, ICT 타워 7층 <br />
+              메일 : kai@gomipayments.com <br />
+            </div>
+            <div className='mt-[24px] text-S/Medium text-grey-500'>
+              Copyright © 2022 Gomi payments Inc. All rights reserved
+            </div>
+          </div>
+        </Footer>
       </div>
     </Default>
   );
