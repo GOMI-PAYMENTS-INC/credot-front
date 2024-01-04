@@ -5,7 +5,7 @@ import {
   timerIcon,
 } from '@/v3/pages/landing/assets';
 
-function BenefitItem({
+export function BenefitItem({
   text,
   icon,
   iconWidth = 150,

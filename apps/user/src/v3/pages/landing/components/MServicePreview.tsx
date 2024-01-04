@@ -1,4 +1,4 @@
-import { mServicePreview, prefundCycle } from '@/v3/pages/landing/assets';
+import { mServicePreview } from '@/v3/pages/landing/assets';
 
 export const MServicePreview = () => {
   return (
