@@ -37,10 +37,9 @@ export const CustomerType = () => {
       <div className='mx-auto w-[1100px]'>
         <div className='text-center text-3XL/Medium leading-[40px]'>
           <div>
-            <span className='font-bold text-purple-600'>모든 (예비)사업자분</span>들의
+            <span className='font-bold text-purple-600'>사업자분</span>들의 매출을
           </div>
           <div className='mt-[14px]'>
-            매출을{' '}
             <span className='bg-purple-100 font-bold text-purple-600'>단 하루</span>
             만에 정산해드려요.
           </div>
@@ -52,7 +51,7 @@ export const CustomerType = () => {
             content={
               <>
                 오프라인 매장을 창업하실 예정인가요? <br />
-                카드 단말기 설치부터 D+1 정산 서비스까지, <br />
+                카드 단말기 설치부터 익일 정산 서비스까지, <br />
                 크레닷이 성공 파트너가 되어드릴께요.
               </>
             }
@@ -62,9 +61,9 @@ export const CustomerType = () => {
             title='기존 사업자'
             content={
               <>
-                이미 사용중인 카드 단말기 및 PG가 있으신가요? <br />
-                상관 없어요! 사용하던 단말기 그대로 정산 주기만 <br />
-                하루로! 앞당겨드릴게요.
+                매장을 운영중이신가요? 크래닷이 카드사 <br />
+                정산 주기를 앞당겨드리고, 아직 발생하지 않은 <br />
+                미래의 매출까지도 정산해드릴께요!
               </>
             }
           />

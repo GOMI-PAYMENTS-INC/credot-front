@@ -15,7 +15,9 @@ export const ServiceFee = () => {
           <table className='w-full'>
             <thead>
               <tr className='text-grey-800'>
-                <th className='w-[140px] rounded-tl-[8px] bg-purple-100 py-[15px]' />
+                <th className='w-[140px] rounded-tl-[8px] bg-purple-100 py-[15px]'>
+                  매출 발생일
+                </th>
                 <th className='border-l border-white bg-purple-100 py-[15px]'>월</th>
                 <th className='border-l border-white bg-purple-100 py-[15px]'>화</th>
                 <th className='border-l border-white bg-purple-100 py-[15px]'>수</th>
@@ -38,7 +40,7 @@ export const ServiceFee = () => {
                 <td className='border-l border-grey-200 bg-grey-100 py-[15px]'>5일 후</td>
                 <td className='border-l border-grey-200 bg-grey-100 py-[15px]'>5일 후</td>
                 <td className='border-l border-grey-200 bg-grey-100 py-[15px]'>4일 후</td>
-                <td className='border-l border-grey-200 bg-grey-100 py-[15px]'>4일 후</td>
+                <td className='border-l border-grey-200 bg-grey-100 py-[15px]'>3일 후</td>
               </tr>
               <tr className='border-b border-r border-grey-200 text-grey-800'>
                 <td className='w-[140px] border-l border-grey-200 py-[15px] text-M/Bold'>

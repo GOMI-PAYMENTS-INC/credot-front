@@ -2,10 +2,12 @@ import { gasStationIcon, hospitalIcon, restaurantIcon } from '@/v3/pages/landing
 
 function CustomerItems({
   icon,
+  type,
   content1 = [],
   content2 = [],
 }: {
   icon: string;
+  type: string;
   content1?: string[];
   content2?: string[];
 }) {
@@ -15,7 +17,7 @@ function CustomerItems({
         <div className='h-[90px] rounded-[50px] bg-white'>
           <img src={icon} className='mx-auto py-[19px]' width={50} />
         </div>
-        <div className='mt-[6px] text-M/Bold text-white'>병원</div>
+        <div className='mt-[6px] text-M/Bold text-white'>{type}</div>
       </div>
       <div className='mx-[50px] h-[40px] w-[1px] self-center bg-grey-400' />
       <div className='self-center'>
@@ -55,6 +57,7 @@ export const Customer = () => {
 
         <div className='flex-start mx-auto mt-[50px] flex flex-col gap-10'>
           <CustomerItems
+            type='병원'
             icon={hospitalIcon}
             content1={[
               '마인드 성형외과',
@@ -75,6 +78,7 @@ export const Customer = () => {
             ]}
           />
           <CustomerItems
+            type='주유소'
             icon={gasStationIcon}
             content1={[
               '강상주유소',
@@ -87,6 +91,7 @@ export const Customer = () => {
             content2={['음성IC주유소', 'GED 포함', '디케이본']}
           />
           <CustomerItems
+            type='요식업'
             icon={restaurantIcon}
             content1={[
               '디오픈',

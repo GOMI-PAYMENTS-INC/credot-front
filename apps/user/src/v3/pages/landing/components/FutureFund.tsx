@@ -41,7 +41,7 @@ export const FutureFund = () => {
     <div className='relative inline-block w-full bg-[#621A9D] py-[86px]'>
       <div className='mx-auto w-[1100px]'>
         <div className='text-center text-3XL/Bold leading-[56px] text-white'>
-          D+1일 정산을 넘어, <br /> 미래 매출에 대한 정산까지!
+          익일 정산을 넘어, <br /> 미래의 매출에 대한 정산까지!
         </div>
         <div className='mt-[40px] text-center text-XL/Medium leading-[32px] text-white'>
           미래 정산 서비스는 미래에 발생할 매출을 예측하여 <br />
