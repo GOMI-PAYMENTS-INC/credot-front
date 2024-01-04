@@ -4,8 +4,8 @@ import { Apply, History, Home, Landing } from '@/v3/pages';
 export const NEW_PATH = {
   HOME: '/home',
   HISTORY: '/history',
-  LANDING: '/v2',
-  APPLY: '/v2/apply',
+  LANDING: '/',
+  APPLY: '/apply',
 };
 
 export const routerList: IRoute[] = [

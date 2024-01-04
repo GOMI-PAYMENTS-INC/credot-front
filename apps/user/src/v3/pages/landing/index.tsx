@@ -42,7 +42,10 @@ export const Landing = () => {
                 로그인
               </button>
               <div className='ml-[20px]'></div>
-              <button className='h-[44px] rounded-[8px] bg-purple-600 px-[24px] text-M/Bold leading-[44px] text-white shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
+              <button
+                onClick={() => navigation(PATH.APPLY)}
+                className='h-[44px] rounded-[8px] bg-purple-600 px-[24px] text-M/Bold leading-[44px] text-white shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'
+              >
                 도입 문의하기
               </button>
             </div>

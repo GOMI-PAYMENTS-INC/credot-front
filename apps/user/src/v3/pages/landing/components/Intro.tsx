@@ -43,12 +43,15 @@ export const Intro = () => {
             로그인
           </button>
           <div className='ml-[20px]'></div>
-          <button className='h-[48px] rounded-[8px] bg-purple-600 px-[24px] text-M/Bold leading-[48px] text-white shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'>
+          <button
+            onClick={() => navigation(PATH.APPLY)}
+            className='h-[48px] rounded-[8px] bg-purple-600 px-[24px] text-M/Bold leading-[48px] text-white shadow-[0px_0px_50px_0px_rgba(0,0,0,0.04)]'
+          >
             도입 문의하기
           </button>
         </div>
-        <div className='absolute left-[50%] top-[380px] translate-x-[-50%]'>
-          <div className='relative mt-[67px]'>
+        <div className='absolute left-[50%] top-[467px] translate-x-[-50%]'>
+          <div className='relative'>
             <img src={prefund} width={651} className='absolute left-[30px] top-[29px]' />
             <img src={monitor} width={710} />
             <div className='absolute left-[270px] bottom-[20px] h-[150px] w-[170px]  bg-gradient-to-b from-transparent to-purple-400/80' />

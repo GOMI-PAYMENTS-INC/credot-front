@@ -2,9 +2,6 @@ import { ComponentType } from 'react';
 
 import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth';
 import { PATH } from '@/common/constants';
-import Apply from '@/v2/apply/Apply';
-import Breakdown from '@/v2/breakdown/Breakdown';
-import { Landing } from '@/v2/landing/Landing';
 import { Home } from '@/v3/pages';
 import { routerList } from '@/v3/router/router-list';
 
@@ -20,12 +17,6 @@ export interface IRoute {
 
 export const routeList: IRoute[] = [
   ...routerList,
-  {
-    isPrivate: false,
-    description: 'Landing',
-    path: PATH.LANDING,
-    component: Landing,
-  },
   {
     isPrivate: false,
     description: 'SignUp',
@@ -49,12 +40,6 @@ export const routeList: IRoute[] = [
     description: 'SignIn',
     path: PATH.SIGN_IN,
     component: SignIn,
-  },
-  {
-    isPrivate: false,
-    description: 'Apply',
-    path: PATH.APPLY,
-    component: Apply,
   },
   {
     isPrivate: true,
