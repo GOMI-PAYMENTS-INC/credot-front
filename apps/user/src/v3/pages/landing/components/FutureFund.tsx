@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { clickIcon, shakeHandIcon, starIcon } from '@/v3/pages/landing/assets';
 
-function FutureFundItem({
+export function FutureFundItem({
   text,
   icon,
   iconWidth = 150,

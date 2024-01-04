@@ -14,3 +14,4 @@ export * from './MServicePreview';
 export * from './MServiceBenefit';
 export * from './MServiceFee';
 export * from './MEpilogue';
+export * from './MFutureFund';

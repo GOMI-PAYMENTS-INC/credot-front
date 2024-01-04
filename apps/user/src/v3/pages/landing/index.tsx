@@ -18,6 +18,7 @@ import {
   MCustomer,
   MCustomerType,
   MEpilogue,
+  MFutureFund,
   MIntro,
   MServiceBenefit,
   MServiceFee,
@@ -103,6 +104,7 @@ export const MobileHome = () => {
         <MServiceBenefit />
         <MServiceFee />
         <MEpilogue />
+        <MFutureFund />
       </div>
     </Default>
   );
