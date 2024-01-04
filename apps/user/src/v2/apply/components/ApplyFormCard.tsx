@@ -1,3 +1,4 @@
+import { values } from 'ag-grid-community/dist/lib/utils/generic';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useForm } from 'react-hook-form';
@@ -54,8 +55,13 @@ export const ApplyFormCard = ({ prefund }: { prefund: number }) => {
       companyName: values.companyName,
       phoneNumber: values.phoneNumber,
       email: values.email,
-      prefund,
-      requestId: requestIds[0],
+      address: '',
+      companyType: '',
+      industryType: '',
+      interestedService: '',
+      jobTitle: '',
+      marketingAgree: false,
+      monthlySales: '',
     });
 
     if (success) {
