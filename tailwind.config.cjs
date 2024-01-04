@@ -286,7 +286,7 @@ module.exports = {
           '100%': {
             transform: 'translateX(0)'
           }
-        }
+        },
       },
 
       animation: {

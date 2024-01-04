@@ -18,7 +18,7 @@ const GNB = () => {
       <div className='flex items-center'>
         <Link to={PATH.BREAKDOWN}>
           <ReactSVG
-            src='/assets/icons/Logo.svg'
+            src='/assets/logo.svg'
             className='cursor-pointer'
             beforeInjection={(svg) => {
               svg.setAttribute('class', 'w-[138px] h-[27px]');

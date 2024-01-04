@@ -7,3 +7,5 @@ export * from './ServiceFee';
 export * from './Epilogue';
 export * from './FutureFund';
 export * from './Faq';
+export * from './MIntro';
+export * from './MCustomer';

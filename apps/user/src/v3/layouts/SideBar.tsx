@@ -51,7 +51,13 @@ const items: MenuProps['items'] = [
   getItem('서비스 이용내역', '/history', <HistoryOutlined />),
 ];
 
-export const SideBar = () => {
+const publicItems: MenuProps['items'] = [
+  getItem('로그인', PATH.SIGN_IN, <HomeOutlined />),
+  { type: 'divider' },
+  getItem('도입 문의하기', PATH.APPLY, <HistoryOutlined />),
+];
+
+export const SideBar = ({ sideBar = true }: { sideBar: boolean }) => {
   const [collapsed, setCollapsed] = useRecoilState(SideBarCollapseAtom);
   const navigation = useNavigate();
   const [userInfo] = useRecoilState(UserAtom);
@@ -83,17 +89,20 @@ export const SideBar = () => {
     >
       <div className='flex'>
         {isMobile &&
+          sideBar &&
           (!collapsed ? (
             <img
               src={menuFoldIn}
               onClick={() => setCollapsed(true)}
               className='ml-[14px]'
+              width={28}
             />
           ) : (
             <img
               src={menuFoldOut}
               onClick={() => setCollapsed(false)}
               className='ml-[14px]'
+              width={28}
             />
           ))}
         <Link to={PATH.BREAKDOWN} className='basis-full self-center'>
@@ -156,22 +165,24 @@ export const SideBar = () => {
               selectedKeys={[location.pathname]}
               style={{ width: '100%', border: 'none' }}
               mode='inline'
-              items={items}
+              items={userInfo ? items : publicItems}
             />
           </div>
-          <div className='w-full border-t border-grey-300 py-[18px]'>
-            <div className='px-[16px]'>
-              <a onClick={(e) => e.preventDefault()}>
-                <Space>
-                  <span className='text-S/Medium text-[#FF334B]'>
-                    <span className='mr-[12px] inline-block' onClick={() => logout()}>
-                      로그아웃
+          {userInfo && (
+            <div className='w-full border-t border-grey-300 py-[18px]'>
+              <div className='px-[16px]'>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <span className='text-S/Medium text-[#FF334B]'>
+                      <span className='mr-[12px] inline-block' onClick={() => logout()}>
+                        로그아웃
+                      </span>
                     </span>
-                  </span>
-                </Space>
-              </a>
+                  </Space>
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

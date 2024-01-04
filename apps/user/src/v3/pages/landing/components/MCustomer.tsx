@@ -12,21 +12,20 @@ function CustomerItems({
   content2?: string[];
 }) {
   return (
-    <div className='flex min-w-[1035px]'>
-      <div className='w-[90px] text-center'>
-        <div className='h-[90px] rounded-[50px] bg-white'>
-          <img src={icon} className='mx-auto py-[19px]' width={50} />
+    <div className='flex flex-col items-center'>
+      <div className='w-[120px] text-center'>
+        <div className='h-[120px] rounded-[120px] bg-white'>
+          <img src={icon} className='mx-auto py-[25px]' width={67} />
         </div>
-        <div className='mt-[6px] text-M/Bold text-white'>{type}</div>
+        <div className='mt-[30px] text-2XL/Bold text-white'>{type}</div>
       </div>
-      <div className='mx-[50px] h-[40px] w-[1px] self-center bg-grey-400' />
-      <div className='self-center'>
+      <div className='flex flex-row items-start gap-7'>
         {(content1.length && (
-          <div className='flex text-L/Medium text-white'>
+          <div className='text-center text-S/Bold text-white'>
             {content1.map((content, index) => (
               <div
                 style={{ opacity: `${(100 - index * 10) / 100}` }}
-                className={`mr-[25px]`}
+                className={`mt-[20px]`}
                 key={content}
               >
                 {content}
@@ -36,11 +35,11 @@ function CustomerItems({
         )) ||
           null}
         {(content2.length && (
-          <div className='mt-[14px] flex text-L/Medium text-white'>
+          <div className='text-center text-S/Bold text-white'>
             {content2.map((content, index) => (
               <div
                 style={{ opacity: `${(100 - index * 10) / 100}` }}
-                className={`mr-[25px]`}
+                className={`mt-[20px]`}
                 key={content}
               >
                 {content}
@@ -54,13 +53,14 @@ function CustomerItems({
   );
 }
 
-export const Customer = () => {
+export const MCustomer = () => {
   return (
     <div className='w-full bg-gradient-to-b from-purple-300 to-purple-900 py-[92px]'>
-      <div className='mx-auto w-[1100px]'>
-        <div className='mt-[80px] text-center text-[27px] font-bold text-white'>
+      <div className='mx-auto'>
+        <div className='text-center text-2XL/Bold leading-[40px] text-white'>
           다양한 업종의 사업자분들과 <br />
-          안정적인 비즈니스를 함께 만들어갑니다.
+          안정적인 비즈니스를 <br />
+          함께 만들어갑니다.
         </div>
 
         <div className='flex-start mx-auto mt-[50px] flex flex-col gap-10'>
@@ -93,23 +93,15 @@ export const Customer = () => {
               '백석주유소',
               '은혜주유소',
               '엑스포주유소',
-              '인천주유소',
               '안성주유소',
             ]}
-            content2={['음성IC주유소', 'GED 포함', '디케이본']}
+            content2={['음성IC주유소', 'GED 포함', '디케이본', '인천주유소']}
           />
           <CustomerItems
             type='요식업'
             icon={restaurantIcon}
-            content1={[
-              '디오픈',
-              '신사꽃게당',
-              '청담 윤',
-              '회이락',
-              '클로우드',
-              '새로이',
-              'BGN케어',
-            ]}
+            content1={['디오픈', '신사꽃게당', '청담 윤', '클로우드']}
+            content2={['새로이', 'BGN케어', '회이락']}
           />
         </div>
         <div className='col mt-[40px] flex flex-col items-center gap-5'>

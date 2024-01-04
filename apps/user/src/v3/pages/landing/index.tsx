@@ -1,10 +1,12 @@
 import './styles/ServiceBenefit.css';
 
 import { Layout } from 'antd';
+import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 
 import { PATH } from '@/common/constants';
+import { Default } from '@/v3/layouts';
 import { logo } from '@/v3/pages/landing/assets';
 import {
   Customer,
@@ -13,6 +15,8 @@ import {
   Faq,
   FutureFund,
   Intro,
+  MCustomer,
+  MIntro,
   ServiceFee,
   ServicePreview,
 } from '@/v3/pages/landing/components';
@@ -20,9 +24,8 @@ import { ServiceBenefit } from '@/v3/pages/landing/components/ServiceBenefit';
 
 const { Header, Content, Footer } = Layout;
 
-export const Landing = () => {
+export const PCHome = () => {
   const navigation = useNavigate();
-
   return (
     <Layout className='h-full bg-transparent'>
       <Header className='h-auto border-b border-grey-300 bg-transparent'>
@@ -82,4 +85,19 @@ export const Landing = () => {
       </Footer>
     </Layout>
   );
+};
+
+export const MobileHome = () => {
+  return (
+    <Default>
+      <div>
+        <MIntro />
+        <MCustomer />
+      </div>
+    </Default>
+  );
+};
+
+export const Landing = () => {
+  return isMobile ? <MobileHome /> : <PCHome />;
 };

@@ -8,7 +8,7 @@ export const Common2Section = ({ children }: ICommon2SectionProps) => (
   <main>
     <div className='hidden w-full justify-center md:flex'>
       <ReactSVG
-        src='/assets/icons/Logo.svg'
+        src='/assets/logo.svg'
         className='fixed top-0 z-20 border-b-[1px] border-grey-300 bg-white py-5 px-[640px]'
         beforeInjection={(svg) => {
           svg.setAttribute('style', 'w-[124px] h-6');
