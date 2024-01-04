@@ -52,9 +52,12 @@ export const Intro = () => {
         </div>
         <div className='absolute left-[50%] top-[467px] translate-x-[-50%]'>
           <div className='relative'>
-            <img src={prefund} width={651} className='absolute left-[30px] top-[29px]' />
-            <img src={monitor} width={710} />
-            <div className='absolute left-[270px] bottom-[20px] h-[150px] w-[170px]  bg-gradient-to-b from-transparent to-purple-400/80' />
+            <img
+              src={prefund}
+              className='absolute left-[30px] top-[29px] min-w-[651px] max-w-[651px]'
+            />
+            <img src={monitor} className='min-w-[710px] max-w-[710px]' />
+            <div className='absolute left-[270px] bottom-[20px] h-[150px] min-h-[150px] w-[170px] min-w-[170px]  bg-gradient-to-b from-transparent to-purple-400/80' />
           </div>
         </div>
       </div>

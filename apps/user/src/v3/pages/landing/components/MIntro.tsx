@@ -1,14 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { PATH } from '@/common/constants';
-import {
-  floatingImg1,
-  floatingImg2,
-  floatingImg3,
-  floatingImg4,
-  monitor,
-  prefund,
-} from '@/v3/pages/landing/assets';
+import { monitor, prefund } from '@/v3/pages/landing/assets';
 
 export const MIntro = () => {
   const navigation = useNavigate();
@@ -34,9 +27,13 @@ export const MIntro = () => {
         </div>
         <div className='absolute top-[467px] left-[50%] translate-x-[-50%]'>
           <div className='relative'>
-            <img src={prefund} width={294} className='absolute left-[13px] top-[13px]' />
-            <img src={monitor} width={320} className='!max-w-none' />
-            <div className='absolute left-[123px] bottom-[10px] h-[60px] w-[75px]  bg-gradient-to-b from-transparent to-purple-400/80' />
+            <img
+              src={prefund}
+              width={294}
+              className='absolute left-[13px] top-[13px] min-w-[294px]'
+            />
+            <img src={monitor} width={320} className='min-w-[320px] !max-w-none' />
+            <div className='absolute left-[123px] bottom-[10px] h-[60px] min-h-[60px] w-[75px] min-w-[75px]  bg-gradient-to-b from-transparent to-purple-400/80' />
           </div>
         </div>
       </div>
