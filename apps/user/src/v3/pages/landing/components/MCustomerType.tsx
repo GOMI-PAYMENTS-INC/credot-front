@@ -4,38 +4,13 @@ import {
   customerTypeCardImage1,
   customerTypeCardImage2,
 } from '@/v3/pages/landing/assets';
+import { CustomerTypeCard } from '@/v3/pages/landing/components/CustomerType';
 
-export function CustomerTypeCard({
-  img,
-  title,
-  content,
-}: {
-  img: string;
-  title: string;
-  content: ReactElement;
-}) {
+export const MCustomerType = () => {
   return (
-    <div className='w-[365px] overflow-hidden bg-grey-100'>
-      <img src={img} className='rounded-tl-[8px] rounded-tr-[8px]' width={365} />
-      <div className='rounded-bl-[8px] rounded-br-[8px] border border-grey-300 bg-grey-100 p-[28px]'>
-        <div className='text-2XL/Bold text-grey-800'>{title}</div>
-        <div className='my-[14px] h-[1px] bg-grey-300'></div>
-        <div className='text-M/Regular leading-[34px] text-grey-800'>{content}</div>
-        <div className='mt-[20px]'>
-          <button className='rounded-[8px] border border-grey-300 bg-white py-[8px] px-[14px] text-M/Medium text-grey-800'>
-            자세히 알아보기
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export const CustomerType = () => {
-  return (
-    <div className='py-[100px]'>
-      <div className='mx-auto w-[1100px]'>
-        <div className='text-center text-3XL/Medium leading-[40px]'>
+    <div className='py-[87px]'>
+      <div className='mx-auto'>
+        <div className='text-center text-2XL/Medium leading-[30px]'>
           <div>
             <span className='font-bold text-purple-600'>사업자분</span>들의 매출을
           </div>
@@ -44,7 +19,7 @@ export const CustomerType = () => {
             만에 정산해드려요.
           </div>
         </div>
-        <div className='mt-[60px] flex flex-row justify-center gap-12'>
+        <div className='mt-[60px] flex flex-col items-center'>
           <CustomerTypeCard
             img={customerTypeCardImage1}
             title='예비 창업자'
@@ -56,6 +31,7 @@ export const CustomerType = () => {
               </>
             }
           />
+          <div className='mt-[40px]' />
           <CustomerTypeCard
             img={customerTypeCardImage2}
             title='기존 사업자'

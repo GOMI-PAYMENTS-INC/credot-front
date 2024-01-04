@@ -16,6 +16,7 @@ import {
   FutureFund,
   Intro,
   MCustomer,
+  MCustomerType,
   MIntro,
   ServiceFee,
   ServicePreview,
@@ -93,6 +94,7 @@ export const MobileHome = () => {
       <div>
         <MIntro />
         <MCustomer />
+        <MCustomerType />
       </div>
     </Default>
   );
