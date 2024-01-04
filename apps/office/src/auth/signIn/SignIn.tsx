@@ -1,5 +1,7 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -30,6 +32,7 @@ export const SignIn = () => {
     register,
     handleSubmit,
     setError,
+    control,
     formState: { errors },
   } = useForm<ISignInForm>({
     mode: 'onChange',
@@ -74,27 +77,33 @@ export const SignIn = () => {
       <div className='mt-10 space-y-12 md:mt-[56px] md:space-y-8'>
         <form onSubmit={handleSubmit(onValid)}>
           <div className='space-y-4'>
-            <div className='space-y-8'>
+            <div className='mb-[30px] space-y-8'>
               <div className='inputCustom-group'>
                 <label className='inputCustom-label'>이메일</label>
                 <div className='inputCustom-textbox-wrap'>
-                  <input
-                    className={`inputCustom-textbox w-full ${
-                      errors?.email ? 'error' : ''
-                    }`}
-                    type='email'
-                    placeholder='이메일'
-                    {...register('email', {
+                  <Controller
+                    name='email'
+                    control={control}
+                    rules={{
                       required: NOTIFICATION_MESSAGE.emptyEmail,
                       pattern: {
                         value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                         message: NOTIFICATION_MESSAGE.invalidEmail,
                       },
-                    })}
-                  />
-                  <InputIcon
-                    status={errors?.email ? INPUTSTATUS.ERROR : undefined}
-                    iconSize={5}
+                    }}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        placeholder='이메일'
+                        className='py-[0.75rem]'
+                        status={errors?.email ? 'error' : ''}
+                        suffix={
+                          errors?.email ? (
+                            <InfoCircleOutlined className='text-L/Medium' />
+                          ) : null
+                        }
+                      />
+                    )}
                   />
                 </div>
                 {errors?.email?.message && (
@@ -105,24 +114,31 @@ export const SignIn = () => {
                 <div className='inputCustom-group'>
                   <label className='inputCustom-label'>비밀번호</label>
                   <div className='inputCustom-textbox-wrap'>
-                    <input
-                      className={`inputCustom-textbox w-full ${
-                        errors?.password ? 'error' : ''
-                      }`}
-                      type='password'
-                      placeholder='비밀번호를 입력해주세요. (8자리 이상)'
-                      {...register('password', {
+                    <Controller
+                      name='password'
+                      control={control}
+                      rules={{
                         required: '비밀번호를 입력해주세요.',
                         pattern: {
                           // : 모든 글자 8자리 이상 입력
                           value: /^.{8,}$/,
                           message: '비밀번호는 8자리 이상 입력해주세요.',
                         },
-                      })}
-                    />
-                    <InputIcon
-                      status={errors?.password ? INPUTSTATUS.ERROR : undefined}
-                      iconSize={5}
+                      }}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          type='password'
+                          placeholder='비밀번호를 입력해주세요. (8자리 이상)'
+                          className='py-[0.75rem]'
+                          status={errors?.password ? 'error' : ''}
+                          suffix={
+                            errors?.password ? (
+                              <InfoCircleOutlined className='text-L/Medium' />
+                            ) : null
+                          }
+                        />
+                      )}
                     />
                   </div>
                   {errors?.password?.message && (
@@ -152,7 +168,7 @@ export const SignIn = () => {
               <div>
                 <button
                   type='submit'
-                  className='button-filled-normal-xLarge-red-false-false-true  w-full '
+                  className='w-full rounded border-0 bg-purple-600 px-2.5 py-4 text-L/Bold  text-white '
                 >
                   로그인
                 </button>

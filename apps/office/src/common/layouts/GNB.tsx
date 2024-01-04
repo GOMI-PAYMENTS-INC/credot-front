@@ -1,5 +1,6 @@
+import { DownOutlined } from '@ant-design/icons';
 import { useGoogleLogin } from '@react-oauth/google';
-import { Button, Tooltip } from 'antd';
+import { Button, Dropdown, Space, Tooltip } from 'antd';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
@@ -32,7 +33,7 @@ const GNB = () => {
   });
 
   return (
-    <header className='fixed top-0 z-30 flex w-full justify-between border-[1px] border-grey-300 bg-white px-[40px] py-[13px]'>
+    <div className='fixed top-0 z-30 flex w-full justify-between border-[1px] border-grey-300 bg-white px-[30px] py-[13px]'>
       <div className='flex items-center'>
         <Link to={PATH.HOME}>
           <ReactSVG
@@ -59,37 +60,40 @@ const GNB = () => {
           )}
         </div>
         <div className='relative ml-2 flex items-center'>
-          <div
-            className='flex w-[208px] cursor-pointer items-center justify-end py-2.5 px-5  text-S/Medium text-grey-800'
-            onClick={() => setIsToggleOpen(!isToggleOpen)}
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  label: (
+                    <a href='#' onClick={logout}>
+                      로그아웃
+                    </a>
+                  ),
+                  key: '0',
+                },
+              ],
+            }}
+            trigger={['click']}
           >
-            {replaceOverLength(userAccount || '', 20)}
-            <ReactSVG
-              src='/assets/icons/outlined/Chevronup.svg'
-              className={`ml-3 block`}
-              beforeInjection={(svg) => {
-                svg.setAttribute(
-                  'class',
-                  `w-3 fill-grey-800 ${isToggleOpen ? '' : 'rotate-180'}`,
-                );
-              }}
-            />
-          </div>
-          {isToggleOpen && (
-            <div className='absolute top-[52px] right-0 z-10 w-[208px] rounded-lg bg-white shadow-[0px_2px_41px_rgba(0,0,0,0.1)]'>
-              <ul className=''>
-                <li
-                  className='cursor-pointer px-4 py-3 text-S/Regular text-red-700'
-                  onClick={() => logout()}
-                >
-                  로그아웃
-                </li>
-              </ul>
-            </div>
-          )}
+            <a onClick={(e) => e.preventDefault()} className='cursor-pointer'>
+              <Space className='flex items-center py-2.5 px-5 text-S/Medium text-grey-800'>
+                {replaceOverLength(userAccount || '', 20)}
+                <ReactSVG
+                  src='/assets/icons/outlined/Chevronup.svg'
+                  className={`block`}
+                  beforeInjection={(svg) => {
+                    svg.setAttribute(
+                      'class',
+                      `w-3 fill-grey-800 ${isToggleOpen ? '' : 'rotate-180'}`,
+                    );
+                  }}
+                />
+              </Space>
+            </a>
+          </Dropdown>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 
