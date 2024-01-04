@@ -33,7 +33,7 @@ export const Intro = () => {
         <div className='text-[70px] font-black text-purple-600'>크레닷.</div>
         <div className='mt-[20px] text-XL/Light text-grey-700'>
           카드사나 휴일 상관 없이,{' '}
-          <span className='font-bold text-purple-600'>가장 빠른 D+1일 정산 서비스</span>
+          <span className='font-bold text-purple-600'>가장 빠른 익일 정산 서비스</span>
         </div>
         <div className='mt-[50px] flex justify-center'>
           <button
