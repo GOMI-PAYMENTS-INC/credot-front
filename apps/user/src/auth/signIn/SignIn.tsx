@@ -183,12 +183,12 @@ const Login = () => {
             아직 회원이 아니세요?
           </div>
           <div>
-            <Link to={PATH.SIGN_UP}>
+            <Link to={PATH.APPLY}>
               <button
                 type='submit'
                 className='button-outlined-normal-xLarge-primary-false-false-true w-full md:mb-[114px]'
               >
-                회원가입 하기
+                도입문의 하기
               </button>
             </Link>
           </div>
