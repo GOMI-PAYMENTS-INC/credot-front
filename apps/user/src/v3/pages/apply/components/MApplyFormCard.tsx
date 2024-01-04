@@ -7,32 +7,11 @@ import { NOTIFICATION_MESSAGE, TERMS_LIST } from '@/auth/constants';
 import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { Spin } from '@/components/Spin';
 import { TERM_TYPE } from '@/types/enum.code';
+import { IApplyForm } from '@/v3/pages/apply/components/ApplyFormCard';
 import { SuccessModal } from '@/v3/pages/apply/components/SuccessModal';
 import { useApplyPrefund } from '@/v3/pages/apply/hooks/apply.hook';
 
-export interface IApplyForm {
-  companyType: string;
-  companyName: string;
-  industryType: string;
-
-  address: string;
-  monthlySales: string;
-
-  jobTitle: string;
-  name: string;
-  phoneNumber: string;
-
-  email: string;
-  interestedService: string;
-
-  requiredAgreeTerm: boolean;
-  useAgree: boolean;
-  personalAgree: boolean;
-  personalAgree2: boolean;
-  marketingAgree: boolean;
-}
-
-export const ApplyFormCard = () => {
+export const MApplyFormCard = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [termTextStatus, setTermTextStatus] = useState<{
     useAgree: boolean;
@@ -86,12 +65,12 @@ export const ApplyFormCard = () => {
 
   return (
     <>
-      <div className={'mx-auto w-[1100px] rounded-[8px] px-[47px] py-[33px]'}>
+      <div className={'mx-auto rounded-[8px] bg-grey-50 px-[16px] py-[33px]'}>
         <form onSubmit={handleSubmit(onValid)} className={`flex flex-col`}>
           <div>
             <div className='text-XL/Bold text-grey-900'>회사 정보</div>
-            <Row className='mt-[20px]' gutter={[30, 0]}>
-              <Col span={8}>
+            <Row className='mt-[20px]'>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -117,7 +96,9 @@ export const ApplyFormCard = () => {
                   </div>
                 </div>
               </Col>
-              <Col span={8}>
+            </Row>
+            <Row className='mt-[20px]'>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -151,7 +132,9 @@ export const ApplyFormCard = () => {
                   </p>
                 </div>
               </Col>
-              <Col span={8}>
+            </Row>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -187,8 +170,8 @@ export const ApplyFormCard = () => {
               </Col>
             </Row>
 
-            <Row className='mt-[20px]' gutter={[30, 0]}>
-              <Col span={16}>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -218,7 +201,9 @@ export const ApplyFormCard = () => {
                   <p className='inputCustom-helptext'>{errors?.address?.message || ''}</p>
                 </div>
               </Col>
-              <Col span={8}>
+            </Row>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -249,9 +234,9 @@ export const ApplyFormCard = () => {
                 </div>
               </Col>
             </Row>
-            <div className='mt-[30px] text-XL/Bold text-grey-900'>담당자 정보</div>
-            <Row className='mt-[20px]' gutter={[30, 0]}>
-              <Col span={8}>
+            <div className='mt-[50px] text-XL/Bold text-grey-900'>담당자 정보</div>
+            <Row className='mt-[20px]'>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -283,7 +268,9 @@ export const ApplyFormCard = () => {
                   </p>
                 </div>
               </Col>
-              <Col span={8}>
+            </Row>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -313,7 +300,9 @@ export const ApplyFormCard = () => {
                   <p className='inputCustom-helptext'>{errors?.name?.message || ''}</p>
                 </div>
               </Col>
-              <Col span={8}>
+            </Row>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -355,8 +344,8 @@ export const ApplyFormCard = () => {
                 </div>
               </Col>
             </Row>
-            <Row className='mt-[20px]' gutter={[30, 0]}>
-              <Col span={16}>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -386,7 +375,9 @@ export const ApplyFormCard = () => {
                   <p className='inputCustom-helptext'>{errors?.email?.message || ''}</p>
                 </div>
               </Col>
-              <Col span={8}>
+            </Row>
+            <Row>
+              <Col className='w-full'>
                 <div className='inputCustom-group flex flex-col'>
                   <label
                     className='inputCustom-label text-S/Medium text-grey-800'
@@ -412,8 +403,8 @@ export const ApplyFormCard = () => {
                 </div>
               </Col>
             </Row>
-            <Row gutter={[30, 0]} className='mt-[52px]'>
-              <Col span={16}>
+            <Row className='mt-[30px]'>
+              <Col className='w-full'>
                 <div
                   className={`${
                     errors?.requiredAgreeTerm ? 'visible' : 'invisible'
@@ -423,7 +414,7 @@ export const ApplyFormCard = () => {
                     {errors?.requiredAgreeTerm?.message}
                   </p>
                 </div>
-                <div className='rounded-md px-2.5 py-2'>
+                <div className='w-full rounded-md py-2'>
                   <input
                     type='checkbox'
                     id='requiredAgreeTerm'
@@ -454,8 +445,7 @@ export const ApplyFormCard = () => {
                         : 'termsHeaderCheckbox-label xs:text-M/Medium'
                     } pl-[36px]`}
                   >
-                    이용약관, 개인정보 수집 및 이용에 {isMobile ? <br /> : null} 모두
-                    동의합니다.
+                    이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
                   </label>
                 </div>
                 <ul className='space-y-2'>
@@ -502,7 +492,9 @@ export const ApplyFormCard = () => {
                   })}
                 </ul>
               </Col>
-              <Col span={8} className='flex flex-col justify-end'>
+            </Row>
+            <Row>
+              <Col className='mt-[40px] flex w-full flex-col justify-end'>
                 <button
                   type='submit'
                   disabled={isApplyLoading}

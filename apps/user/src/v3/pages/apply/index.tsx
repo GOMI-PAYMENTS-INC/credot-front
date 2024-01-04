@@ -1,11 +1,13 @@
 import { Layout } from 'antd';
+import { isMobile } from 'react-device-detect';
 import { ReactSVG } from 'react-svg';
 
-import { ApplyFormCard } from '@/v3/pages/apply/components';
+import { Default } from '@/v3/layouts';
+import { ApplyFormCard, MApplyFormCard } from '@/v3/pages/apply/components';
 
 const { Header, Content } = Layout;
 
-export const Apply = () => {
+function PCApply() {
   return (
     <Layout className='bg-transparent'>
       <Header className='h-auto border-b border-grey-300 bg-white py-[24px]'>
@@ -23,4 +25,16 @@ export const Apply = () => {
       </Content>
     </Layout>
   );
+}
+
+export const MApply = () => {
+  return (
+    <Default>
+      <MApplyFormCard />
+    </Default>
+  );
+};
+
+export const Apply = () => {
+  return isMobile ? <MApply /> : <PCApply />;
 };
