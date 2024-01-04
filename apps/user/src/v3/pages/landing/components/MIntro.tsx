@@ -15,7 +15,7 @@ export const MIntro = () => {
   return (
     <div className='h-[580px] w-full bg-purple-50 pt-[59px] text-center'>
       <div className='mx-auto w-full'>
-        <div className='text-XL/Bold text-purple-600'>어제 매출, 오늘 정산 밧는닷!</div>
+        <div className='text-XL/Bold text-purple-600'>어제 매출, 오늘 정산 받는닷!</div>
         <div className='mt-[10px] text-4XL/Bold text-purple-600'>크레닷.</div>
         <div className='mt-[50px] flex justify-center'>
           <button

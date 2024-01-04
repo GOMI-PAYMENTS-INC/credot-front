@@ -29,7 +29,7 @@ export const Intro = () => {
             <img src={floatingImg4} />
           </div>
         </div>
-        <div className='text-2XL/Bold text-purple-600'>어제 매출, 오늘 정산 밧는닷!</div>
+        <div className='text-2XL/Bold text-purple-600'>어제 매출, 오늘 정산 받는닷!</div>
         <div className='text-[70px] font-black text-purple-600'>크레닷.</div>
         <div className='mt-[20px] text-XL/Light text-grey-700'>
           카드사나 휴일 상관 없이,{' '}
