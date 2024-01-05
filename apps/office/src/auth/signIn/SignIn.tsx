@@ -100,7 +100,9 @@ export const SignIn = () => {
                         suffix={
                           errors?.email ? (
                             <InfoCircleOutlined className='text-L/Medium' />
-                          ) : null
+                          ) : (
+                            <span />
+                          )
                         }
                       />
                     )}
@@ -135,7 +137,9 @@ export const SignIn = () => {
                           suffix={
                             errors?.password ? (
                               <InfoCircleOutlined className='text-L/Medium' />
-                            ) : null
+                            ) : (
+                              <span />
+                            )
                           }
                         />
                       )}
