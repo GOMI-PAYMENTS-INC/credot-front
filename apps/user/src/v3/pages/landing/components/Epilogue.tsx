@@ -9,7 +9,7 @@ export const Epilogue = () => {
     <div className='bg-[#FDFBFF] py-[100px]'>
       <div className='mx-auto flex w-[1100px] justify-center'>
         <div>
-          <img src={mobile} />
+          <img src={mobile} width={257} />
         </div>
         <div className='ml-[100px] mt-[120px]'>
           <div className='text-3XL/Bold leading-[50px] text-purple-600'>

@@ -17,16 +17,16 @@ export const Intro = () => {
       <div className='mx-auto w-[1100px]'>
         <div className='relative'>
           <div className='animation-ico absolute left-[-50px] top-[67px]'>
-            <img src={floatingImg1} />
+            <img src={floatingImg1} width={187} />
           </div>
           <div className='animation-ico absolute left-[-140px] top-[340px]'>
-            <img src={floatingImg2} />
+            <img src={floatingImg2} width={197} />
           </div>
           <div className='animation-ico absolute right-0 top-[40px]'>
-            <img src={floatingImg3} />
+            <img src={floatingImg3} width={200} />
           </div>
           <div className='animation-ico absolute top-[370px] right-[-100px]'>
-            <img src={floatingImg4} />
+            <img src={floatingImg4} width={197} />
           </div>
         </div>
         <div className='text-2XL/Bold text-purple-600'>어제 매출, 오늘 정산 받는닷!</div>

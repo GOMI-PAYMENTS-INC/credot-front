@@ -3,19 +3,21 @@ import { gasStationIcon, hospitalIcon, restaurantIcon } from '@/v3/pages/landing
 function CustomerItems({
   icon,
   type,
+  iconSize = 50,
   content1 = [],
   content2 = [],
 }: {
   icon: string;
   type: string;
+  iconSize?: number;
   content1?: string[];
   content2?: string[];
 }) {
   return (
     <div className='flex min-w-[1035px]'>
       <div className='w-[90px] text-center'>
-        <div className='h-[90px] rounded-[50px] bg-white'>
-          <img src={icon} className='mx-auto py-[19px]' width={50} />
+        <div className='flex h-[90px] rounded-[50px] bg-white'>
+          <img src={icon} className='mx-auto self-center' width={iconSize} />
         </div>
         <div className='mt-[6px] text-M/Bold text-white'>{type}</div>
       </div>
@@ -88,6 +90,7 @@ export const Customer = () => {
           <CustomerItems
             type='주유소'
             icon={gasStationIcon}
+            iconSize={59}
             content1={[
               '강상주유소',
               '백석주유소',
@@ -100,6 +103,7 @@ export const Customer = () => {
           />
           <CustomerItems
             type='요식업'
+            iconSize={75}
             icon={restaurantIcon}
             content1={[
               '디오픈',
