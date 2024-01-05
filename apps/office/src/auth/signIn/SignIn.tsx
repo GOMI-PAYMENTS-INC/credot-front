@@ -9,7 +9,6 @@ import { NOTIFICATION_MESSAGE } from '@/auth/constants';
 import { useLoginHook } from '@/auth/hooks/login.hook';
 import { PATH } from '@/common/constants';
 import { Common2Section as Layout } from '@/common/layouts/Common2Section';
-import { InputIcon, INPUTSTATUS } from '@/components/InputIcon';
 import { LoginDto } from '@/generated-rest/api/front';
 import { authTokenStorage } from '@/utils/authToken';
 interface ISignInForm {
