@@ -176,7 +176,13 @@ export const SideBar = ({ sideBar = true }: { sideBar: boolean }) => {
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     <span className='text-S/Medium text-[#FF334B]'>
-                      <span className='mr-[12px] inline-block' onClick={() => logout()}>
+                      <span
+                        className='mr-[12px] inline-block'
+                        onClick={() => {
+                          setCollapsed(false);
+                          logout();
+                        }}
+                      >
                         로그아웃
                       </span>
                     </span>
