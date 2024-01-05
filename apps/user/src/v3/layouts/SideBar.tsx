@@ -87,24 +87,26 @@ export const SideBar = ({ sideBar = true }: { sideBar: boolean }) => {
         isMobile ? 'w-full pt-[57px] pb-[20px]' : 'relative h-full w-[200px] py-[36px]'
       } bg-grey-50`}
     >
-      <div className='flex'>
-        {isMobile &&
-          sideBar &&
-          (!collapsed ? (
-            <img
-              src={menuFoldIn}
-              onClick={() => setCollapsed(true)}
-              className='ml-[14px]'
-              width={28}
-            />
-          ) : (
-            <img
-              src={menuFoldOut}
-              onClick={() => setCollapsed(false)}
-              className='ml-[14px]'
-              width={28}
-            />
-          ))}
+      <div className='relative flex'>
+        {isMobile && sideBar && (
+          <div className='absolute left-0 top-[-3px]'>
+            {!collapsed ? (
+              <img
+                src={menuFoldIn}
+                onClick={() => setCollapsed(true)}
+                className='ml-[14px]'
+                width={28}
+              />
+            ) : (
+              <img
+                src={menuFoldOut}
+                onClick={() => setCollapsed(false)}
+                className='ml-[14px]'
+                width={28}
+              />
+            )}
+          </div>
+        )}
         <Link to={PATH.BREAKDOWN} className='basis-full self-center'>
           <ReactSVG
             src='/assets/logo.svg'
