@@ -77,6 +77,7 @@ function cardImage(cardCompanyName: string): string {
 
 export const FoldablePrefundCard = ({
   date,
+  cardCompanyName,
   shorteningDate,
   price,
   status,
@@ -90,7 +91,11 @@ export const FoldablePrefundCard = ({
         } overflow-hidden transition-all delay-150 duration-300`}
       >
         <Col span={10} className='self-center'>
-          <img src={hyundaeCard} alt='현대카드' className='mx-auto' />
+          <img
+            src={cardImage(cardCompanyName)}
+            alt={cardCompanyName}
+            className='mx-auto'
+          />
         </Col>
         <Col span={10} className='text-center text-M/Medium'>
           {localeString(number(price))}원
