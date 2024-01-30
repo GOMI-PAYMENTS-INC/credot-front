@@ -70,10 +70,22 @@ export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
   };
 
   const prefundAmount = selectedRows.reduce((acc, cur) => acc + cur.prefundPrice, 0);
+  const cardFundAmount = selectedRows.reduce(
+    (acc, cur) => acc + cur.cardSettlementPrice,
+    0,
+  );
   return (
     <>
       {status !== PrefundStatusEnum.DONE && (
-        <TableFilter amount={prefundAmount} onUpdate={handleUpdateStatus} />
+        <TableFilter
+          label={
+            status === PrefundStatusEnum.READY
+              ? '선정산 금액 합계'
+              : '카드사 정산 합계 금액'
+          }
+          amount={status === PrefundStatusEnum.READY ? prefundAmount : cardFundAmount}
+          onUpdate={handleUpdateStatus}
+        />
       )}
       <div className='mx-auto w-[1280px]'>
         <Wrapper className='gm-h-full mt-[10px]'>
