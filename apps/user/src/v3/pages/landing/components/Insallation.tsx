@@ -9,7 +9,7 @@ export const Insallation = () => {
     <div className='bg-purple-50 py-[100px]'>
       <div className='mx-auto flex w-[1100px] justify-center'>
         <div>
-          <img src={installationImage1} />
+          <img src={installationImage1} width={440} />
         </div>
         <div className='ml-[100px] mt-[120px]'>
           <div className='text-L/Bold text-purple-600'>간단해요!</div>

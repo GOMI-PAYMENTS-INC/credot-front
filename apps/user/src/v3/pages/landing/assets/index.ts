@@ -7,7 +7,7 @@ import floatingImg3Png from './floating-img-3.png';
 import floatingImg4Png from './floating-img-4.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
-import installationImage1Png from './installation-image-1.png';
+import installationImage1Png from './installation-image-1.gif';
 import landingImage1Png from './landing-image-1.png';
 import logoPng from './logo.png';
 import mLandingImage1Png from './m-landing-image-1.png';
