@@ -7,17 +7,22 @@ import floatingImg3Png from './floating-img-3.png';
 import floatingImg4Png from './floating-img-4.png';
 import gasStationIconPng from './gas-station-icon.png';
 import hospitalIconPng from './hosipital-icon.png';
+import installationImage1Png from './installation-image-1.png';
+import landingImage1Png from './landing-image-1.png';
 import logoPng from './logo.png';
 import mServicePreviewPng from './m-service-preview.png';
 import mobilePng from './mobile.png';
 import monitorPng from './monitor.png';
+import nonRequirements from './non-requirements.png';
 import prefundPng from './prefund.png';
 import prefundCyclePng from './prefund-cycle.png';
 import priceDropIconPng from './price-drop-icon.png';
 import restaurantIconPng from './restaurant-icon.png';
 import safetyIconPng from './safety-icon.png';
+import serviceBenefitImagePng from './service-benefit-image-1.png';
 import shakeHandIconPng from './shakehand-icon.png';
 import starIconPng from './star-icon.png';
+import subtractIconPng from './subtract.png';
 import timerIconPng from './timer-icon.png';
 
 export const monitor = monitorPng;
@@ -52,3 +57,13 @@ export const floatingImg3 = floatingImg3Png;
 export const floatingImg4 = floatingImg4Png;
 
 export const mServicePreview = mServicePreviewPng;
+
+export const landingImage1 = landingImage1Png;
+
+export const installationImage1 = installationImage1Png;
+
+export const nonRequirementsImage1 = nonRequirements;
+
+export const serviceBenefitImage = serviceBenefitImagePng;
+
+export const subtractIcon = subtractIconPng;

@@ -9,12 +9,15 @@ import { PATH } from '@/common/constants';
 import { Default } from '@/v3/layouts';
 import { logo } from '@/v3/pages/landing/assets';
 import {
+  Calculator,
   Customer,
   CustomerType,
   Epilogue,
   Faq,
   FutureFund,
+  Insallation,
   Intro,
+  LandingDescription,
   MCustomer,
   MCustomerType,
   MEpilogue,
@@ -23,10 +26,11 @@ import {
   MServiceBenefit,
   MServiceFee,
   MServicePreview,
+  NonRequirements,
+  ServiceBenefit2,
   ServiceFee,
   ServicePreview,
 } from '@/v3/pages/landing/components';
-import { ServiceBenefit } from '@/v3/pages/landing/components/ServiceBenefit';
 
 const { Header, Content, Footer } = Layout;
 
@@ -64,13 +68,17 @@ export const PCHome = () => {
       <div className='h-auto'>
         <Content className='h-full'>
           <Intro />
-          <Customer />
+          <LandingDescription />
+          <Insallation />
+          <NonRequirements />
+          <ServiceBenefit2 />
           <CustomerType />
-          <ServicePreview />
-          <ServiceBenefit />
-          <ServiceFee />
-          <Epilogue />
-          <FutureFund />
+          <Calculator />
+          <Customer />
+          {/*<ServicePreview />*/}
+          {/*<ServiceFee />*/}
+          {/*<Epilogue />*/}
+          {/*<FutureFund />*/}
           <Faq />
         </Content>
       </div>

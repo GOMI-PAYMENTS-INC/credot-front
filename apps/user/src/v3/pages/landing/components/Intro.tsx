@@ -13,7 +13,7 @@ import {
 export const Intro = () => {
   const navigation = useNavigate();
   return (
-    <div className='h-[870px] w-full bg-purple-50 pt-[59px] text-center'>
+    <div className='h-[820px] w-full overflow-hidden bg-purple-50 pt-[59px] text-center'>
       <div className='mx-auto w-[1100px]'>
         <div className='relative'>
           <div className='animation-ico absolute left-[-50px] top-[67px]'>
@@ -29,12 +29,10 @@ export const Intro = () => {
             <img src={floatingImg4} width={197} />
           </div>
         </div>
-        <div className='text-2XL/Bold text-purple-600'>어제 매출, 오늘 정산 받는닷!</div>
-        <div className='text-[70px] font-black text-purple-600'>크레닷.</div>
-        <div className='mt-[20px] text-XL/Light text-grey-700'>
-          카드사나 휴일 상관 없이,{' '}
-          <span className='font-bold text-purple-600'>가장 빠른 익일 정산 서비스</span>
+        <div className='text-2XL/Bold text-purple-600'>
+          오늘 매출, 내일 정산 받는 카드 단말기
         </div>
+        <div className='text-[70px] font-black text-purple-600'>크레닷.</div>
         <div className='mt-[50px] flex justify-center'>
           <button
             onClick={() => navigation(PATH.SIGN_IN)}
@@ -50,14 +48,13 @@ export const Intro = () => {
             도입 문의하기
           </button>
         </div>
-        <div className='absolute left-[50%] top-[467px] translate-x-[-50%]'>
+        <div className='mt-[70px] flex justify-center'>
           <div className='relative'>
             <img
               src={prefund}
               className='absolute left-[30px] top-[29px] min-w-[651px] max-w-[651px]'
             />
             <img src={monitor} className='min-w-[710px] max-w-[710px]' />
-            <div className='absolute left-[270px] bottom-[20px] h-[150px] min-h-[150px] w-[170px] min-w-[170px]  bg-gradient-to-b from-transparent to-purple-400/80' />
           </div>
         </div>
       </div>

@@ -15,3 +15,8 @@ export * from './MServiceBenefit';
 export * from './MServiceFee';
 export * from './MEpilogue';
 export * from './MFutureFund';
+export * from './LandingDescription';
+export * from './Insallation';
+export * from './NonRequirements';
+export * from './ServiceBenefit2';
+export * from './Calculator';
