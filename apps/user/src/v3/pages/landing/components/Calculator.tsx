@@ -1,22 +1,21 @@
 import { Divider, Input } from 'antd';
 import { useState } from 'react';
+import { isMobile } from 'react-device-detect';
 
-import useScript from '@/components/useScript';
 import { subtractIcon } from '@/v3/pages/landing/assets';
 
 export const Calculator = () => {
   const [price, setPrice] = useState<number | undefined>(undefined);
-  console.log(price);
   const cardFee = (price || 0) * 0.015;
   const settlementFee = (price || 0) * 0.004;
   return (
     <div className='w-full bg-gradient-to-b from-[#9811FF] to-[#450972] py-[92px]'>
-      <div className='mx-auto w-[1100px]'>
+      <div className={`mx-auto ${isMobile ? 'w-full' : 'w-[1100px]'}`}>
         <div className='text-center text-3XL/Medium leading-[40px] text-white'>
           <div>크레닷 단말기</div>
           <div className='mt-[14px] font-bold'>수수료 계산기</div>
         </div>
-        <div className='mt-[60px] flex flex-row justify-center gap-12'>
+        <div className='mt-[60px] flex flex-row justify-center gap-12 px-[20px]'>
           <div className='w-[446px] rounded-[8px] bg-grey-100'>
             <div className='p-[28px]'>
               <div className='text-L/Medium text-black'>일 평균 매출(원)</div>

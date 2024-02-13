@@ -22,8 +22,11 @@ import {
   MCustomerType,
   MEpilogue,
   MFutureFund,
+  MInsallation,
   MIntro,
+  MNonRequirements,
   MServiceBenefit,
+  MServiceBenefit2,
   MServiceFee,
   MServicePreview,
   NonRequirements,
@@ -31,6 +34,7 @@ import {
   ServiceFee,
   ServicePreview,
 } from '@/v3/pages/landing/components';
+import { MLandingDescription } from '@/v3/pages/landing/components/MLandingDescription';
 
 const { Header, Content, Footer } = Layout;
 
@@ -106,13 +110,18 @@ export const MobileHome = () => {
     <Default>
       <div>
         <MIntro />
-        <MCustomer />
+        <MLandingDescription />
+        <MInsallation />
+        <MNonRequirements />
+        <MServiceBenefit2 />
         <MCustomerType />
-        <MServicePreview />
-        <MServiceBenefit />
-        <MServiceFee />
-        <MEpilogue />
-        <MFutureFund />
+        <Calculator />
+        <MCustomer />
+        {/*<MServicePreview />*/}
+        {/*<MServiceBenefit />*/}
+        {/*<MServiceFee />*/}
+        {/*<MEpilogue />*/}
+        {/*<MFutureFund />*/}
         <Faq />
         <Footer className='px-[18px]'>
           <div className='mx-auto py-[56px]'>

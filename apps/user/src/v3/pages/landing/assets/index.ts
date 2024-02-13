@@ -10,6 +10,9 @@ import hospitalIconPng from './hosipital-icon.png';
 import installationImage1Png from './installation-image-1.png';
 import landingImage1Png from './landing-image-1.png';
 import logoPng from './logo.png';
+import mLandingImage1Png from './m-landing-image-1.png';
+import mNonRequirementsPng from './m-non-requirements.png';
+import mServiceBenefitImagePng from './m-service-benefit-image-1.png';
 import mServicePreviewPng from './m-service-preview.png';
 import mobilePng from './mobile.png';
 import monitorPng from './monitor.png';
@@ -67,3 +70,9 @@ export const nonRequirementsImage1 = nonRequirements;
 export const serviceBenefitImage = serviceBenefitImagePng;
 
 export const subtractIcon = subtractIconPng;
+
+export const mLandingImage1 = mLandingImage1Png;
+
+export const mNonRequirements = mNonRequirementsPng;
+
+export const mServiceBenefitImage = mServiceBenefitImagePng;

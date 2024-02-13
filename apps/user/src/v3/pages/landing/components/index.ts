@@ -20,3 +20,6 @@ export * from './Insallation';
 export * from './NonRequirements';
 export * from './ServiceBenefit2';
 export * from './Calculator';
+export * from './MInsallation';
+export * from './MNonRequirements';
+export * from './MServiceBenefit2';

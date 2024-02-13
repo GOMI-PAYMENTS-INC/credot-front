@@ -10,24 +10,18 @@ export const MCustomerType = () => {
   return (
     <div className='py-[87px]'>
       <div className='mx-auto'>
-        <div className='text-center text-2XL/Medium leading-[30px]'>
-          <div>
-            <span className='font-bold text-purple-600'>사업자분</span>들의 매출을
-          </div>
-          <div className='mt-[14px]'>
-            <span className='bg-purple-100 font-bold text-purple-600'>단 하루</span>
-            만에 정산해드려요.
-          </div>
+        <div className='text-center text-XL/Medium leading-[32px] text-grey-800'>
+          사용중인 단말기가 있어도 <br /> 크래닷 단말기를 사용할 수 있어요!
         </div>
-        <div className='mt-[60px] flex flex-col items-center'>
+        <div className='mt-[30px] flex flex-col items-center'>
           <CustomerTypeCard
             img={customerTypeCardImage1}
             title='예비 창업자'
             content={
               <>
-                오프라인 매장을 창업하실 예정인가요? <br />
-                카드 단말기 설치부터 익일 정산 서비스까지, <br />
-                크레닷이 성공 파트너가 되어드릴께요.
+                매장을 오픈하실 예정인가요? <br />
+                빠른 정산이 가능한 크래닷 단말기를 통해 <br />
+                사장님의 비즈니스를 성공시키세요.
               </>
             }
           />
@@ -37,9 +31,9 @@ export const MCustomerType = () => {
             title='기존 사업자'
             content={
               <>
-                매장을 운영중이신가요? 크레닷이 카드사 <br />
-                정산 주기를 앞당겨드리고, 아직 발생하지 않은 <br />
-                미래의 매출까지도 정산해드릴께요!
+                이미 카드 단말기가 있으시다구요? 상관없 <br />
+                어요! 사용하던 단말기 옆에 추가로 빠른 <br />
+                정산용 크레닷 단말기를 설치해드릴게요.
               </>
             }
           />

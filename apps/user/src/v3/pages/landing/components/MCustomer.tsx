@@ -55,10 +55,10 @@ function CustomerItems({
 
 export const MCustomer = () => {
   return (
-    <div className='w-full bg-gradient-to-b from-purple-300 to-purple-900 py-[92px]'>
+    <div className='w-full bg-gradient-to-b from-[#9538E1] to-[#881AE2] py-[92px]'>
       <div className='mx-auto'>
         <div className='text-center text-2XL/Bold leading-[40px] text-white'>
-          다양한 업종의 사업자분들과 <br />
+          다양한 업종의 사장님들과 <br />
           안정적인 비즈니스를 <br />
           함께 만들어갑니다.
         </div>
@@ -104,7 +104,7 @@ export const MCustomer = () => {
             content2={['새로이', 'BGN케어', '회이락']}
           />
         </div>
-        <div className='col mt-[40px] flex flex-col items-center gap-5'>
+        <div className='col mt-[40px] flex items-center justify-center gap-5'>
           <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-40' />
           <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-30' />
           <div className='h-[16px] w-[16px] rounded-[50px] bg-white opacity-20' />

@@ -6,9 +6,11 @@ import { monitor, prefund } from '@/v3/pages/landing/assets';
 export const MIntro = () => {
   const navigation = useNavigate();
   return (
-    <div className='h-[580px] w-full bg-purple-50 pt-[59px] text-center'>
+    <div className='h-[540px] w-full overflow-hidden bg-purple-50 pt-[59px] text-center'>
       <div className='mx-auto w-full'>
-        <div className='text-XL/Bold text-purple-600'>어제 매출, 오늘 정산 받는닷!</div>
+        <div className='text-XL/Bold text-purple-600'>
+          오늘 매출, 내일 정산 받는 카드 단말기
+        </div>
         <div className='mt-[10px] text-4XL/Bold text-purple-600'>크레닷.</div>
         <div className='mt-[50px] flex justify-center'>
           <button
@@ -25,7 +27,7 @@ export const MIntro = () => {
             도입 문의하기
           </button>
         </div>
-        <div className='absolute top-[467px] left-[50%] translate-x-[-50%]'>
+        <div className='mt-[70px] flex justify-center'>
           <div className='relative'>
             <img
               src={prefund}
@@ -33,7 +35,6 @@ export const MIntro = () => {
               className='absolute left-[13px] top-[13px] min-w-[294px]'
             />
             <img src={monitor} width={320} className='min-w-[320px] !max-w-none' />
-            <div className='absolute left-[123px] bottom-[10px] h-[60px] min-h-[60px] w-[75px] min-w-[75px]  bg-gradient-to-b from-transparent to-purple-400/80' />
           </div>
         </div>
       </div>
