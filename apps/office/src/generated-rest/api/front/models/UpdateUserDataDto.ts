@@ -25,6 +25,7 @@ export type UpdateUserDataDto = {
   crawlingAccountId?: string;
   crawlingPassword?: string;
   businessLicenseFileId?: number;
+  companyEmail?: string;
   corporateRegisterFileId?: number;
   certificateOfCorporateSealFileId?: number;
   crawlingFranchiseInfos: Array<Record<string, any>>;

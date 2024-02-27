@@ -41,6 +41,7 @@ interface MemberUpdateFormType {
   type: UserTypeEnum;
   companyName: string;
   businessNumber: string;
+  companyEmail: string;
   corporateRegistrationNumber: string;
   industryType: string;
   businessType: string;
@@ -236,6 +237,37 @@ export const MemberUpdate = () => {
                   </Form.Item>
                 </Col>
                 <Col span={6}>
+                  <Form.Item
+                    name='phoneNumber'
+                    label='연락처'
+                    labelAlign='left'
+                    labelCol={{ span: 7 }}
+                  >
+                    <Input placeholder='연락처를 입력하세요.' className='w-[180px]' />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label='담당자 이메일'
+                    labelAlign='left'
+                    name='companyEmail'
+                    labelCol={{ span: 7 }}
+                  >
+                    <Input
+                      placeholder='담당자 이메일을 입력하세요.'
+                      className='w-[180px]'
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </div>
+            <Divider />
+            <div>
+              <div className='mb-[16px] text-L/Bold text-grey-800'>
+                가맹점주 페이지 계정 정보
+              </div>
+              <Row gutter={[16, 16]}>
+                <Col span={6}>
                   <Form.Item label='이메일' labelAlign='left' labelCol={{ span: 5 }}>
                     <Input
                       placeholder='이메일을 입력하세요.'
@@ -247,7 +279,7 @@ export const MemberUpdate = () => {
                 </Col>
                 <Col span={6}>
                   <Form.Item
-                    label='패스워드'
+                    label='비밀번호'
                     name='password'
                     labelAlign='left'
                     labelCol={{ span: 5 }}
@@ -256,16 +288,6 @@ export const MemberUpdate = () => {
                       placeholder='비밀번호를 입력하세요.'
                       className='w-[180px]'
                     />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item
-                    name='phoneNumber'
-                    label='연락처'
-                    labelAlign='left'
-                    labelCol={{ span: 7 }}
-                  >
-                    <Input placeholder='연락처를 입력하세요.' className='w-[180px]' />
                   </Form.Item>
                 </Col>
               </Row>

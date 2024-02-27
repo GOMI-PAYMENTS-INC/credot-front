@@ -194,6 +194,37 @@ export const MemberRegister = () => {
                 </Col>
                 <Col span={6}>
                   <Form.Item
+                    name='phoneNumber'
+                    label='연락처'
+                    labelAlign='left'
+                    labelCol={{ span: 7 }}
+                  >
+                    <Input placeholder='연락처를 입력하세요.' className='w-[180px]' />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label='담당자 이메일'
+                    labelAlign='left'
+                    name='companyEmail'
+                    labelCol={{ span: 7 }}
+                  >
+                    <Input
+                      placeholder='담당자 이메일을 입력하세요.'
+                      className='w-[180px]'
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </div>
+            <Divider />
+            <div>
+              <div className='mb-[16px] text-L/Bold text-grey-800'>
+                가맹점주 페이지 계정 정보
+              </div>
+              <Row gutter={[16, 16]}>
+                <Col span={6}>
+                  <Form.Item
                     name='email'
                     label='이메일'
                     rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
@@ -215,16 +246,6 @@ export const MemberRegister = () => {
                       placeholder='비밀번호를 입력하세요.'
                       className='w-[180px]'
                     />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item
-                    name='phoneNumber'
-                    label='연락처'
-                    labelAlign='left'
-                    labelCol={{ span: 7 }}
-                  >
-                    <Input placeholder='연락처를 입력하세요.' className='w-[180px]' />
                   </Form.Item>
                 </Col>
               </Row>

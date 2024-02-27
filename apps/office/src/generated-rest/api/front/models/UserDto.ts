@@ -9,6 +9,7 @@ export type UserDto = {
   phoneNumber: string;
   createdAt: string;
   managerName: string;
+  companyEmail?: string;
   managerPosition: string;
   businessNumber: string;
   corporateRegistrationNumber: string;

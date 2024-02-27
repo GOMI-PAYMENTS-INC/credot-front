@@ -10,6 +10,7 @@ export type CreateUserDto = {
   type?: UserTypeEnum;
   crawlingType?: CrawlingTypeEnum;
   companyName: string;
+  companyEmail?: string;
   businessNumber?: string;
   corporateRegistrationNumber?: string;
   industryType?: string;
