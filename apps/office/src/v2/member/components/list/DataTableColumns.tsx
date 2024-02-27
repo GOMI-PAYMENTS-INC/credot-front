@@ -1,4 +1,4 @@
-import { Button, message } from 'antd';
+import { Button, message, Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,11 @@ const FileDownloadRender = (fileId: number) => {
     )
   );
 };
-export const getDataTableColumns = (): ColumnsType<MemberRecord> => {
+export const getDataTableColumns = ({
+  deleteUser,
+}: {
+  deleteUser: (memberId: number) => void;
+}): ColumnsType<MemberRecord> => {
   const navigation = useNavigate();
   return [
     {
@@ -35,14 +39,34 @@ export const getDataTableColumns = (): ColumnsType<MemberRecord> => {
       dataIndex: '',
       key: '',
       render: (_, record: MemberRecord) => (
-        <Button
-          size='small'
-          type='text'
-          className='text-purple-500'
-          onClick={() => navigation(`/member/update/${record.id}`)}
-        >
-          수정
-        </Button>
+        <div className='flex'>
+          <Button
+            size='small'
+            type='text'
+            className='mr-3 text-purple-500'
+            onClick={() => navigation(`/member/update/${record.id}`)}
+          >
+            수정
+          </Button>
+          <Button
+            size='small'
+            type='text'
+            danger
+            onClick={() =>
+              Modal.confirm({
+                title: '회원 삭제',
+                content: '삭제하시겠습니까?',
+                okText: '삭제',
+                cancelText: '취소',
+                onOk: () => {
+                  deleteUser(record.id);
+                },
+              })
+            }
+          >
+            삭제
+          </Button>
+        </div>
       ),
       className: 'text-center',
     },

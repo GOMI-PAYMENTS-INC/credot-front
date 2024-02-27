@@ -92,4 +92,20 @@ export class AdminService {
       mediaType: 'application/json',
     });
   }
+
+  /**
+   * 선정산 요청
+   * @param target
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static generatePrefundDaily(target: string): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/request/daily/prefund',
+      query: {
+        target: target,
+      },
+    });
+  }
 }

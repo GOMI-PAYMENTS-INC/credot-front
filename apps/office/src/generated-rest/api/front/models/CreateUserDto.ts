@@ -18,6 +18,7 @@ export type CreateUserDto = {
   managerPosition?: string;
   managerName?: string;
   email: string;
+  password: string;
   phoneNumber?: string;
   bankName?: string;
   bankAccountHolder?: string;

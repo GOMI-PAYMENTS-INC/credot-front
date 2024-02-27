@@ -25,6 +25,7 @@ interface MemberRegisterFormType {
   crawlingType: CrawlingTypeEnum;
   crawlingAccountId: string;
   crawlingPassword: string;
+  password: string;
   businessLicenseFileId: number;
   corporateRegisterFileId: number;
   certificateOfCorporateSealFileId: number;
@@ -178,6 +179,20 @@ export const MemberRegister = () => {
                     labelCol={{ span: 5 }}
                   >
                     <Input placeholder='이메일을 입력하세요.' className='w-[180px]' />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    name='password'
+                    label='패스워드'
+                    rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
+                    labelAlign='left'
+                    labelCol={{ span: 5 }}
+                  >
+                    <Input.Password
+                      placeholder='비밀번호를 입력하세요.'
+                      className='w-[180px]'
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={6}>

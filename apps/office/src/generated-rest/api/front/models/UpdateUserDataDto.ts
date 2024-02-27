@@ -14,6 +14,7 @@ export type UpdateUserDataDto = {
   corporateRegistrationNumber?: string;
   industryType?: string;
   businessType?: string;
+  password?: string;
   companyAddress?: string;
   managerPosition?: string;
   managerName?: string;

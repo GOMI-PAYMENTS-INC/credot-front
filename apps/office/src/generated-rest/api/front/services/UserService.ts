@@ -45,6 +45,22 @@ export class UserService {
   }
 
   /**
+   * 유저 삭제
+   * @param memberId
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static deleteUser(memberId: number): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'DELETE',
+      url: '/user/{memberId}',
+      path: {
+        memberId: memberId,
+      },
+    });
+  }
+
+  /**
    * 유저 크롤링 정보 추출
    * @param memberId
    * @returns CrawlingInfoDto

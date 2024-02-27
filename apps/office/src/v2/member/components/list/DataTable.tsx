@@ -7,6 +7,7 @@ import { useGetFiles } from '@/hooks/upload.hook';
 import { useUserListHook } from '@/hooks/user.hook';
 import { MemberListFilterType } from '@/v2/member/atom';
 import { getDataTableColumns } from '@/v2/member/components/list/DataTableColumns';
+import { useDeleteUser, useUpdateMember } from '@/v2/member/hooks/member.hook';
 
 const Wrapper = styled.div`
   .ant-table-thead .ant-table-cell,
@@ -43,8 +44,14 @@ export type MemberRecord = {
 
 export const DataTable = () => {
   const [filter] = useRecoilState(MemberListFilterType);
-  const listColumn: ColumnsType<MemberRecord> = getDataTableColumns();
-  const { data, isLoading } = useUserListHook(filter.userId);
+  const { mutateAsync: deleteUser } = useDeleteUser();
+  const { data, isLoading, refetch } = useUserListHook(filter.userId);
+  const listColumn: ColumnsType<MemberRecord> = getDataTableColumns({
+    deleteUser: async (memberId: number) => {
+      await deleteUser(memberId);
+      await refetch();
+    },
+  });
 
   return (
     <>

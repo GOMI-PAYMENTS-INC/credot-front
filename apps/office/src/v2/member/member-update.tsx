@@ -26,6 +26,7 @@ interface MemberUpdateFormType {
   phoneNumber: string;
   bankName: string;
   bankAccountHolder: string;
+  password: string;
   bankAccount: string;
   crawlingType: CrawlingTypeEnum;
   crawlingAccountId: string;
@@ -204,6 +205,19 @@ export const MemberUpdate = () => {
                       placeholder='이메일을 입력하세요.'
                       disabled
                       value={data?.email}
+                      className='w-[180px]'
+                    />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label='패스워드'
+                    name='password'
+                    labelAlign='left'
+                    labelCol={{ span: 5 }}
+                  >
+                    <Input.Password
+                      placeholder='비밀번호를 입력하세요.'
                       className='w-[180px]'
                     />
                   </Form.Item>

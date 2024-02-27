@@ -26,6 +26,7 @@ export namespace CreateBondDto {
     LOTTE_CARD = 'LOTTE_CARD',
     HDO_CARD = 'HDO_CARD',
     CREDIT_CARD = 'CREDIT_CARD',
+    WOORI_CARD = 'WOORI_CARD',
   }
 
   export enum cardType {

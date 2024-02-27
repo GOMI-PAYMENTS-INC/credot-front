@@ -40,6 +40,18 @@ export const useUpdateMember = () => {
   );
 };
 
+export const useDeleteUser = () => {
+  return useMutation((memberId: number) => UserService.deleteUser(memberId), {
+    onSuccess: (res) => {
+      toast.success('회원이 삭제되었습니다.');
+    },
+    onError: (error: ApiError) => {
+      console.error(JSON.stringify(error));
+      toast.success('회원 삭제에 실패하였습니다.');
+    },
+  });
+};
+
 export const useUserHook = (userId: number) => {
   return useQuery<UserDto, ApiError>({
     queryKey: ['user', userId],
