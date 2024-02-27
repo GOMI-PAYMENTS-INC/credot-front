@@ -1,11 +1,33 @@
-import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Divider, Form, Input, Modal, Radio, Row, Select } from 'antd';
+import {
+  ExclamationCircleOutlined,
+  MinusCircleOutlined,
+  PlusOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
+import {
+  Button,
+  Col,
+  Divider,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Row,
+  Select,
+  Space,
+} from 'antd';
 
 import { Default } from '@/common/layouts';
 import { PUpload } from '@/components/PUpload';
 import { CrawlingTypeEnum, UserTypeEnum } from '@/generated-rest/api/front';
 import { Header } from '@/v2/member/components/header';
 import { useRegisterMember } from '@/v2/member/hooks/member.hook';
+
+interface FranchiseInfo {
+  id: string;
+  cardCompanyName: string;
+  franchiseNumber: string;
+}
 
 interface MemberRegisterFormType {
   type: UserTypeEnum;
@@ -29,6 +51,7 @@ interface MemberRegisterFormType {
   businessLicenseFileId: number;
   corporateRegisterFileId: number;
   certificateOfCorporateSealFileId: number;
+  crawlingFranchiseInfos: FranchiseInfo[];
 }
 
 export const MemberRegister = () => {
@@ -286,6 +309,79 @@ export const MemberRegister = () => {
                       className='w-[180px]'
                     />
                   </Form.Item>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <div className='mb-3'>가맹점 정보</div>
+                  <Form.List name='crawlingFranchiseInfos'>
+                    {(fields, { add, remove }, { errors }) => (
+                      <>
+                        {fields.map((field, index) => {
+                          console.log(field);
+                          return (
+                            <Form.Item required={false} key={field.key}>
+                              <div>
+                                <Space>
+                                  <Form.Item
+                                    name={[field.name, 'cardCompanyName']}
+                                    validateTrigger={['onChange', 'onBlur']}
+                                    rules={[
+                                      {
+                                        required: true,
+                                        whitespace: true,
+                                        message:
+                                          "Please input passenger's name or delete this field.",
+                                      },
+                                    ]}
+                                    noStyle
+                                  >
+                                    <Select
+                                      className='!w-60'
+                                      options={[
+                                        { value: 'BC_CARD', label: '비씨카드' },
+                                        { value: 'KB_CARD', label: '국민카드' },
+                                        { value: 'HANA_CARD', label: '하나카드' },
+                                        { value: 'HYUNDAE_CARD', label: '현대카드' },
+                                        { value: 'SHINHAN_CARD', label: '신한카드' },
+                                        { value: 'SAMSUNG_CARD', label: '삼성카드' },
+                                        { value: 'NH_CARD', label: 'NH카드' },
+                                        { value: 'LOTTE_CARD', label: '롯데카드' },
+                                        { value: 'WOORI_CARD', label: '우리카드' },
+                                      ]}
+                                    />
+                                  </Form.Item>
+                                  <Form.Item
+                                    name={[field.name, 'franchiseNumber']}
+                                    validateTrigger={['onChange', 'onBlur']}
+                                    noStyle
+                                  >
+                                    <Input className='w-80' />
+                                  </Form.Item>
+                                  {fields.length > 1 ? (
+                                    <MinusCircleOutlined
+                                      className='dynamic-delete-button'
+                                      onClick={() => remove(field.name)}
+                                    />
+                                  ) : null}
+                                </Space>
+                              </div>
+                            </Form.Item>
+                          );
+                        })}
+                        <Form.Item>
+                          <Button
+                            type='dashed'
+                            onClick={() => add()}
+                            icon={<PlusOutlined />}
+                          >
+                            가맹점 추가하기
+                          </Button>
+                          <Form.ErrorList errors={errors} />
+                        </Form.Item>
+                      </>
+                    )}
+                  </Form.List>
                 </Col>
               </Row>
             </div>
