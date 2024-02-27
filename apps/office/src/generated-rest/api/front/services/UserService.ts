@@ -79,6 +79,24 @@ export class UserService {
   }
 
   /**
+   * 유저 크롤링 정보 가맹점 삭제
+   * @param id
+   * @returns CrawlingInfoDto
+   * @throws ApiError
+   */
+  public static deleteCrawlingFranchiseInfo(
+    id: number,
+  ): CancelablePromise<Array<CrawlingInfoDto>> {
+    return __request(OpenAPI, {
+      method: 'DELETE',
+      url: '/user/crawlingInfo/{id}',
+      path: {
+        id: id,
+      },
+    });
+  }
+
+  /**
    * 유저 생성
    * @param requestBody
    * @returns boolean

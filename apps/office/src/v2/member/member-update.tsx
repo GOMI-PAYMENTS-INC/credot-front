@@ -1,5 +1,22 @@
-import { ExclamationCircleOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Col, Divider, Form, Input, Modal, Radio, Row, Select } from 'antd';
+import {
+  ExclamationCircleOutlined,
+  MinusCircleOutlined,
+  PlusOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
+import {
+  Button,
+  Col,
+  Divider,
+  Form,
+  Input,
+  message,
+  Modal,
+  Radio,
+  Row,
+  Select,
+  Space,
+} from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -8,10 +25,17 @@ import { PUpload } from '@/components/PUpload';
 import { CrawlingTypeEnum, UserTypeEnum } from '@/generated-rest/api/front';
 import { Header } from '@/v2/member/components/header';
 import {
+  useDeleteFranchise,
   useUpdateMember,
   useUserCrawlingInfoHook,
   useUserHook,
 } from '@/v2/member/hooks/member.hook';
+
+interface FranchiseInfo {
+  id?: number;
+  cardCompanyName: string;
+  franchiseNumber: string;
+}
 
 interface MemberUpdateFormType {
   type: UserTypeEnum;
@@ -34,6 +58,7 @@ interface MemberUpdateFormType {
   businessLicenseFileId: number;
   corporateRegisterFileId: number;
   certificateOfCorporateSealFileId: number;
+  crawlingFranchiseInfos: FranchiseInfo[];
 }
 
 export const MemberUpdate = () => {
@@ -44,6 +69,7 @@ export const MemberUpdate = () => {
   );
   const [form] = Form.useForm<MemberUpdateFormType>();
   const { mutateAsync: updateMember, isLoading } = useUpdateMember();
+  const { mutateAsync: deleteFranchise } = useDeleteFranchise();
   const handleFinish = (values: MemberUpdateFormType) => {
     Modal.confirm({
       title: '회원 수정',
@@ -60,6 +86,15 @@ export const MemberUpdate = () => {
     });
   };
 
+  /* 프랜차이즈 정보 삭제 */
+  const handleDeleteCrawlingFranchise = (id: number) => {
+    return deleteFranchise(id).then(() => {
+      refetchUser();
+      refetchCrawlingInfo();
+    });
+  };
+  /* 프랜차이즈 정보 삭제 */
+
   useEffect(() => {
     if (data) {
       form.setFieldsValue({
@@ -75,6 +110,7 @@ export const MemberUpdate = () => {
         crawlingType: crawlingInfos[0].type,
         crawlingAccountId: crawlingInfos[0].accountId,
         crawlingPassword: crawlingInfos[0].password,
+        crawlingFranchiseInfos: crawlingInfos[0].franchiseInfos,
       });
     }
   }, [crawlingInfos]);
@@ -313,6 +349,102 @@ export const MemberUpdate = () => {
                       className='w-[180px]'
                     />
                   </Form.Item>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <div className='mb-3'>가맹점 정보</div>
+                  <Form.List name='crawlingFranchiseInfos'>
+                    {(fields, { add, remove }, { errors }) => (
+                      <>
+                        {fields.map((field, index) => {
+                          console.log(field);
+                          return (
+                            <Form.Item required={false} key={field.key}>
+                              <div>
+                                <Space>
+                                  <Form.Item
+                                    name={[field.name, 'cardCompanyName']}
+                                    validateTrigger={['onChange', 'onBlur']}
+                                    rules={[
+                                      {
+                                        required: true,
+                                        whitespace: true,
+                                        message:
+                                          "Please input passenger's name or delete this field.",
+                                      },
+                                    ]}
+                                    noStyle
+                                  >
+                                    <Select
+                                      className='!w-60'
+                                      options={[
+                                        { value: 'BC_CARD', label: '비씨카드' },
+                                        { value: 'KB_CARD', label: '국민카드' },
+                                        { value: 'HANA_CARD', label: '하나카드' },
+                                        { value: 'HYUNDAE_CARD', label: '현대카드' },
+                                        { value: 'SHINHAN_CARD', label: '신한카드' },
+                                        { value: 'SAMSUNG_CARD', label: '삼성카드' },
+                                        { value: 'NH_CARD', label: 'NH카드' },
+                                        { value: 'LOTTE_CARD', label: '롯데카드' },
+                                        { value: 'WOORI_CARD', label: '우리카드' },
+                                      ]}
+                                    />
+                                  </Form.Item>
+                                  <Form.Item
+                                    name={[field.name, 'franchiseNumber']}
+                                    validateTrigger={['onChange', 'onBlur']}
+                                    noStyle
+                                  >
+                                    <Input className='w-80' />
+                                  </Form.Item>
+                                  {fields.length > 1 ? (
+                                    <MinusCircleOutlined
+                                      className='dynamic-delete-button'
+                                      onClick={async () => {
+                                        const deleteFranchise =
+                                          crawlingInfos?.[0].franchiseInfos.find(
+                                            (item, index) => index === field.key,
+                                          );
+                                        if (!deleteFranchise?.id) {
+                                          message.warning('다시 시도해주세요.');
+                                          return;
+                                        }
+
+                                        Modal.confirm({
+                                          title: '가맹점 삭제',
+                                          content: '해당 가맹점 정보를 삭제하시겠습니까?',
+                                          icon: <ExclamationCircleOutlined />,
+                                          okText: '삭제',
+                                          cancelText: '취소',
+                                          onOk: () => {
+                                            handleDeleteCrawlingFranchise(
+                                              deleteFranchise.id,
+                                            );
+                                            remove(field.name);
+                                          },
+                                        });
+                                      }}
+                                    />
+                                  ) : null}
+                                </Space>
+                              </div>
+                            </Form.Item>
+                          );
+                        })}
+                        <Form.Item>
+                          <Button
+                            type='dashed'
+                            onClick={() => add()}
+                            icon={<PlusOutlined />}
+                          >
+                            가맹점 추가하기
+                          </Button>
+                          <Form.ErrorList errors={errors} />
+                        </Form.Item>
+                      </>
+                    )}
+                  </Form.List>
                 </Col>
               </Row>
             </div>

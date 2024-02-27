@@ -27,4 +27,5 @@ export type UpdateUserDataDto = {
   businessLicenseFileId?: number;
   corporateRegisterFileId?: number;
   certificateOfCorporateSealFileId?: number;
+  crawlingFranchiseInfos: Array<Record<string, any>>;
 };

@@ -24,7 +24,6 @@ import { Header } from '@/v2/member/components/header';
 import { useRegisterMember } from '@/v2/member/hooks/member.hook';
 
 interface FranchiseInfo {
-  id: string;
   cardCompanyName: string;
   franchiseNumber: string;
 }

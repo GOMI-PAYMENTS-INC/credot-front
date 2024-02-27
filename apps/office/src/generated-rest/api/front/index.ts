@@ -13,6 +13,7 @@ export { CreateBondDto } from './models/CreateBondDto';
 export type { CreatePrefundDto } from './models/CreatePrefundDto';
 export type { CreateUserDto } from './models/CreateUserDto';
 export type { FileDto } from './models/FileDto';
+export type { FranchiseInfo } from './models/FranchiseInfo';
 export type { FutureFundDto } from './models/FutureFundDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PrefundDto } from './models/PrefundDto';

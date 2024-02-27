@@ -40,6 +40,21 @@ export const useUpdateMember = () => {
   );
 };
 
+export const useDeleteFranchise = () => {
+  return useMutation(
+    (memberId: number) => UserService.deleteCrawlingFranchiseInfo(memberId),
+    {
+      onSuccess: (res) => {
+        toast.success('가맹점이 삭제되었습니다.');
+      },
+      onError: (error: ApiError) => {
+        console.error(JSON.stringify(error));
+        toast.success('가맹점 삭제에 실패하였습니다.');
+      },
+    },
+  );
+};
+
 export const useDeleteUser = () => {
   return useMutation((memberId: number) => UserService.deleteUser(memberId), {
     onSuccess: (res) => {
