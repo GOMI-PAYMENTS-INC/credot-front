@@ -30,6 +30,7 @@ import {
   useUserCrawlingInfoHook,
   useUserHook,
 } from '@/v2/member/hooks/member.hook';
+import { cardCompanyOptions } from '@/v2/member/member-register';
 
 interface FranchiseInfo {
   id?: number;
@@ -111,7 +112,21 @@ export const MemberUpdate = () => {
         crawlingType: crawlingInfos[0].type,
         crawlingAccountId: crawlingInfos[0].accountId,
         crawlingPassword: crawlingInfos[0].password,
-        crawlingFranchiseInfos: crawlingInfos[0].franchiseInfos,
+        crawlingFranchiseInfos: [
+          ...crawlingInfos[0].franchiseInfos,
+          ...cardCompanyOptions
+            .filter(
+              (option) =>
+                !crawlingInfos[0].franchiseInfos.find(
+                  (franchise) => franchise.cardCompanyName === option.value,
+                ),
+            )
+            .map((option) => ({
+              id: undefined,
+              franchiseNumber: '',
+              cardCompanyName: option.value,
+            })),
+        ],
       });
     }
   }, [crawlingInfos]);
@@ -388,29 +403,11 @@ export const MemberUpdate = () => {
                                   <Form.Item
                                     name={[field.name, 'cardCompanyName']}
                                     validateTrigger={['onChange', 'onBlur']}
-                                    rules={[
-                                      {
-                                        required: true,
-                                        whitespace: true,
-                                        message:
-                                          "Please input passenger's name or delete this field.",
-                                      },
-                                    ]}
                                     noStyle
                                   >
                                     <Select
                                       className='!w-60'
-                                      options={[
-                                        { value: 'BC_CARD', label: '비씨카드' },
-                                        { value: 'KB_CARD', label: '국민카드' },
-                                        { value: 'HANA_CARD', label: '하나카드' },
-                                        { value: 'HYUNDAE_CARD', label: '현대카드' },
-                                        { value: 'SHINHAN_CARD', label: '신한카드' },
-                                        { value: 'SAMSUNG_CARD', label: '삼성카드' },
-                                        { value: 'NH_CARD', label: 'NH카드' },
-                                        { value: 'LOTTE_CARD', label: '롯데카드' },
-                                        { value: 'WOORI_CARD', label: '우리카드' },
-                                      ]}
+                                      options={cardCompanyOptions}
                                     />
                                   </Form.Item>
                                   <Form.Item

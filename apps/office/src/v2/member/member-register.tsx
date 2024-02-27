@@ -53,6 +53,18 @@ interface MemberRegisterFormType {
   crawlingFranchiseInfos: FranchiseInfo[];
 }
 
+export const cardCompanyOptions = [
+  { value: 'BC_CARD', label: '비씨카드' },
+  { value: 'KB_CARD', label: '국민카드' },
+  { value: 'HANA_CARD', label: '하나카드' },
+  { value: 'HYUNDAE_CARD', label: '현대카드' },
+  { value: 'SHINHAN_CARD', label: '신한카드' },
+  { value: 'SAMSUNG_CARD', label: '삼성카드' },
+  { value: 'NH_CARD', label: 'NH카드' },
+  { value: 'LOTTE_CARD', label: '롯데카드' },
+  { value: 'WOORI_CARD', label: '우리카드' },
+];
+
 export const MemberRegister = () => {
   const [form] = Form.useForm<MemberRegisterFormType>();
   const { mutateAsync: register, isLoading } = useRegisterMember();
@@ -77,7 +89,17 @@ export const MemberRegister = () => {
       <Header title='신규 회원 등록' />
       <div className='mt-[20px] h-full bg-grey-50'>
         <div className='mx-auto w-[1280px] py-[20px]'>
-          <Form colon={false} form={form} onFinish={handleFinish}>
+          <Form
+            colon={false}
+            form={form}
+            onFinish={handleFinish}
+            initialValues={{
+              crawlingFranchiseInfos: cardCompanyOptions.map((option) => ({
+                cardCompanyName: option.value,
+                franchiseNumber: '',
+              })),
+            }}
+          >
             <div>
               <div className='mb-[16px] text-L/Bold text-grey-800'>업체 정보</div>
               <Row gutter={[16, 16]}>
@@ -346,29 +368,11 @@ export const MemberRegister = () => {
                                   <Form.Item
                                     name={[field.name, 'cardCompanyName']}
                                     validateTrigger={['onChange', 'onBlur']}
-                                    rules={[
-                                      {
-                                        required: true,
-                                        whitespace: true,
-                                        message:
-                                          "Please input passenger's name or delete this field.",
-                                      },
-                                    ]}
                                     noStyle
                                   >
                                     <Select
                                       className='!w-60'
-                                      options={[
-                                        { value: 'BC_CARD', label: '비씨카드' },
-                                        { value: 'KB_CARD', label: '국민카드' },
-                                        { value: 'HANA_CARD', label: '하나카드' },
-                                        { value: 'HYUNDAE_CARD', label: '현대카드' },
-                                        { value: 'SHINHAN_CARD', label: '신한카드' },
-                                        { value: 'SAMSUNG_CARD', label: '삼성카드' },
-                                        { value: 'NH_CARD', label: 'NH카드' },
-                                        { value: 'LOTTE_CARD', label: '롯데카드' },
-                                        { value: 'WOORI_CARD', label: '우리카드' },
-                                      ]}
+                                      options={cardCompanyOptions}
                                     />
                                   </Form.Item>
                                   <Form.Item
