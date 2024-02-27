@@ -356,10 +356,6 @@ export const MemberRegister = () => {
               </Row>
             </div>
 
-            <small className='mt-[20px] inline-block text-grey-700'>
-              * 생성되는 계정의 기본 비밀번호는 12345qwert 입니다.
-            </small>
-
             <Form.Item className='mt-[60px] text-center'>
               <Button
                 type='primary'
