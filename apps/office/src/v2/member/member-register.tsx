@@ -372,6 +372,7 @@ export const MemberRegister = () => {
                                   >
                                     <Select
                                       className='!w-60'
+                                      listHeight={320}
                                       options={cardCompanyOptions}
                                     />
                                   </Form.Item>
