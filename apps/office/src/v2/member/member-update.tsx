@@ -128,6 +128,16 @@ export const MemberUpdate = () => {
             })),
         ],
       });
+    } else {
+      form.setFieldsValue({
+        crawlingFranchiseInfos: [
+          ...cardCompanyOptions.map((option) => ({
+            id: undefined,
+            franchiseNumber: '',
+            cardCompanyName: option.value,
+          })),
+        ],
+      });
     }
   }, [crawlingInfos]);
 
