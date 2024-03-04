@@ -41,10 +41,16 @@ export type PrefundRecord = {
   prefundAt: string;
 };
 
-export const DataTable = ({ status }: { status: PrefundStatusEnum }) => {
+export const DataTable = ({
+  status,
+  columns,
+}: {
+  status: PrefundStatusEnum;
+  columns?: ColumnsType<PrefundRecord>;
+}) => {
   const [filter] = useRecoilState(PrefundFilterAtom);
   const [selectedRows, setSelectedRows] = useState<PrefundRecord[]>([]);
-  const listColumn: ColumnsType<PrefundRecord> = getDataTableColumns();
+  const listColumn: ColumnsType<PrefundRecord> = columns || getDataTableColumns();
 
   const { mutateAsync: updatePrefundStatus } = useUpdatePrefundStatus();
   const { refetch, data, isLoading } = usePrefundList({

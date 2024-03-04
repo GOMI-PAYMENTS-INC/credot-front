@@ -22,37 +22,37 @@ export const SummaryPreFundCard = () => {
   return (
     <div className='w-full py-[20px]'>
       <div className='mx-auto flex w-[1280px] flex-col justify-start'>
-        <div className='mt-[14px] flex'>
-          <div className='mr-[28px] w-full max-w-[232px] border border-grey-300 bg-grey-50 px-[24px] py-[28px]'>
-            <div className='text-M/Bold'>선정산 금액</div>
+        <div className='flex'>
+          <div className='h-full w-full max-w-[232px] rounded-tl-[8px] rounded-bl-[8px] border border-grey-300 bg-grey-50 px-[24px] py-[16px]'>
+            <div className='text-S/Medium text-grey-800'>선정산 금액</div>
             <div className='mt-[10px] text-XL/Bold text-purple-400'>
               {(summaryData?.prefundPrice || 0).toLocaleString()}원
             </div>
           </div>
-          <div className='ml-[-1px] flex w-full border border-grey-300 bg-grey-50 px-[30px] py-[28px]'>
+          <div className='ml-[-1px] flex h-full w-full rounded-tr-[8px] rounded-br-[8px] border border-grey-300 bg-transparent px-[30px] py-[16px]'>
             <div className='w-[230px]'>
-              <div className='text-M/Medium text-grey-800'>카드 매출</div>
+              <div className='text-S/Medium text-grey-800'>카드 매출</div>
               <div className='mt-[10px] text-XL/Bold text-grey-800'>
                 {(summaryData?.salesPrice || 0).toLocaleString()}원
               </div>
             </div>
             <MinusIcon />
             <div className='w-[130px]'>
-              <div className='text-M/Medium text-grey-800'>카드사 수수료</div>
+              <div className='text-S/Medium text-grey-800'>카드사 수수료</div>
               <div className='mt-[10px] text-XL/Regular text-grey-800'>
                 {(summaryData?.cardCommission || 0).toLocaleString()}원
               </div>
             </div>
             <MinusIcon />
             <div>
-              <div className='text-M/Medium text-grey-800'>서비스 수수료</div>
+              <div className='text-S/Medium text-grey-800'>서비스 수수료</div>
               <div className='mt-[10px] text-XL/Regular text-grey-800'>
                 {(summaryData?.serviceCommission || 0).toLocaleString()}원
               </div>
             </div>
             <MinusIcon />
             <div>
-              <div className='text-M/Medium text-grey-800'>과정산 금액</div>
+              <div className='text-S/Medium text-grey-800'>과정산 금액</div>
               <div className='mt-[10px] text-XL/Regular text-grey-800'>
                 {(summaryData?.setoff || 0).toLocaleString()}원
               </div>
@@ -60,29 +60,29 @@ export const SummaryPreFundCard = () => {
           </div>
         </div>
         <div className='mt-[14px] flex'>
-          <div className='mr-[28px] w-full max-w-[232px] border border-grey-300 bg-grey-50 px-[24px] py-[28px]'>
-            <div className='text-M/Bold'>실제 입금액</div>
+          <div className='h-full w-full max-w-[232px] rounded-tl-[8px] rounded-bl-[8px] border border-grey-300 bg-grey-50 px-[24px] py-[16px]'>
+            <div className='text-S/Medium text-grey-800'>실제 입금액</div>
             <div className='mt-[10px] text-XL/Bold text-purple-400'>
               {(summaryData?.depositPrice || 0).toLocaleString()}원
             </div>
           </div>
-          <div className='ml-[-1px] flex w-full border border-grey-300 bg-grey-50 px-[30px] py-[28px]'>
+          <div className='ml-[-1px] flex h-full w-full rounded-tr-[8px] rounded-br-[8px] border border-grey-300 bg-transparent px-[30px] py-[16px]'>
             <div className='w-[230px]'>
-              <div className='text-M/Medium text-grey-800'>선정산 금액</div>
+              <div className='text-S/Medium text-grey-800'>선정산 금액</div>
               <div className='mt-[10px] text-XL/Bold text-grey-800'>
                 {(summaryData?.prefundPrice || 0).toLocaleString()}원
               </div>
             </div>
             <MinusIcon />
             <div className='w-[130px]'>
-              <div className='text-M/Medium text-grey-800'>미래정산 상환</div>
+              <div className='text-S/Medium text-grey-800'>미래정산 상환</div>
               <div className='mt-[10px] text-XL/Regular text-grey-800'>
                 {(summaryData?.repaymentPrice || 0).toLocaleString()}원
               </div>
             </div>
             <MinusIcon />
             <div>
-              <div className='text-M/Medium text-grey-800'>미래정산금 수수료</div>
+              <div className='text-S/Medium text-grey-800'>미래정산금 수수료</div>
               <div className='mt-[10px] text-XL/Regular text-grey-800'>
                 {(summaryData?.repaymentFees || 0).toLocaleString()}원
               </div>

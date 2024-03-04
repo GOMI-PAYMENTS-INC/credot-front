@@ -7,6 +7,7 @@ import { PrefundStatusEnum } from '@/generated-rest/api/front';
 import { usePrefundList } from '@/hooks/prefund.hook';
 import { PrefundFilterAtom } from '@/v2/prefund/atom';
 import { DataTable } from '@/v2/prefund/components/DataTable';
+import { getWithdrawalReadyDataTableColumns } from '@/v2/prefund/components/DataTableColumns';
 import { Filter } from '@/v2/prefund/components/Filter';
 import { Header } from '@/v2/prefund/components/header';
 import { SummaryPreFundCard } from '@/v2/prefund/components/SummaryPreFundCard';
@@ -32,13 +33,16 @@ export const WithdrawalReady = () => {
   return (
     <Default useGap>
       <Header
-        title='출금 준비'
+        title='선정산 지급하기'
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
       />
-      <Filter dateRangeOn={false} dataFilterCriteriaLabel={'데이터 생성일'} />
+      <Filter dateRangeOn={false} dataFilterCriteriaLabel={undefined} />
       <UserInfoSection />
       <SummaryPreFundCard />
-      <DataTable status={PrefundStatusEnum.READY} />
+      <DataTable
+        status={PrefundStatusEnum.READY}
+        columns={getWithdrawalReadyDataTableColumns()}
+      />
     </Default>
   );
 };

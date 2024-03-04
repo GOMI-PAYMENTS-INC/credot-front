@@ -24,7 +24,7 @@ export const WithdrawalDone = () => {
         title='출금 완료'
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
       />
-      <Filter dataFilterCriteriaLabel={'카드사 정산 예정일'} />
+      <Filter dateRangeOn={false} dataFilterCriteriaLabel={undefined} />
       <DataTable status={PrefundStatusEnum.DEPOSIT_DONE} />
     </Default>
   );

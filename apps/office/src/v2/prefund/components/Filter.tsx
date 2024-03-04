@@ -1,4 +1,4 @@
-import { Button, DatePicker, Select } from 'antd';
+import { Button, DatePicker, Divider, Select, Tabs } from 'antd';
 import dayjs from 'dayjs';
 import { useRecoilState } from 'recoil';
 
@@ -11,7 +11,7 @@ export const Filter = ({
   dataFilterCriteriaLabel,
   dateRangeOn = true,
 }: {
-  dataFilterCriteriaLabel: string;
+  dataFilterCriteriaLabel?: string;
   dateRangeOn?: boolean;
 }) => {
   const [filter, setFilter] = useRecoilState(PrefundFilterAtom);
@@ -53,54 +53,65 @@ export const Filter = ({
 
   return (
     <div className='mt-[20px] w-full bg-grey-50 py-[20px]'>
-      <div className='mx-auto flex w-[1280px] justify-between'>
-        <div className='flex items-center'>
-          <div className='mr-[40px] text-S/Regular text-grey-700'>
-            {dataFilterCriteriaLabel}
-          </div>
-          <Button
-            className='mr-[14px]'
-            type={filter.term === 'today' ? 'primary' : 'default'}
-            onClick={() => handleChangeTerm('today')}
-          >
-            오늘
-          </Button>
-          {dateRangeOn && (
-            <>
+      <div className='mx-auto flex w-[1280px] flex-col'>
+        {dateRangeOn && (
+          <>
+            <div className='flex items-center'>
+              {dataFilterCriteriaLabel && (
+                <div className='mr-[40px] text-S/Regular text-grey-700'>
+                  {dataFilterCriteriaLabel}
+                </div>
+              )}
               <Button
                 className='mr-[14px]'
-                type={filter.term === 'yesterday' ? 'primary' : 'default'}
-                onClick={() => handleChangeTerm('yesterday')}
+                type={filter.term === 'today' ? 'primary' : 'default'}
+                onClick={() => handleChangeTerm('today')}
               >
-                어제
+                오늘
               </Button>
-              <Button
-                type={filter.term === 'recent-7-days' ? 'primary' : 'default'}
-                className='mr-[14px]'
-                onClick={() => handleChangeTerm('recent-7-days')}
-              >
-                최근 7일
-              </Button>
-              <DatePicker.RangePicker
-                value={filter.termRange}
-                placeholder={['시작일', '종료일']}
-                onChange={(dates) =>
-                  handleChangeTermRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
-                }
-              />
-            </>
-          )}
-        </div>
-        <div className='flex items-center'>
-          <div className='mr-[11px] text-S/Regular text-grey-700'>업체명</div>
-          <Select
-            placeholder='전체'
-            value={filter.userId}
-            style={{ width: 154 }}
-            onChange={(value) => setFilter({ ...filter, userId: value })}
-            options={(users || []).map((user) => ({ value: user.id, label: user.name }))}
-          />
-        </div>
+              <>
+                <Button
+                  className='mr-[14px]'
+                  type={filter.term === 'yesterday' ? 'primary' : 'default'}
+                  onClick={() => handleChangeTerm('yesterday')}
+                >
+                  어제
+                </Button>
+                <Button
+                  type={filter.term === 'recent-7-days' ? 'primary' : 'default'}
+                  className='mr-[14px]'
+                  onClick={() => handleChangeTerm('recent-7-days')}
+                >
+                  최근 7일
+                </Button>
+                <DatePicker.RangePicker
+                  value={filter.termRange}
+                  placeholder={['시작일', '종료일']}
+                  onChange={(dates) =>
+                    handleChangeTermRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
+                  }
+                />
+              </>
+            </div>
+            <Divider />
+          </>
+        )}
+        <Tabs
+          onChange={(value) =>
+            setFilter({ ...filter, userId: value === 'ALL' ? null : Number(value) })
+          }
+          type='card'
+          items={[
+            {
+              key: 'ALL',
+              label: '전체',
+            },
+            ...(users || []).map((user) => ({
+              key: user.id.toString(),
+              label: user.name,
+            })),
+          ]}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
-export const Header = ({ title, updateAt }: { title: string; updateAt: string }) => {
+export const Header = ({ title }: { title: string; updateAt: string }) => {
   return (
     <div className='mx-auto flex w-[1280px] items-center'>
       <div className='mr-[20px] text-XL/Bold text-grey-900'>{title}</div>
-      <div className='mr-[10px] text-S/Regular text-grey-800'>업데이트 : {updateAt}</div>
     </div>
   );
 };
