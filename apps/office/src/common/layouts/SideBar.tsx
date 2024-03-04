@@ -37,11 +37,11 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('출금 준비', '/prefund/ready', <SisternodeOutlined />),
+  getItem('선정산 지급하기', '/prefund/ready', <SisternodeOutlined />),
   { type: 'divider' },
-  getItem('출금 완료', '/prefund/deposit-done', <TransactionOutlined />),
+  getItem('정산금 회수하기', '/prefund/deposit-done', <TransactionOutlined />),
   { type: 'divider' },
-  getItem('거래 완료', '/prefund/done', <CheckCircleOutlined />),
+  getItem('회수 완료', '/prefund/done', <CheckCircleOutlined />),
 ];
 
 const futureFundItems: MenuProps['items'] = [
