@@ -1,6 +1,6 @@
 import { ConfigProvider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -75,6 +75,10 @@ export const DataTable = ({
     await refetch();
   };
 
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [filter.userId]);
+
   const prefundAmount = selectedRows.reduce((acc, cur) => acc + cur.prefundPrice, 0);
   const cardFundAmount = selectedRows.reduce(
     (acc, cur) => acc + cur.cardSettlementPrice,
@@ -112,6 +116,7 @@ export const DataTable = ({
               columns={listColumn}
               rowSelection={{
                 type: 'checkbox',
+                selectedRowKeys: selectedRows.map((row) => row.key),
                 onChange: (
                   selectedRowKeys: React.Key[],
                   selectedRows: PrefundRecord[],

@@ -37,8 +37,12 @@ export const WithdrawalReady = () => {
         updateAt={dayjs(dataUpdatedAt).format('YYYY-MM-DD HH:mm:ss')}
       />
       <Filter dateRangeOn={false} dataFilterCriteriaLabel={undefined} />
-      <UserInfoSection />
-      <SummaryPreFundCard />
+      {filter.userId && (
+        <>
+          <UserInfoSection />
+          <SummaryPreFundCard />
+        </>
+      )}
       <DataTable
         status={PrefundStatusEnum.READY}
         columns={getWithdrawalReadyDataTableColumns()}
