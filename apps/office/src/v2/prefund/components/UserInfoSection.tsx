@@ -8,7 +8,6 @@ import { useFutureFund } from '@/v2/prefund/hooks';
 export const UserInfoSection = () => {
   const [filter] = useRecoilState(PrefundFilterAtom);
   const { data } = useUserById(filter.userId);
-  const { data: futureFundData } = useFutureFund(filter.userId);
 
   return (
     <div className='w-full py-[20px]'>
@@ -21,17 +20,17 @@ export const UserInfoSection = () => {
               {
                 key: '1',
                 label: '상호',
-                children: '디오픈',
+                children: data?.name || '-',
               },
               {
                 key: '2',
                 label: '담당자',
-                children: 'Inho Lee',
+                children: data?.managerName || '-',
               },
               {
                 key: '3',
                 label: '담당자 연락처',
-                children: '010-2492-0223',
+                children: data?.phoneNumber || '-',
               },
             ]}
           />
