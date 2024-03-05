@@ -6,6 +6,7 @@
 export type PrefundDto = {
   id: number;
   prefundGroupAt: string;
+  salesGroupAt: string;
   cardCompanyName: string;
   status: string;
   salesPrice: number;
@@ -14,6 +15,7 @@ export type PrefundDto = {
   setoff: number;
   cardSettlementGroupAt: string;
   prefundAt: string;
+  depositAt: string;
   /**
    * User Info
    */

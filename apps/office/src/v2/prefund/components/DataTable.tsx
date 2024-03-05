@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 export type PrefundRecord = {
   key: number;
   prefundGroupAt: string;
+  salesGroupAt: string;
   name: string;
   cardCompanyName: string;
   status: string;
@@ -74,6 +75,7 @@ export const DataTable = ({
       status: updateStatus,
       prefundIds,
     });
+    setSelectedRows([]);
     await refetch();
   };
 

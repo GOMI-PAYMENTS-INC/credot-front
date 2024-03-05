@@ -16,8 +16,8 @@ export const getWithdrawalReadyDataTableColumns = (): ColumnsType<PrefundRecord>
     {
       title: '매출 발생일',
       width: 140,
-      dataIndex: 'transactionAt',
-      key: 'transactionAt',
+      dataIndex: 'salesGroupAt',
+      key: 'salesGroupAt',
       className: 'text-center',
     },
     {
@@ -141,7 +141,7 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
     },
     {
       title: '선정산 지급 일시',
-      width: 176,
+      width: 200,
       dataIndex: 'prefundAt',
       key: 'prefundAt',
       className: 'text-center',
@@ -178,8 +178,8 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
     {
       title: '매출 발생일',
       width: 140,
-      dataIndex: 'transactionAt',
-      key: 'transactionAt',
+      dataIndex: 'salesGroupAt',
+      key: 'salesGroupAt',
       className: 'text-center',
     },
     {
@@ -255,9 +255,9 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
     },
     {
       title: '정산금 회수 일시',
-      width: 140,
-      dataIndex: 'prefundGroupAt',
-      key: 'prefundGroupAt',
+      width: 200,
+      dataIndex: 'depositAt',
+      key: 'depositAt',
       className: 'text-center',
     },
     {
