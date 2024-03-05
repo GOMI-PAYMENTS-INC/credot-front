@@ -41,9 +41,9 @@ export const WithdrawalReady = () => {
       {filter.userId && (
         <>
           <UserInfoSection />
-          <SummaryPreFundCard />
         </>
       )}
+      <SummaryPreFundCard />
       <DataTable
         status={PrefundStatusEnum.READY}
         columns={getWithdrawalReadyDataTableColumns()}
