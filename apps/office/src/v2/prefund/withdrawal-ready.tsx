@@ -1,3 +1,4 @@
+import { Button, Modal } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
@@ -46,6 +47,22 @@ export const WithdrawalReady = () => {
       <DataTable
         status={PrefundStatusEnum.READY}
         columns={getWithdrawalReadyDataTableColumns()}
+        actions={(onUpdate: (status: PrefundStatusEnum) => void) => (
+          <Button
+            type='primary'
+            onClick={() =>
+              Modal.confirm({
+                title: '지급 완료',
+                content: '선택 건을 지급 완료로 처리하시겠습니까?',
+                onOk: () => onUpdate(PrefundStatusEnum.DEPOSIT_DONE),
+                okText: '지급 완료',
+                cancelText: '취소',
+              })
+            }
+          >
+            지급 완료
+          </Button>
+        )}
       />
     </Default>
   );

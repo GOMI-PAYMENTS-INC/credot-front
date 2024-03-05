@@ -1,6 +1,6 @@
 import { ConfigProvider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -44,9 +44,11 @@ export type PrefundRecord = {
 export const DataTable = ({
   status,
   columns,
+  actions,
 }: {
   status: PrefundStatusEnum;
   columns?: ColumnsType<PrefundRecord>;
+  actions?: (onUpdate: (status: PrefundStatusEnum) => void) => ReactNode;
 }) => {
   const [filter] = useRecoilState(PrefundFilterAtom);
   const [selectedRows, setSelectedRows] = useState<PrefundRecord[]>([]);
@@ -94,8 +96,9 @@ export const DataTable = ({
               : '카드사 정산 합계 금액'
           }
           amount={status === PrefundStatusEnum.READY ? prefundAmount : cardFundAmount}
-          onUpdate={handleUpdateStatus}
-        />
+        >
+          {actions?.(handleUpdateStatus)}
+        </TableFilter>
       )}
       <div className='mx-auto w-[1280px]'>
         <Wrapper className='gm-h-full mt-[10px]'>
