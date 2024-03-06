@@ -31,8 +31,16 @@ export const getApplyColumns = (): ColumnsType<PrefundRecord> => {
     {
       title: '사용중 금액',
       width: 140,
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'futureFundPrice',
+      key: 'futureFundPrice',
+      className: 'text-right',
+      render: localeValueFormatter,
+    },
+    {
+      title: '요청 금액',
+      width: 140,
+      dataIndex: 'applyPrice',
+      key: 'applyPrice',
       className: 'text-right',
       render: localeValueFormatter,
     },
