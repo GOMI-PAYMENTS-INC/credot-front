@@ -1,4 +1,5 @@
 export const PATH = {
+  FUTURE_FUND_APPLY: '/future-fund/apply',
   BREAKDOWN: '/breakdown',
   INTERLOCK: '/interlock',
   INTERLOCK_PROGRESS: '/interlock/progress',

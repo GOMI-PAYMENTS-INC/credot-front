@@ -45,6 +45,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <ConfigProvider
           theme={{
             token: {
+              colorPrimary: '#9811FF',
               fontFamily: `'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
     system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
     'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif !important`,

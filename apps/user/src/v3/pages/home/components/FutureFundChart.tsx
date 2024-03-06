@@ -1,8 +1,10 @@
 import { Col, Row } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
 
 export const FutureFundChart = () => {
+  const navigation = useNavigate();
   const options = {
     tooltip: {
       trigger: 'item',
@@ -81,7 +83,10 @@ export const FutureFundChart = () => {
             </div>
           </div>
           <div className='mt-[44px] w-full'>
-            <div className='h-[50px] w-full cursor-pointer rounded-[4px] border-[1px] border-purple-400 bg-purple-600 text-center text-L/Bold leading-[50px] text-white'>
+            <div
+              className='h-[50px] w-full cursor-pointer rounded-[4px] border-[1px] border-purple-400 bg-purple-600 text-center text-L/Bold leading-[50px] text-white'
+              onClick={() => navigation('/future-fund/apply')}
+            >
               미래정산 신청하기
             </div>
           </div>

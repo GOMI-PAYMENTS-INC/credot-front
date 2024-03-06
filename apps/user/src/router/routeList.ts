@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 
 import { FindId, FindPassword, SignIn, SignUp, TemporaryPassword } from '@/auth';
 import { PATH } from '@/common/constants';
-import { Home } from '@/v3/pages';
+import { FutureFundApply, Home } from '@/v3/pages';
 import { routerList } from '@/v3/router/router-list';
 
 type TPathKey = keyof typeof PATH;
@@ -52,5 +52,11 @@ export const routeList: IRoute[] = [
     description: 'Breakdown',
     path: PATH.BREAKDOWN,
     component: Home,
+  },
+  {
+    isPrivate: true,
+    description: 'Future Fund Apply',
+    path: PATH.FUTURE_FUND_APPLY,
+    component: FutureFundApply,
   },
 ];
