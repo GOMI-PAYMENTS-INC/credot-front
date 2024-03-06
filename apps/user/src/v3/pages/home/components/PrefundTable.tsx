@@ -164,7 +164,7 @@ export const PrefundCard = ({
         {localeString(number(cardCommission))}원
       </Col>
       <Col span={3} className='self-center text-center text-grey-800'>
-        +{shorteningDate}일
+        -{shorteningDate}일
       </Col>
       <Col span={3} className='self-center text-center'>
         {localeString(number(serviceCommission))}원
