@@ -62,19 +62,25 @@ export const PrefundSummary = () => {
         >
           <Col className={`w-full text-M/Medium`}>
             <div className='mb-[14px] flex w-full justify-between'>
-              <div className='text-grey-700'>카드사 수수료</div>
+              <div className='min-w-[120px] text-grey-700'>카드사 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
-              <div className='text-grey-800'>{number(prefund?.preCardCommission)}원</div>
+              <div className='min-w-[120px] text-right text-grey-800'>
+                {localeString(number(prefund?.preCardCommission))}원
+              </div>
             </div>
             <div className='mb-[14px] flex w-full justify-between'>
-              <div className='text-grey-700'>선정산 수수료</div>
+              <div className='min-w-[120px] text-grey-700'>선정산 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
-              <div className='text-grey-800'>{number(prefund?.serviceCommission)}원</div>
+              <div className='min-w-[120px] text-right  text-grey-800'>
+                {localeString(number(prefund?.serviceCommission))}원
+              </div>
             </div>
             <div className='flex w-full justify-between'>
-              <div className='text-grey-700'>과정산 금액</div>
+              <div className='min-w-[120px] text-grey-700'>과정산 금액</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
-              <div className='text-grey-800'>{number(prefund?.setoff)}원</div>
+              <div className='min-w-[120px] text-right text-grey-800'>
+                {localeString(number(prefund?.setoff))}원
+              </div>
             </div>
           </Col>
         </Row>
@@ -102,14 +108,18 @@ export const PrefundSummary = () => {
         >
           <Col className={`w-full text-M/Medium`}>
             <div className='mb-[14px] flex w-full justify-between'>
-              <div className='text-grey-700'>미래정산 수수료</div>
+              <div className='min-w-[120px] text-grey-700'>미래정산 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
-              <div className='text-grey-800'>{number(futureFund?.repaymentFees)}원</div>
+              <div className='min-w-[120px] text-right text-grey-800'>
+                {localeString(number(futureFund?.repaymentFees))}원
+              </div>
             </div>
             <div className='flex w-full justify-between'>
-              <div className='text-grey-700'>미래정산금 상환</div>
+              <div className='min-w-[120px] text-grey-700'>미래정산금 상환</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
-              <div className='text-grey-800'>{number(futureFund?.repaymentPrice)}원</div>
+              <div className='min-w-[120px] text-right text-grey-800'>
+                {localeString(number(futureFund?.repaymentPrice))}원
+              </div>
             </div>
           </Col>
         </Row>
