@@ -19,8 +19,11 @@ import { localeString, number } from '@/v3/util';
 
 type PrefundCard = {
   date: string;
+  salesPrice: number;
+  cardCommission: number;
   cardCompanyName: string;
   shorteningDate: number;
+  serviceCommission: number;
   price: number;
   status: string;
 };
@@ -139,25 +142,37 @@ export const FoldablePrefundCard = ({
 export const PrefundCard = ({
   cardCompanyName,
   date,
+  salesPrice,
+  cardCommission,
+  serviceCommission,
   shorteningDate,
   price,
   status,
 }: PrefundCard) => {
   return (
     <Row className='mt-[14px] rounded-[8px] border border-grey-200 py-[16px]'>
-      <Col span={6} className='self-center'>
+      <Col span={3} className='self-center'>
         <img src={cardImage(cardCompanyName)} alt='현대카드' className='mx-auto' />
       </Col>
-      <Col span={4} className='text-center text-grey-800'>
+      <Col span={3} className='self-center text-center text-grey-800'>
         {dayjs(date).format('YYYY.MM.DD')}
       </Col>
-      <Col span={4} className='text-center text-grey-800'>
+      <Col span={3} className='self-center text-center'>
+        {localeString(number(salesPrice))}원
+      </Col>
+      <Col span={3} className='self-center text-center'>
+        {localeString(number(cardCommission))}원
+      </Col>
+      <Col span={3} className='self-center text-center text-grey-800'>
         +{shorteningDate}일
       </Col>
-      <Col span={6} className='text-center text-L/Medium'>
+      <Col span={3} className='self-center text-center'>
+        {localeString(number(serviceCommission))}원
+      </Col>
+      <Col span={3} className='self-center text-center text-M/Bold'>
         {localeString(number(price))}원
       </Col>
-      <Col span={4} className='text-center text-purple-600'>
+      <Col span={3} className='self-center text-center text-purple-600'>
         {status}
       </Col>
     </Row>
@@ -178,20 +193,29 @@ export const PrefundTable = () => {
   }
 
   return (
-    <>
+    <div className='rounded-[8px] border-[1px] border-grey-300 px-[28px] py-[40px]'>
       {!isMobile && (
-        <Row className='rounded-[8px] bg-[#F2F2FF] py-[16px]'>
-          <Col span={6}></Col>
-          <Col span={4} className='text-center'>
+        <Row className='rounded-[8px] py-[16px]'>
+          <Col span={3}></Col>
+          <Col span={3} className='text-center'>
             매출 발생일
           </Col>
-          <Col span={4} className='text-center'>
+          <Col span={3} className='text-center'>
+            매출
+          </Col>
+          <Col span={3} className='text-center'>
+            카드사 수수료
+          </Col>
+          <Col span={3} className='text-center'>
             정산 단축일
           </Col>
-          <Col span={6} className='text-center'>
+          <Col span={3} className='text-center'>
+            선정산 수수료
+          </Col>
+          <Col span={3} className='text-center'>
             선정산 금액
           </Col>
-          <Col span={4} className='text-center'>
+          <Col span={3} className='text-center'>
             상태
           </Col>
         </Row>
@@ -200,6 +224,9 @@ export const PrefundTable = () => {
         isMobile ? (
           <FoldablePrefundCard
             key={index}
+            salesPrice={prefund.preSalesPrice}
+            serviceCommission={prefund.serviceCommission}
+            cardCommission={prefund.preCardCommission}
             cardCompanyName={prefund.cardCompanyName}
             date={prefund.salesGroupAt}
             shorteningDate={prefund.prefundAvgDate}
@@ -210,13 +237,16 @@ export const PrefundTable = () => {
           <PrefundCard
             key={index}
             cardCompanyName={prefund.cardCompanyName}
+            cardCommission={prefund.preCardCommission}
+            serviceCommission={prefund.serviceCommission}
             date={prefund.salesGroupAt}
+            salesPrice={prefund.preSalesPrice}
             shorteningDate={prefund.prefundAvgDate}
             status={prefund.status}
             price={prefund.preFundPrice}
           />
         ),
       )}
-    </>
+    </div>
   );
 };

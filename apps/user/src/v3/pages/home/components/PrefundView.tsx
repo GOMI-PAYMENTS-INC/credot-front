@@ -28,7 +28,7 @@ export const PrefundView = () => {
               {totalFund.toLocaleString()}원
             </span>
             을 <br />
-            미리 정산 받을 예정이에요!
+            미리 정산받아요!
           </>
         ) : (
           <>
@@ -37,10 +37,6 @@ export const PrefundView = () => {
             존재하지 않아요.
           </>
         )}
-      </div>
-      <div className='mt-[24px] text-M/Regular leading-[24px] text-white'>
-        선정산금 : {prefundPrice.toLocaleString()}원 {isMobile ? <br /> : 'ㅣ'} 미래
-        정산금 {futureFundPrice.toLocaleString()}원
       </div>
     </div>
   );

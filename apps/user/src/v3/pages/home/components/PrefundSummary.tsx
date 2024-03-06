@@ -37,82 +37,97 @@ export const PrefundSummary = () => {
   const { data: futureFund } = useTodayFutureFundHook();
 
   return (
-    <>
-      <Row
-        className={`${
-          isMobile ? '' : 'rounded-tr-[8px] rounded-tl-[8px]'
-        } mt-[43px]  border-r border-l border-t border-[#F5F5F5]  bg-grey-200 py-[16px] px-[20px]`}
-      >
-        <Col
-          span={6}
-          className={`${isMobile ? 'text-M/Medium' : 'text-L/Medium'} text-grey-800`}
+    <Row gutter={[30, 30]}>
+      <Col className='flex w-full flex-col'>
+        <Row
+          className={`mt-[14px] w-full  rounded-tr-[8px] rounded-tl-[8px] border-[1px] border-grey-300  bg-grey-100 py-[22px] pl-[26px] pr-[42px]`}
         >
-          전일매출
-        </Col>
-        <Col
-          span={18}
-          className={`${
-            isMobile ? 'text-S/Bold' : 'text-L/Bold'
-          } text-right text-grey-800`}
+          <Col
+            span={6}
+            className={`${isMobile ? 'text-M/Medium' : 'text-L/Medium'} text-grey-800`}
+          >
+            전일 매출
+          </Col>
+          <Col
+            span={18}
+            className={`${
+              isMobile ? 'text-S/Bold' : 'text-L/Bold'
+            } text-right text-grey-800`}
+          >
+            {localeString(number(prefund?.preSalesPrice))}원
+          </Col>
+        </Row>
+        <Row
+          className={`mt-[-1px] w-full rounded-br-[8px] rounded-bl-[8px] border-[1px] border-grey-300 bg-white py-[20px] px-[42px]`}
         >
-          {localeString(number(prefund?.preSalesPrice))}원
-        </Col>
-      </Row>
-      <PrefundSummaryItem
-        name='카드사 수수료'
-        price={number(prefund?.preCardCommission)}
-      />
-      <PrefundSummaryItem
-        name='선정산 수수료'
-        price={number(prefund?.serviceCommission)}
-      />
-      <PrefundSummaryItem name='과정산 금액' price={number(prefund?.setoff)} />
-      <Row className='border-y border-grey-200 bg-grey-100 px-[20px] py-[20px]'>
-        <Col
-          span={12}
-          className={`${
-            isMobile ? 'text-S/Medium' : 'text-M/Regular'
-          } flex text-grey-800`}
+          <Col className={`w-full text-M/Medium`}>
+            <div className='mb-[14px] flex w-full justify-between'>
+              <div className='text-grey-700'>카드사 수수료</div>
+              <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
+              <div className='text-grey-800'>{number(prefund?.preCardCommission)}원</div>
+            </div>
+            <div className='mb-[14px] flex w-full justify-between'>
+              <div className='text-grey-700'>선정산 수수료</div>
+              <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
+              <div className='text-grey-800'>{number(prefund?.serviceCommission)}원</div>
+            </div>
+            <div className='flex w-full justify-between'>
+              <div className='text-grey-700'>과정산 금액</div>
+              <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
+              <div className='text-grey-800'>{number(prefund?.setoff)}원</div>
+            </div>
+          </Col>
+        </Row>
+
+        <Row
+          className={`mt-[22px] w-full rounded-tr-[8px] rounded-tl-[8px] border-[1px] border-grey-300  bg-grey-100 py-[22px] pl-[26px] pr-[42px]`}
         >
-          <div className='mr-[10px] self-center'>
-            <img src={equal} width={20} />
-          </div>
-          <div className='self-center'>선정산 금액</div>
-        </Col>
-        <Col
-          span={12}
-          className={`${
-            isMobile ? 'text-S/Regular' : 'text-M/Medium'
-          } text-right text-grey-800`}
+          <Col
+            span={6}
+            className={`${isMobile ? 'text-M/Medium' : 'text-L/Medium'} text-grey-800`}
+          >
+            선정산금
+          </Col>
+          <Col
+            span={18}
+            className={`${
+              isMobile ? 'text-S/Bold' : 'text-L/Bold'
+            } text-right text-grey-800`}
+          >
+            {localeString(number(prefund?.prefund))}원
+          </Col>
+        </Row>
+        <Row
+          className={`mt-[-1px] w-full rounded-br-[8px] rounded-bl-[8px] border-[1px] border-grey-300 bg-white py-[20px] px-[42px]`}
         >
-          {localeString(number(prefund?.prefund))}원
-        </Col>
-      </Row>
-      <PrefundSummaryItem
-        name='미래 정산금 상환'
-        price={number(futureFund?.repaymentPrice)}
-      />
-      <PrefundSummaryItem
-        name='미래 정산 수수료'
-        price={number(futureFund?.repaymentFees)}
-      />
-      <Row
-        className={`${
-          isMobile ? '' : 'rounded-br-[8px] rounded-bl-[8px]'
-        } border-r border-l border-b border-[#F5F5F5] bg-[#B36DEE] py-[16px] px-[20px]`}
-      >
-        <Col span={7} className='self-center text-L/Medium text-white'>
-          입금 예정액
-        </Col>
-        <Col span={17} className='text-right text-2XL/Bold text-white'>
-          {localeString(
-            number(prefund?.prefund) +
-              number(futureFund?.repaymentPrice) +
-              number(futureFund?.repaymentFees),
-          )}
-          원
-        </Col>
-      </Row>
-    </>
+          <Col className={`w-full text-M/Medium`}>
+            <div className='mb-[14px] flex w-full justify-between'>
+              <div className='text-grey-700'>미래정산 수수료</div>
+              <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
+              <div className='text-grey-800'>{number(futureFund?.repaymentFees)}원</div>
+            </div>
+            <div className='flex w-full justify-between'>
+              <div className='text-grey-700'>미래정산금 상환</div>
+              <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
+              <div className='text-grey-800'>{number(futureFund?.repaymentPrice)}원</div>
+            </div>
+          </Col>
+        </Row>
+
+        <Row className='mt-[22px] w-full px-[32px] text-right'>
+          <Col className='w-full'>
+            <div className='text-L/Medium text-[#595959]'>입금 예정액</div>
+            <div className='my-[7px] text-3XL/Bold text-purple-800'>
+              {localeString(
+                number(prefund?.prefund) +
+                  number(futureFund?.repaymentPrice) +
+                  number(futureFund?.repaymentFees),
+              )}
+              원
+            </div>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 };
