@@ -1,5 +1,6 @@
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import ReactECharts from 'echarts-for-react';
+import { isMobile } from 'react-device-detect';
 
 export const FutureFundChart = () => {
   const options = {
@@ -50,7 +51,7 @@ export const FutureFundChart = () => {
   };
   return (
     <Row gutter={[30, 30]}>
-      <Col className='flex w-[400px]'>
+      <Col className={`flex ${isMobile ? 'w-full' : 'w-[400px]'}`}>
         <div className='mt-[14px] w-full rounded-[8px] border border-grey-200 py-[24px] px-[24px]'>
           <div>
             <ReactECharts option={options} showLoading={false} />
@@ -72,10 +73,10 @@ export const FutureFundChart = () => {
             </div>
           </div>
           <div className='mt-[12px] flex justify-between'>
-            <div className='h-[50px] min-w-[136px] rounded-tl-[8px] rounded-bl-[8px] bg-purple-100 text-center text-M/Medium leading-[50px] text-purple-500'>
+            <div className='h-[50px] min-w-[136px] rounded-tl-[8px] rounded-bl-[8px] bg-purple-100 text-center text-M/Medium font-bold leading-[50px] text-purple-500'>
               신청 가능 금액
             </div>
-            <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
+            <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular font-bold leading-[50px] text-grey-800'>
               50,000,000원
             </div>
           </div>

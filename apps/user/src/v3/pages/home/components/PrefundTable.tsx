@@ -89,7 +89,7 @@ export const FoldablePrefundCard = ({
   return (
     <>
       <Row
-        className={`mx-[20px] mt-[14px]  border border-grey-200 bg-white py-[16px] ${
+        className={`mt-[14px]  border border-grey-200 bg-white py-[16px] ${
           open ? 'rounded-tl-[8px] rounded-tr-[8px] bg-grey-200' : 'rounded-[8px]'
         } overflow-hidden transition-all delay-150 duration-300`}
       >
@@ -192,9 +192,25 @@ export const PrefundTable = () => {
     );
   }
 
-  return (
+  return isMobile ? (
+    <>
+      {data.map((prefund, index) => (
+        <FoldablePrefundCard
+          key={index}
+          salesPrice={prefund.preSalesPrice}
+          serviceCommission={prefund.serviceCommission}
+          cardCommission={prefund.preCardCommission}
+          cardCompanyName={prefund.cardCompanyName}
+          date={prefund.salesGroupAt}
+          shorteningDate={prefund.prefundAvgDate}
+          status={prefund.status}
+          price={prefund.preFundPrice}
+        />
+      ))}
+    </>
+  ) : (
     <div className='rounded-[8px] border-[1px] border-grey-300 px-[28px] py-[40px]'>
-      {!isMobile && (
+      {
         <Row className='rounded-[8px] py-[16px]'>
           <Col span={3}></Col>
           <Col span={3} className='text-center'>
@@ -219,34 +235,20 @@ export const PrefundTable = () => {
             상태
           </Col>
         </Row>
-      )}
-      {data.map((prefund, index) =>
-        isMobile ? (
-          <FoldablePrefundCard
-            key={index}
-            salesPrice={prefund.preSalesPrice}
-            serviceCommission={prefund.serviceCommission}
-            cardCommission={prefund.preCardCommission}
-            cardCompanyName={prefund.cardCompanyName}
-            date={prefund.salesGroupAt}
-            shorteningDate={prefund.prefundAvgDate}
-            status={prefund.status}
-            price={prefund.preFundPrice}
-          />
-        ) : (
-          <PrefundCard
-            key={index}
-            cardCompanyName={prefund.cardCompanyName}
-            cardCommission={prefund.preCardCommission}
-            serviceCommission={prefund.serviceCommission}
-            date={prefund.salesGroupAt}
-            salesPrice={prefund.preSalesPrice}
-            shorteningDate={prefund.prefundAvgDate}
-            status={prefund.status}
-            price={prefund.preFundPrice}
-          />
-        ),
-      )}
+      }
+      {data.map((prefund, index) => (
+        <PrefundCard
+          key={index}
+          cardCompanyName={prefund.cardCompanyName}
+          cardCommission={prefund.preCardCommission}
+          serviceCommission={prefund.serviceCommission}
+          date={prefund.salesGroupAt}
+          salesPrice={prefund.preSalesPrice}
+          shorteningDate={prefund.prefundAvgDate}
+          status={prefund.status}
+          price={prefund.preFundPrice}
+        />
+      ))}
     </div>
   );
 };

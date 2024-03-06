@@ -40,7 +40,9 @@ export const PrefundSummary = () => {
     <Row gutter={[30, 30]}>
       <Col className='flex w-full flex-col'>
         <Row
-          className={`mt-[14px] w-full  rounded-tr-[8px] rounded-tl-[8px] border-[1px] border-grey-300  bg-grey-100 py-[22px] pl-[26px] pr-[42px]`}
+          className={`mt-[14px] w-full  rounded-tr-[8px] rounded-tl-[8px] border-[1px] border-grey-300  bg-grey-100 ${
+            isMobile ? 'py-[18px]' : 'py-[22px]'
+          } pl-[26px] pr-[42px]`}
         >
           <Col
             span={6}
@@ -51,18 +53,20 @@ export const PrefundSummary = () => {
           <Col
             span={18}
             className={`${
-              isMobile ? 'text-S/Bold' : 'text-L/Bold'
+              isMobile ? 'text-M/Bold' : 'text-L/Bold'
             } text-right text-grey-800`}
           >
             {localeString(number(prefund?.preSalesPrice))}원
           </Col>
         </Row>
         <Row
-          className={`mt-[-1px] w-full rounded-br-[8px] rounded-bl-[8px] border-[1px] border-grey-300 bg-white py-[20px] px-[42px]`}
+          className={`mt-[-1px] w-full rounded-br-[8px] rounded-bl-[8px] border-[1px] border-grey-300 bg-white py-[20px] ${
+            isMobile ? 'px-[30px]' : 'px-[42px]'
+          }`}
         >
-          <Col className={`w-full text-M/Medium`}>
+          <Col className={`w-full ${isMobile ? 'text-S/Medium' : 'text-M/Medium'}`}>
             <div className='mb-[14px] flex w-full justify-between'>
-              <div className='min-w-[120px] text-grey-700'>카드사 수수료</div>
+              <div className={`min-w-[120px] text-grey-700`}>카드사 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
                 {localeString(number(prefund?.preCardCommission))}원
@@ -86,7 +90,9 @@ export const PrefundSummary = () => {
         </Row>
 
         <Row
-          className={`mt-[22px] w-full rounded-tr-[8px] rounded-tl-[8px] border-[1px] border-grey-300  bg-grey-100 py-[22px] pl-[26px] pr-[42px]`}
+          className={`mt-[22px] w-full rounded-tr-[8px] rounded-tl-[8px] border-[1px] border-grey-300  bg-grey-100 ${
+            isMobile ? 'py-[18px]' : 'py-[22px]'
+          } pl-[26px] pr-[42px]`}
         >
           <Col
             span={6}
@@ -97,16 +103,18 @@ export const PrefundSummary = () => {
           <Col
             span={18}
             className={`${
-              isMobile ? 'text-S/Bold' : 'text-L/Bold'
+              isMobile ? 'text-M/Bold' : 'text-L/Bold'
             } text-right text-grey-800`}
           >
             {localeString(number(prefund?.prefund))}원
           </Col>
         </Row>
         <Row
-          className={`mt-[-1px] w-full rounded-br-[8px] rounded-bl-[8px] border-[1px] border-grey-300 bg-white py-[20px] px-[42px]`}
+          className={`mt-[-1px] w-full rounded-br-[8px] rounded-bl-[8px] border-[1px] border-grey-300 bg-white py-[20px] ${
+            isMobile ? 'px-[30px]' : 'px-[42px]'
+          }`}
         >
-          <Col className={`w-full text-M/Medium`}>
+          <Col className={`w-full ${isMobile ? 'text-S/Medium' : 'text-M/Medium'}`}>
             <div className='mb-[14px] flex w-full justify-between'>
               <div className='min-w-[120px] text-grey-700'>미래정산 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
@@ -124,10 +132,18 @@ export const PrefundSummary = () => {
           </Col>
         </Row>
 
-        <Row className='mt-[22px] w-full px-[32px] text-right'>
+        <Row className='mt-[22px] w-full px-[30px] text-right'>
           <Col className='w-full'>
-            <div className='text-L/Medium text-[#595959]'>입금 예정액</div>
-            <div className='my-[7px] text-3XL/Bold text-purple-800'>
+            <div
+              className={`${isMobile ? 'text-M/Medium' : 'text-L/Medium'} text-[#595959]`}
+            >
+              입금 예정액
+            </div>
+            <div
+              className={`my-[7px] ${
+                isMobile ? 'text-2XL/Bold' : 'text-3XL/Bold'
+              } text-purple-800`}
+            >
               {localeString(
                 number(prefund?.prefund) +
                   number(futureFund?.repaymentPrice) +
