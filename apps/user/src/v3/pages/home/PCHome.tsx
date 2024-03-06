@@ -7,13 +7,20 @@ import {
   PrefundSummary,
   PrefundTable,
   PrefundView,
-  TodaySummary,
 } from '@/v3/pages/home/components';
 
 export const PCHome = () => {
   return (
-    <div className='#FCFCFF'>
-      <div className='h-[330px] bg-purple-600 pt-[63px]'>
+    <div className='bg-[#FCFCFF]'>
+      <div
+        className='bg-color h-[330px] bg-purple-600 bg-no-repeat pt-[63px]'
+        style={{
+          backgroundImage:
+            'url("https://kr-settlement.s3.ap-northeast-2.amazonaws.com/production/home-bg.png")',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <ContentLayout>
           <Header
             icon={

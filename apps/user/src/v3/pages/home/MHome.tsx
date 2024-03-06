@@ -1,9 +1,7 @@
 import {
   FutureFundChart,
-  FutureFundTable,
   PrefundSummary,
   PrefundTable,
-  PrefundView,
 } from '@/v3/pages/home/components';
 
 export const MHome = () => {
