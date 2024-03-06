@@ -1,8 +1,63 @@
+import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 
 export const BackIcon = () => {
   const navigation = useNavigate();
-  return (
+  return isMobile ? (
+    <svg
+      width='52'
+      height='52'
+      viewBox='0 0 52 52'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+    >
+      <g filter='url(#filter0_d_3665_1287)'>
+        <circle cx='26' cy='24' r='20' fill='#FCFCFC' />
+        <circle cx='26' cy='24' r='19.5' stroke='#EBEBEB' />
+      </g>
+      <path
+        d='M28.9495 16.4193L30.0578 17.5673C30.137 17.6464 30.137 17.7652 30.0578 17.8443L24.0016 23.9006L30.0578 29.9568C30.137 30.036 30.137 30.1548 30.0578 30.2339L28.9495 31.3423C28.8703 31.4214 28.7516 31.4214 28.6724 31.3423L21.3495 24.0193C21.2703 23.9402 21.2703 23.8214 21.3495 23.7423L28.6724 16.4193C28.7516 16.3798 28.8703 16.3798 28.9495 16.4193Z'
+        fill='#8C8C8C'
+      />
+      <defs>
+        <filter
+          id='filter0_d_3665_1287'
+          x='0'
+          y='0'
+          width='52'
+          height='52'
+          filterUnits='userSpaceOnUse'
+          colorInterpolationFilters='sRGB'
+        >
+          <feFlood floodOpacity='0' result='BackgroundImageFix' />
+          <feColorMatrix
+            in='SourceAlpha'
+            type='matrix'
+            values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
+            result='hardAlpha'
+          />
+          <feOffset dy='2' />
+          <feGaussianBlur stdDeviation='3' />
+          <feComposite in2='hardAlpha' operator='out' />
+          <feColorMatrix
+            type='matrix'
+            values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'
+          />
+          <feBlend
+            mode='normal'
+            in2='BackgroundImageFix'
+            result='effect1_dropShadow_3665_1287'
+          />
+          <feBlend
+            mode='normal'
+            in='SourceGraphic'
+            in2='effect1_dropShadow_3665_1287'
+            result='shape'
+          />
+        </filter>
+      </defs>
+    </svg>
+  ) : (
     <svg
       className='cursor-pointer'
       onClick={() => navigation('/breakdown')}

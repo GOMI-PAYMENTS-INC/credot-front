@@ -26,47 +26,58 @@ export const FutureFundApply = () => {
           });
         }}
       >
-        <div className={`${isMobile ? 'w-full' : 'mt-[120px] w-[816px]'} mx-auto`}>
-          <div>
-            <BackIcon />
-          </div>
-          <div className='mt-[34px]'>
-            <div className='text-L/Regular text-[#787884]'>
-              현재 신청 가능한 미래정산금은 최대
+        <div
+          className={`${isMobile ? 'w-full py-[23px]' : 'mt-[120px] w-[816px]'} mx-auto`}
+        >
+          <div className={`${isMobile ? 'px-[21px]' : ''}`}>
+            <div>
+              <BackIcon />
             </div>
-            <div className='mt-[13px] text-3XL/Bold text-grey-800'>
-              <span className='text-purple-600'>20,000,000</span>원이에요.
-            </div>
-          </div>
-          <div className='mt-[49px] flex'>
-            <div
-              className={`flex justify-between ${
-                isMobile ? 'w-full' : 'mr-[20px] min-w-[360px] max-w-[360px]'
-              }`}
-            >
-              <div className='h-[50px] min-w-[136px] rounded-tl-[8px] rounded-bl-[8px] bg-[#F2F2FF] text-center text-M/Medium leading-[50px] text-[#787884]'>
-                나의 한도
+            <div className={`mt-[34px] ${isMobile ? 'text-center' : ''}`}>
+              <div className='text-L/Regular text-[#787884]'>
+                현재 신청 가능한 미래정산금은 최대
               </div>
-              <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-grey-200 px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-                50,000,000원
+              <div
+                className={`mt-[13px] ${
+                  isMobile ? 'text-2XL/Bold' : 'text-2XL/Bold'
+                } text-grey-800`}
+              >
+                <span className='text-purple-600'>20,000,000</span>원이에요.
               </div>
             </div>
+            <div className={`mt-[49px] flex ${isMobile ? 'flex-col gap-3' : ''}`}>
+              <div
+                className={`flex justify-between ${
+                  isMobile ? 'w-full' : 'mr-[20px] min-w-[360px] max-w-[360px]'
+                }`}
+              >
+                <div className='h-[50px] min-w-[136px] rounded-tl-[8px] rounded-bl-[8px] bg-[#F2F2FF] text-center text-M/Medium leading-[50px] text-[#787884]'>
+                  나의 한도
+                </div>
+                <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-grey-200 px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
+                  50,000,000원
+                </div>
+              </div>
 
-            <div
-              className={`flex justify-between ${
-                isMobile ? 'w-full' : 'min-w-[360px] max-w-[360px]'
-              }`}
-            >
-              <div className='h-[50px] min-w-[136px] rounded-tl-[8px] rounded-bl-[8px] bg-[#F2F2FF] text-center text-M/Medium leading-[50px] text-[#787884]'>
-                이용중 금액
-              </div>
-              <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-grey-200 px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-                50,000,000원
+              <div
+                className={`flex justify-between ${
+                  isMobile ? 'w-full' : 'min-w-[360px] max-w-[360px]'
+                }`}
+              >
+                <div className='h-[50px] min-w-[136px] rounded-tl-[8px] rounded-bl-[8px] bg-[#F2F2FF] text-center text-M/Medium leading-[50px] text-[#787884]'>
+                  이용중 금액
+                </div>
+                <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-grey-200 px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
+                  50,000,000원
+                </div>
               </div>
             </div>
           </div>
-
-          <div className='mt-[51px] rounded-[8px] bg-grey-200 py-[29px] px-[40px]'>
+          <div
+            className={`mt-[51px] rounded-[8px] bg-grey-200 py-[29px] ${
+              isMobile ? 'px-[21px]' : 'px-[40px]'
+            }`}
+          >
             <div>
               <div className='text-M/Regular text-black'>신청 금액</div>
             </div>
@@ -99,7 +110,9 @@ export const FutureFundApply = () => {
                 shouldUpdate
               >
                 <Input
-                  className='h-[56px] w-full border-0 text-2XL/Bold'
+                  className={`h-[56px] w-full border-0 ${
+                    isMobile ? 'text-XL/Bold' : 'text-2XL/Bold'
+                  }`}
                   styles={{
                     input: { textAlign: 'right', marginRight: '6px' },
                   }}
@@ -133,7 +146,9 @@ export const FutureFundApply = () => {
                   >
                     아래 내용을 모두 확인했어요.
                   </Checkbox>
-                  <div className='mt-[10px] ml-[30px] text-grey-700'>
+                  <div
+                    className={`mt-[10px] ${isMobile ? '' : 'ml-[30px]'} text-grey-700`}
+                  >
                     <div className='flex'>
                       <div className='mr-[8px]'>
                         <InfoCircleOutlined />
