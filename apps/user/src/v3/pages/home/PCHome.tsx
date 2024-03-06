@@ -31,12 +31,6 @@ export const PCHome = () => {
 
       <ContentLayout>
         <div className='mt-[40px]'>
-          <div className='mb-[80px] w-full'>
-            <div className='text-XL/Bold text-[#262626]'>오늘 받은 정산</div>
-            <div className='mt-[14px] w-full'>
-              <TodaySummary />
-            </div>
-          </div>
           <div className='mb-[80px] flex w-full'>
             <div className='mr-[40px]'>
               <div className='text-XL/Bold text-[#262626]'>미래정산 신청가능 금액</div>
