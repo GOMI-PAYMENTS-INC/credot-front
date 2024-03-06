@@ -14,7 +14,7 @@ export const FutureFundChart = () => {
     },
     series: [
       {
-        name: 'Access From',
+        name: '',
         type: 'pie',
         radius: ['90%', '68%'],
         avoidLabelOverlap: false,
