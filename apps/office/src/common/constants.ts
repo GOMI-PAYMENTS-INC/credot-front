@@ -1,5 +1,6 @@
 export const PATH = {
   FUTURE_FUND_LIST: '/future-fund',
+  FUTURE_FUND_APPLY: '/future-fund/apply',
   MEMBER_UPDATE: '/member/update/:memberId',
   MEMBER_LIST: '/member/list',
   MEMBER_REGISTER: '/member/register',

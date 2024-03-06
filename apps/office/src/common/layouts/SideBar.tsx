@@ -46,6 +46,7 @@ const items: MenuProps['items'] = [
 
 const futureFundItems: MenuProps['items'] = [
   getItem('내역 조회', '/future-fund', <SisternodeOutlined />),
+  getItem('승인 내역', '/future-fund/apply', <TransactionOutlined />),
 ];
 
 const memberManagementItems: MenuProps['items'] = [
