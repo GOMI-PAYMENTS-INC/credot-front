@@ -6,6 +6,7 @@
 export type UserDto = {
   email: string;
   name: string;
+  limitFutureFund: number;
   phoneNumber: string;
   createdAt: string;
   managerName: string;

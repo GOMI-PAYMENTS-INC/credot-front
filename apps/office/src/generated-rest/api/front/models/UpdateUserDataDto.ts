@@ -10,6 +10,7 @@ export type UpdateUserDataDto = {
   type?: UserTypeEnum;
   crawlingType?: CrawlingTypeEnum;
   companyName: string;
+  limitFutureFund: number;
   businessNumber?: string;
   corporateRegistrationNumber?: string;
   industryType?: string;

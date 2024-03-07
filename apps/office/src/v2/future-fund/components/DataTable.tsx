@@ -44,7 +44,7 @@ export const DataTable = () => {
   const [repaymentFees, setRepaymentFees] = useState<number>(0);
   const [filter] = useRecoilState(FutureFundFilterAtom);
   const listColumn: ColumnsType<FutureFundRecord> = getDataTableColumns();
-
+  const { data: todayFutureFundData } = useFutureFund(filter.userId);
   const {
     data,
     isInitialLoading: isLoading,
@@ -70,6 +70,11 @@ export const DataTable = () => {
     }
 
     if (applyPrice > 0) {
+      if (applyPrice > (todayFutureFundData?.limit || 0)) {
+        toast.error('신청 금액이 한도를 넘어갈 수 없습니다.');
+        return;
+      }
+
       const today = dayjs().format('YYYY-MM-DD');
       const res = await mutateAsync({
         date: today,

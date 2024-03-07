@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Descriptions, Divider } from 'antd';
 import { useRecoilState } from 'recoil';
 
 import { useUserById } from '@/hooks';
@@ -13,58 +13,90 @@ export const UserInfoSection = () => {
   return (
     <div className='w-full bg-grey-100 py-[20px]'>
       <div className='mx-auto flex w-[1280px] flex-col justify-start'>
-        <div className='mb-[22px] text-M/Bold text-grey-800'>
-          {data?.name || '업체를 선택해주세요.'}
-        </div>
         <div className='ml-[46px]'>
-          <Row className='mb-[27px]'>
-            <Col className='' span={3}>
-              <div className='w-[120px] text-right text-grey-800'>은행정보</div>
-            </Col>
-            <Col className=' flex' span={4}>
-              <div className='mr-[26px] w-[80px] text-right text-S/Medium text-grey-800'>
-                은행명
-              </div>
-              <div className='text-S/Regular text-grey-800'>{data?.bankName || '-'}</div>
-            </Col>
-            <Col className='flex' span={4}>
-              <div className='mr-[26px] w-[80px] text-right text-S/Medium text-grey-800'>
-                예금주
-              </div>
-              <div className='text-S/Regular text-grey-800'>
-                {data?.bankAccountHolder || '-'}
-              </div>
-            </Col>
-            <Col className='flex' span={4}>
-              <div className='mr-[26px] w-[80px] text-right text-S/Medium text-grey-800'>
-                계좌번호
-              </div>
-              <div className='text-S/Regular text-grey-800'>
-                {data?.bankAccount || '-'}
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col className='' span={3}>
-              <div className='w-[120px] text-right text-grey-800'>미래정산 이용 정보</div>
-            </Col>
-            <Col className=' flex' span={4}>
-              <div className='mr-[26px] w-[80px] text-right text-S/Medium text-grey-800'>
-                사용중 금액
-              </div>
-              <div className='text-S/Regular text-grey-800'>
-                {(futureFundData?.futureFundPrice || 0).toLocaleString()}
-              </div>
-            </Col>
-            <Col className='flex' span={4}>
-              <div className='mr-[26px] w-[80px] text-right text-S/Medium text-grey-800'>
-                누적 수수료
-              </div>
-              <div className='text-S/Regular text-grey-800'>
-                {(futureFundData?.accumulatedFees || 0).toLocaleString()}
-              </div>
-            </Col>
-          </Row>
+          <Descriptions
+            size='small'
+            title='사업자 정보'
+            bordered
+            items={[
+              {
+                key: '1',
+                label: '상호명',
+                children: data?.name || '',
+                labelStyle: { width: '120px' },
+              },
+              {
+                key: '2',
+                label: '담당자',
+                children: data?.managerName || '',
+                labelStyle: { width: '120px' },
+              },
+              {
+                key: '3',
+                label: '담당자 연락처',
+                children: data?.phoneNumber || '',
+                labelStyle: { width: '140px' },
+              },
+            ]}
+          />
+
+          <Divider />
+
+          <Descriptions
+            size='small'
+            title='입금 계좌 정보'
+            bordered
+            items={[
+              {
+                key: '1',
+                label: '은행명',
+                children: data?.bankName || '',
+                labelStyle: { width: '120px' },
+              },
+              {
+                key: '2',
+                label: '예금주',
+                children: data?.bankAccountHolder || '',
+                labelStyle: { width: '120px' },
+              },
+              {
+                key: '3',
+                label: '계좌번호',
+                children: data?.bankAccount || '',
+                labelStyle: { width: '140px' },
+              },
+            ]}
+          />
+
+          <Divider />
+
+          <Descriptions
+            size='small'
+            title='미래정산 이용 정보'
+            bordered
+            items={[
+              {
+                key: '1',
+                label: '가맹점 한도',
+                children: `${data?.limitFutureFund?.toLocaleString() || 0}원`,
+                labelStyle: { width: '120px' },
+              },
+              {
+                key: '2',
+                label: '사용중 + 신청금액',
+                children: `${
+                  futureFundData?.futureFundPrice?.toLocaleString() || 0
+                }원 (+${futureFundData?.applyPrice?.toLocaleString() || 0}원)`,
+                labelStyle: { width: '160px' },
+              },
+              {
+                key: '3',
+                label: '신청 가능 금액',
+                children: `${futureFundData?.limit?.toLocaleString() || 0}원`,
+                labelStyle: { width: '140px' },
+              },
+            ]}
+          />
         </div>
       </div>
     </div>
