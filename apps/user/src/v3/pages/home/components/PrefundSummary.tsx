@@ -120,7 +120,7 @@ export const PrefundSummary = () => {
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
                 {localeString(
-                  number(futureFund?.readyRepaymentPrice || futureFund?.repaymentPrice),
+                  number(futureFund?.readyRepaymentFees || futureFund?.repaymentFees),
                 )}
                 원
               </div>
@@ -130,7 +130,7 @@ export const PrefundSummary = () => {
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
                 {localeString(
-                  number(futureFund?.readyRepaymentFees || futureFund?.repaymentFees),
+                  number(futureFund?.readyRepaymentPrice || futureFund?.repaymentPrice),
                 )}
                 원
               </div>
