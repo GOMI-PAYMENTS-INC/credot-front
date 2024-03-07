@@ -29,7 +29,7 @@ export const FutureFundApply = () => {
   const [selectedRows, setSelectedRows] = useState<FutureFundApplyRecord[]>([]);
   const [tab, setTab] = useState<string>('READY');
   /* 신청 내역 가져오기 */
-  const { data, isLoading } = useFutureFundApplyList(tab);
+  const { data, isLoading, refetch } = useFutureFundApplyList(tab);
   /* 신청 내역 가져오기 */
 
   /* 신청 상태 변경하기 */
@@ -85,6 +85,8 @@ export const FutureFundApply = () => {
                     ids: selectedRows.map((item) => item.id),
                     status: FutureFundStatus.DONE,
                   });
+                  setSelectedRows([]);
+                  await refetch();
                 }}
               >
                 승인 완료
@@ -97,6 +99,8 @@ export const FutureFundApply = () => {
                     ids: selectedRows.map((item) => item.id),
                     status: FutureFundStatus.REJECT,
                   });
+                  setSelectedRows([]);
+                  await refetch();
                 }}
               >
                 거절
