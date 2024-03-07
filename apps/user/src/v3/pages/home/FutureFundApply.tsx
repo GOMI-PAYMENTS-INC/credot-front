@@ -221,7 +221,7 @@ export const FutureFundApply = () => {
                         <InfoCircleOutlined />
                       </div>
                       <div className='self-center'>
-                        미래 정산금은 매일 오후 2시까지 신청 가능해요.
+                        미래 정산금은 매일 오후 2시 이전 신청건에 한하여 당일 지급되어요.
                       </div>
                     </div>
 
