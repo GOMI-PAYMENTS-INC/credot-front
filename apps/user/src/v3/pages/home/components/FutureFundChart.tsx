@@ -80,7 +80,7 @@ export const FutureFundChart = () => {
             </div>
             <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
               {localeString(
-                (futureFund?.futureFundPrice || 0) + (futureFund?.applyPrice || 0),
+                (userQueryData?.limitFutureFund || 0) - (futureFund?.limit || 0),
               )}
               원
             </div>
