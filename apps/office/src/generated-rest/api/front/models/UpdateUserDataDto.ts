@@ -9,8 +9,8 @@ import type { UserTypeEnum } from './UserTypeEnum';
 export type UpdateUserDataDto = {
   type?: UserTypeEnum;
   crawlingType?: CrawlingTypeEnum;
-  companyName: string;
-  limitFutureFund: number;
+  companyName?: string;
+  limitFutureFund?: number;
   businessNumber?: string;
   corporateRegistrationNumber?: string;
   industryType?: string;
@@ -29,5 +29,5 @@ export type UpdateUserDataDto = {
   companyEmail?: string;
   corporateRegisterFileId?: number;
   certificateOfCorporateSealFileId?: number;
-  crawlingFranchiseInfos: Array<Record<string, any>>;
+  crawlingFranchiseInfos?: Array<Record<string, any>>;
 };

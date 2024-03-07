@@ -8,6 +8,8 @@ import {
   FutureFundService,
   RepaymentFutureFundDto,
   UpdateFutureFundDto,
+  UpdateUserDto,
+  UserService,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 
@@ -78,6 +80,21 @@ export const useUpdateFutureFundApplyStatus = () => {
       onError: (error: ApiError) => {
         console.error(JSON.stringify(error));
         toast.error('상태 변경에 실패했어요!');
+      },
+    },
+  );
+};
+
+export const useUpdateFutureFundLimit = () => {
+  return useMutation(
+    (requestBody: UpdateUserDto) => UserService.updateUser(requestBody),
+    {
+      onSuccess: (res) => {
+        toast.success('미래 정산 한도가 수정되었습니다.');
+      },
+      onError: (error: ApiError) => {
+        console.error(JSON.stringify(error));
+        toast.success('미래 정산 한도 수정이 실패하였습니다.');
       },
     },
   );

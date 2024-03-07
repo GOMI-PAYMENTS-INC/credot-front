@@ -1,8 +1,9 @@
-import { Descriptions, Divider } from 'antd';
+import { Button, Descriptions, Divider } from 'antd';
 import { useRecoilState } from 'recoil';
 
 import { useUserById } from '@/hooks';
 import { FutureFundFilterAtom } from '@/v2/future-fund/atom';
+import { LimitChangeModal } from '@/v2/future-fund/components/LimitChangeModal';
 import { useFutureFund } from '@/v2/prefund/hooks';
 
 export const UserInfoSection = () => {
@@ -78,7 +79,12 @@ export const UserInfoSection = () => {
               {
                 key: '1',
                 label: '가맹점 한도',
-                children: `${data?.limitFutureFund?.toLocaleString() || 0}원`,
+                children: (
+                  <div className='flex w-full justify-between'>
+                    <div>{`${data?.limitFutureFund?.toLocaleString() || 0}원`}</div>
+                    <div>{data?.id && <LimitChangeModal userId={data?.id} />}</div>
+                  </div>
+                ),
                 labelStyle: { width: '120px' },
               },
               {
