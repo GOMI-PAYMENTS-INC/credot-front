@@ -4,11 +4,14 @@
 /* eslint-disable */
 
 export type { AccountDto } from './models/AccountDto';
+export type { any } from './models/any';
+export type { ApplyFutureFundDto } from './models/ApplyFutureFundDto';
 export { CrawlingDto } from './models/CrawlingDto';
 export type { CrawlingResponseDto } from './models/CrawlingResponseDto';
 export { CrawlingTypeEnum } from './models/CrawlingTypeEnum';
 export type { CreateApplyDto } from './models/CreateApplyDto';
 export type { ExistDto } from './models/ExistDto';
+export { FutureFundStatus } from './models/FutureFundStatus';
 export type { LoginDto } from './models/LoginDto';
 export type { PhoneAuthDto } from './models/PhoneAuthDto';
 export type { RegisterDto } from './models/RegisterDto';

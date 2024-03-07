@@ -1,13 +1,19 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Checkbox, Form, Input, Modal } from 'antd';
-import { useState } from 'react';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { BackIcon } from '@/components/BackIcon';
 import { useMeHook } from '@/hooks/user.hook';
 import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/v3/layouts';
-import { useTodayFutureFundHook } from '@/v3/pages/home/hooks/future-fund.hook';
+import {
+  useApplyFutureFund,
+  useTodayFutureFundHook,
+} from '@/v3/pages/home/hooks/future-fund.hook';
 import { localeString, number } from '@/v3/util';
 
 function parseNumber(futureFundPrice: string) {
@@ -15,11 +21,39 @@ function parseNumber(futureFundPrice: string) {
 }
 
 export const FutureFundApply = () => {
+  const navigation = useNavigate();
   const [form] = Form.useForm<{ futureFundPrice: string; agreed: boolean }>();
   const [open, setOpen] = useState<boolean>(false);
 
   const { data: futureFund } = useTodayFutureFundHook();
+  useEffect(() => {
+    if (futureFund && futureFund.applyStatus) {
+      toast.warning('미래 정산을 이미 신청했어요.');
+      navigation('/breakdown');
+    }
+  }, [futureFund]);
+
   const { data: userQueryData } = useMeHook(authTokenStorage.getToken());
+
+  /* 미래정산신청 */
+  const { mutateAsync, isLoading } = useApplyFutureFund();
+  const onApply = async () => {
+    const values = await form.validateFields();
+    if (!userQueryData?.id) {
+      return;
+    }
+
+    const res = await mutateAsync({
+      userId: userQueryData?.id,
+      price: parseNumber(values.futureFundPrice),
+      date: dayjs().format('YYYY-MM-DD'),
+    });
+
+    if (res) {
+      setOpen(true);
+    }
+  };
+
   return (
     <Default>
       <Form
@@ -113,6 +147,10 @@ export const FutureFundApply = () => {
                         return Promise.reject(
                           new Error('미래정산금은 최소 50만원 이상부터 신청 가능해요.'),
                         );
+                      }
+
+                      if (parseNumber(value) > (futureFund?.limit || 0)) {
+                        return Promise.reject(new Error('미래정산금 한도를 초과했어요!'));
                       }
 
                       return Promise.resolve();
@@ -213,9 +251,7 @@ export const FutureFundApply = () => {
                 <div
                   className='h-[50px] w-full cursor-pointer rounded-[4px] border-[1px] border-purple-400 bg-purple-600 text-center text-L/Bold leading-[50px] text-white'
                   onClick={async () => {
-                    const result = await form.validateFields();
-                    console.log(result);
-                    setOpen(true);
+                    await onApply();
                   }}
                 >
                   미래정산 신청하기
@@ -234,6 +270,7 @@ export const FutureFundApply = () => {
           className='mx-auto mt-[20px] h-[48px] w-full cursor-pointer rounded-[4px] border-[1px] border-purple-400 bg-purple-600 text-center text-M/Bold leading-[48px] text-white'
           onClick={async () => {
             setOpen(false);
+            navigation('/breakdown');
           }}
         >
           확인

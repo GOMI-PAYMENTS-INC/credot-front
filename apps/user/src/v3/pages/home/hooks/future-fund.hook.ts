@@ -1,7 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
-import { FutureFundService, TodayFutureFundDto } from '@/generated-rest/api/front';
+import {
+  ApplyFutureFundDto,
+  ApplyService,
+  FutureFundService,
+  TodayFutureFundDto,
+} from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 
 export const useTodayFutureFundHook = () => {
@@ -14,4 +19,19 @@ export const useTodayFutureFundHook = () => {
       return;
     },
   });
+};
+
+export const useApplyFutureFund = () => {
+  return useMutation(
+    (requestBody: ApplyFutureFundDto) => FutureFundService.applyFutureFund(requestBody),
+    {
+      onSuccess: () => {
+        return true;
+      },
+      onError: (err: ApiError) => {
+        toast.error(err.message);
+        return;
+      },
+    },
+  );
 };
