@@ -4,7 +4,6 @@
 /* eslint-disable */
 
 export type { AccountDto } from './models/AccountDto';
-export type { any } from './models/any';
 export type { ApplyFutureFundDto } from './models/ApplyFutureFundDto';
 export { CrawlingDto } from './models/CrawlingDto';
 export type { CrawlingResponseDto } from './models/CrawlingResponseDto';

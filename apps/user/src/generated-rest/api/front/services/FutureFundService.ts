@@ -25,13 +25,12 @@ export class FutureFundService {
   /**
    * 오늘 미래 정산 신청
    * @param requestBody
-   * @returns any
    * @returns boolean
    * @throws ApiError
    */
   public static applyFutureFund(
     requestBody: ApplyFutureFundDto,
-  ): CancelablePromise<any | boolean> {
+  ): CancelablePromise<boolean> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/future-fund/apply',
