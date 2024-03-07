@@ -9,7 +9,7 @@ export const getApplyColumns = (): ColumnsType<FutureFundApplyRecord> => {
   return [
     {
       title: '승인 요청 일시',
-      width: 140,
+      width: 180,
       dataIndex: 'createdAt',
       key: 'createdAt',
       className: 'text-center',
@@ -51,6 +51,14 @@ export const getApplyColumns = (): ColumnsType<FutureFundApplyRecord> => {
       width: 140,
       dataIndex: 'avgSalesPrice',
       key: 'avgSalesPrice',
+      className: 'text-right',
+      render: localeValueFormatter,
+    },
+    {
+      title: '최근 7일 평균 매출 증감율(%)',
+      width: 220,
+      dataIndex: 'avgSalesPriceRate',
+      key: 'avgSalesPriceRate',
       className: 'text-right',
       render: localeValueFormatter,
     },
