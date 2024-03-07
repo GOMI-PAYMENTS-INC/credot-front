@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApplyFutureFundDto } from '../models/ApplyFutureFundDto';
-import type { TodayFutureFundDto } from '../models/TodayFutureFundDto';
+import type { ApplyFutureFundDto, TodayFutureFundDto } from '@/generated-rest/api/front';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
