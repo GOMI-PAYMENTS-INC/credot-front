@@ -12,6 +12,8 @@ export type TodayFutureFundDto = {
   applyPrice: number;
   accrualFees: number;
   repaymentPrice: number;
+  readyRepaymentPrice: number;
+  readyRepaymentFees: number;
   repaymentFees: number;
   limit: number;
   applyWaitingPrice: number;

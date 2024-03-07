@@ -119,14 +119,20 @@ export const PrefundSummary = () => {
               <div className='min-w-[120px] text-grey-700'>미래정산 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
-                {localeString(number(futureFund?.repaymentFees))}원
+                {localeString(
+                  number(futureFund?.readyRepaymentPrice || futureFund?.repaymentPrice),
+                )}
+                원
               </div>
             </div>
             <div className='flex w-full justify-between'>
               <div className='min-w-[120px] text-grey-700'>미래정산금 상환</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
-                {localeString(number(futureFund?.repaymentPrice))}원
+                {localeString(
+                  number(futureFund?.readyRepaymentFees || futureFund?.repaymentFees),
+                )}
+                원
               </div>
             </div>
           </Col>
@@ -146,8 +152,8 @@ export const PrefundSummary = () => {
             >
               {localeString(
                 number(prefund?.prefund) +
-                  number(futureFund?.repaymentPrice) +
-                  number(futureFund?.repaymentFees),
+                  number(futureFund?.readyRepaymentPrice || futureFund?.repaymentPrice) +
+                  number(futureFund?.readyRepaymentFees || futureFund?.repaymentFees),
               )}
               원
             </div>
