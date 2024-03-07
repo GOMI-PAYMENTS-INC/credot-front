@@ -179,7 +179,7 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
       width: 148,
       dataIndex: 'cardSettlementPrice',
       key: 'cardSettlementPrice',
-      className: 'text-right',
+      className: 'text-right text-blue-500 font-bold',
       render: localeValueFormatter,
     },
     {
