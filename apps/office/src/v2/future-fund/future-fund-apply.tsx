@@ -3,9 +3,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { Default } from '@/common/layouts';
+import { FutureFundApplyDto } from '@/generated-rest/api/front';
 import { getApplyColumns } from '@/v2/future-fund/components/ApplyColumns';
 import { Header } from '@/v2/future-fund/components/header';
-import { PrefundRecord } from '@/v2/prefund/components/DataTable';
+import { useFutureFundApplyList } from '@/v2/future-fund/hooks/future-fund.hook';
 
 const Wrapper = styled.div`
   .ant-table-thead .ant-table-cell,
@@ -19,10 +20,12 @@ const Wrapper = styled.div`
   }
 `;
 
+export type FutureFundApplyRecord = FutureFundApplyDto & { key: number };
+
 export const FutureFundApply = () => {
-  const [selectedRows, setSelectedRows] = useState<PrefundRecord[]>([]);
+  const [selectedRows, setSelectedRows] = useState<FutureFundApplyRecord[]>([]);
   const [tab, setTab] = useState<string>('READY');
-  const isLoading = false;
+  const { data, isLoading } = useFutureFundApplyList(tab);
   return (
     <Default useGap>
       <div className='mx-auto w-[1280px]'>
@@ -69,12 +72,17 @@ export const FutureFundApply = () => {
                   selectedRowKeys: selectedRows.map((row) => row.key),
                   onChange: (
                     selectedRowKeys: React.Key[],
-                    selectedRows: PrefundRecord[],
+                    selectedRows: FutureFundApplyRecord[],
                   ) => {
                     setSelectedRows(selectedRows);
                   },
                 }}
-                dataSource={[]}
+                dataSource={
+                  data?.map((item) => ({
+                    ...item,
+                    key: item.id,
+                  })) || []
+                }
                 scroll={{ x: 'max-content' }}
                 pagination={false}
                 bordered

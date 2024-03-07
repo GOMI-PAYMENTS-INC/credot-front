@@ -17,4 +17,67 @@ export class DefaultService {
       url: '/',
     });
   }
+
+  /**
+   * @returns any
+   * @throws ApiError
+   */
+  public static officeControllerQueueList(): CancelablePromise<any> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/queue/failed',
+    });
+  }
+
+  /**
+   * @returns any
+   * @throws ApiError
+   */
+  public static officeControllerDelayedQueueList(): CancelablePromise<any> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/queue/delayed',
+    });
+  }
+
+  /**
+   * @returns any
+   * @throws ApiError
+   */
+  public static officeControllerActiveQueueList(): CancelablePromise<any> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/queue/active',
+    });
+  }
+
+  /**
+   * @param jobId
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static officeControllerRestartJob(jobId: string): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/job/restart',
+      query: {
+        jobId: jobId,
+      },
+    });
+  }
+
+  /**
+   * @param jobId
+   * @returns any
+   * @throws ApiError
+   */
+  public static officeControllerFailedJob(jobId: string): CancelablePromise<any> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/job/failed',
+      query: {
+        jobId: jobId,
+      },
+    });
+  }
 }

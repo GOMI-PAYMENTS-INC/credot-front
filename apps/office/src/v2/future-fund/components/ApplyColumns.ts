@@ -1,10 +1,11 @@
 import { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
 
-import { PrefundRecord } from '@/v2/prefund/components/DataTable';
+import { FutureFundApplyRecord } from '@/v2/future-fund';
 
 const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 
-export const getApplyColumns = (): ColumnsType<PrefundRecord> => {
+export const getApplyColumns = (): ColumnsType<FutureFundApplyRecord> => {
   return [
     {
       title: '승인 요청 일시',
@@ -12,6 +13,7 @@ export const getApplyColumns = (): ColumnsType<PrefundRecord> => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       className: 'text-center',
+      render: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
     },
     {
       title: '가맹점',

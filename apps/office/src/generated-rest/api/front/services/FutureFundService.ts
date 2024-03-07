@@ -3,9 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ApplyFutureFundDto } from '../models/ApplyFutureFundDto';
+import type { FutureFundApplyDto } from '../models/FutureFundApplyDto';
 import type { FutureFundDto } from '../models/FutureFundDto';
 import type { RepaymentFutureFundDto } from '../models/RepaymentFutureFundDto';
 import type { TodayFutureFundDto } from '../models/TodayFutureFundDto';
+import type { UpdateFutureFundDto } from '../models/UpdateFutureFundDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -49,6 +51,39 @@ export class FutureFundService {
         endAt: endAt,
         userId: userId,
       },
+    });
+  }
+
+  /**
+   * 미래정산 목록
+   * @param status
+   * @returns FutureFundApplyDto
+   * @throws ApiError
+   */
+  public static applyList(status: string): CancelablePromise<Array<FutureFundApplyDto>> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/future-fund/list/apply',
+      query: {
+        status: status,
+      },
+    });
+  }
+
+  /**
+   * 미래 정산 신청
+   * @param requestBody
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static updateApplyStatus(
+    requestBody: UpdateFutureFundDto,
+  ): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'POST',
+      url: '/future-fund/apply/update',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 

@@ -3,11 +3,10 @@ import { toast } from 'react-toastify';
 
 import {
   ApplyFutureFundDto,
+  FutureFundApplyDto,
   FutureFundDto,
   FutureFundService,
-  PrefundService,
   RepaymentFutureFundDto,
-  UpdatePrefundDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 
@@ -57,4 +56,11 @@ export const useFutureFundRepayment = () => {
       },
     },
   );
+};
+
+export const useFutureFundApplyList = (status: string) => {
+  return useQuery<FutureFundApplyDto[], ApiError>({
+    queryKey: ['future-fund', status],
+    queryFn: () => FutureFundService.applyList(status),
+  });
 };
