@@ -5,6 +5,7 @@
 
 export type CrawlingDto = {
   status: CrawlingDto.status;
+  id: number;
 };
 
 export namespace CrawlingDto {

@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import { BackIcon } from '@/components/BackIcon';
+import { useMeHook } from '@/hooks/user.hook';
+import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/v3/layouts';
+import { useTodayFutureFundHook } from '@/v3/pages/home/hooks/future-fund.hook';
 import { localeString, number } from '@/v3/util';
 
 function parseNumber(futureFundPrice: string) {
@@ -14,6 +17,9 @@ function parseNumber(futureFundPrice: string) {
 export const FutureFundApply = () => {
   const [form] = Form.useForm<{ futureFundPrice: string; agreed: boolean }>();
   const [open, setOpen] = useState<boolean>(false);
+
+  const { data: futureFund } = useTodayFutureFundHook();
+  const { data: userQueryData } = useMeHook(authTokenStorage.getToken());
   return (
     <Default>
       <Form
@@ -42,7 +48,10 @@ export const FutureFundApply = () => {
                   isMobile ? 'text-2XL/Bold' : 'text-2XL/Bold'
                 } text-grey-800`}
               >
-                <span className='text-purple-600'>20,000,000</span>원이에요.
+                <span className='text-purple-600'>
+                  {localeString(futureFund?.limit || 0)}
+                </span>
+                원이에요.
               </div>
             </div>
             <div className={`mt-[49px] flex ${isMobile ? 'flex-col gap-3' : ''}`}>
@@ -55,7 +64,7 @@ export const FutureFundApply = () => {
                   나의 한도
                 </div>
                 <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-grey-200 px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-                  50,000,000원
+                  {localeString(userQueryData?.limitFutureFund || 0)}원
                 </div>
               </div>
 
@@ -68,7 +77,10 @@ export const FutureFundApply = () => {
                   이용중 금액
                 </div>
                 <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-grey-200 px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-                  50,000,000원
+                  {localeString(
+                    (futureFund?.futureFundPrice || 0) + (futureFund?.applyPrice || 0),
+                  )}
+                  원
                 </div>
               </div>
             </div>
@@ -116,12 +128,20 @@ export const FutureFundApply = () => {
                   styles={{
                     input: { textAlign: 'right', marginRight: '6px' },
                   }}
-                  placeholder='20,000,000'
+                  placeholder={localeString(futureFund?.limit || 0)}
                   suffix={<div className='text-S/Medium'>원</div>}
                 />
               </Form.Item>
             </div>
-            <div className='mt-[11px] cursor-pointer text-right text-S/Medium text-purple-500'>
+            <div
+              className='mt-[11px] cursor-pointer text-right text-S/Medium text-purple-500'
+              onClick={() =>
+                form.setFieldValue(
+                  'futureFundPrice',
+                  localeString(futureFund?.limit || 0),
+                )
+              }
+            >
               남은 한도 전액 신청
             </div>
 

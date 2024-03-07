@@ -3,8 +3,15 @@ import ReactECharts from 'echarts-for-react';
 import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 
+import { useMeHook } from '@/hooks/user.hook';
+import { authTokenStorage } from '@/utils/authToken';
+import { useTodayFutureFundHook } from '@/v3/pages/home/hooks/future-fund.hook';
+import { localeString } from '@/v3/util';
+
 export const FutureFundChart = () => {
   const navigation = useNavigate();
+  const { data: futureFund } = useTodayFutureFundHook();
+  const { data: userQueryData } = useMeHook(authTokenStorage.getToken());
   const options = {
     tooltip: {
       trigger: 'item',
@@ -63,7 +70,7 @@ export const FutureFundChart = () => {
               나의 한도
             </div>
             <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-              50,000,000원
+              {localeString(userQueryData?.limitFutureFund || 0)}원
             </div>
           </div>
           <div className='mt-[12px] flex justify-between'>
@@ -71,7 +78,10 @@ export const FutureFundChart = () => {
               이용중 금액
             </div>
             <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-              50,000,000원
+              {localeString(
+                (futureFund?.futureFundPrice || 0) + (futureFund?.applyPrice || 0),
+              )}
+              원
             </div>
           </div>
           <div className='mt-[12px] flex justify-between'>
@@ -79,7 +89,7 @@ export const FutureFundChart = () => {
               신청 가능 금액
             </div>
             <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular font-bold leading-[50px] text-grey-800'>
-              50,000,000원
+              {localeString(futureFund?.limit || 0)}원
             </div>
           </div>
           <div className='mt-[44px] w-full'>

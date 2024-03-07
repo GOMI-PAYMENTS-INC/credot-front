@@ -7,7 +7,7 @@ import {
   _resetAmplitude,
   _setUserId,
 } from '@/amplitude/amplitude.service';
-import { LoginTokenAtom, UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
+import { UserAtom, UserCardsAtom, UserPlanAtom } from '@/atom';
 import { AuthService, UserDto } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 import { OpenAPI } from '@/generated-rest/api/front/core/OpenAPI';
