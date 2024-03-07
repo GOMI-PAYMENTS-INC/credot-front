@@ -90,9 +90,9 @@ export const UserInfoSection = () => {
               {
                 key: '2',
                 label: '사용중 + 신청금액',
-                children: `${
-                  futureFundData?.futureFundPrice?.toLocaleString() || 0
-                }원 (+${futureFundData?.applyPrice?.toLocaleString() || 0}원)`,
+                children: `${(
+                  (data?.limitFutureFund || 0) - (futureFundData?.limit || 0)
+                ).toLocaleString()}원`,
                 labelStyle: { width: '160px' },
               },
               {
