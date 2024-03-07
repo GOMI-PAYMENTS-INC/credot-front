@@ -7,6 +7,13 @@ const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 export const getWithdrawalReadyDataTableColumns = (): ColumnsType<PrefundRecord> => {
   return [
     {
+      title: '거래 ID',
+      width: 124,
+      dataIndex: 'id',
+      key: 'id',
+      className: 'text-center',
+    },
+    {
       title: '데이터 생성일',
       width: 140,
       dataIndex: 'prefundGroupAt',
@@ -54,7 +61,7 @@ export const getWithdrawalReadyDataTableColumns = (): ColumnsType<PrefundRecord>
       width: 148,
       dataIndex: 'depositPrice',
       key: 'depositPrice',
-      className: 'text-right text-grey-500',
+      className: 'text-right text-blue-500 font-bold',
       render: localeValueFormatter,
     },
     {
@@ -114,13 +121,6 @@ export const getWithdrawalReadyDataTableColumns = (): ColumnsType<PrefundRecord>
       render: localeValueFormatter,
     },
     {
-      title: '거래 ID',
-      width: 124,
-      dataIndex: 'id',
-      key: 'id',
-      className: 'text-center',
-    },
-    {
       title: '카드사 정산일',
       width: 153,
       dataIndex: 'cardSettlementGroupAt',
@@ -132,6 +132,13 @@ export const getWithdrawalReadyDataTableColumns = (): ColumnsType<PrefundRecord>
 
 export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
   return [
+    {
+      title: '거래 ID',
+      width: 124,
+      dataIndex: 'id',
+      key: 'id',
+      className: 'text-center',
+    },
     {
       title: '카드사 정산일',
       width: 153,
@@ -245,13 +252,6 @@ export const getDataTableColumns = (): ColumnsType<PrefundRecord> => {
       key: 'depositPrice',
       className: 'text-right text-grey-500',
       render: localeValueFormatter,
-    },
-    {
-      title: '거래 ID',
-      width: 124,
-      dataIndex: 'id',
-      key: 'id',
-      className: 'text-center',
     },
     {
       title: '정산금 회수 일시',
