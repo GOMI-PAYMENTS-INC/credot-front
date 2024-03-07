@@ -42,14 +42,14 @@ export const FutureFundChart = () => {
         },
         data: [
           {
-            value: 1048,
+            value: (userQueryData?.limitFutureFund || 0) - (futureFund?.limit || 0),
             name: '이용중 금액',
             itemStyle: {
               color: '#B657FF',
             },
           },
           {
-            value: 0,
+            value: futureFund?.limit || 0,
             name: '신청 가능 금액',
             itemStyle: {
               color: '#EBEBEB',
