@@ -7,6 +7,7 @@ import {
   FutureFundDto,
   FutureFundService,
   RepaymentFutureFundDto,
+  UpdateFutureFundDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
 
@@ -63,4 +64,21 @@ export const useFutureFundApplyList = (status: string) => {
     queryKey: ['future-fund', status],
     queryFn: () => FutureFundService.applyList(status),
   });
+};
+
+export const useUpdateFutureFundApplyStatus = () => {
+  return useMutation(
+    (requestBody: UpdateFutureFundDto) =>
+      FutureFundService.updateApplyStatus(requestBody),
+    {
+      onSuccess: (res) => {
+        toast.success('처리되었습니다.');
+        return res;
+      },
+      onError: (error: ApiError) => {
+        console.error(JSON.stringify(error));
+        toast.error('상태 변경에 실패했어요!');
+      },
+    },
+  );
 };

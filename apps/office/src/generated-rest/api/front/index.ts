@@ -16,6 +16,7 @@ export type { FileDto } from './models/FileDto';
 export type { FranchiseInfo } from './models/FranchiseInfo';
 export type { FutureFundApplyDto } from './models/FutureFundApplyDto';
 export type { FutureFundDto } from './models/FutureFundDto';
+export { FutureFundStatus } from './models/FutureFundStatus';
 export type { LoginDto } from './models/LoginDto';
 export type { PrefundDto } from './models/PrefundDto';
 export { PrefundStatusEnum } from './models/PrefundStatusEnum';

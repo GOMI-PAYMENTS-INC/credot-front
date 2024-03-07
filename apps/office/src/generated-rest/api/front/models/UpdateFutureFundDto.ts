@@ -3,7 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { FutureFundStatus } from './FutureFundStatus';
+
 export type UpdateFutureFundDto = {
+  status: FutureFundStatus;
   ids: Array<number>;
-  status: Record<string, any>;
 };
