@@ -4,7 +4,6 @@ import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { FutureFundStatus } from '@/generated-rest/api/front';
 import { useMeHook } from '@/hooks/user.hook';
 import { authTokenStorage } from '@/utils/authToken';
 import {
