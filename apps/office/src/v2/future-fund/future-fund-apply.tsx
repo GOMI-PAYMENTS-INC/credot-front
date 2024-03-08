@@ -60,6 +60,10 @@ export const FutureFundApply = () => {
               label: `승인 거절`,
               key: 'REJECT',
             },
+            {
+              label: `승인 취소`,
+              key: 'CANCEL',
+            },
           ]}
         />
 
