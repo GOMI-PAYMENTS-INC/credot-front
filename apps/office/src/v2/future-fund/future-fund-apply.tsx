@@ -61,7 +61,7 @@ export const FutureFundApply = () => {
               key: 'REJECT',
             },
             {
-              label: `승인 취소`,
+              label: `요청 취소`,
               key: 'CANCEL',
             },
           ]}
