@@ -8,6 +8,13 @@ const localeValueFormatter = (value: number) => value?.toLocaleString() || 0;
 export const getApplyColumns = (): ColumnsType<FutureFundApplyRecord> => {
   return [
     {
+      title: '거래 ID',
+      width: 124,
+      dataIndex: 'id',
+      key: 'id',
+      className: 'text-center',
+    },
+    {
       title: '승인 요청 일시',
       width: 180,
       dataIndex: 'createdAt',
