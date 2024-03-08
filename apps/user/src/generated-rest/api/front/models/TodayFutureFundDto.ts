@@ -3,18 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { FutureFundStatus } from './FutureFundStatus';
-
 export type TodayFutureFundDto = {
-  applyStatus: FutureFundStatus | null;
-  futureFundPrice: number;
+  futureFundInUse: number;
   accumulatedFees: number;
   applyPrice: number;
   accrualFees: number;
   repaymentPrice: number;
-  readyRepaymentPrice: number;
-  readyRepaymentFees: number;
   repaymentFees: number;
   limit: number;
-  applyWaitingPrice: number;
 };

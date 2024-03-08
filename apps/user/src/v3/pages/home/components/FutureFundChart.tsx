@@ -46,7 +46,7 @@ export const FutureFundChart = () => {
         },
         data: [
           {
-            value: (userQueryData?.limitFutureFund || 0) - (futureFund?.limit || 0),
+            value: futureFund?.futureFundInUse || 0,
             name: '이용중 금액',
             itemStyle: {
               color: '#B657FF',
@@ -83,10 +83,7 @@ export const FutureFundChart = () => {
               이용중 금액
             </div>
             <div className='h-[50px] w-full rounded-tr-[8px] rounded-br-[8px] border-[1px] border-[#F5F5F5] px-[20px] text-right text-M/Regular leading-[50px] text-grey-800'>
-              {localeString(
-                (userQueryData?.limitFutureFund || 0) - (futureFund?.limit || 0),
-              )}
-              원
+              {localeString(futureFund?.futureFundInUse || 0)}원
             </div>
           </div>
           <div className='mt-[12px] flex justify-between'>

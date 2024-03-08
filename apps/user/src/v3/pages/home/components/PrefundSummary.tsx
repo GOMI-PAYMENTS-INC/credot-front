@@ -1,36 +1,9 @@
 import { Col, Row } from 'antd';
 import { isMobile } from 'react-device-detect';
 
-import { abstract, equal } from '@/v3/pages/home/assets';
 import { useTodayFutureFundHook } from '@/v3/pages/home/hooks/future-fund.hook';
 import { useTodayPrefundHook } from '@/v3/pages/home/hooks/prefund.hook';
 import { localeString, number } from '@/v3/util';
-
-export const PrefundSummaryItem = ({ name, price }: { name: string; price: number }) => {
-  return (
-    <Row className='border-r border-l border-[#F5F5F5] bg-white px-[20px] py-[16px]'>
-      <Col
-        span={14}
-        className={`${
-          isMobile ? 'text-S/Medium' : 'text-M/Regular'
-        } flex pl-[16px] text-grey-700`}
-      >
-        <div className='mr-[10px] self-center'>
-          <img src={abstract} width={20} />
-        </div>
-        <div>{name}</div>
-      </Col>
-      <Col
-        span={10}
-        className={`${
-          isMobile ? 'text-S/Regular' : 'text-M/Medium'
-        } text-right text-grey-800`}
-      >
-        {localeString(price)}원
-      </Col>
-    </Row>
-  );
-};
 
 export const PrefundSummary = () => {
   const { data: prefund } = useTodayPrefundHook();
@@ -119,22 +92,14 @@ export const PrefundSummary = () => {
               <div className='min-w-[120px] text-grey-700'>미래정산 수수료</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
-                {localeString(
-                  number(futureFund?.readyRepaymentFees) +
-                    number(futureFund?.repaymentFees),
-                )}
-                원
+                {localeString(number(futureFund?.repaymentFees))}원
               </div>
             </div>
             <div className='flex w-full justify-between'>
               <div className='min-w-[120px] text-grey-700'>미래정산금 상환</div>
               <div className='h-[1px] w-[205px] self-center border-b-[1px] border-dashed border-grey-300'></div>
               <div className='min-w-[120px] text-right text-grey-800'>
-                {localeString(
-                  number(futureFund?.readyRepaymentPrice) +
-                    number(futureFund?.repaymentPrice),
-                )}
-                원
+                {localeString(number(futureFund?.repaymentPrice))}원
               </div>
             </div>
           </Col>
@@ -154,10 +119,8 @@ export const PrefundSummary = () => {
             >
               {localeString(
                 number(prefund?.prefund) +
-                  (number(futureFund?.readyRepaymentPrice) +
-                    number(futureFund?.repaymentPrice)) +
-                  (number(futureFund?.readyRepaymentFees) +
-                    number(futureFund?.repaymentFees)),
+                  number(futureFund?.repaymentPrice) +
+                  number(futureFund?.repaymentFees),
               )}
               원
             </div>
