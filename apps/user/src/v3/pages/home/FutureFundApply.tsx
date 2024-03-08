@@ -137,13 +137,13 @@ export const FutureFundApply = () => {
                     required: true,
                     message: '미래정산금을 입력해주세요.',
                   },
-                  ({ getFieldValue }) => ({
+                  () => ({
                     validator(_, value) {
-                      if (!parseNumber(value)) {
+                      if (!value) {
                         return Promise.resolve();
                       }
 
-                      if (parseNumber(value) < 500_000) {
+                      if (!parseNumber(value) || parseNumber(value) < 500_000) {
                         return Promise.reject(
                           new Error('미래정산금은 최소 50만원 이상부터 신청 가능해요.'),
                         );
