@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import {
   ApplyFutureFundDto,
   ApplyService,
+  CreateApplyDto,
   FutureFundService,
   TodayFutureFundDto,
 } from '@/generated-rest/api/front';
@@ -47,4 +48,17 @@ export const useApplyFutureFund = () => {
       },
     },
   );
+};
+
+export const useCancelFutureFund = () => {
+  return useMutation((id: number) => FutureFundService.cancelTodayFutureFund(id), {
+    onSuccess: () => {
+      return true;
+    },
+    onError: (err: ApiError) => {
+      console.error(err.message);
+      toast.error(err.message);
+      return;
+    },
+  });
 };

@@ -7,4 +7,5 @@ export enum FutureFundStatus {
   READY = 'READY',
   DONE = 'DONE',
   REJECT = 'REJECT',
+  CANCEL = 'CANCEL',
 }

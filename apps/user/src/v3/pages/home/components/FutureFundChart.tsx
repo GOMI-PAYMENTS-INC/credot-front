@@ -2,11 +2,13 @@ import { Col, Row } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { isMobile } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { FutureFundStatus } from '@/generated-rest/api/front';
 import { useMeHook } from '@/hooks/user.hook';
 import { authTokenStorage } from '@/utils/authToken';
 import {
+  useCancelFutureFund,
   useTodayFutureFundApplyHook,
   useTodayFutureFundHook,
 } from '@/v3/pages/home/hooks/future-fund.hook';
@@ -15,7 +17,8 @@ import { localeString } from '@/v3/util';
 export const FutureFundChart = () => {
   const navigation = useNavigate();
   const { data: futureFund } = useTodayFutureFundHook();
-  const { data: futureFundApply } = useTodayFutureFundApplyHook();
+  const { data: futureFundApply, refetch } = useTodayFutureFundApplyHook();
+  const { mutateAsync: cancelFutureFund } = useCancelFutureFund();
   const { data: userQueryData } = useMeHook(authTokenStorage.getToken());
   const options = {
     tooltip: {
@@ -105,13 +108,31 @@ export const FutureFundChart = () => {
                 futureFundApply ? () => {} : () => navigation('/future-fund/apply')
               }
             >
-              {futureFundApply
-                ? `${futureFundApply?.applyPrice?.toLocaleString() || 0}원 ${
-                    futureFundApply?.status === FutureFundStatus.DONE
-                      ? '승인 완료'
-                      : '승인 대기중'
-                  }`
-                : '미래정산 신청하기'}
+              {futureFundApply ? (
+                <div className='flex justify-center'>
+                  <div className='mr-[16px]'>
+                    {`${futureFundApply?.applyPrice?.toLocaleString() || 0}원 승인 대기`}
+                  </div>
+                  <div
+                    className={`cursor-pointer self-center text-S/Regular text-purple-600 underline`}
+                    onClick={async () => {
+                      if (!futureFundApply) {
+                        return;
+                      }
+
+                      const result = await cancelFutureFund(futureFundApply.id);
+                      if (result) {
+                        await refetch();
+                        toast.success('취소가 완료되었습니다.');
+                      }
+                    }}
+                  >
+                    {`취소하기`}
+                  </div>
+                </div>
+              ) : (
+                '미래정산 신청하기'
+              )}
             </div>
           </div>
         </div>

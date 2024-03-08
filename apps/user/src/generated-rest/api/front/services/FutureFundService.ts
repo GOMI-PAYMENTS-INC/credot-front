@@ -36,6 +36,24 @@ export class FutureFundService {
   }
 
   /**
+   * 오늘 미래 정산 신청 조회
+   * @param applyId
+   * @returns TodayFutureFundApplyDto
+   * @throws ApiError
+   */
+  public static cancelTodayFutureFund(
+    applyId: number,
+  ): CancelablePromise<TodayFutureFundApplyDto> {
+    return __request(OpenAPI, {
+      method: 'PUT',
+      url: '/future-fund/today/cancel/{applyId}',
+      path: {
+        applyId: applyId,
+      },
+    });
+  }
+
+  /**
    * 오늘 미래 정산 신청
    * @param requestBody
    * @returns boolean
