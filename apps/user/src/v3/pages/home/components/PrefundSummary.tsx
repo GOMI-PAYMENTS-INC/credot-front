@@ -110,7 +110,7 @@ export const PrefundSummary = () => {
             <div
               className={`${isMobile ? 'text-M/Medium' : 'text-L/Medium'} text-[#595959]`}
             >
-              입금 예정액
+              입금액
             </div>
             <div
               className={`my-[7px] ${
