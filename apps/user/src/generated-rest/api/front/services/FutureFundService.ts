@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ApplyFutureFundDto } from '../models/ApplyFutureFundDto';
+import type { TodayFutureFundApplyDto } from '../models/TodayFutureFundApplyDto';
 import type { TodayFutureFundDto } from '../models/TodayFutureFundDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -19,6 +20,18 @@ export class FutureFundService {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/future-fund/today',
+    });
+  }
+
+  /**
+   * 오늘 미래 정산 신청 조회
+   * @returns TodayFutureFundApplyDto
+   * @throws ApiError
+   */
+  public static todayFutureFundApply(): CancelablePromise<TodayFutureFundApplyDto> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/future-fund/today/apply',
     });
   }
 

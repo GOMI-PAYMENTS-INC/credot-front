@@ -8,6 +8,7 @@ import {
   TodayFutureFundDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
+import { TodayFutureFundApplyDto } from '@/generated-rest/api/front/models/TodayFutureFundApplyDto';
 
 export const useTodayFutureFundHook = () => {
   return useQuery<TodayFutureFundDto, ApiError>({
@@ -16,6 +17,18 @@ export const useTodayFutureFundHook = () => {
     onError: (err: ApiError) => {
       console.error(err.message);
       toast.error('오늘의 미래 정산금을 가져오기 실패했어요!');
+      return;
+    },
+  });
+};
+
+export const useTodayFutureFundApplyHook = () => {
+  return useQuery<TodayFutureFundApplyDto, ApiError>({
+    queryKey: ['today-future-fund-apply'],
+    queryFn: () => FutureFundService.todayFutureFundApply(),
+    onError: (err: ApiError) => {
+      console.error(err.message);
+      toast.error('오늘의 미래 정산금 신청 내역을 가져오기 실패했어요!');
       return;
     },
   });

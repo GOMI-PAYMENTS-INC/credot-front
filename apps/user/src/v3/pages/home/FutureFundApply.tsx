@@ -12,6 +12,7 @@ import { authTokenStorage } from '@/utils/authToken';
 import { Default } from '@/v3/layouts';
 import {
   useApplyFutureFund,
+  useTodayFutureFundApplyHook,
   useTodayFutureFundHook,
 } from '@/v3/pages/home/hooks/future-fund.hook';
 import { localeString, number } from '@/v3/util';
@@ -26,12 +27,13 @@ export const FutureFundApply = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { data: futureFund } = useTodayFutureFundHook();
+  const { data: futureFundApply } = useTodayFutureFundApplyHook();
   useEffect(() => {
-    if (futureFund && futureFund.applyStatus) {
+    if (futureFundApply) {
       toast.warning('미래 정산을 이미 신청했어요.');
       navigation('/breakdown');
     }
-  }, [futureFund]);
+  }, [futureFundApply]);
 
   const { data: userQueryData } = useMeHook(authTokenStorage.getToken());
 

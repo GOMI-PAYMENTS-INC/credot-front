@@ -22,6 +22,7 @@ export type { SearchDetailItemDto2 } from './models/SearchDetailItemDto2';
 export type { SearchPrefundDto } from './models/SearchPrefundDto';
 export type { SearchPrefundItem } from './models/SearchPrefundItem';
 export type { SendTemporaryPasswordDto } from './models/SendTemporaryPasswordDto';
+export type { TodayFutureFundApplyDto } from './models/TodayFutureFundApplyDto';
 export type { TodayFutureFundDto } from './models/TodayFutureFundDto';
 export type { TodayPreFundDto } from './models/TodayPreFundDto';
 export type { TodayPreFundSummaryDto } from './models/TodayPreFundSummaryDto';

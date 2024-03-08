@@ -6,12 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { FutureFundStatus } from '@/generated-rest/api/front';
 import { useMeHook } from '@/hooks/user.hook';
 import { authTokenStorage } from '@/utils/authToken';
-import { useTodayFutureFundHook } from '@/v3/pages/home/hooks/future-fund.hook';
+import {
+  useTodayFutureFundApplyHook,
+  useTodayFutureFundHook,
+} from '@/v3/pages/home/hooks/future-fund.hook';
 import { localeString } from '@/v3/util';
 
 export const FutureFundChart = () => {
   const navigation = useNavigate();
   const { data: futureFund } = useTodayFutureFundHook();
+  const { data: futureFundApply } = useTodayFutureFundApplyHook();
   const { data: userQueryData } = useMeHook(authTokenStorage.getToken());
   const options = {
     tooltip: {
@@ -96,19 +100,17 @@ export const FutureFundChart = () => {
           <div className='mt-[44px] w-full'>
             <div
               className={`h-[50px] w-full  rounded-[4px] text-center text-L/Bold leading-[50px] text-white ${
-                futureFund?.applyStatus
+                futureFundApply
                   ? 'cursor-not-allowed border-0 bg-purple-300'
                   : 'cursor-pointer border-[1px] border-purple-400 bg-purple-600'
               }`}
               onClick={
-                futureFund?.applyStatus
-                  ? () => {}
-                  : () => navigation('/future-fund/apply')
+                futureFundApply ? () => {} : () => navigation('/future-fund/apply')
               }
             >
-              {futureFund?.applyStatus
-                ? `${futureFund?.applyWaitingPrice?.toLocaleString() || 0}원 ${
-                    futureFund?.applyStatus === FutureFundStatus.DONE
+              {futureFundApply
+                ? `${futureFundApply?.applyPrice?.toLocaleString() || 0}원 ${
+                    futureFundApply?.status === FutureFundStatus.DONE
                       ? '승인 완료'
                       : '승인 대기중'
                   }`
