@@ -1,8 +1,10 @@
 import { List, Typography } from 'antd';
+import dayjs from 'dayjs';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { HomeTitle } from '@/v2/home/components/HomeTitle';
+import { useInOutIn, useInOutOut } from '@/v2/home/hooks';
 
 const data = [
   'Racing car sprays burning fuel into crowd.',
@@ -32,6 +34,9 @@ export const CustomAntdList = styled(List)`
 `;
 
 export const MoneyInOut = () => {
+  const { data } = useInOutOut();
+  const { data: inData } = useInOutIn();
+  const today = dayjs();
   return (
     <div className='mt-[70px]'>
       <HomeTitle title='자금 IN & OUT' />
@@ -43,18 +48,23 @@ export const MoneyInOut = () => {
             header={
               <div className='flex justify-between'>
                 <div className='self-center text-L/Medium'>나가 있는 금액</div>
-                <div className='text-L/Bold text-purple-800'>45,000,000 원</div>
+                <div className='text-L/Bold text-purple-800'>
+                  {(
+                    (data?.prefundPrice || 0) + (data?.futureFundPrice || 0)
+                  ).toLocaleString()}{' '}
+                  원
+                </div>
               </div>
             }
             bordered
             dataSource={[
               {
                 title: '선정산 지급액',
-                value: 2000000,
+                value: data?.prefundPrice || 0,
               },
               {
                 title: '선정산 지급액',
-                value: 2000000,
+                value: data?.futureFundPrice || 0,
               },
             ]}
             renderItem={
@@ -77,32 +87,29 @@ export const MoneyInOut = () => {
             header={
               <div className='flex justify-between'>
                 <div className='self-center text-L/Medium'>회수 예정 금액</div>
-                <div className='text-L/Bold text-purple-800'>45,000,000원</div>
+                <div className='text-L/Bold text-purple-800'>
+                  {inData
+                    ?.reduce((acc, cur) => acc + cur.returnPrice, 0)
+                    .toLocaleString()}{' '}
+                  원
+                </div>
               </div>
             }
             bordered
-            dataSource={[
-              {
-                title: '오늘',
-                value: 2000000,
-                date: '2024.03.01',
-              },
-              {
-                title: '내일',
-                value: 2000000,
-                date: '2024.03.02',
-              },
-              {
-                title: '2일후',
-                value: 2000000,
-                date: '2024.03.03',
-              },
-              {
-                title: '3일후',
-                value: 2000000,
-                date: '2024.03.04',
-              },
-            ]}
+            dataSource={(inData || [])?.map((item) => {
+              const itemDate = dayjs(item.date);
+              const diffDay = itemDate.diff(today, 'd');
+              const beforeToday = diffDay < 0;
+
+              return {
+                title:
+                  diffDay === 0
+                    ? '오늘'
+                    : `${itemDate.diff(today, 'd')}일${beforeToday ? '전' : '후'}`,
+                value: item.returnPrice,
+                date: dayjs(item.date).format('YYYY.MM.DD'),
+              };
+            })}
             renderItem={
               ((item: TListItem) => (
                 <List.Item>
@@ -113,7 +120,7 @@ export const MoneyInOut = () => {
                         {item.date}
                       </div>
                     </div>
-                    <div className='text-XL/Bold'>2,000,000원</div>
+                    <div className='text-XL/Bold'>{item.value.toLocaleString()} 원</div>
                   </div>
                 </List.Item>
               )) as (item: TListItem) => ReactNode

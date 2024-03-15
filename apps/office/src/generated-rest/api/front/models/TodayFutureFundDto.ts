@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 export type TodayFutureFundDto = {
-  futureFundPrice: number;
+  futureFundInUse: number;
   accumulatedFees: number;
   applyPrice: number;
   accrualFees: number;

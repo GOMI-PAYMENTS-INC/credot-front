@@ -3,9 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum FutureFundStatus {
-  READY = 'READY',
-  DONE = 'DONE',
-  REJECT = 'REJECT',
-  CANCEL = 'CANCEL',
-}
+export type HomeTodayDto = {
+  depositPrice: number;
+  returnPrice: number;
+};

@@ -19,6 +19,39 @@ export class DefaultService {
   }
 
   /**
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static officeControllerSlackFutureFund(): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/slack/future-fund',
+    });
+  }
+
+  /**
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static officeControllerSlackConsult(): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/slack/consult',
+    });
+  }
+
+  /**
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static officeControllerSlack(): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/slack/profit',
+    });
+  }
+
+  /**
    * @returns any
    * @throws ApiError
    */

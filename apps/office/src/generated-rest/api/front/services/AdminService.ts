@@ -30,6 +30,38 @@ export class AdminService {
   }
 
   /**
+   * 채권 요청
+   * @param userId
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static creditFinanceApproved(userId: number): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/request/bond/credit-finance/approved',
+      query: {
+        userId: userId,
+      },
+    });
+  }
+
+  /**
+   * 채권 요청
+   * @param userId
+   * @returns boolean
+   * @throws ApiError
+   */
+  public static creditFinancePurchased(userId: number): CancelablePromise<boolean> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/request/bond/credit-finance/purchased',
+      query: {
+        userId: userId,
+      },
+    });
+  }
+
+  /**
    * 수동 채권 생성
    * @param requestBody
    * @returns BondDto

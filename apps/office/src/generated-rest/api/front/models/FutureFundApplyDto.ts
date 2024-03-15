@@ -15,6 +15,7 @@ export type FutureFundApplyDto = {
   futureFundPrice: number;
   applyPrice: number;
   avgSalesPrice: number;
+  avgSalesPriceRate: number;
   count: number;
   userId: number;
 };
