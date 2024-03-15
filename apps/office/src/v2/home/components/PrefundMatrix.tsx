@@ -56,7 +56,7 @@ export const PrefundMatrix = () => {
           <div className='flex justify-between'>
             <div className='text-L/Medium'>평균 회수 주기</div>
             <div className='text-XL/Bold text-purple-800'>
-              {data?.avgReturnDate || 0} %
+              {data?.avgReturnDate || 0} 일
             </div>
           </div>
         </Card>
