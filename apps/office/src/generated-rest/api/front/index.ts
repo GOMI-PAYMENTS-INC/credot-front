@@ -16,6 +16,7 @@ export type { FileDto } from './models/FileDto';
 export type { FranchiseInfo } from './models/FranchiseInfo';
 export type { FutureFundApplyDto } from './models/FutureFundApplyDto';
 export type { FutureFundDto } from './models/FutureFundDto';
+export type { FutureFundMatrixSummaryDto } from './models/FutureFundMatrixSummaryDto';
 export { FutureFundStatus } from './models/FutureFundStatus';
 export type { HomeInoutDto } from './models/HomeInoutDto';
 export type { HomeInoutInDto } from './models/HomeInoutInDto';

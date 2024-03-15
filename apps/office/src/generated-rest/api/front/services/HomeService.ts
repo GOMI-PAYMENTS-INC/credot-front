@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { FutureFundMatrixSummaryDto } from '../models/FutureFundMatrixSummaryDto';
 import type { HomeInoutDto } from '../models/HomeInoutDto';
 import type { HomeInoutInDto } from '../models/HomeInoutInDto';
 import type { HomeTodayDto } from '../models/HomeTodayDto';
@@ -57,6 +58,18 @@ export class HomeService {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/home/summary/prefund',
+    });
+  }
+
+  /**
+   * 미래정산 주요 지표
+   * @returns FutureFundMatrixSummaryDto
+   * @throws ApiError
+   */
+  public static futureFundSummary(): CancelablePromise<FutureFundMatrixSummaryDto> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/home/summary/future-fund',
     });
   }
 }

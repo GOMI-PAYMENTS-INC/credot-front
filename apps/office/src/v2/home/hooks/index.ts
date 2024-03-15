@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import {
+  FutureFundMatrixSummaryDto,
   HomeInoutDto,
   HomeInoutInDto,
   HomeService,
@@ -34,5 +35,12 @@ export const usePrefundSummary = () => {
   return useQuery<PrefundMatrixSummaryDto, ApiError>({
     queryKey: ['home-prefund-matrix'],
     queryFn: () => HomeService.prefundSummary(),
+  });
+};
+
+export const useFutureFundSummary = () => {
+  return useQuery<FutureFundMatrixSummaryDto, ApiError>({
+    queryKey: ['home-future-fund-matrix'],
+    queryFn: () => HomeService.futureFundSummary(),
   });
 };
