@@ -63,7 +63,7 @@ export const MoneyInOut = () => {
                 value: data?.prefundPrice || 0,
               },
               {
-                title: '선정산 지급액',
+                title: '미래정산 지급액',
                 value: data?.futureFundPrice || 0,
               },
             ]}
