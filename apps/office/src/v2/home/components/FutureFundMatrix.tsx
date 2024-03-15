@@ -31,7 +31,7 @@ export const FutureFundMatrix = () => {
           <div className='flex justify-between'>
             <div className='text-L/Medium'>누적 회수 금액</div>
             <div className='text-XL/Bold text-purple-800'>
-              {(data?.totalFutureFundAmount || 0).toLocaleString()} 원
+              {(data?.totalReturnAmount || 0).toLocaleString()} 원
             </div>
           </div>
         </Card>
