@@ -5,6 +5,7 @@
 import type { HomeInoutDto } from '../models/HomeInoutDto';
 import type { HomeInoutInDto } from '../models/HomeInoutInDto';
 import type { HomeTodayDto } from '../models/HomeTodayDto';
+import type { PrefundMatrixSummaryDto } from '../models/PrefundMatrixSummaryDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -44,6 +45,18 @@ export class HomeService {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/home/inout/in',
+    });
+  }
+
+  /**
+   * 선정산 주요 지표
+   * @returns PrefundMatrixSummaryDto
+   * @throws ApiError
+   */
+  public static prefundSummary(): CancelablePromise<PrefundMatrixSummaryDto> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/home/summary/prefund',
     });
   }
 }

@@ -22,6 +22,7 @@ export type { HomeInoutInDto } from './models/HomeInoutInDto';
 export type { HomeTodayDto } from './models/HomeTodayDto';
 export type { LoginDto } from './models/LoginDto';
 export type { PrefundDto } from './models/PrefundDto';
+export type { PrefundMatrixSummaryDto } from './models/PrefundMatrixSummaryDto';
 export { PrefundStatusEnum } from './models/PrefundStatusEnum';
 export type { RepaymentFutureFundDto } from './models/RepaymentFutureFundDto';
 export type { RequestTokenDto } from './models/RequestTokenDto';
