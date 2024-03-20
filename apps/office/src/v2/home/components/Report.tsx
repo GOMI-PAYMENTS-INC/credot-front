@@ -41,11 +41,11 @@ export const Report = () => {
         <div className='flex'>
           <div className='mr-[29px] self-center text-grey-700'>데이터</div>
           <Select
-            defaultValue='lucy'
             style={{ width: 120 }}
             value={type}
+            onChange={(value) => setType(value as ReportType)}
             options={[
-              { value: 'ACTIVE_USER', label: 'Active User', disabled: true },
+              { value: 'ACTIVE_USER', label: 'Active User' },
               { value: 'PROFIT', label: '서비스 수수료' },
               { value: 'PREFUND', label: '선정산금액', disabled: true },
               { value: 'FUTURE_FUND', label: '미래정산 금액', disabled: true },
