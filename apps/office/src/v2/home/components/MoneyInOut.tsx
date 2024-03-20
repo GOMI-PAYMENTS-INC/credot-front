@@ -100,12 +100,12 @@ export const MoneyInOut = () => {
               const itemDate = dayjs(item.date);
               const diffDay = itemDate.diff(today, 'd');
               const beforeToday = diffDay < 0;
+              const isToday = diffDay === 0 && today.format('YYYY-MM-DD') === item.date;
 
               return {
-                title:
-                  diffDay === 0
-                    ? '오늘'
-                    : `${itemDate.diff(today, 'd')}일${beforeToday ? '전' : '후'}`,
+                title: isToday
+                  ? '오늘'
+                  : `${itemDate.diff(today, 'd')}일${beforeToday ? '전' : '후'}`,
                 value: item.returnPrice,
                 date: dayjs(item.date).format('YYYY.MM.DD'),
               };
