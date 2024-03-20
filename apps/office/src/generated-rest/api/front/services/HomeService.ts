@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { FutureFundMatrixSummaryDto } from '../models/FutureFundMatrixSummaryDto';
+import type { HomeChartDto } from '../models/HomeChartDto';
 import type { HomeInoutDto } from '../models/HomeInoutDto';
 import type { HomeInoutInDto } from '../models/HomeInoutInDto';
 import type { HomeTodayDto } from '../models/HomeTodayDto';
@@ -70,6 +71,36 @@ export class HomeService {
     return __request(OpenAPI, {
       method: 'GET',
       url: '/home/summary/future-fund',
+    });
+  }
+
+  /**
+   * 홈 차트
+   * @param type
+   * @param dateType
+   * @param startAt
+   * @param endAt
+   * @param userId
+   * @returns HomeChartDto
+   * @throws ApiError
+   */
+  public static chart(
+    type: string,
+    dateType: string,
+    startAt: string,
+    endAt: string,
+    userId: number,
+  ): CancelablePromise<HomeChartDto> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/home/chart',
+      query: {
+        type: type,
+        dateType: dateType,
+        startAt: startAt,
+        endAt: endAt,
+        userId: userId,
+      },
     });
   }
 }

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import {
   FutureFundMatrixSummaryDto,
+  HomeChartDto,
   HomeInoutDto,
   HomeInoutInDto,
   HomeService,
@@ -9,6 +10,7 @@ import {
   PrefundMatrixSummaryDto,
 } from '@/generated-rest/api/front';
 import { ApiError } from '@/generated-rest/api/front/core/ApiError';
+import { DateType, ReportType } from '@/v2/home/components/Report';
 
 export const useHomeToday = () => {
   return useQuery<HomeTodayDto, ApiError>({
@@ -42,5 +44,24 @@ export const useFutureFundSummary = () => {
   return useQuery<FutureFundMatrixSummaryDto, ApiError>({
     queryKey: ['home-future-fund-matrix'],
     queryFn: () => HomeService.futureFundSummary(),
+  });
+};
+
+export const useChart = ({
+  userId,
+  type,
+  dateType,
+  startAt,
+  endAt,
+}: {
+  userId: number;
+  type: ReportType;
+  dateType: DateType;
+  startAt: string;
+  endAt: string;
+}) => {
+  return useQuery<HomeChartDto, ApiError>({
+    queryKey: ['home-future-fund-matrix', type, dateType, startAt, endAt, userId],
+    queryFn: () => HomeService.chart(type, dateType, startAt, endAt, userId),
   });
 };

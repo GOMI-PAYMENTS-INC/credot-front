@@ -4,18 +4,36 @@ import { useState } from 'react';
 
 import { LineStack } from '@/v2/home/components/Charts/line-stack';
 import { HomeTitle } from '@/v2/home/components/HomeTitle';
+import { useChart } from '@/v2/home/hooks';
 
 export type ReportType = 'PROFIT' | 'ACTIVE_USER' | 'PREFUND' | 'FUTURE_FUND';
 export type DateType = 'DAILY' | 'WEEKLY' | 'MONTHLY';
 
+const getDateUnit = (current: DateType): 'day' => {
+  if (current === 'DAILY') {
+    return 'day';
+  }
+
+  return 'day';
+};
+
 export const Report = () => {
   const [type, setType] = useState<ReportType>('PROFIT');
   const [dateType, setDateType] = useState<DateType>('DAILY');
-  const [datePick, setDatePick] = useState<number | undefined>(undefined);
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs(),
+    dayjs().subtract(7, 'day'),
     dayjs(),
   ]);
+
+  const { data } = useChart({
+    type,
+    dateType,
+    startAt: dateRange[0].format('YYYY-MM-DD'),
+    endAt: dateRange[1].format('YYYY-MM-DD'),
+    userId: 0,
+  });
+
+  const datePick = Math.abs(dateRange[0].diff(dateRange[1], getDateUnit(dateType)));
   return (
     <div className='mt-[70px]'>
       <HomeTitle title='맞춤 데이터 조회' />
@@ -48,7 +66,17 @@ export const Report = () => {
             ]}
           />
 
-          <Radio.Group name='radiogroup' className='mr-6' value={datePick}>
+          <Radio.Group
+            name='radiogroup'
+            className='mr-6'
+            value={datePick}
+            onChange={({ target }) => {
+              setDateRange([
+                dayjs().subtract(target.value, getDateUnit(dateType)),
+                dayjs(),
+              ]);
+            }}
+          >
             {dateType === 'DAILY' && (
               <>
                 <Radio value={7}>7d</Radio>
@@ -62,15 +90,17 @@ export const Report = () => {
           <DatePicker.RangePicker
             placeholder={['시작일', '종료일']}
             value={dateRange}
-            // onChange={(dates) =>
-            //   handleChangeTermRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
-            // }
+            onChange={(dates) => setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs])}
           />
         </div>
       </div>
 
       <Card className='mt-[24px]'>
-        <LineStack />
+        <LineStack
+          xAxis={data?.xAxis || []}
+          legend={data?.legend || []}
+          series={data?.series || []}
+        />
       </Card>
     </div>
   );
