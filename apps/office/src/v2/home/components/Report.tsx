@@ -48,7 +48,7 @@ export const Report = () => {
               { value: 'ACTIVE_USER', label: 'Active User' },
               { value: 'PROFIT', label: '서비스 수수료' },
               { value: 'PREFUND', label: '선정산금액' },
-              { value: 'FUTURE_FUND', label: '미래정산 금액', disabled: true },
+              { value: 'FUTURE_FUND', label: '미래정산 금액' },
             ]}
           />
         </div>
