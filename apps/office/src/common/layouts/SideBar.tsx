@@ -65,38 +65,42 @@ export const SideBar = () => {
   };
 
   return (
-    <div className={`relative h-full border-grey-300 bg-grey-50`}>
-      <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>선정산 서비스</div>
-      <CustomMenu
-        className='mt-[15px] h-auto bg-grey-50'
-        onClick={onClick}
-        selectedKeys={[location.pathname]}
-        style={{ width: 256 }}
-        mode='inline'
-        items={items}
-      />
+    <div className='min-w-[256px]'>
+      <div className={`!fixed  h-full border-grey-300 bg-grey-50`}>
+        <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>
+          선정산 서비스
+        </div>
+        <CustomMenu
+          className='mt-[15px] h-auto bg-grey-50'
+          onClick={onClick}
+          selectedKeys={[location.pathname]}
+          style={{ width: 256 }}
+          mode='inline'
+          items={items}
+        />
 
-      <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>
-        미래정산 서비스
+        <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>
+          미래정산 서비스
+        </div>
+        <CustomMenu
+          className='mt-[15px] h-auto bg-grey-50'
+          onClick={onClick}
+          selectedKeys={[location.pathname]}
+          style={{ width: 256 }}
+          mode='inline'
+          items={futureFundItems}
+        />
+
+        <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>회원 관리</div>
+        <CustomMenu
+          className='mt-[15px] h-full bg-grey-50'
+          onClick={onClick}
+          selectedKeys={[location.pathname]}
+          style={{ width: 256 }}
+          mode='inline'
+          items={memberManagementItems}
+        />
       </div>
-      <CustomMenu
-        className='mt-[15px] h-auto bg-grey-50'
-        onClick={onClick}
-        selectedKeys={[location.pathname]}
-        style={{ width: 256 }}
-        mode='inline'
-        items={futureFundItems}
-      />
-
-      <div className='mt-[40px] px-[20px] text-XS/Bold text-grey-700'>회원 관리</div>
-      <CustomMenu
-        className='mt-[15px] h-full bg-grey-50'
-        onClick={onClick}
-        selectedKeys={[location.pathname]}
-        style={{ width: 256 }}
-        mode='inline'
-        items={memberManagementItems}
-      />
     </div>
   );
 };
