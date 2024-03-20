@@ -105,7 +105,7 @@ export const MoneyInOut = () => {
               return {
                 title: isToday
                   ? '오늘'
-                  : `${itemDate.diff(today, 'd')}일${beforeToday ? '전' : '후'}`,
+                  : `${itemDate.diff(today, 'd') + 1}일${beforeToday ? '전' : '후'}`,
                 value: item.returnPrice,
                 date: dayjs(item.date).format('YYYY.MM.DD'),
               };
