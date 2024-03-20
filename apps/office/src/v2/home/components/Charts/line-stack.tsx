@@ -39,6 +39,7 @@ export const LineStack = ({
         },
         series: series || [],
       }}
+      notMerge={true}
       showLoading={false}
     />
   );
