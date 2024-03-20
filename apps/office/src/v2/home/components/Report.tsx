@@ -49,6 +49,7 @@ export const Report = () => {
               { value: 'PROFIT', label: '서비스 수수료' },
               { value: 'PREFUND', label: '선정산금액' },
               { value: 'FUTURE_FUND', label: '미래정산 금액' },
+              { value: 'GMV', label: 'GMV' },
             ]}
           />
         </div>
