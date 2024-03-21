@@ -32,7 +32,7 @@ export const Default = ({ children, useGap = false }: IDefaultProps) => {
           </GoogleOAuthProvider>
           <div className={`${handleCss} ${useGap ? 'mt-[72px]' : ''} flex`}>
             <SideBar />
-            <div className='w-full py-[40px]'>{children}</div>
+            <div className='w-full overflow-y-auto py-[40px]'>{children}</div>
           </div>
         </Fragment>
       </div>
