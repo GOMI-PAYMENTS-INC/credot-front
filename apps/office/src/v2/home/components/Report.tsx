@@ -59,6 +59,7 @@ export const Report = () => {
             defaultValue='lucy'
             className='mr-6'
             value={dateType}
+            onChange={(value) => setDateType(value as DateType)}
             style={{ width: 120 }}
             options={[
               { value: 'DAILY', label: 'Daily' },
