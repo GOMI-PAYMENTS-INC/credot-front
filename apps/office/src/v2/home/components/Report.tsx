@@ -64,7 +64,7 @@ export const Report = () => {
             options={[
               { value: 'DAILY', label: 'Daily' },
               { value: 'WEEKLY', label: 'Weekly' },
-              { value: 'MONTHLY', label: 'Monthly', disabled: true },
+              { value: 'MONTHLY', label: 'Monthly' },
             ]}
           />
 
